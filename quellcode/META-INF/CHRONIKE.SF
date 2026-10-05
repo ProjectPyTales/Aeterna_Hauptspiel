@@ -1,0 +1,287 @@
+Signature-Version: 1.0
+Created-By: 1.0 (Android)
+SHA-256-Digest-Manifest: XTp8yC/X6AaCDOJSTBOrFO3O4xe/1EoVjBI6vJkVzMk=
+X-Android-APK-Signed: 2, 3
+
+Name: AndroidManifest.xml
+SHA-256-Digest: 0c3zBmBmfQLELBELMi/tDI3jLvLntwm68Usm2DWqWhY=
+
+Name: assets/game/app.js
+SHA-256-Digest: ZjFfb4TrxiwWpzcYRDEf8v1VOMGSk4MXoMgc/hpCfP8=
+
+Name: assets/game/assets/art/board.png
+SHA-256-Digest: Upzoc55mcee/Y5Ppi6zu40SRnJqo+yzvBBOeDsGjI1I=
+
+Name: assets/game/assets/art/boudicca.png
+SHA-256-Digest: oO0vq634zZT6T0o3GR+i1GLQg4aUMutNPcAw5pQll7g=
+
+Name: assets/game/assets/art/dandolo.png
+SHA-256-Digest: eeVqdym7wl//6xKb/LunlYYpVkfdEWU92LSXRg5mhqs=
+
+Name: assets/game/assets/art/heroes.png
+SHA-256-Digest: 531l6bZ8apjFZW085a/WsEmd5/+RFEFkm/rPicMmXHQ=
+
+Name: assets/game/assets/art/hypatia.png
+SHA-256-Digest: t9x1UpY1DJIn9pHlgJE8JLWyk/b2BTSiJJNMjdSWQYU=
+
+Name: assets/game/assets/art/imhotep.png
+SHA-256-Digest: r+iazeA2YtDb34oEFnDlUtxswHK1uDt0JjXbaO9didc=
+
+Name: assets/game/assets/art/jeanne.png
+SHA-256-Digest: jm8B1MQjFoNi1+LvAm6dUPwVvpNn9lCDemU8zUU+C/k=
+
+Name: assets/game/assets/art/khan.png
+SHA-256-Digest: 0ezXIAK6ZofFQYb3zLyOF8YbA74yp9MhPdBTxRN00Bk=
+
+Name: assets/game/assets/art/legendary-frame.png
+SHA-256-Digest: moDuF6OhNuit8vBMrDG3bqmbamcGcqXSin9KyHkZnSY=
+
+Name: assets/game/assets/art/leonidas.png
+SHA-256-Digest: zF/jxzWyrfn2JPCDJdabjlBOSnLPM/FDgeqtuPlR0Rs=
+
+Name: assets/game/assets/art/menu.png
+SHA-256-Digest: gPz0pnTmdzejqEhH4rSwQd/MiH8TB0Fls/tWhIZk4tg=
+
+Name: assets/game/assets/art/musashi.png
+SHA-256-Digest: kBJrgJXqlsPZilju5Bd3ENZcRkqUrzMuGyv6y7Lc8PE=
+
+Name: assets/game/assets/art/neutral0.png
+SHA-256-Digest: bjWQ8eu96Njsa8CkB0YpqiWxzmar1zYTNsJ59L3xtwY=
+
+Name: assets/game/assets/art/neutral1.png
+SHA-256-Digest: +POPhPDrmFhU92UT+R+uQ+6a7OArn+TEtEPIakuipJ8=
+
+Name: assets/game/assets/art/neutral2.png
+SHA-256-Digest: NasR4J7ER+lyx5tptX2kq80tqibWQHsLsciuCqSEclc=
+
+Name: assets/game/assets/art/neutral3.png
+SHA-256-Digest: 5s95hUkrFHEctqcYEXtGlpEjzPR6SWQ1ZK21Eyzd/tU=
+
+Name: assets/game/assets/art/nostradamus.png
+SHA-256-Digest: Uw+xKY3vLSSngvMr//EuWuLfrEIYeYvVxNI0wkgptdI=
+
+Name: assets/game/assets/art/ragnar.png
+SHA-256-Digest: I1mfKC0BOjslrJgzOAGZ4k2XyHECMpM3ivanMsf9ndU=
+
+Name: assets/game/assets/audio/armor-1.ogg
+SHA-256-Digest: SrmWm58SbV5+Rr4nlvax9QSA84NYytNlxhSgxBAz5oQ=
+
+Name: assets/game/assets/audio/armor-2.ogg
+SHA-256-Digest: fU9g1zgYGixuDbTn7dnab6i/gs0fW2lx6qCWGMenOTo=
+
+Name: assets/game/assets/audio/armor.ogg
+SHA-256-Digest: N7WDjCBtsWyXtLngaHkACps8y06iI0FUxY7obxyPkLM=
+
+Name: assets/game/assets/audio/battle.ogg
+SHA-256-Digest: wgjeC5fKLN6ai67OoXksHRpLcOEjDyeL4svFFvzr9rc=
+
+Name: assets/game/assets/audio/channel-1.ogg
+SHA-256-Digest: Zn8UJ4Oaq6YVMhOqS8v3nFZ9lY8xnst/8BEj64caP7I=
+
+Name: assets/game/assets/audio/channel-2.ogg
+SHA-256-Digest: 8AFZp39leDFqBK5oi2I3hw6AGfcax48i3tsJIpz/32A=
+
+Name: assets/game/assets/audio/clash-1.ogg
+SHA-256-Digest: d/axrVEv+JWsn2ccD/pAHTYJRliO8K+VCVLgAc1C7yk=
+
+Name: assets/game/assets/audio/clash-2.ogg
+SHA-256-Digest: 65ZVuIDgBpyBWPwZv8GvcpX0aPlJ6Ztj9gPkicOKTmA=
+
+Name: assets/game/assets/audio/clash-3.ogg
+SHA-256-Digest: ApDMsRfKNQsUUEFMWqLsimva95nYvoBQGVMzlu6rvGc=
+
+Name: assets/game/assets/audio/click-1.ogg
+SHA-256-Digest: vATDEs0OvpW3O31ZlutcNfP8av/6UxKjiqt638jYZgg=
+
+Name: assets/game/assets/audio/click-2.ogg
+SHA-256-Digest: oPRTZ3JU7el0FwKkOx/sz+pUxGr2QTPMWjGlQW54Zq0=
+
+Name: assets/game/assets/audio/click.ogg
+SHA-256-Digest: PH1MnDd863W9jY8RyT5AJe9avaQzWRnlRN/UiWJ+qJE=
+
+Name: assets/game/assets/audio/defeat-1.ogg
+SHA-256-Digest: Uv8Sfm3CkjRLqoQBd0j4adTD/X2RwxA+e1Jsby01Yr4=
+
+Name: assets/game/assets/audio/defeat.ogg
+SHA-256-Digest: cldFWj61J75DewKJSa9fu0wHSYzn7bX/NU2epLE1M5o=
+
+Name: assets/game/assets/audio/destroy-1.ogg
+SHA-256-Digest: 4JaIweYwaLONTiqnMnz9fZyV7DG1VXNBnyP8ETe7oPk=
+
+Name: assets/game/assets/audio/destroy-2.ogg
+SHA-256-Digest: xH17CnA++pTVYjepNVvv9cXiBbYGh4LZFSo0r1NdY9k=
+
+Name: assets/game/assets/audio/destroy.ogg
+SHA-256-Digest: R5DOY8rILZNyK2hQOrp+t2cNlOIxXZX0D1HVuH/toBg=
+
+Name: assets/game/assets/audio/draw-1.ogg
+SHA-256-Digest: mxCWR4vW3O12RVkak0roMPpG4zXgvmQ6/L+RNwGsbW8=
+
+Name: assets/game/assets/audio/draw-2.ogg
+SHA-256-Digest: rBzqt4XKZ8xslHZS/Mt+RvVeQwqd2GnGn8kA4JVA/xo=
+
+Name: assets/game/assets/audio/draw-3.ogg
+SHA-256-Digest: wJoKYluSUMLoO0Kmbtp9Wrl2iS2gaE4p2KsA+Y5zZbI=
+
+Name: assets/game/assets/audio/draw.ogg
+SHA-256-Digest: E4ZavMK/A6x0sWobLpc0uxDTxk6H9kinbIFZx+GScFc=
+
+Name: assets/game/assets/audio/fire-1.ogg
+SHA-256-Digest: U9RTXUlTaoKlYgJkXRAk1CXZO5II82MULVUL6ytB1FA=
+
+Name: assets/game/assets/audio/fire-2.ogg
+SHA-256-Digest: jWeZ8MUvpQae8FDCQqJ2omXByeHQaEjf3QcjuhppLsw=
+
+Name: assets/game/assets/audio/fire.ogg
+SHA-256-Digest: NgAOhXOTL055XkFXMFiWApHDLpaFHDxAVDULQaitLx8=
+
+Name: assets/game/assets/audio/gong-1.ogg
+SHA-256-Digest: Gfy3oE8YiCnl/SmhdPc7ndGXuY+uWKCLy9BPJ2gQfSE=
+
+Name: assets/game/assets/audio/gong.ogg
+SHA-256-Digest: ym2oNZPfPe0Y8jQPYIj22rxeOZbvbW1Ch2HMhyvTuvU=
+
+Name: assets/game/assets/audio/heal-1.ogg
+SHA-256-Digest: HKdtNPWik76g4yaqX6dXBExufnApttym3xpfZre2UGo=
+
+Name: assets/game/assets/audio/heal.ogg
+SHA-256-Digest: RyjlSRpOBFk1mwYaMD+vWJsg60puUBrlrXzODKdaLQY=
+
+Name: assets/game/assets/audio/hit-1.ogg
+SHA-256-Digest: m50Rc4XJ5WHefua9wqssY/ftQb1MrcWMZSkMo1xwiqI=
+
+Name: assets/game/assets/audio/hit-2.ogg
+SHA-256-Digest: xWtLveWonQYHTjhFbSICzP+fLlZQrSU4Cw0YPqyZuRo=
+
+Name: assets/game/assets/audio/hit-3.ogg
+SHA-256-Digest: KneMUKRNcBxoJf8gEnqUbx81fMspcqtnllCYD8PbE+s=
+
+Name: assets/game/assets/audio/hit.ogg
+SHA-256-Digest: pUKfIKiExRBz4AiFu3ir9U9YaoQNZ1FqnsIFlZD9sPs=
+
+Name: assets/game/assets/audio/land-1.ogg
+SHA-256-Digest: KiMQRmtPXnqNjQJmS7tj6W0YH9O+FcVzhyYn3dYqxtk=
+
+Name: assets/game/assets/audio/land-2.ogg
+SHA-256-Digest: tTdmIlNsy3QxnPON8eh8Wy/25wB1maihjCZIKCf6euE=
+
+Name: assets/game/assets/audio/land-3.ogg
+SHA-256-Digest: J+NwzCIdfY7siiFwccypnJJPtLPkN8736olEVfvctYw=
+
+Name: assets/game/assets/audio/manifest.json
+SHA-256-Digest: bOQLa70LKh8HSMlmiqG68+qL9WeTuM2AYJsGzjezKv8=
+
+Name: assets/game/assets/audio/menu.ogg
+SHA-256-Digest: mCKcD7WBxSy5nzu9J7tptsbPruWJCKhTy+CbuAnoUxw=
+
+Name: assets/game/assets/audio/pack-1.ogg
+SHA-256-Digest: iycogEebqaEV2L8mRvXgWbdOYuqATxtujl4zSeMKlro=
+
+Name: assets/game/assets/audio/pack-2.ogg
+SHA-256-Digest: GGal6IVQ8h9nYx6qPHkRYzt19PbO7+8cMMMshogwPpk=
+
+Name: assets/game/assets/audio/pack.ogg
+SHA-256-Digest: AWFd4DO50IvzPuqlg0baGbJJtO7OgczpEFFNFb2HllI=
+
+Name: assets/game/assets/audio/pickup-1.ogg
+SHA-256-Digest: n0dB+Cx59wayae/yURyVANEcEMnp5oBWyQLqnW6lL4w=
+
+Name: assets/game/assets/audio/pickup-2.ogg
+SHA-256-Digest: aGjE9xIsWZHfE5mT2Btw0pQVlONonRiV1lfYfH3OPDw=
+
+Name: assets/game/assets/audio/pickup-3.ogg
+SHA-256-Digest: hRDWa11knAoGIf2WzXC79SjL5jvujrYe7TyFF/g2HV8=
+
+Name: assets/game/assets/audio/play.ogg
+SHA-256-Digest: +L9KHrgodpp7bM4QaIOViGce7oA17thpz8HQrFHm5U8=
+
+Name: assets/game/assets/audio/power-1.ogg
+SHA-256-Digest: bueelmkycYjFdzSUdLtmrExB3M4nFMwakyfYaRN4Qxg=
+
+Name: assets/game/assets/audio/power-2.ogg
+SHA-256-Digest: 9LFN83UjrhGRYEfs4QBoD8Z1Jw4+c2IpreUkgZsDSuU=
+
+Name: assets/game/assets/audio/power.ogg
+SHA-256-Digest: J7czZyYnRKMUTk6qbiz9Avom7YRw1D1/44V/d89dqDA=
+
+Name: assets/game/assets/audio/return-1.ogg
+SHA-256-Digest: X3BhCfQ8lY/qcirTuY6UXX7Z3QwqgRP3dfV+oJNEswE=
+
+Name: assets/game/assets/audio/return-2.ogg
+SHA-256-Digest: CjhUTxS4jEgDydNrguwW9ALLtmDuLLV2uL4oI3p4Evo=
+
+Name: assets/game/assets/audio/slide-1.ogg
+SHA-256-Digest: u4RV16QFnAwaX+/LgDHNB45lz80iZlBRFVnUF/bx/Ps=
+
+Name: assets/game/assets/audio/slide-2.ogg
+SHA-256-Digest: tI+yfkTo0MyfJY6JEh8PfU0yes/rhudxeH355Z8ZBz8=
+
+Name: assets/game/assets/audio/swing-1.ogg
+SHA-256-Digest: Da/Hv7Pz9oAv2w5/ypSztgvRYPSt5ylTf4aRQvtYETI=
+
+Name: assets/game/assets/audio/swing-2.ogg
+SHA-256-Digest: uMggS0HdDI6cmAPVvTIVGwE78bveGkMNfqnHYdyXRcU=
+
+Name: assets/game/assets/audio/swing-3.ogg
+SHA-256-Digest: seYsl7i/GUq0qzCt6w56aNdHUBo1jBgoZynI+/hsFqg=
+
+Name: assets/game/assets/audio/sword.ogg
+SHA-256-Digest: 713p/hWsrTPOr5XK6ncKEDvSmiQF0Q8RSTHR024lQXQ=
+
+Name: assets/game/assets/audio/tension.ogg
+SHA-256-Digest: dVqn7Ei8y/NVRTR6l/khy8yOFBLU1yJnYrw5P1VyF8I=
+
+Name: assets/game/assets/audio/victory-1.ogg
+SHA-256-Digest: W7cpDPLwFtE1UHPcDuVkhIfcwGLI5CZZTTgtsOOrwAk=
+
+Name: assets/game/assets/audio/victory.ogg
+SHA-256-Digest: bcvuw/PnEzfGQmJjpbzzA/xiK+sdjJq6aEATMqtyZic=
+
+Name: assets/game/assets/body.ttf
+SHA-256-Digest: uqFGeGQpqAUup6i1oIH4kCqDpgtrUPBR2+9wjbKjmR8=
+
+Name: assets/game/assets/title.ttf
+SHA-256-Digest: H/SsDwjstmtSWBgEU3z7nXUvLcd3XQJlce0h9y7HsSo=
+
+Name: assets/game/audio.js
+SHA-256-Digest: h3/d5ZiiHLd9vYP7ja1bw57CzN08XQntciBB1AMqqGo=
+
+Name: assets/game/chronicle.js
+SHA-256-Digest: B+8d25sEY3TaTF65H9qbAp3ZhNIl6Fft5fDPcAlBHlU=
+
+Name: assets/game/data.js
+SHA-256-Digest: wzQO745siEyDtvcrSBp6iK1YR7zTCnjr8peT8obRDD0=
+
+Name: assets/game/engine.js
+SHA-256-Digest: hU2fmJbwGRgdu7doAdljrs921B5PpHbxsOwq5OWg85U=
+
+Name: assets/game/index.html
+SHA-256-Digest: 7Qcx3187g1Au+T/qGi0+n5Baoi1TO0rgzE5vQgeenzk=
+
+Name: assets/game/layout.js
+SHA-256-Digest: +/FJjbXMf6lRx4R+/TZoIorKcGud+CSlS9uFP5J/2ks=
+
+Name: assets/game/motion.js
+SHA-256-Digest: BnXv+GW5eajNVXowdCZZHvu1sFpcKa4MPRPcsU5V7KM=
+
+Name: assets/game/packs.css
+SHA-256-Digest: kLzmDkrIO4V7N6sk/Jj3rQy1Z6QtRwjt9Ul6Todo92U=
+
+Name: assets/game/profile.js
+SHA-256-Digest: beDTWWYc5n/YiXjtYQn5Wvzjso/CcZLlTeOBoLb0xmA=
+
+Name: assets/game/render.js
+SHA-256-Digest: 0gSg3abtUmCZ65aN83ZqOQapndEQPvmc/VfARYWROgs=
+
+Name: assets/game/style.css
+SHA-256-Digest: u7sHHUeEHSPNawdeG8FLp3gQWKoBNi9//Er5kJyI/5s=
+
+Name: classes.dex
+SHA-256-Digest: Q3VOxTjlcBHywkA3zuV8XR5INeoRKKDC7iqKCnce2A8=
+
+Name: res/drawable/ic_launcher.xml
+SHA-256-Digest: ez8+gqD/w7IE1RCdplBTRk+n1UYFzcMUu8POxfTtL0U=
+
+Name: resources.arsc
+SHA-256-Digest: u/P98g8QJtuauYTxqHQ7N2AoSnRD4c8m27A8FoOc74g=
+

@@ -1,0 +1,90 @@
+{
+  "pickup": [
+    "pickup-1",
+    "pickup-2",
+    "pickup-3"
+  ],
+  "draw": [
+    "draw-1",
+    "draw-2",
+    "draw-3"
+  ],
+  "slide": [
+    "slide-1",
+    "slide-2"
+  ],
+  "return": [
+    "return-1",
+    "return-2"
+  ],
+  "land": [
+    "land-1",
+    "land-2",
+    "land-3"
+  ],
+  "swing": [
+    "swing-1",
+    "swing-2",
+    "swing-3"
+  ],
+  "clash": [
+    "clash-1",
+    "clash-2",
+    "clash-3"
+  ],
+  "hit": [
+    "hit-1",
+    "hit-2",
+    "hit-3"
+  ],
+  "destroy": [
+    "destroy-1",
+    "destroy-2"
+  ],
+  "armor": [
+    "armor-1",
+    "armor-2"
+  ],
+  "gong": [
+    "gong-1"
+  ],
+  "fire": [
+    "fire-1",
+    "fire-2"
+  ],
+  "heal": [
+    "heal-1"
+  ],
+  "power": [
+    "power-1",
+    "power-2"
+  ],
+  "channel": [
+    "channel-1",
+    "channel-2"
+  ],
+  "click": [
+    "click-1",
+    "click-2"
+  ],
+  "pack": [
+    "pack-1",
+    "pack-2"
+  ],
+  "victory": [
+    "victory-1"
+  ],
+  "defeat": [
+    "defeat-1"
+  ],
+  "play": [
+    "land-1",
+    "land-2",
+    "land-3"
+  ],
+  "sword": [
+    "clash-1",
+    "clash-2",
+    "clash-3"
+  ]
+}
