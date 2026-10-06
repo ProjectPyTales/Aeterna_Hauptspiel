@@ -1,7 +1,7 @@
 /* Dialogs reachable from several screens: quests, settings, rules, credits, export and import. */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const P=node?require('../model/profile.js'):root.CHP;
+const P=node?require('../model/profile.js'):root.CHP,D=node?require('../model/data.js'):root.CHD,LORE=node?require('../model/lore.js'):root.AELORE;
 const {Dialog,LiveDialog}=node?require('./base.js'):root.AEVM;
 
 class Quests extends LiveDialog{
@@ -29,6 +29,9 @@ class Dialogs{
  quests(){this.ui.dialog('quests',new Quests(this.ctx));}
  settings(){this.ui.dialog('settings',new Settings(this.ctx));}
  help(){this.ui.dialog('help',new Dialog(this.ctx,{}));}
+ // Chronikseite eines Helden (AP 5.9): Heldenwahl und Großansicht des Helden im Match.
+ lore(id){const hero=D.heroes.find(h=>h.id===id),page=LORE.of(id);if(!hero||!page)return;
+  this.ui.dialog('lore',new Dialog(this.ctx,{hero,page,favorites:page.favorites.map(c=>D.byId[c]).filter(Boolean)}));}
  credits(){this.ui.dialog('credits',new Dialog(this.ctx,{version:this.version}));}
  exportSave(){this.ui.exportSave(this.ctx.store.exportText());}
  askImport(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Spielstand laden',close:false,

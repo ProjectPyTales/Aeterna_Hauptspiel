@@ -28,6 +28,7 @@ jeanne:[M('Bauernrekrut',1,1,3,'Göttliche Gunst.',{shield:true}),S('Bannersegen
 ragnar:[M('Fjordspäher',1,1,3),S('Runenblitz',2,'Verursacht 3 Schaden.',E('damage',3),'any'),M('Schildmaid',3,3,4,'Schildwall.',{taunt:true}),M('Runenschnitzer',4,4,4,'Einmarsch: Ruft ein Heiltotem (0/2).',{battle:[E('summon',1,{token:'totem_heal'})]}),S('Donnerschlag',3,'Fügt allen feindlichen Dienern 1 Schaden zu und versetzt sie in Starre.',[E('aoe',1),E('freeze',1,{all:true})]),M('Berserker vom Fjord',4,5,3,'Sturmangriff.',{charge:true}),S('Ahnenbund',3,'Gebt Euren Dienern +1/+2.',E('buffAll',1,{health:2})),M('Runenhüter',5,4,6,'Vermächtnis: Ruft ein Feuertotem (0/2).',{death:[E('summon',1,{token:'totem_fire'})]}),S('Sturm der Nordsee',5,'Verursacht 6 Schaden. Zieht 1 Karte.',[E('damage',6),E('draw',1)],'any'),M('Lagertha, Schildmaid',7,6,7,'Schildwall. Einmarsch: Ruft eines von jedem Totem. Eure Totems haben Schildwall und +1 Leben.',{taunt:true,aura:'lagertha',battle:[E('totems',1)]})],
 musashi:[M('Dojoschüler',1,2,1),S('Schneller Schnitt',1,'Verursacht 2 Schaden an einem Diener.',E('damage',2),'minion'),M('Rōnin',3,3,4),S('Konzentration',2,'Zieht 2 Karten.',E('draw',2)),M('Kirschblütenwache',3,2,4,'Göttliche Gunst.',{shield:true}),S('Zwei Himmel',3,'Euer Held erhält für diesen Zug +4 Angriff und 2 Rüstung.',[E('heroAttack',4),E('armor',2)]),M('Duellant',4,4,3,'Vorstoß.',{rush:true}),S('Der leere Geist',5,'Gebt einem befreundeten Diener +3/+3 und Göttliche Gunst.',[E('buff',3,{health:3}),E('shield',1)],'friendlyMinion'),M('Meister der fünf Ringe',6,5,6,'Göttliche Gunst. Vermächtnis: Zieht 1 Karte.',{shield:true,death:[E('draw',1)]}),M('Sasaki Kojirō, der Rivale',6,5,6,'Doppelschlag. Einmarsch: Duell – Kojirō und ein feindlicher Diener Eurer Wahl kämpfen, bis einer stirbt.',{double:true,target:'enemyMinion',battle:[E('duel',1)]})]
 };
+heroes.forEach((h,i)=>{h.art='heroes';h.cell=i;});
 for(const h of heroes)sets[h.id].forEach((c,i)=>cards.push({...c,id:h.id+'_'+i,hero:h.id,rarity:['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'][i],art:h.id,cell:i}));
 const neutral=[
 M('Dorfwache',1,1,2,'Schildwall.',{taunt:true}),M('Wandernder Händler',2,2,3),M('Steinschleuderer',2,3,2),M('Grenzläuferin',3,3,4),M('Festungsschild',4,3,5,'Schildwall.',{taunt:true}),M('Kavallerist',4,4,3,'Sturmangriff.',{charge:true}),M('Feldheilerin',3,2,4,'Einmarsch: Heilt Euren Helden um 3.',{battle:[E('healHero',3)]}),M('Archivarin',4,3,4,'Einmarsch: Zieht 1 Karte.',{battle:[E('draw',1)]}),M('Wachhund',2,2,2,'Schildwall.',{taunt:true}),M('Veteran',5,5,6),M('Belagerungsturm',6,5,7,'Schildwall.',{taunt:true}),M('Schmied',3,3,3,'Einmarsch: Erhaltet 2 Rüstung.',{battle:[E('armor',2)]}),M('Wüstenspäherin',1,2,1),M('Gebirgswache',5,4,7,'Schildwall.',{taunt:true}),M('Verwegener Bote',3,3,2,'Sturmangriff.',{charge:true}),M('Laternenträger',2,1,3,'Vermächtnis: Zieht 1 Karte.',{death:[E('draw',1)]}),S('Versorgung',2,'Zieht 2 Karten.',E('draw',2)),S('Erste Hilfe',1,'Heilt ein Ziel um 4.',E('heal',4),'any'),S('Wurfmesser',2,'Verursacht 2 Schaden.',E('damage',2),'any'),M('Kriegselefant',7,7,8,'Vorstoß.',{rush:true}),
@@ -36,7 +37,24 @@ M('Silberner Bannerträger',4,3,4,'Einmarsch: Eure anderen Diener erhalten +1/+1
 M('Phönix der Chroniken',7,6,5,'Vermächtnis: Fügt allen feindlichen Dienern 3 Schaden zu.',{death:[E('aoe',3)]}),S('Vergessene Weisheit',4,'Ergründet zwei Karten. Erhaltet 3 Rüstung.',[E('discover',2,{pool:'any'}),E('armor',3)]),M('Wächter des Weltenbaums',8,7,9,'Schildwall. Göttliche Gunst.',{taunt:true,shield:true}),S('Donnernde Legion',7,'Ruft drei Krieger (2/2) und gebt Euren Dienern +1/+1.',[E('summon',3,{token:'warrior'}),E('buffAll',1,{health:1})]),
 M('Herodot, Vater der Geschichte',4,4,4,'Einmarsch: Ergründet eine Karte, die in dieser Partie schon gespielt wurde.',{battle:[E('discover',1,{pool:'played'})]}),M('Zenobia, Rebellin von Palmyra',8,6,6,'Einmarsch: Übernehmt die Kontrolle über einen feindlichen Diener mit höchstens 4 Angriff.',{target:'enemyMinion',targetMax:4,battle:[E('steal',1)]})
 ];
-neutral.forEach((c,i)=>cards.push({...c,id:'neutral_'+i,hero:'neutral',rarity:i<20?'basic':i<28?'common':i<34?'rare':i<38?'epic':'legendary',art:'neutral'+Math.floor(i/10),cell:i%10}));
+neutral.forEach((c,i)=>cards.push({...c,id:'neutral_'+i,hero:'neutral',rarity:i<20?'basic':i<28?'common':i<34?'rare':i<38?'epic':'legendary',...(i<40?{art:'neutral'+Math.floor(i/10),cell:i%10}:{art:null,cell:0})}));
+// AP 5.4 Teil 2 (1.8.0): Plünderung, Tarnung, Bannung, Tödliches Gift und Belastung. Neue Karten hängen hinten an
+// (feste IDs, Spielstände bleiben gültig) und haben noch kein Motiv – der Renderer zeichnet einen Platzhalter (AP 5.12).
+const wave=[
+ ['dandolo_10','common',M('Agent des Zehnerrats',3,4,3,'Tarnung.',{stealth:true})],
+ ['khan_10','common',M('Tributeintreiber',3,3,3,'Plünderung.',{plunder:true})],
+ ['imhotep_10','common',M('Kobra des Nils',2,1,2,'Tödliches Gift.',{poison:true})],
+ ['boudicca_10','rare',{...S('Brand von Londinium',3,'Fügt allen feindlichen Dienern 2 Schaden zu. Belastung 1.',E('aoe',2)),overload:1}],
+ ['nostradamus_10','rare',S('Bannbulle',1,'Belegt einen Diener mit Bannung. Zieht 1 Karte.',[E('silence',1),E('draw',1)],'minion')],
+ ['ragnar_10','common',M('Plünderer von Paris',4,3,5,'Plünderung.',{plunder:true})],
+ ['ragnar_11','common',{...S('Zorn des Donnergottes',1,'Verursacht 3 Schaden. Belastung 1.',E('damage',3),'any'),overload:1}],
+ ['musashi_10','common',M('Shinobi aus Iga',2,3,2,'Tarnung.',{stealth:true})],
+ ['neutral_42','common',M('Freibeuterin',2,2,2,'Plünderung.',{plunder:true})],
+ ['neutral_43','common',M('Späherin im Unterholz',1,2,1,'Tarnung.',{stealth:true})],
+ ['neutral_44','common',M('Wandermönch',2,2,2,'Einmarsch: Belegt einen Diener mit Bannung.',{target:'minion',battle:[E('silence',1)]})],
+ ['neutral_45','rare',M('Giftmischerin',3,2,3,'Tödliches Gift.',{poison:true})],
+ ['neutral_46','common',M('Condottiere',3,4,5,'Belastung 2.',{overload:2})]];
+for(const [id,rarity,c] of wave)cards.push({...c,id,hero:id.slice(0,id.lastIndexOf('_')),rarity,art:null,cell:0});
 const tokens={recruit:M('Rekrut',1,1,1),warrior:M('Krieger',2,2,2),eagle:M('Adler',1,2,1),stoneguard:M('Pyramidenwächter',3,2,5,'Schildwall.',{taunt:true}),totem_heal:M('Heiltotem',1,0,2,'Am Ende Eures Zuges: Heilt Eure Diener um 1.',{passive:'heal'}),totem_fire:M('Feuertotem',1,0,2,'Am Ende Eures Zuges: Fügt dem feindlichen Helden 1 Schaden zu.',{passive:'fire'}),totem_guard:M('Schutztotem',1,0,2,'Schildwall.',{taunt:true}),totem_strength:M('Krafttotem',1,0,2,'Am Ende Eures Zuges: Ein anderer zufälliger Diener erhält +1 Angriff.',{passive:'strength'}),coin:S('Gunst der Stunde',0,'Erhaltet nur in diesem Zug 2 Mana.',E('mana',2)),
  hoplite:M('Hoplit',1,1,2,'Schildwall.',{taunt:true}),pyramid:M('Stufenpyramide',4,0,8,'Bauwerk. Zu Beginn Eures Zuges erhält Euer schwächster Diener +2/+2.',{building:true,turnStart:'weakest'})};
 const ART={hoplite:['leonidas',10],pyramid:['@pyramid',0],eagle:['khan',10],stoneguard:['imhotep',10]};
@@ -67,10 +85,17 @@ const keywords=[
  ['Doppelschlag','Darf zweimal pro Zug angreifen.'],
  ['Arkaner Fokus','Eure Zauber verursachen so viel mehr Schaden.'],
  ['Ergründen','Der Chronist breitet drei versiegelte Schriftrollen aus – eine Karte davon wählt Ihr auf die Hand.','Ergründ'],
+ ['Plünderung','Schaden, den diese Karte verursacht, stellt ebenso viel Leben bei Eurem Helden wieder her.'],
+ ['Tarnung','Kann weder angegriffen noch als Ziel gewählt werden, bis der Diener selbst angreift. Flächenschaden trifft ihn.'],
+ ['Bannung','Entfernt alle Fähigkeiten, Segnungen und Auren eines Dieners; Angriff und Leben fallen auf den Kartenwert zurück.','Bann'],
+ ['Tödliches Gift','Jeder Schaden, den dieser Diener einem anderen Diener zufügt, vernichtet ihn. Bauwerke sind davor sicher.'],
+ ['Belastung','Im nächsten Zug habt Ihr so viel Mana weniger.'],
  ['Bauwerk','Belegt einen der 7 Plätze, greift nie an und hat Haltbarkeit statt Leben. Flächenschaden und Heilung wirken nicht.'],
  ['Gunst der Stunde','Bekommt, wer nicht beginnt: 0 Mana, +2 Mana in diesem Zug.']].map(([name,text,stem=name])=>({name,text,stem}));
 // Schlüsselwörter, die ein Kartentext nennt – für die Erklärung unter der Großansicht.
 const keywordsOf=text=>keywords.filter(k=>(text||'').includes(k.stem));
-const api={heroes,cards,byId,tokens,missions,keywords,keywordsOf,rarities:{basic:'Basis',common:'Gewöhnlich',rare:'Selten',epic:'Episch',legendary:'Legendär',token:'Beschworen'}};
+// Fehlendes Motiv (AP 5.12): kein Atlasfeld oder nur ein im Code gezeichnetes ('@…').
+const missingArt=c=>!c.art||c.art[0]==='@';
+const api={heroes,cards,byId,tokens,missions,keywords,keywordsOf,missingArt,rarities:{basic:'Basis',common:'Gewöhnlich',rare:'Selten',epic:'Episch',legendary:'Legendär',token:'Beschworen'}};
 if(typeof module!=='undefined')module.exports=api;else root.CHD=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

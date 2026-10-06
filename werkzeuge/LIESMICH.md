@@ -1,7 +1,25 @@
-# Aeterna 1.7.0 – Bauen & Prüfen
+# Aeterna 1.8.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
 `classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+
+## Neu in 1.8.0 (Platzhalter, Chronik der Helden, fünf neue Schlüsselwörter, randlose Menüs)
+
+- **Randlose Untermenüs und Dialoge** (Rückmeldung zu 1.7.0): Auf Bildschirmen breiter als 2:1 wächst die Bühne zur
+  Seite (`--wing`, `app.js`); Kopfleisten, Hintergründe und der Dialog-Schleier reichen bis an den Rand, Inhalte, Hauptmenü
+  und Match-Canvas bleiben mittig. `buehne.js` rechnet Bühnenpunkte entsprechend um.
+- **Platzhalter für fehlende Motive** (AP 5.12): Karten ohne Atlasfeld (`art: null`) zeichnet `R.tile` als gestaltetes
+  Medaillon in der Epochenfarbe mit Heldenzeichen bzw. Typsymbol und „Motiv folgt“; Helden ohne Porträt bekommen ein
+  Monogramm. `D.missingArt` kennzeichnet sie, `motive.js` schreibt `ungenutzte_assets/MOTIVE.md` mit fertigen Prompts,
+  die Sichtprüfung zählt sie (`messwerte.json` → `platzhalter`).
+- **Chronik der Helden** (AP 5.9): `model/lore.js` mit zehn Chronikseiten; Dialog `lore`, erreichbar über „Chronik“ in der
+  Heldenwahl und langes Drücken auf ein Heldenporträt im Match.
+- **Neue Schlüsselwörter** (AP 5.4 Teil 2): Plünderung (`plunder`), Tarnung (`stealth`), Bannung (Effekt `silence`),
+  Tödliches Gift (`poison`), Belastung (`overload`) – mit KI-Bewertung, Plaketten-Marken (♥ ◐ ⚗ ⊘) und Anzeige der
+  gesperrten Manakristalle. 13 neue Karten mit festen IDs (`*_10`, `*_11`, `neutral_42`–`46`), zunächst mit Platzhaltern.
+  Tests: `tests/schluesselwoerter2.test.js`.
+- Alte Spielstände ohne die neuen Karten-IDs werden beim Laden ergänzt (Sammlung 0) statt abgelehnt.
+- Version 1.8.0 / versionCode 11. Speicher-Schlüssel, Paket-ID, Signatur und bestehende Karten-IDs unverändert.
 
 ## Neu in 1.7.0 (eigene Schlüsselwörter, zwölf neue Legendäre, Menü-Feinschliff)
 
@@ -165,6 +183,7 @@ Paarung beträgt der Zufallsfehler etwa ±2,3 Punkte je Held und ±6,9 je Paarun
 node werkzeuge/klickpfad.js            # Klickpfad Handyformat, Vergleich mit referenz/, Ergebnis in sichtpruefung/klickpfad/
 node werkzeuge/klickpfad.js --referenz # nach gewollten optischen Änderungen: Referenzbilder neu schreiben, ansehen, committen
 node werkzeuge/sichtpruefung.js        # Hauptmenü: Screenshots Handy/Tablet, Auftritt, Trefferflächen, Bildzeiten, Menüwechsel
+node werkzeuge/motive.js              # Liste der fehlenden Motive (ungenutzte_assets/MOTIVE.md) neu schreiben
 ```
 
 Der Klickpfad läuft mit reduzierter Bewegung, fester Uhrzeit und festem Spielstand, damit die Bilder stabil sind.

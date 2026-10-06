@@ -1,7 +1,7 @@
 // Sichtprüfung und Messlauf für das Hauptmenü (Playwright, Chromium).
 // Aufruf: node werkzeuge/sichtpruefung.js [Zielordner]   (Standard: sichtpruefung/, nicht im Repo)
 // Liefert Screenshots im Handyformat (915 × 412, Pixeldichte 2,6) und Tabletformat (1600 × 800),
-// Bilder vom Auftritt, vom Gedrückt-Zustand und vom Menüwechsel sowie messwerte.json.
+// Bilder vom Auftritt, vom Gedrückt-Zustand und vom Menüwechsel sowie messwerte.json (mit Zahl der Platzhalter, AP 5.12).
 // Werte stammen aus der Emulation (Desktop-Chromium, CPU-Drosselung 4×) – Gerätemessungen ersetzen sie nicht.
 const fs=require('node:fs'),path=require('node:path');
 const {pw,serve,open:openPage,stagePoint,frames,PHONE,TABLET}=require('./buehne.js');
@@ -42,5 +42,8 @@ async function change(page,point,selector){await page.evaluate(sel=>{const m=win
   const t=await page.evaluate(()=>performance.now());await page.evaluate(()=>App.navigate('menu'));await page.waitForFunction(()=>document.querySelector('.hall')&&!document.querySelector('#ring-flash.fade,#ring-flash.cover'));
   R[k].zurueck_ins_menue_ms=Math.round(await page.evaluate(()=>performance.now())-t);await page.waitForTimeout(600);}
  await cdp.send('Emulation.setCPUThrottlingRate',{rate:1});
+ // Platzhalter (AP 5.12): wie viele Motive fehlen noch? Jede Karte einmal zeichnen, gezählt wird im Renderer.
+ R.platzhalter=await page.evaluate(()=>{for(const c of Object.values(CHD.byId))CHR.thumb(c.id);const ids=[...CHR.placeholderIds].sort();
+  return {karten_ohne_motiv:Object.values(CHD.byId).filter(CHD.missingArt).length,helden_ohne_portraet:CHD.heroes.filter(h=>!h.art).length,gezeichnet:ids.length,ids};});
  R.fehler=errors;fs.writeFileSync(path.join(out,'messwerte.json'),JSON.stringify(R,null,1));console.log(JSON.stringify(R,null,1));
  await browser.close();server.close();if(errors.length)process.exitCode=1;})().catch(e=>{console.error(e);process.exit(1);});

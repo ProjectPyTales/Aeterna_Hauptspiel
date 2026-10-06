@@ -86,6 +86,7 @@ class Match extends Screen{
    else if(hit.idCard)this.view.inspect=hit.idCard;return;}
   this.view=idle();}
  longPress(hit){if(hit?.idCard)this.inspect(hit.idCard);
+  else if(hit?.kind==='target'&&/^h[01]$/.test(hit.id))this.ctx.dialogs.lore(this.game.players[+hit.id[1]].hero);
   else if(hit?.kind==='power'){const h=D.heroes.find(h=>h.id===this.game.players[+hit.id.slice(-1)].hero);
    this.ui.dialog('message',new Dialog(this.ctx,{title:h.power+' · '+h.cost+' Mana',close:false,text:h.powerText,buttons:[{label:'Zurück',style:'gold'}]}));}}
  // The finger moved far enough: pick up a hand card, aim an attack or aim the hero power.

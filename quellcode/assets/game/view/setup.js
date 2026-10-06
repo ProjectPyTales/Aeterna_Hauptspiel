@@ -11,7 +11,7 @@ function side(v){const h=v.hero,day=v.day,m=v.mode;
   :html`<div><label>DEIN DECK · 30 KARTEN</label><select data-change="chooseDeck">${v.decks.map(d=>option(d.id,d.name,d.id===v.deckId))}</select></div>`}${
   m==='free'?html`<div><label>GEGNER · OFFLINE-KI</label><select data-change="chooseFoe">${D.heroes.map(h=>option(h.id,h.name,h.id===v.foeId))}</select></div>`
   :m==='campaign'?html`<p><b>${v.mission.boss}</b><br>${v.mission.description}</p>`:''}<div class="spacer"></div>${
-  V.button({label:(m==='campaign'?'Mission beginnen':'Duell beginnen')+' ›',cmd:'begin',style:'gold'})}${V.button({label:'Spielregeln & Steuerung',cmd:'help',small:true})}`,{extra:'setup-side'});}
+  V.button({label:(m==='campaign'?'Mission beginnen':'Duell beginnen')+' ›',cmd:'begin',style:'gold'})}${html`<div class="setup-links">${V.button({label:'Chronik',cmd:'lore',small:true,aria:'Chronik von '+h.name})}${V.button({label:'Spielregeln',cmd:'help',small:true})}</div>`}`,{extra:'setup-side'});}
 
 const tile=(h,v)=>html`<button class="${V.cls('hero-tile',h.id===v.selected&&'selected',v.day&&h.id===v.day.foe&&'foe')}" data-key="${h.id}"${
  v.day?V.attr('tabindex','-1'):V.data({cmd:'chooseHero',a:h.id})}><div class="portrait" style="${R.heroStyle(h.id,true)}"></div><div class="tile-label"><b>${h.name}</b><small>${h.era}</small></div></button>`;

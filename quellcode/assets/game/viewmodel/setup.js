@@ -13,6 +13,7 @@ class Setup extends Screen{
  chooseFoe(id){this.session.foe=id;}
  chooseDeck(id){this.session.deckId=id;}
  help(){this.ctx.dialogs.help();}
+ lore(){const day=this.session.mode==='daily'?P.daily():null;this.ctx.dialogs.lore(day?day.hero:this.session.hero);}
  // A new game replaces a saved one only after asking.
  begin(force=false){const p=this.profile,s=this.session;
   if(p.game&&p.game.phase!=='over'&&force!==true){
