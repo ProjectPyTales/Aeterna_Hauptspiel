@@ -113,7 +113,7 @@ die Hülle kennt nur die Endungen `.html .js .css .png .ogg .ttf .json`.
 Startkarten-Tausch, Münze für den zweiten Spieler („Gunst der Stunde“, 0 Mana, +2 Mana in diesem Zug),
 Handlimit 10 mit Verbrennen, steigende Erschöpfung bei leerem Deck, Aufmarsch-Verzögerung,
 höchstens 7 Diener pro Seite, kein Zugtimer, Schildwall, Göttliche Gunst, Einmarsch, Vermächtnis,
-Sturmangriff, Waffen, Rüstung, Totems, KI-Gegner. Seit 1.7.0 außerdem Vorstoß, Starre, Ergründen (offene Wahl
+Sturmangriff, Waffen, Rüstung, Runensteine (Engine-IDs `totem_*`), KI-Gegner. Seit 1.7.0 außerdem Vorstoß, Starre, Ergründen (offene Wahl
 `s.choice`, Aktion `choose`), Doppelschlag, Arkaner Fokus, Bauwerke (`building`), Auren, Kostenänderungen je Handkarte
 (`E.cost`) und Übernahme feindlicher Diener. Seit 1.8.0 Plünderung (`plunder`), Tarnung (`stealth`), Bannung (Effekt
 `silence`, Feld `silenced`), Tödliches Gift (`poison`) und Belastung (`overload`, gesperrte Kristalle `locked`).
@@ -348,6 +348,7 @@ background, no text“* – passend zum Konzeptbild.
 | Asset | Größe (px) | Verwendung | Prompt-Zusatz |
 |---|---|---|---|
 | Hauptmenü in hoher Auflösung | 3840 × 2140 | Ersatz für das Konzeptbild (2000 × 1116) | dasselbe Bild hochskaliert/neu erzeugt, ohne Text |
+| **Hintergrund Untermenüs und Dialoge, randlos** *(deine Rückmeldung zu 1.8.0: auf dem OnePlus 15 reichen die Menüs noch nicht ganz an den Rand)* | 4000 × 1600 | Basar, Sammlung, Heldenwahl, Kampagne, Dialog-Schleier; die Mitte (3200 × 1600) trägt die Inhalte, links und rechts je 400 px ruhige Fortsetzung für breite Handys, Kamera-Aussparung und 21:9 | „wide dark stone hall interior with bronze lamps, calm low-contrast centre for UI panels, the scene continues seamlessly to both far edges“ |
 | Hauptmenü-Einzelteile | je nach Teil | Platten, Medaillons, Titeltafel, Goldanzeige, Zahnrad einzeln | „same element isolated on transparent background“ |
 | Panel (9-Slice) | 768 × 768 | Fenster, Kacheln | „stone tablet frame with bronze corners, recessed darker centre“ |
 | Reiter aktiv + inaktiv | 800 × 180 | Basar, Sammlung | „small carved stone tab with bronze trim; active version glowing gold“ |
@@ -362,6 +363,7 @@ background, no text“* – passend zum Konzeptbild.
 | Seltenheits-Siegel | je 160 × 160 | Bronze (gewöhnlich), Silber (selten), Gold (episch), Himmels-Obsidian (legendär) | „archive wax seal in bronze / silver / gold / black obsidian with starlight“ |
 | Lorbeerkranz | 900 × 500 | Rahmen legendärer Karten | „golden laurel wreath crowning a card frame“ |
 | Werte-Symbole | je 160 × 160 | Ätherkristall (Kosten), gekreuzte Klingen (Angriff), Schild (Leben), Turm (Haltbarkeit) | „gem / crossed swords / round shield / small stone tower icon“ |
+| Runensteine (Ragnar) | je 724 × 724 | Heilrune, Feuerrune, Schutzrune, Kraftrune – ersetzen das bisherige Totem-Motiv (Atlasfeld 10 von Ragnar) | „carved Norse rune stone glowing with a green healing / red fire / blue shield / golden strength rune, mossy, Viking age“ |
 | Truppensiegel-Plakette | 600 × 700 | Diener auf dem Feld (oval), je Seltenheit | „oval medallion plaque with bronze rim, empty centre for portrait“ |
 | Schlüsselwort-Rahmen | je 700 × 800 | Schildwall (Holz-/Bronzeschilde), Göttliche Gunst (Aurenkreis), Starre (Ketten/Reif), Tarnung (Unterholz-Schatten) | jeweils als Overlay |
 | Kleine Marken | je 128 × 128 | Urne (Vermächtnis), Phiole (Gift), Doppelschlag, Plünderung | „small carved icon“ |
@@ -954,10 +956,11 @@ auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2)
 - [x] Heldenfähigkeiten und Startdecks geprüft. Passt: Leonidas (*Phalanx* stärkt die Linie), Hypatia (*Sternenfunke*,
   zufällig wie ein Sternschnuppenregen), Imhotep (Heilkunst – er wurde als Gott der Heilkunst verehrt; Djoser als
   Bauherr), Khan, Boudicca, Nostradamus, Jeanne; die Startdecks bleiben. *Abweichungen, gesammelt für deine
-  Entscheidung 13:* **Ragnar** ruft „Totems“ – die gibt es in der nordischen Überlieferung nicht; Vorschlag
-  „Runensteine“ (Heilrune, Feuerrune, Schutzrune, Kraftrune), nur Namen und Texte. **Dandolo** – *Verborgene Klinge*
-  passt eher zum Zehnerrat als zum blinden Dogen und Flottenführer; Vorschlag *Rammsporn der Galeeren* (gleiche
-  Wirkung). **Musashi** ist für den Kampf mit zwei Schwertern bekannt; Vorschlag für AP 5.11: eine Musashi-Karte mit
+  Entscheidung 13 – umgesetzt nach 1.8.0:* **Ragnar** ruft jetzt **Runensteine** (Heilrune, Feuerrune, Schutzrune,
+  Kraftrune) statt „Totems“, die es in der nordischen Überlieferung nicht gibt; nur Namen und Texte, Engine-IDs
+  `totem_*` und Spielstände bleiben, neue Motive stehen in AP 1.2. **Dandolo** – *Verborgene Klinge*
+  passte eher zum Zehnerrat als zum blinden Dogen und Flottenführer; die Fähigkeit heißt jetzt **Rammsporn der
+  Galeeren** (gleiche Wirkung). **Musashi** ist für den Kampf mit zwei Schwertern bekannt; Vorschlag für AP 5.11: eine Musashi-Karte mit
   Doppelschlag.
 - Abnahme: 10 Chronikseiten – **bitte gegenlesen** (Heldenwahl → Chronik).
 
@@ -1147,8 +1150,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 11. ~~**Neue Helden** (AP 5.10)~~ – *entschieden (Sitzung 5):* Welle 1 nach meinem Vorschlag – Perikles, Marcus Agrippa,
     Amanirenas, Anna Komnene, Nezahualcóyotl, Hōjō Masako.
 12. ~~**Platzhalter** (AP 5.12)~~ – *freigegeben:* neue Karten und Helden zuerst mit gestalteten Platzhaltern.
-13. **Namen aus der Chronik-Prüfung** (AP 5.9): Ragnars „Totems“ → „Runensteine“? Dandolos *Verborgene Klinge* →
-    *Rammsporn der Galeeren*? (Nur Namen und Texte, Wirkung und Spielstände bleiben.)
+13. ~~**Namen aus der Chronik-Prüfung** (AP 5.9)~~ – *entschieden:* Ragnars Totems heißen Runensteine, Dandolos
+    Fähigkeit *Rammsporn der Galeeren*; umgesetzt nach 1.8.0 (nur Namen und Texte, kommt mit der nächsten APK).
 
 ---
 
@@ -1193,16 +1196,18 @@ Sitzung 3 (1.6.0) AP 5.1, AP 5.2; Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6; Sitz
    Länge? Was soll anders heißen oder fehlt?
 3. Zwei, drei Partien mit den neuen Karten (Sammlung → Seltenheit „Gewöhnlich“/„Selten“; über Packs oder „Alle Karten
    zeigen“): Tarnung, Bannung, Plünderung, Tödliches Gift, Belastung. Wirken die Platzhalter ordentlich genug?
-4. Offene Entscheidungen **13** (Ragnars Totems → Runensteine, Dandolos Klinge → Rammsporn?), weiterhin **2**, **3**,
-   **5**, **7**.
-5. *Optional, parallel:* Motive aus `ungenutzte_assets/MOTIVE.md` erzeugen (fertige Prompts, Ablage
-   `ungenutzte_assets/karten/<id>.png`) – die nächste Sitzung baut sie ein.
+4. Offene Entscheidungen weiterhin **2**, **3**, **5**, **7**.
+5. *Asset-Aufgabe (AP 1.2):* Die Menüs reichen auf dem OnePlus 15 noch nicht ganz an den Rand – dafür den
+   **randlosen Hintergrund für Untermenüs und Dialoge** (4000 × 1600, Prompt in AP 1.2) erzeugen, dazu die vier
+   **Runensteine** und die Motive aus `ungenutzte_assets/MOTIVE.md` (fertige Prompts, Ablage
+   `ungenutzte_assets/karten/<id>.png`). Hilfreich: ein Screenshot vom OnePlus, auf dem man den Rand sieht – die
+   nächste Sitzung baut die Bilder ein und zieht die Bühne bei Bedarf auch in die Kamera-Aussparung (Safe Area).
 
 **Sitzung 6 – AP 5.10 Welle 1 (sechs neue Helden) auf datengetriebenen Heldenfähigkeiten**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.8.0 | Chronik-Korrekturen, Entscheidung 13, Werte der neuen Karten | kurz, Balance-Lauf läuft ohnehin |
+| Rückmeldung 1.8.0 | Chronik-Korrekturen, Werte der neuen Karten; Menüs ganz bis an den Rand (neuer Hintergrund aus AP 1.2, Safe Area); Version 1.8.1/1.9.0 mit den Runensteinen und dem Rammsporn | kurz, Balance-Lauf läuft ohnehin |
 | AP 5.10 Engine | Heldenfähigkeiten als Daten statt `switch` in `engine.js` (Ziel, Wirkung, Bedingung), Zeitalter als Datenfeld (`era`-Gruppe) | ohne das braucht jeder neue Held Sonderfall-Code |
 | AP 5.10 Welle 1 | Perikles, Marcus Agrippa, Amanirenas, Anna Komnene, Nezahualcóyotl, Hōjō Masako: je Chronikseite (Vorlage AP 5.9), 10 eigene Karten mit den neuen Schlüsselwörtern, Startdeck, Kampagnenmission, KI-Bewertung; Porträt und Motive als Platzhalter (AP 5.12) | Entscheidung 11 steht, Platzhalter und Chronik sind da |
 | Balance | voller Lauf mit 16 Helden (136 Paarungen statt 55, ≈ 15 min), jeder neue Held 47–53 % | Abnahme von AP 5.10 |
@@ -1214,8 +1219,8 @@ immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Balance-La
 **Text zum Kopieren für den Start:**
 
 > Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.10 (Engine-Teil und Welle 1 mit sechs
-> neuen Helden)** ab und übernimm mein Feedback zu Version 1.8.0: *(hier Feedback, Korrekturen zur Chronik und Antwort
-> zu Entscheidung 13 einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische
+> neuen Helden)** ab und übernimm mein Feedback zu Version 1.8.0: *(hier Feedback, Korrekturen zur Chronik und den
+> Screenshot zum Menürand einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische
 > Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen Tests, den Balance-Lauf und den Klickpfad
 > (falls notwendig) laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere
 > Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende
