@@ -30,31 +30,36 @@ const cut=b=>`background-position:${f(-b.x-H.bgOffset)}px ${f(-b.y)}px`;
 const poly=(pts,b)=>`polygon(${pts.map(([x,y])=>`${f(sx(x)-b.x)}px ${f(sy(y)-b.y)}px`).join(',')})`;
 const disc=(c,r)=>({x:sx(c[0]-r),y:sy(c[1]-r),w:2*r*K,h:2*r*K});
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function plate(p,i){const b=box(PLATES[i]),clip=poly(PLATES[i],b);
- return `<button class="cut plate ${p.gold?'gold':''}" style="${pos(b)};--i:${i}" aria-label="${esc(p.title)}: ${esc(p.sub)}" onclick="App.menuGo(this,'${p.go}')"><span class="slot" style="clip-path:${clip}"></span><span class="face" style="clip-path:${clip};${cut(b)}"></span><span class="shine" style="clip-path:${clip}"></span><span class="label"><b>${esc(p.title)}</b><small>${esc(p.sub)}</small></span></button>`;}
-function rail(id,title,badge,i){const g=RAILS[id],m=disc(g.c,MEDAL),[x0,y0,x1,y1]=g.rail,rb={x:sx(x0),y:sy(y0),w:(x1-x0)*K,h:(y1-y0)*K};
+// Pressed and lit come from the view model (viewmodel/menu.js); a press is a data-cmd like everywhere else.
+const state=(st,id)=>`${st.pressed===id?' pressed':''}${st.lit===id?' lit':''}`;
+function plate(p,i,st){const b=box(PLATES[i]),clip=poly(PLATES[i],b);
+ return `<button class="cut plate ${p.gold?'gold':''}${state(st,p.go)}" style="${pos(b)};--i:${i}" aria-label="${esc(p.title)}: ${esc(p.sub)}" data-cmd="press" data-a="${p.go}" data-key="plate-${p.go}"><span class="slot" style="clip-path:${clip}"></span><span class="face" style="clip-path:${clip};${cut(b)}"></span><span class="shine" style="clip-path:${clip}"></span><span class="label"><b data-own="style">${esc(p.title)}</b><small data-own="style">${esc(p.sub)}</small></span></button>`;}
+function rail(id,title,badge,i,st){const g=RAILS[id],m=disc(g.c,MEDAL),[x0,y0,x1,y1]=g.rail,rb={x:sx(x0),y:sy(y0),w:(x1-x0)*K,h:(y1-y0)*K};
  const b={x:Math.min(m.x,rb.x),y:Math.min(m.y,rb.y)};b.w=Math.max(m.x+m.w,rb.x+rb.w)-b.x;b.h=Math.max(m.y+m.h,rb.y+rb.h)-b.y;
  const R=MEDAL*K,cx=m.x-b.x+R,cy=m.y-b.y+R,rx=rb.x-b.x,ry=rb.y-b.y;
  const lx=sx(g.label[0])-b.x,ly=sy(g.label[1])-b.y,local={x:m.x,y:m.y,w:m.w,h:m.h};
- return `<button class="cut rail" style="${pos(b)};--accent:${g.accent};--i:${i}" aria-label="${esc(title)}${badge?' ('+badge+' neu)':''}" onclick="App.menuGo(this,'${id}')"><span class="rail-flash" style="${pos({x:rx,y:ry,w:rb.w,h:rb.h})}"></span><span class="label" style="left:${f(lx)}px;top:${f(ly)}px">${esc(title)}</span><span class="medal" style="${pos({x:cx-R,y:cy-R,w:2*R,h:2*R})}"><span class="slot"></span><span class="glow"></span><span class="face" style="${cut(local)}"></span><span class="sheen"></span></span>${badge?`<span class="seal" style="left:${f(cx+R*.64)}px;top:${f(cy-R*.64)}px">${badge}</span>`:''}</button>`;}
-// p: {gold, quests, packs, plates:[{go,title,sub,gold}], version, intro}
+ return `<button class="cut rail${state(st,id)}" style="${pos(b)};--accent:${g.accent};--i:${i}" aria-label="${esc(title)}${badge?' ('+badge+' neu)':''}" data-cmd="press" data-a="${id}" data-key="rail-${id}"><span class="rail-flash" style="${pos({x:rx,y:ry,w:rb.w,h:rb.h})}"></span><span class="label" style="left:${f(lx)}px;top:${f(ly)}px">${esc(title)}</span><span class="medal" style="${pos({x:cx-R,y:cy-R,w:2*R,h:2*R})}"><span class="slot"></span><span class="glow"></span><span class="face" style="${cut(local)}"></span><span class="sheen"></span></span>${badge?`<span class="seal" style="left:${f(cx+R*.64)}px;top:${f(cy-R*.64)}px">${badge}</span>`:''}</button>`;}
+// p: {gold, quests, packs, plates:[{go,title,sub,gold}], version, intro, pressed, lit, knob} – see viewmodel/menu.js.
+// The hall element's classes belong to the entrance and the ring transition (data-own), the sparks canvas
+// to its own loop (data-static).
 H.render=p=>{const k=disc(KNOB.c,KNOB.rim),face=disc(KNOB.c,KNOB.r);
- const knob=`<button class="cut knob" style="${pos(k)}" aria-label="Einstellungen" onclick="App.menuGo(this,'settings')"><span class="face" style="${pos({x:face.x-k.x,y:face.y-k.y,w:face.w,h:face.h})};${cut(face)}"></span></button>`;
+ const knob=`<button class="cut knob${state(p,'settings')}" style="${pos(k)}" aria-label="Einstellungen" data-cmd="press" data-a="settings"><span class="face" style="${pos({x:face.x-k.x,y:face.y-k.y,w:face.w,h:face.h})};${cut(face)};--turn:${p.knob||0}deg"></span></button>`;
  const title=`<header class="hall-title" style="${pos({x:sx(74),y:sy(112),w:(537-74)*K,h:(276-112)*K})}"><h1>AETERNA</h1><p>Das historische Kartenduell</p></header>`;
  const gold=`<div class="hall-gold" role="status" aria-label="${p.gold} Gold" style="${pos({x:sx(1662),y:sy(52),w:(1832-1662)*K,h:(112-52)*K})}"><b>${p.gold}</b></div>`;
- return `<div class="hall aeterna ${p.intro?'intro':''}" style="--bgw:${f(H.bgWidth)}px;--ring-x:${f(H.ring.x)}px;--ring-y:${f(H.ring.y)}px"><div class="hall-zoom" style="transform-origin:${f(H.ring.x)}px ${f(H.ring.y)}px"><div class="hall-bg"></div>
+ return `<div class="hall aeterna ${p.intro?'intro':''}" data-own="class" style="--bgw:${f(H.bgWidth)}px;--ring-x:${f(H.ring.x)}px;--ring-y:${f(H.ring.y)}px"><div class="hall-zoom" style="transform-origin:${f(H.ring.x)}px ${f(H.ring.y)}px"><div class="hall-bg"></div>
 <div class="hall-star" style="left:${f(H.star.x)}px;top:${f(H.star.y)}px"></div>${title}${gold}${knob}
-<nav class="hall-modes" aria-label="Spielmodi">${p.plates.map(plate).join('')}</nav>
-<nav class="hall-rails" aria-label="Menü">${rail('quests','Aufgaben',p.quests,0)}${rail('bazaar','Basar',0,1)}${rail('collection','Sammlung',0,2)}${rail('packs','Kartenpakete',p.packs,3)}</nav>
-<div class="hall-rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div><canvas class="hall-sparks" width="1600" height="800" aria-hidden="true"></canvas>
+<nav class="hall-modes" aria-label="Spielmodi">${p.plates.map((x,i)=>plate(x,i,p)).join('')}</nav>
+<nav class="hall-rails" aria-label="Menü">${rail('quests','Aufgaben',p.quests,0,p)}${rail('bazaar','Basar',0,1,p)}${rail('collection','Sammlung',0,2,p)}${rail('packs','Kartenpakete',p.packs,3,p)}</nav>
+<div class="hall-rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div><canvas class="hall-sparks" width="1600" height="800" aria-hidden="true" data-static></canvas>
 <footer class="hall-foot">Version ${esc(p.version)} · 140 Karten · 10 Helden · offline</footer></div></div>`;};
-// Long inscriptions shrink until they fit between the rivets of their plate.
-H.fit=el=>{for(const t of el.querySelectorAll('.plate .label b,.plate .label small')){const max=t.closest('.plate').offsetWidth*(t.tagName==='B'?.72:.8),w=t.offsetWidth;if(w<=max)continue;
+// Long inscriptions shrink until they fit between the rivets of their plate. Each label is measured once
+// (a plate with new text is a new node); the patcher leaves the fitted size alone (data-own="style").
+H.fit=el=>{for(const t of el.querySelectorAll('.plate .label b,.plate .label small')){if(t.__fit)continue;t.__fit=true;const max=t.closest('.plate').offsetWidth*(t.tagName==='B'?.72:.8),w=t.offsetWidth;if(w<=max)continue;
  const cs=getComputedStyle(t),k=max/w*.98;t.style.fontSize=parseFloat(cs.fontSize)*k+'px';t.style.letterSpacing=(parseFloat(cs.letterSpacing)||0)*k+'px';}};
 // The entrance (≤ 700 ms) ends on any touch; that touch does not trigger a button.
-H.mount=el=>{H.fit(el);const hall=el.querySelector('.hall');if(!hall)return;const fx=sparks(hall);if(!hall.classList.contains('intro'))return;let swallow=false;
+H.mount=(el,done=()=>{})=>{H.fit(el);const hall=el.querySelector('.hall');if(!hall)return;const fx=sparks(hall);if(!hall.classList.contains('intro'))return;let swallow=false;
  if(fx)setTimeout(()=>fx.burst(H.star.x,H.star.y,34,1.4),420);
- const end=()=>{hall.classList.remove('intro');clearTimeout(timer);};const timer=setTimeout(end,760);
+ const end=()=>{hall.classList.remove('intro');clearTimeout(timer);done();};const timer=setTimeout(end,760);
  hall.addEventListener('pointerdown',()=>{if(hall.classList.contains('intro')){swallow=true;end();}},{capture:true});
  hall.addEventListener('click',ev=>{if(swallow){swallow=false;ev.stopPropagation();ev.preventDefault();}},{capture:true});};
 // Golden particles on one canvas over the hall: embers rise through the warm light, dust drifts in the rays,
@@ -99,6 +104,8 @@ function sparks(hall){const canvas=hall.querySelector('.hall-sparks');if(!canvas
    const pulse=.8+.2*Math.sin(now/260+c.t*3);for(let j=c.trail.length-1;j>=0;j--)draw(SPRITES.glow,c.trail[j][0],c.trail[j][1],(24-j*1.6)*(j?1:1.2),(1-j/9)*pulse);if(Math.random()<dt*8)add({x,y,vx:rnd(-24,24),vy:rnd(-36,12),s:rnd(8,13),life:rnd(.35,.7)});}
   requestAnimationFrame(frame);};
  requestAnimationFrame(frame);H.particles=()=>P.length;return api;}
+// MVVM view for the menu: the hall re-renders from viewmodel/menu.js and keeps its nodes.
+H.view={render:vm=>H.render(vm.view),mounted:(el,vm)=>H.mount(el,()=>vm.introDone()),updated:el=>H.fit(el)};
 // Fonts and the decoded picture are ready before the hall is shown, so nothing pops in late.
 H.preload=()=>Promise.all([...['700 66px "Aeterna Zier"','700 33px "Aeterna Titel"','600 16px "Aeterna Titel"','500 17px "Aeterna Text"','700 23px "Aeterna Text"'].map(font=>document.fonts.load(font).catch(()=>null)),
  new Promise(resolve=>{const im=new Image();H.picture=im;im.onload=()=>(im.decode?im.decode():Promise.resolve()).catch(()=>null).then(resolve);im.onerror=()=>resolve();im.src=ART.src;})]);

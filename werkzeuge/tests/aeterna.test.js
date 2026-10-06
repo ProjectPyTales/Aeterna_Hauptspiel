@@ -2,7 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs'),os=require('node:os');
 const {execFileSync}=require('node:child_process');
 const root=path.join(__dirname,'../..'),game=path.join(root,'quellcode/assets/game');
-const K=require(path.join(game,'cosmetics.js')),P=require(path.join(game,'profile.js')),D=require(path.join(game,'data.js'));
+const K=require(path.join(game,'model/cosmetics.js')),P=require(path.join(game,'model/profile.js')),D=require(path.join(game,'model/data.js'));
 const tool=path.join(root,'werkzeuge/manifest_version.py'),manifest=path.join(root,'quellcode/AndroidManifest.xml');
 const info=file=>execFileSync('python3',[tool,file,'--info'],{encoding:'utf8'}).trim().split(' ');
 const read=file=>fs.readFileSync(path.join(game,file),'utf8');
@@ -28,17 +28,18 @@ test('Manifest-Werkzeug baut den String-Pool für längere und kürzere Namen ne
 });
 
 test('Spielstand-Schlüssel und interne IDs bleiben trotz Umbenennung gleich',()=>{
- const app=read('app.js');
- for(const key of ["'chroniken.profile'","'chroniken.backup'"])assert.ok(app.includes(key),key);
+ const S=require(path.join(game,'model/store.js'));
+ assert.equal(S.KEY,'chroniken.profile');
+ assert.equal(S.BACKUP,'chroniken.backup');
  assert.equal(K.find('backs','chroniken').name,'Aeterna-Siegel');
  assert.equal(P.fresh().cosmetics.equipped.back,'chroniken');
 });
 
 test('Sichtbare Texte heißen Aeterna',()=>{
- const html=read('index.html'),app=read('app.js');
+ const html=read('index.html'),code=['app.js',...['view','viewmodel'].flatMap(dir=>fs.readdirSync(path.join(game,dir)).filter(f=>f.endsWith('.js')).map(f=>dir+'/'+f))].map(read).join('');
  assert.match(html,/<title>Aeterna<\/title>/);
- assert.doesNotMatch(html+app,/CHRONIKEN|Chroniken-Pack|Chroniken-Spielstand/);
- assert.ok(app.includes("a.download='Aeterna-Spielstand.json'"));
+ assert.doesNotMatch(html+code,/CHRONIKEN|Chroniken-Pack|Chroniken-Spielstand/);
+ assert.equal(require(path.join(game,'model/store.js')).EXPORT_NAME,'Aeterna-Spielstand.json');
 });
 
 test('Tagesduell: fester Startwert pro Tag, zwei verschiedene Helden',()=>{

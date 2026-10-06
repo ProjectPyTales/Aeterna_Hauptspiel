@@ -1,7 +1,7 @@
 // node --test werkzeuge/tests/
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
-const K=require(path.join(game,'cosmetics.js')),P=require(path.join(game,'profile.js'));
+const K=require(path.join(game,'model/cosmetics.js')),P=require(path.join(game,'model/profile.js'));
 
 test('neues Profil: Standard freigeschaltet und ausgerüstet',()=>{
  const p=P.fresh();
@@ -63,6 +63,6 @@ test('Katalog: 8 Rücken, 10 Skins, 5 Schlachtfelder, Preise laut Vorgabe',()=>{
  assert.equal(K.catalog.backs.length,8);
  assert.equal(K.catalog.skins.length,10);
  assert.deepEqual(K.catalog.boards.map(b=>[b.id,b.name,b.price]),[['standard','Standard',0],['ancient','Griechischer Marmor',100],['egypt','Pharaonen-Gruft',100],['viking','Wikinger-Basalt',100],['japan','Zen-Schiefer',100]]);
- const D=require(path.join(game,'data.js'));
+ const D=require(path.join(game,'model/data.js'));
  assert.deepEqual(K.catalog.skins.map(s=>s.hero),D.heroes.map(h=>h.id));
 });

@@ -1,7 +1,7 @@
 // Rauchtest: Die Regel-Engine ist unverändert und spielt 100 KI-Partien vollständig durch.
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
-const D=require(path.join(game,'data.js')),E=require(path.join(game,'engine.js'));
+const D=require(path.join(game,'model/data.js')),E=require(path.join(game,'model/engine.js'));
 
 test('100 simulierte Partien enden regelkonform',()=>{
  let finished=0;
