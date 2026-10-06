@@ -80,7 +80,7 @@ ragnar:{life:'9. Jahrhundert (Sagenheld)',epoch:'Wikingerzeit',place:'Skandinavi
   'Ein Wikingerführer namens Reginherus fuhr 845 die Seine hinauf und plünderte Paris, bis König Karl der Kahle ein Lösegeld von 7000 Pfund Silber zahlte; er wird oft mit Ragnar gleichgesetzt.',
   'Nach der Saga starb er in der Schlangengrube König Ællas von Northumbrien; seine Söhne rächten ihn mit dem Großen Heer von 865.'],
  quote:'Grunzen würden die Ferkel, wüssten sie, wie es dem alten Eber ergeht.',source:'Ragnars Worte in der Schlangengrube, Ragnars saga loðbrókar',
- style:'Ragnar ruft die Ahnen: Totems, Runen und Krieger, die aushalten und zurückschlagen.',
+ style:'Ragnar ruft die Ahnen: Runensteine und Krieger, die aushalten und zurückschlagen.',
  favorites:['ragnar_3','ragnar_4','ragnar_9'],
  relations:[['Lagertha','Schildmaid und Ehefrau nach Saxo Grammaticus, als Legendäre auf seiner Seite'],['Jeanne d’Arc','Rivalin: Frankreich gegen die Nordmänner'],['Auðr die Tiefsinnige','künftige Gefährtin (AP 5.10): Wikingerin, die Island besiedelte']],
  voice:'dröhnend, spöttisch, wild',music:'Lure, Tagelharpa, Wellen und Schildschläge'},

@@ -82,12 +82,12 @@ test('La Hire: Rekruten +1/+1 mit Göttlicher Gunst, die Heldenfähigkeit ruft z
  for(const u of s.players[0].board)assert.deepEqual([u.attack,u.health],[1,1],'ohne La Hire wieder 1/1');
 });
 
-test('Lagertha: ruft jedes Totem, Totems haben Schildwall und +1 Leben',()=>{
+test('Lagertha: ruft jeden Runenstein, Runensteine haben Schildwall und +1 Leben',()=>{
  const s=ready('ragnar','khan');play(s,'ragnar_9');
  assert.deepEqual(ids(s.players[0]),['ragnar_9','totem_heal','totem_fire','totem_guard','totem_strength']);
  for(const u of s.players[0].board.slice(1)){assert.ok(u.taunt);assert.equal(u.health,3);}
  s.players[0].board[0].health=0;E.settle(s);
- const [heal,,guard]=s.players[0].board;assert.equal(heal.taunt,false);assert.equal(heal.health,2);assert.equal(guard.taunt,true,'Schutztotem behält Schildwall');
+ const [heal,,guard]=s.players[0].board;assert.equal(heal.taunt,false);assert.equal(heal.health,2);assert.equal(guard.taunt,true,'Schutzrune behält Schildwall');
 });
 
 test('Zenobia: übernimmt einen feindlichen Diener mit höchstens 4 Angriff',()=>{
