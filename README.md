@@ -752,20 +752,57 @@ auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2)
 - Abnahme: 10 Chronikseiten, von dir gegengelesen.
 
 **AP 5.10 – Neue Helden (M)**
-- [ ] Vorschläge für Epochen, die noch fehlen (Werte und Fähigkeiten vorläufig, erst nach Simulation festlegen):
 
-  | Held | Epoche | Heldenfähigkeit (Vorschlag) | Spielstil |
-  |---|---|---|---|
-  | Hannibal Barkas | Karthago, 3. Jh. v. Chr. | **Alpenzug:** Ein eigener Diener erhält Vorstoß | Überraschende Angriffe, Kriegselefanten |
-  | Kyros der Große | Persien, 6. Jh. v. Chr. | **Königsstraße:** Zieht eine Karte, wenn Ihr 3+ Diener habt | Breites Feld, Toleranz-Bündnisse |
-  | Wu Zetian | Tang-China, 7. Jh. | **Kaiserliches Edikt:** Eine Karte in Eurer Hand kostet 1 weniger | Kontrolle, Beamte, späte Stärke |
-  | Mansa Musa | Mali, 14. Jh. | **Goldkarawane:** +1 Mana nur in diesem Zug (einmal je 2 Züge) | Reichtum, große Karten früher |
-  | Theodora | Byzanz, 6. Jh. | **Purpurgeboren:** Ein eigener Diener erhält Göttliche Gunst | Schutz, Intrigen, Heilung |
-  | Saladin | Ayyubiden, 12. Jh. | **Ritterlichkeit:** Heilt beide Helden um 2, Ihr zieht eine Karte | Ausdauer, faire Duelle |
+*Deine Vorgabe (Sitzung 2):* mehr Vielfalt innerhalb der Epochen, echte und wichtige Persönlichkeiten, aber nicht
+die weltbekannten – so wie Perikles statt Alexander. Auswahlregeln für die Liste: historisch belegt, in ihrer Zeit
+bedeutend, außerhalb von Fachkreisen wenig bekannt; Frauen und Männer, alle Weltregionen; nichts nach etwa 1700.
 
-  Mit dir abstimmen, welche (und wie viele) kommen; je Held 10 eigene Karten, Startdeck, Kampagnenmission und
-  KI-Persönlichkeit (AP 5.8).
-- [ ] Engine: Heldenfähigkeiten datengetrieben machen, damit neue Helden keinen Sonderfall-Code brauchen.
+**Zeitalter statt Einzelhelden.** Die Helden werden zu Zeitaltern gruppiert. Jedes Zeitalter bekommt eine
+Spielfeldhälfte (AP 1.8) und einen kleinen Pool gemeinsamer Zeitalterkarten (6–8), jeder Held zusätzlich
+10 eigene Karten. Das bringt Vielfalt innerhalb einer Epoche (zwei Griechen spielen sich verschieden) und spart
+Grafiken: eine Spielfeldhälfte je Zeitalter statt je Held. Rivalen und Verbündete schaffen Geschichten für
+Kampagne und Dialoge (AP 4.3).
+
+Vorschläge (Heldenfähigkeit je 2 Mana, Werte vorläufig, erst nach Simulation festlegen; *neu* = braucht ein
+Schlüsselwort aus AP 5.4/5.5):
+
+| Zeitalter | Persönlichkeit | Wer war das? | Heldenfähigkeit (Vorschlag) | Spielstil |
+|---|---|---|---|---|
+| Alter Orient & Ägypten *(bisher: Imhotep)* | **Enheduanna** (um 2285–2250 v. Chr.) | Hohepriesterin in Ur, Tochter Sargons von Akkad – die erste namentlich bekannte Autorin der Welt | **Tempelhymne:** Ergründet einen Zauber, er kostet 1 weniger *(neu: Ergründen)* | Zauber und Wissen |
+| | **Ahhotep I.** (16. Jh. v. Chr.) | Königin von Theben im Befreiungskrieg gegen die Hyksos; die „goldenen Fliegen“, Ehrenzeichen für Tapferkeit, werden ihr zugeschrieben | **Goldene Fliege:** Ein eigener Diener erhält +1/+1 | Kleine Armee, die wächst |
+| Griechische Antike *(bisher: Leonidas, Hypatia)* | **Perikles** (um 495–429 v. Chr.) | Führender Staatsmann Athens, Bauprogramm der Akropolis, Attischer Seebund | **Bauherr der Akropolis:** Ein eigenes Bauwerk erhält +2 Haltbarkeit; ohne Bauwerk 2 Rüstung *(neu: Bauwerke)* | Bauwerke, breites Feld |
+| | **Epaminondas** (um 418–362 v. Chr.) | Thebanischer Feldherr, brach 371 v. Chr. bei Leuktra Spartas Vorherrschaft mit der „schiefen Schlachtordnung“ | **Schiefe Schlachtordnung:** Euer Diener ganz links erhält +2 Angriff in diesem Zug | Position zählt; **Rivale von Leonidas** |
+| | **Artemisia I. von Karien** (5. Jh. v. Chr.) | Herrscherin von Halikarnassos, führte bei Salamis 480 v. Chr. eigene Schiffe | **Falsche Flagge:** Ein eigener Diener erhält Tarnung bis zu seinem nächsten Angriff *(neu: Tarnung)* | Täuschung, Hinterhalte |
+| Rom *(neu)* | **Marcus Vipsanius Agrippa** (63–12 v. Chr.) | Feldherr hinter Augustus (Actium), Bauherr des ersten Pantheons und mehrerer Aquädukte | **Legionspioniere:** Ruft einen Pionier (1/2); solange er lebt, kosten Eure Bauwerke 1 weniger | Legionen und Bauwerke |
+| | **Quintus Fabius Maximus** (um 280–203 v. Chr.) | Der „Zauderer“: zermürbte Hannibal durch Hinhalten statt offener Schlacht | **Cunctator:** Ein feindlicher Diener erhält Starre *(neu: Starre)* | Kontrolle, Zeit gewinnen |
+| Persien & Steppe *(bisher: Dschingis Khan)* | **Schapur I.** (um 215–270) | Sasanidischer Großkönig, nahm 260 den römischen Kaiser Valerian gefangen | **Panzerreiter:** Ruft einen Kataphrakten (2/1, Vorstoß), höchstens einer zugleich *(neu: Vorstoß)* | Schwere Reiterei; Rivale Roms |
+| | **Mandukhai Khatun** (um 1449–1510) | Regentin, einte die zerfallenen Mongolenstämme erneut und zog selbst in die Schlacht | **Stammesbündnis:** Habt Ihr 3+ Diener, erhalten alle +1 Leben; sonst einer +1/+1 | Breite statt Pfeile |
+| Afrika *(neu)* | **Amanirenas** (1. Jh. v. Chr.) | Kandake (Königin) von Kusch, führte 25–21 v. Chr. Krieg gegen Rom und erbeutete den Bronzekopf des Augustus | **Kandake:** 1 Schaden an einen feindlichen Diener; stirbt er, zieht eine Karte | Gezielte Schläge |
+| | **Askia Muhammad I.** (reg. 1493–1528) | Herrscher des Songhai-Reichs, machte Timbuktu zur Stadt der Gelehrten | **Gelehrte von Timbuktu:** Ergründet eine Karte aus Eurem eigenen Deck *(neu: Ergründen)* | Auswahl statt Zufall |
+| Indien *(neu)* | **Raja Raja Chola I.** (reg. 985–1014) | Herrscher der Chola, baute den Brihadisvara-Tempel in Thanjavur, Flottenzüge bis Sri Lanka | **Tempelstadt:** Euer nächstes Bauwerk in diesem Zug kostet 2 weniger; sonst 2 Rüstung *(neu: Bauwerke)* | Bauwerke, Flotte |
+| | **Rani Durgavati** (1524–1564) | Königin der Gond, verteidigte ihr Reich gegen das Mogulreich | **Elefantenwacht:** Ein eigener Diener erhält Spott (später Schildwall) und +1 Leben | Verteidigung |
+| China, Korea, Japan *(bisher: Musashi)* | **Fu Hao** (13. Jh. v. Chr.) | Feldherrin und Priesterin der Shang-Dynastie; ihr Grab in Anyang wurde 1976 unversehrt gefunden | **Orakelknochen:** Seht die oberste Karte Eures Decks an, legt sie oben oder unten hin; ein Diener +1 Angriff in diesem Zug | Planung, frühe Angriffe |
+| | **Seondeok von Silla** (reg. 632–647) | Erste regierende Königin Koreas, ließ das Observatorium Cheomseongdae bauen | **Sternwarte:** Seht die obersten 2 Karten Eures Decks an, eine davon kommt unter das Deck | Planung, Kombos |
+| | **Hōjō Masako** (1157–1225) | Die „Nonnen-Shōgun“: lenkte nach dem Tod ihres Mannes das Kamakura-Shogunat | **Rede an die Vasallen:** Ein eigener Diener erhält +1/+1 und Spott bis zu Eurem nächsten Zug | Gefolgschaft, Treue |
+| Byzanz & islamische Welt *(neu)* | **Anna Komnene** (1083–1153) | Byzantinische Prinzessin, Ärztin und Historikerin, schrieb die „Alexiade“ | **Alexiade:** Ergründet eine Karte, die in dieser Partie schon gespielt wurde *(neu: Ergründen)* | Chronik-Mechanik |
+| | **Fatima al-Fihri** (9. Jh.) | Gründete 859 in Fès die al-Qarawiyyin, die als älteste bestehende Universität gilt | **Haus des Wissens:** Ergründet ein Bauwerk, es kostet 1 weniger *(neu: Bauwerke)* | Bauwerke, Wissen |
+| | **Baibars** (um 1223–1277) | Mamlukensultan, schlug 1260 bei Ain Dschalut die Mongolen | **Mamlukenreiter:** Ein eigener Diener erhält Vorstoß *(neu: Vorstoß)* | Gegenangriff; **Rivale von Dschingis Khan** |
+| Europäisches Mittelalter *(bisher: Boudicca, Ragnar, Jeanne, Dandolo)* | **Olga von Kiew** (um 890–969) | Regentin der Kiewer Rus, rächte ihren Mann mit List an den Drewljanen | **Olgas Rache:** 1 Schaden an einen feindlichen Diener, 2 wenn in diesem Zug ein eigener Diener gestorben ist | Vergeltung |
+| | **Auðr die Tiefsinnige** (9. Jh.) | Führte laut Landnahmebuch ihre Sippe nach Island und verteilte dort Land an ihr Gefolge | **Landnahme:** Ruft einen Siedler (0/2), der zu Beginn jedes Eurer Züge +1 Angriff erhält | Langsames Wachstum; Wikinger neben Ragnar |
+| | **Mathilde von Tuszien** (1046–1115) | Markgräfin, auf ihrer Burg Canossa trafen sich 1077 Kaiser und Papst | **Canossa:** Ein Diener (beliebig) kann bis zu Eurem nächsten Zug weder angreifen noch angegriffen werden | Diplomatie, Zeit kaufen |
+| | **Jan Žižka** (um 1360–1424) | Hussitischer Feldherr, nie besiegt, kämpfte mit der Wagenburg – zuletzt erblindet | **Wagenburg:** Ruft einen Kriegswagen (0/3, Spott) | Unüberwindbare Verteidigung |
+| | **Bertrand du Guesclin** (um 1320–1380) | Konnetabel von Frankreich, holte im Hundertjährigen Krieg Burg um Burg zurück | **Kleinkrieg:** 2 Schaden an einen bereits beschädigten Diener | **Verbündeter von Jeanne** |
+| Renaissance *(bisher: Nostradamus)* | **Federico da Montefeltro** (1422–1482) | Söldnerführer und Herzog von Urbino, besaß eine der größten Bibliotheken seiner Zeit | **Condotta:** Ruft einen Söldner (3/2); nächster Zug 1 Mana weniger *(neu: Belastung)* | Kaufkraft gegen Tempo |
+| Amerika *(neu)* | **Nezahualcóyotl** (1402–1472) | Dichterkönig von Texcoco, baute Dämme und das Aquädukt von Chapultepec | **Blumenlied:** Stellt bei allen eigenen Dienern 1 Leben wieder her | Ausdauer, breite Heilung |
+| | **Ix Wak Chan Ajaw** („Lady Six Sky“, um 682–741) | Maya-Herrscherin von Naranjo, führte zahlreiche Feldzüge | **Sternenkrieg:** Ein eigener Diener +2 Angriff in diesem Zug; tötet er einen Diener, zieht eine Karte | Angriff mit Belohnung |
+
+- [ ] Du wählst aus. **Mein Vorschlag für Welle 1 (6 Helden, größtmögliche Vielfalt):** Perikles (Griechenland),
+  Marcus Agrippa (Rom), Amanirenas (Kusch), Anna Komnene (Byzanz), Nezahualcóyotl (Texcoco), Hōjō Masako (Japan).
+  Welle 2 als Rivalen und Gegenstücke: Epaminondas, Baibars, Jan Žižka, Fabius Maximus, Fu Hao, Mandukhai.
+- [ ] Je Held: Chronikseite wie in AP 5.9, 10 eigene Karten, Startdeck, Kampagnenmission, KI-Persönlichkeit
+  (AP 5.8), Porträt zunächst als Platzhalter (AP 5.12).
+- [ ] Engine: Heldenfähigkeiten datengetrieben machen, damit neue Helden keinen Sonderfall-Code brauchen;
+  Zeitalter als Datenfeld (`era`-Gruppe) mit Zeitalterkarten.
 - Abnahme: Simulationslauf (AP 5.1) mit allen Helden, jeder neue Held 47–53 % gegen das Feld.
 
 **AP 5.11 – Karteneffekte überarbeiten und Set vergrößern (L)**
@@ -778,7 +815,7 @@ auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2)
 - [ ] Budgetformel und Simulation entscheiden die Werte (AP 5.7): keine Welle ohne Balance-Lauf und KI-Bewertung.
 - Abnahme: je Welle Simulationsbericht, Legendäre ≤ 55 % „gewinnt, wenn gezogen“, keine Karte über 60 %.
 
-**AP 5.12 – Platzhalter für fehlende Grafiken (S)** – *Antwort auf deine Frage: ja, mit Platzhaltern.*
+**AP 5.12 – Platzhalter für fehlende Grafiken (S)** – *von dir freigegeben (Sitzung 2): erst mit Platzhaltern.*
 Regeln, Balance und KI lassen sich ohne Bilder bauen und testen; die Grafiken (AP 1.2) kommen danach gesammelt.
 So, dass es im Spiel nicht kaputt aussieht:
 - [ ] Datenfeld `art` je Karte und Held; fehlt es, zeichnet der Renderer einen **gestalteten Platzhalter** statt
@@ -841,7 +878,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) |
 | Legendäre aufwerten | AP 5.3 |
 | Hintergründe der Helden ausarbeiten | AP 5.9 |
-| Neue Helden | AP 5.10 |
+| Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 |
 | Bestehende Karteneffekte überarbeiten | AP 5.11 |
 | Platzhalter statt fehlender Grafiken | AP 5.12 |
 | Heldenbalance | AP 5.1, AP 5.2 |
@@ -890,9 +927,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 10. **Code-Struktur:** Deinen Wunsch „MVVP“ habe ich als **MVVM** (Model – View – ViewModel) umgesetzt. Falls du
     MVP (Model – View – Presenter) gemeint hast: Die Schichten bleiben gleich, nur die Rolle der Mittelschicht
     ändert sich – bitte kurz bestätigen.
-11. **Neue Helden** (AP 5.10): Welche der Vorschläge (oder andere Persönlichkeiten) sollen kommen, und wie viele?
-12. **Platzhalter** (AP 5.12): Einverstanden, neue Karten erst mit gestalteten Platzhaltern zu bauen und die Motive
-    später gesammelt zu erzeugen?
+11. **Neue Helden** (AP 5.10): Deine Vorgabe steht (wichtig, echt, nicht weltbekannt, mehr Vielfalt je Epoche).
+    Offen ist die Auswahl aus den 27 Vorschlägen – mein Vorschlag für Welle 1 steht in AP 5.10.
+12. ~~**Platzhalter** (AP 5.12)~~ – *freigegeben:* neue Karten und Helden zuerst mit gestalteten Platzhaltern.
 
 ---
 
