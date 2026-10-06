@@ -58,7 +58,7 @@ H.fit=el=>{for(const t of el.querySelectorAll('.plate .label b,.plate .label sma
  const cs=getComputedStyle(t),k=max/w*.98;t.style.fontSize=parseFloat(cs.fontSize)*k+'px';t.style.letterSpacing=(parseFloat(cs.letterSpacing)||0)*k+'px';}};
 // The entrance (≤ 700 ms) ends on any touch; that touch does not trigger a button.
 H.mount=(el,done=()=>{})=>{H.fit(el);const hall=el.querySelector('.hall');if(!hall)return;const fx=sparks(hall);if(!hall.classList.contains('intro'))return;let swallow=false;
- if(fx)setTimeout(()=>fx.burst(H.star.x,H.star.y,34,1.4),420);
+ if(fx)setTimeout(()=>fx.burst(H.star.x,H.star.y,14,.9),420);
  const end=()=>{hall.classList.remove('intro');clearTimeout(timer);done();};const timer=setTimeout(end,760);
  hall.addEventListener('pointerdown',()=>{if(hall.classList.contains('intro')){swallow=true;end();}},{capture:true});
  hall.addEventListener('click',ev=>{if(swallow){swallow=false;ev.stopPropagation();ev.preventDefault();}},{capture:true});};
@@ -90,7 +90,7 @@ function sparks(hall){const canvas=hall.querySelector('.hall-sparks');if(!canvas
   for(due.ember+=dt*7;due.ember>=1;due.ember--)add({x:rnd(0,1600),y:rnd(380,830),vx:rnd(-10,10),vy:rnd(-55,-20),s:rnd(10,20),life:rnd(4,8),wob:rnd(8,26),tw:rnd(2,5),a:rnd(.7,1)});
   for(due.dust+=dt*2.5;due.dust>=1;due.dust--)add({x:rnd(820,1600),y:rnd(0,640),vx:rnd(-9,5),vy:rnd(-9,6),s:rnd(6,11),life:rnd(6,10),wob:rnd(3,8),tw:rnd(.8,2),a:rnd(.4,.65)});
   for(due.orb+=dt*.35;due.orb>=1;due.orb--)add({x:rnd(100,1500),y:rnd(120,760),vx:rnd(-6,6),vy:rnd(-12,-3),s:rnd(30,48),life:rnd(7,12),wob:rnd(4,10),tw:rnd(.4,1),a:rnd(.35,.6),sprite:SPRITES.orb});
-  for(due.glint+=dt*1.8;due.glint>=1;due.glint--)add({x:H.star.x+rnd(-75,75),y:H.star.y+rnd(-30,50),s:rnd(18,34),life:rnd(.5,1),sprite:SPRITES.star,a:1});};
+  for(due.glint+=dt*.5;due.glint>=1;due.glint--)add({x:H.star.x+rnd(-55,55),y:H.star.y+rnd(-25,35),s:rnd(10,18),life:rnd(.5,.9),sprite:SPRITES.star,a:.7});};
  const draw=(sprite,x,y,s,a)=>{if(a<=.01)return;g.globalAlpha=Math.min(1,a);g.drawImage(sprite,x-s/2,y-s/2,s,s);};
  const frame=now=>{if(!canvas.isConnected){window.removeEventListener('resize',fit);return;}
   const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;

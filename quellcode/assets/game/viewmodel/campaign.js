@@ -1,4 +1,4 @@
-/* Campaign view model: ten missions; each victory unlocks the next. */
+/* Campaign view model: sixteen missions (ten plus the new chronicles of AP 5.10); each victory unlocks the next. */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
 const D=node?require('../model/data.js'):root.CHD;

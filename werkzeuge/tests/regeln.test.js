@@ -7,7 +7,7 @@ test('100 simulierte Partien enden regelkonform',()=>{
  let finished=0;
  for(let g=0;g<100;g++){
   const seed=1000+g*7919,r={seed};
-  const hero=D.heroes[g%10].id,foe=D.heroes[(g*3+1)%10].id;
+  const n=D.heroes.length,hero=D.heroes[g%n].id,foe=D.heroes[(g*3+1)%n].id;
   const s=E.create({hero,foe,deck:E.randomDeck(hero,seed),enemyDeck:E.randomDeck(foe,seed+47),mode:'free',mission:null,seed,first:g%2});
   E.mulligan(s,[]);
   let guard=0;

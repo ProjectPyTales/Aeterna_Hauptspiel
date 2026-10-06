@@ -11,7 +11,7 @@ class Menu extends Screen{
  get view(){const p=this.profile,playing=p.game&&p.game.phase!=='over',day=P.daily();
   return {gold:p.gold,packs:p.packs,version:this.version,intro:this.state.intro,pressed:this.state.pressed,lit:this.state.lit,knob:this.state.knob,
    quests:P.quests.filter(q=>!p.claimed.includes(q.id)&&p.stats[q.stat]>=q.goal).length,
-   plates:[{go:'free',title:'Schlacht',sub:'Freies Duell gegen die KI'},{go:'campaign',title:'Kampagne',sub:'Zehn historische Missionen'},
+   plates:[{go:'free',title:'Schlacht',sub:'Freies Duell gegen die KI'},{go:'campaign',title:'Kampagne',sub:D.missions.length+' historische Missionen'},
     {go:'random',title:'Kolosseum',sub:'Zufällige Helden & Decks'},
     playing?{go:'resume',title:'Partie fortsetzen',sub:'Deine gespeicherte Partie',gold:true}:{go:'daily',title:'Herausforderung',sub:`Tagesduell: ${name(day.hero)} gegen ${name(day.foe)}`}]};}
  enter(intro=false){this.state.intro=intro;this.state.pressed=null;}

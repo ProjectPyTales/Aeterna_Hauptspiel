@@ -64,5 +64,6 @@ test('Katalog: 8 Rücken, 10 Skins, 5 Schlachtfelder, Preise laut Vorgabe',()=>{
  assert.equal(K.catalog.skins.length,10);
  assert.deepEqual(K.catalog.boards.map(b=>[b.id,b.name,b.price]),[['standard','Standard',0],['ancient','Griechischer Marmor',100],['egypt','Pharaonen-Gruft',100],['viking','Wikinger-Basalt',100],['japan','Zen-Schiefer',100]]);
  const D=require(path.join(game,'model/data.js'));
- assert.deepEqual(K.catalog.skins.map(s=>s.hero),D.heroes.map(h=>h.id));
+ // Die Helden aus AP 5.10 bekommen Skins, sobald ihre Porträts gemalt sind.
+ assert.deepEqual(K.catalog.skins.map(s=>s.hero),D.heroes.slice(0,10).map(h=>h.id));
 });
