@@ -5,11 +5,14 @@ Der Versionstext wird in allen Strings ersetzt (versionName und App-Name
 String-Pool unverändert groß bleibt.
 
 Aufruf: python3 manifest_version.py quellcode/AndroidManifest.xml 6 1.2.2 1.3.0
+Nur lesen (gibt "versionName versionCode" aus):
+        python3 manifest_version.py quellcode/AndroidManifest.xml
 """
 import struct
 import sys
 
 VERSION_CODE_ATTR = 0x0101021B
+VERSION_NAME_ATTR = 0x0101021C
 
 
 def patch(data, version_code, old, new):
@@ -55,7 +58,39 @@ def patch(data, version_code, old, new):
     return bytes(b), replaced
 
 
+def read(data):
+    sp = 8
+    _, pool_header, size = struct.unpack_from('<HHI', data, sp)
+    strings_start = struct.unpack_from('<I', data, sp + 20)[0]
+
+    def string(i):
+        p = sp + strings_start + struct.unpack_from('<I', data, sp + pool_header + i * 4)[0]
+        return data[p + 2:p + 2 + 2 * struct.unpack_from('<H', data, p)[0]].decode('utf-16le')
+    off, resmap, found = sp + size, [], {}
+    while off < len(data):
+        typ, header, size = struct.unpack_from('<HHI', data, off)
+        if typ == 0x0180:
+            resmap = list(struct.unpack_from('<%dI' % ((size - header) // 4), data, off + header))
+        elif typ == 0x0102 and not found:
+            attr_start, attr_size, attr_count = struct.unpack_from('<HHH', data, off + 16 + 8)
+            for k in range(attr_count):
+                a = off + 16 + attr_start + k * attr_size
+                name = struct.unpack_from('<I', data, a + 4)[0]
+                value = struct.unpack_from('<I', data, a + 16)[0]
+                attr = resmap[name] if name < len(resmap) else None
+                if attr == VERSION_CODE_ATTR:
+                    found['code'] = value
+                elif attr == VERSION_NAME_ATTR:
+                    found['name'] = string(value)
+        off += size
+    return found['name'], found['code']
+
+
 if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        with open(sys.argv[1], 'rb') as f:
+            print(*read(f.read()))
+        sys.exit()
     path, code, old, new = sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4]
     with open(path, 'rb') as f:
         out, replaced = patch(f.read(), code, old, new)

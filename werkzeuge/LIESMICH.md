@@ -30,7 +30,18 @@ Unverändert: `data.js`, `engine.js`, `motion.js`, `layout.js`, `chronicle.js`, 
 | `assets/game/assets/art/*` | Neue Bilder (JPEG-Daten mit `.png`-Endung, da die App nur `.png` als Bild ausliefert) |
 | `assets/game/assets/audio/stone-*, scrape-*, grind-*, slam-*` | Steingeräusche (`werkzeuge/stein_sounds.py`) |
 
-## Bauen
+## Test-APK herunterladen (GitHub Actions)
+
+Bei jedem Push baut der Workflow `.github/workflows/apk.yml` die APK: Tests laufen, die APK
+wird gebaut, signiert und die Signatur geprüft.
+
+1. Im Repo auf **Actions** gehen und den obersten grünen Lauf „Test-APK bauen“ öffnen.
+2. Unten unter **Artifacts** auf `Chroniken-<Version>-Test-APK` tippen.
+3. Die heruntergeladene ZIP-Datei entpacken – darin liegt die APK.
+
+Artefakte bleiben 30 Tage erhalten. Über „Run workflow“ lässt sich jederzeit ein neuer Build starten.
+
+## Lokal bauen
 
 ```sh
 pip install cryptography
@@ -38,7 +49,8 @@ python3 werkzeuge/apk_bauen.py quellcode Chroniken-1.3.0-Test.apk \
     werkzeuge/signatur/chroniken-test.p12 chroniken-test
 ```
 
-Version ändern (gleich lange Versionstexte): `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml 7 1.3.0 1.3.1`
+- Version ändern (gleich lange Versionstexte): `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml 7 1.3.0 1.3.1`
+- Version anzeigen: `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml`
 
 ## Tests
 

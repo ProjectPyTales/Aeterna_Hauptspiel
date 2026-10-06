@@ -1,0 +1,4 @@
+# Lokale Builds; die Test-APK kommt aus GitHub Actions (Artifacts).
+/Chroniken-*-Test.apk
+/Chroniken-*-Quellcode.zip
+__pycache__/

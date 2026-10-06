@@ -1,0 +1,49 @@
+# Baut bei jedem Push die signierte Test-APK und stellt sie unter "Artifacts" zum Download bereit.
+name: Test-APK bauen
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Werkzeuge installieren
+        run: pip install cryptography apksigtool
+
+      - name: Tests (Kosmetik, Spielstand, 100 simulierte Partien)
+        run: node --test werkzeuge/tests/*.test.js
+
+      - name: Version lesen
+        id: version
+        run: |
+          read name code < <(python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml)
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "Version $name (versionCode $code)"
+
+      - name: APK bauen und signieren
+        run: >-
+          python3 werkzeuge/apk_bauen.py quellcode
+          Chroniken-${{ steps.version.outputs.name }}-Test.apk
+          werkzeuge/signatur/chroniken-test.p12 chroniken-test
+
+      - name: Signatur prüfen
+        run: apksigtool verify Chroniken-${{ steps.version.outputs.name }}-Test.apk | tee verify.txt && grep -q "v2 verified" verify.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Chroniken-${{ steps.version.outputs.name }}-Test-APK
+          path: Chroniken-${{ steps.version.outputs.name }}-Test.apk
+          compression-level: 0
+          retention-days: 30
