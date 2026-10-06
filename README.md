@@ -1,9 +1,15 @@
 # Aeterna
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 140 Karten,
-10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.3.0**
-(Cartoon-Stein-Hauptmenü, Basar mit Kartenrücken, Helden-Skins und Schlachtfeldern) – die Umbenennung
-in Aeterna ist als AP 0.3 geplant.
+10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.4.0**
+(neuer Name Aeterna, gemaltes Hauptmenü nach dem Konzeptbild, Stil-Bibel, Tagesduell); davor 1.3.0 mit
+Basar, Kartenrücken, Helden-Skins und Schlachtfeldern.
+
+![Konzeptbild und Umsetzung des Hauptmenüs](stil/vergleich-hauptmenue.jpg)
+
+> **Hinweis:** Der Code zu Version 1.4.0 (Sitzung 1: Umbenennung, Stil-Bibel, gemaltes Hauptmenü) liegt im
+> Pull Request [#3](https://github.com/thepytales/Chronicle_of_Heroes/pull/3) und kommt mit dessen Merge nach
+> `main`. Bis dahin baut `main` noch Version 1.3.0; die Stil-Bibel liegt schon unter `stil/`.
 
 Dieses Dokument ist zugleich der **Arbeitsplan** für die nächsten Sitzungen. Ziel: Aeterna soll sich so
 flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie zu sein, und vor allem Spaß machen.
@@ -31,7 +37,7 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
 9. [Deine Ideensammlung – wo sie im Plan steht](#deine-ideensammlung--wo-sie-im-plan-steht)
 10. [Offene Entscheidungen](#offene-entscheidungen)
 11. [Empfohlene Reihenfolge der Sitzungen](#empfohlene-reihenfolge-der-sitzungen)
-12. [Vorlage für den Start einer Sitzung](#vorlage-für-den-start-einer-sitzung)
+12. [Vorschlag für die nächste Sitzung](#vorschlag-für-die-nächste-sitzung)
 
 ---
 
@@ -40,12 +46,12 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
 Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`).
 
 1. Im Repo auf **Actions** gehen und den obersten grünen Lauf **„Test-APK bauen“** auf `main` öffnen.
-2. Unten unter **Artifacts** auf das APK-Artefakt tippen.
+2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen.
 3. Die ZIP-Datei entpacken – darin liegt die APK.
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update.
+installieren sich neue Versionen direkt als Update (1.3.0 → 1.4.0: einfach die neue APK installieren).
 
 ---
 
@@ -64,11 +70,14 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet.
 | `quellcode/assets/game/render.js` | Match-Zeichnung auf dem Canvas (`CHR`) |
 | `quellcode/assets/game/motion.js` | Match-Animationen (`CHM`) |
 | `quellcode/assets/game/layout.js` | Gemeinsame Geometrie für Zeichnen und Touch (`CHL`) |
-| `quellcode/assets/game/stone.js` / `stone.css` | Cartoon-Stein-Grafik, Kartenrücken, Hauptmenü, Basar |
+| `quellcode/assets/game/hall.js` / `hall.css` | Hauptmenü aus dem Konzeptbild (`CHH`): ausgeschnittene Ebenen, Auftritt, Ring-Übergang; Schriften und Farbvariablen `--ae-…` |
+| `quellcode/assets/game/stone.js` / `stone.css` | Steinplatten-Übergang, Kartenrücken, Basar |
+| `quellcode/assets/game/assets/fonts/` | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
 | `quellcode/assets/game/app.js` | Bildschirme, Navigation, Gesten, Basar-Logik |
 | `quellcode/assets/game/audio.js` | Web-Audio-Mischer (`CHA`) |
-| `werkzeuge/` | APK-Build und -Signatur, Manifest-Version, Sound-Generator, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des neuen Hauptmenüs |
+| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
+| `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs |
 
 Native Brücke (`window.Android`): `save`, `load`, `exportSave`, `importSave`, `haptic(0|1)`,
 `exitApp`. Inhalte werden unter `https://chroniken.local/` ausgeliefert; die Hülle kennt nur die
@@ -92,7 +101,9 @@ Ansturm, Waffen, Rüstung, Totems, KI-Gegner.
 - **Regeländerungen nur bewusst:** `data.js`/`engine.js` nur in Arbeitspaketen anfassen, die das
   ausdrücklich vorsehen (Phase 5), und dann mit neuen Tests und Simulationslauf.
 - **Sichtprüfung:** Jede optische Änderung per Playwright-Screenshot im Handyformat
-  (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen.
+  (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen –
+  `node werkzeuge/sichtpruefung.js` liefert beides plus Messwerte (`sichtpruefung/`, nicht im Repo).
+- **Stil:** Neue Oberflächen folgen `stil/STILBIBEL.md` (Palette als `--ae-…`-Variablen in `hall.css`).
 - **Signatur und Paket-ID:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren, Paket-ID
   `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht.
 - **Lizenzen:** Nur eigene, generierte oder klar lizenzfreie Assets (CC0/OFL/MIT), Quelle in der Credits-Liste notieren.
@@ -110,15 +121,17 @@ Warum sich das Spiel im Moment „billig“ und nicht flüssig genug anfühlt �
    ergibt bestenfalls Clipart-Niveau und wirkt primitiv – daran ändert auch Feinschliff nichts.
    Hochwertige Spiele nutzen **gemalte Texturen**: Stein mit Poren, Kanten, Abrieb, Schmutz in den Fugen,
    Metall mit Glanzlichtern, Edelsteine mit Lichtbrechung, weiche Umgebungsschatten.
+   *Stand 1.4.0:* Das Hauptmenü ist jetzt das gemalte Konzeptbild; Basar, Sammlung, Heldenwahl und Spielbrett folgen (AP 1.4–1.8).
 2. **Kein einheitlicher Stil.** Gemalte, fast realistische Kartenmotive und Spielfelder treffen auf flache
    Vektorflächen im Hauptmenü und generische Web-Oberflächen (dunkle Kästen, Standardknöpfe) in Basar,
    Sammlung und Heldenwahl.
 3. **Keine Tiefe und kein Licht.** Es gibt keine Lichtquelle, keine Schatten zwischen den Ebenen, keine
    Glanzlichter und keine Bewegung im Bild. Alles liegt platt auf einer Ebene.
 4. **Typografie ohne Charakter.** Fließtext nutzt DejaVu Sans, es fehlt eine markante Display-Schrift.
+   *Stand 1.4.0:* Cinzel, Cinzel Decorative und Alegreya Sans sind eingebunden und im Hauptmenü und Ladebildschirm im Einsatz.
 5. **Basar wie ein Webshop.** Raster aus Kästen statt Inszenierung (kein Podest, kein Licht, keine Kaufanimation).
 6. **Karten werden prozedural gezeichnet** (`R.card` in `render.js`): Verläufe und Ellipsen statt gemalter Rahmen.
-7. **Sichtbarer Fehler:** Die goldene Platte „Partie fortsetzen“ ist zu schmal für ihren Text.
+7. ~~**Sichtbarer Fehler:** Die goldene Platte „Partie fortsetzen“ ist zu schmal für ihren Text.~~ Behoben mit AP 1.3.
 
 **Was Code leisten kann und was Bilder leisten müssen:** Code übernimmt Anordnung, Animation,
 Lichteffekte darüber, Partikel, Text und Zustände (gedrückt, gesperrt). Material, Oberfläche,
@@ -193,16 +206,19 @@ Hearthstone-Schlüsselwörter (werden in AP 5.4 ersetzt), das Brennseil als Zugt
 
 ## Qualitätsziele
 
-| Bereich | Ziel |
-|---|---|
-| Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau |
-| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 |
-| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung |
-| Menüwechsel | ≤ 600 ms, unterbrechbar |
-| Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) |
-| APK-Größe | < 25 MB |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) |
-| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert |
+| Bereich | Ziel | Stand 1.4.0 (gemessen) |
+|---|---|---|
+| Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (Freigabe offen); übrige Bildschirme noch alt |
+| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü im Ruhezustand: 95 % ≤ 16,7 ms, 1 von 180 Bildern > 20 ms bei 4× gedrosselter CPU¹ |
+| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 8 ms, mit 4× gedrosselter CPU 13 ms¹ |
+| Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 567 ms (4× CPU: 575 ms), neuer Bildschirm ab 396 ms; zurück ins Menü 333 ms¹ – nicht unterbrechbar |
+| Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
+| APK-Größe | < 25 MB | 55,8 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,45 MB, Schriften 0,29 MB) |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | – (AP 5.1) |
+| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert | – (AP 5.3) |
+
+¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js`;
+Werte auf einem echten Handy können abweichen.
 
 ---
 
@@ -214,8 +230,8 @@ Jedes Arbeitspaket (AP) hat Abnahmekriterien; abhaken, wenn erfüllt.
 ### Phase 0 – Sofortkorrekturen und Umbenennung (S)
 
 **AP 0.1 – Sichtbare Fehler beheben**
-- [ ] Goldene Platte „Partie fortsetzen“: Text passt nicht (`renderMenu` in `app.js`, `.plaque.gold` in `stone.css`).
-  Entfällt, wenn AP 1.3 vorher fertig ist.
+- [x] ~~Goldene Platte „Partie fortsetzen“: Text passt nicht (`renderMenu` in `app.js`, `.plaque.gold` in `stone.css`).~~
+  Entfallen durch AP 1.3: „Partie fortsetzen“ steht auf der vierten Platte, lange Inschriften verkleinern sich automatisch.
 - [ ] Basar: Scrollposition und aktiven Reiter nach Kaufen/Ausrüsten erhalten (`renderPacks`).
 - Abnahme: Screenshots im Handy- und Tabletformat ohne Überläufe; im Basar kein Sprung nach einem Kauf.
 
@@ -223,15 +239,19 @@ Jedes Arbeitspaket (AP) hat Abnahmekriterien; abhaken, wenn erfüllt.
 - [ ] Steingeräusche (`stone`, `scrape`, `grind`, `slam`) auf dem Handy anhören, Lautstärken in `audio.js` angleichen, bei Bedarf ersetzen.
 
 **AP 0.3 – Umbenennung in „Aeterna“**
-- [ ] Texte: Fenstertitel und Ladebildschirm (`index.html`), Titeltafel im Hauptmenü, „Über das Spiel“,
+- [x] Texte: Fenstertitel und Ladebildschirm (`index.html`), Titeltafel im Hauptmenü, „Über das Spiel“,
   Packtitel „CHRONIKEN“, Kartenrücken „Chroniken-Siegel“ → „Aeterna-Siegel“ (interne ID `chroniken` bleibt),
-  Pack-Aufdeckbildschirm, Export-Dateiname im Browser (`Aeterna-Spielstand.json`).
-- [ ] App-Name auf dem Homescreen: Manifest-Label „Chroniken 1.3.0“ → „Aeterna“. Weil sich die Länge ändert,
-  muss `werkzeuge/manifest_version.py` den String-Pool neu aufbauen können (bisher nur gleich lange Ersetzung).
-- [ ] Version 1.4.0 / versionCode 7; Artefakt- und APK-Namen im Workflow auf `Aeterna-<Version>-Test`.
-- [ ] Bleibt bewusst gleich: Paket-ID, Speicher-Schlüssel, Server-Name `chroniken.local`, das In-Game-Konzept
+  Pack-Aufdeckbildschirm, Export-Dateiname im Browser (`Aeterna-Spielstand.json`). Auch der Import-Hinweis
+  und die Kartenrücken-Beschriftung; die Version steht nur noch an einer Stelle (`VERSION` in `app.js`).
+- [x] App-Name auf dem Homescreen: Manifest-Label „Chroniken 1.3.0“ → „Aeterna“. `werkzeuge/manifest_version.py`
+  baut den String-Pool jetzt neu auf (beliebige Länge, `--label`); ohne Änderung ist das Ergebnis byte-identisch,
+  `androguard` liest das neue Manifest fehlerfrei.
+- [x] Version 1.4.0 / versionCode 7; Artefakt- und APK-Namen im Workflow auf `Aeterna-<Version>-Test`.
+- [x] Bleibt bewusst gleich: Paket-ID, Speicher-Schlüssel, Server-Name `chroniken.local`, das In-Game-Konzept
   „Chronik“ (Spielverlauf, Chronist). Der native Standard-Dateiname beim Export ändert sich erst mit AP 2.1.
+  Abgesichert durch `werkzeuge/tests/aeterna.test.js`.
 - Abnahme: Auf dem Gerät heißt die App „Aeterna“, Update über 1.3.0 funktioniert, Spielstand bleibt.
+  *Stand:* Manifest, Signatur (v2, gleicher Schlüssel) und Tests geprüft; **der Test auf deinem Handy steht noch aus.**
 
 ### Phase 1 – Neue Optik mit gemalten Grafiken (höchste Priorität, L)
 
@@ -239,13 +259,15 @@ Grundsatz: **Erst Stil festlegen und von dir freigeben lassen, dann Grafiken erz
 Kein Bildschirm wird mehr aus Code-Formen gezeichnet; `stone.js` dient danach nur noch für Animation und Effekte.
 
 **AP 1.1 – Stil-Bibel (S)**
-- [ ] Ausgangspunkt ist das Konzeptbild `ungenutzte_assets/ui/hauptmenue-konzept.jpg`: Farben, Materialien,
-  Lichtrichtung und Detailgrad daraus ableiten.
-- [ ] Datei `stil/STILBIBEL.md`: Farbpalette (Hex-Werte), Materialien (heller Kalkstein mit Poren und Abrieb,
+- [x] Ausgangspunkt ist das Konzeptbild `ungenutzte_assets/ui/hauptmenue-konzept.jpg`: Farben, Materialien,
+  Lichtrichtung und Detailgrad daraus ableiten. *Die Farbwerte sind im Bild gemessen; abgeleitet sind nur Gravur- und Zustandsfarben.*
+- [x] Datei `stil/STILBIBEL.md`: Farbpalette (Hex-Werte), Materialien (heller Kalkstein mit Poren und Abrieb,
   poliertes dunkles Holz, gealterte Bronze, Blattgold, Lapislazuli, Efeu), Licht, Konturstärken, Schriften,
-  Icon-Stil, Bewegungssprache (Dauern, Easing-Kurven), Klangfarben je Epoche.
-- [ ] Schriften (OFL, offline): Vorschlag **Cinzel Decorative/Cinzel** für Titel, **Alegreya Sans** oder **Fira Sans** für Text.
-- Abnahme: Du gibst die Stil-Bibel frei.
+  Icon-Stil, Bewegungssprache (Dauern, Easing-Kurven), Klangfarben je Epoche. Dazu die Übersicht
+  [`stil/stiltafel.jpg`](stil/stiltafel.jpg) und die Palette als CSS-Variablen (`--ae-…` in `hall.css`).
+- [x] Schriften (OFL, offline): **Cinzel Decorative** (Logo), **Cinzel** (Titel, Platten, Zahlen),
+  **Alegreya Sans** Medium/Bold (Text) in `assets/fonts/` – zusammen 0,29 MB. Fira Sans bleibt Alternative.
+- Abnahme: Du gibst die Stil-Bibel frei. *Stand:* **Freigabe offen** – die Fragen stehen am Ende der Stil-Bibel.
 
 **AP 1.2 – Asset-Werkstatt: gemalte Grafiken erzeugen (M, fortlaufend)**
 
@@ -311,22 +333,49 @@ background, no text“* – passend zum Konzeptbild.
 **AP 1.3 – Hauptmenü aus dem Konzeptbild (M)**
 
 Das textfreie Konzeptbild ist als Grundlage geeignet. Umsetzung:
-- [ ] **Format:** Das Bild ist 2000 × 1116 (etwa 16:9), die Bühne 2:1. Auf Höhe skalieren und die Seiten
+- [x] **Format:** Das Bild ist 2000 × 1116 (etwa 16:9), die Bühne 2:1. Auf Höhe skalieren und die Seiten
   (je ca. 80 px) mit horizontal gestreckten Randstreifen füllen – die Balken laufen waagerecht, das fällt kaum auf.
   Besser: höhere Auflösung oder Breitbild-Version des Bildes (AP 1.2).
-- [ ] **Bedienelemente aus dem Bild lösen:** Platten, Medaillons, Titeltafel, Goldanzeige und Zahnrad-Knauf
+  *Umgesetzt mit `werkzeuge/hauptmenue_bild.py`:* gestreckte Streifen schlierten sichtbar (Efeu, Zahnrad), deshalb
+  oben 24 px und unten 8 px Wand abgeschnitten und die Seiten (je 84 px) gespiegelt fortgesetzt; das angeschnittene
+  Zahnrad wird durch Drehung um seine Achse nahtlos ergänzt. Für Handys breiter als 2:1 reicht das Bild abgedunkelt
+  bis 2,4:1 in die Seitenränder. Ergebnis 2602 × 1084, 0,45 MB.
+- [x] **Bedienelemente aus dem Bild lösen:** Platten, Medaillons, Titeltafel, Goldanzeige und Zahnrad-Knauf
   als eigene Ebenen mit Masken entlang der Konturen (oder als gelieferte Einzelteile).
-- [ ] **Beschriftung per Code** im gemeißelten Stil: Titeltafel „AETERNA“ mit Unterzeile, die vier Platten,
+  *Umgesetzt als Ebenen mit `clip-path` über demselben Bild (keine Zusatzdateien), Geometrie im Konzeptbild
+  vermessen (`PLATES`, `RAILS` in `hall.js`). Trefferflächen folgen Platte, Kreis und Balken.*
+- [x] **Beschriftung per Code** im gemeißelten Stil: Titeltafel „AETERNA“ mit Unterzeile, die vier Platten,
   die vier Balken (Aufgaben, Basar, Sammlung, Kartenpakete), Goldzahl in der Anzeige.
-- [ ] **Vier Platten belegen:** Schlacht, Kampagne, Kolosseum und eine vierte (Vorschlag: „Partie fortsetzen“,
+- [x] **Vier Platten belegen:** Schlacht, Kampagne, Kolosseum und eine vierte (Vorschlag: „Partie fortsetzen“,
   wenn eine Partie läuft, sonst „Herausforderung“ – siehe Offene Entscheidungen).
-- [ ] **Drücken:** Platte sinkt 6–8 px in eine dunkle Fuge, Medaillon drückt ein (Skalierung 0,94, Leuchtkranz in
+  *Wie vorgeschlagen; „Herausforderung“ ist vorerst ein **Tagesduell**: feste Helden, Decks und Startwert pro
+  Kalendertag (`CHP.daily`), die Platte nennt die Paarung des Tages. „Partie fortsetzen“ pulsiert golden.*
+- [x] **Drücken:** Platte sinkt 6–8 px in eine dunkle Fuge, Medaillon drückt ein (Skalierung 0,94, Leuchtkranz in
   seiner Farbe), Balken leuchtet kurz auf, Zahnrad-Knauf dreht sich um 60°; dazu Steinklopfen und Vibration.
-- [ ] **Leben:** Lichtstrahlen von oben rechts (wie im Bild) pulsieren sanft, Funken und Staub schweben,
+- [x] **Leben:** Lichtstrahlen von oben rechts (wie im Bild) pulsieren sanft, Funken und Staub schweben,
   der Stern im Schlussstein glüht, Glanzlauf über die Medaillons, Benachrichtigungs-Siegel (Aufgaben, Pakete).
-- [ ] **Auftritt beim Start:** Platten fahren nacheinander ein, Stern blitzt auf (≤ 700 ms, überspringbar).
-- [ ] **Menüwechsel:** Platte drückt → Lichtblitz aus dem Stern → Zoom in den Ring → neuer Bildschirm (≤ 600 ms).
+- [x] **Auftritt beim Start:** Platten fahren nacheinander ein, Stern blitzt auf (≤ 700 ms, überspringbar).
+  *Gemessen 700 ms; Antippen beendet den Auftritt, ohne einen Knopf auszulösen.*
+- [x] **Menüwechsel:** Platte drückt → Lichtblitz aus dem Stern → Zoom in den Ring → neuer Bildschirm (≤ 600 ms).
+  *Gemessen 567 ms; zurück ins Menü umgekehrt (Zoom aus dem Ring) in 333 ms. Wechsel zwischen anderen
+  Bildschirmen behalten die Steinplatten.*
 - Abnahme: Screenshot neben dem Konzeptbild – gleiche Qualität; alle Knöpfe reagieren; du gibst frei.
+  *Stand:* Vergleichsbild [`stil/vergleich-hauptmenue.jpg`](stil/vergleich-hauptmenue.jpg); alle acht Knöpfe und
+  das Zahnrad per Playwright angetippt (Trefferflächen, Wechsel, Einstellungen). **Deine Freigabe steht aus.**
+
+*Messwerte AP 1.3 (Handyformat, Emulation, `node werkzeuge/sichtpruefung.js`):*
+
+| Messung | normal | CPU 4× gedrosselt |
+|---|---|---|
+| Berührung → sichtbare Reaktion | 8 ms | 13 ms |
+| Menüwechsel: neuer Bildschirm unter dem Blitz / fertig | 396 / 567 ms | 404 / 575 ms |
+| Zurück ins Hauptmenü | 333 ms | 376 ms |
+| Auftritt beim Start | 700 ms | – |
+| Bildzeit im Ruhezustand (95 %) | 16,7 ms, 0 von 181 > 20 ms | 16,7 ms, 1 von 180 > 20 ms |
+
+*Bekannte Grenzen:* Das Bild hat nur 1116 px Höhe und wird auf Tablets mit hoher Pixeldichte hochskaliert;
+die ergänzten Ränder sind gespiegelt (an der rechten Kante unter dem Zahnrad sichtbar). Beides löst eine
+höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py` neu ausführen.
 
 **AP 1.4 – Basar 2.0 (M)**
 - [ ] Schaufenster statt Raster: Auswahl links, großes Präsentationspodest rechts mit Licht.
@@ -669,8 +718,9 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 
 Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 
-1. **Vierte Menüplatte** (AP 1.3): „Partie fortsetzen“ nur bei laufender Partie, sonst „Herausforderung“
-   (Rätsel/Zeitanomalie) – oder etwas anderes?
+1. **Vierte Menüplatte** (AP 1.3): *vorläufig wie vorgeschlagen umgesetzt* – „Partie fortsetzen“ bei laufender
+   Partie, sonst „Herausforderung“ als Tagesduell (Idee 9). Rätsel und Zeitanomalie können sie später erweitern.
+   Passt das, oder soll dort etwas anderes stehen?
 2. **Heldenfähigkeit „umdrehen“** (AP 1.8): Ich habe es so verstanden, dass sich das Fähigkeits-Siegel wie in
    Hearthstone umdreht. Falls du meinst, dass sich das ganze Spielfeld dreht, bitte korrigieren.
 3. **Spielfeldhälften vs. Schlachtfeld-Skins** (AP 1.8): Ersetzt ein gekaufter Skin die eigene Epochenhälfte, oder
@@ -680,6 +730,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 6. **Bauwerke** (AP 5.5): Belegen sie einen der 7 Plätze (Vorschlag) oder bekommen sie eine eigene Reihe?
 7. **Stimmen** (AP 4.1): Quelle und Budget (eigene Aufnahmen, Sprecher, KI-Sprachausgabe)?
 8. **Legendäre** (AP 5.3): Vorschläge so umsetzen, anpassen oder durch eigene Ideen ersetzen?
+9. **Stil-Bibel und Hauptmenü** (AP 1.1, AP 1.3): Freigabe – siehe Abschnitt 10 der Stil-Bibel
+   (Palette, Schriften, Logo-Unterzeile „Das historische Kartenduell“, Bewegungssprache).
 
 ---
 
@@ -687,8 +739,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 
 | Sitzung | Arbeitspakete | Warum jetzt |
 |---|---|---|
-| 1 | AP 0.3, AP 1.1, AP 1.3 (Beginn) | Name Aeterna; Stil aus dem Konzeptbild ableiten; neues Hauptmenü starten |
-| 2 | AP 1.3 (Abschluss), AP 2.3 | Hauptmenü fertig, auf solider UI-Basis |
+| 1 ✓ | AP 0.3, AP 1.1, AP 1.3 | erledigt in 1.4.0 – Name Aeterna, Stil-Bibel, gemaltes Hauptmenü (Freigaben offen) |
+| 2 | AP 2.3, AP 0.1, AP 2.6, Feinschliff AP 1.3 | solide UI-Basis, Basar ohne Sprünge, Sichtprüfung in der CI (siehe unten) |
 | 3 | AP 5.1, AP 5.2 | Erst messen, dann balancieren – Grundlage für alle Kartenarbeiten |
 | 4–5 | AP 5.4 (Umbenennung + erste neue Schlüsselwörter), AP 5.3, AP 5.8 (Teil) | Legendäre mit echter Wirkung, KI zieht mit |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
@@ -703,11 +755,32 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ---
 
-## Vorlage für den Start einer Sitzung
+## Vorschlag für die nächste Sitzung
 
-Kopiere diesen Text in eine neue Sitzung und passe die Paketnummern an:
+**Erledigt in Sitzung 1 (Version 1.4.0):** AP 0.3 (Aeterna), AP 1.1 (Stil-Bibel, Schriften), AP 1.3 (Hauptmenü
+aus dem Konzeptbild mit Tagesduell), dazu `werkzeuge/sichtpruefung.js` für Screenshots und Messwerte.
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 0.3, AP 1.1 und AP 1.3** ab.
-> Halte dich an die „Regeln für jede Sitzung“, prüfe optische Änderungen mit Screenshots im
-> Handyformat, lass die Tests laufen und sorge für eine grüne CI. Hake erledigte Punkte in der
-> README ab und trage Messwerte ein. Öffne am Ende einen Pull Request nach `main`.
+**Vorher bitte von dir (5 Minuten):**
+1. Test-APK `Aeterna-1.4.0-Test-APK` aus Actions über 1.3.0 installieren: Heißt die App „Aeterna“? Ist der
+   Spielstand noch da? Fühlen sich Drücken, Auftritt und Menüwechsel gut an? Klingen die Steingeräusche passend (AP 0.2)?
+2. Stil-Bibel und Hauptmenü freigeben oder Änderungen nennen (Offene Entscheidungen 1 und 9).
+
+**Sitzung 2 – AP 2.3, AP 0.1, AP 2.6 und Feinschliff AP 1.3**
+
+| Paket | Inhalt | Warum jetzt |
+|---|---|---|
+| Feinschliff AP 1.3 | dein Feedback vom Gerät und zur Stil-Bibel einarbeiten | Freigabe abschließen, solange alles frisch ist |
+| AP 2.3 | kleiner Render-Helfer statt `innerHTML`-Neuaufbau; zuerst Basar und Sammlung; gemeinsame Bausteine (Steinknopf, Reiter, Wallet, Modal) mit den Stil-Bibel-Farben und -Schriften | Grundlage für AP 1.4–1.7; Bilder flackern nicht mehr, Übergänge werden möglich |
+| AP 0.1 | Scrollposition und Reiter im Basar nach Kauf/Ausrüsten erhalten | fällt mit AP 2.3 fast von selbst ab |
+| AP 2.6 | `werkzeuge/sichtpruefung.js` als CI-Schritt (Screenshots als Artefakt, Abbruch bei JavaScript-Fehlern) | schützt das neue Hauptmenü bei jedem Push |
+
+Danach weiter mit Sitzung 3 (AP 5.1, AP 5.2 – erst messen, dann balancieren). Grafiken für Basar, Karten und
+Spielbrett (AP 1.2) kannst du parallel nach der Stil-Bibel erzeugen.
+
+**Text zum Kopieren für den Start:**
+
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 2.3, AP 0.1 und AP 2.6** ab und
+> übernimm mein Feedback zu AP 1.1/AP 1.3: *(hier Feedback einfügen)*. Halte dich an die „Regeln für jede
+> Sitzung“, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests laufen und sorge für eine
+> grüne CI. Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull Request
+> nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung.
