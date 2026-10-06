@@ -35,15 +35,15 @@ jobs:
       - name: APK bauen und signieren
         run: >-
           python3 werkzeuge/apk_bauen.py quellcode
-          Chroniken-${{ steps.version.outputs.name }}-Test.apk
+          Aeterna-${{ steps.version.outputs.name }}-Test.apk
           werkzeuge/signatur/chroniken-test.p12 chroniken-test
 
       - name: Signatur prüfen
-        run: apksigtool verify Chroniken-${{ steps.version.outputs.name }}-Test.apk | tee verify.txt && grep -q "v2 verified" verify.txt
+        run: apksigtool verify Aeterna-${{ steps.version.outputs.name }}-Test.apk | tee verify.txt && grep -q "v2 verified" verify.txt
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Chroniken-${{ steps.version.outputs.name }}-Test-APK
-          path: Chroniken-${{ steps.version.outputs.name }}-Test.apk
+          name: Aeterna-${{ steps.version.outputs.name }}-Test-APK
+          path: Aeterna-${{ steps.version.outputs.name }}-Test.apk
           compression-level: 0
           retention-days: 30

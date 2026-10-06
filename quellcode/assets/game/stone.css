@@ -1,48 +1,4 @@
-/* Comic-stone main menu, stone slab transition and the Basar. Hand-hewn blocks, heavy ink outlines. */
-.stone-defs{position:absolute;width:0;height:0;overflow:hidden}
-body.stone-hall{background:#bfb196}
-.hall{position:absolute;inset:0;background:#cfc3ac;overflow:hidden}
-.hall-art{position:absolute;left:0;top:0;display:block}
-
-/* Chiselled lettering on light stone: a dark cut with a bright lower lip. */
-.hall .inscription,.title-text,.stone-tab,.hall-gold b{font-family:Title,serif;color:#4a3e31;text-shadow:0 1.5px 0 #fffaf0,0 -1px 0 #2a2119a0}
-
-/* Stone buttons drop the generic button chrome; only the face moves when pressed. */
-button.stone{position:absolute;display:block;padding:0;margin:0;min-height:0;background:none;border:0;border-radius:0;box-shadow:none;color:inherit;filter:none;z-index:1}
-button.stone:hover{filter:brightness(1.04)}
-button.stone:active{transform:none}
-button.stone:focus-visible{outline:4px solid #4f8fb0;outline-offset:2px;border-radius:14px}
-.stone-svg{display:block;overflow:visible}
-.stone .stone-face,.stone .inscription{transition:transform 95ms cubic-bezier(.3,.8,.4,1)}
-.stone:active .stone-face,.stone.pressed .stone-face,.stone:active .inscription,.stone.pressed .inscription{transform:translateY(var(--sink,10px))}
-.stone.pressed .stone-face,.stone.pressed .inscription{transition-duration:70ms}
-.inscription{position:absolute;display:flex;align-items:center;justify-content:center;pointer-events:none;text-transform:uppercase;text-align:center}
-.inscription b{font-weight:normal;display:block}
-.inscription small{display:block;font-family:Body,serif;text-transform:none;letter-spacing:.3px;color:#5b4e3f;text-shadow:0 1px 0 #fffaf0}
-
-.plaque{--sink:10px}
-.plaque .inscription{left:14px;top:14px;flex-direction:column;gap:5px}
-.plaque .inscription b{font-size:38px;letter-spacing:6px;line-height:1}
-.plaque .inscription small{font-size:15px}
-.plaque.gold .inscription b{font-size:28px;letter-spacing:4px;color:#5a4220}
-.hall-modes .plaque:not(.gold) .inscription b{font-size:38px}
-.rail{--sink:7px}
-.rail .inscription{top:39px;height:62px}
-.rail .inscription b{font-size:25px;letter-spacing:2.5px;line-height:1}
-.stone-badge{position:absolute;top:2px;min-width:38px;height:38px;padding:0 9px;border-radius:19px;display:flex;align-items:center;justify-content:center;font:bold 19px Title,serif;color:#fff1d2;background:radial-gradient(circle at 35% 30%,#e0604f,#962219 70%);border:3.5px solid #3a3027;box-shadow:0 3px 0 #3a3027;text-shadow:0 1px 1px #000a;z-index:2;pointer-events:none}
-
-.hall-title{position:absolute;left:30px;top:0;z-index:1;pointer-events:none}
-.title-text{position:absolute;left:5px;top:0;width:372px;height:186px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.title-text .sigil{font-size:22px;line-height:1;color:#8a6a35;text-shadow:0 1.5px 0 #fffaf0}
-.title-text h1{font-size:41px;letter-spacing:4px;line-height:1.05;margin-top:4px}
-.title-text h2{font-size:23px;letter-spacing:8px;line-height:1.1}
-.title-text p{font:14px Body,serif;letter-spacing:3px;text-transform:uppercase;margin-top:9px;color:#5b4e3f}
-
-.hall-gold{position:absolute;right:112px;top:8px;width:216px;height:72px;z-index:1}
-.hall-gold .coin{position:absolute;left:24px;top:18px;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff2b0,#e2b23e 45%,#9a6a14);border:3px solid #3a3027;box-shadow:inset 0 0 0 3px #f6d77a66}
-.hall-gold b{position:absolute;left:62px;right:18px;top:15px;font-size:30px;font-weight:normal;text-align:center;line-height:1.1}
-.hall-gear{--sink:5px;right:30px;top:6px}
-.hall-foot{position:absolute;left:22px;bottom:12px;font:14px Body,serif;letter-spacing:1px;color:#5b4e3f;text-shadow:0 1px 0 #fffaf0;pointer-events:none}
+/* Stone slab transition and the Basar. The painted main menu lives in hall.css. */
 
 /* Two heavy slabs: slam shut, lock in, grind apart. */
 #slabs{position:absolute;inset:0;z-index:150;pointer-events:none;overflow:hidden;visibility:hidden}
@@ -66,6 +22,8 @@ button.stone:focus-visible{outline:4px solid #4f8fb0;outline-offset:2px;border-r
 @keyframes slab-thud{0%{transform:translateY(0)}30%{transform:translateY(4px)}65%{transform:translateY(-2px)}100%{transform:translateY(0)}}
 
 /* The Basar keeps the temple stone under a dark wash. */
+/* Chiselled lettering on light stone: a dark cut with a bright lower lip. */
+.stone-tab{font-family:Title,serif;color:#4a3e31;text-shadow:0 1.5px 0 #fffaf0,0 -1px 0 #2a2119a0}
 .bazaar{background:linear-gradient(180deg,#1d1915e6,#15120fee 60%,#100d0bf2),url('assets/art/temple.png') center/cover}
 .stone-tabs{display:flex;gap:20px;justify-content:center;padding:14px 36px 0;height:88px}
 button.stone-tab{min-width:270px;height:56px;min-height:0;padding:0 20px;font-size:21px;letter-spacing:2.5px;text-transform:uppercase;background:linear-gradient(#fffaf0 0 5px,#ece5d6 5px 17px,#e5ddcb 17px 42px,#c9bea9 42px);border:3.5px solid #3a3027;border-radius:14px;box-shadow:0 8px 0 #9f9179,0 11.5px 0 #3a3027,0 15px 14px #0008;transition:transform 90ms,box-shadow 90ms,filter 90ms}
@@ -109,5 +67,5 @@ button.shop-preview:active{transform:scale(.98)}
 .pack-card-back.custom{border:0;background-size:100% 100%;box-shadow:0 12px 23px #0008}
 .pack-card-back.custom:before,.pack-card-back.custom:after{display:none}
 
-@media(prefers-reduced-motion:reduce){.stone .stone-face,.stone .inscription,button.stone-tab{transition-duration:1ms}}
+@media(prefers-reduced-motion:reduce){button.stone-tab{transition-duration:1ms}}
 

@@ -1,7 +1,7 @@
 /* Cosmetic catalog for the Basar. Purely presentational: nothing here touches match rules. */
 (function(root){'use strict';
 const backs=[
-{id:'chroniken',name:'Chroniken-Siegel',text:'Der klassische Rücken mit dem goldenen Stern der Chronik.',price:0},
+{id:'chroniken',name:'Aeterna-Siegel',text:'Der klassische Rücken mit dem goldenen Stern der Chronik.',price:0},
 {id:'tempel',name:'Tempelstein',text:'Verwitterter Kalkstein mit Mäanderband und Moos in den Fugen.',price:150},
 {id:'sparta',name:'Spartas Bronzeschild',text:'Ein gehämmertes Lambda auf spartanischem Purpur.',price:200},
 {id:'pharao',name:'Pharaonengold',text:'Lapislazuli, Blattgold und das wachende Auge des Horus.',price:200},
