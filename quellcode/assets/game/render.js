@@ -1,5 +1,7 @@
-(function(){'use strict';const D=CHD,E=CHE,L=CHL;const R=window.CHR={images:{},thumbs:{},hits:[],positions:{},fx:[],pointer:null};
-R.load=async()=>{await document.fonts.ready;await Promise.all(['board','menu','heroes','legendary-frame',...D.heroes.map(h=>h.id),'neutral0','neutral1','neutral2','neutral3'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{R.images[name]=im;resolve();};im.onerror=()=>resolve();im.src='assets/art/'+name+'.png';})));};
+(function(){'use strict';const D=CHD,E=CHE,L=CHL;const R=window.CHR={images:{},thumbs:{},hits:[],positions:{},fx:[],pointer:null,look:{back:'chroniken',board:'board',skins:{}},pending:{}};
+R.load=async()=>{await document.fonts.ready;await Promise.all(['board','menu','heroes','heroes-marble','legendary-frame',...D.heroes.map(h=>h.id),'neutral0','neutral1','neutral2','neutral3'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{R.images[name]=im;resolve();};im.onerror=()=>resolve();im.src='assets/art/'+name+'.png';})));};
+// Cosmetic textures load on demand; the standard board stands in until they arrive.
+R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;const im=new Image();im.onload=()=>{R.images[name]=im;delete R.pending[name];};im.onerror=()=>delete R.pending[name];im.src='assets/art/'+name+'.png';};
 function round(c,x,y,w,h,r,fill,stroke,lw=1){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
 function ellipse(c,x,y,rx,ry,fill,stroke,lw=1){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
 function txt(c,t,x,y,size=18,color='#fff',align='center',max){c.font=`${size}px ${size>=22?'Title':'Body'},serif`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;if(max)c.fillText(t,x,y,max);else c.fillText(t,x,y);}
@@ -32,7 +34,8 @@ R.thumb=(id)=>{if(!R.thumbs[id]){const c=document.createElement('canvas');c.widt
 R.artworks={};R.artwork=id=>{if(!R.artworks[id]){const card=D.byId[id],im=R.images[card.art];if(!im)return R.thumb(id);
  const c=document.createElement('canvas');c.width=im.width/4;c.height=im.height/3;
  R.tile(c.getContext('2d'),card.art,card.cell,0,0,c.width,c.height);R.artworks[id]=c.toDataURL('image/png');}return R.artworks[id];};
-R.heroStyle=id=>{const i=D.heroes.findIndex(h=>h.id===id);return `background-image:url('assets/art/heroes.png');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
+// atlas === true picks the player's equipped skin for that hero.
+R.heroStyle=(id,atlas='heroes')=>{const i=D.heroes.findIndex(h=>h.id===id);if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.png');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
 function hit(id,x,y,w,h,data={}){R.hits.push({id,x,y,w,h,...data});}
 R.hit=(x,y)=>[...R.hits].reverse().find(h=>{if(h.angle!=null){const dx=x-h.cx,dy=y-h.cy,co=Math.cos(-h.angle),si=Math.sin(-h.angle),xx=dx*co-dy*si,yy=dx*si+dy*co;return Math.abs(xx)<=h.w/2&&Math.abs(yy)<=h.h/2;}return x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h;});
 function button(c,text,x,y,w,h,active,id){c.save();if(active){c.shadowColor='#ffc44b';c.shadowBlur=12;}round(c,x,y,w,h,12,grad(c,x,y,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);c.shadowBlur=0;round(c,x+6,y+6,w-12,h-12,8,null,'#ffffff45',1);txt(c,text,x+w/2,y+h/2,19,active?'#2a2016':'#c8cfcb','center',w-14);c.restore();hit(id,x,y,w,h);}
@@ -59,7 +62,7 @@ function portrait(c,s,p,x,y){
  for(const yy of [y-5,y+40])ellipse(c,x+76,yy,3,3,'#e5c791','#57432d',1.5);
  if(ready){c.shadowColor='#70ff63';c.shadowBlur=20;}
  ellipse(c,x,y,65,78,'#322719',grad(c,x-60,y-75,125,150,'#735025','#f7d594'),9);c.shadowBlur=0;
- c.save();c.beginPath();c.ellipse(x,y-1,58,70,0,0,Math.PI*2);c.clip();R.tile(c,'heroes',idx,x-67,y-70,134,140);
+ c.save();c.beginPath();c.ellipse(x,y-1,58,70,0,0,Math.PI*2);c.clip();R.tile(c,p===0&&R.look.skins[hero.id]||'heroes',idx,x-67,y-70,134,140);
  const relief=c.createLinearGradient(x-50,y-70,x+50,y+70);relief.addColorStop(0,'#fff1b822');relief.addColorStop(.4,'#00000000');relief.addColorStop(1,'#160b0a5c');c.fillStyle=relief;c.fillRect(x-65,y-78,130,156);c.restore();
  ellipse(c,x,y,58,71,null,'#ead397',2);
  for(const xx of [x-62,x+62])ellipse(c,xx,y,2.5,3.5,'#e9c885','#604227',1);
@@ -138,7 +141,7 @@ function minion(c,s,p,u,x,y,selected,targets){
  R.positions[u.uid]={x,y};c.restore();
  hit(u.uid,x-57*L.minionScale,y-72*L.minionScale,114*L.minionScale,146*L.minionScale,{kind:'target',idCard:u.id});
 }
-R.draw=(c,s,view,now)=>{const dt=Math.min(40,now-(R.lastTime||now-16));R.lastTime=now;R.hits=[];R.positions={};c.clearRect(0,0,1600,800);c.save();const shake=CHM.shake(now);c.translate(shake.x,shake.y);if(R.images.board)c.drawImage(R.images.board,0,0,1600,800);else{c.fillStyle='#765d3e';c.fillRect(0,0,1600,800);}const shade=c.createRadialGradient(800,365,210,800,365,880);shade.addColorStop(0,'#3d230a00');shade.addColorStop(1,'#23150e45');c.fillStyle=shade;c.fillRect(0,0,1600,800);
+R.draw=(c,s,view,now)=>{const dt=Math.min(40,now-(R.lastTime||now-16));R.lastTime=now;R.hits=[];R.positions={};c.clearRect(0,0,1600,800);c.save();const shake=CHM.shake(now);c.translate(shake.x,shake.y);const field=R.images[R.look.board]||R.images.board;if(field)c.drawImage(field,0,0,1600,800);else{c.fillStyle='#765d3e';c.fillRect(0,0,1600,800);}const shade=c.createRadialGradient(800,365,210,800,365,880);shade.addColorStop(0,'#3d230a00');shade.addColorStop(1,'#23150e45');c.fillStyle=shade;c.fillRect(0,0,1600,800);
 // Calm combat surface and a fine central seam preserve legibility over the illustration.
 c.strokeStyle='#71563540';c.lineWidth=2;c.beginPath();c.moveTo(222,354);c.quadraticCurveTo(800,368,1370,354);c.stroke();
 const a=s.players[0],b=s.players[1],targets=view.targets||[];hit('decor0',1485,0,112,145,{kind:'decor'});hit('decor1',0,0,110,142,{kind:'decor'});hit('decor2',0,710,120,90,{kind:'decor'});hit('decor3',1490,710,110,90,{kind:'decor'});
@@ -148,7 +151,7 @@ for(let p=0;p<2;p++){const yy=L.rows[p],board=s.players[p].board,hasGap=p===0&&i
  board.forEach((u,i)=>{const index=i+(hasGap&&i>=insert?1:0),base=R.smooth(u.uid,L.center+(index-(board.length-1+(hasGap?1:0))/2)*L.spacing,yy,dt),pos=CHM.pose(u.uid,base,now);c.save();c.translate(pos.x,pos.y);c.rotate(pos.angle);c.scale(pos.scale,pos.scale);c.translate(-pos.x,-pos.y);minion(c,s,p,u,pos.x,pos.y,view.selected&&view.selected.uid===u.uid,targets);c.restore();});}
 // Rival's fanned hand.
 for(let i=0;i<b.hand.length;i++){c.save();c.translate(490+i*34,7);c.rotate((i-(b.hand.length-1)/2)*.033);round(c,-24,-50,48,72,5,grad(c,0,0,40,70,'#16334d','#4c6f87'),'#c7a759',3);txt(c,'✦',0,-10,25,'#e7c675');c.restore();}
-for(let p=0;p<2;p++){const pp=s.players[p],yy=p===0?590:158;for(let i=0;i<Math.min(5,Math.ceil(pp.deck.length/6));i++){round(c,1421+i*3,yy-i*3,55,83,6,'#274555','#bba36d',2);}txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');hit('deck'+p,1411,yy-10,80,125,{kind:'deck'});round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');hit('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
+for(let p=0;p<2;p++){const pp=s.players[p],yy=p===0?590:158;CHS.deck(c,p===0?R.look.back:'chroniken',1421,yy,55,83,Math.min(5,Math.ceil(pp.deck.length/6)),now,p*2300);txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');hit('deck'+p,1411,yy-10,80,125,{kind:'deck'});round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');hit('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
 button(c,s.active===0?'ZUG BEENDEN':'GEGNERZUG',1402,342,172,64,s.active===0&&s.phase==='play','end');txt(c,'ZUG '+Math.max(1,s.turn),1488,426,14,'#ddc99d');
 // The resource pillar leaves the hero's lower center completely clear.
 manaColumn(c,a);txt(c,b.mana+' / '+b.maxMana+' Mana',1036,62,16,'#eedcaf');
@@ -162,7 +165,7 @@ for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c
 // The chronicle is available on demand; combat gets the entire center.
 if(!view.selected)button(c,'CHRONIK',25,586,165,45,false,'chronicle');
 if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',25,586,184,57,true,'confirm');
-button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',194,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'?'ZUFALLS-DUELL':'FREIES MATCH',368,55,13,'#f3dab0');
+button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',194,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'?'KOLOSSEUM':'SCHLACHT',368,55,13,'#f3dab0');
 CHM.overlay(c,s,now);
 if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
  if(d.cardId){const {x,y,w}=L.dragPose(d,now);d.x=x;d.y=y;d.w=w;CHM.floatCard(c,d.cardId,x,y,w,d.angle);}
