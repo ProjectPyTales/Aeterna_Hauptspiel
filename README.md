@@ -737,6 +737,59 @@ Neuer Kartentyp ohne Angriff mit dauerhaftem Effekt, ähnlich Schauplätzen in R
 - [ ] KI versteht alle neuen Mechaniken; Schwierigkeitsgrade Lehrling, Feldherr, Legende; Vorausschau 1–2 Züge;
   Persönlichkeit je Held (aggressiv, defensiv, kombinierend).
 
+**Dein Wunsch aus Sitzung 2: mehr Tiefe bei Helden und Karten.** Die drei Pakete unten bauen auf AP 5.1 (Messen)
+auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2) – bis dahin mit Platzhaltern (AP 5.12).
+
+**AP 5.9 – Chronik der Helden: Hintergründe ausarbeiten (S)**
+- [ ] Je Held eine Chronikseite: kurze Biografie (historisch belegt, Jahreszahlen), Epoche und Schauplatz, ein
+  belegtes oder überliefertes Zitat, Spielstil in einem Satz („Leonidas hält die Linie und bestraft Angreifer“),
+  Lieblingskarten, Beziehungen zu anderen Helden (Rivalen, Verbündete) und Stimmungsangaben für Stimme und Musik
+  (AP 4.1, Stil-Bibel Abschnitt 8).
+- [ ] Ablage als Daten (`model/data.js` bzw. eigene Datei `model/lore.js`), angezeigt in der Heldenwahl (AP 1.7) und
+  im „Archiv der Zeiten“ (Weitere Ideen 1).
+- [ ] Heldenfähigkeiten und Startdecks prüfen: Passen Name, Wirkung und Spielstil zur Biografie? Abweichungen
+  sammeln und mit AP 5.2 (Balance) zusammen umsetzen.
+- Abnahme: 10 Chronikseiten, von dir gegengelesen.
+
+**AP 5.10 – Neue Helden (M)**
+- [ ] Vorschläge für Epochen, die noch fehlen (Werte und Fähigkeiten vorläufig, erst nach Simulation festlegen):
+
+  | Held | Epoche | Heldenfähigkeit (Vorschlag) | Spielstil |
+  |---|---|---|---|
+  | Hannibal Barkas | Karthago, 3. Jh. v. Chr. | **Alpenzug:** Ein eigener Diener erhält Vorstoß | Überraschende Angriffe, Kriegselefanten |
+  | Kyros der Große | Persien, 6. Jh. v. Chr. | **Königsstraße:** Zieht eine Karte, wenn Ihr 3+ Diener habt | Breites Feld, Toleranz-Bündnisse |
+  | Wu Zetian | Tang-China, 7. Jh. | **Kaiserliches Edikt:** Eine Karte in Eurer Hand kostet 1 weniger | Kontrolle, Beamte, späte Stärke |
+  | Mansa Musa | Mali, 14. Jh. | **Goldkarawane:** +1 Mana nur in diesem Zug (einmal je 2 Züge) | Reichtum, große Karten früher |
+  | Theodora | Byzanz, 6. Jh. | **Purpurgeboren:** Ein eigener Diener erhält Göttliche Gunst | Schutz, Intrigen, Heilung |
+  | Saladin | Ayyubiden, 12. Jh. | **Ritterlichkeit:** Heilt beide Helden um 2, Ihr zieht eine Karte | Ausdauer, faire Duelle |
+
+  Mit dir abstimmen, welche (und wie viele) kommen; je Held 10 eigene Karten, Startdeck, Kampagnenmission und
+  KI-Persönlichkeit (AP 5.8).
+- [ ] Engine: Heldenfähigkeiten datengetrieben machen, damit neue Helden keinen Sonderfall-Code brauchen.
+- Abnahme: Simulationslauf (AP 5.1) mit allen Helden, jeder neue Held 47–53 % gegen das Feld.
+
+**AP 5.11 – Karteneffekte überarbeiten und Set vergrößern (L)**
+- [ ] Alle 140 Karten durchgehen: doppelte Effekte zusammenlegen oder unterscheiden (z. B. Andraste/Lagertha,
+  Marco/Herodot), langweilige „nur Werte“-Karten mit kleinen Regeln versehen, Namen und Texte historisch schärfen,
+  Schlüsselwörter nach AP 5.4.
+- [ ] Neue Karten in Wellen statt auf einmal: Welle 1 ≈ 60 Karten (je Held 4, dazu 20 neutrale, erste Bauwerke
+  aus AP 5.5), Welle 2 ≈ 90 Karten („Wunder der Welt“, AP 5.7), danach je neuem Held 10. Ziel nach Welle 2:
+  ≈ 300 Karten.
+- [ ] Budgetformel und Simulation entscheiden die Werte (AP 5.7): keine Welle ohne Balance-Lauf und KI-Bewertung.
+- Abnahme: je Welle Simulationsbericht, Legendäre ≤ 55 % „gewinnt, wenn gezogen“, keine Karte über 60 %.
+
+**AP 5.12 – Platzhalter für fehlende Grafiken (S)** – *Antwort auf deine Frage: ja, mit Platzhaltern.*
+Regeln, Balance und KI lassen sich ohne Bilder bauen und testen; die Grafiken (AP 1.2) kommen danach gesammelt.
+So, dass es im Spiel nicht kaputt aussieht:
+- [ ] Datenfeld `art` je Karte und Held; fehlt es, zeichnet der Renderer einen **gestalteten Platzhalter** statt
+  eines leeren Fensters: Epochenfarbe des Helden, großes Symbol (Helden-Icon, Kartentyp, Bauwerk-Turm), Name in
+  Cinzel, kleiner Vermerk „Motiv folgt“. Neue Helden bekommen ein Medaillon mit Monogramm statt Porträt.
+- [ ] Eine automatisch erzeugte Liste `ungenutzte_assets/MOTIVE.md` mit allen fehlenden Motiven, Größe und
+  fertigem Prompt (Prompt-Anfang aus AP 1.2 + Kartentext + Epoche), damit du die Bilder in Stapeln erzeugen kannst.
+- [ ] Sichtprüfung zählt Platzhalter, damit sichtbar bleibt, wie viele Motive noch fehlen; ein Platzhalter darf
+  nie einen Test brechen.
+- Abnahme: Ein Deck nur aus Karten ohne Motiv ist spielbar und lesbar (Screenshot im Handyformat).
+
 ### Phase 6 – Spielmodi und Motivation (fortlaufend)
 
 - [ ] **AP 6.1 Kolosseum als echter Draft:** Held aus 3, dann 30-mal 1 aus 3 Karten; Lauf endet bei 3 Niederlagen
@@ -785,8 +838,12 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 |---|---|
 | Name „Aeterna“ | AP 0.3 |
 | Textfreies Hauptmenü-Bild mit interaktiven Knöpfen und Animationen | AP 1.3 (Bild liegt in `ungenutzte_assets/ui/`) |
-| Mehr Karten | AP 5.7 |
+| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) |
 | Legendäre aufwerten | AP 5.3 |
+| Hintergründe der Helden ausarbeiten | AP 5.9 |
+| Neue Helden | AP 5.10 |
+| Bestehende Karteneffekte überarbeiten | AP 5.11 |
+| Platzhalter statt fehlender Grafiken | AP 5.12 |
 | Heldenbalance | AP 5.1, AP 5.2 |
 | Heldenfähigkeit dreht sich nach Benutzung um | AP 1.8, AP 3.7 |
 | Zwei thematische Spielfeldhälften je Epoche | AP 1.2, AP 1.8 |
@@ -833,6 +890,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 10. **Code-Struktur:** Deinen Wunsch „MVVP“ habe ich als **MVVM** (Model – View – ViewModel) umgesetzt. Falls du
     MVP (Model – View – Presenter) gemeint hast: Die Schichten bleiben gleich, nur die Rolle der Mittelschicht
     ändert sich – bitte kurz bestätigen.
+11. **Neue Helden** (AP 5.10): Welche der Vorschläge (oder andere Persönlichkeiten) sollen kommen, und wie viele?
+12. **Platzhalter** (AP 5.12): Einverstanden, neue Karten erst mit gestalteten Platzhaltern zu bauen und die Motive
+    später gesammelt zu erzeugen?
 
 ---
 
@@ -843,7 +903,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 1 ✓ | AP 0.3, AP 1.1, AP 1.3 | erledigt in 1.4.0 – Name Aeterna, Stil-Bibel, gemaltes Hauptmenü (freigegeben) |
 | 2 ✓ | AP 2.3, AP 0.1, AP 2.6, Feinschliff AP 1.3 | erledigt in 1.5.0 – MVVM-Struktur, Basar ohne Sprünge, Sichtprüfung in der CI, Zahnrad repariert |
 | 3 | AP 5.1, AP 5.2 | Erst messen, dann balancieren – Grundlage für alle Kartenarbeiten (siehe unten) |
-| 4–5 | AP 5.4 (Umbenennung + erste neue Schlüsselwörter), AP 5.3, AP 5.8 (Teil) | Legendäre mit echter Wirkung, KI zieht mit |
+| 4–5 | AP 5.4 (Umbenennung + erste neue Schlüsselwörter), AP 5.3, AP 5.8 (Teil), AP 5.9, AP 5.12 | Legendäre mit echter Wirkung, KI zieht mit; Helden-Chronik und Platzhalter als Grundlage für neue Karten |
+| 6 | AP 5.11 (Effekte überarbeiten, Welle 1), AP 5.10 (erste neue Helden nach deiner Auswahl) | Mehr Tiefe, sobald Messen und Schlüsselwörter stehen |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
 | 6–7 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
 | 8 | AP 2.4, AP 2.5 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon) |
