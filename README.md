@@ -1,9 +1,10 @@
 # Aeterna
 
-*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 140 Karten,
-10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.7.0**
-(eigene historische Schlüsselwörter statt der Hearthstone-Begriffe, neu Vorstoß, Starre und Ergründen, zwölf neue
-Legendäre mit je einer eigenen Regel, Hauptmenü mit warmem Lichtblitz und scharfen Seitenrändern); davor 1.6.0 mit
+*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 153 Karten,
+10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.8.0**
+(gestaltete Platzhalter für fehlende Motive, Chronik der Helden mit zehn Chronikseiten, fünf neue Schlüsselwörter –
+Plünderung, Tarnung, Bannung, Tödliches Gift, Belastung – mit 13 neuen Karten, randlose Untermenüs und Dialoge auf
+breiten Handys); davor 1.7.0 mit eigenen Schlüsselwörtern und zwölf neuen Legendären, 1.6.0 mit
 Balance-Werkzeug und ausbalancierten Helden (47–53 %), 1.5.0 mit MVVM-Struktur und automatischer Sichtprüfung in der
 CI, 1.4.0 mit neuem Namen Aeterna, gemaltem Hauptmenü, Stil-Bibel und Tagesduell.
 
@@ -50,8 +51,8 @@ Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (z. B. 1.6.0 → 1.7.0: einfach die neue APK installieren; eine
-laufende Partie läuft mit den neuen Regeln weiter).
+installieren sich neue Versionen direkt als Update (z. B. 1.7.0 → 1.8.0: einfach die neue APK installieren; eine
+laufende Partie läuft mit den neuen Regeln weiter, die neuen Karten stehen in der Sammlung auf 0).
 
 ---
 
@@ -64,7 +65,8 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | Pfad | Schicht | Inhalt |
 |---|---|---|
 | `core/mvvm.js` | Kern | Kleiner eigener Binder (`AEM`, ~5 KB, offline): beobachtbare ViewModels, DOM-Abgleich statt `innerHTML`-Neuaufbau, Befehle über `data-cmd`, maskierendes `html`-Template |
-| `model/data.js` | Model | Helden, 140 Karten, Spielsteine (Tokens), Missionen (`CHD`) |
+| `model/data.js` | Model | Helden, 153 Karten, Spielsteine (Tokens), Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv |
+| `model/lore.js` | Model | Chronik der Helden (AP 5.9): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`) |
 | `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs, Aufgaben, Import-Prüfung (`CHP`) |
 | `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`) |
@@ -75,16 +77,16 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `view/match/` | View | Match-Canvas: `render.js` (`CHR`), `motion.js` (`CHM`), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife) |
 | `view/css/` | View | `style.css`, `packs.css`, `stone.css`, `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css` |
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`), `platform.js` (Android-Brücke, `AEP`) |
-| `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle |
+| `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
 | `assets/fonts/` | – | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
 
 | Pfad | Inhalt |
 |---|---|
 | `quellcode/` | Kompletter APK-Inhalt. `classes.dex` ist die **kompilierte** native Hülle (kein Java-Quelltext vorhanden). |
-| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
+| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive `motive.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
-| `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs |
+| `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs; `MOTIVE.md` listet alle fehlenden Motive mit fertigem Prompt (AP 5.12) |
 
 ### Architektur: wohin neuer Code gehört (MVVM)
 
@@ -113,14 +115,16 @@ Handlimit 10 mit Verbrennen, steigende Erschöpfung bei leerem Deck, Aufmarsch-V
 höchstens 7 Diener pro Seite, kein Zugtimer, Schildwall, Göttliche Gunst, Einmarsch, Vermächtnis,
 Sturmangriff, Waffen, Rüstung, Totems, KI-Gegner. Seit 1.7.0 außerdem Vorstoß, Starre, Ergründen (offene Wahl
 `s.choice`, Aktion `choose`), Doppelschlag, Arkaner Fokus, Bauwerke (`building`), Auren, Kostenänderungen je Handkarte
-(`E.cost`) und Übernahme feindlicher Diener. Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
+(`E.cost`) und Übernahme feindlicher Diener. Seit 1.8.0 Plünderung (`plunder`), Tarnung (`stealth`), Bannung (Effekt
+`silence`, Feld `silenced`), Tödliches Gift (`poison`) und Belastung (`overload`, gesperrte Kristalle `locked`).
+Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
 
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter, Legendäre, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
 - **MVVM einhalten:** Regeln und Spielstand in `model/`, Bildschirmzustand und Befehle in `viewmodel/` (ohne DOM,
@@ -138,6 +142,9 @@ Sturmangriff, Waffen, Rüstung, Totems, KI-Gegner. Seit 1.7.0 außerdem Vorstoß
   `node werkzeuge/sichtpruefung.js` liefert beides plus Messwerte (`sichtpruefung/`, nicht im Repo).
   Gewollte optische Änderungen: `node werkzeuge/klickpfad.js --referenz`, die neuen Bilder in
   `werkzeuge/referenz/` ansehen und mit committen – sonst schlägt die CI zu Recht fehl.
+- **Neue Karten oder Helden ohne Motiv:** `art` weglassen (Platzhalter, AP 5.12) und `node werkzeuge/motive.js`
+  ausführen – der Test prüft, dass `ungenutzte_assets/MOTIVE.md` jede Karte ohne Motiv nennt. Neue Karten-IDs nur
+  hinten anhängen, nie bestehende umnummerieren (Spielstände).
 - **Stil:** Neue Oberflächen folgen `stil/STILBIBEL.md` (Palette als `--ae-…`-Variablen in `view/css/hall.css`).
 - **Signatur und Paket-ID:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren, Paket-ID
   `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht.
@@ -246,17 +253,17 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 
 ## Qualitätsziele
 
-| Bereich | Ziel | Stand 1.7.0 (gemessen) |
+| Bereich | Ziel | Stand 1.8.0 (gemessen) |
 |---|---|---|
 | Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben, Blitz und Seitenränder nach deiner Rückmeldung zu 1.6.0 überarbeitet); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
 | Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0–4 von 180 Bildern > 20 ms bei 4× gedrosselter CPU¹ |
-| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 6 ms, mit 4× gedrosselter CPU 20–29 ms¹; Kauf im Basar ohne Ruckler (längstes Bild 16 ms bei 4× CPU) |
+| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 6–9 ms, mit 4× gedrosselter CPU 18–29 ms¹; Kauf im Basar ohne Ruckler (längstes Bild 16 ms bei 4× CPU) |
 | Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 525–526 ms (4× CPU: 541–549 ms), neuer Bildschirm ab 365 ms; zurück ins Menü 329–333 ms¹ – nicht unterbrechbar |
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
 | APK-Größe | < 25 MB | 55,9 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,48 MB, Schriften 0,29 MB) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | ✓ mit den neuen Regeln und Legendären: Startdecks 47,9–51,8 %, Zufallsdecks 47,1–51,8 %, keine Paarung schlechter als 40/60, Beginner gewinnt 45,8 / 51,4 % (1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
-| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ zwölf eigene Regeln (AP 5.3); Gruppe 52,8 %, jede einzelne −2,5 bis +7,9 Punkte zu ihrem Helden (1.6.0: −7,1 bis +9,7)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | ✓ mit den fünf neuen Schlüsselwörtern und 13 neuen Karten (1.8.0): Startdecks 47,9–51,8 %, Zufallsdecks 47,4–52,3 %, keine Paarung schlechter als 40/60, Beginner gewinnt 45,8 / 49,9 % (1.7.0: 47,9–51,8 % bzw. 47,1–51,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ zwölf eigene Regeln (AP 5.3); Gruppe 53,1 % (1.7.0: 52,8 %), jede einzelne −0,2 bis +5,7 Punkte zu ihrem Helden (1.6.0: −7,1 bis +9,7)² |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
@@ -793,7 +800,8 @@ bauen kann; mächtig, aber mit Antwort; nie nur „großer Körper plus Bonus“
 
   Die Kartentexte passen vollständig auf die Karte: Lange Regeln bekommen eine kleinere Schrift und bis zu sieben
   Zeilen statt abgeschnitten zu werden (geprüft per Screenshot aller zwölf). Caterinas Zusatz „die Regentin“ entfällt
-  aus demselben Grund. Gorgo liegt am oberen Rand – ein Kandidat für den nächsten Feinschliff.
+  aus demselben Grund. Gorgo lag am oberen Rand (+7,9); mit den neuen Karten in 1.8.0 sinkt sie ohne Änderung auf 54,0 %
+  (+5,4) – kein Feinschliff mehr nötig. Am oberen Rand liegen jetzt Lagertha (56,3 %) und Zenobia (55,5 %), beide unter 60 %.
 
 **AP 5.4 – Historische Schlüsselwörter (M)**
 
@@ -839,14 +847,59 @@ bauen kann; mächtig, aber mit Antwort; nie nur „großer Körper plus Bonus“
     Schriftrollen aus“; die Wahl lässt sich nicht wegklicken und überlebt Pausieren und Fortsetzen (Spielstand).
   - Für die Legendären außerdem schon **Doppelschlag** (Kojirō, ⚔) und **Arkaner Fokus** (Theon, ✧1), dazu das erste
     **Bauwerk** (Stufenpyramide, siehe AP 5.5).
-- [ ] Teil 2: Tarnung, Plünderung, Bannung, Tödliches Gift, Belastung – und mehr Karten mit den neuen Schlüsselwörtern
-  (AP 5.11). Reihenfolge nach Spielspaß und Aufwand: Plünderung, Tarnung, Bannung, Gift, Belastung.
+- [x] **Teil 2 (1.8.0): Plünderung, Tarnung, Bannung, Tödliches Gift, Belastung** – alle fünf auf einmal, je mit
+  Engine-Test (`tests/schluesselwoerter2.test.js`), KI-Bewertung und Balance-Lauf:
+  - **Plünderung** (`plunder`): Schaden des Dieners – auch beim Gegenschlag, im Zangenangriff und im Duell – heilt den
+    eigenen Helden. Marke ♥.
+  - **Tarnung** (`stealth`): weder angreifbar noch Ziel von Zaubern, Fähigkeiten (auch Hypatias Zufallsziel) und
+    Einmarsch; ein getarnter Schildwall sperrt nicht; Flächenschaden trifft. Endet mit dem ersten eigenen Angriff.
+    Plakette abgedunkelt, Marke ◐.
+  - **Bannung** (Effekt `silence`): entfernt Schildwall, Göttliche Gunst, Vorstoß, Doppelschlag, Starre, Tarnung,
+    Plünderung, Gift, Vermächtnis, Zugende-Effekte, Arkanen Fokus und die Auren der Legendären; Angriff und
+    Höchstleben fallen auf den Kartenwert. Auch Bauwerke lassen sich bannen (die Stufenpyramide wirkt dann nicht mehr).
+    Plakette ausgegraut, Marke ⊘.
+  - **Tödliches Gift** (`poison`): jeder Schaden an einem Diener vernichtet ihn (Göttliche Gunst fängt ihn ab);
+    Helden und Bauwerke sind sicher. Marke ⚗.
+  - **Belastung X** (`overload`): im nächsten eigenen Zug X Mana weniger. Die Manasäule färbt die gesperrten Kristalle
+    rot und zeigt „−X Belastung“ bzw. „Folgezug −X“.
+  - **13 neue Karten** (feste IDs hinten angehängt, Spielstände bleiben gültig; alle noch mit Platzhalter, AP 5.12):
+
+    | Karte | Held | Werte | Schlüsselwort | gewinnt, wenn gezogen (Δ zum Helden) |
+    |---|---|---|---|---|
+    | Agent des Zehnerrats | Dandolo | 3: 4/3 | Tarnung | 54,6 % (+2,9) |
+    | Tributeintreiber | Khan | 3: 3/3 | Plünderung | 46,1 % (−4,4) |
+    | Kobra des Nils | Imhotep | 2: 1/2 | Tödliches Gift | 53,0 % (+5,1) |
+    | Brand von Londinium | Boudicca | Zauber 3: 2 Schaden an allen feindlichen Dienern | Belastung 1 | 53,7 % (+4,9) |
+    | Bannbulle | Nostradamus | Zauber 1: Bannung, zieht 1 Karte | Bannung | 57,0 % (+5,1) |
+    | Plünderer von Paris | Ragnar | 4: 3/5 | Plünderung | 49,4 % (−1,2) |
+    | Zorn des Donnergottes | Ragnar | Zauber 1: 3 Schaden | Belastung 1 | 51,7 % (+1,1) |
+    | Shinobi aus Iga | Musashi | 2: 3/2 | Tarnung | 55,1 % (+4,7) |
+    | Freibeuterin | neutral | 2: 2/2 | Plünderung | 47,7 % (−2,3) |
+    | Späherin im Unterholz | neutral | 1: 2/1 | Tarnung | 52,0 % (+2,0) |
+    | Wandermönch | neutral | 2: 2/2, Einmarsch: Bannung | Bannung | 52,1 % (+2,1) |
+    | Giftmischerin | neutral | 3: 2/3 | Tödliches Gift | 52,6 % (+2,6) |
+    | Condottiere | neutral | 3: 4/5 | Belastung 2 | 50,7 % (+0,7) |
+
+    Werte in drei vollen Läufen justiert: Die Kobra war mit 1/3 der Ausreißer (60,3 %, +10,2) und hat jetzt 1/2; der
+    Agent bekam +1 Leben (vorher 45,3 %). Ein gestärkter Tributeintreiber (3/4) schob Khan auf 53,1 % – zurückgenommen.
+  *Gemessen* (200 Partien je Paarung, Startwert 20261006; Bericht: [`balance/BERICHT.md`](balance/BERICHT.md), vorher
+  [`balance/BERICHT-1.7.0.md`](balance/BERICHT-1.7.0.md)):
+
+  | Messung | 1.7.0 | 1.8.0 |
+  |---|---|---|
+  | Helden mit 47–53 % gegen das Feld (Start- / Zufallsdecks) | 10 / 10 | **10 / 10** |
+  | Spanne gegen das Feld, Zufallsdecks | 47,1–51,8 % | **47,4–52,3 %** |
+  | Paarungen schlechter als 40/60 | 0 | **0** |
+  | Beginner gewinnt (Start- / Zufallsdecks) | 45,8 / 51,4 % | **45,8 / 49,9 %** |
+  | Legendäre als Gruppe „gewinnt, wenn gezogen“ | 52,8 % | **53,1 %** |
+  | Neue Karten „gewinnt, wenn gezogen“ | – | **46,1–57,0 %** (keine über 60 %) |
+  | Züge je Partie (Median, Zufallsdecks) | 19 | 20 |
 
 **AP 5.5 – Bauwerke und Denkmäler (M)**
 
 Neuer Kartentyp ohne Angriff mit dauerhaftem Effekt, ähnlich Schauplätzen in Runeterra oder Planeswalkern in Magic.
 
-- [ ] Regelvorschlag: Ein Bauwerk belegt einen der 7 Plätze, greift nie an, hat **Haltbarkeit** statt Leben, kann von
+- [x] Regelvorschlag *von dir bestätigt (Entscheidung 6, Sitzung 5):* Ein Bauwerk belegt einen der 7 Plätze, greift nie an, hat **Haltbarkeit** statt Leben, kann von
   Dienern, Helden und gezielten Zaubern angegriffen (belagert) werden; Flächenschaden trifft es nicht; Heilung wirkt
   nicht, nur eigene Reparatur-Effekte. Beim Einsturz bricht die Plakette zusammen.
 - [ ] Beispiele: **Bibliothek von Alexandria** (zu Beginn Eures Zuges: Ergründet einen Zauber), **Aquädukt** (am Ende
@@ -888,16 +941,25 @@ Neuer Kartentyp ohne Angriff mit dauerhaftem Effekt, ähnlich Schauplätzen in R
 auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2) – bis dahin mit Platzhaltern (AP 5.12).
 
 **AP 5.9 – Chronik der Helden: Hintergründe ausarbeiten (S)**
-- [ ] Je Held eine Chronikseite: kurze Biografie (historisch belegt, Jahreszahlen), Epoche und Schauplatz, ein
+- [x] Je Held eine Chronikseite: kurze Biografie (historisch belegt, Jahreszahlen), Epoche und Schauplatz, ein
   belegtes oder überliefertes Zitat, Spielstil in einem Satz („Leonidas hält die Linie und bestraft Angreifer“),
   Lieblingskarten, Beziehungen zu anderen Helden (Rivalen, Verbündete) und Stimmungsangaben für Stimme und Musik
-  (AP 4.1, Stil-Bibel Abschnitt 8).
-- [ ] Ablage als Daten (`model/data.js` bzw. eigene Datei `model/lore.js`), angezeigt in der Heldenwahl (AP 1.7) und
-  im „Archiv der Zeiten“ (Weitere Ideen 1).
-- [ ] Heldenfähigkeiten und Startdecks prüfen: Passen Name, Wirkung und Spielstil zur Biografie? Abweichungen
-  sammeln und mit AP 5.2 (Balance) zusammen umsetzen. *In AP 5.2 schon geändert und hier mitzuprüfen:* Leonidas
-  stärkt mit *Schildwall* jetzt die ganze Linie, Hypatias *Sternenfunke* trifft zufällig.
-- Abnahme: 10 Chronikseiten, von dir gegengelesen.
+  (AP 4.1, Stil-Bibel Abschnitt 8). *Umgesetzt in 1.8.0:* drei Absätze Biografie mit Jahreszahlen, Zitat mit Quelle
+  (wo kein Wort des Helden selbst überliefert ist, ein Zeitgenosse oder eine Inschrift: Synesios über Hypatia, der
+  Statuensockel Djosers für Imhotep; Dschingis Khans Satz ist als „zugeschrieben“ markiert, Ragnars Saga als Sage),
+  Spielstil, drei Lieblingskarten, je drei Beziehungen (die Legendäre, ein Rivale oder Verbündeter unter den zehn
+  Helden, ein künftiger Held aus AP 5.10) und Stimmung für Stimme und Musik.
+- [x] Ablage als Daten in `model/lore.js`, angezeigt in der Heldenwahl (Knopf „Chronik“) und in der Großansicht des
+  Helden im Match (Porträt lange drücken). Das „Archiv der Zeiten“ (Weitere Ideen 1) kann dieselben Daten nutzen.
+- [x] Heldenfähigkeiten und Startdecks geprüft. Passt: Leonidas (*Phalanx* stärkt die Linie), Hypatia (*Sternenfunke*,
+  zufällig wie ein Sternschnuppenregen), Imhotep (Heilkunst – er wurde als Gott der Heilkunst verehrt; Djoser als
+  Bauherr), Khan, Boudicca, Nostradamus, Jeanne; die Startdecks bleiben. *Abweichungen, gesammelt für deine
+  Entscheidung 13:* **Ragnar** ruft „Totems“ – die gibt es in der nordischen Überlieferung nicht; Vorschlag
+  „Runensteine“ (Heilrune, Feuerrune, Schutzrune, Kraftrune), nur Namen und Texte. **Dandolo** – *Verborgene Klinge*
+  passt eher zum Zehnerrat als zum blinden Dogen und Flottenführer; Vorschlag *Rammsporn der Galeeren* (gleiche
+  Wirkung). **Musashi** ist für den Kampf mit zwei Schwertern bekannt; Vorschlag für AP 5.11: eine Musashi-Karte mit
+  Doppelschlag.
+- Abnahme: 10 Chronikseiten – **bitte gegenlesen** (Heldenwahl → Chronik).
 
 **AP 5.10 – Neue Helden (M)**
 
@@ -944,8 +1006,9 @@ Schlüsselwort aus AP 5.4/5.5):
 | Amerika *(neu)* | **Nezahualcóyotl** (1402–1472) | Dichterkönig von Texcoco, baute Dämme und das Aquädukt von Chapultepec | **Blumenlied:** Stellt bei allen eigenen Dienern 1 Leben wieder her | Ausdauer, breite Heilung |
 | | **Ix Wak Chan Ajaw** („Lady Six Sky“, um 682–741) | Maya-Herrscherin von Naranjo, führte zahlreiche Feldzüge | **Sternenkrieg:** Ein eigener Diener +2 Angriff in diesem Zug; tötet er einen Diener, zieht eine Karte | Angriff mit Belohnung |
 
-- [ ] Du wählst aus. **Mein Vorschlag für Welle 1 (6 Helden, größtmögliche Vielfalt):** Perikles (Griechenland),
-  Marcus Agrippa (Rom), Amanirenas (Kusch), Anna Komnene (Byzanz), Nezahualcóyotl (Texcoco), Hōjō Masako (Japan).
+- [x] Du wählst aus. *Entschieden (Sitzung 5): mein Vorschlag für Welle 1 (6 Helden, größtmögliche Vielfalt):*
+  Perikles (Griechenland), Marcus Agrippa (Rom), Amanirenas (Kusch), Anna Komnene (Byzanz), Nezahualcóyotl (Texcoco),
+  Hōjō Masako (Japan).
   Welle 2 als Rivalen und Gegenstücke: Epaminondas, Baibars, Jan Žižka, Fabius Maximus, Fu Hao, Mandukhai.
 - [ ] Je Held: Chronikseite wie in AP 5.9, 10 eigene Karten, Startdeck, Kampagnenmission, KI-Persönlichkeit
   (AP 5.8), Porträt zunächst als Platzhalter (AP 5.12).
@@ -966,17 +1029,21 @@ Schlüsselwort aus AP 5.4/5.5):
 **AP 5.12 – Platzhalter für fehlende Grafiken (S)** – *von dir freigegeben (Sitzung 2): erst mit Platzhaltern.*
 Regeln, Balance und KI lassen sich ohne Bilder bauen und testen; die Grafiken (AP 1.2) kommen danach gesammelt.
 So, dass es im Spiel nicht kaputt aussieht:
-- [ ] Datenfeld `art` je Karte und Held; fehlt es, zeichnet der Renderer einen **gestalteten Platzhalter** statt
+- [x] Datenfeld `art` je Karte und Held; fehlt es, zeichnet der Renderer einen **gestalteten Platzhalter** statt
   eines leeren Fensters: Epochenfarbe des Helden, großes Symbol (Helden-Icon, Kartentyp, Bauwerk-Turm), Name in
   Cinzel, kleiner Vermerk „Motiv folgt“. Neue Helden bekommen ein Medaillon mit Monogramm statt Porträt.
-- [ ] Eine automatisch erzeugte Liste `ungenutzte_assets/MOTIVE.md` mit allen fehlenden Motiven, Größe und
+- [x] Eine automatisch erzeugte Liste `ungenutzte_assets/MOTIVE.md` mit allen fehlenden Motiven, Größe und
   fertigem Prompt (Prompt-Anfang aus AP 1.2 + Kartentext + Epoche), damit du die Bilder in Stapeln erzeugen kannst.
-- [ ] Sichtprüfung zählt Platzhalter, damit sichtbar bleibt, wie viele Motive noch fehlen; ein Platzhalter darf
+- [x] Sichtprüfung zählt Platzhalter, damit sichtbar bleibt, wie viele Motive noch fehlen; ein Platzhalter darf
   nie einen Test brechen.
-- Abnahme: Ein Deck nur aus Karten ohne Motiv ist spielbar und lesbar (Screenshot im Handyformat).
-  *Vorgeschmack in 1.7.0:* Die Stufenpyramide hat kein gemaltes Motiv; `R.tile` zeichnet für `art: '@pyramid'` eine
-  Stufenpyramide vor Wüstenhimmel (Plakette, Karte, Großansicht, Chronik) – dieses Muster lässt sich für AP 5.12
-  verallgemeinern.
+- Abnahme ✓: Ein Deck nur aus Karten ohne Motiv ist spielbar (Test: sechs KI-Partien bis zum Ende) und lesbar
+  (Screenshot im Handyformat: Hand, Plaketten mit Tarnung/Bannung/Plünderung/Gift, Großansicht, Manasäule mit Belastung).
+  *Umgesetzt in 1.8.0:* `D.missingArt` kennzeichnet Karten ohne Atlasfeld oder mit gezeichnetem Motiv (`'@pyramid'`);
+  `R.tile` zeichnet dann ein Medaillon in der Epochenfarbe des Helden mit Heldenzeichen (neutral: ⚔ Diener, ✦ Zauber,
+  ♜ Bauwerk), „Motiv folgt“ und in der Großansicht den Namen; Helden ohne Porträt bekommen ein Monogramm (auch im DOM
+  über `R.heroStyle`). `node werkzeuge/motive.js` schreibt die Liste mit Größe (724 × 724 für ein Atlasfeld 362 × 362)
+  und Prompt; ein Test prüft, dass sie aktuell ist. *Gemessen:* **14 Motive fehlen** (13 neue Karten und die
+  Stufenpyramide), 0 Heldenporträts (`sichtpruefung/messwerte.json` → `platzhalter`).
 
 ### Phase 6 – Spielmodi und Motivation (fortlaufend)
 
@@ -1028,10 +1095,10 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Textfreies Hauptmenü-Bild mit interaktiven Knöpfen und Animationen | AP 1.3 (Bild liegt in `ungenutzte_assets/ui/`) |
 | Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) |
 | Legendäre aufwerten | AP 5.3 – ✓ in 1.7.0 |
-| Hintergründe der Helden ausarbeiten | AP 5.9 |
+| Hintergründe der Helden ausarbeiten | AP 5.9 – ✓ in 1.8.0 |
 | Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 |
 | Bestehende Karteneffekte überarbeiten | AP 5.11 |
-| Platzhalter statt fehlender Grafiken | AP 5.12 |
+| Platzhalter statt fehlender Grafiken | AP 5.12 – ✓ in 1.8.0 |
 | Heldenbalance | AP 5.1, AP 5.2 – ✓ in 1.6.0 |
 | Heldenfähigkeit dreht sich nach Benutzung um | AP 1.8, AP 3.7 |
 | Zwei thematische Spielfeldhälften je Epoche | AP 1.2, AP 1.8 |
@@ -1054,8 +1121,8 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Münzwurf, Startkarten-Tausch, „Gunst der Stunde“, Mana bis 10, Handlimit, gleichzeitiger Schaden, Aufmarsch-Verzögerung, freie Zielwahl, KI-Zug ohne Unterbrechung | vorhanden; Inszenierung in AP 3.4, AP 3.8; Umbenennung ✓ (1.7.0) |
 | Taktische Hinterhalte | AP 5.6, AP 1.8 |
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 |
-| Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0), AP 3.6 |
-| Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 (erstes Bauwerk in 1.7.0: Stufenpyramide) |
+| Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
+| Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 (erstes Bauwerk in 1.7.0: Stufenpyramide; belegen einen der 7 Plätze – bestätigt) |
 
 ---
 
@@ -1071,18 +1138,17 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
    werden die Skins zu Mittelnähten/Rahmen?
 4. ~~**Schlüsselwörter umbenennen** (AP 5.4)~~ – *entschieden: alle sechs auf einmal*, umgesetzt in 1.7.0.
 5. **Ressourcen** (AP 1.8): Äther-Runen oder Sonnen-Amulette?
-6. **Bauwerke** (AP 5.5): Belegen sie einen der 7 Plätze (Vorschlag) oder bekommen sie eine eigene Reihe?
-   *Vorläufig wie vorgeschlagen umgesetzt* (die Stufenpyramide belegt einen Platz) – bitte bestätigen, bevor AP 5.5 folgt.
+6. ~~**Bauwerke** (AP 5.5)~~ – *entschieden (Sitzung 5):* Sie belegen einen der 7 Plätze.
 7. **Stimmen** (AP 4.1): Quelle und Budget (eigene Aufnahmen, Sprecher, KI-Sprachausgabe)?
 8. ~~**Legendäre** (AP 5.3)~~ – *entschieden: alle Vorschläge übernehmen, auf einmal*; umgesetzt in 1.7.0, Werte nach
    dem Balance-Lauf justiert (Abweichungen von der Tabelle in AP 5.3).
 9. ~~**Stil-Bibel und Hauptmenü** (AP 1.1, AP 1.3)~~ – *freigegeben* (Sitzung 2), Zahnrad und Wand danach korrigiert.
-10. **Code-Struktur:** Deinen Wunsch „MVVP“ habe ich als **MVVM** (Model – View – ViewModel) umgesetzt. Falls du
-    MVP (Model – View – Presenter) gemeint hast: Die Schichten bleiben gleich, nur die Rolle der Mittelschicht
-    ändert sich – bitte kurz bestätigen.
-11. **Neue Helden** (AP 5.10): Deine Vorgabe steht (wichtig, echt, nicht weltbekannt, mehr Vielfalt je Epoche).
-    Offen ist die Auswahl aus den 27 Vorschlägen – mein Vorschlag für Welle 1 steht in AP 5.10.
+10. ~~**Code-Struktur**~~ – *entschieden (Sitzung 5):* MVVM bleibt.
+11. ~~**Neue Helden** (AP 5.10)~~ – *entschieden (Sitzung 5):* Welle 1 nach meinem Vorschlag – Perikles, Marcus Agrippa,
+    Amanirenas, Anna Komnene, Nezahualcóyotl, Hōjō Masako.
 12. ~~**Platzhalter** (AP 5.12)~~ – *freigegeben:* neue Karten und Helden zuerst mit gestalteten Platzhaltern.
+13. **Namen aus der Chronik-Prüfung** (AP 5.9): Ragnars „Totems“ → „Runensteine“? Dandolos *Verborgene Klinge* →
+    *Rammsporn der Galeeren*? (Nur Namen und Texte, Wirkung und Spielstände bleiben.)
 
 ---
 
@@ -1094,10 +1160,11 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 2 ✓ | AP 2.3, AP 0.1, AP 2.6, Feinschliff AP 1.3 | erledigt in 1.5.0 – MVVM-Struktur, Basar ohne Sprünge, Sichtprüfung in der CI, Zahnrad repariert |
 | 3 ✓ | AP 5.1, AP 5.2 | erledigt in 1.6.0 – Balance-Werkzeug, alle Helden 47–53 %, Beginner-Vorteil ausgeglichen |
 | 4 ✓ | AP 5.4 (Teil 1), AP 5.3, AP 5.8 (Teil 1), Feinschliff AP 1.3 | erledigt in 1.7.0 – eigene Schlüsselwörter, Vorstoß/Starre/Ergründen, alle zwölf Legendären neu, Menü-Blitz und Seitenränder |
-| 5 | AP 5.12, AP 5.9, AP 5.4 (Teil 2) – siehe unten | Platzhalter und Helden-Chronik als Grundlage für neue Karten und Helden; weitere Schlüsselwörter |
-| 6 | AP 5.11 (Effekte überarbeiten, Welle 1), AP 5.10 (erste neue Helden nach deiner Auswahl) | Mehr Tiefe, sobald Messen und Schlüsselwörter stehen |
+| 5 ✓ | AP 5.12, AP 5.9, AP 5.4 (Teil 2), Rückmeldung 1.7.0 | erledigt in 1.8.0 – Platzhalter, Chronik der Helden, fünf neue Schlüsselwörter mit 13 Karten, randlose Untermenüs |
+| 6 | AP 5.10 (Welle 1: sechs neue Helden), Engine-Teil von AP 5.10 (Fähigkeiten datengetrieben) – siehe unten | Entscheidung 11 steht; Platzhalter und Chronik-Vorlage sind da |
+| 7 | AP 5.11 (Effekte überarbeiten, Kartenwelle 1), AP 5.5 (Bauwerke als Kartentyp) | Mehr Tiefe mit allen Schlüsselwörtern und neuen Helden |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
-| 6–7 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
+| 7–8 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
 | 8 | AP 2.4, AP 2.5 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon) |
 | 9–11 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht |
 | 12 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
@@ -1110,58 +1177,52 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 4 (Version 1.7.0):** AP 5.4 Teil 1 (alle sechs Schlüsselwörter auf einmal umbenannt; neu Vorstoß,
-Starre und Ergründen, dazu Doppelschlag, Arkaner Fokus und das erste Bauwerk), AP 5.3 komplett (alle zwölf Legendären
-auf einmal, als Gruppe 52,8 % „gewinnt, wenn gezogen“), AP 5.8 Teil 1 (KI bewertet die neuen Mechaniken), deine
-Rückmeldung zu 1.6.0 (Lichtblitz warmgolden statt weiß, Seitenränder scharf statt verschwommen). Alle Helden bleiben
-bei 47–53 % in beiden Deckarten. Davor: Sitzung 3 (1.6.0) AP 5.1, AP 5.2; Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6;
-Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
+**Erledigt in Sitzung 5 (Version 1.8.0):** AP 5.12 (gestaltete Platzhalter, `MOTIVE.md` mit Prompts, Zählung in der
+Sichtprüfung: 14 Motive fehlen), AP 5.9 (zehn Chronikseiten in `model/lore.js`, Anzeige in Heldenwahl und Match,
+Fähigkeiten gegengelesen), AP 5.4 Teil 2 (Plünderung, Tarnung, Bannung, Tödliches Gift, Belastung mit 13 neuen Karten),
+deine Rückmeldung zu 1.7.0 (Untermenüs und Dialoge randlos bis an den Bildschirmrand, der Hintergrund des Hauptmenüs
+scheint nicht mehr durch) und deine Entscheidungen 6, 10 und 11. Alle Helden bleiben bei 47–53 % in beiden Deckarten,
+Legendäre als Gruppe 53,1 %, keine neue Karte über 60 %. Davor: Sitzung 4 (1.7.0) AP 5.4 Teil 1, AP 5.3, AP 5.8 Teil 1;
+Sitzung 3 (1.6.0) AP 5.1, AP 5.2; Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6; Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
 
-**Vorher bitte von dir (10 Minuten):**
-1. Test-APK `Aeterna-1.7.0-Test-APK` aus Actions installieren und zwei, drei Partien spielen, am besten mit eigenen
-   Decks voller Legendärer (Sammlung → Seltenheit „Legendär“; lange drücken bzw. antippen erklärt jedes Schlüsselwort).
-   Achte auf: den Ergründen-Dialog (Lehrsatz, Vergessene Weisheit, Marco Polo, Herodot), Starre (Schildstoß,
-   Donnerschlag), Vorstoß (Duellant, Kriegselefant, Subutai), Kojirōs Duell, Zenobias Übernahme, die Stufenpyramide –
-   und im Hauptmenü auf Blitz und Ränder. Gefällt dir eine Regel oder ein Wert nicht, nenne sie; Varianten lassen sich
-   in Minuten nachmessen.
-2. Offene Entscheidungen: **6** (Bauwerke belegen einen der 7 Plätze – so lassen?), **11** (welche neuen Helden für
-   Welle 1?), weiterhin **10** (MVVM richtig verstanden?).
-3. *Optional, parallel:* Grafiken (Prompt-Anfang aus AP 1.2, Ablage in `ungenutzte_assets/ui/`): ein Motiv für die
-   **Stufenpyramide** (800 × 600, „ancient Egyptian step pyramid of Djoser at golden hour“) und eines für den
-   **Hopliten** (heute das Bild eines Spartaners aus Leonidas' Atlas), dazu die Bausteine aus AP 2.3:
+**Vorher bitte von dir auf dem OnePlus 15 (10 Minuten):**
+1. Test-APK `Aeterna-1.8.0-Test-APK` aus Actions installieren. Prüfen: Basar, Sammlung, Heldenwahl und die Dialoge im
+   Hauptmenü (Aufgaben, Einstellungen) reichen bis an den Rand, ohne dass die Säulen durchscheinen; Klickflächen im
+   Hauptmenü treffen noch.
+2. **Chronik gegenlesen** (Heldenwahl → „Chronik“, im Match Heldenporträt lange drücken): Stimmen Ton, Fakten und
+   Länge? Was soll anders heißen oder fehlt?
+3. Zwei, drei Partien mit den neuen Karten (Sammlung → Seltenheit „Gewöhnlich“/„Selten“; über Packs oder „Alle Karten
+   zeigen“): Tarnung, Bannung, Plünderung, Tödliches Gift, Belastung. Wirken die Platzhalter ordentlich genug?
+4. Offene Entscheidungen **13** (Ragnars Totems → Runensteine, Dandolos Klinge → Rammsporn?), weiterhin **2**, **3**,
+   **5**, **7**.
+5. *Optional, parallel:* Motive aus `ungenutzte_assets/MOTIVE.md` erzeugen (fertige Prompts, Ablage
+   `ungenutzte_assets/karten/<id>.png`) – die nächste Sitzung baut sie ein.
 
-   | Asset | Größe (px) | Prompt-Zusatz |
-   |---|---|---|
-   | Steinknopf normal, gedrückt, gold | je 640 × 160 | „rectangular carved limestone button with a bronze rivet at each end, plain stretchable centre; pressed-in version; version with gold leaf rim“ |
-   | Panel (9-Slice) | 768 × 768 | „stone tablet frame with bronze corners, recessed darker centre“ |
-   | Reiter aktiv + inaktiv | je 800 × 180 | „small carved stone tab with bronze trim; active version glowing gold“ |
-   | Wallet-Rahmen + drei Symbole | 420 × 120, Symbole je 128 × 128 | „small bronze-framed limestone counter“; „gold coin“, „glowing dust crystal“, „sealed card pack“ |
-   | Schließen-Knauf | 160 × 160 | „round bronze knob with an engraved X“ |
-
-**Sitzung 5 – AP 5.12, AP 5.9 und AP 5.4 Teil 2 (Platzhalter, Helden-Chronik, weitere Schlüsselwörter)**
+**Sitzung 6 – AP 5.10 Welle 1 (sechs neue Helden) auf datengetriebenen Heldenfähigkeiten**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.7.0 | deinen Test der neuen Regeln und Legendären einarbeiten, danach Balance-Lauf | Werte sind messbar, Änderungen kosten Minuten |
-| AP 5.12 | gestaltete Platzhalter für fehlende Motive (Muster der Stufenpyramide verallgemeinern: Epochenfarbe, Symbol, Name, „Motiv folgt“), `ungenutzte_assets/MOTIVE.md` mit fertigen Prompts, Zählung in der Sichtprüfung | Voraussetzung, damit neue Karten und Helden nicht auf Grafiken warten |
-| AP 5.9 | Chronikseiten der zehn Helden (`model/lore.js`: Biografie, Zitat, Spielstil, Rivalen), Anzeige in Heldenwahl und Großansicht; Fähigkeiten und Startdecks gegenlesen | Grundlage für neue Helden (AP 5.10) und die Kampagne |
-| AP 5.4 Teil 2 | Plünderung, Tarnung, Bannung (je Engine-Test, KI-Bewertung, Balance-Lauf) und die ersten Karten damit | mehr Vielfalt; Vorbereitung für Welle 1 (AP 5.11) |
-| Feinschliff | Gorgo liegt mit +7,9 Punkten am oberen Rand der Legendären | kleiner Wert, schnell nachgemessen |
+| Rückmeldung 1.8.0 | Chronik-Korrekturen, Entscheidung 13, Werte der neuen Karten | kurz, Balance-Lauf läuft ohnehin |
+| AP 5.10 Engine | Heldenfähigkeiten als Daten statt `switch` in `engine.js` (Ziel, Wirkung, Bedingung), Zeitalter als Datenfeld (`era`-Gruppe) | ohne das braucht jeder neue Held Sonderfall-Code |
+| AP 5.10 Welle 1 | Perikles, Marcus Agrippa, Amanirenas, Anna Komnene, Nezahualcóyotl, Hōjō Masako: je Chronikseite (Vorlage AP 5.9), 10 eigene Karten mit den neuen Schlüsselwörtern, Startdeck, Kampagnenmission, KI-Bewertung; Porträt und Motive als Platzhalter (AP 5.12) | Entscheidung 11 steht, Platzhalter und Chronik sind da |
+| Balance | voller Lauf mit 16 Helden (136 Paarungen statt 55, ≈ 15 min), jeder neue Held 47–53 % | Abnahme von AP 5.10 |
+| Oberfläche | Heldenwahl mit 16 Helden (Raster oder Blättern), Sammlungsfilter | sonst passen die neuen Helden nicht auf den Bildschirm |
 
-Danach Sitzung 6 (AP 5.11 Welle 1, AP 5.10 erste neue Helden nach deiner Auswahl). Neue Bildschirm-Logik kommt dabei
+Danach Sitzung 7 (AP 5.11 Kartenwelle 1 mit Bauwerken als Kartentyp, AP 5.5). Neue Bildschirm-Logik kommt dabei
 immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Balance-Lauf.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.12, AP 5.9 und AP 5.4 (Teil 2)** ab
-> und übernimm mein Feedback zu Version 1.7.0: *(hier Feedback und Antworten zu den offenen Entscheidungen 6, 10 und 11
-> einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit
-> Screenshots im Handyformat, lass die zwingend notwendigen Tests, den Balance-Lauf und den Klickpfad (falls
-> notwendig) laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab und trage Messwerte ein.
-> Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die
-> nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.10 (Engine-Teil und Welle 1 mit sechs
+> neuen Helden)** ab und übernimm mein Feedback zu Version 1.8.0: *(hier Feedback, Korrekturen zur Chronik und Antwort
+> zu Entscheidung 13 einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische
+> Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen Tests, den Balance-Lauf und den Klickpfad
+> (falls notwendig) laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere
+> Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende
+> einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
+> Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Drei Pakete mit neuer Darstellung (Platzhalter), viel Text
-(Chronikseiten, historisch belegt) und neuen Engine-Regeln samt Balance-Lauf brauchen sorgfältiges Abwägen. *medium*
-reicht, wenn du nur AP 5.12 und AP 5.9 willst (ohne neue Regeln); *xhigh* lohnt sich erst, wenn zusätzlich die erste
-Welle neuer Karten (AP 5.11) in dieselbe Sitzung soll.
+**Empfohlener Effort für den nächsten Prompt: xhigh.** Sechs Helden mit je zehn Karten, Startdeck, Mission und
+historisch belegter Chronik plus der Umbau der Heldenfähigkeiten und ein Balance-Lauf mit 16 Helden sind die bisher
+größte Sitzung. *high* reicht, wenn du Welle 1 halbierst (z. B. Perikles, Amanirenas, Hōjō Masako) – die anderen drei
+folgen dann in Sitzung 7.

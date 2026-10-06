@@ -51,7 +51,7 @@ H.render=p=>{const k=disc(KNOB.c,KNOB.rim),face=disc(KNOB.c,KNOB.r);
 <nav class="hall-modes" aria-label="Spielmodi">${p.plates.map((x,i)=>plate(x,i,p)).join('')}</nav>
 <nav class="hall-rails" aria-label="Menü">${rail('quests','Aufgaben',p.quests,0,p)}${rail('bazaar','Basar',0,1,p)}${rail('collection','Sammlung',0,2,p)}${rail('packs','Kartenpakete',p.packs,3,p)}</nav>
 <div class="hall-rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div><canvas class="hall-sparks" width="1600" height="800" aria-hidden="true" data-static></canvas>
-<footer class="hall-foot">Version ${esc(p.version)} · 140 Karten · 10 Helden · offline</footer></div></div>`;};
+<footer class="hall-foot">Version ${esc(p.version)} · ${CHD.cards.length} Karten · ${CHD.heroes.length} Helden · offline</footer></div></div>`;};
 // Long inscriptions shrink until they fit between the rivets of their plate. Each label is measured once
 // (a plate with new text is a new node); the patcher leaves the fitted size alone (data-own="style").
 H.fit=el=>{for(const t of el.querySelectorAll('.plate .label b,.plate .label small')){if(t.__fit)continue;t.__fit=true;const max=t.closest('.plate').offsetWidth*(t.tagName==='B'?.72:.8),w=t.offsetWidth;if(w<=max)continue;

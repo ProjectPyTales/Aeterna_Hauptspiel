@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.7.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.8.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -79,8 +79,10 @@ function show(next,arg){
  if(next==='menu')A.track('menu');if(next==='game')A.track('battle');}
 
 // ---------- Platform ----------
-function resize(){const inset=window.safeInsets||{left:0,right:0,top:0,bottom:0},w=innerWidth-inset.left-inset.right,h=innerHeight-inset.top-inset.bottom,scale=Math.min(w/1600,h/800),left=inset.left+(w-1600*scale)/2,topY=inset.top+(h-800*scale)/2;
- stage.style.transform=`scale(${scale})`;stage.style.left=left+'px';stage.style.top=topY+'px';
+// On screens wider than 2:1 the stage grows sideways ("wings"): menus, dialogs and their backdrops reach the edges,
+// while the hall, the match canvas and the content of the screens stay in the centred 1600 × 800 area.
+function resize(){const inset=window.safeInsets||{left:0,right:0,top:0,bottom:0},w=innerWidth-inset.left-inset.right,h=innerHeight-inset.top-inset.bottom,scale=Math.min(w/1600,h/800),wing=Math.max(0,Math.floor((w/scale-1600)/2)),left=inset.left+(w-1600*scale)/2,topY=inset.top+(h-800*scale)/2;
+ stage.style.transform=`scale(${scale})`;stage.style.width=1600+2*wing+'px';stage.style.left=left-wing*scale+'px';stage.style.top=topY+'px';stage.style.setProperty('--wing',wing+'px');
  for(const [k,v] of [['bw',H.bgWidth*scale],['bh',800*scale],['bx',left-H.bgOffset*scale],['by',topY]])document.body.style.setProperty('--hall-'+k,v+'px');}
 function back(){if(busy)return;if(dialog){dialog.vm.close?.();return;}screens[screen].vm.back();}
 function onPause(){ctx.packs.pause();matchView.cancel();screens.game.vm.pauseApp();store.save();A.pause();}

@@ -107,3 +107,11 @@ test('Match: Ergründen öffnet die Wahl, die sich nicht wegklicken lässt; auch
  const id=log.open.vm.state.cards[2].id;log.open.vm.pick(2);
  assert.equal(store.profile.game.choice,null);assert.ok(store.profile.game.players[0].hand.some(h=>h.id===id));
 });
+
+test('Chronik (AP 5.9): Heldenwahl und langes Drücken auf einen Helden im Match öffnen die Chronikseite',()=>{
+ const {Setup}=need('viewmodel/setup.js');const {ctx,log,store}=setup('setup');ctx.session.hero='boudicca';
+ new Setup(ctx).lore();assert.equal(log.open.kind,'lore');assert.equal(log.open.vm.state.hero.id,'boudicca');
+ assert.deepEqual(log.open.vm.state.favorites.map(c=>c.hero),['boudicca','boudicca','boudicca']);
+ store.profile.game=E.create({hero:'leonidas',foe:'musashi',seed:7});const m=new Match(ctx);ctx.match=m;
+ m.longPress({kind:'target',id:'h1'});assert.equal(log.open.vm.state.hero.id,'musashi');
+});

@@ -19,3 +19,29 @@ button.grave-card{padding:0;border:0;background:none;box-shadow:none;min-height:
 .discover-card img{height:390px;display:block;filter:drop-shadow(0 10px 16px #000a)}
 .discover-card:active{transform:translateY(4px) scale(.98)}
 .discover-card .sale{position:absolute;left:-10px;top:-12px;padding:5px 10px;border-radius:14px;font:bold 19px Body,sans-serif;color:#10240f;background:linear-gradient(#b9f08a,#59a83b);border:2px solid #1e3b16}
+/* Wings (feedback 1.7.0): on screens wider than 2:1 the stage is wider than 1600 px (--wing on each side, see app.js).
+   Screens and dialogs fill the whole width; the hall, the match canvas and the screen content stay centred. */
+#stage{--wing:0px}
+body.stone-hall #stage{background:none}
+#stage.match-active{background:#11171c}
+#board{left:var(--wing)}
+#ui>.hall{position:absolute;top:0;left:var(--wing);width:1600px;height:800px}
+.screen{padding-inline:var(--wing)}
+.screen>.topbar{margin-inline:calc(var(--wing) * -1);padding-inline:calc(36px + var(--wing))}
+.book{box-shadow:calc(var(--wing) * -1) 0 #383229,var(--wing) 0 #171e21}
+.slab{width:calc(50% + 12px)}
+/* Chronik der Helden (AP 5.9) */
+.setup-links{display:flex;gap:10px}.setup-links button{flex:1}
+.lore{max-height:760px;padding:30px 38px}
+.lore-head{display:flex;gap:28px;align-items:center;margin-bottom:14px}
+.lore-portrait{width:150px;height:150px;flex:none;border-radius:50%;border:4px solid #c9a35f;box-shadow:0 0 0 3px #2a2017,0 8px 18px #0008}
+.lore h2{font-size:34px;margin:4px 0 6px}
+.lore-meta{color:#d5bb87;font-size:18px}
+.lore blockquote{margin:12px 0 0;font-style:italic;font-size:19px;color:#f1e2bd;line-height:1.45}
+.lore cite{display:block;font-style:normal;font-size:14px;color:#a99d84;margin-top:4px}
+.lore-body{display:flex;gap:30px;border-top:1px solid #6d5b3f;padding-top:12px}
+.lore-bio{flex:1.15}.lore-bio p{font-size:18px;line-height:1.55;margin:0 0 10px}
+.lore-facts{flex:1;font-size:16px;line-height:1.45}
+.lore-facts h3{font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#cfaf76;margin:10px 0 3px}
+.lore-facts p{font-size:16px;line-height:1.45;margin:0}
+.lore-facts ul{margin:0;padding-left:18px}.lore-facts li{margin:2px 0}

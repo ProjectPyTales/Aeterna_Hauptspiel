@@ -21,7 +21,8 @@ async function open(browser,url,device,errors,{init,reduced=false}={}){
  return {ctx,page,start:Date.now()-t0};}
 
 // Bühnenkoordinaten (1600 × 800) → Bildschirmpunkt.
-const stagePoint=(page,[x,y])=>page.evaluate(([x,y])=>{const r=document.getElementById('stage').getBoundingClientRect(),k=r.width/1600;return [r.left+x*k,r.top+y*k];},[x,y]);
+// Auf Bildschirmen breiter als 2:1 ist die Bühne um zwei Flügel (--wing) breiter; der Bereich 1600 × 800 liegt mittig.
+const stagePoint=(page,[x,y])=>page.evaluate(([x,y])=>{const el=document.getElementById('stage'),r=el.getBoundingClientRect(),k=r.height/800,wing=parseFloat(el.style.getPropertyValue('--wing'))||0;return [r.left+(wing+x)*k,r.top+y*k];},[x,y]);
 // Bildzeiten über 3 s: Anzahl, Median, 95. Perzentil, Bilder über 20 ms.
 const frames=(page,ms=3000)=>page.evaluate(ms=>new Promise(res=>{const d=[];let last=performance.now();const end=last+ms;
  const f=now=>{d.push(now-last);last=now;if(now<end)requestAnimationFrame(f);else{d.sort((a,b)=>a-b);res({bilder:d.length,p50_ms:+d[d.length>>1].toFixed(1),p95_ms:+d[Math.floor(d.length*.95)].toFixed(1),ueber_20ms:d.filter(x=>x>20).length});}};requestAnimationFrame(f);}),ms);
