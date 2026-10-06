@@ -18,7 +18,10 @@ der Wand und eine Kerbe im Zahnrad (Rückmeldung zu 1.4.0):
 * Naht: Schnitt geringster Abweichung durch einen 32 px breiten Überlappungsstreifen (wie beim
   Image Quilting) und zeilenweiser Helligkeitsausgleich, der nach außen ausklingt.
 
-Außerhalb der Bühne: gestreckte, weichgezeichnete und abgedunkelte Randstreifen.
+Außerhalb der Bühne (nur auf Handys breiter als 2:1 sichtbar) läuft die Wand auf dieselbe Weise weiter –
+Steinlage für Steinlage aus Originalpixeln, mit eigenem Nahtschnitt – und dunkelt nach außen sanft ab.
+Bis 1.6.0 waren das gestreckte, weichgezeichnete Randstreifen; sie wirkten verschwommen (Rückmeldung zu 1.6.0).
+Das Zahnrad an der rechten Bühnenkante bleibt dabei unangetastet.
 
 Ergebnis: JPEG-Daten mit .png-Endung (die App-Hülle liefert Bilder nur als .png aus).
 Sobald eine höher aufgelöste oder breitere Fassung vorliegt (AP 1.2), dieses Skript mit der
@@ -36,6 +39,8 @@ SRC = 'ungenutzte_assets/ui/hauptmenue-konzept.jpg'
 DST = 'quellcode/assets/game/assets/art/hall-aeterna.png'
 TOP, BOTTOM = 24, 8          # abgeschnittene Zeilen
 INNER, OUTER = 84, 217       # Verbreiterung je Seite: in der Bühne / nur auf breiten Handys
+CONCEPT_W = 2000             # Breite des Konzeptbilds; Quellen für die Ergänzung liegen immer darin
+EDGE_DARK, OUTER_DARK = .88, .66   # Helligkeit an der Bühnenkante / am äußeren Rand
 OV = 32                      # Überlappung an der Bildkante für den Nahtschnitt
 JOINTS = (324, 548, 668, 768, 888, 988)   # waagerechte Fugen, an beiden Rändern gleich
 MIN_SHIFT = 120              # kleinster Versatz einer Steinlage
@@ -67,24 +72,29 @@ def blur(m, r):
     return np.asarray(img).astype(np.float32) / 255
 
 
-def wall(a, flipped):
-    """Wand rechts neben der Kante von a (Breite OV + INNER, alle Zeilen)."""
+def wall(a, flipped, n=INNER, offset=0, min_shift=MIN_SHIFT):
+    """Wand rechts neben der Kante von a (Breite OV + n, alle Zeilen).
+
+    offset: Spalte, an der das Konzeptbild in a beginnt (0 für das Konzeptbild selbst, INNER für das
+    schon verbreiterte Bild). Kopiert wird nur aus dem Konzeptbild, nie aus einer Ergänzung."""
     h, w = a.shape[:2]
-    out = np.zeros((h, OV + INNER, 3), np.float32)
-    cols = np.arange(w - OV, w + INNER)
-    to_concept = (lambda x: w - 1 - x) if flipped else (lambda x: x)
+    out = np.zeros((h, OV + n, 3), np.float32)
+    cols = np.arange(w - OV, w + n)
+    to_concept = (lambda x: w - 1 - x - offset) if flipped else (lambda x: x - offset)
 
     def free(y0, y1, d):
-        xa, xb = sorted((to_concept(w - OV - d), to_concept(w + INNER - 1 - d)))
+        xa, xb = sorted((to_concept(w - OV - d), to_concept(w + n - 1 - d)))
+        if xa < 0 or xb >= CONCEPT_W:
+            return False
         return not any(xa < bx1 and xb > bx0 and y0 < by1 and y1 > by0 for bx0, by0, bx1, by1 in KEEP_OUT)
 
     rows = JOINTS + (h,)
     for y0, y1 in zip(rows[:-1], rows[1:]):
         edge = a[y0:y1, w - OV:w]
-        # Gewählt wird die Quelle, die an der Kante am besten passt (mindestens MIN_SHIFT entfernt,
+        # Gewählt wird die Quelle, die an der Kante am besten passt (mindestens min_shift entfernt,
         # damit kein Stein direkt neben sich selbst wiederkehrt); ihre Farbe wird behutsam angeglichen.
         cost = lambda d: ((a[y0:y1, w - OV - d:w - d] - edge) ** 2).mean()
-        d = min((d for d in range(MIN_SHIFT, w - OV) if free(y0, y1, d)), key=cost)
+        d = min((d for d in range(min_shift, w - OV) if free(y0, y1, d)), key=cost)
         gain = np.clip(edge.mean((0, 1)) / a[y0:y1, w - OV - d:w - d].mean((0, 1)), .7, 1.3)
         out[y0:y1] = a[y0:y1, cols - d] * gain
     # Über der obersten Fuge: fugenfreie Steinfläche der Lage darunter. Ab Zeile 106 eine Lage
@@ -148,11 +158,21 @@ def seam(o, c):
     return np.clip((np.arange(n)[None, :] - path[:, None] + 1.5) / 3, 0, 1)[..., None]
 
 
-def extend(a, flipped=False):
-    """Bild a nach rechts um INNER Spalten ergänzen; liefert (Kante, Ergänzung)."""
+def extend(a, flipped=False, n=INNER, offset=0, min_shift=MIN_SHIFT, cog=None):
+    """Bild a nach rechts um n Spalten ergänzen; liefert (Kante, Ergänzung).
+
+    Erster Durchgang (offset 0): Konzeptbild bis zur Bühnenkante, rechts mit vervollständigtem Zahnrad.
+    Zweiter Durchgang (offset INNER): weiter bis zum Bildrand; cog ist dann die Zahnrad-Maske im
+    Überlappungsstreifen – dort bleibt das Bild unverändert, die neue Wand bekommt seinen Schatten."""
     w = a.shape[1]
-    comp = wall(a, flipped)
-    if not flipped:
+    comp = wall(a, flipped, n, offset, min_shift)
+    keep = np.ones((a.shape[0], OV - 2), np.float32)
+    if cog is not None:
+        shadow = np.zeros_like(cog)
+        shadow[6:] = cog[:-6]
+        comp[:, :OV] *= 1 - .28 * blur(shadow, 5)[..., None] * (1 - cog[..., None])
+        keep = 1 - cog[:, :OV - 2]
+    elif not flipped:
         g, m = gear(a)
         sel = m[:, :OV] > .9
         g = g * (a[:, w - OV:w][sel].mean(0) / g[:, :OV][sel].mean(0))
@@ -161,37 +181,41 @@ def extend(a, flipped=False):
         comp = comp * (1 - .28 * blur(shadow, 5)[..., None] * (1 - m[..., None]))
         comp = g * m[..., None] + comp * (1 - m[..., None])
     # Helligkeitsausgleich: Abweichung an der Kante (zeilenweise geglättet) klingt nach außen aus.
-    diff = (a[:, w - OV:w - 2] - comp[:, :OV - 2]).mean(1)
+    diff = (((a[:, w - OV:w - 2] - comp[:, :OV - 2]) * keep[..., None]).sum(1)
+            / np.maximum(keep.sum(1), 1e-3)[:, None])
     k = np.exp(-(np.arange(-40, 41) / 16.0) ** 2)
     diff = np.stack([np.convolve(np.pad(diff[:, c], 40, mode='edge'), k / k.sum(), 'valid') for c in range(3)], 1)
     comp = comp + diff[:, None, :] * np.clip(1 - (np.arange(comp.shape[1]) - OV) / 70, 0, 1)[None, :, None]
     t = seam(a[:, w - OV:], comp[:, :OV])
+    if cog is not None:
+        t = t * (1 - cog[..., None])
     return a[:, w - OV:] * (1 - t) + comp[:, :OV] * t, comp[:, OV:]
 
 
 def build(src):
     a = np.asarray(src.convert('RGB')).astype(np.float32)
+    _, cog = gear(a)
     edge_r, right = extend(a)
     edge_l, left = extend(a[:, ::-1].copy(), flipped=True)
     a[:, a.shape[1] - OV:] = edge_r
     a[:, :OV] = edge_l[:, ::-1]
-    inner = np.concatenate([left[:, ::-1], a, right], axis=1)[TOP:a.shape[0] - BOTTOM]
-    iw = inner.shape[1]
+    inner = np.concatenate([left[:, ::-1], a, right], axis=1)
 
-    # Leichte Randabdunklung zur Bühnenkante hin, damit die Ergänzung nicht ins Auge springt.
-    ramp = np.ones(iw, dtype=np.float32)
-    edge = np.linspace(0.88, 1.0, INNER, dtype=np.float32)
-    ramp[:INNER], ramp[-INNER:] = edge, edge[::-1]
-    inner *= ramp[None, :, None]
+    # Außen (breite Handys): dieselbe Wandfortsetzung ein zweites Mal, ab der Bühnenkante.
+    deep = dict(n=OUTER, offset=INNER, min_shift=INNER + OUTER)
+    edge_r, right = extend(inner, cog=cog[:, INNER:INNER + OV], **deep)
+    edge_l, left = extend(inner[:, ::-1].copy(), flipped=True, **deep)
+    inner[:, inner.shape[1] - OV:] = edge_r
+    inner[:, :OV] = edge_l[:, ::-1]
+    out = np.concatenate([left[:, ::-1], inner, right], axis=1)[TOP:a.shape[0] - BOTTOM]
 
-    # Außen: gestreckte Randspalten, weichgezeichnet und abgedunkelt.
-    def outer(col, flip):
-        strip = np.repeat(col, OUTER, axis=1)
-        img = Image.fromarray(strip.clip(0, 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(6))
-        s = np.asarray(img).astype(np.float32) * np.linspace(0.78, 0.30, OUTER, dtype=np.float32)[None, :, None]
-        return s[:, ::-1] if flip else s
-    out = np.concatenate([outer(inner[:, :4].mean(1, keepdims=True), True), inner,
-                          outer(inner[:, -4:].mean(1, keepdims=True), False)], axis=1)
+    # Leichte Randabdunklung zur Bühnenkante hin, damit die Ergänzung nicht ins Auge springt; außen
+    # dunkelt die Wand weiter ab und rahmt so die Bühne.
+    ramp = np.ones(out.shape[1], dtype=np.float32)
+    edge = np.concatenate([np.linspace(OUTER_DARK, EDGE_DARK, OUTER, endpoint=False),
+                           np.linspace(EDGE_DARK, 1.0, INNER)]).astype(np.float32)
+    ramp[:OUTER + INNER], ramp[-OUTER - INNER:] = edge, edge[::-1]
+    out *= ramp[None, :, None]
     return Image.fromarray(out.clip(0, 255).astype(np.uint8))
 
 

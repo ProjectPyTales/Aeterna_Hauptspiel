@@ -1,14 +1,34 @@
-# Aeterna 1.6.0 – Bauen & Prüfen
+# Aeterna 1.7.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
 `classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+
+## Neu in 1.7.0 (eigene Schlüsselwörter, zwölf neue Legendäre, Menü-Feinschliff)
+
+- **Schlüsselwörter umbenannt** (AP 5.4): Schildwall, Göttliche Gunst, Einmarsch, Vermächtnis, Sturmangriff und
+  Gunst der Stunde statt der Hearthstone-Begriffe – in Kartentexten, Hilfe, Hinweisen und Starthand. Die Engine-Felder
+  (`taunt`, `shield`, `battle`, `death`, `charge`) und alle Spielstände bleiben. Glossar `CHD.keywords`, angezeigt in
+  der Großansicht und den Kartendetails. Leonidas' Heldenfähigkeit heißt jetzt *Phalanx*, „Spartas Vermächtnis“ heißt
+  „Spartas Erbe“ (sonst Verwechslung mit dem Schlüsselwort).
+- **Neue Regeln** in `model/engine.js`: Vorstoß, Starre, Ergründen (offene Wahl in `s.choice`, Aktion `choose`),
+  Doppelschlag, Arkaner Fokus, Bauwerke (`building`), Auren der Legendären und Kostenänderungen je Handkarte
+  (`E.cost`). Neue Karten-IDs gibt es keine, nur zwei neue Spielsteine (`hoplite`, `pyramid`).
+- **Zwölf neue Legendäre** (AP 5.3) mit eigener Regel, Werte per Balance-Lauf justiert; die KI bewertet die neuen
+  Mechaniken (AP 5.8, Teil). Tests: `tests/schluesselwoerter.test.js`, `tests/legendaere.test.js`.
+- **Oberfläche:** Ergründen-Dialog, Symbole auf den Plaketten (➤ Vorstoß, ⚔ Doppelschlag, ✧ Fokus, ❄ Starre),
+  Bauwerk-Plakette mit gezeichneter Platzhalter-Pyramide, grüne Kosten bei verbilligten Handkarten.
+- **Hauptmenü** (Rückmeldung zu 1.6.0): Der Lichtblitz beim Menüwechsel ist warmgolden statt weiß; die Seitenränder auf
+  breiten Handys setzen die Wand scharf fort statt gestreckt und weichgezeichnet (`hauptmenue_bild.py`).
+- **Balance-Werkzeug:** Kennzahl „Legendäre als Gruppe“ und Tabelle der Legendären im Bericht.
+- Version 1.7.0 / versionCode 10. Speicher-Schlüssel, Paket-ID, Signatur und Karten-IDs unverändert – Update über 1.6.0,
+  Spielstände, Decks und laufende Partien bleiben gültig.
 
 ## Neu in 1.6.0 (Balance-Werkzeug, Heldenbalance)
 
 - **Balance-Werkzeug** `balance.js` (AP 5.1): KI gegen KI für alle Heldenpaarungen mit Start- und Zufallsdecks,
   Bericht nach `balance/BERICHT.md` (Siegquoten-Matrix, Beginner-Vorteil, Partielänge, Werte je Karte).
   In der CI als eigener Job „balance“ mit 20 Partien je Paarung (Artefakt „Balance“).
-- **Heldenbalance** (AP 5.2): Initiative +2 Mana, fünf Heldenfähigkeiten und 40 Heldenkarten angepasst – alle Helden
+- **Heldenbalance** (AP 5.2): Initiative (seit 1.7.0 „Gunst der Stunde“) +2 Mana, fünf Heldenfähigkeiten und 40 Heldenkarten angepasst – alle Helden
   47–53 % gegen das Feld (vorher 15–80 %). Liste der Änderungen: README, AP 5.2. Neue Tests in
   `tests/heldenbalance.test.js` und `tests/balance.test.js`.
 - **KI-Vorausschau schneller:** `E.copy` statt JSON-Klon, 5,3× schneller bei gleichen Zügen.
@@ -98,7 +118,7 @@ Artefakte bleiben 30 Tage erhalten. Über „Run workflow“ lässt sich jederze
 
 ```sh
 pip install cryptography
-python3 werkzeuge/apk_bauen.py quellcode Aeterna-1.6.0-Test.apk \
+python3 werkzeuge/apk_bauen.py quellcode Aeterna-1.7.0-Test.apk \
     werkzeuge/signatur/chroniken-test.p12 chroniken-test
 ```
 
@@ -121,20 +141,22 @@ Speichern/Laden, alte 1.2.2-Spielstände, manipulierte Spielstände, 100 simulie
 Manifest (App-Name, Version, Neuaufbau des String-Pools), unveränderte Speicher-Schlüssel,
 umbenannte Texte, das Tagesduell und die ViewModels (MVVM-Kern, Store mit Sicherung, Basar mit Kauf über
 Rückfrage, Pack öffnen, Sammlung und Deckbau, Hauptmenü, Match mit KI-Takt), die geänderten Heldenfähigkeiten und
-die Initiative, die schnelle Zustandskopie der KI und das Balance-Werkzeug (gleiche Zahlen unabhängig von der Zahl der
-Threads) – ohne Browser.
+die Gunst der Stunde, die schnelle Zustandskopie der KI und das Balance-Werkzeug (gleiche Zahlen unabhängig von der Zahl der
+Threads), seit 1.7.0 die umbenannten und neuen Schlüsselwörter, alle zwölf Legendären und die Ergründen-Wahl im
+Match-ViewModel – ohne Browser.
 
 ## Balance-Lauf
 
 ```sh
-node werkzeuge/balance.js                         # 200 Partien je Paarung, ≈ 3 min auf 4 Kernen → balance/BERICHT.md
+node werkzeuge/balance.js                         # 200 Partien je Paarung, ≈ 6 min auf 4 Kernen → balance/BERICHT.md
 node werkzeuge/balance.js --partien 20 --bericht balance-ci/BERICHT.md   # verkürzt wie in der CI
 node werkzeuge/balance.js --seed 1 --decks start  # anderer Startwert, nur Startdecks
 AETERNA_MODELL=/pfad/kopie-von-model node werkzeuge/balance.js --partien 40   # Regelvariante testen
 ```
 
 Gleicher Startwert und Regelstand ergeben denselben Bericht, unabhängig von `--threads`. Ziele (AP 5.2): jeder Held
-47–53 % gegen das Feld, keine Paarung schlechter als 40/60, Beginner gewinnt höchstens 55 %. Bei 200 Partien je
+47–53 % gegen das Feld, keine Paarung schlechter als 40/60, Beginner gewinnt höchstens 55 %; seit AP 5.3 außerdem
+Legendäre als Gruppe höchstens 55 % „gewinnt, wenn gezogen“ (nur in Zufallsdecks, Startdecks enthalten keine). Bei 200 Partien je
 Paarung beträgt der Zufallsfehler etwa ±2,3 Punkte je Held und ±6,9 je Paarung.
 
 ## Sichtprüfung (Playwright)

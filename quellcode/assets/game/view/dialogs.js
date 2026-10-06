@@ -26,8 +26,10 @@ const RULES=[['1 · Karte ausspielen','Karte antippen, dann „Ausspielen“ ode
  ['2 · Angreifen','Grün leuchtenden Diener oder bewaffneten Helden antippen und Gegner wählen. Ziehen zeigt einen Zielpfeil.'],
  ['3 · Heldenfähigkeit','Das runde Symbol neben Deinem Helden ist einmal pro Zug nutzbar. Musashi kostet 1 Mana, alle anderen 2.'],
  ['4 · Karten ansehen','Eine Karte, einen Diener oder die Heldenfähigkeit lange drücken. Friedhöfe zeigen bereits abgelegte Karten.'],
- ['Spott & Gottesschild','Angriffe müssen zuerst Spott-Diener treffen. Zauber umgehen Spott. Gottesschild verhindert das nächste Schadensereignis.'],
- ['Kampfschrei & Todesröcheln','Kampfschrei wirkt beim Ausspielen aus der Hand. Todesröcheln wirkt nach dem Tod. Ansturm erlaubt sofortiges Angreifen.'],
+ ['Schildwall & Göttliche Gunst','Angriffe müssen zuerst Diener mit Schildwall treffen; Zauber umgehen ihn. Göttliche Gunst fängt den nächsten Schaden ab.'],
+ ['Einmarsch & Vermächtnis','Einmarsch wirkt beim Ausspielen aus der Hand, Vermächtnis nach dem Tod. Sturmangriff: sofort angreifen. Vorstoß: sofort angreifen, im ersten Zug nur Diener.'],
+ ['Starre & Doppelschlag','Ein Diener in Starre verpasst seinen nächsten Angriff (❄). Doppelschlag: zwei Angriffe pro Zug. Arkaner Fokus +X: Eure Zauber verursachen X mehr Schaden.'],
+ ['Ergründen & Bauwerke','Ergründen: Wähle eine von drei Karten auf die Hand. Bauwerke belegen einen Platz, greifen nie an und haben Haltbarkeit; Flächenschaden und Heilung wirken nicht.'],
  ['Mana & Grenzen','Jeder eigene Zug erhöht maximales Mana bis 10. Höchstens 7 Diener, 10 Handkarten. Ein leeres Deck verursacht steigenden Erschöpfungsschaden.'],
  ['Waffen & Fortschritt','Waffen verlieren pro Heldenangriff 1 Haltbarkeit. Siege geben 40 Gold. Niederlagen nach 4 eigenen Zügen geben 10 Gold; Aufgeben gibt keines.']];
 D_.help={render:()=>V.modal({width:1080,body:html`<h2>So spielst Du</h2><div class="help-list">${RULES.map(([t,x])=>html`<div><b>${t}</b>${x}</div>`)}</div>${V.buttons([V.button({label:'Verstanden',cmd:'close',style:'gold'})])}`})};
@@ -36,15 +38,20 @@ D_.credits={render:vm=>V.modal({close:false,body:html`<h2>Aeterna</h2><p>Version
  V.buttons([V.button({label:'Zurück',cmd:'close',style:'gold'})])}`})};
 
 // Card zoom in the match: read-only; a tap beside the card closes it.
-D_.zoom={render:vm=>{const c=vm.state.card,type=c.type==='minion'?'Diener':c.effect?.type==='weapon'?'Zauber · Waffe':'Zauber';
+D_.zoom={render:vm=>{const c=vm.state.card,type=c.building?'Bauwerk':c.type==='minion'?'Diener':c.effect?.type==='weapon'?'Zauber · Waffe':'Zauber';
  return html`<div class="scrim card-zoom-scrim" data-scrim><div class="modal panel card-zoom" role="dialog" aria-modal="true" aria-labelledby="zoom-title" style="width:1120px">${
-  V.button({label:'×',cmd:'close',extra:'close',aria:'Großansicht schließen'})}<div class="card-detail zoom-detail"><div class="zoom-art"><img src="${R.artwork(c.id)}" alt="${c.name} – vollständiges Kartenmotiv" draggable="false"><span class="zoom-cost">${c.cost}</span></div><div class="details"><div class="eyebrow">${vm.state.era} · ${D.rarities[c.rarity]}</div><h2 id="zoom-title">${c.name}</h2><div class="zoom-type">${type} · ${c.cost} Mana</div><p class="zoom-text">${c.text||'Ein Diener ohne zusätzliche Fähigkeit.'}</p>${
-  c.type==='minion'?html`<div class="zoom-stats"><span>⚔ ${c.attack} Angriff</span><span>♥ ${c.health} Leben</span></div>`:''}<p class="zoom-hint">Zum Schließen außerhalb der Karte tippen.</p></div></div></div></div>`;}};
+  V.button({label:'×',cmd:'close',extra:'close',aria:'Großansicht schließen'})}<div class="card-detail zoom-detail"><div class="zoom-art"><img src="${R.artwork(c.id)}" alt="${c.name} – vollständiges Kartenmotiv" draggable="false"><span class="zoom-cost">${c.cost}</span></div><div class="details"><div class="eyebrow">${vm.state.era} · ${D.rarities[c.rarity]}</div><h2 id="zoom-title">${c.name}</h2><div class="zoom-type">${type} · ${c.cost} Mana</div><p class="zoom-text">${c.text||'Ein Diener ohne zusätzliche Fähigkeit.'}</p>${V.glossary(c.text)}${
+  c.type==='minion'?html`<div class="zoom-stats">${c.building?html`<span>♜ ${c.health} Haltbarkeit</span>`:html`<span>⚔ ${c.attack} Angriff</span><span>♥ ${c.health} Leben</span>`}</div>`:''}<p class="zoom-hint">Zum Schließen außerhalb der Karte tippen.</p></div></div></div></div>`;}};
 
 D_.mulligan={render:vm=>{const m=vm.mulligan;
- return html`<div class="scrim"><div class="mulligan"><div class="eyebrow">${m.first?'Du beginnst':'Der Gegner beginnt · Du erhältst Initiative'}</div><h2>Deine Starthand</h2><p>Tippe auf Karten, die Du austauschen möchtest.</p><div class="mulligan-cards">${
+ return html`<div class="scrim"><div class="mulligan"><div class="eyebrow">${m.first?'Du beginnst':'Der Gegner beginnt · Du erhältst die Gunst der Stunde'}</div><h2>Deine Starthand</h2><p>Tippe auf Karten, die Du austauschen möchtest.</p><div class="mulligan-cards">${
   m.hand.map(x=>html`<button class="${V.cls('mulligan-card',x.replace&&'replace')}" data-key="${x.uid}" data-cmd="toggleMull" data-a="${x.uid}" aria-pressed="${x.replace}"><img src="${R.thumb(x.card.id)}" alt="${x.card.name}"></button>`)}</div>${
   V.button({label:(m.count?m.count+' Karten austauschen':'Karten behalten')+' · Beginnen',cmd:'acceptHand',style:'gold'})}</div></div>`;}};
+
+// Ergründen: the chronicler lays out three sealed scrolls; one card goes to the hand. No way around the choice.
+D_.discover={render:vm=>{const s=vm.state;
+ return html`<div class="scrim"><div class="discover" role="dialog" aria-modal="true" aria-labelledby="discover-title"><div class="eyebrow">${s.left>1?'Ergründen · noch '+s.left+' Karten':'Ergründen'}</div><h2 id="discover-title">Der Chronist breitet drei Schriftrollen aus</h2><p>Wähle eine Karte für Deine Hand.${s.mod?' Sie kostet '+(-s.mod)+' weniger.':''}</p><div class="discover-cards">${
+  s.cards.map((c,i)=>html`<button class="discover-card" data-key="${c.id}" data-cmd="pick" data-a="${i}" aria-label="${c.name} wählen"><img src="${R.thumb(c.id)}" alt="${c.name}">${s.mod?html`<span class="sale">${s.mod} Mana</span>`:''}</button>`)}</div></div></div>`;}};
 
 D_.result={render:vm=>{const s=vm.state,win=s.winner===0,r=s.reward;
  return html`<div class="scrim"><div class="result panel" role="dialog" aria-modal="true" aria-label="Ergebnis"><div class="laurel">${win?'✦':'⚔'}</div><div class="eyebrow">${s.mode==='campaign'?'Die historische Kampagne':'Die Chronik des Duells'}</div><h1>${win?'SIEG':s.winner===-1?'UNENTSCHIEDEN':'NIEDERLAGE'}</h1><p>${win?'Eine neue Seite Deiner Geschichte.':'Jede Schlacht lehrt einen neuen Weg.'}</p><div class="rewards">◉ +${r.gold} Gold ${r.packs?' · ▣ +'+r.packs+' Pack':''}${r.first?html`<br><small>Mission erstmals vollendet</small>`:''}</div>${choose(s.buttons)}</div></div>`;}};

@@ -107,7 +107,7 @@ body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.png') no-r
 .hall.intro .rail .medal .face{animation:medal-in 320ms cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(180ms + var(--i) * 60ms)}
 @keyframes medal-in{from{transform:scale(.55) rotate(-50deg);opacity:0}}
 .hall.intro .hall-star{animation:star-flash 300ms ease-out 400ms backwards}
-@keyframes star-flash{0%{transform:scale(.3);opacity:0}45%{transform:scale(2.6);opacity:1}100%{transform:scale(.85);opacity:.55}}
+@keyframes star-flash{0%{transform:scale(.3);opacity:0}45%{transform:scale(1.9);opacity:.85}100%{transform:scale(.85);opacity:.55}}
 .hall.intro .seal{animation:seal-in 220ms cubic-bezier(.3,1.6,.5,1) 480ms backwards}
 @keyframes seal-in{from{transform:scale(0)}}
 
@@ -116,10 +116,12 @@ body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.png') no-r
 .hall.arriving .hall-zoom{animation:hall-arrive 380ms cubic-bezier(.15,.7,.3,1)}
 @keyframes hall-arrive{from{transform:scale(1.8)}}
 #ring-flash{position:absolute;inset:0;z-index:140;overflow:hidden;pointer-events:none;visibility:hidden}
-#ring-flash i{position:absolute;left:var(--fx);top:var(--fy);width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;background:radial-gradient(circle,#fffdf2 0 30%,#ffeeb8 48%,#f4cf7c 62%,#f4cf7c00 72%);transform:scale(.1);opacity:0}
+/* Warm gold rather than white (feedback on 1.6.0: the flash was too bright): a small bright core at the star,
+   then gold and bronze, so the covered stage glows like lamplight instead of blinding. */
+#ring-flash i{position:absolute;left:var(--fx);top:var(--fy);width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;background:radial-gradient(circle,#fff0c6 0,#f6d68e 8%,#e6b867 20%,#cc9b55 36%,#a87a45 54%,#86603a 66%,#86603a00 72%);transform:scale(.1);opacity:0}
 #ring-flash.burst,#ring-flash.cover,#ring-flash.fade{visibility:visible;pointer-events:auto}
 #ring-flash.burst i{animation:flash-burst 260ms cubic-bezier(.6,0,.9,.4) forwards}
-@keyframes flash-burst{0%{transform:scale(.1);opacity:0}25%{opacity:1}100%{transform:scale(16);opacity:1}}
+@keyframes flash-burst{0%{transform:scale(.1);opacity:0}25%{opacity:.85}100%{transform:scale(16);opacity:1}}
 #ring-flash.cover i{transform:scale(16);opacity:1;transition:opacity 110ms ease-in}
 #ring-flash.fade i{transform:scale(16);opacity:0;transition:opacity 160ms ease-out}
 
