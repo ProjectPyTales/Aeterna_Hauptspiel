@@ -86,5 +86,22 @@
     "clash-1",
     "clash-2",
     "clash-3"
+  ],
+  "stone": [
+    "stone-1",
+    "stone-2",
+    "stone-3"
+  ],
+  "scrape": [
+    "scrape-1",
+    "scrape-2"
+  ],
+  "grind": [
+    "grind-1",
+    "grind-2"
+  ],
+  "slam": [
+    "slam-1",
+    "slam-2"
   ]
 }
