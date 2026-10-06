@@ -1,4 +1,8 @@
 # Lokale Builds; die Test-APK kommt aus GitHub Actions (Artifacts).
 /Chroniken-*-Test.apk
 /Chroniken-*-Quellcode.zip
+/Aeterna-*-Test.apk
+/Aeterna-*-Quellcode.zip
 __pycache__/
+/sichtpruefung/
+/node_modules/

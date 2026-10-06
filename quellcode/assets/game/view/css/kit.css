@@ -1,0 +1,7 @@
+/* View kit (view/kit.js): helpers that used to be inline styles in the templates. */
+.buttons.start{justify-content:flex-start;flex-wrap:wrap}
+.buttons.wrap{flex-wrap:wrap}
+select.wide{width:100%}
+.card-detail .card-text{font-size:24px}
+.deck-empty{font-size:18px;line-height:1.7;padding:20px}
+button.grave-card{padding:0;border:0;background:none;box-shadow:none;min-height:0}

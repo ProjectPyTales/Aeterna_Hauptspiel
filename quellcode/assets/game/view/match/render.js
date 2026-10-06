@@ -165,7 +165,7 @@ for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c
 // The chronicle is available on demand; combat gets the entire center.
 if(!view.selected)button(c,'CHRONIK',25,586,165,45,false,'chronicle');
 if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',25,586,184,57,true,'confirm');
-button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',194,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'?'KOLOSSEUM':'SCHLACHT',368,55,13,'#f3dab0');
+button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',194,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':'SCHLACHT',368,55,13,'#f3dab0');
 CHM.overlay(c,s,now);
 if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
  if(d.cardId){const {x,y,w}=L.dragPose(d,now);d.x=x;d.y=y;d.w=w;CHM.floatCard(c,d.cardId,x,y,w,d.angle);}

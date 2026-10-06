@@ -1,15 +1,16 @@
 # Aeterna
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 140 Karten,
-10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.4.0**
-(neuer Name Aeterna, gemaltes Hauptmenü nach dem Konzeptbild, Stil-Bibel, Tagesduell); davor 1.3.0 mit
-Basar, Kartenrücken, Helden-Skins und Schlachtfeldern.
+10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.5.0**
+(Code in MVVM-Struktur, Oberfläche ohne Komplett-Neuaufbau, Basar behält Scrollposition, automatische
+Sichtprüfung in der CI, Zahnrad im Hauptmenü repariert); davor 1.4.0 mit neuem Namen Aeterna, gemaltem
+Hauptmenü, Stil-Bibel und Tagesduell.
 
 ![Konzeptbild und Umsetzung des Hauptmenüs](stil/vergleich-hauptmenue.jpg)
 
-> **Hinweis:** Der Code zu Version 1.4.0 (Sitzung 1: Umbenennung, Stil-Bibel, gemaltes Hauptmenü) liegt im
-> Pull Request [#3](https://github.com/thepytales/Chronicle_of_Heroes/pull/3) und kommt mit dessen Merge nach
-> `main`. Bis dahin baut `main` noch Version 1.3.0; die Stil-Bibel liegt schon unter `stil/`.
+> **Hinweis:** Version 1.4.0 (Sitzung 1) liegt im Pull Request
+> [#3](https://github.com/thepytales/Chronicle_of_Heroes/pull/3), Version 1.5.0 (Sitzung 2) baut darauf auf und
+> enthält dessen Commits. Mit dem Merge von Sitzung 2 ist #3 mit erledigt (oder #3 zuerst mergen).
 
 Dieses Dokument ist zugleich der **Arbeitsplan** für die nächsten Sitzungen. Ziel: Aeterna soll sich so
 flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie zu sein, und vor allem Spaß machen.
@@ -46,42 +47,66 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
 Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`).
 
 1. Im Repo auf **Actions** gehen und den obersten grünen Lauf **„Test-APK bauen“** auf `main` öffnen.
-2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen.
+2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen. (Das Artefakt „Sichtpruefung“ daneben
+   enthält die Screenshots des Klickpfads.)
 3. Die ZIP-Datei entpacken – darin liegt die APK.
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (1.3.0 → 1.4.0: einfach die neue APK installieren).
+installieren sich neue Versionen direkt als Update (z. B. 1.4.0 → 1.5.0: einfach die neue APK installieren).
 
 ---
 
 ## Projektaufbau
 
 Das Spiel ist eine Web-App (HTML/CSS/JavaScript) in einer Android-WebView. Menüs sind DOM,
-das Match wird auf ein Canvas (1600 × 800) gezeichnet.
+das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code nach **MVVM**
+(Model – View – ViewModel) gegliedert, ein Ordner je Schicht unter `quellcode/assets/game/`:
+
+| Pfad | Schicht | Inhalt |
+|---|---|---|
+| `core/mvvm.js` | Kern | Kleiner eigener Binder (`AEM`, ~5 KB, offline): beobachtbare ViewModels, DOM-Abgleich statt `innerHTML`-Neuaufbau, Befehle über `data-cmd`, maskierendes `html`-Template |
+| `model/data.js` | Model | Helden, 140 Karten, Spielsteine (Tokens), Missionen (`CHD`) |
+| `model/engine.js` | Model | Regel-Engine und KI (`CHE`) |
+| `model/profile.js` | Model | Spielstand-Regeln, Packs, Aufgaben, Import-Prüfung (`CHP`) |
+| `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`) |
+| `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
+| `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` – **ohne DOM, in Node testbar** |
+| `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
+| `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`) |
+| `view/match/` | View | Match-Canvas: `render.js` (`CHR`), `motion.js` (`CHM`), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife) |
+| `view/css/` | View | `style.css`, `packs.css`, `stone.css`, `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css` |
+| `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`), `platform.js` (Android-Brücke, `AEP`) |
+| `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle |
+| `assets/fonts/` | – | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
 
 | Pfad | Inhalt |
 |---|---|
 | `quellcode/` | Kompletter APK-Inhalt. `classes.dex` ist die **kompilierte** native Hülle (kein Java-Quelltext vorhanden). |
-| `quellcode/assets/game/data.js` | Helden, 140 Karten, Spielsteine (Tokens), Missionen |
-| `quellcode/assets/game/engine.js` | Regel-Engine und KI (`CHE`) |
-| `quellcode/assets/game/profile.js` | Spielstand, Packs, Aufgaben, Import-Prüfung (`CHP`) |
-| `quellcode/assets/game/cosmetics.js` | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`) |
-| `quellcode/assets/game/render.js` | Match-Zeichnung auf dem Canvas (`CHR`) |
-| `quellcode/assets/game/motion.js` | Match-Animationen (`CHM`) |
-| `quellcode/assets/game/layout.js` | Gemeinsame Geometrie für Zeichnen und Touch (`CHL`) |
-| `quellcode/assets/game/hall.js` / `hall.css` | Hauptmenü aus dem Konzeptbild (`CHH`): ausgeschnittene Ebenen, Auftritt, Ring-Übergang; Schriften und Farbvariablen `--ae-…` |
-| `quellcode/assets/game/stone.js` / `stone.css` | Steinplatten-Übergang, Kartenrücken, Basar |
-| `quellcode/assets/game/assets/fonts/` | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
-| `quellcode/assets/game/app.js` | Bildschirme, Navigation, Gesten, Basar-Logik |
-| `quellcode/assets/game/audio.js` | Web-Audio-Mischer (`CHA`) |
-| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Tests – siehe `werkzeuge/LIESMICH.md` |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs |
 
+### Architektur: wohin neuer Code gehört (MVVM)
+
+- **Model** kennt keine Bildschirme: Regeln, Daten, Spielstand. Änderungen am Spielstand laufen über die
+  Regeln in `model/` und enden mit `store.commit()` (speichert und meldet allen, die zuhören).
+- **ViewModel** hält den Bildschirmzustand (Reiter, Filter, Auswahl) und die Befehle (`buy`, `equip`, `filter` …).
+  Es liest und ändert das Model, fasst aber **nie das DOM** an. Was es von der Oberfläche braucht (Navigation,
+  Dialog, Toast, Klang, Vibration), bekommt es über den `ui`-Dienst der Shell – in Tests ersetzt durch eine Attrappe.
+- **View** ist eine Funktion `render(vm) → HTML` und ändert nie das Model. Eingaben werden zu Befehlen:
+  `data-cmd="buy" data-a="boards" data-b="japan"` ruft `vm.buy('boards','japan')`, `data-input`/`data-change`
+  für Felder. Listen bekommen `data-key`, damit Einträge ihre Knoten behalten.
+- **Binder** (`core/mvvm.js`): Nach jeder Änderung rendert die View neu und der Binder gleicht nur die
+  Unterschiede ins DOM ab – Bilder werden nicht neu geladen, Scrollpositionen, Fokus und CSS-Übergänge bleiben.
+  `data-static` schützt Teilbäume (Canvas), `data-own` überlässt einzelne Attribute der Animation der View.
+- Das Match-Canvas zeichnet jedes Bild aus `vm.view` (Auswahl, Ziele, Ziehen); `view/match/board.js` liefert dem
+  ViewModel nur Geometrie (Hand, Ablagezone, Platz), die Regeln entscheidet das ViewModel.
+
 Native Brücke (`window.Android`): `save`, `load`, `exportSave`, `importSave`, `haptic(0|1)`,
-`exitApp`. Inhalte werden unter `https://chroniken.local/` ausgeliefert; die Hülle kennt nur die
-Endungen `.html .js .css .png .ogg .ttf .json`.
+`exitApp`; die Hülle ruft `App.back()`, `App.importText()`, `App.onPause()` und `App.onResume()` auf.
+Inhalte werden unter `https://chroniken.local/` ausgeliefert (Unterordner gehen, Pfade mit `..` nicht);
+die Hülle kennt nur die Endungen `.html .js .css .png .ogg .ttf .json`.
 
 **Bereits vorhandene Spielmechanik** (damit nichts doppelt gebaut wird): Mana 1 → 10,
 Startkarten-Tausch, Münze für den zweiten Spieler („Initiative“, 0 Mana, +1 Mana in diesem Zug),
@@ -93,8 +118,12 @@ Ansturm, Waffen, Rüstung, Totems, KI-Gegner.
 
 ## Regeln für jede Sitzung
 
-- **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, 100 simulierte Partien).
-- **CI muss grün sein**, die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
+- **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, 100 simulierte
+  Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit Referenzbildern, läuft auch in der CI).
+- **CI muss grün sein** (Jobs „apk“ und „sichtpruefung“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
+- **MVVM einhalten:** Regeln und Spielstand in `model/`, Bildschirmzustand und Befehle in `viewmodel/` (ohne DOM,
+  mit Test in `werkzeuge/tests/viewmodel.test.js`), Markup in `view/` (ohne Spiellogik), gemeinsame Bausteine aus
+  `view/kit.js` statt eigener Knöpfe und Fenster. Kein `innerHTML`-Neuaufbau ganzer Bildschirme, kein `onclick="App…"`.
 - **Spielstände bleiben kompatibel:** Neue Felder immer über eine `normalize`-Funktion ergänzen
   (Muster: `CHK.normalize`), alte Saves dürfen nie verloren gehen. Interne Schlüssel wie
   `chroniken.profile` bleiben trotz Umbenennung bestehen.
@@ -103,7 +132,9 @@ Ansturm, Waffen, Rüstung, Totems, KI-Gegner.
 - **Sichtprüfung:** Jede optische Änderung per Playwright-Screenshot im Handyformat
   (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen –
   `node werkzeuge/sichtpruefung.js` liefert beides plus Messwerte (`sichtpruefung/`, nicht im Repo).
-- **Stil:** Neue Oberflächen folgen `stil/STILBIBEL.md` (Palette als `--ae-…`-Variablen in `hall.css`).
+  Gewollte optische Änderungen: `node werkzeuge/klickpfad.js --referenz`, die neuen Bilder in
+  `werkzeuge/referenz/` ansehen und mit committen – sonst schlägt die CI zu Recht fehl.
+- **Stil:** Neue Oberflächen folgen `stil/STILBIBEL.md` (Palette als `--ae-…`-Variablen in `view/css/hall.css`).
 - **Signatur und Paket-ID:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren, Paket-ID
   `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht.
 - **Lizenzen:** Nur eigene, generierte oder klar lizenzfreie Assets (CC0/OFL/MIT), Quelle in der Credits-Liste notieren.
@@ -157,9 +188,10 @@ Ornamente und Charakter müssen aus gemalten Bildern kommen.
    (`now-lastFrame>=15` in `app.js`). Bei 90 Hz wechseln sich 11- und 22-ms-Abstände ab → Ruckeln.
 2. **Teure Effekte pro Frame.** `render.js` nutzt 23-mal `shadowBlur` und erzeugt Verläufe neu, statt
    sie zwischenzuspeichern – auf schwächeren Handys der größte Bremsklotz.
-3. **Menüs werden komplett neu aufgebaut.** 16 Stellen ersetzen ganze Bildschirme per `innerHTML`.
+3. ~~**Menüs werden komplett neu aufgebaut.** 16 Stellen ersetzen ganze Bildschirme per `innerHTML`.
    Folgen: CSS-Übergänge sind unmöglich, Bilder flackern, die Scrollposition springt zurück (z. B. nach
-   einem Kauf im Basar).
+   einem Kauf im Basar).~~ *Behoben in 1.5.0 (AP 2.3):* Views werden per Abgleich aktualisiert; nach einem Kauf
+   bleiben Scrollposition, Reiter und alle Bilder (gemessen: 0 statt 51 neu erzeugte Elemente).
 4. **Lange Ladezeit, großes APK.** Alle 29 Bilder (51 MB, Heldenatlanten je 3–3,4 MB PNG) werden vor
    dem Hauptmenü geladen und dekodiert. APK ≈ 53 MB.
 5. **Animationen ohne Persönlichkeit.** Bewegungen haben kaum Ausholen, Nachschwingen, Gewicht oder
@@ -206,19 +238,20 @@ Hearthstone-Schlüsselwörter (werden in AP 5.4 ersetzt), das Brennseil als Zugt
 
 ## Qualitätsziele
 
-| Bereich | Ziel | Stand 1.4.0 (gemessen) |
+| Bereich | Ziel | Stand 1.5.0 (gemessen) |
 |---|---|---|
-| Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (Freigabe offen); übrige Bildschirme noch alt |
-| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü im Ruhezustand: 95 % ≤ 16,7 ms, 1 von 180 Bildern > 20 ms bei 4× gedrosselter CPU¹ |
-| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 8 ms, mit 4× gedrosselter CPU 13 ms¹ |
-| Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 567 ms (4× CPU: 575 ms), neuer Bildschirm ab 396 ms; zurück ins Menü 333 ms¹ – nicht unterbrechbar |
+| Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
+| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0–4 von 180 Bildern > 20 ms bei 4× gedrosselter CPU¹ |
+| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 6 ms, mit 4× gedrosselter CPU 20–29 ms¹; Kauf im Basar ohne Ruckler (längstes Bild 16 ms bei 4× CPU) |
+| Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 525–526 ms (4× CPU: 541–549 ms), neuer Bildschirm ab 365 ms; zurück ins Menü 329–333 ms¹ – nicht unterbrechbar |
+| Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
 | APK-Größe | < 25 MB | 55,8 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,45 MB, Schriften 0,29 MB) |
 | Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | – (AP 5.1) |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert | – (AP 5.3) |
 
-¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js`;
-Werte auf einem echten Handy können abweichen.
+¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
+`node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
 
 ---
 
@@ -232,8 +265,13 @@ Jedes Arbeitspaket (AP) hat Abnahmekriterien; abhaken, wenn erfüllt.
 **AP 0.1 – Sichtbare Fehler beheben**
 - [x] ~~Goldene Platte „Partie fortsetzen“: Text passt nicht (`renderMenu` in `app.js`, `.plaque.gold` in `stone.css`).~~
   Entfallen durch AP 1.3: „Partie fortsetzen“ steht auf der vierten Platte, lange Inschriften verkleinern sich automatisch.
-- [ ] Basar: Scrollposition und aktiven Reiter nach Kaufen/Ausrüsten erhalten (`renderPacks`).
+- [x] Basar: Scrollposition und aktiven Reiter nach Kaufen/Ausrüsten erhalten. *Fällt mit AP 2.3 ab: Der Basar
+  (`viewmodel/shop.js`, `view/shop.js`) wird nach einem Kauf nur noch abgeglichen; das Regal ist je Reiter verschlüsselt
+  (Reiterwechsel beginnt oben, Kauf und Ausrüsten behalten die Position).*
 - Abnahme: Screenshots im Handy- und Tabletformat ohne Überläufe; im Basar kein Sprung nach einem Kauf.
+  *Gemessen (Klickpfad, Reiter Schlachtfelder ganz unten, „Zen-Schiefer“ kaufen und ausrüsten):* Scrollposition
+  1.4.0: 268 → **0**, 1.5.0: 268 → 268 → 268. Reiter bleibt in beiden Versionen. Screenshots `03`–`05` im Artefakt
+  „Sichtpruefung“ der CI.
 
 **AP 0.2 – Audio-Check auf dem Gerät**
 - [ ] Steingeräusche (`stone`, `scrape`, `grind`, `slam`) auf dem Handy anhören, Lautstärken in `audio.js` angleichen, bei Bedarf ersetzen.
@@ -251,7 +289,8 @@ Jedes Arbeitspaket (AP) hat Abnahmekriterien; abhaken, wenn erfüllt.
   „Chronik“ (Spielverlauf, Chronist). Der native Standard-Dateiname beim Export ändert sich erst mit AP 2.1.
   Abgesichert durch `werkzeuge/tests/aeterna.test.js`.
 - Abnahme: Auf dem Gerät heißt die App „Aeterna“, Update über 1.3.0 funktioniert, Spielstand bleibt.
-  *Stand:* Manifest, Signatur (v2, gleicher Schlüssel) und Tests geprüft; **der Test auf deinem Handy steht noch aus.**
+  *Stand:* Manifest, Signatur (v2, gleicher Schlüssel) und Tests geprüft; **der manuelle Test auf deinem Handy war
+  erfolgreich** (Rückmeldung zu Sitzung 2). ✓
 
 ### Phase 1 – Neue Optik mit gemalten Grafiken (höchste Priorität, L)
 
@@ -267,7 +306,8 @@ Kein Bildschirm wird mehr aus Code-Formen gezeichnet; `stone.js` dient danach nu
   [`stil/stiltafel.jpg`](stil/stiltafel.jpg) und die Palette als CSS-Variablen (`--ae-…` in `hall.css`).
 - [x] Schriften (OFL, offline): **Cinzel Decorative** (Logo), **Cinzel** (Titel, Platten, Zahlen),
   **Alegreya Sans** Medium/Bold (Text) in `assets/fonts/` – zusammen 0,29 MB. Fira Sans bleibt Alternative.
-- Abnahme: Du gibst die Stil-Bibel frei. *Stand:* **Freigabe offen** – die Fragen stehen am Ende der Stil-Bibel.
+- Abnahme: Du gibst die Stil-Bibel frei. *Stand:* **freigegeben** – manueller Test erfolgreich, keine Änderungswünsche
+  außer dem Zahnrad im Hauptmenü (siehe AP 1.3). ✓
 
 **AP 1.2 – Asset-Werkstatt: gemalte Grafiken erzeugen (M, fortlaufend)**
 
@@ -354,27 +394,54 @@ Das textfreie Konzeptbild ist als Grundlage geeignet. Umsetzung:
   seiner Farbe), Balken leuchtet kurz auf, Zahnrad-Knauf dreht sich um 60°; dazu Steinklopfen und Vibration.
 - [x] **Leben:** Lichtstrahlen von oben rechts (wie im Bild) pulsieren sanft, Funken und Staub schweben,
   der Stern im Schlussstein glüht, Glanzlauf über die Medaillons, Benachrichtigungs-Siegel (Aufgaben, Pakete).
+- [x] **Mehr Leben (Nachtrag):** goldene Partikel auf einer Canvas-Ebene – Glut steigt durch den Saal, Staub
+  treibt in den Lichtstrahlen, schwebende Lichtkugeln geben Tiefe, Glitzersterne funkeln am Schlussstein, zwei
+  Kometen laufen auf der Goldlinie des Rings, jede Berührung wirft einen Funkenregen, beim Start sprüht der Stern.
+  Ein Glanzlauf wandert im Leerlauf von Platte zu Platte (auch auf dem Handy sichtbar).
+  **Hover** (Maus/Stift): Platten heben sich 3 px in einen Goldschein mit Glanzlauf, Medaillons schwellen an und
+  leuchten in ihrer Farbe, Balken-Inschriften wachsen und glühen, Siegel wackeln, das Zahnrad dreht vor, der
+  Mauszeiger zieht eine Funkenspur. Bei „Bewegung reduzieren“ entfällt alles.
 - [x] **Auftritt beim Start:** Platten fahren nacheinander ein, Stern blitzt auf (≤ 700 ms, überspringbar).
   *Gemessen 700 ms; Antippen beendet den Auftritt, ohne einen Knopf auszulösen.*
 - [x] **Menüwechsel:** Platte drückt → Lichtblitz aus dem Stern → Zoom in den Ring → neuer Bildschirm (≤ 600 ms).
-  *Gemessen 567 ms; zurück ins Menü umgekehrt (Zoom aus dem Ring) in 333 ms. Wechsel zwischen anderen
+  *Gemessen 524–526 ms; zurück ins Menü umgekehrt (Zoom aus dem Ring) in 333–338 ms. Wechsel zwischen anderen
   Bildschirmen behalten die Steinplatten.*
+- [x] **Feinschliff nach deiner Rückmeldung (Sitzung 2):** Das Zahnrad oben rechts hatte eine Kerbe und darunter
+  saß ein seltsamer Fleck auf der Wand. Ursache: Das im Konzeptbild angeschnittene Zahnrad wurde um 90° gedreht
+  ergänzt – das sind 3,5 Zähne (14 Zähne, je ≈ 25,7°), also traf Zahn auf Lücke; die Wand darunter war an der
+  Bildkante gespiegelt, das ergab symmetrische „Rorschach“-Flecken (links genauso, bei Efeu und Balken).
+  *Neu in `werkzeuge/hauptmenue_bild.py`:* Speichenkranz um 2 × 45°, Zahnkranz um 4 Zähne gedreht (Winkel an der
+  Bildkante gemessen), Zwischenräume zeigen die Wand mit Schlagschatten; die Wand wird je Steinlage **versetzt statt
+  gespiegelt** fortgesetzt (die beste Quelle ist meist die gegenüberliegende Bildkante), der Mäanderfries läuft
+  periodisch weiter, die Naht ist ein Schnitt geringster Abweichung mit Helligkeitsausgleich.
+  Vorher/nachher: [`stil/zahnrad-vorher-nachher.jpg`](stil/zahnrad-vorher-nachher.jpg).
 - Abnahme: Screenshot neben dem Konzeptbild – gleiche Qualität; alle Knöpfe reagieren; du gibst frei.
-  *Stand:* Vergleichsbild [`stil/vergleich-hauptmenue.jpg`](stil/vergleich-hauptmenue.jpg); alle acht Knöpfe und
-  das Zahnrad per Playwright angetippt (Trefferflächen, Wechsel, Einstellungen). **Deine Freigabe steht aus.**
+  *Stand:* Vergleichsbild [`stil/vergleich-hauptmenue.jpg`](stil/vergleich-hauptmenue.jpg) (neu mit 1.5.0); alle
+  acht Knöpfe und das Zahnrad per Playwright angetippt. **Freigegeben** (manueller Test erfolgreich), Zahnrad und
+  Wand danach korrigiert. ✓
 
-*Messwerte AP 1.3 (Handyformat, Emulation, `node werkzeuge/sichtpruefung.js`):*
+*Messwerte AP 1.3 (Handyformat, Emulation, `node werkzeuge/sichtpruefung.js`; Stand 1.5.0, das Menü läuft jetzt über
+den MVVM-Binder – die Beschriftung der Platten wird nur noch einmal eingepasst, sonst kostete jeder Druck bei 4× CPU
+6 ms Layout zusätzlich):*
 
 | Messung | normal | CPU 4× gedrosselt |
 |---|---|---|
-| Berührung → sichtbare Reaktion | 8 ms | 13 ms |
-| Menüwechsel: neuer Bildschirm unter dem Blitz / fertig | 396 / 567 ms | 404 / 575 ms |
-| Zurück ins Hauptmenü | 333 ms | 376 ms |
+| Berührung → sichtbare Reaktion | 6 ms | 20–29 ms |
+| Menüwechsel: neuer Bildschirm unter dem Blitz / fertig | 365–366 / 525–526 ms | 379–389 / 541–549 ms |
+| Zurück ins Hauptmenü | 329–333 ms | 356–364 ms |
 | Auftritt beim Start | 700 ms | – |
-| Bildzeit im Ruhezustand (95 %) | 16,7 ms, 0 von 181 > 20 ms | 16,7 ms, 1 von 180 > 20 ms |
+| Bildzeit Handy im Ruhezustand mit Partikeln (95 %) | 16,7–16,8 ms, 0 von 181 > 20 ms | 16,7–16,8 ms, 1–2 von 180 > 20 ms |
+| Bildzeit Tablet im Ruhezustand mit Partikeln | 57–59 Bilder/s, 95 % meist ≤ 16,8 ms, 3–14 von ~170 > 20 ms | – |
+
+*Was die Messungen verändert haben:* Lichtstrahlen und Sternglühen nutzten `mix-blend-mode: screen`; das halbierte
+im Tabletformat die Bildrate (31 Bilder/s, schon vor den Partikeln) und ist jetzt normale Transparenz. Die
+Partikel-Canvas läuft 1:1, wenn die Bühne etwa in Originalgröße erscheint (Tablet), sonst mit 0,75 der
+Bühnenauflösung (Handy), und pausiert während des Ring-Übergangs. In voller Auflösung kostete sie bei gedrosselter
+CPU jedes fünfte Bild. Alle Werte stammen aus Desktop-Chromium ohne GPU; ein echtes Handy rechnet Canvas und
+Ebenen auf der GPU und sollte eher besser liegen – bitte auf dem Gerät gegenprüfen.
 
 *Bekannte Grenzen:* Das Bild hat nur 1116 px Höhe und wird auf Tablets mit hoher Pixeldichte hochskaliert;
-die ergänzten Ränder sind gespiegelt (an der rechten Kante unter dem Zahnrad sichtbar). Beides löst eine
+die ergänzten 84 px je Seite sind aus dem Bild zusammengesetzt (seit 1.5.0 ohne Spiegelung). Beides löst eine
 höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py` neu ausführen.
 
 **AP 1.4 – Basar 2.0 (M)**
@@ -433,10 +500,33 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
 - Abnahme: APK < 25 MB, Start bis Menü < 2,5 s auf dem Testhandy.
 
 **AP 2.3 – UI ohne Komplett-Neuaufbau (M)**
-- [ ] Bildschirme behalten ihre DOM-Knoten; nur geänderte Teile werden aktualisiert (kleiner eigener Helfer oder
+- [x] Bildschirme behalten ihre DOM-Knoten; nur geänderte Teile werden aktualisiert (kleiner eigener Helfer oder
   offline eingebundene Mini-Bibliothek wie Preact + htm, ca. 10 KB).
-- [ ] Gemeinsame Bausteine: Steinknopf, Panel, Reiter, Wallet, Modal – je einmal implementiert, mit den gemalten Grafiken.
+  *Eigener Binder `core/mvvm.js` (6 KB) als Teil der neuen **MVVM-Struktur** (siehe [Projektaufbau](#projektaufbau)):
+  Views rendern HTML, der Binder gleicht nur Unterschiede ab (Listen über `data-key`), Eingaben laufen als Befehle
+  `data-cmd` an das ViewModel. Umgestellt: Hauptmenü, Duell-Vorbereitung, Kampagne, Sammlung und Deckbau, Basar,
+  Pack öffnen, Starthand, Ergebnis und alle Dialoge; das Match-Canvas liest seinen Zustand aus dem Match-ViewModel.
+  `app.js` schrumpft von 56 KB auf 7,6 KB und steckt nur noch zusammen. Die ViewModels laufen ohne DOM und sind
+  in `werkzeuge/tests/viewmodel.test.js` getestet (Basar, Packs, Sammlung, Menü, Match, Store).*
+- [x] Gemeinsame Bausteine: Steinknopf, Panel, Reiter, Wallet, Modal – je einmal implementiert (`view/kit.js`, dazu
+  Kopfleiste und Nachrichtendialog); alle Bildschirme und Dialoge nutzen sie.
+- [ ] … mit den gemalten Grafiken – die Bausteine tragen noch die bisherige CSS-Optik. Sobald die Grafiken aus AP 1.2
+  da sind (Liste im [Vorschlag für die nächste Sitzung](#vorschlag-für-die-nächste-sitzung)), ändert sich nur
+  `view/kit.js` / `kit.css`, nicht die Bildschirme.
 - Abnahme: Übergänge laufen weich, keine Bild-Neuladungen, Scrollpositionen bleiben.
+  *Gemessen im Klickpfad (Handyformat, gleicher Ablauf für beide Versionen):*
+
+  | Messung | 1.4.0 | 1.5.0 |
+  |---|---|---|
+  | Basar: Elemente nach einem Kauf neu erzeugt | 51 von 51 | **0** von 51 |
+  | Basar: Bilder nach Kauf / nach Ausrüsten neu erzeugt | 5 / 5 von 5 | **0 / 0** |
+  | Basar: Scrollposition nach Kauf / Ausrüsten (vorher 268) | 0 / 0 | **268 / 268** |
+  | Basar: längstes Bild beim Kauf, CPU 4× gedrosselt | 16 ms | 16 ms |
+  | Sammlung: Suchfeld behält beim Tippen Fokus und Cursor | nur durch Nachsetzen von Hand | ✓ von selbst |
+  | Starthand: Bilder beim Markieren einer Karte neu erzeugt | alle (Overlay neu) | **0** |
+
+  Der Basar ist klein genug, dass auch der alte Neuaufbau keinen messbaren Ruckler erzeugte – der Gewinn liegt in
+  Scrollposition, Bildern und Übergängen (z. B. dreht sich eine aufgedeckte Packkarte jetzt auf demselben Element).
 
 **AP 2.4 – Match-Renderer entlasten (S)**
 - [ ] Frame-Drossel `now-lastFrame>=15` entfernen (Ruckeln auf 90/120 Hz).
@@ -452,8 +542,18 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
   in Canvas 2D auf Handys kaum flüssig zu schaffen. Engine bleibt unverändert.
 
 **AP 2.6 – Automatische Sichtprüfung (S)**
-- [ ] Playwright-Tests in CI: Klickpfad Menü → Basar → Match → Ergebnis, Screenshots als Artefakt, Vergleich gegen Referenzbilder.
-- Abnahme: CI schlägt bei JavaScript-Fehlern oder starken Bildabweichungen fehl.
+- [x] Playwright-Tests in CI: Klickpfad Menü → Basar → Match → Ergebnis, Screenshots als Artefakt, Vergleich gegen Referenzbilder.
+  *`werkzeuge/klickpfad.js` spielt im Handyformat wie ein Mensch: Hauptmenü → Basar (Reiter, ganz nach unten
+  scrollen, kaufen, ausrüsten) → Sammlung (Suche tippen) → Herausforderung → Starthand (Karte markieren) → Match →
+  Pause → Aufgeben → Ergebnis → Hauptmenü. 12 Screenshots, 25 Prüfungen (u. a. Gold, Reiter, Scrollposition,
+  keine neuen Bilder, Fokus, Niederlage). Stabil durch reduzierte Bewegung, feste Uhrzeit (Tagesduell vom 6. 10. 2026)
+  und festen Spielstand. Verglichen wird verkleinert (458 × 206) mit `werkzeuge/referenz/*.webp` (zusammen 244 KB):
+  Fehler ab 3 % stark abweichender Pixel oder mittlerer Abweichung 6. Zwei Läufe hintereinander: 0 % Abweichung,
+  nur das Match-Canvas 0,1–0,5 %. Neuer CI-Job „sichtpruefung“ (parallel zur APK) mit Artefakt „Sichtpruefung“
+  (Screenshots, Abweichungsbilder, Messwerte); er führt auch `sichtpruefung.js` aus. Neue Referenzen nach gewollten
+  Änderungen: `node werkzeuge/klickpfad.js --referenz`.*
+- Abnahme: CI schlägt bei JavaScript-Fehlern oder starken Bildabweichungen fehl. *✓ – jede Konsolen- oder
+  Laufzeitfehlermeldung, jede fehlgeschlagene Prüfung und jede starke Bildabweichung beendet den Job mit Fehler.*
 
 ### Phase 3 – Game Feel im Match (L)
 
@@ -637,6 +737,96 @@ Neuer Kartentyp ohne Angriff mit dauerhaftem Effekt, ähnlich Schauplätzen in R
 - [ ] KI versteht alle neuen Mechaniken; Schwierigkeitsgrade Lehrling, Feldherr, Legende; Vorausschau 1–2 Züge;
   Persönlichkeit je Held (aggressiv, defensiv, kombinierend).
 
+**Dein Wunsch aus Sitzung 2: mehr Tiefe bei Helden und Karten.** Die drei Pakete unten bauen auf AP 5.1 (Messen)
+auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2) – bis dahin mit Platzhaltern (AP 5.12).
+
+**AP 5.9 – Chronik der Helden: Hintergründe ausarbeiten (S)**
+- [ ] Je Held eine Chronikseite: kurze Biografie (historisch belegt, Jahreszahlen), Epoche und Schauplatz, ein
+  belegtes oder überliefertes Zitat, Spielstil in einem Satz („Leonidas hält die Linie und bestraft Angreifer“),
+  Lieblingskarten, Beziehungen zu anderen Helden (Rivalen, Verbündete) und Stimmungsangaben für Stimme und Musik
+  (AP 4.1, Stil-Bibel Abschnitt 8).
+- [ ] Ablage als Daten (`model/data.js` bzw. eigene Datei `model/lore.js`), angezeigt in der Heldenwahl (AP 1.7) und
+  im „Archiv der Zeiten“ (Weitere Ideen 1).
+- [ ] Heldenfähigkeiten und Startdecks prüfen: Passen Name, Wirkung und Spielstil zur Biografie? Abweichungen
+  sammeln und mit AP 5.2 (Balance) zusammen umsetzen.
+- Abnahme: 10 Chronikseiten, von dir gegengelesen.
+
+**AP 5.10 – Neue Helden (M)**
+
+*Deine Vorgabe (Sitzung 2):* mehr Vielfalt innerhalb der Epochen, echte und wichtige Persönlichkeiten, aber nicht
+die weltbekannten – so wie Perikles statt Alexander. Auswahlregeln für die Liste: historisch belegt, in ihrer Zeit
+bedeutend, außerhalb von Fachkreisen wenig bekannt; Frauen und Männer, alle Weltregionen; nichts nach etwa 1700.
+
+**Zeitalter statt Einzelhelden.** Die Helden werden zu Zeitaltern gruppiert. Jedes Zeitalter bekommt eine
+Spielfeldhälfte (AP 1.8) und einen kleinen Pool gemeinsamer Zeitalterkarten (6–8), jeder Held zusätzlich
+10 eigene Karten. Das bringt Vielfalt innerhalb einer Epoche (zwei Griechen spielen sich verschieden) und spart
+Grafiken: eine Spielfeldhälfte je Zeitalter statt je Held. Rivalen und Verbündete schaffen Geschichten für
+Kampagne und Dialoge (AP 4.3).
+
+Vorschläge (Heldenfähigkeit je 2 Mana, Werte vorläufig, erst nach Simulation festlegen; *neu* = braucht ein
+Schlüsselwort aus AP 5.4/5.5):
+
+| Zeitalter | Persönlichkeit | Wer war das? | Heldenfähigkeit (Vorschlag) | Spielstil |
+|---|---|---|---|---|
+| Alter Orient & Ägypten *(bisher: Imhotep)* | **Enheduanna** (um 2285–2250 v. Chr.) | Hohepriesterin in Ur, Tochter Sargons von Akkad – die erste namentlich bekannte Autorin der Welt | **Tempelhymne:** Ergründet einen Zauber, er kostet 1 weniger *(neu: Ergründen)* | Zauber und Wissen |
+| | **Ahhotep I.** (16. Jh. v. Chr.) | Königin von Theben im Befreiungskrieg gegen die Hyksos; die „goldenen Fliegen“, Ehrenzeichen für Tapferkeit, werden ihr zugeschrieben | **Goldene Fliege:** Ein eigener Diener erhält +1/+1 | Kleine Armee, die wächst |
+| Griechische Antike *(bisher: Leonidas, Hypatia)* | **Perikles** (um 495–429 v. Chr.) | Führender Staatsmann Athens, Bauprogramm der Akropolis, Attischer Seebund | **Bauherr der Akropolis:** Ein eigenes Bauwerk erhält +2 Haltbarkeit; ohne Bauwerk 2 Rüstung *(neu: Bauwerke)* | Bauwerke, breites Feld |
+| | **Epaminondas** (um 418–362 v. Chr.) | Thebanischer Feldherr, brach 371 v. Chr. bei Leuktra Spartas Vorherrschaft mit der „schiefen Schlachtordnung“ | **Schiefe Schlachtordnung:** Euer Diener ganz links erhält +2 Angriff in diesem Zug | Position zählt; **Rivale von Leonidas** |
+| | **Artemisia I. von Karien** (5. Jh. v. Chr.) | Herrscherin von Halikarnassos, führte bei Salamis 480 v. Chr. eigene Schiffe | **Falsche Flagge:** Ein eigener Diener erhält Tarnung bis zu seinem nächsten Angriff *(neu: Tarnung)* | Täuschung, Hinterhalte |
+| Rom *(neu)* | **Marcus Vipsanius Agrippa** (63–12 v. Chr.) | Feldherr hinter Augustus (Actium), Bauherr des ersten Pantheons und mehrerer Aquädukte | **Legionspioniere:** Ruft einen Pionier (1/2); solange er lebt, kosten Eure Bauwerke 1 weniger | Legionen und Bauwerke |
+| | **Quintus Fabius Maximus** (um 280–203 v. Chr.) | Der „Zauderer“: zermürbte Hannibal durch Hinhalten statt offener Schlacht | **Cunctator:** Ein feindlicher Diener erhält Starre *(neu: Starre)* | Kontrolle, Zeit gewinnen |
+| Persien & Steppe *(bisher: Dschingis Khan)* | **Schapur I.** (um 215–270) | Sasanidischer Großkönig, nahm 260 den römischen Kaiser Valerian gefangen | **Panzerreiter:** Ruft einen Kataphrakten (2/1, Vorstoß), höchstens einer zugleich *(neu: Vorstoß)* | Schwere Reiterei; Rivale Roms |
+| | **Mandukhai Khatun** (um 1449–1510) | Regentin, einte die zerfallenen Mongolenstämme erneut und zog selbst in die Schlacht | **Stammesbündnis:** Habt Ihr 3+ Diener, erhalten alle +1 Leben; sonst einer +1/+1 | Breite statt Pfeile |
+| Afrika *(neu)* | **Amanirenas** (1. Jh. v. Chr.) | Kandake (Königin) von Kusch, führte 25–21 v. Chr. Krieg gegen Rom und erbeutete den Bronzekopf des Augustus | **Kandake:** 1 Schaden an einen feindlichen Diener; stirbt er, zieht eine Karte | Gezielte Schläge |
+| | **Askia Muhammad I.** (reg. 1493–1528) | Herrscher des Songhai-Reichs, machte Timbuktu zur Stadt der Gelehrten | **Gelehrte von Timbuktu:** Ergründet eine Karte aus Eurem eigenen Deck *(neu: Ergründen)* | Auswahl statt Zufall |
+| Indien *(neu)* | **Raja Raja Chola I.** (reg. 985–1014) | Herrscher der Chola, baute den Brihadisvara-Tempel in Thanjavur, Flottenzüge bis Sri Lanka | **Tempelstadt:** Euer nächstes Bauwerk in diesem Zug kostet 2 weniger; sonst 2 Rüstung *(neu: Bauwerke)* | Bauwerke, Flotte |
+| | **Rani Durgavati** (1524–1564) | Königin der Gond, verteidigte ihr Reich gegen das Mogulreich | **Elefantenwacht:** Ein eigener Diener erhält Spott (später Schildwall) und +1 Leben | Verteidigung |
+| China, Korea, Japan *(bisher: Musashi)* | **Fu Hao** (13. Jh. v. Chr.) | Feldherrin und Priesterin der Shang-Dynastie; ihr Grab in Anyang wurde 1976 unversehrt gefunden | **Orakelknochen:** Seht die oberste Karte Eures Decks an, legt sie oben oder unten hin; ein Diener +1 Angriff in diesem Zug | Planung, frühe Angriffe |
+| | **Seondeok von Silla** (reg. 632–647) | Erste regierende Königin Koreas, ließ das Observatorium Cheomseongdae bauen | **Sternwarte:** Seht die obersten 2 Karten Eures Decks an, eine davon kommt unter das Deck | Planung, Kombos |
+| | **Hōjō Masako** (1157–1225) | Die „Nonnen-Shōgun“: lenkte nach dem Tod ihres Mannes das Kamakura-Shogunat | **Rede an die Vasallen:** Ein eigener Diener erhält +1/+1 und Spott bis zu Eurem nächsten Zug | Gefolgschaft, Treue |
+| Byzanz & islamische Welt *(neu)* | **Anna Komnene** (1083–1153) | Byzantinische Prinzessin, Ärztin und Historikerin, schrieb die „Alexiade“ | **Alexiade:** Ergründet eine Karte, die in dieser Partie schon gespielt wurde *(neu: Ergründen)* | Chronik-Mechanik |
+| | **Fatima al-Fihri** (9. Jh.) | Gründete 859 in Fès die al-Qarawiyyin, die als älteste bestehende Universität gilt | **Haus des Wissens:** Ergründet ein Bauwerk, es kostet 1 weniger *(neu: Bauwerke)* | Bauwerke, Wissen |
+| | **Baibars** (um 1223–1277) | Mamlukensultan, schlug 1260 bei Ain Dschalut die Mongolen | **Mamlukenreiter:** Ein eigener Diener erhält Vorstoß *(neu: Vorstoß)* | Gegenangriff; **Rivale von Dschingis Khan** |
+| Europäisches Mittelalter *(bisher: Boudicca, Ragnar, Jeanne, Dandolo)* | **Olga von Kiew** (um 890–969) | Regentin der Kiewer Rus, rächte ihren Mann mit List an den Drewljanen | **Olgas Rache:** 1 Schaden an einen feindlichen Diener, 2 wenn in diesem Zug ein eigener Diener gestorben ist | Vergeltung |
+| | **Auðr die Tiefsinnige** (9. Jh.) | Führte laut Landnahmebuch ihre Sippe nach Island und verteilte dort Land an ihr Gefolge | **Landnahme:** Ruft einen Siedler (0/2), der zu Beginn jedes Eurer Züge +1 Angriff erhält | Langsames Wachstum; Wikinger neben Ragnar |
+| | **Mathilde von Tuszien** (1046–1115) | Markgräfin, auf ihrer Burg Canossa trafen sich 1077 Kaiser und Papst | **Canossa:** Ein Diener (beliebig) kann bis zu Eurem nächsten Zug weder angreifen noch angegriffen werden | Diplomatie, Zeit kaufen |
+| | **Jan Žižka** (um 1360–1424) | Hussitischer Feldherr, nie besiegt, kämpfte mit der Wagenburg – zuletzt erblindet | **Wagenburg:** Ruft einen Kriegswagen (0/3, Spott) | Unüberwindbare Verteidigung |
+| | **Bertrand du Guesclin** (um 1320–1380) | Konnetabel von Frankreich, holte im Hundertjährigen Krieg Burg um Burg zurück | **Kleinkrieg:** 2 Schaden an einen bereits beschädigten Diener | **Verbündeter von Jeanne** |
+| Renaissance *(bisher: Nostradamus)* | **Federico da Montefeltro** (1422–1482) | Söldnerführer und Herzog von Urbino, besaß eine der größten Bibliotheken seiner Zeit | **Condotta:** Ruft einen Söldner (3/2); nächster Zug 1 Mana weniger *(neu: Belastung)* | Kaufkraft gegen Tempo |
+| Amerika *(neu)* | **Nezahualcóyotl** (1402–1472) | Dichterkönig von Texcoco, baute Dämme und das Aquädukt von Chapultepec | **Blumenlied:** Stellt bei allen eigenen Dienern 1 Leben wieder her | Ausdauer, breite Heilung |
+| | **Ix Wak Chan Ajaw** („Lady Six Sky“, um 682–741) | Maya-Herrscherin von Naranjo, führte zahlreiche Feldzüge | **Sternenkrieg:** Ein eigener Diener +2 Angriff in diesem Zug; tötet er einen Diener, zieht eine Karte | Angriff mit Belohnung |
+
+- [ ] Du wählst aus. **Mein Vorschlag für Welle 1 (6 Helden, größtmögliche Vielfalt):** Perikles (Griechenland),
+  Marcus Agrippa (Rom), Amanirenas (Kusch), Anna Komnene (Byzanz), Nezahualcóyotl (Texcoco), Hōjō Masako (Japan).
+  Welle 2 als Rivalen und Gegenstücke: Epaminondas, Baibars, Jan Žižka, Fabius Maximus, Fu Hao, Mandukhai.
+- [ ] Je Held: Chronikseite wie in AP 5.9, 10 eigene Karten, Startdeck, Kampagnenmission, KI-Persönlichkeit
+  (AP 5.8), Porträt zunächst als Platzhalter (AP 5.12).
+- [ ] Engine: Heldenfähigkeiten datengetrieben machen, damit neue Helden keinen Sonderfall-Code brauchen;
+  Zeitalter als Datenfeld (`era`-Gruppe) mit Zeitalterkarten.
+- Abnahme: Simulationslauf (AP 5.1) mit allen Helden, jeder neue Held 47–53 % gegen das Feld.
+
+**AP 5.11 – Karteneffekte überarbeiten und Set vergrößern (L)**
+- [ ] Alle 140 Karten durchgehen: doppelte Effekte zusammenlegen oder unterscheiden (z. B. Andraste/Lagertha,
+  Marco/Herodot), langweilige „nur Werte“-Karten mit kleinen Regeln versehen, Namen und Texte historisch schärfen,
+  Schlüsselwörter nach AP 5.4.
+- [ ] Neue Karten in Wellen statt auf einmal: Welle 1 ≈ 60 Karten (je Held 4, dazu 20 neutrale, erste Bauwerke
+  aus AP 5.5), Welle 2 ≈ 90 Karten („Wunder der Welt“, AP 5.7), danach je neuem Held 10. Ziel nach Welle 2:
+  ≈ 300 Karten.
+- [ ] Budgetformel und Simulation entscheiden die Werte (AP 5.7): keine Welle ohne Balance-Lauf und KI-Bewertung.
+- Abnahme: je Welle Simulationsbericht, Legendäre ≤ 55 % „gewinnt, wenn gezogen“, keine Karte über 60 %.
+
+**AP 5.12 – Platzhalter für fehlende Grafiken (S)** – *von dir freigegeben (Sitzung 2): erst mit Platzhaltern.*
+Regeln, Balance und KI lassen sich ohne Bilder bauen und testen; die Grafiken (AP 1.2) kommen danach gesammelt.
+So, dass es im Spiel nicht kaputt aussieht:
+- [ ] Datenfeld `art` je Karte und Held; fehlt es, zeichnet der Renderer einen **gestalteten Platzhalter** statt
+  eines leeren Fensters: Epochenfarbe des Helden, großes Symbol (Helden-Icon, Kartentyp, Bauwerk-Turm), Name in
+  Cinzel, kleiner Vermerk „Motiv folgt“. Neue Helden bekommen ein Medaillon mit Monogramm statt Porträt.
+- [ ] Eine automatisch erzeugte Liste `ungenutzte_assets/MOTIVE.md` mit allen fehlenden Motiven, Größe und
+  fertigem Prompt (Prompt-Anfang aus AP 1.2 + Kartentext + Epoche), damit du die Bilder in Stapeln erzeugen kannst.
+- [ ] Sichtprüfung zählt Platzhalter, damit sichtbar bleibt, wie viele Motive noch fehlen; ein Platzhalter darf
+  nie einen Test brechen.
+- Abnahme: Ein Deck nur aus Karten ohne Motiv ist spielbar und lesbar (Screenshot im Handyformat).
+
 ### Phase 6 – Spielmodi und Motivation (fortlaufend)
 
 - [ ] **AP 6.1 Kolosseum als echter Draft:** Held aus 3, dann 30-mal 1 aus 3 Karten; Lauf endet bei 3 Niederlagen
@@ -685,8 +875,12 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 |---|---|
 | Name „Aeterna“ | AP 0.3 |
 | Textfreies Hauptmenü-Bild mit interaktiven Knöpfen und Animationen | AP 1.3 (Bild liegt in `ungenutzte_assets/ui/`) |
-| Mehr Karten | AP 5.7 |
+| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) |
 | Legendäre aufwerten | AP 5.3 |
+| Hintergründe der Helden ausarbeiten | AP 5.9 |
+| Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 |
+| Bestehende Karteneffekte überarbeiten | AP 5.11 |
+| Platzhalter statt fehlender Grafiken | AP 5.12 |
 | Heldenbalance | AP 5.1, AP 5.2 |
 | Heldenfähigkeit dreht sich nach Benutzung um | AP 1.8, AP 3.7 |
 | Zwei thematische Spielfeldhälften je Epoche | AP 1.2, AP 1.8 |
@@ -718,9 +912,8 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 
 Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 
-1. **Vierte Menüplatte** (AP 1.3): *vorläufig wie vorgeschlagen umgesetzt* – „Partie fortsetzen“ bei laufender
-   Partie, sonst „Herausforderung“ als Tagesduell (Idee 9). Rätsel und Zeitanomalie können sie später erweitern.
-   Passt das, oder soll dort etwas anderes stehen?
+1. ~~**Vierte Menüplatte** (AP 1.3)~~ – *mit deinem erfolgreichen Test zu AP 1.3 angenommen:* „Partie fortsetzen“
+   bei laufender Partie, sonst „Herausforderung“ als Tagesduell. Rätsel und Zeitanomalie können sie später erweitern.
 2. **Heldenfähigkeit „umdrehen“** (AP 1.8): Ich habe es so verstanden, dass sich das Fähigkeits-Siegel wie in
    Hearthstone umdreht. Falls du meinst, dass sich das ganze Spielfeld dreht, bitte korrigieren.
 3. **Spielfeldhälften vs. Schlachtfeld-Skins** (AP 1.8): Ersetzt ein gekaufter Skin die eigene Epochenhälfte, oder
@@ -730,8 +923,13 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 6. **Bauwerke** (AP 5.5): Belegen sie einen der 7 Plätze (Vorschlag) oder bekommen sie eine eigene Reihe?
 7. **Stimmen** (AP 4.1): Quelle und Budget (eigene Aufnahmen, Sprecher, KI-Sprachausgabe)?
 8. **Legendäre** (AP 5.3): Vorschläge so umsetzen, anpassen oder durch eigene Ideen ersetzen?
-9. **Stil-Bibel und Hauptmenü** (AP 1.1, AP 1.3): Freigabe – siehe Abschnitt 10 der Stil-Bibel
-   (Palette, Schriften, Logo-Unterzeile „Das historische Kartenduell“, Bewegungssprache).
+9. ~~**Stil-Bibel und Hauptmenü** (AP 1.1, AP 1.3)~~ – *freigegeben* (Sitzung 2), Zahnrad und Wand danach korrigiert.
+10. **Code-Struktur:** Deinen Wunsch „MVVP“ habe ich als **MVVM** (Model – View – ViewModel) umgesetzt. Falls du
+    MVP (Model – View – Presenter) gemeint hast: Die Schichten bleiben gleich, nur die Rolle der Mittelschicht
+    ändert sich – bitte kurz bestätigen.
+11. **Neue Helden** (AP 5.10): Deine Vorgabe steht (wichtig, echt, nicht weltbekannt, mehr Vielfalt je Epoche).
+    Offen ist die Auswahl aus den 27 Vorschlägen – mein Vorschlag für Welle 1 steht in AP 5.10.
+12. ~~**Platzhalter** (AP 5.12)~~ – *freigegeben:* neue Karten und Helden zuerst mit gestalteten Platzhaltern.
 
 ---
 
@@ -739,13 +937,14 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 
 | Sitzung | Arbeitspakete | Warum jetzt |
 |---|---|---|
-| 1 ✓ | AP 0.3, AP 1.1, AP 1.3 | erledigt in 1.4.0 – Name Aeterna, Stil-Bibel, gemaltes Hauptmenü (Freigaben offen) |
-| 2 | AP 2.3, AP 0.1, AP 2.6, Feinschliff AP 1.3 | solide UI-Basis, Basar ohne Sprünge, Sichtprüfung in der CI (siehe unten) |
-| 3 | AP 5.1, AP 5.2 | Erst messen, dann balancieren – Grundlage für alle Kartenarbeiten |
-| 4–5 | AP 5.4 (Umbenennung + erste neue Schlüsselwörter), AP 5.3, AP 5.8 (Teil) | Legendäre mit echter Wirkung, KI zieht mit |
+| 1 ✓ | AP 0.3, AP 1.1, AP 1.3 | erledigt in 1.4.0 – Name Aeterna, Stil-Bibel, gemaltes Hauptmenü (freigegeben) |
+| 2 ✓ | AP 2.3, AP 0.1, AP 2.6, Feinschliff AP 1.3 | erledigt in 1.5.0 – MVVM-Struktur, Basar ohne Sprünge, Sichtprüfung in der CI, Zahnrad repariert |
+| 3 | AP 5.1, AP 5.2 | Erst messen, dann balancieren – Grundlage für alle Kartenarbeiten (siehe unten) |
+| 4–5 | AP 5.4 (Umbenennung + erste neue Schlüsselwörter), AP 5.3, AP 5.8 (Teil), AP 5.9, AP 5.12 | Legendäre mit echter Wirkung, KI zieht mit; Helden-Chronik und Platzhalter als Grundlage für neue Karten |
+| 6 | AP 5.11 (Effekte überarbeiten, Welle 1), AP 5.10 (erste neue Helden nach deiner Auswahl) | Mehr Tiefe, sobald Messen und Schlüsselwörter stehen |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
 | 6–7 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
-| 8 | AP 2.4, AP 2.5, AP 2.6 | Flüssiges Match, Renderer-Entscheidung, Sicherheitsnetz |
+| 8 | AP 2.4, AP 2.5 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon) |
 | 9–11 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht |
 | 12 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
 | 13–14 | AP 3.6–3.9, Phase 4 | Effekte, Stimmen, Chronist, Klang, Haptik aus einem Guss |
@@ -757,30 +956,43 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 1 (Version 1.4.0):** AP 0.3 (Aeterna), AP 1.1 (Stil-Bibel, Schriften), AP 1.3 (Hauptmenü
-aus dem Konzeptbild mit Tagesduell), dazu `werkzeuge/sichtpruefung.js` für Screenshots und Messwerte.
+**Erledigt in Sitzung 2 (Version 1.5.0):** Feinschliff AP 1.3 nach deiner Rückmeldung (Zahnrad ohne Kerbe, Wand ohne
+Spiegelflecken, auch links), Code in **MVVM-Struktur** mit eigenem Binder, AP 2.3 (keine Komplett-Neuaufbauten mehr,
+gemeinsame Bausteine), AP 0.1 (Basar behält Scrollposition und Reiter), AP 2.6 (Klickpfad mit Referenzbildern als
+CI-Job), dazu ViewModel-Tests in Node. Erledigt in Sitzung 1 (1.4.0): AP 0.3, AP 1.1, AP 1.3.
 
 **Vorher bitte von dir (5 Minuten):**
-1. Test-APK `Aeterna-1.4.0-Test-APK` aus Actions über 1.3.0 installieren: Heißt die App „Aeterna“? Ist der
-   Spielstand noch da? Fühlen sich Drücken, Auftritt und Menüwechsel gut an? Klingen die Steingeräusche passend (AP 0.2)?
-2. Stil-Bibel und Hauptmenü freigeben oder Änderungen nennen (Offene Entscheidungen 1 und 9).
+1. Test-APK `Aeterna-1.5.0-Test-APK` aus Actions installieren und kurz durchklicken: Zahnrad oben rechts in Ordnung?
+   Basar: ganz nach unten scrollen, etwas kaufen – bleibt die Liste stehen? Sammlung, Deckbau, eine Partie bis zum
+   Ende – alles wie vorher? (Die ganze Oberfläche läuft jetzt über die neue MVVM-Schicht.)
+2. Offene Entscheidung 10: „MVVP“ als MVVM richtig verstanden?
+3. *Optional, parallel:* Grafiken für die gemalten Bausteine (AP 1.2 → AP 2.3), Prompt-Anfang aus AP 1.2, Ablage in
+   `ungenutzte_assets/ui/`:
 
-**Sitzung 2 – AP 2.3, AP 0.1, AP 2.6 und Feinschliff AP 1.3**
+   | Asset | Größe (px) | Prompt-Zusatz |
+   |---|---|---|
+   | Steinknopf normal, gedrückt, gold | je 640 × 160 | „rectangular carved limestone button with a bronze rivet at each end, plain stretchable centre; pressed-in version; version with gold leaf rim“ |
+   | Panel (9-Slice) | 768 × 768 | „stone tablet frame with bronze corners, recessed darker centre“ |
+   | Reiter aktiv + inaktiv | je 800 × 180 | „small carved stone tab with bronze trim; active version glowing gold“ |
+   | Wallet-Rahmen + drei Symbole | 420 × 120, Symbole je 128 × 128 | „small bronze-framed limestone counter“; „gold coin“, „glowing dust crystal“, „sealed card pack“ |
+   | Schließen-Knauf | 160 × 160 | „round bronze knob with an engraved X“ |
+
+**Sitzung 3 – AP 5.1 und AP 5.2 (erst messen, dann balancieren)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Feinschliff AP 1.3 | dein Feedback vom Gerät und zur Stil-Bibel einarbeiten | Freigabe abschließen, solange alles frisch ist |
-| AP 2.3 | kleiner Render-Helfer statt `innerHTML`-Neuaufbau; zuerst Basar und Sammlung; gemeinsame Bausteine (Steinknopf, Reiter, Wallet, Modal) mit den Stil-Bibel-Farben und -Schriften | Grundlage für AP 1.4–1.7; Bilder flackern nicht mehr, Übergänge werden möglich |
-| AP 0.1 | Scrollposition und Reiter im Basar nach Kauf/Ausrüsten erhalten | fällt mit AP 2.3 fast von selbst ab |
-| AP 2.6 | `werkzeuge/sichtpruefung.js` als CI-Schritt (Screenshots als Artefakt, Abbruch bei JavaScript-Fehlern) | schützt das neue Hauptmenü bei jedem Push |
+| Rückmeldung 1.5.0 | dein Gerätetest einarbeiten | die neue MVVM-Schicht trägt alle Bildschirme |
+| AP 5.1 | `werkzeuge/balance.js`: KI gegen KI für alle 10 × 10 Paarungen, ≥ 200 Partien je Paarung mit festem Startwert; Siegquoten-Matrix, Vorteil des ersten Spielers, Partielänge, „gewinnt, wenn gezogen“ je Karte; Bericht `balance/BERICHT.md`, verkürzter Lauf in der CI | Grundlage für jede Karten- und Balancearbeit |
+| AP 5.2 | Ausreißer gezielt anpassen (lieber Schwache stärken), neuer Simulationslauf, Ziel 47–53 % je Held | erste spürbare Verbesserung im Spiel |
+| AP 2.3 (Rest) | gemalte Bausteine einbauen, falls die Grafiken da sind | nur `view/kit.js` und `kit.css` ändern sich |
 
-Danach weiter mit Sitzung 3 (AP 5.1, AP 5.2 – erst messen, dann balancieren). Grafiken für Basar, Karten und
-Spielbrett (AP 1.2) kannst du parallel nach der Stil-Bibel erzeugen.
+Danach Sitzung 4–5 (AP 5.4, AP 5.3, AP 5.8 – Schlüsselwörter, Legendäre, KI). Neue Bildschirm-Logik kommt dabei
+immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Simulationslauf.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 2.3, AP 0.1 und AP 2.6** ab und
-> übernimm mein Feedback zu AP 1.1/AP 1.3: *(hier Feedback einfügen)*. Halte dich an die „Regeln für jede
-> Sitzung“, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests laufen und sorge für eine
-> grüne CI. Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull Request
-> nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.1 und AP 5.2** ab und übernimm mein
+> Feedback zu Version 1.5.0: *(hier Feedback einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die
+> MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests und den Klickpfad laufen und
+> sorge für eine grüne CI. Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull
+> Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung.

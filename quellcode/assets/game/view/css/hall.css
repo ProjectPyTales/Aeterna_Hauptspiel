@@ -1,0 +1,153 @@
+/* Aeterna: fonts, loading screen and the painted main menu (see stil/STILBIBEL.md). */
+:root{
+ --ae-stein-glanz:#fbeccf;--ae-stein-hell:#e5ceb1;--ae-marmor:#dbcaae;--ae-ring:#c1a380;--ae-wand:#b69167;--ae-wand-schatten:#806b5e;
+ --ae-holz:#57412c;--ae-titelband:#66513f;--ae-tinte:#2e1a0f;--ae-gravur:#43301f;--ae-gravur-lippe:#fff5e0;
+ --ae-bronze-hell:#ca9a6c;--ae-bronze:#875d3e;--ae-bronze-dunkel:#5a3925;--ae-goldlinie:#b0824a;--ae-blattgold:#d6a148;--ae-muenzgold:#efa21a;
+ --ae-stern:#f1cb44;--ae-licht:#ecc793;--ae-lapis:#44528e;--ae-medaillon-gold:#905c1b;--ae-oliv:#72582e;--ae-terrakotta:#b1523f;
+ --ae-efeu:#61671d;--ae-siegelrot:#ab2b1c;--ae-spielbar:#8cc152;--ae-ziel:#d8644e}
+@font-face{font-family:'Aeterna Titel';src:url('../../assets/fonts/Cinzel-wght.ttf');font-weight:400 900}
+@font-face{font-family:'Aeterna Zier';src:url('../../assets/fonts/CinzelDecorative-Bold.ttf');font-weight:700}
+@font-face{font-family:'Aeterna Text';src:url('../../assets/fonts/AlegreyaSans-Medium.ttf');font-weight:500}
+@font-face{font-family:'Aeterna Text';src:url('../../assets/fonts/AlegreyaSans-Bold.ttf');font-weight:700}
+
+#loading{background:radial-gradient(ellipse at 50% 42%,#4a3b2c,#2b2119 62%,#1a140f);color:#e9cf98;gap:20px}
+#loading .sigil{font-size:30px;color:#f1cb44;text-shadow:0 0 18px #f1cb4499}
+#loading h1{font:700 64px 'Aeterna Zier',Title,serif;letter-spacing:6px;background:linear-gradient(#fbe7b0,#d9a64e 55%,#9a6a26);-webkit-background-clip:text;background-clip:text;color:transparent}
+#loading p{font:500 22px 'Aeterna Text',Body,sans-serif;letter-spacing:1px;color:#d8c29a}
+#loading .loading-track{background:#3c3026}
+#loading .loading-track span{background:#e2b45a}
+
+/* Daily duel: today's opponent in the hero grid. */
+.hero-tile.foe{border:4px solid #c0503f;box-shadow:0 0 22px #c0503f50}
+
+/* Side bars on phones wider than 2:1 continue the painted wall (positioned by app.js). */
+body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.png') no-repeat;background-size:var(--hall-bw,0) var(--hall-bh,0);background-position:var(--hall-bx,0) var(--hall-by,0)}
+
+.hall.aeterna{background:#2b231c;font-family:'Aeterna Text',Body,sans-serif}
+.hall-zoom{position:absolute;inset:0}
+.hall-bg,.hall .face{background-image:url('../../assets/art/hall-aeterna.png');background-repeat:no-repeat;background-size:var(--bgw) 800px}
+.hall-bg{position:absolute;inset:0;background-position:calc(var(--bgw) * -.0833975) 0}
+
+/* Chiselled lettering: dark cut, bright lower lip (light falls from the upper right). */
+.hall .label,.hall-gold b{color:var(--ae-gravur);text-shadow:0 1.5px 0 #fff5e0c0,0 -1px 0 #2a180a66}
+
+/* Cut-out controls drop all generic button chrome. */
+.hall button.cut{position:absolute;display:block;padding:0;margin:0;min-height:0;background:none;border:0;border-radius:0;box-shadow:none;filter:none;color:inherit;font:inherit;z-index:2;-webkit-tap-highlight-color:transparent}
+.hall button.cut:hover{filter:none}
+.hall button.cut:active{transform:none}
+.hall button.cut:focus-visible{outline:none}
+.hall button.cut:focus-visible .face{filter:drop-shadow(0 0 6px #fff1c4)}
+.hall .slot,.hall .face{position:absolute;inset:0}
+
+/* Plates sink 6 px into a dark joint. */
+.plate .slot{background:linear-gradient(#1f1309,#3b2817 30%,#5a4330 75%,#6d5440)}
+.plate .face,.plate .label,.plate .shine{transition:transform 80ms cubic-bezier(.3,.8,.4,1),filter 80ms}
+.plate:active .face,.plate.pressed .face{transform:translateY(6px) scale(.985);filter:brightness(.9)}
+.plate:active .label,.plate.pressed .label,.plate:active .shine,.plate.pressed .shine{transform:translateY(6px) scale(.985)}
+/* A glint of light crosses one plate after another, so the hall shimmers on touch screens too. */
+.plate .shine{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.plate .shine:before{content:'';position:absolute;top:0;bottom:0;left:-40%;width:35%;background:linear-gradient(100deg,#fff0,#fff3d2b8 50%,#fff0);opacity:0;animation:plate-shine 9s ease-in-out infinite;animation-delay:calc(var(--i) * 2.25s + 1.5s)}
+@keyframes plate-shine{0%,86%{transform:translateX(0);opacity:0}88%{opacity:1}100%{transform:translateX(480%);opacity:0}}
+@keyframes plate-shine-now{0%{transform:translateX(0);opacity:1}100%{transform:translateX(480%);opacity:0}}
+.plate .label{position:absolute;inset:0 0 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:none;text-align:center}
+.plate .label b{font:700 33px/1 'Aeterna Titel',Title,serif;letter-spacing:5px;text-transform:uppercase}
+.plate .label small{font:500 18px/1.15 'Aeterna Text',Body,sans-serif;letter-spacing:.3px;color:#5b4430;text-shadow:0 1px 0 #fff5e0b0}
+.plate.gold .face{filter:sepia(.35) saturate(1.5) brightness(1.04)}
+.plate.gold:active .face,.plate.gold.pressed .face{filter:sepia(.35) saturate(1.5) brightness(.94)}
+.plate.gold .label b{color:#5b3a12;letter-spacing:3px;font-size:29px}
+.plate.gold:after{content:'';position:absolute;inset:-10px;border-radius:40px;box-shadow:0 0 26px 6px #f3c35a55;animation:gold-pulse 2.4s ease-in-out infinite;pointer-events:none}
+@keyframes gold-pulse{50%{box-shadow:0 0 34px 12px #f3c35a99}}
+
+/* Rails: only the strip and the medallion take touches. */
+.hall button.rail{pointer-events:none}
+.rail .rail-flash,.rail .medal .slot{pointer-events:auto}
+.rail .rail-flash{position:absolute;overflow:hidden;border-radius:6px;background:linear-gradient(100deg,#fff6dc00 20%,#fffaf0 50%,#fff6dc00 80%) no-repeat;background-size:55% 100%;box-shadow:inset 0 0 18px #ffe7a6;background-position:-60% 0;opacity:0}
+.rail.lit .rail-flash{animation:rail-flash 420ms ease-out}
+@keyframes rail-flash{0%{opacity:1;background-position:-60% 0}100%{opacity:.2;background-position:160% 0}}
+.rail .label{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;font:700 25px/1 'Aeterna Titel',Title,serif;letter-spacing:3px;text-transform:uppercase}
+.rail .medal{position:absolute}
+.rail .medal .slot{border-radius:50%;background:radial-gradient(circle,#4a3524 0 50%,#2a1a0e 68%)}
+.rail .medal .face{border-radius:50%;transition:transform 90ms cubic-bezier(.3,.8,.4,1)}
+.rail:active .medal .face,.rail.pressed .medal .face{transform:scale(.94)}
+.rail .medal .glow{position:absolute;inset:3px;border-radius:50%;opacity:0;box-shadow:0 0 0 3px var(--accent),0 0 26px 10px var(--accent);transition:opacity 120ms}
+.rail:active .medal .glow,.rail.pressed .medal .glow{opacity:.85}
+.rail .medal .sheen{position:absolute;inset:16%;border-radius:50%;overflow:hidden;pointer-events:none}
+.rail .medal .sheen:before{content:'';position:absolute;inset:-20% -60%;background:linear-gradient(105deg,#fff0 42%,#fffbe8b0 50%,#fff0 58%);transform:translateX(-80%);animation:sheen 7s ease-in-out infinite;animation-delay:calc(var(--i) * 1.7s + 1s)}
+@keyframes sheen{0%,82%{transform:translateX(-80%)}96%,100%{transform:translateX(80%)}}
+.seal{position:absolute;z-index:3;min-width:40px;height:40px;margin:-20px 0 0 -20px;padding:0 9px;display:flex;align-items:center;justify-content:center;font:700 23px/1 'Aeterna Text',Body,sans-serif;color:#fff1d6;text-shadow:0 1px 1px #4a0d06;background:radial-gradient(circle at 38% 32%,#e3654d,#ab2b1c 55%,#6d140c);border-radius:52% 48% 50% 46%/48% 52% 46% 54%;box-shadow:0 0 0 2.5px #7e1a10,0 3px 5px #28050299,inset 0 -3px 5px #3c050073,inset 0 2px 3px #ffbea073;pointer-events:none}
+
+/* Gear knob turns by 60° per press (viewmodel/menu.js keeps the angle). */
+.hall button.knob{border-radius:50%}
+.knob .face{border-radius:50%;transform:rotate(var(--turn,0deg));transition:transform 320ms cubic-bezier(.3,1.5,.5,1)}
+
+.hall-title{position:absolute;z-index:1;pointer-events:none;text-align:center}
+.hall-title h1{position:absolute;left:0;right:0;top:8px;height:76px;display:flex;align-items:center;justify-content:center;font:700 52px/1 'Aeterna Zier',Title,serif;letter-spacing:4px;background:linear-gradient(#f9e2a6,#d6a148 48%,#8f5f20 72%,#c4913f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1.5px 0 #fff7e6) drop-shadow(0 -1px 0 #3b2412aa)}
+.hall-title p{position:absolute;left:0;right:0;top:88px;height:31px;display:flex;align-items:center;justify-content:center;font:600 14.5px/1 'Aeterna Titel',Title,serif;letter-spacing:2.4px;white-space:nowrap;text-transform:uppercase;color:#ecd6a4;text-shadow:0 1px 0 #00000088,0 0 6px #00000055}
+.hall-gold{position:absolute;z-index:1;pointer-events:none}
+.hall-gold b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 31px/1 'Aeterna Titel',Title,serif;letter-spacing:1px}
+.hall-foot{position:absolute;left:14px;bottom:8px;z-index:1;font:500 14px 'Aeterna Text',Body,sans-serif;letter-spacing:.6px;color:#f0e0bf;text-shadow:0 1px 2px #000a;pointer-events:none}
+
+/* Life: light from the upper right, the glowing star. Plain alpha instead of blend modes: animated
+   blending over large areas cost every second frame on the tablet format. */
+.hall-star{position:absolute;z-index:1;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fffce6f2 0,#ffe88c9c 20%,#f1cb4440 42%,#f1cb4400 68%);animation:star-pulse 3.2s ease-in-out infinite}
+@keyframes star-pulse{0%,100%{transform:scale(.85);opacity:.55}50%{transform:scale(1.12);opacity:.95}}
+.hall-rays{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none}
+.hall-rays i{position:absolute;top:-260px;height:1500px;transform-origin:50% 0;background:linear-gradient(90deg,#fff0c800,#fff0c833 50%,#fff0c800);animation:ray 7s ease-in-out infinite alternate}
+.hall-rays i:nth-child(1){left:1380px;width:150px;transform:rotate(36deg)}
+.hall-rays i:nth-child(2){left:1470px;width:90px;transform:rotate(41deg);animation-duration:5.5s;animation-delay:-2s}
+.hall-rays i:nth-child(3){left:1540px;width:200px;transform:rotate(33deg);animation-duration:8.5s;animation-delay:-4s}
+.hall-rays i:nth-child(4){left:1300px;width:70px;transform:rotate(45deg);animation-duration:6.2s;animation-delay:-1s}
+@keyframes ray{0%{opacity:.25}100%{opacity:1}}
+.hall-sparks{position:absolute;left:0;top:0;width:1600px;height:800px;z-index:3;pointer-events:none}
+
+/* Entrance (≤ 700 ms): plates slide into their joints one by one, medallions settle, the star flares. */
+.hall.intro .plate .face,.hall.intro .plate .label{animation:plate-in 380ms cubic-bezier(.2,.85,.3,1.12) backwards;animation-delay:calc(var(--i) * 85ms)}
+.hall.intro .plate:nth-child(odd){--dir:-1}.hall.intro .plate:nth-child(even){--dir:1}
+@keyframes plate-in{from{transform:translateX(calc(var(--dir) * 70px)) scale(.92);opacity:0}}
+.hall.intro .rail .medal .face{animation:medal-in 320ms cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(180ms + var(--i) * 60ms)}
+@keyframes medal-in{from{transform:scale(.55) rotate(-50deg);opacity:0}}
+.hall.intro .hall-star{animation:star-flash 300ms ease-out 400ms backwards}
+@keyframes star-flash{0%{transform:scale(.3);opacity:0}45%{transform:scale(2.6);opacity:1}100%{transform:scale(.85);opacity:.55}}
+.hall.intro .seal{animation:seal-in 220ms cubic-bezier(.3,1.6,.5,1) 480ms backwards}
+@keyframes seal-in{from{transform:scale(0)}}
+
+/* Menu change: zoom into the ring behind a burst of light from the star (≤ 600 ms with the press). */
+.hall.leaving .hall-zoom{transform:scale(1.8);transition:transform 260ms cubic-bezier(.55,.05,.9,.45)}
+.hall.arriving .hall-zoom{animation:hall-arrive 380ms cubic-bezier(.15,.7,.3,1)}
+@keyframes hall-arrive{from{transform:scale(1.8)}}
+#ring-flash{position:absolute;inset:0;z-index:140;overflow:hidden;pointer-events:none;visibility:hidden}
+#ring-flash i{position:absolute;left:var(--fx);top:var(--fy);width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;background:radial-gradient(circle,#fffdf2 0 30%,#ffeeb8 48%,#f4cf7c 62%,#f4cf7c00 72%);transform:scale(.1);opacity:0}
+#ring-flash.burst,#ring-flash.cover,#ring-flash.fade{visibility:visible;pointer-events:auto}
+#ring-flash.burst i{animation:flash-burst 260ms cubic-bezier(.6,0,.9,.4) forwards}
+@keyframes flash-burst{0%{transform:scale(.1);opacity:0}25%{opacity:1}100%{transform:scale(16);opacity:1}}
+#ring-flash.cover i{transform:scale(16);opacity:1;transition:opacity 110ms ease-in}
+#ring-flash.fade i{transform:scale(16);opacity:0;transition:opacity 160ms ease-out}
+
+/* Hover (mouse, tablets with a pen): plates lift into a golden glow, medallions swell and shine,
+   rail inscriptions warm up, the gear turns ahead. Touch screens get the shimmer and spark bursts instead. */
+@media(hover:hover) and (pointer:fine){
+ .hall button.cut{cursor:pointer}
+ .plate{transition:filter 180ms ease-out}
+ .plate:hover{filter:drop-shadow(0 0 3px #fff3c8) drop-shadow(0 0 18px #f5bf45d0)}
+ .plate:hover .face,.plate:hover .label,.plate:hover .shine{transition-duration:180ms;transition-timing-function:cubic-bezier(.2,.8,.3,1.2)}
+ .plate:hover:not(:active):not(.pressed) .face,.plate:hover:not(:active):not(.pressed) .label,.plate:hover:not(:active):not(.pressed) .shine{transform:translateY(-3px)}
+ .plate:hover .face{filter:brightness(1.07)}
+ .plate:hover .shine:before{animation:plate-shine-now 650ms ease-out}
+ .plate:hover .label b{color:#5a3612;text-shadow:0 1.5px 0 #fff5e0d0,0 0 12px #ffd77a99}
+ .rail .label{transition:transform 180ms cubic-bezier(.2,.8,.3,1.3),color 180ms,text-shadow 180ms}
+ .rail:hover .label{transform:translate(-50%,-50%) scale(1.07);color:#5a3612;text-shadow:0 1.5px 0 #fff5e0d0,0 0 14px #ffd77ab0}
+ .rail .medal .face{transition:transform 180ms cubic-bezier(.2,.8,.3,1.4)}
+ .rail:hover:not(:active):not(.pressed) .medal .face{transform:scale(1.05)}
+ .rail:hover .medal .glow{opacity:.7}
+ .rail:hover .medal .sheen:before{animation:sheen-now 700ms ease-out}
+ .rail:hover .rail-flash{animation:rail-flash 650ms ease-out}
+ .rail:hover .seal{animation:seal-wobble 500ms ease-in-out}
+ .knob:hover .face{transform:rotate(calc(var(--turn,0deg) + 30deg))}
+}
+@keyframes sheen-now{0%{transform:translateX(-80%)}100%{transform:translateX(80%)}}
+@keyframes seal-wobble{25%{transform:rotate(-12deg) scale(1.08)}60%{transform:rotate(8deg) scale(1.04)}}
+
+@media(prefers-reduced-motion:reduce){
+ .hall-rays i,.hall-star,.rail .medal .sheen:before,.plate .shine:before,.plate.gold:after{animation:none}
+ .hall-sparks{display:none}
+ .plate .face,.plate .label,.rail .medal .face,.knob .face{transition-duration:1ms}}
