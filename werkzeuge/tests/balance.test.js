@@ -6,8 +6,9 @@ test('Balance-Lauf ist reproduzierbar und zählt jede Partie',async()=>{
  const a=await B.run({partien:2,decks:['start'],threads:1}),b=await B.run({partien:2,decks:['start'],threads:2});
  assert.equal(B.report(a),B.report(b));
  const M=a.modes.start;
- assert.equal(M.games,55*2);
- assert.equal(Object.keys(M.pairs).length,55);
+ const D=require(path.join(__dirname,'../../quellcode/assets/game/model/data.js')),pairs=D.heroes.length*(D.heroes.length+1)/2;
+ assert.equal(M.games,pairs*2);
+ assert.equal(Object.keys(M.pairs).length,pairs);
  assert.equal(M.first.games,M.games);
  const seats=Object.values(M.seat).reduce((n,s)=>n+s.games,0);assert.equal(seats,2*M.games);
  for(const c of Object.values(M.cards)){assert.ok(c.drawn<=c.deck);assert.ok(c.played<=c.deck);}

@@ -15,6 +15,8 @@ const act=(s,a)=>{const r=E.apply(s,a);assert.ok(r.ok,r.error+' '+JSON.stringify
 const play=(s,id,extra={})=>{const h=give(s,s.active,id);act(s,{type:'play',uid:h.uid,...extra});return s.players[s.active===0?0:1].board.at(-1);};
 const end=s=>act(s,{type:'end'});
 
+// Karten, die ein Schlüsselwort verleihen oder danach filtern (AP 5.10: Testudo, Treueschwur, Löwentempel …).
+const grants=(c,key)=>[...(c.effects||[]),...(c.battle||[]),...(c.death||[]),...(c.start||[])].some(e=>e.key===key||e.only===key||key==='shield'&&e.type==='shield');
 test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schlüsselwort',()=>{
  const old=/Spott|Gottesschild|Kampfschrei|Todesröcheln|Ansturm|Initiative/;
  for(const c of Object.values(D.byId))assert.doesNotMatch(c.name+' '+(c.text||''),old,c.id);
@@ -23,8 +25,8 @@ test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schl�
  assert.equal(D.byId.coin.name,'Gunst der Stunde');assert.equal(D.byId.coin.cost,0);
  // Kartentexte nennen die neuen Namen genau dort, wo die Engine-Felder gesetzt sind.
  for(const c of D.cards){
-  assert.equal(c.text.includes('Schildwall'),!!c.taunt||c.id==='leonidas_9',c.name);
-  assert.equal(/Göttliche Gunst\./.test(c.text)&&!c.target,!!c.shield,c.name);
+  assert.equal(c.text.includes('Schildwall'),!!c.taunt||c.id==='leonidas_9'||grants(c,'taunt'),c.name);
+  assert.equal(/Göttliche Gunst\./.test(c.text)&&!c.target&&!grants(c,'shield'),!!c.shield,c.name);
   assert.equal(c.text.startsWith('Einmarsch')||c.text.includes(' Einmarsch:'),!!c.battle,c.name);
   assert.equal(c.text.includes('Vermächtnis'),!!c.death,c.name);
   assert.equal(c.text.includes('Sturmangriff'),!!c.charge,c.name);

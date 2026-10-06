@@ -11,7 +11,7 @@ class Collection extends Screen{
  enter(){this.state.edit=null;this.state.filters.hero=this.session.hero;}
 
  list(){const f=this.state.filters,p=this.profile,q=f.q.toLowerCase();
-  return D.cards.filter(c=>(c.hero==='neutral'||f.hero==='all'||c.hero===f.hero)
+  return D.cards.filter(c=>(f.hero==='all'||D.playable(c,f.hero))
    &&(!q||(c.name+' '+c.text+' '+D.rarities[c.rarity]).toLowerCase().includes(q))
    &&(f.rarity==='all'||c.rarity===f.rarity)
    &&(f.mana==='all'||(f.mana==='7'?c.cost>=7:c.cost===+f.mana))

@@ -87,10 +87,10 @@ body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.png') no-r
 .hall-gold b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 31px/1 'Aeterna Titel',Title,serif;letter-spacing:1px}
 .hall-foot{position:absolute;left:14px;bottom:8px;z-index:1;font:500 14px 'Aeterna Text',Body,sans-serif;letter-spacing:.6px;color:#f0e0bf;text-shadow:0 1px 2px #000a;pointer-events:none}
 
-/* Life: light from the upper right, the glowing star. Plain alpha instead of blend modes: animated
+/* Life: light from the upper right, the glowing star (since 1.9.0 small and faint – feedback on 1.8.0: too strong). Plain alpha instead of blend modes: animated
    blending over large areas cost every second frame on the tablet format. */
-.hall-star{position:absolute;z-index:1;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fffce6f2 0,#ffe88c9c 20%,#f1cb4440 42%,#f1cb4400 68%);animation:star-pulse 3.2s ease-in-out infinite}
-@keyframes star-pulse{0%,100%{transform:scale(.85);opacity:.55}50%{transform:scale(1.12);opacity:.95}}
+.hall-star{position:absolute;z-index:1;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fff1c08c 0,#ffe08c4d 24%,#f1cb441c 48%,#f1cb4400 70%);animation:star-pulse 4.2s ease-in-out infinite}
+@keyframes star-pulse{0%,100%{transform:scale(.9);opacity:.3}50%{transform:scale(1.04);opacity:.55}}
 .hall-rays{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none}
 .hall-rays i{position:absolute;top:-260px;height:1500px;transform-origin:50% 0;background:linear-gradient(90deg,#fff0c800,#fff0c833 50%,#fff0c800);animation:ray 7s ease-in-out infinite alternate}
 .hall-rays i:nth-child(1){left:1380px;width:150px;transform:rotate(36deg)}
@@ -107,7 +107,7 @@ body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.png') no-r
 .hall.intro .rail .medal .face{animation:medal-in 320ms cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(180ms + var(--i) * 60ms)}
 @keyframes medal-in{from{transform:scale(.55) rotate(-50deg);opacity:0}}
 .hall.intro .hall-star{animation:star-flash 300ms ease-out 400ms backwards}
-@keyframes star-flash{0%{transform:scale(.3);opacity:0}45%{transform:scale(1.9);opacity:.85}100%{transform:scale(.85);opacity:.55}}
+@keyframes star-flash{0%{transform:scale(.3);opacity:0}45%{transform:scale(1.35);opacity:.6}100%{transform:scale(.9);opacity:.3}}
 .hall.intro .seal{animation:seal-in 220ms cubic-bezier(.3,1.6,.5,1) 480ms backwards}
 @keyframes seal-in{from{transform:scale(0)}}
 

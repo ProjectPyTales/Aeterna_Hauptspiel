@@ -1,7 +1,21 @@
-# Aeterna 1.8.0 – Bauen & Prüfen
+# Aeterna 1.9.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
 `classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+
+## Neu in 1.9.0 (AP 5.10: sechs neue Helden, Heldenfähigkeiten als Daten)
+
+- **Heldenfähigkeiten als Daten:** `hero.ability` (`effects`, `target`) in `model/data.js`; `E.power`/`E.canPower` ohne
+  Sonderfall je Held, Bedingungen aus den Effekten. Nach dem Umbau war der Balance-Bericht der zehn alten Helden byte-gleich.
+- **Zeitalter** `CHD.ages`, Feld `age` je Held, `CHD.playable(karte, held)` für Decks, Ergründen und Zufallsdecks.
+- **Auslöser und Auren:** `start`/`end` (Zugbeginn/-ende), `onHeal`/`allyHeal`, `buffAura`, `buildingDiscount`; neue Effekte
+  `fortify`, `bounce`, `destroy`, `randomDamage`, `grant*`, `buffSelf`/`buffRandom`, `enemyOverload`, Missionen mit
+  Bossfähigkeit als Daten.
+- **Welle 1:** Perikles, Marcus Agrippa, Amanirenas, Anna Komnene, Nezahualcóyotl, Hōjō Masako – je 10 Karten
+  (`<held>_0`–`_9`), Chronikseite, Mission 11–16, Platzhalter-Porträt; neue Spielsteine `citizen`, `pioneer`, `parthenos`.
+  Ältere Spielstände bekommen die Basisdecks der neuen Helden (`starters` in `profile.js`). Tests: `tests/helden.test.js`.
+- Heldenwahl 6 × 3 nach Zeitalter, Kampagne scrollt (16 Missionen), Stern im Hauptmenü leiser.
+- Version 1.9.0 / versionCode 12. Balance-Lauf mit 16 Helden ≈ 15 min auf 4 Kernen.
 
 ## Neu in 1.8.0 (Platzhalter, Chronik der Helden, fünf neue Schlüsselwörter, randlose Menüs)
 
@@ -166,7 +180,7 @@ Match-ViewModel – ohne Browser.
 ## Balance-Lauf
 
 ```sh
-node werkzeuge/balance.js                         # 200 Partien je Paarung, ≈ 6 min auf 4 Kernen → balance/BERICHT.md
+node werkzeuge/balance.js                         # 200 Partien je Paarung, ≈ 15 min auf 4 Kernen (16 Helden) → balance/BERICHT.md
 node werkzeuge/balance.js --partien 20 --bericht balance-ci/BERICHT.md   # verkürzt wie in der CI
 node werkzeuge/balance.js --seed 1 --decks start  # anderer Startwert, nur Startdecks
 AETERNA_MODELL=/pfad/kopie-von-model node werkzeuge/balance.js --partien 40   # Regelvariante testen

@@ -50,6 +50,6 @@ test('Tagesduell: fester Startwert pro Tag, zwei verschiedene Helden',()=>{
   assert.ok(ids.has(d.hero)&&ids.has(d.foe)&&d.hero!==d.foe);
   assert.ok(Number.isInteger(d.seed)&&d.seed>0&&[0,1].includes(d.first));
   seen.add(d.hero);seeds.add(d.seed);}
- assert.equal(seen.size,10,'jeder Held kommt im Jahr vor');
+ assert.equal(seen.size,D.heroes.length,'jeder Held kommt im Jahr vor');
  assert.equal(seeds.size,366,'jeder Tag hat einen eigenen Startwert');
 });

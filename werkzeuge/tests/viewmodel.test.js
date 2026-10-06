@@ -115,3 +115,13 @@ test('Chronik (AP 5.9): Heldenwahl und langes Drücken auf einen Helden im Match
  store.profile.game=E.create({hero:'leonidas',foe:'musashi',seed:7});const m=new Match(ctx);ctx.match=m;
  m.longPress({kind:'target',id:'h1'});assert.equal(log.open.vm.state.hero.id,'musashi');
 });
+
+test('Neue Helden (AP 5.10): Heldenwahl nach Zeitalter, Kampagne mit 16 Missionen, Sammlung mit Zeitalterkarten',()=>{
+ const {Setup}=need('viewmodel/setup.js'),{Campaign}=need('viewmodel/campaign.js');const {ctx,store}=setup('setup');
+ const heroes=new Setup(ctx).view.heroes,age=Object.fromEntries(D.ages.map((a,i)=>[a.id,i]));
+ assert.equal(heroes.length,16);assert.ok(heroes.every((h,i)=>!i||age[heroes[i-1].age]<=age[h.age]),'gruppiert nach Zeitalter');
+ const c=new Campaign(ctx);assert.equal(c.missions.length,16);assert.ok(c.missions[10].locked);
+ store.profile.campaign=[...Array(10).keys()];assert.ok(!c.missions[10].locked,'Neue Chroniken nach Mission 10');
+ const coll=new Collection(ctx);coll.filter('hero','perikles');const seen=new Set(coll.view.cards.map(x=>x.card.hero));
+ assert.ok(seen.has('perikles')||seen.has('neutral'));assert.ok(![...seen].some(h=>h!=='perikles'&&h!=='neutral'));
+});

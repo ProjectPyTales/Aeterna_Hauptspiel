@@ -15,10 +15,12 @@ const play=(s,id,extra={})=>{const h=give(s,s.active,id);act(s,{type:'play',uid:
 const end=s=>act(s,{type:'end'});
 const id=name=>D.cards.find(c=>c.name===name).id;
 
+// Karten, die ein Schlüsselwort verleihen oder danach filtern (AP 5.10: Testudo, Treueschwur, Löwentempel …).
+const grants=(c,key)=>[...(c.effects||[]),...(c.battle||[]),...(c.death||[]),...(c.start||[])].some(e=>e.key===key||e.only===key||key==='shield'&&e.type==='shield');
 test('Neue Karten: feste IDs hinten angehängt, Text nennt das Schlüsselwort, Glossar erklärt es',()=>{
- assert.equal(D.cards.length,153);
+ assert.equal(D.cards.length,153+60,'153 bis 1.8.0, dazu 6 × 10 Karten der neuen Helden (AP 5.10)');
  for(const [k,word] of [['plunder','Plünderung'],['stealth','Tarnung'],['poison','Tödliches Gift']])
-  for(const c of D.cards)assert.equal(c.text.includes(word),!!c[k],c.id);
+  for(const c of D.cards)assert.equal(c.text.includes(word),!!c[k]||grants(c,k),c.id);
  for(const c of D.cards)assert.equal(/Belastung \d/.test(c.text),!!c.overload,c.id);
  for(const w of ['Plünderung','Tarnung','Bannung','Tödliches Gift','Belastung'])assert.ok(D.keywords.some(k=>k.name===w),w);
  assert.deepEqual(D.keywordsOf(D.byId.nostradamus_10.text).map(k=>k.name),['Bannung']);
@@ -86,7 +88,7 @@ test('KI: bewertet die neuen Schlüsselwörter und spielt Bannung gegen einen st
 
 test('Platzhalter (AP 5.12): Karten ohne Motiv sind gekennzeichnet, ein Deck nur daraus ist spielbar',()=>{
  const missing=D.cards.filter(D.missingArt);assert.ok(missing.length>=13);assert.ok(D.missingArt(D.byId.pyramid));
- for(const h of D.heroes)assert.equal(h.art,'heroes');
+ for(const h of D.heroes.slice(0,10))assert.equal(h.art,'heroes');
  const pool=missing.filter(c=>c.hero==='neutral'||c.hero==='ragnar');const deck=[];for(let i=0;deck.length<30;i++)deck.push(pool[i%pool.length].id);
  let over=0;for(let seed=1;seed<=6;seed++){const s=E.create({hero:'ragnar',foe:'khan',deck,seed,first:seed%2});E.mulligan(s,[]);
   for(let n=0;n<600&&s.phase!=='over';n++){const r=E.apply(s,E.ai(s));assert.ok(r.ok);}if(s.phase==='over')over++;}
@@ -95,8 +97,8 @@ test('Platzhalter (AP 5.12): Karten ohne Motiv sind gekennzeichnet, ein Deck nur
  for(const c of missing)assert.ok(list.includes('`'+c.id+'`'),'MOTIVE.md nennt '+c.id+' – node werkzeuge/motive.js ausführen');
 });
 
-test('Chronik der Helden (AP 5.9): zehn vollständige Seiten mit gültigen Lieblingskarten',()=>{
- assert.equal(Object.keys(L.lore).length,10);
+test('Chronik der Helden (AP 5.9, 5.10): eine vollständige Seite je Held mit gültigen Lieblingskarten',()=>{
+ assert.equal(Object.keys(L.lore).length,D.heroes.length);
  for(const h of D.heroes){const l=L.of(h.id);assert.ok(l,h.id);
   for(const k of ['life','epoch','place','quote','source','style','voice','music'])assert.ok(typeof l[k]==='string'&&l[k].length>2,h.id+'.'+k);
   assert.ok(l.bio.length>=3);assert.ok(l.relations.length>=3);
@@ -104,6 +106,7 @@ test('Chronik der Helden (AP 5.9): zehn vollständige Seiten mit gültigen Liebl
 });
 
 test('Spielstand: ein Profil aus 1.7.0 ohne die neuen Karten lädt, die neuen Karten stehen auf 0',()=>{
- const old=P.fresh();for(const c of D.cards)if(+c.id.split('_')[1]>=(c.hero==='neutral'?42:10))delete old.collection[c.id];
+ const NEW=['perikles','agrippa','amanirenas','anna','nezahualcoyotl','masako'];
+ const old=P.fresh();for(const c of D.cards)if(NEW.includes(c.hero)||+c.id.split('_')[1]>=(c.hero==='neutral'?42:10))delete old.collection[c.id];
  const p=P.parse(JSON.stringify(old));assert.equal(p.collection.neutral_46,0);assert.equal(p.collection.leonidas_0,2);
 });

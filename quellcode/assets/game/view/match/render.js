@@ -1,5 +1,5 @@
 (function(){'use strict';const D=CHD,E=CHE,L=CHL;const R=window.CHR={images:{},thumbs:{},hits:[],positions:{},fx:[],pointer:null,look:{back:'chroniken',board:'board',skins:{}},pending:{}};
-R.load=async()=>{await document.fonts.ready;await Promise.all(['board','menu','heroes','heroes-marble','legendary-frame',...D.heroes.map(h=>h.id),'neutral0','neutral1','neutral2','neutral3'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{R.images[name]=im;resolve();};im.onerror=()=>resolve();im.src='assets/art/'+name+'.png';})));};
+R.load=async()=>{await document.fonts.ready;await Promise.all(['board','menu','heroes','heroes-marble','legendary-frame',...D.heroes.filter(h=>h.art).map(h=>h.id),'neutral0','neutral1','neutral2','neutral3'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{R.images[name]=im;resolve();};im.onerror=()=>resolve();im.src='assets/art/'+name+'.png';})));};
 // Cosmetic textures load on demand; the standard board stands in until they arrive.
 R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;const im=new Image();im.onload=()=>{R.images[name]=im;delete R.pending[name];};im.onerror=()=>delete R.pending[name];im.src='assets/art/'+name+'.png';};
 function round(c,x,y,w,h,r,fill,stroke,lw=1){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
@@ -80,6 +80,7 @@ else if(id==='khan'){c.moveTo(-8,-22);c.quadraticCurveTo(26,0,-8,22);c.lineTo(-8
 else if(id==='jeanne'){c.moveTo(-12,24);c.lineTo(-12,-24);c.lineTo(20,-19);c.lineTo(13,-6);c.lineTo(-12,-10);}
 else if(id==='ragnar'){c.moveTo(0,25);c.lineTo(0,-25);c.moveTo(-17,-16);c.lineTo(0,0);c.lineTo(17,-16);c.moveTo(-17,4);c.lineTo(0,20);c.lineTo(17,4);}
 else if(id==='nostradamus'){c.moveTo(-25,0);c.quadraticCurveTo(0,-28,25,0);c.quadraticCurveTo(0,28,-25,0);c.moveTo(8,0);c.arc(0,0,8,0,Math.PI*2);}
+else if(!D.heroById[id]?.art){c.font='bold 34px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(D.heroById[id].icon,0,2);}
 else{for(let i=0;i<8;i++){const a=i*Math.PI/4,r=i%2?8:25;c.lineTo(Math.cos(a)*r,Math.sin(a)*r);}c.closePath();c.fill();}c.stroke();c.restore();}
 // The power shares a metal mounting with the portrait; no separate name plates.
 function portrait(c,s,p,x,y){
@@ -181,7 +182,7 @@ function minion(c,s,p,u,x,y,selected,targets){
  if(!u.ready&&u.attacks===0&&!building)txt(c,'z',34,-50,22,'#346f29');
  // Keyword marks between the stats: Vermächtnis, effect at turn end, Vorstoß, Doppelschlag, Arkaner Fokus.
  // 1.8.0: ◐ Tarnung, ♥ Plünderung, ⚗ Tödliches Gift, ⊘ Bannung (the card's own marks are gone).
- const own=!u.silenced;const marks=[own&&card.death&&['☠','#e6d6b3'],own&&card.passive&&['✦','#d8c9fa'],u.rush&&['➤','#ffd27a'],u.double&&['⚔','#ffe3b0'],own&&card.focus&&['✧'+card.focus,'#a9dcff'],u.stealth&&['◐','#b9d3a8'],u.plunder&&['♥','#ff8f7a'],u.poison&&['⚗','#9cf07a'],u.silenced&&['⊘','#d5d0c8']].filter(Boolean);
+ const own=!u.silenced;const marks=[own&&card.death&&['☠','#e6d6b3'],own&&(card.passive||card.start||card.end||card.onHeal||card.allyHeal)&&['✦','#d8c9fa'],u.rush&&['➤','#ffd27a'],u.double&&['⚔','#ffe3b0'],own&&card.focus&&['✧'+card.focus,'#a9dcff'],u.stealth&&['◐','#b9d3a8'],u.plunder&&['♥','#ff8f7a'],u.poison&&['⚗','#9cf07a'],u.silenced&&['⊘','#d5d0c8']].filter(Boolean);
  if(!building&&marks.length){const w=marks.reduce((n,[g])=>n+(g.length>1?24:17),6);round(c,-w/2,22,w,22,10,'#1d1712d9','#c9a96a',1.2);let xx=-w/2+3;
   for(const [g,col] of marks){const gw=g.length>1?24:17;txt(c,g,xx+gw/2,33,g.length>1?13:15,col);xx+=gw;}}
  if(targets.includes(u.uid))round(c,-59,-76,118,154,13,null,'#db403d',3);

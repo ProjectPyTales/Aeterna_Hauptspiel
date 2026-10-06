@@ -106,7 +106,7 @@ async function run(opts={}){
 // ---------- Auswertung ----------
 const pct=x=>x==null||isNaN(x)?'–':(x*100).toFixed(1).replace('.',',')+' %';
 const pp=x=>(x>=0?'+':'−')+Math.abs(x*100).toFixed(1).replace('.',',');
-const short=h=>({leonidas:'Leonidas',hypatia:'Hypatia',imhotep:'Imhotep',dandolo:'Dandolo',khan:'Khan',boudicca:'Boudicca',nostradamus:'Nostradamus',jeanne:'Jeanne',ragnar:'Ragnar',musashi:'Musashi'})[h]||h;
+const short=h=>({leonidas:'Leonidas',hypatia:'Hypatia',imhotep:'Imhotep',dandolo:'Dandolo',khan:'Khan',boudicca:'Boudicca',nostradamus:'Nostradamus',jeanne:'Jeanne',ragnar:'Ragnar',musashi:'Musashi',perikles:'Perikles',agrippa:'Agrippa',amanirenas:'Amanirenas',anna:'Anna',nezahualcoyotl:'Nezahualcóyotl',masako:'Masako'})[h]||h;
 
 // Siegquote von Held i gegen Held j (Unentschieden zählen halb).
 function rate(M,i,j){if(i<=j){const p=M.pairs[i+'|'+j];return p?p.pts/(2*p.games):null;}const p=M.pairs[j+'|'+i];return p?1-p.pts/(2*p.games):null;}
@@ -149,12 +149,12 @@ function report(R){
   '(Prüfsumme von `data.js` und `engine.js`). Gleicher Startwert und Regelstand ergeben genau diesen Bericht.','');
  L.push('Beide Seiten tauschen beim Start Karten ab 4 Mana. Unentschieden zählen halb. „Gegen das Feld“ ist der Mittelwert der '+
   'Siegquoten gegen die neun anderen Helden (Spiegelduelle zählen nicht). Zufallsfehler (95 %): je Paarung etwa ±'+
-  (1.96*Math.sqrt(.25/o.partien)*100).toFixed(1).replace('.',',')+' Prozentpunkte, gegen das Feld etwa ±'+(1.96*Math.sqrt(.25/(9*o.partien))*100).toFixed(1).replace('.',',')+'.','');
+  (1.96*Math.sqrt(.25/o.partien)*100).toFixed(1).replace('.',',')+' Prozentpunkte, gegen das Feld etwa ±'+(1.96*Math.sqrt(.25/((D.heroes.length-1)*o.partien))*100).toFixed(1).replace('.',',')+'.','');
  L.push('**Ziele (AP 5.2):** jeder Held '+pct(TARGET.field[0])+' bis '+pct(TARGET.field[1])+' gegen das Feld, keine Paarung schlechter als 40/60, '+
   'Vorteil des Beginners ≤ '+pct(TARGET.first)+'. **AP 5.3:** Legendäre als Gruppe ≤ '+pct(TARGET.legend)+' „gewinnt, wenn gezogen“ (nur Zufallsdecks – Startdecks enthalten keine).','');
  L.push('| Deckart | Partien | Helden 47–53 % | Paarungen ≥ 40/60 | Beginner gewinnt | Legendäre, wenn gezogen | Unentschieden | Züge je Partie (Median) |','|---|---|---|---|---|---|---|---|');
- for(const [mode,a] of Object.entries(A))L.push('| '+MODES[mode]+' | '+a.games+' | '+yes(a.ok.field)+' '+a.heroes.filter(h=>h.field>=TARGET.field[0]&&h.field<=TARGET.field[1]).length+'/10 | '+
-  yes(a.ok.pair)+' '+(45-a.pairsOut.length)+'/45 | '+yes(a.ok.first)+' '+pct(a.first)+' | '+(a.legend?yes(a.ok.legend)+' '+pct(a.legend.rate)+' ('+pp(a.legend.delta)+')':'–')+' | '+a.draws+' | '+a.median+' |');
+ for(const [mode,a] of Object.entries(A))L.push('| '+MODES[mode]+' | '+a.games+' | '+yes(a.ok.field)+' '+a.heroes.filter(h=>h.field>=TARGET.field[0]&&h.field<=TARGET.field[1]).length+'/'+D.heroes.length+' | '+
+  yes(a.ok.pair)+' '+(D.heroes.length*(D.heroes.length-1)/2-a.pairsOut.length)+'/'+D.heroes.length*(D.heroes.length-1)/2+' | '+yes(a.ok.first)+' '+pct(a.first)+' | '+(a.legend?yes(a.ok.legend)+' '+pct(a.legend.rate)+' ('+pp(a.legend.delta)+')':'–')+' | '+a.draws+' | '+a.median+' |');
  L.push('');
  for(const [mode,a] of Object.entries(A)){
   L.push('## '+MODES[mode],'');
