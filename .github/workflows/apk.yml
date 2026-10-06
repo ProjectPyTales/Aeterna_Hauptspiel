@@ -1,5 +1,6 @@
 # Baut bei jedem Push die signierte Test-APK und stellt sie unter "Artifacts" zum Download bereit.
-# Parallel prüft die Sichtprüfung (AP 2.6) den Klickpfad im Handyformat gegen die Referenzbilder.
+# Parallel prüft die Sichtprüfung (AP 2.6) den Klickpfad im Handyformat gegen die Referenzbilder,
+# und ein verkürzter Balance-Lauf (AP 5.1) misst die Siegquoten der Helden.
 name: Test-APK bauen
 
 on:
@@ -23,7 +24,7 @@ jobs:
       - name: Werkzeuge installieren
         run: pip install cryptography apksigtool
 
-      - name: Tests (Kosmetik, Spielstand, ViewModels, 100 simulierte Partien)
+      - name: Tests (Kosmetik, Spielstand, ViewModels, Balance-Werkzeug, 100 simulierte Partien)
         run: node --test werkzeuge/tests/*.test.js
 
       - name: Version lesen
@@ -75,4 +76,24 @@ jobs:
         with:
           name: Sichtpruefung
           path: sichtpruefung/
+          retention-days: 14
+
+  balance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Verkürzt: 20 statt 200 Partien je Paarung. Der volle Lauf steht in balance/BERICHT.md.
+      - name: Balance-Lauf (KI gegen KI, alle Paarungen, Start- und Zufallsdecks)
+        run: node werkzeuge/balance.js --partien 20 --bericht balance-ci/BERICHT.md
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Balance
+          path: balance-ci/
           retention-days: 14

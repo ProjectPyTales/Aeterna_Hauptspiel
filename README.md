@@ -1,16 +1,12 @@
 # Aeterna
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 140 Karten,
-10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.5.0**
-(Code in MVVM-Struktur, Oberfläche ohne Komplett-Neuaufbau, Basar behält Scrollposition, automatische
-Sichtprüfung in der CI, Zahnrad im Hauptmenü repariert); davor 1.4.0 mit neuem Namen Aeterna, gemaltem
-Hauptmenü, Stil-Bibel und Tagesduell.
+10 Helden von Leonidas bis Musashi, 10 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.6.0**
+(Balance-Werkzeug mit 22 000 KI-Partien je Lauf, alle zehn Helden ausbalanciert auf 47–53 % Siegquote, Vorteil
+des Beginners ausgeglichen); davor 1.5.0 mit MVVM-Struktur, Oberfläche ohne Komplett-Neuaufbau und automatischer
+Sichtprüfung in der CI, 1.4.0 mit neuem Namen Aeterna, gemaltem Hauptmenü, Stil-Bibel und Tagesduell.
 
 ![Konzeptbild und Umsetzung des Hauptmenüs](stil/vergleich-hauptmenue.jpg)
-
-> **Hinweis:** Version 1.4.0 (Sitzung 1) liegt im Pull Request
-> [#3](https://github.com/thepytales/Chronicle_of_Heroes/pull/3), Version 1.5.0 (Sitzung 2) baut darauf auf und
-> enthält dessen Commits. Mit dem Merge von Sitzung 2 ist #3 mit erledigt (oder #3 zuerst mergen).
 
 Dieses Dokument ist zugleich der **Arbeitsplan** für die nächsten Sitzungen. Ziel: Aeterna soll sich so
 flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie zu sein, und vor allem Spaß machen.
@@ -53,7 +49,7 @@ Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (z. B. 1.4.0 → 1.5.0: einfach die neue APK installieren).
+installieren sich neue Versionen direkt als Update (z. B. 1.5.0 → 1.6.0: einfach die neue APK installieren).
 
 ---
 
@@ -67,7 +63,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 |---|---|---|
 | `core/mvvm.js` | Kern | Kleiner eigener Binder (`AEM`, ~5 KB, offline): beobachtbare ViewModels, DOM-Abgleich statt `innerHTML`-Neuaufbau, Befehle über `data-cmd`, maskierendes `html`-Template |
 | `model/data.js` | Model | Helden, 140 Karten, Spielsteine (Tokens), Missionen (`CHD`) |
-| `model/engine.js` | Model | Regel-Engine und KI (`CHE`) |
+| `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs, Aufgaben, Import-Prüfung (`CHP`) |
 | `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`) |
 | `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
@@ -83,7 +79,8 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | Pfad | Inhalt |
 |---|---|
 | `quellcode/` | Kompletter APK-Inhalt. `classes.dex` ist die **kompilierte** native Hülle (kein Java-Quelltext vorhanden). |
-| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Tests – siehe `werkzeuge/LIESMICH.md` |
+| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs |
 
@@ -109,7 +106,7 @@ Inhalte werden unter `https://chroniken.local/` ausgeliefert (Unterordner gehen,
 die Hülle kennt nur die Endungen `.html .js .css .png .ogg .ttf .json`.
 
 **Bereits vorhandene Spielmechanik** (damit nichts doppelt gebaut wird): Mana 1 → 10,
-Startkarten-Tausch, Münze für den zweiten Spieler („Initiative“, 0 Mana, +1 Mana in diesem Zug),
+Startkarten-Tausch, Münze für den zweiten Spieler („Initiative“, 0 Mana, seit 1.6.0 +2 Mana in diesem Zug),
 Handlimit 10 mit Verbrennen, steigende Erschöpfung bei leerem Deck, Aufmarsch-Verzögerung,
 höchstens 7 Diener pro Seite, kein Zugtimer, Spott, Gottesschild, Kampfschrei, Todesröcheln,
 Ansturm, Waffen, Rüstung, Totems, KI-Gegner.
@@ -118,9 +115,10 @@ Ansturm, Waffen, Rüstung, Totems, KI-Gegner.
 
 ## Regeln für jede Sitzung
 
-- **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, 100 simulierte
-  Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit Referenzbildern, läuft auch in der CI).
-- **CI muss grün sein** (Jobs „apk“ und „sichtpruefung“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
+- **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
+  Heldenfähigkeiten, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Referenzbildern, läuft auch in der CI).
+- **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
 - **MVVM einhalten:** Regeln und Spielstand in `model/`, Bildschirmzustand und Befehle in `viewmodel/` (ohne DOM,
   mit Test in `werkzeuge/tests/viewmodel.test.js`), Markup in `view/` (ohne Spiellogik), gemeinsame Bausteine aus
   `view/kit.js` statt eigener Knöpfe und Fenster. Kein `innerHTML`-Neuaufbau ganzer Bildschirme, kein `onclick="App…"`.
@@ -128,7 +126,9 @@ Ansturm, Waffen, Rüstung, Totems, KI-Gegner.
   (Muster: `CHK.normalize`), alte Saves dürfen nie verloren gehen. Interne Schlüssel wie
   `chroniken.profile` bleiben trotz Umbenennung bestehen.
 - **Regeländerungen nur bewusst:** `data.js`/`engine.js` nur in Arbeitspaketen anfassen, die das
-  ausdrücklich vorsehen (Phase 5), und dann mit neuen Tests und Simulationslauf.
+  ausdrücklich vorsehen (Phase 5), und dann mit neuen Tests und vollem Balance-Lauf `node werkzeuge/balance.js`
+  (≈ 3 min; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 halten). Varianten erst ohne Änderung am Spiel
+  vergleichen: Kopie von `model/` anlegen und `AETERNA_MODELL=<Ordner> node werkzeuge/balance.js --partien 40`.
 - **Sichtprüfung:** Jede optische Änderung per Playwright-Screenshot im Handyformat
   (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen –
   `node werkzeuge/sichtpruefung.js` liefert beides plus Messwerte (`sichtpruefung/`, nicht im Repo).
@@ -138,6 +138,8 @@ Ansturm, Waffen, Rüstung, Totems, KI-Gegner.
 - **Signatur und Paket-ID:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren, Paket-ID
   `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht.
 - **Lizenzen:** Nur eigene, generierte oder klar lizenzfreie Assets (CC0/OFL/MIT), Quelle in der Credits-Liste notieren.
+- **Effort-Empfehlung:** Der [Vorschlag für die nächste Sitzung](#vorschlag-für-die-nächste-sitzung) endet immer mit
+  dem empfohlenen Effort (low, medium, high, xhigh oder max) für den nächsten Prompt.
 
 ---
 
@@ -180,7 +182,9 @@ Ornamente und Charakter müssen aus gemalten Bildern kommen.
    Todesröcheln 13×, Ansturm 11×) – wenig Raum für Kombinationen und Überraschungen.
 3. **Schlüsselwörter tragen die deutschen Hearthstone-Namen** (Spott, Gottesschild, Kampfschrei,
    Todesröcheln, Ansturm). Das verstärkt den Eindruck einer Kopie.
-4. **Heldenbalance ist ungeprüft.** Es gibt bisher keine Messung der Siegquoten je Held oder Paarung.
+4. ~~**Heldenbalance ist ungeprüft.** Es gibt bisher keine Messung der Siegquoten je Held oder Paarung.~~
+   *Gemessen und ausgeglichen in 1.6.0 (AP 5.1, AP 5.2):* Mit Startdecks lagen die Helden zwischen 15 % (Leonidas)
+   und 80 % (Hypatia), jetzt alle zwischen 47,8 und 51,9 %.
 
 ### Flüssigkeit und Technik
 
@@ -238,7 +242,7 @@ Hearthstone-Schlüsselwörter (werden in AP 5.4 ersetzt), das Brennseil als Zugt
 
 ## Qualitätsziele
 
-| Bereich | Ziel | Stand 1.5.0 (gemessen) |
+| Bereich | Ziel | Stand 1.6.0 (gemessen) |
 |---|---|---|
 | Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
 | Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0–4 von 180 Bildern > 20 ms bei 4× gedrosselter CPU¹ |
@@ -247,11 +251,14 @@ Hearthstone-Schlüsselwörter (werden in AP 5.4 ersetzt), das Brennseil als Zugt
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
 | APK-Größe | < 25 MB | 55,8 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,45 MB, Schriften 0,29 MB) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | – (AP 5.1) |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | ✓ Startdecks 47,8–51,9 %, Zufallsdecks 47,9–51,6 %, keine Paarung schlechter als 40/60, Beginner gewinnt 45,9 / 50,2 % (vorher 15,4–80,2 % bzw. 42,1–57,6 %, Beginner 57,2 / 65,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert | – (AP 5.3) |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
+
+² KI gegen KI, `node werkzeuge/balance.js` (200 Partien je Paarung, Startwert 20261006), Bericht
+[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±2,3 Punkte je Held, ±6,9 je Paarung.
 
 ---
 
@@ -639,16 +646,86 @@ Hier ändern sich `data.js` und `engine.js`. Jede Änderung braucht Tests, einen
 KI, die die neue Mechanik versteht.
 
 **AP 5.1 – Balance-Werkzeug (S)**
-- [ ] Skript `werkzeuge/balance.js`: KI gegen KI für alle 10 × 10 Heldenpaarungen (Startdecks und Zufallsdecks),
+- [x] Skript `werkzeuge/balance.js`: KI gegen KI für alle 10 × 10 Heldenpaarungen (Startdecks und Zufallsdecks),
   je Paarung mindestens 200 Partien; Ausgabe: Siegquoten-Matrix, Vorteil des ersten Spielers, Partielänge,
   Spiel- und Siegquote je Karte („gewinnt, wenn gezogen“).
-- [ ] Ergebnisse als Tabelle in `balance/BERICHT.md`; Lauf auch in CI (verkürzt).
-- Abnahme: reproduzierbare Zahlen mit festem Startwert.
+  *Umgesetzt:* 55 Paarungen (45 + 10 Spiegelduelle) × 200 Partien × 2 Deckarten = 22 000 Partien in ≈ 3 min auf
+  4 Kernen (Worker-Threads). Je zwei Partien teilen Startwert und Decks und unterscheiden sich nur im Beginner;
+  beide Seiten tauschen beim Start Karten ab 4 Mana. Je Held: gegen das Feld, als Beginner und als Zweiter,
+  schwerste und leichteste Paarung; je Karte: im Deck, gespielt, „gewinnt, wenn gezogen“ und Abstand zur
+  Siegquote des eigenen Helden. Regelvarianten lassen sich ohne Änderung am Spiel vergleichen
+  (`AETERNA_MODELL=<Ordner>`). Damit das schnell genug läuft, kopiert die KI den Spielzustand für ihre Vorausschau
+  gezielt statt per JSON (`E.copy`): **5,3× schneller bei gleichen Zügen** (Prüfsumme über 60 Partien identisch),
+  die Tests laufen in 6,5 statt über 20 s.
+- [x] Ergebnisse als Tabelle in `balance/BERICHT.md`; Lauf auch in CI (verkürzt).
+  *Vorher: [`balance/BERICHT-1.5.0.md`](balance/BERICHT-1.5.0.md), nachher: [`balance/BERICHT.md`](balance/BERICHT.md).
+  Neuer CI-Job „balance“ mit 20 Partien je Paarung (Artefakt „Balance“), Test `werkzeuge/tests/balance.test.js`.*
+- Abnahme: reproduzierbare Zahlen mit festem Startwert. *✓ – gleicher Startwert und Regelstand ergeben einen
+  byte-gleichen Bericht, unabhängig von der Zahl der Threads (im Test geprüft); der Bericht nennt Startwert und
+  Prüfsumme von `data.js` und `engine.js`.*
 
 **AP 5.2 – Heldenbalance (S)**
-- [ ] Ausreißer anhand von AP 5.1 bestimmen; Stellschrauben: Wert und Kosten der Heldenfähigkeit, Startdeck,
+- [x] Ausreißer anhand von AP 5.1 bestimmen; Stellschrauben: Wert und Kosten der Heldenfähigkeit, Startdeck,
   Heldenkarten. Lieber Schwache stärken als Starke schwächen.
-- [ ] Ziel: jeder Held 47–53 % gegen das Feld, keine Paarung schlechter als 40/60, Erster-Spieler-Vorteil ≤ 55 %.
+  *Befund:* Mit Startdecks entschied fast nur die Heldenfähigkeit – Fähigkeiten mit Wirkung aufs Feld (Hypatias
+  1 Schaden auf ein Ziel nach Wahl, Dandolos Klinge) gewannen, reine Rüstung (Leonidas), Heilung (Imhotep) und
+  Gesichtsschaden (Khan) verloren. Bei Zufallsdecks zählten die übrigen Heldenkarten. Der Beginner gewann 57 %
+  (Startdecks) bzw. 66 % (Zufallsdecks).
+  *Geändert in zehn Messrunden (40–200 Partien je Paarung); Startdecks und neutrale Karten bleiben unverändert,
+  Spielstände bleiben gültig:*
+  - **Initiative:** +2 statt +1 Mana. Verworfen nach Messung: „Beginner zieht im ersten Zug nicht“ (Startdecks
+    kippten auf 40 % für den Beginner) und „Initiative zieht eine Karte“ (Zufallsdecks blieben bei 63 %).
+  - **Heldenfähigkeiten:** Leonidas *Schildwall* gibt 1 Rüstung und allen eigenen Dienern +1 Leben (statt 2 Rüstung);
+    Hypatias *Sternenfunke* trifft einen **zufälligen Feind** (statt ein Ziel nach Wahl, die Animation fliegt zum
+    getroffenen Ziel); Imhotep heilt 3 (statt 2); Boudicca +1 Angriff und 2 Rüstung (statt 1); Nostradamus zieht
+    für 1 Leben (statt 2).
+  - **Heldenkarten – 40 von 100, davon 27 gestärkt und 13 abgeschwächt** (alt in Klammern):
+
+    | Held | Basiskarten (auch im Startdeck) | übrige Heldenkarten |
+    |---|---|---|
+    | Leonidas | Bronzener Wall: 3 Rüstung, eigene Diener +2 Leben (5 Rüstung) | – |
+    | Hypatia | Sternenkundiger 2/3 (2/4) | Lehrsatz 2 Mana (3), Museionshüterin 4/7 (4/6), Sternenorakel 5 Mana (6), Theon 6/7 (5/7) |
+    | Imhotep | Heilender Balsam zieht zusätzlich 1 Karte | Balsamierer 3/4 (3/3), Nilschwemme 3 Mana (4), Urteil der Sonne 5 Mana (6) |
+    | Dandolo | Lagunenbote 1/1 (2/1) | Dogenklinge 2 Mana (3), Geheimer Vertrag 2 Mana (3), Arsenal von Venedig 4 Mana (5) |
+    | Khan | Steppenspäher 2/2 (2/1), Reiterbogenschütze 3/2 (2/2), Goldener Reiter 5/4 (4/3) | Adlerjägerin 2/3 (3/3), Belagerungsfeuer 6 Mana (5) |
+    | Boudicca | Hainwächterin 1/4 (1/3), Icenerkrieger 4/4 (3/4) | Aufstand 3 Mana (4) |
+    | Nostradamus | Tintenlehrling heilt 3 (2), Maskierter Seher 2/4 (3/4), Prophezeiung 4 Mana (3) | Schattenpakt 2 Mana (3), Chronist der Nacht 4/6 (4/5), Rote Finsternis 5 Mana (6), Wächter der Zeiten 6 Mana 6/7 (7 Mana 6/8), Caterina 7 Mana (8) |
+    | Jeanne | Bauernrekrut 1/3 (1/2), Die Fahne erheben 2 Mana (3) | Lilienritter 3/3 (3/4), Standartenträgerin 4/4 (4/5), Glocken von Reims 6 Mana (5), Paladin der Loire 7 Mana 4/6 (6 Mana 5/6) |
+    | Ragnar | Runenschnitzer 4/4 (3/4) | Donnerschlag 4 Mana (3) |
+    | Musashi | – | Der leere Geist 5 Mana (4), Sasaki Kojirō 6/6 (7/6) |
+
+- [x] Ziel: jeder Held 47–53 % gegen das Feld, keine Paarung schlechter als 40/60, Erster-Spieler-Vorteil ≤ 55 %.
+  *Gemessen (200 Partien je Paarung, Startwert 20261006):*
+
+  | Messung | Startdecks 1.5.0 | Startdecks 1.6.0 | Zufallsdecks 1.5.0 | Zufallsdecks 1.6.0 |
+  |---|---|---|---|---|
+  | Helden mit 47–53 % gegen das Feld | 2 von 10 | **10 von 10** | 3 von 10 | **10 von 10** |
+  | Spanne gegen das Feld | 15,4–80,2 % | **47,8–51,9 %** | 42,1–57,6 % | **47,9–51,6 %** |
+  | Paarungen schlechter als 40/60 | 33 von 45 | **0** | 9 von 45 | **0** |
+  | Beginner gewinnt | 57,2 % | **45,9 %** | 65,6 % | **50,2 %** |
+  | Züge je Partie (Median) | 23 | 23 | 19 | 19 |
+
+  | Held | Startdecks 1.5.0 → 1.6.0 | Zufallsdecks 1.5.0 → 1.6.0 |
+  |---|---|---|
+  | Leonidas I. | 15,4 → **49,6 %** | 42,6 → **50,3 %** |
+  | Hypatia | 80,2 → **51,9 %** | 54,5 → **48,9 %** |
+  | Imhotep | 36,5 → **47,8 %** | 42,1 → **47,9 %** |
+  | Enrico Dandolo | 61,1 → **48,4 %** | 49,1 → **48,6 %** |
+  | Dschingis Khan | 36,8 → **50,3 %** | 51,3 → **51,3 %** |
+  | Boudicca | 45,6 → **49,9 %** | 48,2 → **50,5 %** |
+  | Nostradamus | 62,4 → **51,1 %** | 45,4 → **50,1 %** |
+  | Jeanne d’Arc | 52,3 → **50,8 %** | 57,6 → **50,4 %** |
+  | Ragnar Lodbrok | 52,7 → **50,7 %** | 53,9 → **50,4 %** |
+  | Miyamoto Musashi | 57,1 → **49,6 %** | 55,4 → **51,6 %** |
+
+- Abnahme: ✓ in beiden Deckarten. *Gegenprobe mit anderem Startwert (`--seed 1`, wieder 22 000 Partien):*
+  Helden 46,2–52,2 %, 9 von 10 je Deckart im Ziel (Dandolo Startdecks 46,2 %, Leonidas Zufallsdecks 46,5 %), zwei
+  Paarungen knapp darunter (Khan–Boudicca 37,5 %, Jeanne–Hypatia 38 %, beide Startdecks), Beginner 46,6 / 50,4 %.
+  Das liegt im Zufallsfehler (±2,3 je Held, ±6,9 je Paarung); über beide Läufe gemittelt liegen alle Helden bei
+  47,3–51,8 %. Hypatia gegen Jeanne bleibt mit Startdecks ein natürlicher Konter (Flächenschaden gegen Rekruten,
+  59,5–62 %) – ein Fall für AP 5.3/5.4. Geprüft per Screenshot im Handyformat: die längeren Texte (Bronzener Wall,
+  Heilender Balsam, Schildwall) passen auf Karte und Heldenpanel; Klickpfad mit neuen Referenzbildern (Version 1.6.0
+  in der Fußzeile, geänderte Kartenwerte im Tagesduell).
 
 **AP 5.3 – Legendäre neu denken (M)**
 
@@ -684,7 +761,7 @@ bauen kann; mächtig, aber mit Antwort; nie nur „großer Körper plus Bonus“
 | Kampfschrei | **Einmarsch** | Effekt beim Ausspielen aus der Hand |
 | Todesröcheln | **Vermächtnis** | kleine Urne unter der Plakette |
 | Ansturm | **Sturmangriff** | darf sofort jedes Ziel angreifen |
-| Initiative (Münze) | **Gunst der Stunde** | Schriftrolle, 0 Mana, +1 Mana in diesem Zug |
+| Initiative (Münze) | **Gunst der Stunde** | Schriftrolle, 0 Mana, +2 Mana in diesem Zug (seit 1.6.0) |
 
 *Neu einführen (Engine-Erweiterung, je mit Tests und KI-Bewertung):*
 
@@ -748,7 +825,8 @@ auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2)
 - [ ] Ablage als Daten (`model/data.js` bzw. eigene Datei `model/lore.js`), angezeigt in der Heldenwahl (AP 1.7) und
   im „Archiv der Zeiten“ (Weitere Ideen 1).
 - [ ] Heldenfähigkeiten und Startdecks prüfen: Passen Name, Wirkung und Spielstil zur Biografie? Abweichungen
-  sammeln und mit AP 5.2 (Balance) zusammen umsetzen.
+  sammeln und mit AP 5.2 (Balance) zusammen umsetzen. *In AP 5.2 schon geändert und hier mitzuprüfen:* Leonidas
+  stärkt mit *Schildwall* jetzt die ganze Linie, Hypatias *Sternenfunke* trifft zufällig.
 - Abnahme: 10 Chronikseiten, von dir gegengelesen.
 
 **AP 5.10 – Neue Helden (M)**
@@ -881,7 +959,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 |
 | Bestehende Karteneffekte überarbeiten | AP 5.11 |
 | Platzhalter statt fehlender Grafiken | AP 5.12 |
-| Heldenbalance | AP 5.1, AP 5.2 |
+| Heldenbalance | AP 5.1, AP 5.2 – ✓ in 1.6.0 |
 | Heldenfähigkeit dreht sich nach Benutzung um | AP 1.8, AP 3.7 |
 | Zwei thematische Spielfeldhälften je Epoche | AP 1.2, AP 1.8 |
 | Gewicht und Wucht beim Ausspielen, Staub und Risse | AP 3.3 |
@@ -939,8 +1017,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 |---|---|---|
 | 1 ✓ | AP 0.3, AP 1.1, AP 1.3 | erledigt in 1.4.0 – Name Aeterna, Stil-Bibel, gemaltes Hauptmenü (freigegeben) |
 | 2 ✓ | AP 2.3, AP 0.1, AP 2.6, Feinschliff AP 1.3 | erledigt in 1.5.0 – MVVM-Struktur, Basar ohne Sprünge, Sichtprüfung in der CI, Zahnrad repariert |
-| 3 | AP 5.1, AP 5.2 | Erst messen, dann balancieren – Grundlage für alle Kartenarbeiten (siehe unten) |
-| 4–5 | AP 5.4 (Umbenennung + erste neue Schlüsselwörter), AP 5.3, AP 5.8 (Teil), AP 5.9, AP 5.12 | Legendäre mit echter Wirkung, KI zieht mit; Helden-Chronik und Platzhalter als Grundlage für neue Karten |
+| 3 ✓ | AP 5.1, AP 5.2 | erledigt in 1.6.0 – Balance-Werkzeug, alle Helden 47–53 %, Beginner-Vorteil ausgeglichen |
+| 4–5 | AP 5.4 (Umbenennung + erste neue Schlüsselwörter), AP 5.3, AP 5.8 (Teil), AP 5.9, AP 5.12 – Sitzung 4 siehe unten | Legendäre mit echter Wirkung, KI zieht mit; Helden-Chronik und Platzhalter als Grundlage für neue Karten |
 | 6 | AP 5.11 (Effekte überarbeiten, Welle 1), AP 5.10 (erste neue Helden nach deiner Auswahl) | Mehr Tiefe, sobald Messen und Schlüsselwörter stehen |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
 | 6–7 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
@@ -956,16 +1034,20 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 2 (Version 1.5.0):** Feinschliff AP 1.3 nach deiner Rückmeldung (Zahnrad ohne Kerbe, Wand ohne
-Spiegelflecken, auch links), Code in **MVVM-Struktur** mit eigenem Binder, AP 2.3 (keine Komplett-Neuaufbauten mehr,
-gemeinsame Bausteine), AP 0.1 (Basar behält Scrollposition und Reiter), AP 2.6 (Klickpfad mit Referenzbildern als
-CI-Job), dazu ViewModel-Tests in Node. Erledigt in Sitzung 1 (1.4.0): AP 0.3, AP 1.1, AP 1.3.
+**Erledigt in Sitzung 3 (Version 1.6.0):** AP 5.1 (Balance-Werkzeug: 22 000 KI-Partien in ≈ 3 min, Bericht, CI-Job),
+AP 5.2 (alle zehn Helden mit Start- und Zufallsdecks bei 47–53 %, keine Paarung schlechter als 40/60, Beginner-Vorteil
+ausgeglichen), KI-Vorausschau 5,3× schneller bei gleichen Zügen, dazu deine Rückmeldung zu 1.5.0: Die
+Effort-Empfehlung steht ab jetzt immer am Ende dieses Abschnitts (auch als Regel für jede Sitzung).
+Davor: Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6; Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
 
-**Vorher bitte von dir (5 Minuten):**
-1. Test-APK `Aeterna-1.5.0-Test-APK` aus Actions installieren und kurz durchklicken: Zahnrad oben rechts in Ordnung?
-   Basar: ganz nach unten scrollen, etwas kaufen – bleibt die Liste stehen? Sammlung, Deckbau, eine Partie bis zum
-   Ende – alles wie vorher? (Die ganze Oberfläche läuft jetzt über die neue MVVM-Schicht.)
-2. Offene Entscheidung 10: „MVVP“ als MVVM richtig verstanden?
+**Vorher bitte von dir (10 Minuten):**
+1. Test-APK `Aeterna-1.6.0-Test-APK` aus Actions installieren und zwei, drei Partien mit verschiedenen Helden spielen.
+   Neu: Hypatias *Sternenfunke* trifft zufällig (kein Zielen mehr), Leonidas' *Schildwall* stärkt die eigenen Diener,
+   die *Initiative* gibt 2 Mana, 40 Heldenkarten haben neue Werte (Liste in AP 5.2). Gefällt dir eine Änderung nicht,
+   nenne sie – Alternativen lassen sich mit dem Balance-Werkzeug in Minuten nachmessen.
+2. Offene Entscheidungen für Sitzung 4: **4** (Schlüsselwörter auf einmal umbenennen? – Vorschlag: ja, alle sechs,
+   es sind nur Texte) und **8** (Legendäre: Vorschläge aus AP 5.3 so umsetzen?); weiterhin offen **10** (MVVM richtig
+   verstanden?).
 3. *Optional, parallel:* Grafiken für die gemalten Bausteine (AP 1.2 → AP 2.3), Prompt-Anfang aus AP 1.2, Ablage in
    `ungenutzte_assets/ui/`:
 
@@ -977,22 +1059,28 @@ CI-Job), dazu ViewModel-Tests in Node. Erledigt in Sitzung 1 (1.4.0): AP 0.3, AP
    | Wallet-Rahmen + drei Symbole | 420 × 120, Symbole je 128 × 128 | „small bronze-framed limestone counter“; „gold coin“, „glowing dust crystal“, „sealed card pack“ |
    | Schließen-Knauf | 160 × 160 | „round bronze knob with an engraved X“ |
 
-**Sitzung 3 – AP 5.1 und AP 5.2 (erst messen, dann balancieren)**
+**Sitzung 4 – AP 5.4 und AP 5.3, jeweils Teil 1 (eigene Schlüsselwörter, erste neue Legendäre)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.5.0 | dein Gerätetest einarbeiten | die neue MVVM-Schicht trägt alle Bildschirme |
-| AP 5.1 | `werkzeuge/balance.js`: KI gegen KI für alle 10 × 10 Paarungen, ≥ 200 Partien je Paarung mit festem Startwert; Siegquoten-Matrix, Vorteil des ersten Spielers, Partielänge, „gewinnt, wenn gezogen“ je Karte; Bericht `balance/BERICHT.md`, verkürzter Lauf in der CI | Grundlage für jede Karten- und Balancearbeit |
-| AP 5.2 | Ausreißer gezielt anpassen (lieber Schwache stärken), neuer Simulationslauf, Ziel 47–53 % je Held | erste spürbare Verbesserung im Spiel |
-| AP 2.3 (Rest) | gemalte Bausteine einbauen, falls die Grafiken da sind | nur `view/kit.js` und `kit.css` ändern sich |
+| Rückmeldung 1.6.0 | deinen Test der neuen Balance einarbeiten, danach Balance-Lauf | Werte sind jetzt messbar, Änderungen kosten Minuten |
+| AP 5.4, Teil 1 | die sechs Schlüsselwörter umbenennen (Texte, Hilfe, Kartentexte; Engine-Felder und Spielstände bleiben), dann die ersten neuen: Vorstoß, Starre, Ergründen – je mit Engine-Test, KI-Bewertung und Balance-Lauf | eigene Identität statt Hearthstone-Begriffe; Grundlage für die neuen Legendären |
+| AP 5.3, Teil 1 | Legendäre umsetzen, die nur diese Schlüsselwörter brauchen (z. B. Subutai mit Vorstoß, Gorgo mit Schildwall-Aura); Ziel: als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | Legendäre streuen stark: Subutai −7,1, Djoser +9,7 Punkte „gewinnt, wenn gezogen“ gegenüber ihrem Helden (Zufallsdecks) |
+| AP 5.8 (Teil) | KI bewertet die neuen Schlüsselwörter | sonst verzerrt der Balance-Lauf |
 
-Danach Sitzung 4–5 (AP 5.4, AP 5.3, AP 5.8 – Schlüsselwörter, Legendäre, KI). Neue Bildschirm-Logik kommt dabei
-immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Simulationslauf.
+Danach Sitzung 5 (AP 5.3 Rest, AP 5.9 Helden-Chronik, AP 5.12 Platzhalter). Neue Bildschirm-Logik kommt dabei
+immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Balance-Lauf.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.1 und AP 5.2** ab und übernimm mein
-> Feedback zu Version 1.5.0: *(hier Feedback einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die
-> MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests und den Klickpfad laufen und
-> sorge für eine grüne CI. Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull
-> Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.4 (Teil 1) und AP 5.3 (Teil 1)** ab
+> und übernimm mein Feedback zu Version 1.6.0: *(hier Feedback und Antworten zu den offenen Entscheidungen 4 und 8
+> einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit
+> Screenshots im Handyformat, lass die zwingend notwendigen Tests, den Balance-Lauf und den Klickpfad (falls
+> notwendig) laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab und trage Messwerte ein.
+> Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die
+> nächste Sitzung mit Effort-Empfehlung.
+
+**Empfohlener Effort für den nächsten Prompt: high.** Neue Regeln in Engine und KI plus mehrere Balance-Läufe
+brauchen sorgfältiges Abwägen. *xhigh* lohnt sich nur, wenn alle zwölf Legendären in einer Sitzung kommen sollen;
+*medium* reicht, falls du nur die Umbenennung der Schlüsselwörter willst.
