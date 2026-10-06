@@ -1,7 +1,19 @@
-# Aeterna 1.5.0 – Bauen & Prüfen
+# Aeterna 1.6.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
 `classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+
+## Neu in 1.6.0 (Balance-Werkzeug, Heldenbalance)
+
+- **Balance-Werkzeug** `balance.js` (AP 5.1): KI gegen KI für alle Heldenpaarungen mit Start- und Zufallsdecks,
+  Bericht nach `balance/BERICHT.md` (Siegquoten-Matrix, Beginner-Vorteil, Partielänge, Werte je Karte).
+  In der CI als eigener Job „balance“ mit 20 Partien je Paarung (Artefakt „Balance“).
+- **Heldenbalance** (AP 5.2): Initiative +2 Mana, fünf Heldenfähigkeiten und 40 Heldenkarten angepasst – alle Helden
+  47–53 % gegen das Feld (vorher 15–80 %). Liste der Änderungen: README, AP 5.2. Neue Tests in
+  `tests/heldenbalance.test.js` und `tests/balance.test.js`.
+- **KI-Vorausschau schneller:** `E.copy` statt JSON-Klon, 5,3× schneller bei gleichen Zügen.
+- Version 1.6.0 / versionCode 9. Speicher-Schlüssel, Paket-ID, Signatur und Karten-IDs unverändert – Update über 1.5.0,
+  Spielstände und Decks bleiben gültig.
 
 ## Neu in 1.5.0 (MVVM, Oberfläche ohne Neuaufbau, Sichtprüfung, Zahnrad)
 
@@ -86,12 +98,12 @@ Artefakte bleiben 30 Tage erhalten. Über „Run workflow“ lässt sich jederze
 
 ```sh
 pip install cryptography
-python3 werkzeuge/apk_bauen.py quellcode Aeterna-1.5.0-Test.apk \
+python3 werkzeuge/apk_bauen.py quellcode Aeterna-1.6.0-Test.apk \
     werkzeuge/signatur/chroniken-test.p12 chroniken-test
 ```
 
 - Version und App-Name setzen (beliebige Länge, der String-Pool wird neu aufgebaut):
-  `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml 9 1.6.0 --label Aeterna`
+  `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml 10 1.7.0 --label Aeterna`
   (dazu `VERSION` in `assets/game/app.js` anpassen – ein Test prüft, dass beide übereinstimmen)
 - Version anzeigen: `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml` (mit `--info` auch den App-Namen)
 - Hauptmenü-Hintergrund neu erzeugen (z. B. nach einem höher aufgelösten Konzeptbild):
@@ -108,7 +120,22 @@ Kosmetik-Käufe (Gold wird genau einmal abgezogen), Ausrüsten nur nach Freischa
 Speichern/Laden, alte 1.2.2-Spielstände, manipulierte Spielstände, 100 simulierte Partien,
 Manifest (App-Name, Version, Neuaufbau des String-Pools), unveränderte Speicher-Schlüssel,
 umbenannte Texte, das Tagesduell und die ViewModels (MVVM-Kern, Store mit Sicherung, Basar mit Kauf über
-Rückfrage, Pack öffnen, Sammlung und Deckbau, Hauptmenü, Match mit KI-Takt) – ohne Browser.
+Rückfrage, Pack öffnen, Sammlung und Deckbau, Hauptmenü, Match mit KI-Takt), die geänderten Heldenfähigkeiten und
+die Initiative, die schnelle Zustandskopie der KI und das Balance-Werkzeug (gleiche Zahlen unabhängig von der Zahl der
+Threads) – ohne Browser.
+
+## Balance-Lauf
+
+```sh
+node werkzeuge/balance.js                         # 200 Partien je Paarung, ≈ 3 min auf 4 Kernen → balance/BERICHT.md
+node werkzeuge/balance.js --partien 20 --bericht balance-ci/BERICHT.md   # verkürzt wie in der CI
+node werkzeuge/balance.js --seed 1 --decks start  # anderer Startwert, nur Startdecks
+AETERNA_MODELL=/pfad/kopie-von-model node werkzeuge/balance.js --partien 40   # Regelvariante testen
+```
+
+Gleicher Startwert und Regelstand ergeben denselben Bericht, unabhängig von `--threads`. Ziele (AP 5.2): jeder Held
+47–53 % gegen das Feld, keine Paarung schlechter als 40/60, Beginner gewinnt höchstens 55 %. Bei 200 Partien je
+Paarung beträgt der Zufallsfehler etwa ±2,3 Punkte je Held und ±6,9 je Paarung.
 
 ## Sichtprüfung (Playwright)
 
@@ -132,4 +159,4 @@ signiert. Künftige Versionen mit diesem Schlüssel lassen sich direkt als Updat
 
 Umstieg von 1.2.2: In der alten App *Einstellungen → Spielstand exportieren*, alte App
 deinstallieren, die neue Version installieren, *Einstellungen → Spielstand importieren*.
-Ab 1.3.0 (auch 1.4.0 → 1.5.0) genügt es, die neue APK über die alte zu installieren.
+Ab 1.3.0 (auch 1.5.0 → 1.6.0) genügt es, die neue APK über die alte zu installieren.
