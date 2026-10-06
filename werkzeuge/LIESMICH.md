@@ -1,7 +1,25 @@
-# Aeterna 1.4.0 – Bauen & Prüfen
+# Aeterna 1.5.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
 `classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+
+## Neu in 1.5.0 (MVVM, Oberfläche ohne Neuaufbau, Sichtprüfung, Zahnrad)
+
+- **Code in MVVM-Struktur** unter `assets/game/`: `model/` (Regeln, Daten, Spielstand-Speicher `store.js`),
+  `viewmodel/` (Zustand und Befehle je Bildschirm, ohne DOM), `view/` (Vorlagen, Bausteine `kit.js`, Hauptmenü,
+  Match-Canvas unter `view/match/`, CSS unter `view/css/`), `service/` (Audio, Android-Brücke), `core/mvvm.js`
+  (eigener Binder) und `app.js` (setzt alles zusammen). Aufbau und Regeln: README, Abschnitt „Projektaufbau“.
+- **Keine Komplett-Neuaufbauten mehr:** Bildschirme und Dialoge werden abgeglichen statt per `innerHTML` neu
+  gebaut. Im Basar bleiben nach Kauf und Ausrüsten Scrollposition, Reiter und Bilder; das Suchfeld der Sammlung
+  behält beim Tippen den Fokus; die Starthand lädt beim Markieren keine Bilder neu.
+- **Hauptmenü-Bild repariert:** Das Zahnrad oben rechts ist ohne Kerbe vervollständigt, die Wand an beiden
+  Rändern ohne Spiegelflecken fortgesetzt (`hauptmenue_bild.py`).
+- **Automatische Sichtprüfung:** `klickpfad.js` mit Referenzbildern in `referenz/`, in der CI als eigener Job.
+- **Tests für die ViewModels** (`tests/viewmodel.test.js`), laufen ohne Browser.
+- Version 1.5.0 / versionCode 8. Speicher-Schlüssel, Paket-ID und Signatur unverändert – Update über 1.4.0.
+
+Unverändert in der Wirkung: `model/data.js`, `model/engine.js`, `view/match/render.js`, `motion.js`,
+`layout.js`, `classes.dex` (nur verschoben).
 
 ## Neu in 1.4.0 (Name, Stil, Hauptmenü)
 
@@ -22,8 +40,6 @@
   (auf Latein-Zeichen reduziert). Lizenztexte liegen daneben.
 - **Stil-Bibel** in `stil/STILBIBEL.md` mit Stil-Tafel und Vergleichsbild.
 
-Unverändert: `data.js`, `engine.js`, `motion.js`, `layout.js`, `chronicle.js`, `classes.dex`.
-
 ## Neu in 1.3.0 (Shop, Audio, Assets)
 
 - Das Cartoon-Stein-Hauptmenü aus 1.3.0 ist in 1.4.0 durch das gemalte Hauptmenü ersetzt.
@@ -39,13 +55,17 @@ Unverändert: `data.js`, `engine.js`, `motion.js`, `layout.js`, `chronicle.js`, 
 
 ## Dateien
 
+Die vollständige Übersicht der Spielmodule (MVVM) steht in der README unter „Projektaufbau“.
+
 | Datei | Zweck |
 |---|---|
-| `assets/game/cosmetics.js` | Katalog, Kaufen/Ausrüsten, Bereinigung gespeicherter Kosmetik |
-| `assets/game/hall.js` | Hauptmenü: Geometrie aus dem Konzeptbild, ausgeschnittene Ebenen, Auftritt, Ring-Übergang (`CHH`) |
-| `assets/game/hall.css` | Schriften, Farbvariablen (`--ae-…`), Ladebildschirm, Hauptmenü |
-| `assets/game/stone.js` | Steinplatten-Übergang (SVG), Kartenrücken (Canvas), Deckstapel-Glanz |
-| `assets/game/stone.css` | Steinplatten-Übergang, Basar |
+| `assets/game/model/cosmetics.js` | Katalog, Kaufen/Ausrüsten, Bereinigung gespeicherter Kosmetik |
+| `assets/game/model/store.js` | Laden, Speichern, Sicherung, Export/Import (Schlüssel `chroniken.profile`) |
+| `assets/game/view/hall.js` | Hauptmenü: Geometrie aus dem Konzeptbild, ausgeschnittene Ebenen, Auftritt, Ring-Übergang (`CHH`) |
+| `assets/game/view/css/hall.css` | Schriften, Farbvariablen (`--ae-…`), Ladebildschirm, Hauptmenü |
+| `assets/game/view/stone.js` | Steinplatten-Übergang (SVG), Kartenrücken (Canvas), Deckstapel-Glanz |
+| `assets/game/view/css/stone.css` | Steinplatten-Übergang, Basar |
+| `assets/game/view/kit.js`, `view/css/kit.css` | Gemeinsame Bausteine: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal |
 | `assets/game/assets/fonts/*` | Cinzel, Cinzel Decorative, Alegreya Sans mit Lizenztexten (OFL) |
 | `assets/game/assets/art/*` | Neue Bilder (JPEG-Daten mit `.png`-Endung, da die App nur `.png` als Bild ausliefert) |
 | `assets/game/assets/audio/stone-*, scrape-*, grind-*, slam-*` | Steingeräusche (`werkzeuge/stein_sounds.py`) |
@@ -53,7 +73,8 @@ Unverändert: `data.js`, `engine.js`, `motion.js`, `layout.js`, `chronicle.js`, 
 ## Test-APK herunterladen (GitHub Actions)
 
 Bei jedem Push baut der Workflow `.github/workflows/apk.yml` die APK: Tests laufen, die APK
-wird gebaut, signiert und die Signatur geprüft.
+wird gebaut, signiert und die Signatur geprüft. Parallel spielt der Job „sichtpruefung“ den Klickpfad im
+Handyformat und vergleicht ihn mit den Referenzbildern (Artefakt „Sichtpruefung“).
 
 1. Im Repo auf **Actions** gehen und den obersten grünen Lauf „Test-APK bauen“ öffnen.
 2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen.
@@ -65,15 +86,17 @@ Artefakte bleiben 30 Tage erhalten. Über „Run workflow“ lässt sich jederze
 
 ```sh
 pip install cryptography
-python3 werkzeuge/apk_bauen.py quellcode Aeterna-1.4.0-Test.apk \
+python3 werkzeuge/apk_bauen.py quellcode Aeterna-1.5.0-Test.apk \
     werkzeuge/signatur/chroniken-test.p12 chroniken-test
 ```
 
 - Version und App-Name setzen (beliebige Länge, der String-Pool wird neu aufgebaut):
-  `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml 8 1.5.0 --label Aeterna`
+  `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml 9 1.6.0 --label Aeterna`
+  (dazu `VERSION` in `assets/game/app.js` anpassen – ein Test prüft, dass beide übereinstimmen)
 - Version anzeigen: `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml` (mit `--info` auch den App-Namen)
 - Hauptmenü-Hintergrund neu erzeugen (z. B. nach einem höher aufgelösten Konzeptbild):
-  `python3 werkzeuge/hauptmenue_bild.py` (Pillow, NumPy)
+  `python3 werkzeuge/hauptmenue_bild.py` (Pillow, NumPy). Die Fugen (`JOINTS`), Sperrflächen (`KEEP_OUT`) und die
+  Zahnrad-Winkel stehen oben im Skript und gelten für das jetzige Konzeptbild; bei einem neuen Bild prüfen.
 
 ## Tests
 
@@ -84,7 +107,22 @@ node --test werkzeuge/tests/*.test.js
 Kosmetik-Käufe (Gold wird genau einmal abgezogen), Ausrüsten nur nach Freischaltung,
 Speichern/Laden, alte 1.2.2-Spielstände, manipulierte Spielstände, 100 simulierte Partien,
 Manifest (App-Name, Version, Neuaufbau des String-Pools), unveränderte Speicher-Schlüssel,
-umbenannte Texte und das Tagesduell.
+umbenannte Texte, das Tagesduell und die ViewModels (MVVM-Kern, Store mit Sicherung, Basar mit Kauf über
+Rückfrage, Pack öffnen, Sammlung und Deckbau, Hauptmenü, Match mit KI-Takt) – ohne Browser.
+
+## Sichtprüfung (Playwright)
+
+```sh
+node werkzeuge/klickpfad.js            # Klickpfad Handyformat, Vergleich mit referenz/, Ergebnis in sichtpruefung/klickpfad/
+node werkzeuge/klickpfad.js --referenz # nach gewollten optischen Änderungen: Referenzbilder neu schreiben, ansehen, committen
+node werkzeuge/sichtpruefung.js        # Hauptmenü: Screenshots Handy/Tablet, Auftritt, Trefferflächen, Bildzeiten, Menüwechsel
+```
+
+Der Klickpfad läuft mit reduzierter Bewegung, fester Uhrzeit und festem Spielstand, damit die Bilder stabil sind.
+Er bricht ab bei JavaScript-Fehlern, fehlgeschlagenen Prüfungen oder starken Bildabweichungen (mehr als 3 % stark
+abweichende Pixel oder mittlere Abweichung über 6 bei 458 × 206); Abweichungsbilder landen neben den Screenshots.
+Mit `--nur-basar --spiel <ordner>` misst er nur den Basar, auch für ältere Versionen (Vergleich 1.4.0 ↔ 1.5.0).
+Lokal: Playwright 1.56.1 (`npm install --no-save playwright@1.56.1`), in den Claude-Code-Sitzungen vorinstalliert.
 
 ## Signatur
 
@@ -94,4 +132,4 @@ signiert. Künftige Versionen mit diesem Schlüssel lassen sich direkt als Updat
 
 Umstieg von 1.2.2: In der alten App *Einstellungen → Spielstand exportieren*, alte App
 deinstallieren, die neue Version installieren, *Einstellungen → Spielstand importieren*.
-Ab 1.3.0 (auch 1.3.0 → 1.4.0) genügt es, die neue APK über die alte zu installieren.
+Ab 1.3.0 (auch 1.4.0 → 1.5.0) genügt es, die neue APK über die alte zu installieren.

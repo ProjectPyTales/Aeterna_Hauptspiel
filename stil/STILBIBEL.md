@@ -13,7 +13,7 @@ Die Übersicht als Bild: [`stiltafel.jpg`](stiltafel.jpg).
 
 ## 1. Farbpalette
 
-Die Namen sind zugleich die CSS-Variablen in `quellcode/assets/game/hall.css` (`--ae-…`).
+Die Namen sind zugleich die CSS-Variablen in `quellcode/assets/game/view/css/hall.css` (`--ae-…`).
 
 ### Stein und Holz
 
@@ -164,9 +164,12 @@ bei Belohnungen), Pergament (Karten, Listen). Kein Klick ohne Material.
 4. Prompt-Anfang: siehe README, AP 1.2.
 5. Ablage in `ungenutzte_assets/ui/`; Einbau erst nach Freigabe.
 
-## 10. Zur Freigabe – bitte entscheiden
+## 10. Freigabe
 
-- [ ] Palette und Materialien passen so.
-- [ ] Schriften: Cinzel / Cinzel Decorative / Alegreya Sans (Alternative für Text: Fira Sans).
-- [ ] Unterzeile im Logo: „Das historische Kartenduell“ (oder z. B. „Die Chronik der Helden“).
-- [ ] Bewegungssprache „schwerer Stein, leichtes Licht“.
+Freigegeben in Sitzung 2 (manueller Test zu AP 1.1 und AP 1.3 erfolgreich); einzige Änderung: Zahnrad und Wand
+oben rechts im Hauptmenü (siehe README, AP 1.3).
+
+- [x] Palette und Materialien passen so.
+- [x] Schriften: Cinzel / Cinzel Decorative / Alegreya Sans.
+- [x] Unterzeile im Logo: „Das historische Kartenduell“.
+- [x] Bewegungssprache „schwerer Stein, leichtes Licht“.
