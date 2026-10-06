@@ -29,8 +29,8 @@ async function change(page,point,selector){await page.evaluate(sel=>{const m=win
  return page.evaluate(()=>({neuer_bildschirm_ms:window.__wechsel.neu,fertig_ms:window.__wechsel.fertig}));}
 
 (async()=>{fs.mkdirSync(out,{recursive:true});await new Promise(r=>server.listen(0,r));const browser=await pw.chromium.launch();const errors=[],R={};
- // Tablet: nur Screenshot
- {const {ctx,page,start}=await open(browser,TABLET,errors);R.tablet_start_bis_menue_ms=start;await page.waitForTimeout(1200);await page.screenshot({path:path.join(out,'menue-tablet.png')});await ctx.close();}
+ // Tablet: Screenshot und Bildzeiten im Ruhezustand
+ {const {ctx,page,start}=await open(browser,TABLET,errors);R.tablet_start_bis_menue_ms=start;await page.waitForTimeout(1200);await page.screenshot({path:path.join(out,'menue-tablet.png')});await page.waitForTimeout(600);R.tablet_ruhe=await frames(page);await ctx.close();}
  const {ctx,page,start}=await open(browser,PHONE,errors);R.handy_start_bis_menue_ms=start;
  // Auftritt bei angehaltenen Animationen
  await page.evaluate(()=>document.getAnimations().forEach(a=>a.pause()));

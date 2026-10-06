@@ -12,8 +12,9 @@
 - **Hauptmenü aus dem gemalten Konzeptbild** (`assets/art/hall-aeterna.png`, erzeugt mit
   `hauptmenue_bild.py`). Platten, Medaillons und Zahnrad sind als eigene Ebenen aus dem Bild
   ausgeschnitten (`hall.js`, `hall.css`): Platten sinken in ihre Fuge, Medaillons drücken ein und
-  leuchten, Balken blitzen auf, das Zahnrad dreht sich. Lichtstrahlen, Staub, Funken, glühender Stern,
-  Glanzläufe und Wachssiegel beleben den Saal. Auftritt beim Start (≤ 700 ms, antippen überspringt),
+  leuchten, Balken blitzen auf, das Zahnrad dreht sich. Lichtstrahlen, glühender Stern, Glanzläufe und
+  Wachssiegel beleben den Saal; goldene Partikel (Canvas) steigen auf, kreisen als Kometen auf der Goldlinie und
+  sprühen bei jeder Berührung. Mit Maus: Hover-Animationen und Funkenspur. Auftritt beim Start (≤ 700 ms, antippen überspringt),
   Menüwechsel als Lichtblitz aus dem Stern mit Zoom in den Ring (≤ 600 ms).
 - **Vierte Platte:** „Partie fortsetzen“ bei laufender Partie, sonst „Herausforderung“ – ein
   **Tagesduell** mit festen Helden, Decks und Startwert pro Kalendertag (`CHP.daily`).

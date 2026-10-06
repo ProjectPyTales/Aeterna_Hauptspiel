@@ -205,9 +205,9 @@ Hearthstone-Schlüsselwörter (werden in AP 5.4 ersetzt), das Brennseil als Zugt
 | Bereich | Ziel | Stand 1.4.0 (gemessen) |
 |---|---|---|
 | Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (Freigabe offen); übrige Bildschirme noch alt |
-| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü im Ruhezustand: 95 % ≤ 16,7 ms, 1 von 180 Bildern > 20 ms bei 4× gedrosselter CPU¹ |
-| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 8 ms, mit 4× gedrosselter CPU 13 ms¹ |
-| Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 567 ms (4× CPU: 575 ms), neuer Bildschirm ab 396 ms; zurück ins Menü 333 ms¹ – nicht unterbrechbar |
+| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 1–2 von 180 Bildern > 20 ms bei 4× gedrosselter CPU¹ |
+| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 6–8 ms, mit 4× gedrosselter CPU 18–27 ms¹ |
+| Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 524–526 ms (4× CPU: 539–552 ms), neuer Bildschirm ab 364 ms; zurück ins Menü 333–338 ms¹ – nicht unterbrechbar |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
 | APK-Größe | < 25 MB | 55,8 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,45 MB, Schriften 0,29 MB) |
 | Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | – (AP 5.1) |
@@ -350,10 +350,17 @@ Das textfreie Konzeptbild ist als Grundlage geeignet. Umsetzung:
   seiner Farbe), Balken leuchtet kurz auf, Zahnrad-Knauf dreht sich um 60°; dazu Steinklopfen und Vibration.
 - [x] **Leben:** Lichtstrahlen von oben rechts (wie im Bild) pulsieren sanft, Funken und Staub schweben,
   der Stern im Schlussstein glüht, Glanzlauf über die Medaillons, Benachrichtigungs-Siegel (Aufgaben, Pakete).
+- [x] **Mehr Leben (Nachtrag):** goldene Partikel auf einer Canvas-Ebene – Glut steigt durch den Saal, Staub
+  treibt in den Lichtstrahlen, schwebende Lichtkugeln geben Tiefe, Glitzersterne funkeln am Schlussstein, zwei
+  Kometen laufen auf der Goldlinie des Rings, jede Berührung wirft einen Funkenregen, beim Start sprüht der Stern.
+  Ein Glanzlauf wandert im Leerlauf von Platte zu Platte (auch auf dem Handy sichtbar).
+  **Hover** (Maus/Stift): Platten heben sich 3 px in einen Goldschein mit Glanzlauf, Medaillons schwellen an und
+  leuchten in ihrer Farbe, Balken-Inschriften wachsen und glühen, Siegel wackeln, das Zahnrad dreht vor, der
+  Mauszeiger zieht eine Funkenspur. Bei „Bewegung reduzieren“ entfällt alles.
 - [x] **Auftritt beim Start:** Platten fahren nacheinander ein, Stern blitzt auf (≤ 700 ms, überspringbar).
   *Gemessen 700 ms; Antippen beendet den Auftritt, ohne einen Knopf auszulösen.*
 - [x] **Menüwechsel:** Platte drückt → Lichtblitz aus dem Stern → Zoom in den Ring → neuer Bildschirm (≤ 600 ms).
-  *Gemessen 567 ms; zurück ins Menü umgekehrt (Zoom aus dem Ring) in 333 ms. Wechsel zwischen anderen
+  *Gemessen 524–526 ms; zurück ins Menü umgekehrt (Zoom aus dem Ring) in 333–338 ms. Wechsel zwischen anderen
   Bildschirmen behalten die Steinplatten.*
 - Abnahme: Screenshot neben dem Konzeptbild – gleiche Qualität; alle Knöpfe reagieren; du gibst frei.
   *Stand:* Vergleichsbild [`stil/vergleich-hauptmenue.jpg`](stil/vergleich-hauptmenue.jpg); alle acht Knöpfe und
@@ -363,11 +370,19 @@ Das textfreie Konzeptbild ist als Grundlage geeignet. Umsetzung:
 
 | Messung | normal | CPU 4× gedrosselt |
 |---|---|---|
-| Berührung → sichtbare Reaktion | 8 ms | 13 ms |
-| Menüwechsel: neuer Bildschirm unter dem Blitz / fertig | 396 / 567 ms | 404 / 575 ms |
-| Zurück ins Hauptmenü | 333 ms | 376 ms |
+| Berührung → sichtbare Reaktion | 6–8 ms | 18–27 ms |
+| Menüwechsel: neuer Bildschirm unter dem Blitz / fertig | 364 / 524–526 ms | 375–391 / 539–552 ms |
+| Zurück ins Hauptmenü | 333–338 ms | 363–367 ms |
 | Auftritt beim Start | 700 ms | – |
-| Bildzeit im Ruhezustand (95 %) | 16,7 ms, 0 von 181 > 20 ms | 16,7 ms, 1 von 180 > 20 ms |
+| Bildzeit Handy im Ruhezustand mit Partikeln (95 %) | 16,7–16,8 ms, 0 von 181 > 20 ms | 16,7–16,8 ms, 1–2 von 180 > 20 ms |
+| Bildzeit Tablet im Ruhezustand mit Partikeln | 57–59 Bilder/s, 95 % meist ≤ 16,8 ms, 3–14 von ~170 > 20 ms | – |
+
+*Was die Messungen verändert haben:* Lichtstrahlen und Sternglühen nutzten `mix-blend-mode: screen`; das halbierte
+im Tabletformat die Bildrate (31 Bilder/s, schon vor den Partikeln) und ist jetzt normale Transparenz. Die
+Partikel-Canvas läuft 1:1, wenn die Bühne etwa in Originalgröße erscheint (Tablet), sonst mit 0,75 der
+Bühnenauflösung (Handy), und pausiert während des Ring-Übergangs. In voller Auflösung kostete sie bei gedrosselter
+CPU jedes fünfte Bild. Alle Werte stammen aus Desktop-Chromium ohne GPU; ein echtes Handy rechnet Canvas und
+Ebenen auf der GPU und sollte eher besser liegen – bitte auf dem Gerät gegenprüfen.
 
 *Bekannte Grenzen:* Das Bild hat nur 1116 px Höhe und wird auf Tablets mit hoher Pixeldichte hochskaliert;
 die ergänzten Ränder sind gespiegelt (an der rechten Kante unter dem Zahnrad sichtbar). Beides löst eine
@@ -754,11 +769,13 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 ## Vorschlag für die nächste Sitzung
 
 **Erledigt in Sitzung 1 (Version 1.4.0):** AP 0.3 (Aeterna), AP 1.1 (Stil-Bibel, Schriften), AP 1.3 (Hauptmenü
-aus dem Konzeptbild mit Tagesduell), dazu `werkzeuge/sichtpruefung.js` für Screenshots und Messwerte.
+aus dem Konzeptbild mit Tagesduell, goldenen Partikeln und Hover-Animationen), dazu `werkzeuge/sichtpruefung.js`
+für Screenshots und Messwerte.
 
 **Vorher bitte von dir (5 Minuten):**
 1. Test-APK `Aeterna-1.4.0-Test-APK` aus Actions über 1.3.0 installieren: Heißt die App „Aeterna“? Ist der
-   Spielstand noch da? Fühlen sich Drücken, Auftritt und Menüwechsel gut an? Klingen die Steingeräusche passend (AP 0.2)?
+   Spielstand noch da? Fühlen sich Drücken, Auftritt, Menüwechsel und die goldenen Partikel gut an (zu viel, zu
+   wenig)? Läuft das Menü auf deinem Handy flüssig? Klingen die Steingeräusche passend (AP 0.2)?
 2. Stil-Bibel und Hauptmenü freigeben oder Änderungen nennen (Offene Entscheidungen 1 und 9).
 
 **Sitzung 2 – AP 2.3, AP 0.1, AP 2.6 und Feinschliff AP 1.3**

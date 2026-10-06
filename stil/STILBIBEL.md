@@ -81,8 +81,12 @@ Die Namen sind zugleich die CSS-Variablen in `quellcode/assets/game/hall.css` (`
   Strahlenbündel; die rechte Bildhälfte ist heller.
 - Oberkanten und rechte Kanten bekommen eine helle Fase (`stein-glanz`), Unterkanten einen dunklen Absatz.
 - **Weiche Umgebungsverdeckung** in Fugen und unter Platten; Schlagschatten kurz, nach unten links.
-- Lebendiges Licht im Code: Strahlen pulsieren langsam (5–9 s), Staub und Funken schweben,
-  der Stern glüht (3,2 s), Glanzläufe über Medaillons (alle ~7 s). Immer mit `mix-blend-mode: screen`.
+- Lebendiges Licht im Code: Strahlen pulsieren langsam (5–9 s), der Stern glüht (3,2 s), Glanzläufe über
+  Medaillons (alle ~7 s) und Platten (alle ~9 s). Lichtflächen mit normaler Transparenz in warmem Weiß –
+  **keine** animierten Überblendmodi (`mix-blend-mode`) über große Flächen, sie kosten jedes zweite Bild.
+- **Goldene Partikel:** sattes Gold mit warmem Lichthof (Kern `#fffef2`, Gold `#ffc93c`, Hof `#f29a1c`), damit sie
+  auf hellem Stein sichtbar sind – additives Licht verschwindet dort. Glut steigt, Staub treibt, Kometen laufen
+  auf Goldlinien, Berührungen sprühen Funken. Sparsam: im Ruhezustand höchstens etwa 50 gleichzeitig.
 - Gravierte Schrift: dunkler Schnitt mit **heller Unterlippe** (1,5 px `#fff5e0`) und dunkler Oberkante.
 
 ## 4. Konturen
@@ -127,6 +131,8 @@ leicht und langsam.
 | Auftritt | ≤ 700 ms, gestaffelt 60–90 ms | `cubic-bezier(.2,.85,.3,1.12)` | Platten fahren in ihre Fugen |
 | Bildschirmwechsel | ≤ 600 ms | ein: `cubic-bezier(.55,.05,.9,.45)`, aus: `cubic-bezier(.15,.7,.3,1)` | Blitz aus dem Stern, Zoom in den Ring |
 | Aufleuchten | 400–450 ms | `ease-out` | Lichtlauf über einen Balken |
+| Hover (Maus) | 180 ms | `cubic-bezier(.2,.8,.3,1.2)` | Platte hebt sich 3 px in Goldschein, Medaillon 105 % |
+| Funkenregen | 0,5–1 s | Schwerkraft, Luftwiderstand | 20–26 Funken bei jeder Berührung |
 | Umgebung | 3–9 s, endlos | `ease-in-out` | Strahlen, Sternglühen, Staub |
 | Treffer-Stopp (Phase 3) | 40–80 ms | – | kurzer Halt beim Aufprall |
 
