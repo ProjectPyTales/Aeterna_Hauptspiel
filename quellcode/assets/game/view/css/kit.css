@@ -5,3 +5,17 @@ select.wide{width:100%}
 .card-detail .card-text{font-size:24px}
 .deck-empty{font-size:18px;line-height:1.7;padding:20px}
 button.grave-card{padding:0;border:0;background:none;box-shadow:none;min-height:0}
+.glossary{margin:14px 0 0;display:grid;gap:8px;font-size:17px;line-height:1.45;color:#d9ccb3}
+.glossary div{padding:7px 11px;background:#11191b66;border-left:3px solid #b8955a;border-radius:4px}
+.glossary dt{display:inline;font-weight:bold;color:#efcf8c;margin-right:6px}
+.glossary dt:after{content:':'}
+.glossary dd{display:inline;margin:0}
+/* Ergründen: three sealed scrolls, one card is chosen. */
+.discover{width:1240px;text-align:center;padding:30px 30px 34px;background:#172127f5;border:2px solid #a88957;border-radius:20px;box-shadow:0 24px 65px #0009}
+.discover h2{font-size:36px;margin:4px 0 6px}
+.discover p{font-size:20px;margin:6px 0 18px;color:#e7d7b4}
+.discover-cards{display:flex;justify-content:center;gap:34px}
+.discover-card{position:relative;padding:0;background:transparent;border:0;box-shadow:none;min-height:0;transition:transform 120ms}
+.discover-card img{height:390px;display:block;filter:drop-shadow(0 10px 16px #000a)}
+.discover-card:active{transform:translateY(4px) scale(.98)}
+.discover-card .sale{position:absolute;left:-10px;top:-12px;padding:5px 10px;border-radius:14px;font:bold 19px Body,sans-serif;color:#10240f;background:linear-gradient(#b9f08a,#59a83b);border:2px solid #1e3b16}

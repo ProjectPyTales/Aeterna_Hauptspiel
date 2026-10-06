@@ -16,7 +16,7 @@ const {Worker,isMainThread,parentPort,workerData}=require('node:worker_threads')
 const MODEL=process.env.AETERNA_MODELL?path.resolve(process.env.AETERNA_MODELL):path.join(__dirname,'../quellcode/assets/game/model');
 const D=require(path.join(MODEL,'data.js')),E=require(path.join(MODEL,'engine.js'));
 const MODES={start:'Startdecks',zufall:'Zufallsdecks'};
-const TARGET={field:[.47,.53],pair:.40,first:.55};
+const TARGET={field:[.47,.53],pair:.40,first:.55,legend:.55};
 
 function mix(...n){let h=0x9e3779b9;for(const x of n){h=Math.imul(h^(x>>>0),0x85ebca6b);h^=h>>>13;h=Math.imul(h,0xc2b2ae35);h^=h>>>16;}return (h>>>0)||1;}
 const isCard=id=>D.byId[id].rarity!=='token';
@@ -130,8 +130,12 @@ function analyse(R){
   const byCard={};for(const c of cards){const b=byCard[c.id]??={id:c.id,deck:0,drawn:0,drawnPts:0,played:0,playedPts:0,baseSum:0};b.deck+=c.deck;b.drawn+=c.drawn;b.drawnPts+=c.drawnPts;b.played+=c.played;b.playedPts+=c.playedPts;b.baseSum+=c.drawn*base[c.hero];}
   for(const b of Object.values(byCard)){b.playRate=b.played/b.deck;b.drawnRate=b.drawn?b.drawnPts/(2*b.drawn):null;b.delta=b.drawn?b.drawnRate-b.baseSum/b.drawn:null;}
   const pairsOut=[];for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){const r=rate(M,i,j);if(r<TARGET.pair||r>1-TARGET.pair)pairsOut.push({i,j,r});}
-  const ok={field:heroes.every(h=>h.field>=TARGET.field[0]&&h.field<=TARGET.field[1]),pair:!pairsOut.length,first:first<=TARGET.first};
-  out[mode]={heroes,first,draws:M.draws,games:M.games,mean:lengths.reduce((a,b)=>a+b,0)/lengths.length,median:q(.5),p10:q(.1),p90:q(.9),min:lengths[0],max:lengths.at(-1),cards:byCard,pairsOut,ok,perPair:M.pairs['0|1'].games};
+  // Legendäre als Gruppe (AP 5.3): „gewinnt, wenn gezogen“ über alle Partien, in denen eine Legendäre auf die Hand kam.
+  const legends=Object.values(byCard).filter(b=>D.byId[b.id].rarity==='legendary'&&b.drawn);
+  const lg=legends.reduce((g,b)=>({drawn:g.drawn+b.drawn,pts:g.pts+b.drawnPts,base:g.base+b.baseSum}),{drawn:0,pts:0,base:0});
+  const legend=lg.drawn?{rate:lg.pts/(2*lg.drawn),delta:lg.pts/(2*lg.drawn)-lg.base/lg.drawn,drawn:lg.drawn}:null;
+  const ok={field:heroes.every(h=>h.field>=TARGET.field[0]&&h.field<=TARGET.field[1]),pair:!pairsOut.length,first:first<=TARGET.first,legend:!legend||legend.rate<=TARGET.legend};
+  out[mode]={heroes,first,draws:M.draws,games:M.games,mean:lengths.reduce((a,b)=>a+b,0)/lengths.length,median:q(.5),p10:q(.1),p90:q(.9),min:lengths[0],max:lengths.at(-1),cards:byCard,pairsOut,ok,legend,perPair:M.pairs['0|1'].games};
  }
  return out;
 }
@@ -147,10 +151,10 @@ function report(R){
   'Siegquoten gegen die neun anderen Helden (Spiegelduelle zählen nicht). Zufallsfehler (95 %): je Paarung etwa ±'+
   (1.96*Math.sqrt(.25/o.partien)*100).toFixed(1).replace('.',',')+' Prozentpunkte, gegen das Feld etwa ±'+(1.96*Math.sqrt(.25/(9*o.partien))*100).toFixed(1).replace('.',',')+'.','');
  L.push('**Ziele (AP 5.2):** jeder Held '+pct(TARGET.field[0])+' bis '+pct(TARGET.field[1])+' gegen das Feld, keine Paarung schlechter als 40/60, '+
-  'Vorteil des Beginners ≤ '+pct(TARGET.first)+'.','');
- L.push('| Deckart | Partien | Helden 47–53 % | Paarungen ≥ 40/60 | Beginner gewinnt | Unentschieden | Züge je Partie (Median) |','|---|---|---|---|---|---|---|');
+  'Vorteil des Beginners ≤ '+pct(TARGET.first)+'. **AP 5.3:** Legendäre als Gruppe ≤ '+pct(TARGET.legend)+' „gewinnt, wenn gezogen“ (nur Zufallsdecks – Startdecks enthalten keine).','');
+ L.push('| Deckart | Partien | Helden 47–53 % | Paarungen ≥ 40/60 | Beginner gewinnt | Legendäre, wenn gezogen | Unentschieden | Züge je Partie (Median) |','|---|---|---|---|---|---|---|---|');
  for(const [mode,a] of Object.entries(A))L.push('| '+MODES[mode]+' | '+a.games+' | '+yes(a.ok.field)+' '+a.heroes.filter(h=>h.field>=TARGET.field[0]&&h.field<=TARGET.field[1]).length+'/10 | '+
-  yes(a.ok.pair)+' '+(45-a.pairsOut.length)+'/45 | '+yes(a.ok.first)+' '+pct(a.first)+' | '+a.draws+' | '+a.median+' |');
+  yes(a.ok.pair)+' '+(45-a.pairsOut.length)+'/45 | '+yes(a.ok.first)+' '+pct(a.first)+' | '+(a.legend?yes(a.ok.legend)+' '+pct(a.legend.rate)+' ('+pp(a.legend.delta)+')':'–')+' | '+a.draws+' | '+a.median+' |');
  L.push('');
  for(const [mode,a] of Object.entries(A)){
   L.push('## '+MODES[mode],'');
@@ -170,6 +174,11 @@ function report(R){
   L.push('| Karte | Held | Mana | gewinnt, wenn gezogen | Δ | gespielt |','|---|---|---:|---:|---:|---:|');
   for(const c of [...list.slice(0,8),...list.slice(-8)])L.push(line(c));
   L.push('');
+  if(a.legend){
+   L.push('**Legendäre** (AP 5.3) – als Gruppe '+pct(a.legend.rate)+' „gewinnt, wenn gezogen“ ('+pp(a.legend.delta)+' gegenüber ihrem Helden, '+a.legend.drawn+' Partien):','');
+   L.push('| Karte | Held | Mana | gewinnt, wenn gezogen | Δ | gespielt |','|---|---|---:|---:|---:|---:|');
+   for(const c of Object.values(a.cards).filter(c=>D.byId[c.id].rarity==='legendary'&&c.drawn).sort((x,y)=>y.drawnRate-x.drawnRate))L.push(line(c));
+   L.push('');}
  }
  L.push('## Alle Karten','');
  L.push('„im Deck“ = Partien, in denen die Karte im Deck lag; „gespielt“ = Anteil dieser Partien, in denen sie ausgespielt wurde; '+
@@ -206,6 +215,8 @@ async function main(){
  for(const [mode,a] of Object.entries(A)){
   console.log(MODES[mode]+': '+a.games+' Partien, Beginner '+pct(a.first)+', Median '+a.median+' Züge');
   for(const h of [...a.heroes].sort((x,y)=>y.field-x.field))console.log('  '+short(h.id).padEnd(12)+pct(h.field).padStart(8)+'  schwerste: '+short(D.heroes[h.worst.j].id)+' '+pct(h.worst.x));
+  if(a.legend){console.log('  Legendäre als Gruppe '+pct(a.legend.rate)+' ('+pp(a.legend.delta)+')');
+   for(const c of Object.values(a.cards).filter(c=>D.byId[c.id].rarity==='legendary'&&c.drawn).sort((x,y)=>y.drawnRate-x.drawnRate))console.log('    '+D.byId[c.id].name.padEnd(42)+pct(c.drawnRate).padStart(8)+' '+pp(c.delta).padStart(6)+'  gespielt '+pct(c.playRate));}
  }
  console.log('Bericht: '+path.relative(process.cwd(),bericht)+' ('+((Date.now()-t0)/1000).toFixed(1)+' s)');
 }

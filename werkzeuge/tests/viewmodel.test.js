@@ -93,3 +93,17 @@ test('Match: Starthand, Zug beenden und KI-Takt über die Attrappe des Spielbret
  for(let i=0;i<60&&store.profile.game.active===1&&store.profile.game.phase==='play';i++)t.mock.timers.tick(520);
  assert.equal(store.profile.game.active,0,'KI beendet ihren Zug');
 });
+
+test('Match: Ergründen öffnet die Wahl, die sich nicht wegklicken lässt; auch nach dem Fortsetzen',()=>{
+ const {ctx,store,log}=setup('game'),match=new Match(ctx);ctx.match=match;
+ ctx.board={busy:()=>false,begin:(b,s,a,o,impact,done)=>{impact();done();},rebound(){},cancel(){},events(){},effect(){}};
+ const s=E.create({hero:'hypatia',foe:'khan',seed:21,first:0});E.mulligan(s,[]);s.players[0].mana=5;s.players[0].hand=[{id:'hypatia_5',uid:'lehrsatz'}];
+ store.profile.game=s;match.enter();
+ match.select({type:'play',uid:'lehrsatz'});match.tap({id:'confirm',kind:'button'});
+ assert.equal(log.open.kind,'discover');const choice=log.open.vm;assert.equal(choice.state.cards.length,3);
+ choice.close();assert.equal(log.open?.kind,'discover','Zurück schließt die Wahl nicht');
+ // Spiel verlassen und fortsetzen: die offene Wahl kommt wieder.
+ log.open=null;match.enter();assert.equal(log.open.kind,'discover');
+ const id=log.open.vm.state.cards[2].id;log.open.vm.pick(2);
+ assert.equal(store.profile.game.choice,null);assert.ok(store.profile.game.players[0].hand.some(h=>h.id===id));
+});

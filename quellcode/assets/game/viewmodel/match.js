@@ -12,13 +12,19 @@ const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 const chronicle=()=>node?null:root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
 
+// Ergründen: the choice has to be made – the back key and the scrim do not close it.
+class Choice extends Dialog{
+ pick(i){this.ctx.ui.close();this.state.run(+i);}
+ close(){}
+}
+
 class Match extends Screen{
  constructor(ctx){super(ctx,{});this.view=idle();this.mull=new Set();this.aiTimer=null;this.touching=false;}
  get board(){return this.ctx.board;}
  get game(){return this.profile.game;}
  reset(){this.mull=new Set();this.view=idle();}
  enter(){this.view=idle();const s=this.game;if(!s)return;
-  if(s.phase==='mulligan')this.ui.dialog('mulligan',this);else if(s.phase==='over')this.showResult();else this.scheduleAI();}
+  if(s.phase==='mulligan')this.ui.dialog('mulligan',this);else if(s.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();}
  leave(){clearTimeout(this.aiTimer);this.cancelDrag();}
  // The shell opened or closed a dialog: hold the AI while one is open.
  dialogChanged(open){if(open){this.cancelDrag();clearTimeout(this.aiTimer);}else this.scheduleAI();}
@@ -40,8 +46,11 @@ class Match extends Screen{
   if(before.active===0){if(act.type==='play')p.stats.played++;if(act.type==='attack')p.stats.attacks++;}
   this.view=idle();if(s.phase==='over')P.reward(p,s);this.commit();
   this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);if(before.active===0)this.ui.haptic(act.type==='attack'?1:0);},
-   ()=>{if(s.phase==='over')this.showResult();else this.scheduleAI();});
+   ()=>{if(s.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();});
   return true;}
+ // Your Ergründen is open (also after resuming a saved game): show the three cards.
+ discover(){const c=this.game?.choice;if(!c||c.p!==0||this.ui.screen()!=='game'||this.ui.dialogOpen())return false;
+  this.ui.dialog('discover',new Choice(this.ctx,{close:false,cards:c.options.map(id=>D.byId[id]),mod:c.mod||0,left:c.left,run:i=>this.action({type:'choose',index:i})}));return true;}
  scheduleAI(){clearTimeout(this.aiTimer);const s=this.game,ui=this.ui;
   if(ui.screen()!=='game'||!s||s.active!==1||s.phase!=='play'||ui.dialogOpen()||ui.hidden())return;
   this.aiTimer=setTimeout(()=>{const g=this.game;
@@ -51,7 +60,7 @@ class Match extends Screen{
  select(a,inspect){const v=this.view=Object.assign(idle(),{selected:a,inspect,hint:''});
   const legal=E.legal(this.game,0).filter(x=>x.type===a.type&&x.uid===a.uid);v.targets=legal.filter(x=>x.target).map(x=>x.target);
   if(a.type==='play'&&!legal.length)this.ui.toast('Noch nicht spielbar: Prüfe Mana und freien Platz.');
-  v.hint=a.type==='attack'?'Wähle ein Angriffsziel. Spott-Diener müssen zuerst angegriffen werden.':v.targets.length?'Wähle ein rot markiertes Ziel.':'Tippe auf AUSSPIELEN oder ziehe die Karte auf Deine Spielfeldhälfte.';}
+  v.hint=a.type==='attack'?'Wähle ein Angriffsziel. Diener mit Schildwall müssen zuerst angegriffen werden.':v.targets.length?'Wähle ein rot markiertes Ziel.':'Tippe auf AUSSPIELEN oder ziehe die Karte auf Deine Spielfeldhälfte.';}
 
  // ---------- Touch: tap, long press, drag ----------
  tap(hit){const s=this.game,ui=this.ui;
@@ -125,10 +134,10 @@ class Match extends Screen{
 
  // ---------- App lifecycle and back key ----------
  pauseApp(){this.cancelDrag();this.board.cancel();clearTimeout(this.aiTimer);}
- resumeApp(){if(this.ui.screen()==='game'&&this.game?.phase==='over')this.showResult();else this.scheduleAI();}
+ resumeApp(){if(this.ui.screen()==='game'&&this.game?.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();}
  back(){this.pause();}
 }
 
-const api={Match};
+const api={Match,Choice};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -9,11 +9,13 @@ const C=window.CHC={entries(s,saved=[]){
   return {hero,name:i===1&&s.mission!=null?D.missions[s.mission].boss:hero.name};});
  for(const {hero,name} of heroes){
   put(name+' nutzt '+hero.power+'.','power',hero.id);
-  put(name+' greift an.','hero',hero.id);put(name+' gewinnt.','hero',hero.id);
+  put(name+' greift an.','hero',hero.id);put(name+' gewinnt.','hero',hero.id);put(name+' ergründet eine Karte.','event','chronicle');
  }
  for(const card of Object.values(D.byId)){
   for(const {name} of heroes)put(name+' spielt '+card.name+'.','card',card.id);
-  for(const suffix of [' greift an.',' wurde besiegt.',' verbrannt (Hand voll).'])put(card.name+suffix,'card',card.id);
+  for(const suffix of [' greift an.',' wurde besiegt.',' stürzt ein.',' verbrannt (Hand voll).'])put(card.name+suffix,'card',card.id);
+  for(const {name} of heroes)put(name+' übernimmt '+card.name+'.','card',card.id);
+  put('Theon wirkt '+card.name+' erneut.','card',card.id);
  }
  return s.log.map((text,i)=>{
   const prior=Array.isArray(saved)&&saved[i];
@@ -32,8 +34,11 @@ const C=window.CHC={entries(s,saved=[]){
  for(const e of after.events){
   if(e.type==='play')add(name(after,e.p)+' spielt '+D.byId[e.id].name+'.','card',e.id);
   else if(e.type==='power'){const h=D.heroes.find(h=>h.id===after.players[e.p].hero);add(name(after,e.p)+' nutzt '+h.power+'.','power',h.id);}
-  else if(e.type==='attack'){const u=CHE.unit(before,e.source);if(u)add((u.hero?name(before,u.p):D.byId[u.obj.id].name)+' greift an.',u.hero?'hero':'card',u.hero?u.obj.hero:u.obj.id);}
-  else if(e.type==='death'||e.type==='burn')add(D.byId[e.id].name+(e.type==='death'?' wurde besiegt.':' verbrannt (Hand voll).'),'card',e.id);
+  else if(e.type==='attack'&&!e.pincer&&!e.duel){const u=CHE.unit(before,e.source);if(u)add((u.hero?name(before,u.p):D.byId[u.obj.id].name)+' greift an.',u.hero?'hero':'card',u.hero?u.obj.hero:u.obj.id);}
+  else if(e.type==='death'||e.type==='burn')add(D.byId[e.id].name+(e.type==='burn'?' verbrannt (Hand voll).':e.building?' stürzt ein.':' wurde besiegt.'),'card',e.id);
+  else if(e.type==='discover')add(name(after,e.p)+' ergründet eine Karte.','event','chronicle');
+  else if(e.type==='steal'){const u=CHE.unit(after,e.target);if(u)add(name(after,e.p)+' übernimmt '+D.byId[u.obj.id].name+'.','card',u.obj.id);}
+  else if(e.type==='echo')add('Theon wirkt '+D.byId[e.id].name+' erneut.','card',e.id);
   else if(e.type==='turn')add('Zug '+after.turn+': '+name(after,e.p)+'.','hero',after.players[e.p].hero);
   else if(e.type==='over')add(e.winner===-1?'Unentschieden.':name(after,e.winner)+' gewinnt.',e.winner===-1?'event':'hero',e.winner===-1?'chronicle':after.players[e.winner].hero);
  }

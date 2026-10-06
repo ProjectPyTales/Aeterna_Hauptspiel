@@ -31,6 +31,9 @@ V.topbar=(title,wallet)=>html`<div class="topbar">${V.button({label:'‹ Zurück
 V.modal=({body,width,close=true,extra,scrimExtra,label,labelledby,scrim=false})=>
  html`<div class="${cls('scrim',scrimExtra)}"${attr('data-scrim',scrim)}><div class="${cls('modal panel',extra)}" role="dialog" aria-modal="true"${attr('aria-label',label)}${attr('aria-labelledby',labelledby)}${width?raw(` style="width:${+width}px"`):''}>${close?V.button({label:'×',cmd:'close',extra:'close',aria:'Schließen'}):''}${body}</div></div>`;
 
+// Schlüsselwörter eines Kartentexts mit Erklärung (AP 5.4) – für Großansicht und Kartendetails.
+V.glossary=text=>{const list=CHD.keywordsOf(text);return list.length?html`<dl class="glossary">${list.map(k=>html`<div><dt>${k.name}</dt><dd>${k.text}</dd></div>`)}</dl>`:'';};
+
 // Plain message or question: title, paragraphs and a row of buttons.
 V.message=({title,text=[],buttons=[]})=>html`<h2>${title}</h2>${[].concat(text).map(t=>html`<p>${t}</p>`)}${buttons.length?V.buttons(buttons):''}`;
 })();
