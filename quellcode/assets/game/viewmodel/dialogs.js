@@ -43,7 +43,7 @@ class Dialogs{
  // Chronikseite eines Helden (AP 5.9): Heldenwahl und Großansicht des Helden im Match.
  lore(id){const hero=D.heroes.find(h=>h.id===id),page=LORE.of(id);if(!hero||!page)return;
   this.ui.dialog('lore',new Dialog(this.ctx,{hero,page,favorites:page.favorites.map(c=>D.byId[c]).filter(Boolean)}));}
- credits(){this.ui.dialog('credits',new Dialog(this.ctx,{version:this.version,cards:D.cards.length,heroes:D.heroes.length,missions:D.missions.length}));}
+ credits(){this.ui.dialog('credits',new Dialog(this.ctx,{version:this.version,cards:D.cards.length,heroes:D.heroes.length,missions:D.missions.length,shell:this.ui.platform?.()||null}));}
  redeem(){this.ui.dialog('redeem',new Redeem(this.ctx));}
  exportSave(){this.ui.exportSave(this.ctx.store.exportText());}
  askImport(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Spielstand laden',close:false,
