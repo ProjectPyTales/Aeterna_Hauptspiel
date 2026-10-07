@@ -1,4 +1,5 @@
 // Kartenwelle 1 (AP 5.11) mit Zeitalterkarten, Bauwerke und Weltwunder (AP 5.5), KI-Persönlichkeit und Belagern (AP 5.8 Teil 2).
+require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
@@ -43,7 +44,7 @@ test('Bauwerke (AP 5.5): Pharos verbilligt Zauber, Akropolis stärkt, Kolosseum 
  const s=ready('hypatia');const spell=give(s,0,'hypatia_1');assert.equal(E.cost(s,0,spell),2);
  E.summon(s,0,'griechen_4');assert.equal(E.cost(s,0,spell),1,'Pharos: 1 weniger');E.summon(s,0,'griechen_4');assert.equal(E.cost(s,0,spell),1,'nicht gestapelt');
  const coin=give(s,0,'coin');assert.equal(E.cost(s,0,coin),0);
- const u=E.summon(s,0,'neutral_1');play(s,'griechen_5');assert.equal(u.health,4,'Akropolis: +1 Leben');
+ const u=E.summon(s,0,'attrappe_23');play(s,'griechen_5');assert.equal(u.health,4,'Akropolis: +1 Leben');
  const k=ready();E.summon(k,0,'neutral_47');const a=E.summon(k,0,'neutral_0'),b=E.summon(k,1,'neutral_0');a.health=0;b.health=0;E.settle(k);
  assert.equal(k.players[0].armor,2,'Kolosseum: je Tod 1 Rüstung');
  const g=ready();E.summon(g,0,'neutral_49');const lantern=E.summon(g,0,'neutral_15');const hand=g.players[0].hand.length;lantern.health=0;E.settle(g);
@@ -63,12 +64,12 @@ test('Neue Regeln der Heldenkarten: Spartiat, Thermopylen, Galeerenschmied, Seeb
  const t=ready('leonidas');const big=E.summon(t,1,'neutral_9'),small=E.summon(t,1,'neutral_0');play(t,'leonidas_11');assert.ok(big.frozen&&!small.frozen);
  const d=ready('dandolo');act(d,{type:'power'});play(d,'dandolo_11');assert.deepEqual([d.players[0].weapon.attack,d.players[0].weapon.durability],[2,3]);
  const pe=ready('perikles');E.summon(pe,0,'perikles_1');E.summon(pe,0,'perikles_4');const n=pe.players[0].hand.length;play(pe,'perikles_11');assert.equal(pe.players[0].hand.length,n+3);
- const ag=ready('agrippa');const weak=E.summon(ag,1,'neutral_1'),strong=E.summon(ag,1,'neutral_9');
+ const ag=ready('agrippa');const weak=E.summon(ag,1,'attrappe_23'),strong=E.summon(ag,1,'neutral_9');
  const harpax=give(ag,0,'agrippa_11');
  const targets=E.legal(ag).filter(a=>a.uid===harpax.uid).map(a=>a.target);assert.ok(targets.includes(weak.uid)&&!targets.includes(strong.uid));
  act(ag,{type:'play',uid:harpax.uid,target:weak.uid});assert.ok(ag.players[0].board.includes(weak));
  const an=ready('anna');const zon=give(an,0,'anna_11');assert.equal(E.cost(an,0,zon),6);an.played=Array(7).fill('neutral_0');assert.equal(E.cost(an,0,zon),4);
- const m=ready('masako');const wall=E.summon(m,0,'neutral_0'),plain=E.summon(m,0,'neutral_1');play(m,'masako_11');assert.ok(wall.shield&&!plain.shield);
+ const m=ready('masako');const wall=E.summon(m,0,'neutral_0'),plain=E.summon(m,0,'attrappe_23');play(m,'masako_11');assert.ok(wall.shield&&!plain.shield);
  const tr=ready('dandolo','khan');E.summon(tr,0,'mittelalter_6');const camp=E.summon(tr,1,'khan_11');end(tr);
  assert.equal(camp.health,1,'Tribok trifft auch Bauwerke');assert.equal(tr.players[1].health,30,'aber nie den Helden');
 });

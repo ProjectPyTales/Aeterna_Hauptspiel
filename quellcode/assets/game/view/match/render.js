@@ -9,6 +9,27 @@ R.atlases=()=>['board','heroes','heroes-marble','legendary-frame',...D.heroes.fi
 R.load=(progress=()=>{})=>{const names=R.atlases();let done=0;
  return Promise.all(names.map(name=>picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>progress(++done,names.length))));};
 R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>delete R.pending[name]);};
+// Pixel density and pre-rendered sprites (AP 2.4). The match canvas holds R.scale device pixels per stage unit (pixel
+// density, at most 2). Glows, shadows and whole plaques are drawn once into an offscreen canvas at that density and
+// afterwards only copied – shadowBlur on every frame was the most expensive part of a picture. The canvas matrix does
+// not scale shadows, so R.scaled multiplies blur and offset on a scaled context: everything keeps its old size.
+R.scale=1;
+const SHADOW=['shadowBlur','shadowOffsetX','shadowOffsetY'];
+R.scaled=(c,k)=>{if(!('__k' in c))for(const name of SHADOW){const d=Object.getOwnPropertyDescriptor(Object.getPrototypeOf(c),name);
+ Object.defineProperty(c,name,{configurable:true,get(){return d.get.call(this)/this.__k;},set(v){d.set.call(this,v*this.__k);}});}c.__k=k;return c;};
+// A sprite covers the box x, y, w, h of its own coordinates; res is the extra scale it is drawn with (plaques, portraits).
+const sprites=new Map();
+R.sprite=(key,x,y,w,h,paint,res=1)=>{const k=R.scale*res,id=key+'@'+k;let sp=sprites.get(id);
+ if(!sp){const cv=document.createElement('canvas');cv.width=Math.max(1,Math.ceil(w*k));cv.height=Math.max(1,Math.ceil(h*k));
+  const g=R.scaled(cv.getContext('2d'),R.scale);g.scale(k,k);g.translate(-x,-y);paint(g);
+  if(sprites.size>=400)sprites.clear();sp={cv,x,y,w,h};sprites.set(id,sp);}
+ return sp;};
+R.blit=(c,sp,dx=0,dy=0)=>c.drawImage(sp.cv,dx+sp.x,dy+sp.y,sp.w,sp.h);
+R.sprites=()=>sprites.size;
+// Soft glow behind a card or plaque: a filled shape with its shadow, drawn once.
+const glow=(w,h,r,color,blur)=>R.sprite('glow:'+[w,h,r,color,blur],-blur*2,-blur*2,w+blur*4,h+blur*4,g=>{g.shadowColor=color;g.shadowBlur=blur;round(g,0,0,w,h,r,color);});
+// Cast shadow of a flying or dragged card (drawn for a 200-unit card, scaled to the flight).
+R.cardShadow=()=>R.sprite('cardshadow',-40,-40,280,362,g=>{g.shadowColor='#000a';g.shadowBlur=24;round(g,0,0,200,282,14,'#000a');});
 function round(c,x,y,w,h,r,fill,stroke,lw=1){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
 function ellipse(c,x,y,rx,ry,fill,stroke,lw=1){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
 function txt(c,t,x,y,size=18,color='#fff',align='center',max){c.font=`${size}px ${size>=22?'Title':'Body'},serif`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;if(max)c.fillText(t,x,y,max);else c.fillText(t,x,y);}
@@ -64,7 +85,9 @@ if(legend){for(const x of [10,190])gem(c,x,214,7,'#ffc460');}
 if(opts.count!=null){round(c,61,260,78,22,8,'#211b17','#c2a66e',1);txt(c,'× '+opts.count,100,271,13);}
 if(opts.locked){round(c,0,0,200,282,14,'#131b23a0');round(c,60,110,80,40,6,'#161a20d9','#aa8d56',1);txt(c,'GESPERRT',100,130,11,'#cfb886');}c.restore();};
 // Cache card faces once. Only transforms and shadows change while dragging.
-R.cardCache={};R.fastCard=(c,card,x,y,w,h,opts={})=>{let im=R.cardCache[card.id];if(!im){im=document.createElement('canvas');im.width=300;im.height=423;R.card(im.getContext('2d'),card,0,0,300,423);R.cardCache[card.id]=im;}c.save();if(opts.glow){c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=opts.selected?20:12;}c.drawImage(im,x,y,w,h);c.restore();
+// With a pixel density above 1.2 the faces are cached larger, so a dragged card (258 units) stays sharp.
+R.cardCache={};R.fastCard=(c,card,x,y,w,h,opts={})=>{const cw=R.scale>1.2?400:300,key=card.id+':'+cw;let im=R.cardCache[key];if(!im){im=document.createElement('canvas');im.width=cw;im.height=Math.round(cw*1.41);R.card(im.getContext('2d'),card,0,0,cw,im.height);R.cardCache[key]=im;}
+ if(opts.glow){const sp=glow(200,282,14,opts.selected?'#ffc653':'#71ff56',opts.selected?20:12);c.save();c.translate(x,y);c.scale(w/200,h/282);R.blit(c,sp);c.restore();}c.drawImage(im,x,y,w,h);
  // A changed cost (Marco Polo, Caterina, Andraste) covers the printed gem: green when cheaper.
  if(opts.cost!=null&&opts.cost!==card.cost){const k=w/200;c.save();c.translate(x,y);c.scale(k,k);gem(c,18,20,24,opts.cost<card.cost?'#3aa84e':'#c0453a',opts.cost);c.restore();}};
 R.smoothed={};R.smooth=(id,x,y,dt)=>{const old=R.smoothed[id]||{x,y},q=1-Math.exp(-dt/58);const p={x:old.x+(x-old.x)*q,y:old.y+(y-old.y)*q};R.smoothed[id]=p;return p;};
@@ -84,7 +107,7 @@ R.medals={};R.heroStyle=(id,atlas='heroes')=>{const i=D.heroes.findIndex(h=>h.id
  if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=300;c.height=450;R.tile(c.getContext('2d'),null,0,0,0,300,450,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.webp');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
 function hit(id,x,y,w,h,data={}){R.hits.push({id,x,y,w,h,...data});}
 R.hit=(x,y)=>[...R.hits].reverse().find(h=>{if(h.angle!=null){const dx=x-h.cx,dy=y-h.cy,co=Math.cos(-h.angle),si=Math.sin(-h.angle),xx=dx*co-dy*si,yy=dx*si+dy*co;return Math.abs(xx)<=h.w/2&&Math.abs(yy)<=h.h/2;}return x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h;});
-function button(c,text,x,y,w,h,active,id){c.save();if(active){c.shadowColor='#ffc44b';c.shadowBlur=12;}round(c,x,y,w,h,12,grad(c,x,y,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);c.shadowBlur=0;round(c,x+6,y+6,w-12,h-12,8,null,'#ffffff45',1);txt(c,text,x+w/2,y+h/2,19,active?'#2a2016':'#c8cfcb','center',w-14);c.restore();hit(id,x,y,w,h);}
+function button(c,text,x,y,w,h,active,id){R.blit(c,R.sprite('button:'+[text,w,h,active],-30,-30,w+60,h+60,g=>{if(active){g.shadowColor='#ffc44b';g.shadowBlur=12;}round(g,0,0,w,h,12,grad(g,0,0,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);g.shadowBlur=0;round(g,6,6,w-12,h-12,8,null,'#ffffff45',1);txt(g,text,w/2,h/2,19,active?'#2a2016':'#c8cfcb','center',w-14);}),x,y);hit(id,x,y,w,h);}
 function powerIcon(c,id,x,y){c.save();c.translate(x,y);c.strokeStyle='#f2d99b';c.fillStyle='#f2d99b';c.lineWidth=3;c.lineCap='round';c.lineJoin='round';c.beginPath();
 if(id==='leonidas'){c.moveTo(-16,-18);c.lineTo(16,-18);c.lineTo(16,2);c.quadraticCurveTo(13,18,0,24);c.quadraticCurveTo(-13,18,-16,2);c.closePath();c.stroke();c.beginPath();c.moveTo(-7,8);c.lineTo(0,-8);c.lineTo(7,8);}
 else if(id==='imhotep'){c.ellipse(0,-12,8,11,0,0,Math.PI*2);c.moveTo(0,0);c.lineTo(0,24);c.moveTo(-14,6);c.lineTo(14,6);}
@@ -96,11 +119,18 @@ else if(id==='nostradamus'){c.moveTo(-25,0);c.quadraticCurveTo(0,-28,25,0);c.qua
 else if(!D.heroById[id]?.art){c.font='bold 34px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(D.heroById[id].icon,0,2);}
 else{for(let i=0;i<8;i++){const a=i*Math.PI/4,r=i%2?8:25;c.lineTo(Math.cos(a)*r,Math.sin(a)*r);}c.closePath();c.fill();}c.stroke();c.restore();}
 // The power shares a metal mounting with the portrait; no separate name plates.
+// Since AP 2.4 the whole assembly is one sprite per state (health, armor, attack, weapon, readiness, power).
 function portrait(c,s,p,x,y){
- const hitStart=R.hits.length,scale=L.heroScale(p),a=s.players[p],hero=D.heroes.find(h=>h.id===a.hero),idx=D.heroes.indexOf(hero);
- const ready=s.active===p&&!a.attacked&&E.heroAttack(a)>0&&s.phase==='play';
- c.save();c.translate(x,y);c.scale(scale,scale);c.translate(-x,-y);
- const powerX=x+L.powerOffset.x,powerY=y+L.powerOffset.y;
+ const scale=L.heroScale(p),a=s.players[p],hero=D.heroById[a.hero],skin=hero.art&&(p===0&&R.look.skins[hero.id]||hero.art);
+ const ready=s.active===p&&!a.attacked&&E.heroAttack(a)>0&&s.phase==='play',can=E.canPower(s,p);
+ const key=['hero',p,hero.id,skin,!!R.images[skin],ready,can,a.health,a.armor,E.heroAttack(a),a.weapon?a.weapon.attack+'/'+a.weapon.durability:'',a.powerUsed].join();
+ c.save();c.translate(x,y);c.scale(scale,scale);R.blit(c,R.sprite(key,-175,-118,350,240,g=>portraitArt(g,a,hero,skin,ready,can),scale));c.restore();
+ hit('h'+p,x-65*scale,y-78*scale,130*scale,157*scale,{kind:'target'});R.positions['h'+p]={x,y};
+ hit('power'+p,x+(L.powerOffset.x-34)*scale,y+(L.powerOffset.y-55)*scale,78*scale,101*scale,{kind:'power'});
+ R.positions['power'+p]=L.powerPosition(p,x,y);
+}
+function portraitArt(c,a,hero,skin,ready,can){
+ const x=0,y=0,idx=D.heroes.indexOf(hero),powerX=x+L.powerOffset.x,powerY=y+L.powerOffset.y;
  // Cast shadow, broad bronze socket and inset bevel give the assembly depth.
  c.save();c.shadowColor='#160e09bb';c.shadowBlur=16;c.shadowOffsetY=7;
  round(c,x+41,y-15,94,66,21,grad(c,x+41,y-15,94,66,'#453324','#c4a068'),'#35271b',4);
@@ -109,7 +139,7 @@ function portrait(c,s,p,x,y){
  for(const yy of [y-5,y+40])ellipse(c,x+76,yy,3,3,'#e5c791','#57432d',1.5);
  if(ready){c.shadowColor='#70ff63';c.shadowBlur=20;}
  ellipse(c,x,y,65,78,'#322719',grad(c,x-60,y-75,125,150,'#735025','#f7d594'),9);c.shadowBlur=0;
- c.save();c.beginPath();c.ellipse(x,y-1,58,70,0,0,Math.PI*2);c.clip();R.tile(c,hero.art&&(p===0&&R.look.skins[hero.id]||hero.art),idx,x-67,y-70,134,140,hero);
+ c.save();c.beginPath();c.ellipse(x,y-1,58,70,0,0,Math.PI*2);c.clip();R.tile(c,skin,idx,x-67,y-70,134,140,hero);
  const relief=c.createLinearGradient(x-50,y-70,x+50,y+70);relief.addColorStop(0,'#fff1b822');relief.addColorStop(.4,'#00000000');relief.addColorStop(1,'#160b0a5c');c.fillStyle=relief;c.fillRect(x-65,y-78,130,156);c.restore();
  ellipse(c,x,y,58,71,null,'#ead397',2);
  for(const xx of [x-62,x+62])ellipse(c,xx,y,2.5,3.5,'#e9c885','#604227',1);
@@ -117,16 +147,11 @@ function portrait(c,s,p,x,y){
  if(a.armor){round(c,x-66,y-51,42,46,13,grad(c,x-70,y-50,40,40,'#798c96','#d6e5ea'),'#343f47',3);number(c,a.armor,x-45,y-28,24);}
  if(E.heroAttack(a)){ellipse(c,x-46,y+51,23,23,'#e2bc55','#554521',3);number(c,E.heroAttack(a),x-46,y+51,29);}
  if(a.weapon){ellipse(c,x-117,y+17,34,42,'#383630','#a69a74',3);txt(c,'⚔',x-117,y+8,28);txt(c,a.weapon.attack+' / '+a.weapon.durability,x-117,y+37,17,'#e5c478');}
- hit('h'+p,x-65,y-78,130,157,{kind:'target'});R.positions['h'+p]={x,y};
- const can=E.canPower(s,p);if(can){c.shadowColor='#69ff64';c.shadowBlur=16;}
+ if(can){c.shadowColor='#69ff64';c.shadowBlur=16;}
  ellipse(c,powerX,powerY,39,42,grad(c,powerX-40,powerY-40,80,80,'#423522',hero.color),'#b79557',6);c.shadowBlur=0;
  ellipse(c,powerX,powerY,34,37,null,'#f0d69a88',1.5);powerIcon(c,hero.id,powerX,powerY);
  gem(c,powerX-9,powerY-39,16,'#347ac2',hero.cost);
  if(a.powerUsed){ellipse(c,powerX,powerY,36,39,'#0f121ba0');txt(c,'✓',powerX,powerY,28,'#aa9d87');}
- // Adjacent hit regions keep the portrait and its dock individually operable.
- hit('power'+p,powerX-34,powerY-55,78,101,{kind:'power'});
- c.restore();for(const h of R.hits.slice(hitStart)){h.x=x+(h.x-x)*scale;h.y=y+(h.y-y)*scale;h.w*=scale;h.h*=scale;}
- R.positions['power'+p]=L.powerPosition(p,x,y);
 }
 // Starre: hoarfrost over the plaque and a snowflake on top.
 function frost(c){c.save();const g=c.createRadialGradient(0,0,20,0,0,80);g.addColorStop(0,'#d6f1ff38');g.addColorStop(1,'#e9f8ffb0');round(c,-47,-64,94,128,7,g,'#eefaff',3);c.strokeStyle='#ffffffb0';c.lineWidth=1.4;
@@ -165,11 +190,18 @@ R.logIcons={};R.logIcon=(kind,id)=>{const key=kind+':'+id;if(!R.logIcons[key]){
  else{c.fillStyle='#26383d';c.fillRect(0,0,96,96);txt(c,'✦',48,48,48,'#d6b577');}
  R.logIcons[key]=el.toDataURL('image/png');}return R.logIcons[key];};
 // Upright 3:4 relief plaques. Status cues retain their existing meanings.
+// Since AP 2.4 a plaque is one sprite per state: the key holds everything the picture depends on.
 function minion(c,s,p,u,x,y,selected,targets){
+ const card=D.byId[u.id],ready=p===s.active&&E.canAttack(u)&&s.phase==='play',aim=targets.includes(u.uid),ms=L.minionScale;
+ const key=['minion',u.id,u.attack,u.health,!!u.building,selected?2:ready?1:0,aim,!!R.images[card.art],...['stealth','silenced','taunt','shield','frozen','rush','double','plunder','poison'].map(k=>u[k]?1:0),!u.ready&&u.attacks===0].join();
+ c.save();c.translate(x,y);c.scale(ms,ms);R.blit(c,R.sprite(key,-86,-108,172,212,g=>plaque(g,u,card,ready,selected,aim),ms));c.restore();
+ R.positions[u.uid]={x,y};
+ hit(u.uid,x-57*ms,y-72*ms,114*ms,146*ms,{kind:'target',idCard:u.id});
+}
+function plaque(c,u,card,ready,selected,aim){
  c.save();c.shadowColor='#301b12aa';c.shadowBlur=13;
- ellipse(c,x,y+69*L.minionScale,47*L.minionScale,8,'#38271939');c.restore();
- c.save();c.translate(x,y);c.scale(L.minionScale,L.minionScale);
- const card=D.byId[u.id],ready=p===s.active&&E.canAttack(u)&&s.phase==='play',legend=card.rarity==='legendary',building=!!u.building;
+ ellipse(c,0,69,47,8/L.minionScale,'#38271939');c.restore();
+ const legend=card.rarity==='legendary',building=!!u.building;
  if(ready||selected){c.shadowColor=selected?'#ffda67':'#76ff4d';c.shadowBlur=20;}
  round(c,-51,-68,102,136,9,grad(c,-51,-68,102,136,'#292824',building?'#a9a397':legend?'#b38c4e':'#79654e'),'#28231f',3);
  c.shadowBlur=0;
@@ -198,24 +230,25 @@ function minion(c,s,p,u,x,y,selected,targets){
  const own=!u.silenced;const marks=[own&&card.death&&['☠','#e6d6b3'],own&&(card.passive||card.start||card.end||card.onHeal||card.allyHeal)&&['✦','#d8c9fa'],u.rush&&['➤','#ffd27a'],u.double&&['⚔','#ffe3b0'],own&&card.focus&&['✧'+card.focus,'#a9dcff'],u.stealth&&['◐','#b9d3a8'],u.plunder&&['♥','#ff8f7a'],u.poison&&['⚗','#9cf07a'],u.silenced&&['⊘','#d5d0c8']].filter(Boolean);
  if(!building&&marks.length){const w=marks.reduce((n,[g])=>n+(g.length>1?24:17),6);round(c,-w/2,22,w,22,10,'#1d1712d9','#c9a96a',1.2);let xx=-w/2+3;
   for(const [g,col] of marks){const gw=g.length>1?24:17;txt(c,g,xx+gw/2,33,g.length>1?13:15,col);xx+=gw;}}
- if(targets.includes(u.uid))round(c,-59,-76,118,154,13,null,'#db403d',3);
- R.positions[u.uid]={x,y};c.restore();
- hit(u.uid,x-57*L.minionScale,y-72*L.minionScale,114*L.minionScale,146*L.minionScale,{kind:'target',idCard:u.id});
+ if(aim)round(c,-59,-76,118,154,13,null,'#db403d',3);
 }
-R.draw=(c,s,view,now)=>{const dt=Math.min(40,now-(R.lastTime||now-16));R.lastTime=now;R.hits=[];R.positions={};c.clearRect(0,0,1600,800);c.save();const shake=CHM.shake(now);c.translate(shake.x,shake.y);const field=R.images[R.look.board]||R.images.board;if(field)c.drawImage(field,0,0,1600,800);else{c.fillStyle='#765d3e';c.fillRect(0,0,1600,800);}const shade=c.createRadialGradient(800,365,210,800,365,880);shade.addColorStop(0,'#3d230a00');shade.addColorStop(1,'#23150e45');c.fillStyle=shade;c.fillRect(0,0,1600,800);
+R.draw=(c,s,view,now)=>{const dt=Math.min(40,now-(R.lastTime||now-16));R.lastTime=now;R.hits=[];R.positions={};c.clearRect(0,0,1600,800);c.save();const shake=CHM.shake(now);c.translate(shake.x,shake.y);// Static layer (AP 2.4): battlefield, shade and seam in one offscreen picture, redrawn only for another skin.
+const fieldName=R.images[R.look.board]?R.look.board:R.images.board?'board':null;
+R.blit(c,R.sprite('field:'+fieldName,0,0,1600,800,g=>{const field=R.images[fieldName];if(field)g.drawImage(field,0,0,1600,800);else{g.fillStyle='#765d3e';g.fillRect(0,0,1600,800);}const shade=g.createRadialGradient(800,365,210,800,365,880);shade.addColorStop(0,'#3d230a00');shade.addColorStop(1,'#23150e45');g.fillStyle=shade;g.fillRect(0,0,1600,800);
 // Calm combat surface and a fine central seam preserve legibility over the illustration.
-c.strokeStyle='#71563540';c.lineWidth=2;c.beginPath();c.moveTo(222,354);c.quadraticCurveTo(800,368,1370,354);c.stroke();
+g.strokeStyle='#71563540';g.lineWidth=2;g.beginPath();g.moveTo(222,354);g.quadraticCurveTo(800,368,1370,354);g.stroke();}));
 const a=s.players[0],b=s.players[1],targets=view.targets||[];hit('decor0',1485,0,112,145,{kind:'decor'});hit('decor1',0,0,110,142,{kind:'decor'});hit('decor2',0,710,120,90,{kind:'decor'});hit('decor3',1490,710,110,90,{kind:'decor'});
 const insert=view.insertIndex??CHM.insertion();
 for(let p=0;p<2;p++){const yy=L.rows[p],board=s.players[p].board,hasGap=p===0&&insert!=null&&board.length<7;if(view.drag?.cardId&&p===0)for(let i=0;i<7;i++)ellipse(c,L.center+(i-3)*L.spacing,yy,56,76,'#49331a05','#67502e22',1);
- if(hasGap){const xx=L.center+(insert-board.length/2)*L.spacing;c.save();c.shadowColor='#aaf36a';c.shadowBlur=24;ellipse(c,xx,yy,60,78,'#91d55629','#d3ed9b',2);c.restore();txt(c,'↓',xx,yy,30,'#efffd3');}
+ if(hasGap){const xx=L.center+(insert-board.length/2)*L.spacing;R.blit(c,R.sprite('gap',-110,-130,220,260,g=>{g.shadowColor='#aaf36a';g.shadowBlur=24;ellipse(g,0,0,60,78,'#91d55629','#d3ed9b',2);g.shadowBlur=0;txt(g,'↓',0,0,30,'#efffd3');}),xx,yy);}
  board.forEach((u,i)=>{const index=i+(hasGap&&i>=insert?1:0),base=R.smooth(u.uid,L.center+(index-(board.length-1+(hasGap?1:0))/2)*L.spacing,yy,dt),pos=CHM.pose(u.uid,base,now);c.save();c.translate(pos.x,pos.y);c.rotate(pos.angle);c.scale(pos.scale,pos.scale);c.translate(-pos.x,-pos.y);minion(c,s,p,u,pos.x,pos.y,view.selected&&view.selected.uid===u.uid,targets);c.restore();});}
 // Rival's fanned hand.
-for(let i=0;i<b.hand.length;i++){c.save();c.translate(490+i*34,7);c.rotate((i-(b.hand.length-1)/2)*.033);round(c,-24,-50,48,72,5,grad(c,0,0,40,70,'#16334d','#4c6f87'),'#c7a759',3);txt(c,'✦',0,-10,25,'#e7c675');c.restore();}
-for(let p=0;p<2;p++){const pp=s.players[p],yy=p===0?590:158;CHS.deck(c,p===0?R.look.back:'chroniken',1421,yy,55,83,Math.min(5,Math.ceil(pp.deck.length/6)),now,p*2300);txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');hit('deck'+p,1411,yy-10,80,125,{kind:'deck'});round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');hit('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
+const rivalBack=R.sprite('rivalback',-27,-53,54,78,g=>{round(g,-24,-50,48,72,5,grad(g,0,0,40,70,'#16334d','#4c6f87'),'#c7a759',3);txt(g,'✦',0,-10,25,'#e7c675');});
+for(let i=0;i<b.hand.length;i++){c.save();c.translate(490+i*34,7);c.rotate((i-(b.hand.length-1)/2)*.033);R.blit(c,rivalBack);c.restore();}
+for(let p=0;p<2;p++){const pp=s.players[p],yy=p===0?590:158;const back=p===0?R.look.back:'chroniken',count=Math.min(5,Math.ceil(pp.deck.length/6));R.blit(c,R.sprite('deck:'+[back,count],-10,-25,90,120,g=>CHS.stack(g,back,0,0,55,83,count)),1421,yy);CHS.gloss(c,1421,yy,55,83,count,now,p*2300);txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');hit('deck'+p,1411,yy-10,80,125,{kind:'deck'});round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');hit('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
 button(c,s.active===0?'ZUG BEENDEN':'GEGNERZUG',1402,342,172,64,s.active===0&&s.phase==='play','end');txt(c,'ZUG '+Math.max(1,s.turn),1488,426,14,'#ddc99d');
 // The resource pillar leaves the hero's lower center completely clear.
-manaColumn(c,a);txt(c,b.mana+' / '+b.maxMana+' Mana'+(b.locked?' (−'+b.locked+')':''),1036,62,16,'#eedcaf');
+R.blit(c,R.sprite('mana:'+[a.mana,a.maxMana,a.locked||0,a.overload||0],L.mana.x-24,L.mana.y-24,L.mana.w+48,L.mana.h+56,g=>manaColumn(g,a)));txt(c,b.mana+' / '+b.maxMana+' Mana'+(b.locked?' (−'+b.locked+')':''),1036,62,16,'#eedcaf');
 let hand=a.hand;if(view.drag?.cardId&&view.handIndex!=null){hand=[...hand];const i=hand.findIndex(h=>h.uid===view.drag.uid);if(i>=0)hand.splice(view.handIndex,0,hand.splice(i,1)[0]);}
 const handState=hand===a.hand?s:{...s,players:[{...a,hand},b]};
 // Selected cards draw last within the hand, above both resting fans.
@@ -230,7 +263,8 @@ button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',194,27,60,56,false,'help
 CHM.overlay(c,s,now);
 if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
  if(d.cardId){const {x,y,w}=L.dragPose(d,now);d.x=x;d.y=y;d.w=w;CHM.floatCard(c,d.cardId,x,y,w,d.angle);}
- if(needsArrow){const start=d.cardId?{x:d.x,y:d.y-82}:R.positions[view.selected.uid]||R.positions.power0;const end=d.target?R.positions[d.target]:{x:d.pointerX,y:d.pointerY};if(start&&end){c.save();c.strokeStyle=d.target?'#ffdc8a':'#d9332f';c.lineWidth=d.target?7:6;c.shadowColor='#412115';c.shadowBlur=8;c.setLineDash(d.target?[]:[14,7]);c.beginPath();c.moveTo(start.x,start.y);c.quadraticCurveTo((start.x+end.x)/2,start.y-90,end.x,end.y);c.stroke();c.setLineDash([]);const angle=Math.atan2(end.y-start.y+90,(end.x-start.x)/2);c.translate(end.x,end.y);c.rotate(angle);c.beginPath();c.moveTo(0,0);c.lineTo(-26,-14);c.lineTo(-20,0);c.lineTo(-26,14);c.closePath();c.fillStyle=d.target?'#ffdb84':'#ed4940';c.fill();c.restore();if(d.target){ellipse(c,end.x,end.y,60,76,null,'#fff0b4',3);}}}
+ if(needsArrow){const start=d.cardId?{x:d.x,y:d.y-82}:R.positions[view.selected.uid]||R.positions.power0;const end=d.target?R.positions[d.target]:{x:d.pointerX,y:d.pointerY};if(start&&end){// A darker, wider stroke underneath replaces the blurred shadow of the arrow (AP 2.4).
+c.save();c.setLineDash(d.target?[]:[14,7]);c.beginPath();c.moveTo(start.x,start.y);c.quadraticCurveTo((start.x+end.x)/2,start.y-90,end.x,end.y);c.strokeStyle='#41211566';c.lineWidth=(d.target?7:6)+7;c.stroke();c.strokeStyle=d.target?'#ffdc8a':'#d9332f';c.lineWidth=d.target?7:6;c.stroke();c.setLineDash([]);const angle=Math.atan2(end.y-start.y+90,(end.x-start.x)/2);c.translate(end.x,end.y);c.rotate(angle);c.beginPath();c.moveTo(0,0);c.lineTo(-26,-14);c.lineTo(-20,0);c.lineTo(-26,14);c.closePath();c.fillStyle=d.target?'#ffdb84':'#ed4940';c.fill();c.restore();if(d.target){ellipse(c,end.x,end.y,60,76,null,'#fff0b4',3);}}}
 }
 // Own portrait, frame, armor, health and power always stay above card flights/drags.
 portrait(c,s,0,ownHero.x,ownHero.y);

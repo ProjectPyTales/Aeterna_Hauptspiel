@@ -1,4 +1,5 @@
 // Heldenbalance (AP 5.2): geänderte Heldenfähigkeiten, Initiative und die schnelle Zustandskopie der KI.
+require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const D=require(path.join(game,'model/data.js')),E=require(path.join(game,'model/engine.js'));
@@ -18,14 +19,14 @@ test('Initiative gibt dem Nachziehenden 2 Mana',()=>{
 });
 
 test('Leonidas: 1 Rüstung und +1 Leben für alle eigenen Diener',()=>{
- const s=ready('leonidas');const a=E.summon(s,0,'neutral_0'),b=E.summon(s,0,'neutral_3');
+ const s=ready('leonidas');const a=E.summon(s,0,'neutral_0'),b=E.summon(s,0,'attrappe_34');
  power(s);
  assert.equal(s.players[0].armor,1);
  assert.deepEqual([a.health,a.maxHealth,b.health,b.maxHealth],[3,3,5,5]);
 });
 
 test('Hypatia: Sternenfunke trifft ohne Zielwahl einen zufälligen Feind',()=>{
- const s=ready('hypatia');E.summon(s,1,'neutral_3');
+ const s=ready('hypatia');E.summon(s,1,'attrappe_34');
  assert.equal(E.targetKind(s,0,{type:'power'}),null);
  const before=s.players[1].health+s.players[1].board[0].health;
  power(s);
@@ -43,7 +44,7 @@ test('Imhotep heilt 3, Boudicca +1 Angriff und 2 Rüstung, Nostradamus zieht fü
 });
 
 test('Schnelle Kopie für die KI entspricht dem vollständigen Klon und ist unabhängig',()=>{
- const s=ready('jeanne');E.summon(s,0,'neutral_1');s.players[0].weapon={attack:1,durability:2};
+ const s=ready('jeanne');E.summon(s,0,'attrappe_23');s.players[0].weapon={attack:1,durability:2};
  const c=E.copy(s);assert.deepEqual(JSON.parse(JSON.stringify(c)),E.clone(s));
  c.players[0].board[0].health=0;c.players[0].weapon.attack=9;c.players[0].deck.pop();c.players[0].hand.push({id:'coin',uid:'x'});
  assert.equal(s.players[0].board[0].health,3);assert.equal(s.players[0].weapon.attack,1);

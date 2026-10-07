@@ -1,7 +1,42 @@
-# Aeterna 1.12.0 – Bauen & Prüfen
+# Aeterna 1.13.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.13.0 (AP 2.4 Match-Renderer, AP 2.5 Renderer-Labor, AP 5.11 Teil 2 Balance)
+
+- **Bildschleife ohne Drossel** (`view/match/board.js`): ein Bild je Bildwechsel des Displays statt `now-last>=15`
+  (auf 90/120 Hz fehlte jedes zweite Bild). **Pixeldichte:** Die Leinwand hat `R.scale` Gerätepixel je Bühneneinheit
+  (CSS-Breite × `devicePixelRatio` / 1600, zwischen 1 und 2; Handyformat 1,34 → 2144 × 1072); gezeichnet und getippt wird
+  weiter in 1600 × 800. `R.scaled(ctx, k)` vervielfacht `shadowBlur`/`shadowOffset` auf skalierten Kontexten, damit
+  Schatten gleich groß bleiben.
+- **Sprites statt `shadowBlur`** (`view/match/render.js`): `R.sprite(key, x, y, w, h, paint, res)` zeichnet einmal in eine
+  Offscreen-Leinwand mit der aktuellen Pixeldichte, `R.blit` kopiert. Ein Sprite je Zustand für Diener-Plaketten
+  (Schlüssel: Karte, Werte, Schlüsselwörter, Bereitschaft, Auswahl, Ziel), Heldenporträt mit Fähigkeit, Manasäule,
+  Knöpfe, Deckstapel (`CHS.stack`, nur der Glanz `CHS.gloss` je Bild), Kartenrücken des Gegners, Einfügelücke;
+  statische Ebene (Schlachtfeld, Schatten, Naht) als ein Bild. Leuchten der Handkarten und Wurfschatten fliegender Karten
+  sind vorgerenderte Sprites, der Zielpfeil hat einen breiteren dunklen Strich statt Unschärfe. Kartenbilder im Cache ab
+  Pixeldichte 1,2 mit 400 statt 300 px Breite. Höchstens 400 Sprites, dann wird der Cache geleert.
+- **Bildraten-Anzeige** (versteckte Einstellung `settings.fps`): *Einstellungen → Über das Spiel → fünfmal auf „Version“
+  tippen* (`Credits.tapVersion`). Oben rechts im Match: Bilder je Sekunde, Zeichenzeit je Bild (Mittel, 95 %), längste
+  Lücke, Pixeldichte. Alte Spielstände bekommen `fps:false`.
+- **Renderer-Labor** (`assets/game/labor/renderer.html`, `labor.js`, PixiJS 8.22 als `pixi.min.js`, MIT, `LIZENZ-pixi.txt`):
+  dasselbe volle Match mit Canvas 2D und mit PixiJS (WebGL), dazu Partikelregen und Verformung Karte → Siegel; Knopf
+  „Messreihe“ misst alle sechs Kombinationen. Erreichbar im Entwicklermodus über *Über das Spiel → Renderer-Labor*;
+  „Zurück zum Spiel“ (und die Zurück-Geste) lädt das Spiel neu.
+- **Messwerkzeuge:** `matchmessung.js` (7 Diener je Seite, 10 Handkarten; Frame-Zeit und Bildabstände in Ruhe und im
+  Gefecht, CPU 1× und 4×; `--spiel <ordner>` für Vorher-Werte) und `labormessung.js` (Messreihe des Labors; ohne GPU läuft
+  WebGL in SwiftShader – nur Funktionsprobe). Beide laufen im CI-Job „sichtpruefung“. Test: `tests/renderer.test.js`.
+- **AP 5.11 Teil 2** (`model/data.js`): Wandernder Händler 2/2 mit Vermächtnis 2 Rüstung, Grenzläuferin 3/3 mit Tarnung,
+  Rōnin 3/4, Bronzener Wall 2 Rüstung (+2 Leben), Kämpfer der Heiligen Schar 3/2. Bericht `balance/BERICHT.md`, vorher
+  `BERICHT-1.12.0.md`. Die Regeltests nutzen statt Händler und Grenzläuferin regellose Attrappen (`tests/attrappen.js`,
+  `attrappe_23`, `attrappe_34`, nur in `D.byId`).
+- **Musik** (`service/audio.js`): `musik-menue.ogg` (Hauptmenü und Untermenüs) und `musik-duell.ogg` (Match) laufen
+  gestreamt über `<audio>` → `createMediaElementSource` → Musikregler mit Ducking; `CHA.track(mode)` blendet über.
+  Originale in `ungenutzte_assets/musik-original/`, kodiert mit
+  `ffmpeg -i duell.mp3 -af volume=-8dB -c:a libvorbis -q:a 4 musik-duell.ogg` (Menü: −7,5 dB) → −20 LUFS.
+  `menu.ogg`, `battle.ogg`, `tension.ogg` entfallen, alle Soundeffekte bleiben.
+- Version 1.13.0 / versionCode 16.
 
 ## Neu in 1.12.0 (AP 2.1 Hülle, AP 2.2 Asset-Pipeline, AP 0.2 Audio, Rückmeldung zu 1.11.0)
 
@@ -193,6 +228,7 @@ Die vollständige Übersicht der Spielmodule (MVVM) steht in der README unter �
 | `assets/game/view/stone.js` | Steinplatten-Übergang (SVG), Kartenrücken (Canvas), Deckstapel-Glanz |
 | `assets/game/view/css/stone.css` | Steinplatten-Übergang, Basar |
 | `assets/game/view/kit.js`, `view/css/kit.css` | Gemeinsame Bausteine: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal |
+| `assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) |
 | `assets/game/assets/fonts/*` | Cinzel, Cinzel Decorative, Alegreya Sans mit Lizenztexten (OFL) |
 | `assets/game/assets/art/*.webp` | Bilder des Spiels, erzeugt von `bilder_webp.py` aus `ungenutzte_assets/art-original/` |
 | `assets/game/assets/audio/stone-*, scrape-*, grind-*, slam-*` | Steingeräusche (`werkzeuge/stein_sounds.py`) |
@@ -239,7 +275,7 @@ Kosmetik-Käufe (Gold wird genau einmal abgezogen), Ausrüsten nur nach Freischa
 Speichern/Laden, alte 1.2.2-Spielstände, manipulierte Spielstände, 100 simulierte Partien,
 die native Hülle (Paket-ID, Version, Schlüssel, Brückenfunktionen, MIME-Typen, Speicherort), die Klangpegel, unveränderte Speicher-Schlüssel,
 umbenannte Texte, das Tagesduell und die ViewModels (MVVM-Kern, Store mit Sicherung, Basar mit Kauf über
-Rückfrage, Pack öffnen, Sammlung und Deckbau, Hauptmenü, Match mit KI-Takt), die geänderten Heldenfähigkeiten und
+Rückfrage, Pack öffnen, Sammlung und Deckbau, Hauptmenü, Match mit KI-Takt), die versteckte Bildraten-Anzeige und das Renderer-Labor (seit 1.13.0), die geänderten Heldenfähigkeiten und
 die Gunst der Stunde, die schnelle Zustandskopie der KI und das Balance-Werkzeug (gleiche Zahlen unabhängig von der Zahl der
 Threads), seit 1.7.0 die umbenannten und neuen Schlüsselwörter, alle zwölf Legendären und die Ergründen-Wahl im
 Match-ViewModel – ohne Browser.
@@ -264,6 +300,9 @@ Paarung beträgt der Zufallsfehler etwa ±2,3 Punkte je Held und ±6,9 je Paarun
 node werkzeuge/klickpfad.js            # Klickpfad Handyformat, Vergleich mit referenz/, Ergebnis in sichtpruefung/klickpfad/
 node werkzeuge/klickpfad.js --referenz # nach gewollten optischen Änderungen: Referenzbilder neu schreiben, ansehen, committen
 node werkzeuge/sichtpruefung.js        # Hauptmenü: Screenshots Handy/Tablet, Auftritt, Trefferflächen, Bildzeiten, Menüwechsel
+node werkzeuge/matchmessung.js         # Match mit 7 Dienern je Seite: Frame-Zeit und Bildabstände (CPU 1× und 4×) → sichtpruefung/matchmessung.json
+node werkzeuge/matchmessung.js --spiel <ordner>   # dasselbe für eine ältere Version (Vorher-Wert)
+node werkzeuge/labormessung.js         # Renderer-Labor: Canvas 2D gegen PixiJS, je Szene 3 s → sichtpruefung/labormessung.json
 node werkzeuge/motive.js              # Liste der fehlenden Motive (ungenutzte_assets/MOTIVE.md) neu schreiben
 ```
 

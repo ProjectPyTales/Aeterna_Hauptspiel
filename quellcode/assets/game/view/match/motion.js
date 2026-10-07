@@ -48,7 +48,10 @@ M.insertion=()=>{const t=M.transition;return t&&!t.hit&&t.card?.type==='minion'&
 M.hiddenHand=uid=>M.returns.some(f=>f.uid===uid)||M.draws.some(f=>f.uid===uid)||(M.transition&&!M.transition.hit&&M.transition.action.uid===uid&&M.transition.card);
 M.rebound=(drag,s)=>{M.returns=M.returns.filter(f=>f.uid!==drag.uid);M.returns.push({uid:drag.uid,id:drag.cardId,from:{x:drag.x,y:drag.y,w:drag.w||L.dragWidth,angle:drag.angle||0},at:performance.now(),duration:290});CHA.play('return',{x:drag.x,gain:.45});};
 M.shake=now=>{const q=clamp((now-M.lastImpact)/180);return {x:Math.sin(q*27)*M.impactWeight*(1-q),y:Math.sin(q*35)*M.impactWeight*.5*(1-q)};};
-M.floatCard=(c,id,x,y,w,angle=0,alpha=1)=>{c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(angle);c.shadowColor='#000a';c.shadowBlur=24;c.shadowOffsetX=9;c.shadowOffsetY=18;CHR.fastCard(c,CHD.byId[id],-w/2,-w*1.41/2,w,w*1.41);c.restore();};
+// The cast shadow is a pre-rendered sprite (AP 2.4), offset like the former shadowBlur 24 / 9 / 18.
+M.floatCard=(c,id,x,y,w,angle=0,alpha=1)=>{c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(angle);
+ c.save();c.translate(9-w/2,18-w*1.41/2);c.scale(w/200,w*1.41/282);CHR.blit(c,CHR.cardShadow());c.restore();
+ CHR.fastCard(c,CHD.byId[id],-w/2,-w*1.41/2,w,w*1.41);c.restore();};
 M.overlay=(c,s,now)=>{
  const t=M.transition;
  if(t?.card&&!t.hit){const q=ease((now-t.at)/t.hitAt),from=t.from,to=t.to;const startW=t.origin?.w||160,endW=t.card.type==='minion'?138:200;const x=mix(from.x,to.x,q),y=mix(from.y,to.y,q)-Math.sin(q*Math.PI)*55;M.floatCard(c,t.card.id,x,y,mix(startW,endW,q),mix(t.origin?.angle||-.08,0,q),t.card.type==='spell'?1-q*.3:1);}

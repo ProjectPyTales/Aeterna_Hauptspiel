@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.12.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.13.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -33,7 +33,9 @@ const ui={
  unlockAudio:()=>A.init().catch(console.warn),
  exportSave:raw=>AEP.exportSave(raw,AES.EXPORT_NAME),
  pickImport:()=>AEP.pickImport(),
- exit:()=>AEP.exit(),platform:()=>AEP.info()};
+ exit:()=>AEP.exit(),platform:()=>AEP.info(),
+ // Renderer-Labor (AP 2.5): eigene Seite neben dem Spiel; „Zurück“ dort lädt das Spiel wieder (Spielstand ist gespeichert).
+ lab:()=>{store.save?.();location.href='labor/renderer.html';}};
 function closeDialog(resume){if(!dialog)return;const d=dialog;dialog=null;d.binding.unbind();overlay.textContent='';d.vm.closed?.();
  if(resume&&screen==='game')screens.game.vm.dialogChanged(false);}
 
@@ -77,7 +79,7 @@ function show(next,arg){
  window.getSelection()?.removeAllRanges();canvas.style.display=next==='game'?'block':'none';
  const {vm,view}=screens[next];vm.enter(arg);
  if(view)current=bind($('ui'),view,vm);
- if(next==='menu')A.track('menu');if(next==='game')A.track('battle');}
+ A.track(next==='game'?'battle':'menu');}
 
 // ---------- Platform ----------
 // On screens wider than 2:1 the stage grows sideways ("wings"): menus, dialogs and their backdrops reach the edges,

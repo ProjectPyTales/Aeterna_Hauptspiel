@@ -1,4 +1,5 @@
 // Neue Helden (AP 5.10): Heldenfähigkeiten als Daten, Zeitalter, Bauwerke mit Auslösern und Welle 1 mit sechs Helden.
+require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
@@ -25,8 +26,8 @@ test('Heldenfähigkeiten sind Daten: kein Sonderfall je Held mehr in der Engine'
 
 test('Jeder der 22 Helden kann seine Fähigkeit nutzen, sobald ihre Bedingung erfüllt ist',()=>{
  for(const h of D.heroes){const s=ready(h.id,'khan');const a=s.players[0];
-  E.summon(s,0,'neutral_1');E.summon(s,1,'neutral_1');E.summon(s,0,'perikles_1');// eigener Diener, feindlicher Diener, Bauwerk
-  if(h.id==='anna')s.played=['neutral_1'];
+  E.summon(s,0,'attrappe_23');E.summon(s,1,'attrappe_23');E.summon(s,0,'perikles_1');// eigener Diener, feindlicher Diener, Bauwerk
+  if(h.id==='anna')s.played=['attrappe_23'];
   assert.ok(E.canPower(s,0),h.id);const acts=E.legal(s).filter(x=>x.type==='power');assert.ok(acts.length,h.id);
   act(s,acts[0]);assert.equal(a.mana,10-h.cost,h.id);assert.ok(!E.canPower(s,0),h.id+' nur einmal pro Zug');}
 });
@@ -77,22 +78,22 @@ test('Amanirenas: zufälliger Feind, eine Karte, wenn ein Diener dadurch stirbt;
 test('Anna Komnene: Alexiade ergründet gespielte Karten, Chrysobull verbilligt, Alexios gibt am Zugende eine Karte',()=>{
  const s=ready('anna','khan');play(s,'neutral_5');act(s,{type:'power'});
  assert.deepEqual(s.choice.options,['neutral_5']);act(s,{type:'choose',index:0});assert.equal(s.players[0].hand.at(-1).id,'neutral_5');
- const c=ready('anna');c.players[0].deck=['neutral_0','neutral_1'];play(c,'anna_7');assert.deepEqual(c.players[0].hand.map(h=>E.cost(c,0,h)),[0,1]);
+ const c=ready('anna');c.players[0].deck=['neutral_0','attrappe_23'];play(c,'anna_7');assert.deepEqual(c.players[0].hand.map(h=>E.cost(c,0,h)),[0,1]);
  const a=ready('anna');play(a,'neutral_5');play(a,'anna_9');const n=a.players[0].hand.length;end(a);assert.equal(a.players[0].hand.length,n+1);assert.ok(!a.choice,'zufällig, ohne Wahl');
 });
 
 test('Nezahualcóyotl: Heilung lässt den Gärtner wachsen, Nezahualpilli belohnt jede Heilung',()=>{
  const s=ready('nezahualcoyotl');const g=E.summon(s,0,'nezahualcoyotl_0');g.health=1;s.players[0].health=25;
  act(s,{type:'power'});assert.deepEqual([g.attack,g.health],[2,3],'+1 Angriff durch die Heilung');
- const t=ready('nezahualcoyotl');const x=E.summon(t,0,'neutral_1');play(t,'nezahualcoyotl_9');t.players[0].health=20;
+ const t=ready('nezahualcoyotl');const x=E.summon(t,0,'attrappe_23');play(t,'nezahualcoyotl_9');t.players[0].health=20;
  act(t,{type:'power'});assert.equal(x.attack+t.players[0].board.find(u=>u.id==='nezahualcoyotl_9').attack,2+3+1,'eine Heilung (Held) → +1 Angriff');
 });
 
 test('Hōjō Masako: Schildwall und Treue; Bannung entfernt den verliehenen Schildwall',()=>{
- const s=ready('masako');const u=E.summon(s,0,'neutral_1');act(s,{type:'power',target:u.uid});
+ const s=ready('masako');const u=E.summon(s,0,'attrappe_23');act(s,{type:'power',target:u.uid});
  assert.ok(u.taunt);assert.equal(u.health,4);play(s,'masako_2');assert.deepEqual([u.attack,u.health],[4,6],'Treueschwur: +2/+2 für Schildwall');
  const g=E.summon(s,0,'masako_0');g.health=0;E.settle(s);assert.deepEqual([u.attack,u.health],[5,7],'Gokenin: Vermächtnis +1/+1');
- const t=ready('khan','masako');const v=E.summon(t,1,'neutral_1');v.taunt=true;play(t,'nostradamus_10',{target:v.uid});assert.ok(!v.taunt);
+ const t=ready('khan','masako');const v=E.summon(t,1,'attrappe_23');v.taunt=true;play(t,'nostradamus_10',{target:v.uid});assert.ok(!v.taunt);
 });
 
 test('Scherbengericht schickt einen Diener auf die Hand seines Besitzers zurück',()=>{

@@ -1,5 +1,6 @@
 // Historische Schlüsselwörter (AP 5.4, Teil 1): Umbenennung und die neuen Regeln Vorstoß, Starre, Ergründen,
 // Doppelschlag, Arkaner Fokus und Bauwerk – mit der KI, die sie bewertet (AP 5.8, Teil).
+require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const D=require(path.join(game,'model/data.js')),E=require(path.join(game,'model/engine.js'));
@@ -39,7 +40,7 @@ test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schl�
 });
 
 test('Vorstoß: sofort angreifen, im ersten Zug aber keine Helden',()=>{
- const s=ready('musashi','khan');const foe=E.summon(s,1,'neutral_3');
+ const s=ready('musashi','khan');const foe=E.summon(s,1,'attrappe_34');
  const u=play(s,'musashi_6');
  const targets=E.legal(s,0).filter(a=>a.type==='attack'&&a.uid===u.uid).map(a=>a.target);
  assert.deepEqual(targets,[foe.uid]);
@@ -58,7 +59,7 @@ test('Starre: Schildstoß – der Diener verpasst genau seinen nächsten Angriff
 });
 
 test('Starre: Donnerschlag trifft alle feindlichen Diener und lässt sie erstarren',()=>{
- const s=ready('ragnar','khan');const a=E.summon(s,1,'neutral_3'),b=E.summon(s,1,'neutral_0');
+ const s=ready('ragnar','khan');const a=E.summon(s,1,'attrappe_34'),b=E.summon(s,1,'neutral_0');
  play(s,'ragnar_4');
  assert.equal(a.health,3);assert.ok(a.frozen);assert.equal(b.health,1);assert.ok(b.frozen);
 });
@@ -110,7 +111,7 @@ test('Arkaner Fokus: Theon verstärkt Zauberschaden und wirkt am Zugende den let
  assert.ok(s.log.includes('Theon wirkt Himmelsstrahl erneut.'));
  const echo=s.events.find(e=>e.type==='echo');assert.ok(echo&&echo.target);
  // Kampfschrei-Schaden zählt nicht als Zauber.
- const s2=ready('hypatia','nostradamus');play(s2,'hypatia_9');const foe=E.summon(s2,1,'neutral_3');play(s2,'nostradamus_4');assert.equal(foe.health,3);
+ const s2=ready('hypatia','nostradamus');play(s2,'hypatia_9');const foe=E.summon(s2,1,'attrappe_34');play(s2,'nostradamus_4');assert.equal(foe.health,3);
 });
 
 test('Bauwerk: Djoser errichtet die Stufenpyramide – kein Angriff, kein Flächenschaden, keine Heilung',()=>{
