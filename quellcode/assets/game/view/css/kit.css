@@ -38,6 +38,7 @@ body.stone-hall #stage{background:none}
 .lore-portrait{width:150px;height:150px;flex:none;border-radius:50%;border:4px solid #c9a35f;box-shadow:0 0 0 3px #2a2017,0 8px 18px #0008}
 .lore h2{font-size:34px;margin:4px 0 6px}
 .lore-meta{color:#d5bb87;font-size:18px}
+.lore-school{margin-top:4px;color:#b9c7a4;font-size:15px;letter-spacing:.5px}
 .lore blockquote{margin:12px 0 0;font-style:italic;font-size:19px;color:#f1e2bd;line-height:1.45}
 .lore cite{display:block;font-style:normal;font-size:14px;color:#a99d84;margin-top:4px}
 .lore-body{display:flex;gap:30px;border-top:1px solid #6d5b3f;padding-top:12px}

@@ -30,11 +30,13 @@ test('Welle 1: 56 neue Karten mit festen IDs hinten, zwei je Held, sieben je Zei
 
 test('Zeitalterkarten: nur Helden ihres Zeitalters dürfen sie spielen; Sammlung, Deckbau und Zufallsdecks',()=>{
  assert.ok(D.playable(D.byId.griechen_0,'perikles')&&D.playable(D.byId.griechen_0,'leonidas')&&D.playable(D.byId.griechen_0,'hypatia'));
- assert.ok(!D.playable(D.byId.griechen_0,'khan')&&!D.playable(D.byId.mittelalter_0,'musashi')&&D.playable(D.byId.ostasien_6,'masako'));
- assert.equal(D.eraOf(D.byId.griechen_4),'Griechische Antike');assert.equal(D.eraOf(D.byId.neutral_0),'Neutral');assert.equal(D.eraOf(D.byId.leonidas_0),'Sparta');
+ assert.ok(!D.playable(D.byId.griechen_0,'khan')&&!D.playable(D.byId.mittelalter_0,'dandolo')&&D.playable(D.byId.ostasien_6,'zizka'));
+ // Seit 1.14.0 (AP L.1) gehören Ulrich (musashi) zum Mittelalter im Reich und Theophanu (masako) nicht mehr zur Frühen Neuzeit.
+ assert.ok(D.playable(D.byId.mittelalter_0,'musashi')&&!D.playable(D.byId.ostasien_6,'masako'));
+ assert.equal(D.eraOf(D.byId.griechen_4),'Griechenland und Hellenismus');assert.equal(D.eraOf(D.byId.neutral_0),'Neutral');assert.equal(D.eraOf(D.byId.leonidas_0),'Sparta');
  const p=P.fresh();for(const c of wave)p.collection[c.id]=2;
  const deck=[...E.starter('jeanne').slice(0,26),'mittelalter_4','mittelalter_4','mittelalter_5','mittelalter_5'];
- assert.equal(P.validateDeck(p,'jeanne',deck),null);assert.match(P.validateDeck(p,'khan',[...E.starter('khan').slice(0,28),'mittelalter_4','mittelalter_4']),/anderen Helden/);
+ assert.equal(P.validateDeck(p,'jeanne',deck),null);assert.match(P.validateDeck(p,'dandolo',[...E.starter('dandolo').slice(0,28),'mittelalter_4','mittelalter_4']),/anderen Helden/);
  const random=E.randomDeck('ragnar',99);assert.ok(random.every(id=>D.playable(D.byId[id],'ragnar')));
  // Alte Spielstände bekommen die neuen Karten mit 0 Exemplaren.
  const old=P.fresh();for(const c of wave)delete old.collection[c.id];const back=P.parse(JSON.stringify(old));assert.equal(back.collection.ostasien_6,0);
@@ -105,7 +107,7 @@ test('Belagern oder ignorieren (AP 5.5): Die KI greift ein wirkungsloses Bauwerk
 });
 
 test('Partien mit der Kartenwelle laufen bis zum Ende: je Zeitalter ein Deck aus Zeitalter- und neuen Karten',()=>{
- for(const [hero,age] of [['perikles','griechen'],['jeanne','mittelalter'],['masako','ostasien']]){
+ for(const [hero,age] of [['perikles','griechen'],['jeanne','mittelalter'],['nostradamus','ostasien']]){
   const pool=wave.filter(c=>D.playable(c,hero)).map(c=>c.id);const deck=[];for(let i=0;deck.length<30;i++)deck.push(pool[i%pool.length]);
   for(let seed=1;seed<=3;seed++){const s=E.create({hero,foe:'khan',deck,seed,first:seed%2});E.mulligan(s,[]);
    let n=0;while(s.phase==='play'&&n++<3000)act(s,E.ai(s));assert.equal(s.phase,'over',hero+' '+age+' '+seed);}}

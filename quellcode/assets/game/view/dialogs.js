@@ -30,7 +30,7 @@ D_.redeem={render:vm=>{const s=vm.state;return V.modal({width:760,body:html`<h2>
 
 const RULES=[['1 · Karte ausspielen','Karte antippen, dann „Ausspielen“ oder ein gültiges Ziel wählen. Karten folgen Deinem Finger. Ziehe sie an die gewünschte Position auf Deiner Spielfeldhälfte. In der Hand kannst Du sie umsortieren; außerhalb des Felds springen sie zurück.'],
  ['2 · Angreifen','Grün leuchtenden Diener oder bewaffneten Helden antippen und Gegner wählen. Ziehen zeigt einen Zielpfeil.'],
- ['3 · Heldenfähigkeit','Das runde Symbol neben Deinem Helden ist einmal pro Zug nutzbar. Musashi kostet 1 Mana, Fabius Maximus 3, alle anderen 2.'],
+ ['3 · Heldenfähigkeit','Das runde Symbol neben Deinem Helden ist einmal pro Zug nutzbar. '+CHD.heroes.filter(h=>h.cost!==2).map(h=>h.name+' kostet '+h.cost+' Mana').join(', ')+', alle anderen 2.'],
  ['4 · Karten ansehen','Eine Karte, einen Diener oder die Heldenfähigkeit lange drücken. Friedhöfe zeigen bereits abgelegte Karten.'],
  ['Schildwall & Göttliche Gunst','Angriffe müssen zuerst Diener mit Schildwall treffen; Zauber umgehen ihn. Göttliche Gunst fängt den nächsten Schaden ab.'],
  ['Einmarsch & Vermächtnis','Einmarsch wirkt beim Ausspielen aus der Hand, Vermächtnis nach dem Tod. Sturmangriff: sofort angreifen. Vorstoß: sofort angreifen, im ersten Zug nur Diener.'],
@@ -45,9 +45,9 @@ D_.credits={render:vm=>V.modal({close:false,body:html`<h2>Aeterna</h2><p><span c
  V.buttons([...(vm.dev?[V.button({label:'Renderer-Labor',cmd:'lab'})]:[]),V.button({label:'Zurück',cmd:'close',style:'gold'})])}`})};
 
 // Chronikseite eines Helden (AP 5.9): Porträt, Lebensdaten, Biografie, Zitat, Spielstil, Lieblingskarten, Beziehungen.
-D_.lore={render:vm=>{const {hero:h,page:l,favorites}=vm.state;
+D_.lore={render:vm=>{const {hero:h,page:l,school,favorites}=vm.state;
  return html`<div class="scrim" data-scrim><div class="modal panel lore" role="dialog" aria-modal="true" aria-labelledby="lore-title" style="width:1240px">${
-  V.button({label:'×',cmd:'close',extra:'close',aria:'Chronik schließen'})}<div class="lore-head"><div class="lore-portrait portrait" style="${R.heroStyle(h.id)}"></div><div><div class="eyebrow">Chronik der Helden · ${l.epoch}</div><h2 id="lore-title">${h.name}</h2><div class="lore-meta">${l.life} · ${l.place}</div>${
+  V.button({label:'×',cmd:'close',extra:'close',aria:'Chronik schließen'})}<div class="lore-head"><div class="lore-portrait portrait" style="${R.heroStyle(h.id)}"></div><div><div class="eyebrow">Chronik der Helden · ${l.epoch}</div><h2 id="lore-title">${h.name}</h2><div class="lore-meta">${l.life} · ${l.place}</div>${school?html`<div class="lore-school">Lehrplan Sachsen · Klasse ${school.grade} · ${school.topic}</div>`:''}${
   html`<blockquote>„${l.quote}“<cite>${l.source}</cite></blockquote>`}</div></div><div class="lore-body"><div class="lore-bio">${l.bio.map(t=>html`<p>${t}</p>`)}</div><aside class="lore-facts"><h3>Spielstil</h3><p>${l.style}</p><h3>Heldenfähigkeit</h3><p><b>${h.power}</b> · ${h.powerText}</p><h3>Lieblingskarten</h3><p>${favorites.map(c=>c.name).join(' · ')}</p><h3>Verbündete und Rivalen</h3><ul>${l.relations.map(([who,what])=>html`<li><b>${who}</b> – ${what}</li>`)}</ul><h3>Stimme und Musik</h3><p>${l.voice}; ${l.music}</p></aside></div></div></div>`;}};
 // Card zoom in the match: read-only; a tap beside the card closes it.
 D_.zoom={render:vm=>{const c=vm.state.card,type=c.building?'Bauwerk':c.type==='minion'?'Diener':c.effect?.type==='weapon'?'Zauber · Waffe':'Zauber';

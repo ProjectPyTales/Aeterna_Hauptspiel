@@ -21,7 +21,7 @@ test('Welle 2: sechs Helden mit 10 Karten, Chronik, Startdeck, Mission 17–22 u
   assert.ok(L.of(id),id);assert.equal(P.validateDeck(P.fresh(),id,E.starter(id)),null,id);}
  assert.deepEqual(D.missions.slice(16).map(m=>m.hero),NEW);
  for(const a of AGES){const heroes=D.heroes.filter(h=>h.age===a),set=D.cards.filter(c=>c.age===a);
-  assert.equal(heroes.length,2,a);assert.equal(set.length,7,a);assert.ok(set.every(c=>c.hero===a&&heroes.every(h=>D.playable(c,h.id))),a);}
+  assert.ok(heroes.length>=2,a);assert.equal(set.length,7,a);assert.ok(set.every(c=>c.hero===a&&heroes.every(h=>D.playable(c,h.id))),a);}
  assert.equal(D.cards[269].id,'epaminondas_0','neue IDs hinten angehängt');
 });
 

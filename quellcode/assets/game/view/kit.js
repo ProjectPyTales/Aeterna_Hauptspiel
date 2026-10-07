@@ -22,6 +22,7 @@ V.tabs=(items,active,cmd)=>html`<div class="stone-tabs" role="tablist">${items.m
  html`<button class="${cls('stone-tab',id===active&&'active')}" role="tab" aria-selected="${id===active}"${data({cmd,a:id,key:id})}>${label}</button>`)}</div>`;
 
 // Wallet: gold, dust and packs. Keyed, so a changing number only updates its own text.
+// ASTRA: waehrung – Symbole für Gold, Staub und Kartenpakete (heute ◉ ✧ ▣ als Schriftzeichen), je 64 × 64
 V.wallet=({gold,dust,packs})=>html`<div class="wallet" role="status"><span data-key="gold" aria-label="${gold} Gold">◉ ${gold}</span><span data-key="dust" aria-label="${dust} Staub">✧ ${dust}</span><span data-key="packs" aria-label="${packs} Kartenpakete">▣ ${packs}</span></div>`;
 
 // Kopfleiste: back, title, wallet. The back command belongs to the screen's view model.

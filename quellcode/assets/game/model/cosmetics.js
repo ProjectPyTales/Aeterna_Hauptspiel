@@ -10,8 +10,12 @@ const backs=[
 {id:'lilien',name:'Lilienbanner',text:'Goldene Lilien auf königsblauem Tuch, wie in Orléans.',price:250},
 {id:'zen',name:'Tusche & Kirschblüte',text:'Schwarzer Lack, ein roter Pinselkreis und fallende Blüten.',price:250}];
 // The marble-hall edition keeps every ruler's face; only attire and setting change.
-const skinEpithets={leonidas:'Hüter der Thermopylen',hypatia:'Sternkundige von Alexandria',imhotep:'Baumeister von Sakkara',dandolo:'Doge von Venedig',khan:'Herr der Steppe',boudicca:'Königin der Icener',nostradamus:'Seher von Salon',jeanne:'Jungfrau von Orléans',ragnar:'Schrecken des Nordens',musashi:'Meister der zwei Schwerter'};
+const skinEpithets={leonidas:'Hüter der Thermopylen',hypatia:'Sternkundige von Alexandria',imhotep:'Baumeister von Sakkara',dandolo:'Doge von Venedig'};
 const skins=Object.keys(skinEpithets).map(hero=>({id:hero+'-marmor',hero,atlas:'heroes-marble',name:'Marmorhallen-Edition',text:skinEpithets[hero],price:300}));
+// Lehrplan-Helden (AP L.1, 1.14.0): Die Marmor-Skins der sechs ersetzten Helden zeigten die alten Personen. Sie entfallen;
+// wer einen gekauft hat, bekommt den Preis zurück – einmal, denn normalize entfernt die ID danach aus dem Spielstand.
+const retired=['khan','boudicca','nostradamus','jeanne','ragnar','musashi'].map(hero=>hero+'-marmor');
+const refund=raw=>raw&&typeof raw==='object'&&Array.isArray(raw.skins)?[...new Set(raw.skins)].filter(id=>retired.includes(id)).length*300:0;
 const boards=[
 {id:'standard',name:'Standard',text:'Das sandsteinerne Schlachtfeld der Chronik.',image:'board',price:0},
 {id:'ancient',name:'Griechischer Marmor',text:'Weißer Marmor, Eulen und der Helm eines Hopliten.',image:'board-ancient',price:100},
@@ -35,6 +39,6 @@ function buy(p,kind,id){const item=find(kind,id);if(!item)return 'Unbekannter Ge
 function equip(p,kind,id){const item=find(kind,id);if(!item)return 'Unbekannter Gegenstand.';if(!owns(p,kind,id))return 'Zuerst freischalten.';const e=p.cosmetics.equipped;if(kind==='backs')e.back=id;else if(kind==='boards')e.board=id;else e.skins[item.hero]=id;return null;}
 function unequipSkin(p,hero){delete p.cosmetics.equipped.skins[hero];}
 function equipped(p,kind,id){const e=p.cosmetics.equipped;if(kind==='backs')return e.back===id;if(kind==='boards')return e.board===id;const s=find('skins',id);return !!s&&e.skins[s.hero]===id;}
-const api={catalog,find,fresh,normalize,owns,buy,equip,unequipSkin,equipped};
+const api={catalog,find,fresh,normalize,retired,refund,owns,buy,equip,unequipSkin,equipped};
 if(typeof module!=='undefined')module.exports=api;else root.CHK=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

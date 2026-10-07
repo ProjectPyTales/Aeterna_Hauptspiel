@@ -135,18 +135,18 @@ const IDEA={
  mittelalter_4:'a jousting knight in a tournament, lance lowered, banners and crowd',
  mittelalter_5:'a stone keep of a medieval castle on a hill, banners on the battlements',
  mittelalter_6:'a medieval trebuchet hurling a stone at a castle wall',
- ostasien_0:'Japanese ashigaru foot soldiers with long spears charging',
- ostasien_1:'a Chinese mandarin scholar official with a scroll in an imperial hall',
- ostasien_2:'a Japanese tea ceremony in a quiet tea house, steam rising from the bowl',
- ostasien_3:'a Korean hwacha firing a volley of rocket arrows from a wooden cart',
- ostasien_4:'the Korean turtle ship of Yi Sun-sin with an iron-spiked roof and dragon head',
- ostasien_5:'rows of the terracotta army of Qin Shi Huang in the pit, warm light',
- ostasien_6:'the Great Wall of China winding over green mountains',
+ ostasien_0:'a German Landsknecht in slashed colourful clothes with a feathered hat and a long pike, charging',
+ ostasien_1:'a printer pulling the lever of a wooden printing press in a Mainz workshop, fresh pages hanging to dry',
+ ostasien_2:'a Baroque coffee house in Leipzig, guests reading news sheets beside steaming copper coffee pots',
+ ostasien_3:'a battery of heavy Baroque siege cannons (Kartaunen) firing a volley, thick white smoke',
+ ostasien_4:'a Spanish war galleon firing a broadside on the open Atlantic, sails full',
+ ostasien_5:'rows of uniformed musketeers of a Baroque standing army drilling on a parade ground before a palace',
+ ostasien_6:'a star-shaped Baroque fortress like Neuf-Brisach seen from above, bastions, ravelins and water-filled moats',
  neutral_47:'the Colosseum of Rome filled with spectators, gladiators in the arena',
  neutral_48:'the Hanging Gardens of Babylon, terraces overflowing with plants and waterfalls',
  neutral_49:'the pyramids of Giza at sunset with the Sphinx, desert sky',
- rider:'a light Mongol rider galloping across the steppe with a short bow',
- terracotta:'a single terracotta warrior from the army of Qin Shi Huang, shield ready',
+ rider:'a light horseman with spear and round shield galloping out of a forest',
+ terracotta:'a single Baroque musketeer in a blue coat with musket and bayonet, standing guard',
  // Welle 2 (AP 5.10, 1.11.0)
  epaminondas_0:'a light-armed Theban skirmisher throwing a javelin, Boeotian hills behind',
  epaminondas_1:'a Boeotian hoplite with the club emblem of Herakles on his round shield',
@@ -215,13 +215,13 @@ const IDEA={
  rom_4:'the Via Appia lined with tombs and cypresses, legions marching along it',
  rom_5:'a Vestal Virgin tending the eternal sacred fire in the round temple of Vesta',
  rom_6:'the Ara Pacis altar of Augustan peace, calm light',
- steppe_0:'a nomad herdswoman on the steppe with a herd of horses',
- steppe_1:'a shaman of the Eternal Blue Sky with drum and ribbons under the open sky',
- steppe_2:'a Parthian horse archer turning in the saddle to shoot backwards',
- steppe_3:'the Persian Immortals in rows with spears and wicker shields, Persepolis reliefs style',
- steppe_4:'a storm of arrows from steppe riders darkening the sky',
- steppe_5:'the Persian Royal Road with a mounted courier and a relay station',
- steppe_6:'the palace of Persepolis with its great stairway and columns',
+ steppe_0:'an early Iron Age Celtic wheelwright fitting an iron tyre on a spoked wooden wheel, a ceremonial four-wheeled wagon behind',
+ steppe_1:'an Egyptian scribe sitting cross-legged with a papyrus scroll and reed pen in the House of Life, shelves of scrolls',
+ steppe_2:'an Egyptian chariot archer drawing a composite bow from a racing chariot, desert dust',
+ steppe_3:'Nubian Medjai scouts with bows and leopard-skin quivers guarding a desert road in Egypt',
+ steppe_4:'a charge of Egyptian war chariots, archers loosing arrows, clouds of dust',
+ steppe_5:'an early Celtic trade road, traders with amber, tin and Greek wine amphoras on ox carts in a forest valley',
+ steppe_6:'the mud-brick fortress of Buhen on the Nile in Nubia with bastions, towers and a dry moat',
  byzanz_0:'a Byzantine akritas border warrior with spear and shield in the mountains',
  byzanz_1:'scholars translating manuscripts in the House of Wisdom in Baghdad',
  byzanz_2:'a heap of gold Byzantine solidi (bezants) being paid as tribute',
@@ -233,25 +233,44 @@ const IDEA={
  wagon:'a heavy Hussite war wagon with wooden walls and a chained wheel',
  taborite:'a Taborite foot soldier with pavise shield and polearm',
  mamluk:'a light Mamluk rider with lance and round shield',
- immortal:'a single Persian Immortal guardsman with spear and wicker shield',
+ immortal:'a single Nubian Medjai warrior with bow and cowhide shield',
+ chariot:'a light Egyptian war chariot with two horses and a bowman, dust behind',
  messenian:'a freed Messenian with a newly forged spear and shield',
  companion:'a warrior of the Sacred Band of Thebes, loyal companion with shield',
  twin:'a young Mongol warrior, twin of the khatun, with bow',
  elephant:'a Carthaginian war elephant with a tower on its back'};
-// Porträts der Helden ohne Atlasfeld.
+// Porträts der Helden ohne Atlasfeld – seit 1.14.0 auch die elf Lehrplan-Helden (AP L.1), deren alte Porträts entfallen.
 const PORTRAIT={
+ khan:'Portrait of Widukind, Saxon leader of the 8th century, long hair and beard, fur cloak over mail, spear, misty Westphalian forest behind',
+ boudicca:'Portrait of Vercingetorix, Gallic chieftain of the Arverni, long hair and drooping moustache, gold torc, bronze helmet at his side, ramparts of Alesia behind',
+ nostradamus:'Portrait of Johann Friedrich Boettger, young Baroque alchemist in a periwig and waistcoat, holding a white porcelain cup, glowing kiln and flasks behind',
+ jeanne:'Portrait of Hildegard of Bingen, Benedictine abbess in black habit and white veil, wax tablet and stylus, a fiery light from above, Rhine valley behind',
+ ragnar:'Portrait of Wiprecht of Groitzsch, Saxon count around 1100 in mail and surcoat, sword and charter, forest clearing and a new castle behind',
+ musashi:'Portrait of Ulrich von Liechtenstein, 13th-century knight and minnesinger, great helm crowned with a small Venus figure under his arm, lance and pennant, tournament field behind',
  perikles:'Portrait of Pericles, Athenian statesman, bearded, wearing a Corinthian helmet pushed up on his head, Acropolis behind',
  agrippa:'Portrait of Marcus Vipsanius Agrippa, Roman general, strong brow, naval crown (corona rostrata), Actium fleet behind',
- amanirenas:'Portrait of Amanirenas, Kandake of Kush, one eye scarred, golden diadem with uraei, bow in hand, Meroë pyramids behind',
+ amanirenas:'Portrait of Queen Ahhotep I of Egypt, vulture crown, golden flies of valour on a chain, ceremonial axe, Theban temple behind',
  anna:'Portrait of Anna Komnene, Byzantine princess and historian, purple and gold robes, holding a codex',
  nezahualcoyotl:'Portrait of Nezahualcoyotl, poet-king of Texcoco, feathered headdress, flower in hand, lake and dike behind',
- masako:'Portrait of Hojo Masako, the nun shogun, in a white Buddhist nun’s hood over dark robes, Kamakura behind',
+ masako:'Portrait of Empress Theophanu, Byzantine-born empress in purple and gold with a pearl crown, holding a charter, Ottonian church behind',
  epaminondas:'Portrait of Epaminondas, Theban general, short beard, Boeotian helmet, calm philosopher’s gaze, phalanx behind',
  fabius:'Portrait of Quintus Fabius Maximus, elderly Roman dictator in toga with a small wart on his lip, hills of Campania behind',
- mandukhai:'Portrait of Mandukhai Khatun, Mongol queen in armour and a tall fur-trimmed hat, bow on her back, steppe behind',
+ mandukhai:'Portrait of Thusnelda, Germanic noblewoman of the Cherusci, braided hair, woollen cloak with bronze brooch, proud gaze, dark forest behind',
  baibars:'Portrait of Baibars, Mamluk sultan, blue eyes, turban with helmet, lance, Cairo citadel behind',
- zizka:'Portrait of Jan Zizka, Hussite general, bald with moustache and an eye patch, mace in hand, war wagons behind',
- fuhao:'Portrait of Fu Hao, Shang dynasty general and priestess, bronze yue axe, jade ornaments, oracle bones behind'};
+ zizka:'Portrait of Sebastien Vauban, Marshal of France, Baroque periwig, breastplate and blue sash, plan of a star fort in hand, fortress walls behind',
+ fuhao:'Portrait of the Lady of Vix, Celtic princess of the Hallstatt period, massive gold torc, amber beads, the great bronze krater behind'};
+// Im Code gezeichnete Grafiken (AP L.4): Jede Zeichenfunktion trägt den Kommentar „ASTRA: <kennung> – <was>, <Größe>“.
+// Die Liste sammelt sie aus quellcode/ (ohne fremde Bibliotheken *.min.js); lehrplan.test.js prüft, dass Code und
+// MOTIVE.md dieselben Kennungen nennen.
+const ASTRA=/ASTRA: ([a-z0-9-]+) – (.+?), ([^,]*?\d+ × \d+)/g;
+const UI='Game UI asset for a mobile card game, hand-painted in the Aeterna style matching the concept art: warm limestone, '+
+ 'polished dark wood, bronze, gold leaf and lapis accents, light from the upper left, soft ambient shadows, transparent background, no text';
+function astra(){const out=[],base=path.join(__dirname,'..');
+ const walk=dir=>{for(const e of fs.readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const f=path.join(dir,e.name);
+  if(e.isDirectory())walk(f);else if(/\.(js|css|html)$/.test(e.name)&&!e.name.endsWith('.min.js'))
+   for(const m of fs.readFileSync(f,'utf8').matchAll(ASTRA))out.push({id:m[1],what:m[2],size:m[3],at:path.relative(base,f)});}};
+ walk(path.join(base,'quellcode'));return out.sort((a,b)=>a.id.localeCompare(b.id));}
+const drawn=astra();
 const kind=c=>c.building?'Bauwerk':c.type==='spell'?'Zauber':'Diener';
 const epoch=hero=>{const h=D.heroes.find(x=>x.id===hero),l=h&&L.of(h.id),age=D.ageById[hero];return l?`${l.epoch}, ${l.place}`:age?age.name:'neutral, any historical epoch';};
 const cards=Object.values(D.byId).filter(D.missingArt),heroes=D.heroes.filter(h=>!h.art);
@@ -262,7 +281,8 @@ const out=`# Fehlende Motive
 *Automatisch erzeugt von \`node werkzeuge/motive.js\` – nicht von Hand ändern.* Bis ein Motiv da ist, zeichnet das Spiel
 einen gestalteten Platzhalter (Epochenfarbe, Symbol, „Motiv folgt“; AP 5.12).
 
-**Stand:** ${cards.length} Karten ohne Motiv, ${heroes.length} Helden ohne Porträt.
+**Stand:** ${cards.length} Karten ohne Motiv, ${heroes.length} Helden ohne Porträt, ${drawn.length} im Code gezeichnete Grafiken.
+Die Karten der elf Lehrplan-Helden (AP L.1) tragen noch die Namen und Bildideen ihrer Vorgänger – sie folgen mit AP L.2.
 
 Ablauf wie in AP 1.2: Konzeptbild als Stilreferenz anhängen, in doppelter Zielgröße erzeugen, Ablage in
 \`ungenutzte_assets/karten/<id>.png\`; die nächste Sitzung schneidet zu und baut die Bilder in die Atlanten ein.
@@ -270,7 +290,17 @@ Ablauf wie in AP 1.2: Konzeptbild als Stilreferenz anhängen, in doppelter Zielg
 | ID | Name | Held | Typ | Größe (px) | Prompt |
 |---|---|---|---|---|---|
 ${cards.map(row).join('\n')}
-${heroes.length?`\n## Helden ohne Porträt\n\n| ID | Name | Größe (px) | Prompt |\n|---|---|---|---|\n${heroes.map(h=>`| \`${h.id}\` | ${h.name} | 768 × 768 (Atlasfeld 384 × 384) | ${START}. ${PORTRAIT[h.id]||'Portrait of '+h.name}. Epoch: ${epoch(h.id)}. |`).join('\n')}\n`:''}`;
+${heroes.length?`\n## Helden ohne Porträt\n\n| ID | Name | Größe (px) | Prompt |\n|---|---|---|---|\n${heroes.map(h=>`| \`${h.id}\` | ${h.name} | 768 × 768 (Atlasfeld 384 × 384) | ${START}. ${PORTRAIT[h.id]||'Portrait of '+h.name}. Epoch: ${epoch(h.id)}. |`).join('\n')}\n`:''}
+## Im Code gezeichnet (AP L.4)
+
+Diese Grafiken zeichnet das Spiel heute selbst (Canvas, SVG oder CSS). Im Code steht an der Zeichenfunktion der Kommentar
+\`ASTRA: <kennung> – <was>, <Größe>\`. Ablage der Astra-Bilder: \`ungenutzte_assets/astra/<kennung>.png\` in doppelter Größe; eine
+spätere Sitzung baut sie ein. Größen mit „9-Slice“ sind dehnbare Rahmen (Ecken fest, Kanten und Mitte gestreckt).
+
+| Kennung | Was | Größe (px) | Stelle im Code | Prompt |
+|---|---|---|---|---|
+${drawn.map(d=>`| \`${d.id}\` | ${d.what} | ${d.size} | \`${d.at}\` | ${UI}. ${d.what}. |`).join('\n')}
+`;
 fs.mkdirSync(path.join(__dirname,'../ungenutzte_assets'),{recursive:true});
 fs.writeFileSync(path.join(__dirname,'../ungenutzte_assets/MOTIVE.md'),out);
-console.log(`MOTIVE.md: ${cards.length} Karten, ${heroes.length} Helden ohne Motiv.`);
+console.log(`MOTIVE.md: ${cards.length} Karten, ${heroes.length} Helden ohne Motiv, ${drawn.length} im Code gezeichnete Grafiken.`);

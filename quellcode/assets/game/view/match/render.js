@@ -5,7 +5,8 @@
 // file, which happens off the main thread – createImageBitmap(<img>) blocked the hall for up to 3 s at 4× CPU.
 const picture=name=>{const src='assets/art/'+name+'.webp',viaImage=()=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=src;});
  return window.createImageBitmap?fetch(src).then(r=>{if(!r.ok)throw Error(r.status);return r.blob();}).then(b=>createImageBitmap(b)).catch(viaImage):viaImage();};
-R.atlases=()=>['board','heroes','heroes-marble','legendary-frame',...D.heroes.filter(h=>h.art).map(h=>h.id),'neutral0','neutral1','neutral2','neutral3'];
+// Card atlases come from the cards themselves: since 1.14.0 (AP L.1) a replaced hero has no portrait, but his cards keep their pictures.
+R.atlases=()=>['board','heroes','heroes-marble','legendary-frame',...new Set(Object.values(D.byId).map(c=>c.art).filter(a=>a&&a[0]!=='@'))];
 R.load=(progress=()=>{})=>{const names=R.atlases();let done=0;
  return Promise.all(names.map(name=>picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>progress(++done,names.length))));};
 R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>delete R.pending[name]);};
@@ -35,9 +36,12 @@ function ellipse(c,x,y,rx,ry,fill,stroke,lw=1){c.beginPath();c.ellipse(x,y,rx,ry
 function txt(c,t,x,y,size=18,color='#fff',align='center',max){c.font=`${size}px ${size>=22?'Title':'Body'},serif`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;if(max)c.fillText(t,x,y,max);else c.fillText(t,x,y);}
 function number(c,t,x,y,size=30){c.font=`bold ${size}px Title,serif`;c.textAlign='center';c.textBaseline='middle';c.strokeStyle='#171416';c.lineWidth=5;c.lineJoin='round';c.strokeText(t,x,y);c.fillStyle='#fff6dc';c.fillText(t,x,y);}
 function grad(c,x,y,w,h,a,b){let g=c.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,a);g.addColorStop(.45,b);g.addColorStop(1,a);return g;}
+// ASTRA: edelstein – facettierter Edelstein für Kosten, Seltenheit und Mana (je Farbe), 96 × 96
 function gem(c,x,y,r,color,label){c.save();c.translate(x,y);c.beginPath();c.moveTo(0,-r);c.lineTo(r*.82,-r*.4);c.lineTo(r,r*.35);c.lineTo(0,r);c.lineTo(-r,r*.35);c.lineTo(-r*.82,-r*.4);c.closePath();const g=c.createLinearGradient(-r,-r,r,r);g.addColorStop(0,'#f5ffff');g.addColorStop(.22,color);g.addColorStop(.62,color);g.addColorStop(1,'#162030');c.fillStyle=g;c.fill();c.lineWidth=2;c.strokeStyle='#172c50';c.stroke();c.beginPath();c.moveTo(-r*.82,-r*.4);c.lineTo(0,0);c.lineTo(r*.82,-r*.4);c.moveTo(0,0);c.lineTo(0,r);c.strokeStyle='#ffffff50';c.stroke();if(label!=null)number(c,label,0,1,r*1.4);c.restore();}
+// ASTRA: lebensherz – Herz für die Lebenspunkte, 96 × 96
 function heart(c,x,y,r,label){c.beginPath();c.moveTo(x,y-r);c.bezierCurveTo(x+r*.4,y-r*.2,x+r,y+r*.05,x+r*.8,y+r*.55);c.bezierCurveTo(x+r*.45,y+r*1.4,x-r*.8,y+r*1.4,x-r*.86,y+r*.4);c.bezierCurveTo(x-r*.92,y-r*.1,x-r*.3,y-r*.4,x,y-r);c.fillStyle=grad(c,x-r,y-r,2*r,2*r,'#731c23','#ee5a47');c.fill();c.strokeStyle='#321211';c.lineWidth=3;c.stroke();number(c,label,x,y+r*.35,r*1.25);}
 // Placeholder art drawn in code (AP 5.12 preview): the step pyramid of Djoser until a painted motif exists.
+// ASTRA: stufenpyramide – Motiv der Stufenpyramide des Djoser (Spielstein pyramid), 724 × 724
 function pyramidArt(c,x,y,w,h){c.save();c.beginPath();c.rect(x,y,w,h);c.clip();
  const sky=c.createLinearGradient(0,y,0,y+h);sky.addColorStop(0,'#f2c37a');sky.addColorStop(.55,'#f7dfae');sky.addColorStop(.56,'#d9b47a');sky.addColorStop(1,'#a97c44');c.fillStyle=sky;c.fillRect(x,y,w,h);
  const sun=c.createRadialGradient(x+w*.74,y+h*.24,0,x+w*.74,y+h*.24,w*.2);sun.addColorStop(0,'#fffbe8');sun.addColorStop(.4,'#ffe7a3');sun.addColorStop(1,'#ffe7a300');c.fillStyle=sun;c.fillRect(x,y,w,h);
@@ -50,7 +54,8 @@ function pyramidArt(c,x,y,w,h){c.save();c.beginPath();c.rect(x,y,w,h);c.clip();
 // (detail view) also carry the name. Every placeholder drawn is counted in R.placeholderIds for the visual check.
 R.placeholderIds=new Set();
 function mix(hex,t){const n=parseInt(hex.slice(1,7),16),ch=[n>>16,n>>8&255,n&255].map(v=>Math.round(t>0?v+(255-v)*t:v*(1+t)));return '#'+ch.map(v=>v.toString(16).padStart(2,'0')).join('');}
-const monogram=name=>{const w=name.replace(/[,.’']/g,'').split(/\s+/).filter(x=>/^[A-ZÄÖÜ]/.test(x));return ((w[0]||name)[0]+(w.length>1?w[w.length-1][0]:'')).toUpperCase();};
+// Ordinal numbers (Ahhotep I.) are no initials: „A“, not „AI“.
+const monogram=name=>{const w=name.replace(/[,.’']/g,'').split(/\s+/).filter(x=>/^[A-ZÄÖÜ]/.test(x)&&!/^[IVX]+$/.test(x));return ((w[0]||name)[0]+(w.length>1?w[w.length-1][0]:'')).toUpperCase();};
 function placeholderArt(c,item,x,y,w,h){R.placeholderIds.add(item.id);const isHero=!!item.power,hero=isHero?item:D.owner(item),col=hero?hero.color:'#7c6a4c',k=Math.min(w,h),cx=x+w/2,big=w>=250;
  c.save();c.beginPath();c.rect(x,y,w,h);c.clip();
  const g=c.createRadialGradient(cx,y+h*.4,k*.04,cx,y+h*.45,k*.8);g.addColorStop(0,mix(col,.45));g.addColorStop(.55,col);g.addColorStop(1,mix(col,-.65));c.fillStyle=g;c.fillRect(x,y,w,h);
@@ -67,6 +72,7 @@ R.tile=(c,name,cell,x,y,w,h,item)=>{if(name==='@pyramid'){R.placeholderIds.add('
 function lines(c,text,max){const words=text.split(' '),out=[];let line='';for(const w of words){const n=line?line+' '+w:w;if(c.measureText(n).width>max&&line){out.push(line);line=w;}else line=n;}if(line)out.push(line);return out;}
 const rarityColor={basic:'#99938a',common:'#c6cac7',rare:'#55b8f9',epic:'#b56fe9',legendary:'#ffb94b',token:'#988a69'};
 R.rarityColor=rarityColor;
+// ASTRA: kartenrahmen – Kartenrahmen für Diener, Zauber und Bauwerke je Seltenheit (Namensband, Textfeld, Werte), 400 × 564
 R.card=(c,card,x,y,w=200,h=282,opts={})=>{const rare=rarityColor[card.rarity],legend=card.rarity==='legendary';c.save();c.translate(x,y);c.scale(w/200,h/282);if(opts.glow){c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=20;}round(c,0,0,200,282,14,'#241d19','#130e0c',3);round(c,4,4,192,274,12,grad(c,0,0,200,282,legend?'#8b501f':'#75573a',legend?'#ffe29a':'#d3b879'),rare,3);round(c,8,8,184,266,10,null,rare,2);c.shadowBlur=0;round(c,10,10,180,258,11,D.owner(card)?.color||'#625b4c','#38251e',3);
 c.save();c.beginPath();c.ellipse(100,85,78,74,0,0,Math.PI*2);c.clip();R.tile(c,card.art,card.cell,21,legend?38:10,158,154,card);c.restore();ellipse(c,100,85,79,75,null,'#dbbf7b',4);ellipse(c,100,85,74,70,null,'#1b1719',2);
 if(legend&&R.images['legendary-frame'])c.drawImage(R.images['legendary-frame'],4,0,192,153);
@@ -107,16 +113,14 @@ R.medals={};R.heroStyle=(id,atlas='heroes')=>{const i=D.heroes.findIndex(h=>h.id
  if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=300;c.height=450;R.tile(c.getContext('2d'),null,0,0,0,300,450,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.webp');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
 function hit(id,x,y,w,h,data={}){R.hits.push({id,x,y,w,h,...data});}
 R.hit=(x,y)=>[...R.hits].reverse().find(h=>{if(h.angle!=null){const dx=x-h.cx,dy=y-h.cy,co=Math.cos(-h.angle),si=Math.sin(-h.angle),xx=dx*co-dy*si,yy=dx*si+dy*co;return Math.abs(xx)<=h.w/2&&Math.abs(yy)<=h.h/2;}return x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h;});
+// ASTRA: knopf-match – Knopf auf dem Spielbrett (Zug beenden, Chronik, Pause, Hilfe), aktiv und ruhend, 344 × 128
 function button(c,text,x,y,w,h,active,id){R.blit(c,R.sprite('button:'+[text,w,h,active],-30,-30,w+60,h+60,g=>{if(active){g.shadowColor='#ffc44b';g.shadowBlur=12;}round(g,0,0,w,h,12,grad(g,0,0,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);g.shadowBlur=0;round(g,6,6,w-12,h-12,8,null,'#ffffff45',1);txt(g,text,w/2,h/2,19,active?'#2a2016':'#c8cfcb','center',w-14);}),x,y);hit(id,x,y,w,h);}
+// ASTRA: faehigkeitssymbole – Symbol der Heldenfähigkeit, eines je Held (22), 96 × 96
 function powerIcon(c,id,x,y){c.save();c.translate(x,y);c.strokeStyle='#f2d99b';c.fillStyle='#f2d99b';c.lineWidth=3;c.lineCap='round';c.lineJoin='round';c.beginPath();
 if(id==='leonidas'){c.moveTo(-16,-18);c.lineTo(16,-18);c.lineTo(16,2);c.quadraticCurveTo(13,18,0,24);c.quadraticCurveTo(-13,18,-16,2);c.closePath();c.stroke();c.beginPath();c.moveTo(-7,8);c.lineTo(0,-8);c.lineTo(7,8);}
 else if(id==='imhotep'){c.ellipse(0,-12,8,11,0,0,Math.PI*2);c.moveTo(0,0);c.lineTo(0,24);c.moveTo(-14,6);c.lineTo(14,6);}
-else if(id==='dandolo'||id==='musashi'){c.moveTo(-15,21);c.lineTo(16,-21);c.lineTo(13,-4);c.moveTo(-16,7);c.lineTo(-2,16);if(id==='musashi'){c.moveTo(15,21);c.lineTo(-16,-21);c.moveTo(16,7);c.lineTo(2,16);}}
-else if(id==='khan'){c.moveTo(-8,-22);c.quadraticCurveTo(26,0,-8,22);c.lineTo(-8,-22);c.moveTo(-20,0);c.lineTo(22,0);c.lineTo(13,-7);c.moveTo(22,0);c.lineTo(13,7);}
-else if(id==='jeanne'){c.moveTo(-12,24);c.lineTo(-12,-24);c.lineTo(20,-19);c.lineTo(13,-6);c.lineTo(-12,-10);}
-else if(id==='ragnar'){c.moveTo(0,25);c.lineTo(0,-25);c.moveTo(-17,-16);c.lineTo(0,0);c.lineTo(17,-16);c.moveTo(-17,4);c.lineTo(0,20);c.lineTo(17,4);}
-else if(id==='nostradamus'){c.moveTo(-25,0);c.quadraticCurveTo(0,-28,25,0);c.quadraticCurveTo(0,28,-25,0);c.moveTo(8,0);c.arc(0,0,8,0,Math.PI*2);}
 else if(!D.heroById[id]?.art){c.font='bold 34px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(D.heroById[id].icon,0,2);}
+else if(id==='dandolo'){c.moveTo(-15,21);c.lineTo(16,-21);c.lineTo(13,-4);c.moveTo(-16,7);c.lineTo(-2,16);}
 else{for(let i=0;i<8;i++){const a=i*Math.PI/4,r=i%2?8:25;c.lineTo(Math.cos(a)*r,Math.sin(a)*r);}c.closePath();c.fill();}c.stroke();c.restore();}
 // The power shares a metal mounting with the portrait; no separate name plates.
 // Since AP 2.4 the whole assembly is one sprite per state (health, armor, attack, weapon, readiness, power).
@@ -129,6 +133,7 @@ function portrait(c,s,p,x,y){
  hit('power'+p,x+(L.powerOffset.x-34)*scale,y+(L.powerOffset.y-55)*scale,78*scale,101*scale,{kind:'power'});
  R.positions['power'+p]=L.powerPosition(p,x,y);
 }
+// ASTRA: heldenfassung – Bronzefassung des Heldenporträts mit Fähigkeitsmedaillon, Rüstung, Angriff und Waffe, 700 × 480
 function portraitArt(c,a,hero,skin,ready,can){
  const x=0,y=0,idx=D.heroes.indexOf(hero),powerX=x+L.powerOffset.x,powerY=y+L.powerOffset.y;
  // Cast shadow, broad bronze socket and inset bevel give the assembly depth.
@@ -154,9 +159,11 @@ function portraitArt(c,a,hero,skin,ready,can){
  if(a.powerUsed){ellipse(c,powerX,powerY,36,39,'#0f121ba0');txt(c,'✓',powerX,powerY,28,'#aa9d87');}
 }
 // Starre: hoarfrost over the plaque and a snowflake on top.
+// ASTRA: starre-reif – Raureif über einem Diener in Starre, 188 × 256
 function frost(c){c.save();const g=c.createRadialGradient(0,0,20,0,0,80);g.addColorStop(0,'#d6f1ff38');g.addColorStop(1,'#e9f8ffb0');round(c,-47,-64,94,128,7,g,'#eefaff',3);c.strokeStyle='#ffffffb0';c.lineWidth=1.4;
  for(const [x,y,a] of [[-40,-56,.6],[40,-56,2.5],[-40,50,-.6],[40,50,-2.5]]){c.beginPath();for(let i=0;i<3;i++){const r=10+i*4,an=a+(i-1)*.45;c.moveTo(x,y);c.lineTo(x+Math.cos(an)*r,y+Math.sin(an)*r);}c.stroke();}
  ellipse(c,-31,-46,13,13,'#1d3a52d0','#eaf8ff',1.5);c.font='19px Body,serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#eaf8ff';c.fillText('❄',-31,-45);c.restore();}
+// ASTRA: schildwall-rahmen – Schildrahmen mit Wappen für Diener mit Schildwall, 240 × 330
 function tauntFrame(c){
  c.beginPath();c.moveTo(-60,-73);c.lineTo(-34,-73);c.lineTo(-25,-79);c.lineTo(25,-79);c.lineTo(34,-73);c.lineTo(60,-73);c.lineTo(60,47);c.quadraticCurveTo(57,65,0,83);c.quadraticCurveTo(-57,65,-60,47);c.closePath();
  c.strokeStyle='#352a20';c.lineWidth=12;c.stroke();c.strokeStyle=grad(c,-60,-78,120,160,'#755134','#e5c48b');c.lineWidth=8;c.stroke();
@@ -168,6 +175,7 @@ function tauntCrest(c){
  c.fillStyle=grad(c,-18,-83,36,37,'#594536','#c29b60');c.fill();c.strokeStyle='#f4d494';c.lineWidth=3;c.stroke();c.shadowBlur=0;
  c.beginPath();c.moveTo(0,-76);c.lineTo(0,-55);c.moveTo(-10,-70);c.lineTo(10,-70);c.strokeStyle='#fce5b4';c.lineWidth=3;c.stroke();c.restore();
 }
+// ASTRA: manasaeule – Manasäule mit zehn Kristallen (voll, leer, gesperrt), 196 × 788
 function manaColumn(c,a){
  const {x,y,w,h}=L.mana,cx=x+w/2;
  c.save();c.shadowColor='#21170abb';c.shadowBlur=14;c.shadowOffsetY=5;
@@ -198,6 +206,7 @@ function minion(c,s,p,u,x,y,selected,targets){
  R.positions[u.uid]={x,y};
  hit(u.uid,x-57*ms,y-72*ms,114*ms,146*ms,{kind:'target',idCard:u.id});
 }
+// ASTRA: diener-plakette – Diener-Plakette auf dem Feld (Rahmen, Angriff, Leben, Bauwerk-Turm, Schlüsselwort-Leiste), 204 × 272
 function plaque(c,u,card,ready,selected,aim){
  c.save();c.shadowColor='#301b12aa';c.shadowBlur=13;
  ellipse(c,0,69,47,8/L.minionScale,'#38271939');c.restore();
@@ -243,6 +252,7 @@ for(let p=0;p<2;p++){const yy=L.rows[p],board=s.players[p].board,hasGap=p===0&&i
  if(hasGap){const xx=L.center+(insert-board.length/2)*L.spacing;R.blit(c,R.sprite('gap',-110,-130,220,260,g=>{g.shadowColor='#aaf36a';g.shadowBlur=24;ellipse(g,0,0,60,78,'#91d55629','#d3ed9b',2);g.shadowBlur=0;txt(g,'↓',0,0,30,'#efffd3');}),xx,yy);}
  board.forEach((u,i)=>{const index=i+(hasGap&&i>=insert?1:0),base=R.smooth(u.uid,L.center+(index-(board.length-1+(hasGap?1:0))/2)*L.spacing,yy,dt),pos=CHM.pose(u.uid,base,now);c.save();c.translate(pos.x,pos.y);c.rotate(pos.angle);c.scale(pos.scale,pos.scale);c.translate(-pos.x,-pos.y);minion(c,s,p,u,pos.x,pos.y,view.selected&&view.selected.uid===u.uid,targets);c.restore();});}
 // Rival's fanned hand.
+// ASTRA: gegnerhand – Kartenrücken der gegnerischen Hand, 108 × 156
 const rivalBack=R.sprite('rivalback',-27,-53,54,78,g=>{round(g,-24,-50,48,72,5,grad(g,0,0,40,70,'#16334d','#4c6f87'),'#c7a759',3);txt(g,'✦',0,-10,25,'#e7c675');});
 for(let i=0;i<b.hand.length;i++){c.save();c.translate(490+i*34,7);c.rotate((i-(b.hand.length-1)/2)*.033);R.blit(c,rivalBack);c.restore();}
 for(let p=0;p<2;p++){const pp=s.players[p],yy=p===0?590:158;const back=p===0?R.look.back:'chroniken',count=Math.min(5,Math.ceil(pp.deck.length/6));R.blit(c,R.sprite('deck:'+[back,count],-10,-25,90,120,g=>CHS.stack(g,back,0,0,55,83,count)),1421,yy);CHS.gloss(c,1421,yy,55,83,count,now,p*2300);txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');hit('deck'+p,1411,yy-10,80,125,{kind:'deck'});round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');hit('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
