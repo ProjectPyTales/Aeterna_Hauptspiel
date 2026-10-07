@@ -1387,55 +1387,59 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 7 (Version 1.10.0):** AP 5.11 Kartenwelle 1 – 56 Karten (je Held zwei, darunter Musashis
-Doppelschlag-Karte, je sieben Zeitalterkarten für Griechische Antike, Europäisches Mittelalter und China/Korea/Japan),
-Dopplungen Herodot/Anna und Thermen/Aquädukt entzerrt; AP 5.5 – sieben Beispiel-Bauwerke als Zeitalterkarten und
-Weltwunder, neue Regeln (Zauber billiger, Rüstung je Tod, doppelte Heilung, doppeltes Vermächtnis, Große Mauer), KI
-belagert wirksame Bauwerke und ignoriert wirkungslose, Bauwerk-Karten mit Turm-Abzeichen; AP 5.8 Teil 2 –
-KI-Persönlichkeit je Held (aggressiv, defensiv, kombinierend), sichtbar in der Heldenwahl und messbar im Balance-Bericht.
-Deine Rückmeldung zu 1.9.0: Entscheidung 14 (einfache Reihenfolge der Missionen – bleibt 1 bis 16) und 15 (Welle 2 wie
-vorgeschlagen) eingetragen; der Ausreißer Amanirenas gegen Jeanne ist von 74/26 auf 56/44 entschärft. Nebenbei: Die
-Sammlung zählte fest „/ 140 Karten“, jetzt die echte Zahl. Davor: Sitzung 6 (1.9.0) AP 5.10; Sitzung 5 (1.8.0) AP 5.12,
-AP 5.9, AP 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, AP 5.3, AP 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, AP 5.2;
+**Erledigt in Sitzung 8 (Version 1.11.0):** AP 5.10 Welle 2 – Epaminondas, Fabius Maximus, Mandukhai, Baibars, Jan Žižka
+und Fu Hao mit je zehn Karten, Chronikseite, Startdeck, KI-Persönlichkeit, Monogramm und Mission 17–22; 21 Zeitalterkarten
+für Rom, Persien & Steppe und Byzanz (jetzt sechs Zeitalter mit je zwei bis fünf Helden); neue Regeln (Diener ganz links,
+Bündnis-Bedingung, verliehener Vorstoß, Ergründen aus dem eigenen Deck, Ziele in Starre); zwei volle Balance-Läufe mit
+22 Helden. Deine Rückmeldung zu 1.10.0: **Massenöffnung** (im Basar „Alle öffnen“, bis zu 50 Pakete, Übersicht mit den
+seltensten Karten zuerst) und **Code-Eingabe** (*Einstellungen → Code einlösen*, vier Codes) – beide gab es in keiner
+Version im Repo, sie sind neu gebaut (siehe Entscheidung 16). Nebenbei: Heldenwahl mit 8 Spalten für 22 Helden,
+Monogramme passen ins Medaillon, „Über das Spiel“ nennt die echten Zahlen statt „140 Karten, zehn Helden“. Davor:
+Sitzung 7 (1.10.0) AP 5.11 Kartenwelle 1, AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0)
+AP 5.12, AP 5.9, AP 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, AP 5.3, AP 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, AP 5.2;
 Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6; Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
 
 **Vorher bitte von dir auf dem OnePlus 15 (10–15 Minuten):**
-1. Test-APK `Aeterna-1.10.0-Test-APK` aus Actions installieren (Update über 1.9.0, Spielstand und Decks bleiben; die
-   neuen Karten stehen auf 0 – zwei, drei Kartenpakete öffnen oder im Kolosseum spielen, dort sind alle Karten dabei).
-2. **Schlacht → Gegner wählen:** Unter dem Gegner steht seine Spielweise. Merkt man im Spiel, dass Khan (aggressiv) auf
-   dein Gesicht geht und Leonidas (defensiv) eher dein Feld räumt?
-3. **Bauwerke:** Sind die Handkarten mit Turm-Abzeichen und die Plaketten auf dem Feld klar lesbar? Reißt die KI deine
-   Bibliothek oder deinen Leuchtturm ein, lässt sie eine harmlose Mauer stehen?
-4. **Sammlung:** Held „Sparta“ wählen – Zeitalterkarten der Griechischen Antike (blau, Ω) stehen zwischen den eigenen
-   Karten. Gefällt dir die Farbe je Zeitalter (Griechen blau, Mittelalter braun ✠, Ostasien rot 龍)?
-5. Offene Entscheidungen **2**, **3**, **5**, **7**.
-6. *Asset-Aufgabe (AP 1.2), sobald es passt:* 135 Karten- und 6 Porträtmotive stehen mit fertigem Prompt in
-   `ungenutzte_assets/MOTIVE.md` (58 davon neu), dazu weiter der randlose Hintergrund und die Runensteine.
+1. Test-APK `Aeterna-1.11.0-Test-APK` aus Actions installieren (Update über 1.10.0, Spielstand und Decks bleiben, die
+   sechs neuen Helden bekommen ihr Basisdeck).
+2. *Einstellungen → Code einlösen:* `CHRONIK` (alle 350 Karten) oder `KARTENPAKETE` und im Basar **„Alle öffnen“** – ist
+   die Übersicht auf dem Handy lesbar, oder möchtest Du die Karten lieber groß nacheinander sehen?
+3. **Heldenwahl:** 22 Helden in acht Spalten – Namen und Monogramme gut lesbar?
+4. Je eine Partie mit **Epaminondas** (beim Ausspielen bestimmst Du, wer ganz links steht), **Fabius** (seine Fähigkeit
+   kostet als einzige 3 Mana) und **Fu Hao** (Orakel: drei Karten aus dem eigenen Deck zur Wahl). Fühlen sie sich
+   verschieden an?
+5. Offene Entscheidungen **2**, **3**, **5**, **7** und **16** (Codes).
+6. *Asset-Aufgabe (AP 1.2), sobald es passt:* 225 Karten- und 12 Porträtmotive stehen mit fertigem Prompt in
+   `ungenutzte_assets/MOTIVE.md` (81 Karten und 6 Porträts davon neu).
 
-**Sitzung 8 – AP 5.10 Welle 2: sechs neue Helden mit Zeitalterkarten**
+**Sitzung 9 – AP 2.1 native Android-Hülle, AP 2.2 Asset-Pipeline, AP 0.2 Audio**
+
+Nach drei Inhalts-Sitzungen (1.8.0–1.11.0) wieder Technik, wie im Plan: Die alte Hülle liegt nur kompiliert vor
+(`classes.dex`), deshalb gehen Vollbild mit Display-Aussparung (der tote linke Rand auf Deinem OnePlus 15), WebP,
+Splash-Screen, Vibrationsmuster und 120 Hz bisher nicht.
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.10.0 | Spielweisen, Bauwerke, Zeitalterfarben | kurz, Balance-Lauf läuft ohnehin |
-| AP 5.10 Welle 2 | **Epaminondas** (Griechische Antike, Rivale von Leonidas), **Fabius Maximus** (Rom), **Mandukhai** (Persien & Steppe), **Baibars** (Byzanz & islamische Welt, Rivale von Khan), **Jan Žižka** (Europäisches Mittelalter), **Fu Hao** (China, Korea, Japan) – je Chronikseite, 10 Karten, Startdeck, Mission 17–22 (einfach angehängt, Entscheidung 14), KI-Persönlichkeit und Monogramm-Porträt | Entscheidung 15; die Engine kann alles, was die Vorschläge brauchen (Starre, Vorstoß, Schildwall-Spielsteine, Ergründen) |
-| Zeitalterkarten | je 6–7 für **Rom, Persien & Steppe, Byzanz** – diese Zeitalter haben dann zwei Helden | gleiche Struktur wie in 1.10.0 (`hero` = `age`) |
-| Balance | voller Lauf mit 22 Helden (≈ 50 min, 253 Paarungen je Deckart); die Ausreißer-Paarungen um Khan angehen | Abnahme von Welle 2 |
+| Rückmeldung 1.11.0 | Codes, Massenöffnung, neue Helden | kurz |
+| AP 2.1 | Gradle-Projekt (Kotlin) mit gleicher Paket-ID `de.chroniken.helden.layout`, gleicher Signatur (`chroniken-test.p12`), `WebViewAssetLoader` für `https://chroniken.local/`, dieselbe JS-Brücke (`save`, `load`, `exportSave`, `importSave`, `haptic`, `exitApp`; `App.back()` …), Vollbild mit `layoutInDisplayCutoutMode`; die CI baut mit Gradle statt `apk_bauen.py` | randloser Rand, Grundlage für alles Weitere; Update über 1.11.0 muss klappen (gleicher Schlüssel, höherer versionCode) |
+| AP 2.2 | Bilder nach WebP, gestuftes Laden mit echtem Fortschritt | APK 56 MB → Ziel < 25 MB, schnellerer Start |
+| AP 0.2 | Lautstärken der Steingeräusche angleichen | braucht Deinen Höreindruck, passt zur neuen Hülle |
 
-Neue Bildschirm-Logik kommt dabei immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Balance-Lauf. Die
-Heldenwahl braucht für 22 Helden eine neue Anordnung (heute 6 × 3 Kacheln) – mit Screenshot im Handyformat prüfen.
+Das Risiko liegt in AP 2.1: Die Hülle lässt sich in der Sitzung nur in der CI bauen und nicht auf einem Gerät testen –
+deshalb mit Abnahme über Deinen Test (Update über 1.11.0, Spielstand bleibt, Export/Import, Zurück-Taste, Vibration).
+Regeln und Karten bleiben unverändert (kein Balance-Lauf nötig, nur Tests und Klickpfad).
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.10 Welle 2 (sechs neue Helden mit
-> Zeitalterkarten für Rom, Persien & Steppe und Byzanz)** ab und übernimm mein Feedback zu Version 1.10.0: *(hier
-> Feedback und Entscheidungen einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe
-> optische Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen Tests, den Balance-Lauf und den
-> Klickpfad (falls notwendig) laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und
-> delegiere Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein.
-> Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste
-> Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 2.1 (native Android-Hülle), AP 2.2
+> (Asset-Pipeline) und AP 0.2 (Audio)** ab und übernimm mein Feedback zu Version 1.11.0: *(hier Feedback und Entscheidungen
+> einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit
+> Screenshots im Handyformat, lass die zwingend notwendigen Tests und den Klickpfad (falls notwendig) laufen und sorge für
+> eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere Prüfungen an mich und mein OnePlus 15.) Hake
+> erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull Request nach `main` und schreibe unten
+> in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: xhigh.** Sechs Helden mit je zehn Karten, Chronik und Mission plus rund
-20 Zeitalterkarten – so groß wie Sitzung 6 und 7 zusammen, und jeder volle Balance-Lauf dauert mit 22 Helden etwa doppelt
-so lange (diese Sitzung brauchte drei volle Läufe). *high* reicht, wenn du nur die Helden machst und die
-Zeitalterkarten auf Sitzung 9 schiebst.
+**Empfohlener Effort für den nächsten Prompt: xhigh.** Eine neue Android-Hülle aus dem Nichts (Gradle, Kotlin, Signatur,
+CI-Umbau) ist Neuland im Projekt und lässt sich nur über die CI prüfen; Fehler dort kosten viele Runden. *high* reicht,
+wenn Du nur AP 2.2 und AP 0.2 machen und die Hülle verschieben möchtest – dann wäre stattdessen AP 5.11 Teil 2 (die
+„nur Werte“-Karten der Startdecks) mit einem Balance-Lauf ein guter zweiter Block.
