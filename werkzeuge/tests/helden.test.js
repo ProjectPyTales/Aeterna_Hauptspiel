@@ -102,7 +102,7 @@ test('Scherbengericht schickt einen Diener auf die Hand seines Besitzers zurück
 
 test('Welle 1: sechs Helden mit je 10 Karten, Chronik, Startdeck, Mission und Zeitalter',()=>{
  assert.equal(D.heroes.length,16);
- for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id);
+ for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id&&+c.id.split('_')[1]<10);
   assert.equal(set.length,10,id);assert.deepEqual(set.map(c=>c.rarity),['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'],id);
   assert.ok(set.every(c=>D.missingArt(c)),id+': Platzhalter bis zu den Motiven');assert.ok(!h.art,'Monogramm statt Porträt');
   assert.ok(L.of(id),id+' hat eine Chronikseite');assert.ok(D.missions.some(m=>m.hero===id&&m.effects),id+' hat eine Mission');

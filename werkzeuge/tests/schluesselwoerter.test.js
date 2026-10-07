@@ -23,12 +23,13 @@ test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schl�
  for(const h of D.heroes)assert.doesNotMatch(h.power+' '+h.powerText,old,h.id);
  for(const m of D.missions)assert.doesNotMatch(m.description,old,m.title);
  assert.equal(D.byId.coin.name,'Gunst der Stunde');assert.equal(D.byId.coin.cost,0);
- // Kartentexte nennen die neuen Namen genau dort, wo die Engine-Felder gesetzt sind.
- for(const c of D.cards){
+ // Kartentexte nennen die neuen Namen genau dort, wo die Engine-Felder gesetzt sind. Klammern beschreiben gerufene
+ // Spielsteine („Steppenreiter (1/1, Sturmangriff)“), die Pyramiden von Gizeh verdoppeln fremde Vermächtnisse (AP 5.11).
+ for(const c0 of D.cards){const c={...c0,text:c0.text.replace(/\([^)]*\)/g,'')};
   assert.equal(c.text.includes('Schildwall'),!!c.taunt||c.id==='leonidas_9'||grants(c,'taunt'),c.name);
   assert.equal(/Göttliche Gunst\./.test(c.text)&&!c.target&&!grants(c,'shield'),!!c.shield,c.name);
   assert.equal(c.text.startsWith('Einmarsch')||c.text.includes(' Einmarsch:'),!!c.battle,c.name);
-  assert.equal(c.text.includes('Vermächtnis'),!!c.death,c.name);
+  assert.equal(c.text.includes('Vermächtnis'),!!c.death||!!c.doubleDeath,c.name);
   assert.equal(c.text.includes('Sturmangriff'),!!c.charge,c.name);
   assert.equal(c.text.includes('Vorstoß'),!!c.rush,c.name);
  }
@@ -81,10 +82,11 @@ test('Marco Polo ergründet zweimal heldenfremde Karten, sie kosten 1 weniger',(
  for(const h of s.players[0].hand){assert.equal(h.mod,-1);assert.equal(E.cost(s,0,h),Math.max(0,D.byId[h.id].cost-1));}
 });
 
-test('Herodot ergründet nur Karten, die in dieser Partie schon gespielt wurden',()=>{
- const s=ready('leonidas','khan');play(s,'neutral_1');end(s);play(s,'khan_0');end(s);
- play(s,'neutral_38');
- assert.deepEqual([...s.choice.options].sort(),['khan_0','neutral_1']);
+// Seit 1.10.0 (AP 5.11) ergründet Herodot Zeitalterkarten aller Zeitalter – gespielte Karten bleiben Anna Komnene.
+test('Herodot ergründet Zeitalterkarten, auch aus fremden Zeitaltern',()=>{
+ const seen=new Set();for(let k=1;k<=8;k++){const s=ready('khan','leonidas');s.seed=k*7919;play(s,'neutral_38');
+  assert.equal(s.choice.options.length,3);for(const id of s.choice.options){assert.ok(D.byId[id].age,id);seen.add(D.byId[id].age);}}
+ assert.ok(seen.size>=2,'mehrere Zeitalter');
 });
 
 test('Doppelschlag und Duell: Kojirō kämpft gegen den gewählten Diener und greift später zweimal an',()=>{

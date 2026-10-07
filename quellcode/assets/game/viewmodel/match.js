@@ -118,7 +118,7 @@ class Match extends Screen{
  cancelDrag(){if(this.view.drag?.cardId&&this.game)this.board.rebound(this.view.drag,this.game);this.endDrag();}
 
  // ---------- Dialogs around the game ----------
- inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:c.hero==='neutral'?'Neutral':D.heroes.find(h=>h.id===c.hero).era}));}
+ inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:D.eraOf(c)}));}
  showResult(){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over')return;
   if(!s.rewarded){P.reward(this.profile,s);this.commit();}
   this.ui.play(s.winner===0?'victory':'defeat');

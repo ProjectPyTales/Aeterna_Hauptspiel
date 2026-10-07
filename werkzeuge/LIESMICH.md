@@ -1,7 +1,29 @@
-# Aeterna 1.9.0 – Bauen & Prüfen
+# Aeterna 1.10.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
 `classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+
+## Neu in 1.10.0 (AP 5.11 Kartenwelle 1, AP 5.5 Bauwerke, AP 5.8 Teil 2 KI-Persönlichkeit)
+
+- **56 neue Karten** mit festen IDs hinten angehängt: je Held zwei (`leonidas_10`, `masako_11` …), je sieben
+  **Zeitalterkarten** für Griechische Antike, Europäisches Mittelalter und China/Korea/Japan (`griechen_0`–`_6`,
+  `mittelalter_0`–`_6`, `ostasien_0`–`_6`; Feld `hero` und `age` = Zeitalter) und drei neutrale Weltwunder
+  (`neutral_47`–`49`). `D.owner(karte)`/`D.eraOf(karte)` liefern Held, Zeitalter oder „Neutral“; Zeitalter haben Farbe und
+  Zeichen für Rahmen und Platzhalter. Neue Spielsteine `rider` (Steppenreiter) und `terracotta`.
+- **Neue Regeln** (`model/engine.js`): Auslöser `onDamage`, `anyDeath`; Auren `spellDiscount`, `healDouble`,
+  `doubleDeath`, `wall` (Große Mauer: frische feindliche Diener erreichen den Helden nicht – dafür ist `fresh` jetzt an
+  jedem neuen Diener gesetzt); Kosten `costPerPlayed`; Effekte `weaponUp`, `draw` mit `per:'building'`, `freeze` mit
+  `minAttack`, `grantAll` mit `only`, `randomDamage` mit `board`; Ergründen-Pools `hero`, `age`, `ages`. Ein zweites
+  Ergründen bei offener Wahl wird zufällig aufgelöst. Entzerrt: Herodot ergründet Zeitalterkarten (gespielte Karten
+  bleiben Anna), die Thermen des Agrippa heilen nur den Helden.
+- **KI:** Persönlichkeit je Held als Datenfeld `ai` (`aggressive`, `defensive`, `combo`, Namen in `D.personalities`),
+  Gewichte in `E.STYLE`; Bauwerke bewertet die KI nach ihrer Wirkung (`E.impact`) – wirkungslose ignoriert sie, wirksame
+  belagert sie. Die Heldenwahl zeigt die Spielweise des KI-Gegners.
+- **Oberfläche:** Bauwerk-Handkarten mit Turm-Abzeichen und Haltbarkeit statt Angriff/Leben, Kartendetail „♜ Haltbarkeit“,
+  Sammlung zählt alle Karten statt fest 140. Deckbau und Auffüllen nutzen `D.playable` (Zeitalterkarten).
+- **Balance-Werkzeug:** Spalte „KI-Spielweise: Angriffe aufs Gesicht“ und Zeile „KI-Persönlichkeit“ (Anteil der Angriffe
+  aufs Gesicht und auf Bauwerke). Tests: `tests/kartenwelle.test.js`.
+- Version 1.10.0 / versionCode 13.
 
 ## Neu in 1.9.0 (AP 5.10: sechs neue Helden, Heldenfähigkeiten als Daten)
 
@@ -15,7 +37,7 @@
   (`<held>_0`–`_9`), Chronikseite, Mission 11–16, Platzhalter-Porträt; neue Spielsteine `citizen`, `pioneer`, `parthenos`.
   Ältere Spielstände bekommen die Basisdecks der neuen Helden (`starters` in `profile.js`). Tests: `tests/helden.test.js`.
 - Heldenwahl 6 × 3 nach Zeitalter, Kampagne scrollt (16 Missionen), Stern im Hauptmenü leiser.
-- Version 1.9.0 / versionCode 12. Balance-Lauf mit 16 Helden ≈ 15 min auf 4 Kernen.
+- Version 1.9.0 / versionCode 12. Balance-Lauf mit 16 Helden ≈ 15 min auf 4 Kernen (mit 1.10.0: ≈ 25 min).
 
 ## Neu in 1.8.0 (Platzhalter, Chronik der Helden, fünf neue Schlüsselwörter, randlose Menüs)
 

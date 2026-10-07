@@ -23,7 +23,7 @@ class Collection extends Screen{
   const p=this.profile,s=this.state,list=this.list(),pages=Math.max(1,Math.ceil(list.length/PER_PAGE));
   s.page=Math.min(pages-1,Math.max(0,s.page));
   const counts=this.counts(),view={filters:s.filters,page:s.page,pages,edit:s.edit,dirty:s.dirty,dust:p.dust,
-   unique:D.cards.filter(c=>p.collection[c.id]>0).length,
+   unique:D.cards.filter(c=>p.collection[c.id]>0).length,total:D.cards.length,
    cards:list.slice(s.page*PER_PAGE,s.page*PER_PAGE+PER_PAGE).map(c=>({card:c,owned:p.collection[c.id]||0,inDeck:counts[c.id]||0}))};
   if(s.edit){
    const curve=Array(8).fill(0);for(const id of s.edit.cards)curve[Math.min(7,D.byId[id].cost)]++;
@@ -46,7 +46,7 @@ class Collection extends Screen{
  deckName(n){if(!this.state.edit)return;this.state.edit.name=String(n);this.state.dirty=true;this.notify();}
  addCard(id){const edit=this.state.edit;if(!edit)return;const c=D.byId[id],n=edit.cards.filter(x=>x===id).length;
   if(edit.cards.length>=30){this.ui.toast('Das Deck enthält bereits 30 Karten.');return;}
-  if(c.hero!=='neutral'&&c.hero!==edit.hero){this.ui.toast('Diese Karte gehört zu einem anderen Helden.');return;}
+  if(!D.playable(c,edit.hero)){this.ui.toast('Diese Karte gehört zu einem anderen Helden.');return;}
   if(n>=Math.min(this.profile.collection[id]||0,cap(c))){this.ui.toast('Kein weiteres erlaubtes Exemplar im Besitz.');return;}
   edit.cards.push(id);this.state.dirty=true;this.ui.close();this.notify();this.ui.play('play');}
  removeCard(id){const edit=this.state.edit;if(!edit)return;const i=edit.cards.indexOf(id);if(i>=0)edit.cards.splice(i,1);this.state.dirty=true;this.notify();}
@@ -56,7 +56,7 @@ class Collection extends Screen{
   this.state.dirty=false;this.commit();this.ui.toast('Deck gespeichert.');}
  // Fills up along a gentle mana curve with cards the player owns.
  autoFill(){const edit=this.state.edit,p=this.profile;if(!edit)return;
-  const pool=D.cards.filter(c=>(c.hero===edit.hero||c.hero==='neutral')&&p.collection[c.id]>0).sort((a,b)=>a.cost-b.cost);let guard=0;
+  const pool=D.cards.filter(c=>D.playable(c,edit.hero)&&p.collection[c.id]>0).sort((a,b)=>a.cost-b.cost);let guard=0;
   while(edit.cards.length<30&&guard++<1000){let choices=pool.filter(c=>edit.cards.filter(id=>id===c.id).length<Math.min(p.collection[c.id],cap(c)));
    const cost=[1,2,2,3,3,4,4,5,6,7][edit.cards.length%10],near=choices.filter(c=>Math.abs(c.cost-cost)<=1);if(near.length)choices=near;if(!choices.length)break;
    edit.cards.push(choices[(edit.cards.length*7)%choices.length].id);}
@@ -89,7 +89,7 @@ class Collection extends Screen{
 class CardDialog extends LiveDialog{
  constructor(coll,id){super(coll.ctx,{id});this.coll=coll;}
  get view(){const p=this.profile,c=D.byId[this.state.id],owned=p.collection[c.id]||0;
-  return {card:c,owned,editing:!!this.coll.state.edit,era:c.hero==='neutral'?'Neutral':era(c.hero),
+  return {card:c,owned,editing:!!this.coll.state.edit,era:D.eraOf(c),
    price:P.price[c.rarity],dust:P.dust[c.rarity],canCraft:p.dust>=(P.price[c.rarity]||Infinity)&&owned<cap(c),canDust:owned>0};}
  addCard(id){this.coll.addCard(id);}
  craft(id){this.coll.craft(id);}

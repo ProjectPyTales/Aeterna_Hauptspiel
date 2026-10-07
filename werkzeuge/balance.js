@@ -27,7 +27,7 @@ function play({hero,foe,mode,seed,first}){
  const enemyDeck=mode==='start'?E.starter(foe):E.randomDeck(foe,mix(seed,2));
  const s=E.create({hero,foe,deck,enemyDeck,mode:'free',mission:null,seed,first});
  E.mulligan(s,s.players[0].hand.filter(c=>D.byId[c.id].cost>=4).map(c=>c.uid));
- const seen=[new Set(),new Set()],drawn=[new Set(),new Set()],played=[new Set(),new Set()];
+ const seen=[new Set(),new Set()],drawn=[new Set(),new Set()],played=[new Set(),new Set()],style=[{atk:0,face:0,siege:0},{atk:0,face:0,siege:0}];
  const look=()=>{for(let p=0;p<2;p++)for(const c of s.players[p].hand)if(!seen[p].has(c.uid)){seen[p].add(c.uid);if(isCard(c.id))drawn[p].add(c.id);}};
  look();
  let guard=0;
@@ -35,15 +35,17 @@ function play({hero,foe,mode,seed,first}){
   if(++guard>5000)throw new Error('Partie endet nicht: '+JSON.stringify({hero,foe,mode,seed,first}));
   const a=E.ai(s)||{type:'end'};
   if(a.type==='play'){const c=s.players[s.active].hand.find(h=>h.uid===a.uid);if(isCard(c.id))played[s.active].add(c.id);}
+  // Spielweise der KI (AP 5.8 Teil 2): wohin die Angriffe gehen – Held, Diener oder Bauwerk.
+  if(a.type==='attack'){const st=style[s.active],t=E.unit(s,a.target);st.atk++;if(t.hero)st.face++;else if(t.obj.building)st.siege++;}
   const r=E.apply(s,a);if(!r.ok)throw new Error(r.error+' '+JSON.stringify(a));
   look();
  }
- return {winner:s.winner,turns:s.turn,decks:[new Set(deck),new Set(enemyDeck)],drawn,played};
+ return {winner:s.winner,turns:s.turn,decks:[new Set(deck),new Set(enemyDeck)],drawn,played,style};
 }
 
 // Eine Paarung (i ≤ j) mit n Partien; Punkte doppelt gezählt (Sieg 2, Unentschieden 1), damit alles ganzzahlig bleibt.
 function job({mode,m,i,j,n,seed}){
- const hero=D.heroes[i].id,foe=D.heroes[j].id,out={mode,i,j,games:0,pts:0,draws:0,first:{games:0,pts:0},seat:{},turns:{},cards:{}};
+ const hero=D.heroes[i].id,foe=D.heroes[j].id,out={mode,i,j,games:0,pts:0,draws:0,first:{games:0,pts:0},seat:{},turns:{},cards:{},style:{}};
  const seat=(h,k)=>out.seat[h+'|'+k]??=({games:0,pts:0});
  for(let k=0;k<n;k++){
   const first=k%2,g=play({hero,foe,mode,seed:mix(seed,m,i,j,k>>1),first});
@@ -53,6 +55,7 @@ function job({mode,m,i,j,n,seed}){
   out.turns[g.turns]=(out.turns[g.turns]||0)+1;
   for(let p=0;p<2;p++){
    const h=p===0?hero:foe,st=seat(h,p===first?'first':'second');st.games++;st.pts+=pts(p);
+   const sy=out.style[h]??={atk:0,face:0,siege:0};for(const k in sy)sy[k]+=g.style[p][k];
    for(const id of g.decks[p]){
     const c=out.cards[h+'|'+id]??=({deck:0,deckPts:0,drawn:0,drawnPts:0,played:0,playedPts:0});
     c.deck++;c.deckPts+=pts(p);
@@ -72,7 +75,7 @@ function jobs({partien,seed,decks}){
 
 function merge(results,opts){
  const R={opts,rules:rulesHash(),modes:{}};
- for(const mode of opts.decks)R.modes[mode]={pairs:{},first:{games:0,pts:0},draws:0,games:0,seat:{},turns:{},cards:{}};
+ for(const mode of opts.decks)R.modes[mode]={pairs:{},first:{games:0,pts:0},draws:0,games:0,seat:{},turns:{},cards:{},style:{}};
  const add=(a,b)=>{for(const k in b)a[k]=(a[k]||0)+b[k];};
  for(const r of results){
   const M=R.modes[r.mode];
@@ -80,6 +83,7 @@ function merge(results,opts){
   M.games+=r.games;M.draws+=r.draws;add(M.first,r.first);add(M.turns,r.turns);
   for(const k in r.seat)add(M.seat[k]??={},r.seat[k]);
   for(const k in r.cards)add(M.cards[k]??={},r.cards[k]);
+  for(const k in r.style)add(M.style[k]??={},r.style[k]);
  }
  return R;
 }
@@ -106,7 +110,7 @@ async function run(opts={}){
 // ---------- Auswertung ----------
 const pct=x=>x==null||isNaN(x)?'–':(x*100).toFixed(1).replace('.',',')+' %';
 const pp=x=>(x>=0?'+':'−')+Math.abs(x*100).toFixed(1).replace('.',',');
-const short=h=>({leonidas:'Leonidas',hypatia:'Hypatia',imhotep:'Imhotep',dandolo:'Dandolo',khan:'Khan',boudicca:'Boudicca',nostradamus:'Nostradamus',jeanne:'Jeanne',ragnar:'Ragnar',musashi:'Musashi',perikles:'Perikles',agrippa:'Agrippa',amanirenas:'Amanirenas',anna:'Anna',nezahualcoyotl:'Nezahualcóyotl',masako:'Masako'})[h]||h;
+const short=h=>D.ageById[h]?.name||({leonidas:'Leonidas',hypatia:'Hypatia',imhotep:'Imhotep',dandolo:'Dandolo',khan:'Khan',boudicca:'Boudicca',nostradamus:'Nostradamus',jeanne:'Jeanne',ragnar:'Ragnar',musashi:'Musashi',perikles:'Perikles',agrippa:'Agrippa',amanirenas:'Amanirenas',anna:'Anna',nezahualcoyotl:'Nezahualcóyotl',masako:'Masako'})[h]||h;
 
 // Siegquote von Held i gegen Held j (Unentschieden zählen halb).
 function rate(M,i,j){if(i<=j){const p=M.pairs[i+'|'+j];return p?p.pts/(2*p.games):null;}const p=M.pairs[j+'|'+i];return p?1-p.pts/(2*p.games):null;}
@@ -120,7 +124,8 @@ function analyse(R){
    const f=M.seat[h.id+'|first'],s=M.seat[h.id+'|second'];
    let overallPts=0,overallGames=0;for(const k of ['first','second']){const x=M.seat[h.id+'|'+k];overallPts+=x.pts;overallGames+=x.games;}
    const worst=others.reduce((b,x,k)=>x<b.x?{x,j:k>=i?k+1:k}:b,{x:2,j:-1}),best=others.reduce((b,x,k)=>x>b.x?{x,j:k>=i?k+1:k}:b,{x:-1,j:-1});
-   return {id:h.id,i,vs,field,first:f.pts/(2*f.games),second:s.pts/(2*s.games),overall:overallPts/(2*overallGames),worst,best};
+   const sy=M.style[h.id]||{atk:0,face:0,siege:0};
+   return {id:h.id,i,vs,field,first:f.pts/(2*f.games),second:s.pts/(2*s.games),overall:overallPts/(2*overallGames),worst,best,face:sy.atk?sy.face/sy.atk:null,siege:sy.atk?sy.siege/sy.atk:null};
   });
   const first=M.first.pts/(2*M.first.games);
   const lengths=Object.entries(M.turns).flatMap(([t,c])=>Array(c).fill(+t)).sort((a,b)=>a-b);
@@ -160,12 +165,14 @@ function report(R){
   L.push('## '+MODES[mode],'');
   L.push(mode==='start'?'Jeder Held spielt sein Basisdeck (`E.starter`: 4 Heldenkarten und 11 neutrale Karten je zweimal) – das Deck, mit dem jedes Profil beginnt.':
    'Jede Partie mit neu gemischten Zufallsdecks (`E.randomDeck`, wie die KI im freien Duell und das Tagesduell).','');
-  L.push('| Held | gegen das Feld | als Beginner | als Zweiter | schwerste Paarung | leichteste Paarung | Ziel |','|---|---|---|---|---|---|---|');
+  L.push('| Held | gegen das Feld | als Beginner | als Zweiter | schwerste Paarung | leichteste Paarung | KI-Spielweise: Angriffe aufs Gesicht | Ziel |','|---|---|---|---|---|---|---|---|');
   for(const h of [...a.heroes].sort((x,y)=>y.field-x.field))L.push('| '+D.heroes[h.i].name+' | **'+pct(h.field)+'** | '+pct(h.first)+' | '+pct(h.second)+' | '+
-   short(D.heroes[h.worst.j].id)+' '+pct(h.worst.x)+' | '+short(D.heroes[h.best.j].id)+' '+pct(h.best.x)+' | '+yes(h.field>=TARGET.field[0]&&h.field<=TARGET.field[1])+' |');
+   short(D.heroes[h.worst.j].id)+' '+pct(h.worst.x)+' | '+short(D.heroes[h.best.j].id)+' '+pct(h.best.x)+' | '+(D.personalities[D.heroes[h.i].ai]?.name||'–')+': '+pct(h.face)+' | '+yes(h.field>=TARGET.field[0]&&h.field<=TARGET.field[1])+' |');
   L.push('','**Siegquoten-Matrix** (Zeile gegen Spalte, in %; fett = außerhalb 40–60):','');
   L.push('| | '+D.heroes.map(h=>short(h.id).slice(0,4)+'.').join(' | ')+' |','|---|'+D.heroes.map(()=>'---:').join('|')+'|');
   for(const h of a.heroes)L.push('| '+short(h.id)+' | '+h.vs.map((x,j)=>j===h.i?'·':(x<TARGET.pair||x>1-TARGET.pair?'**'+Math.round(x*100)+'**':Math.round(x*100))).join(' | ')+' |');
+  const styles=Object.keys(D.personalities).map(k=>{const hs=a.heroes.filter(h=>D.heroes[h.i].ai===k),m=x=>hs.reduce((n,h)=>n+(h[x]||0),0)/(hs.length||1);return '**'+D.personalities[k].name+'** ('+hs.length+' Helden) '+pct(m('face'))+' aufs Gesicht, '+pct(m('siege'))+' auf Bauwerke';});
+  L.push('','**KI-Persönlichkeit** (AP 5.8 Teil 2) – Anteil der Angriffe: '+styles.join(' · ')+'.');
   L.push('','**Partielänge** (Züge beider Seiten zusammen): Mittel '+a.mean.toFixed(1).replace('.',',')+', Median '+a.median+', 10–90 %: '+a.p10+'–'+a.p90+
    ', kürzeste '+a.min+', längste '+a.max+'. Beginner gewinnt '+pct(a.first)+', Unentschieden (Zuglimit 120): '+a.draws+'.','');
   const list=Object.values(a.cards).filter(c=>c.drawn>=Math.max(20,o.partien/5)).sort((x,y)=>y.delta-x.delta);

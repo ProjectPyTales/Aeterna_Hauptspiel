@@ -7,7 +7,7 @@ const option=(value,label,selected)=>html`<option value="${value}"${V.attr('sele
 
 function filters(v){const f=v.filters;
  return html`<aside class="filters"><div class="eyebrow">Kartenbuch</div><input id="search" type="text" placeholder="Name oder Effekt …" value="${f.q}" data-input="filter" data-a="q" aria-label="Karten suchen"><label>HELD</label><select data-change="filter" data-a="hero"${V.attr('disabled',!!v.edit)}>${option('all','Alle Helden',f.hero==='all')}${D.heroes.map(h=>option(h.id,h.era,f.hero===h.id))}</select><label>SELTENHEIT</label><select data-change="filter" data-a="rarity">${option('all','Alle Seltenheiten',f.rarity==='all')}${RARITIES.map(r=>option(r,D.rarities[r],f.rarity===r))}</select><label>MANAKOSTEN</label><select data-change="filter" data-a="mana">${option('all','Alle Kosten',f.mana==='all')}${[0,1,2,3,4,5,6,7].map(n=>option(n,(n===7?'7+':n)+' Mana',f.mana===String(n)))}</select>${
-  V.button({label:f.owned?'✓ Nur im Besitz':'Alle Karten zeigen',cmd:'toggleOwned',small:true})}<div class="stats">${v.unique} / 140 Karten<br>✧ ${v.dust} Staub<br><small>Karte antippen: Details${v.edit?' & Hinzufügen':''}</small></div>${
+  V.button({label:f.owned?'✓ Nur im Besitz':'Alle Karten zeigen',cmd:'toggleOwned',small:true})}<div class="stats">${v.unique} / ${v.total} Karten<br>✧ ${v.dust} Staub<br><small>Karte antippen: Details${v.edit?' & Hinzufügen':''}</small></div>${
   V.button({label:'Duplikate entzaubern',cmd:'extras',small:true})}</aside>`;}
 
 const card=x=>html`<button class="${V.cls('collect-card',!x.owned&&'locked')}" data-key="${x.card.id}" data-cmd="inspect" data-a="${x.card.id}"><img src="${R.thumb(x.card.id)}" alt="${x.card.name}">${x.inDeck?html`<span class="in-deck">${x.inDeck}</span>`:''}<span class="count">${x.owned?'× '+x.owned:'Nicht im Besitz'}</span></button>`;
@@ -35,7 +35,7 @@ AEV.dialogs.card={render:vm=>{const v=vm.view,c=v.card;
   v.price?[V.button({label:'Herstellen · '+v.price+' ✧',cmd:'craft',a:c.id,disabled:!v.canCraft}),V.button({label:'Entzaubern · +'+v.dust+' ✧',cmd:'dustCard',a:c.id,disabled:!v.canDust})]
   :html`<span class="muted">Basiskarten sind dauerhaft verfügbar.</span>`],'start')}`;
  return V.modal({width:1000,body:html`<div class="card-detail"><img src="${R.thumb(c.id)}" alt="${c.name}"><div class="details"><div class="eyebrow">${v.era} · ${c.cost} Mana · ${D.rarities[c.rarity]}</div><h3>${c.name}</h3><p class="card-text">${c.text||'Ein Diener ohne zusätzliche Fähigkeit.'}</p>${V.glossary(c.text)}${
-  c.type==='minion'?html`<p>⚔ ${c.attack} Angriff · ♥ ${c.health} Leben</p>`:''}${controls}</div></div>`});}};
+  c.building?html`<p>♜ ${c.health} Haltbarkeit</p>`:c.type==='minion'?html`<p>⚔ ${c.attack} Angriff · ♥ ${c.health} Leben</p>`:''}${controls}</div></div>`});}};
 
 AEV.dialogs.newDeck={render:vm=>V.modal({close:false,body:html`<h2>Neues Deck</h2><p>Wähle den Helden für Dein neues Deck.</p><select id="newhero" class="wide" data-change="choose" aria-label="Held">${
  D.heroes.map(h=>option(h.id,h.name+' · '+h.era,vm.state.hero===h.id))}</select>${V.buttons([V.button({label:'Abbrechen',cmd:'close'}),V.button({label:'Deck erstellen',cmd:'create',style:'gold'})])}`})};
