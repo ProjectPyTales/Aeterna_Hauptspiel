@@ -158,3 +158,9 @@ test('Rückmeldung zu 1.10.0: Codes in den Einstellungen – einmal je Spielstan
  const old=P.fresh();delete old.redeemed;assert.deepEqual(P.parse(JSON.stringify(old)).redeemed,[]);
  old.redeemed=['AETERNA','unsinn',5];assert.deepEqual(P.parse(JSON.stringify(old)).redeemed,['AETERNA']);
 });
+
+test('AP 0.2: Klangprobe in den Einstellungen spielt nur die angebotenen Geräusche',()=>{
+ const {ctx,log}=setup(),played=[];ctx.ui.play=g=>played.push(g);ctx.dialogs.settings();const vm=log.open.vm;
+ assert.deepEqual(vm.samples.map(([g])=>g),['stone','scrape','slam','grind','draw','hit']);
+ vm.sample('slam');vm.sample('victory');vm.sample('stone');assert.deepEqual(played,['slam','stone']);
+});

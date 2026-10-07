@@ -22,7 +22,11 @@ class Settings extends LiveDialog{
  askImport(){this.ctx.dialogs.askImport();}
  credits(){this.ctx.dialogs.credits();}
  redeem(){this.ctx.dialogs.redeem();}
+ // Klangprobe (AP 0.2): die Steingeräusche und zwei Vergleichsklänge aus dem Match auf dem Gerät anhören.
+ get samples(){return SAMPLES;}
+ sample(group){if(!SAMPLES.some(([g])=>g===group))return;this.ctx.ui.unlockAudio?.();this.ctx.ui.play(group);if(group==='slam')this.ctx.ui.haptic(1);}
 }
+const SAMPLES=[['stone','Tippen'],['scrape','Schleifen'],['slam','Einrasten'],['grind','Mahlen'],['draw','Karte'],['hit','Treffer']];
 
 // Code einlösen (Rückmeldung zu 1.10.0): welche Codes es gibt und dass jeder nur einmal je Spielstand gilt, regelt
 // model/profile.js (CHP.redeem). Das Feld wird beim Tippen nicht neu gezeichnet (Cursor bleibt).
