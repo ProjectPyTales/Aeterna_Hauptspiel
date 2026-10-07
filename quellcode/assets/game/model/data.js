@@ -28,7 +28,7 @@ const heroes=[
 // Welle 1 der neuen Helden (AP 5.10, 1.9.0): noch ohne Porträt – die Oberfläche zeigt ein Medaillon mit Monogramm (AP 5.12).
 {id:'perikles',name:'Perikles',era:'Athen',color:'#7d8a3c',power:'Bauherr der Akropolis',powerText:'Ruft einen Bürger (1/2). Euer schwächstes Bauwerk erhält +2 Haltbarkeit.',cost:2,icon:'Π',age:'griechen',ability:A([E('summon',1,{token:'citizen'}),E('fortify',2,{else:[]})]),ai:'defensive'},
 {id:'agrippa',name:'Marcus Agrippa',era:'Rom',color:'#a8552a',power:'Legionspioniere',powerText:'Ruft einen Pionier (1/3). Solange er lebt, kosten Eure Bauwerke 1 weniger.',cost:2,icon:'A',age:'rom',ability:A(E('summon',1,{token:'pioneer'})),ai:'combo'},
-{id:'amanirenas',name:'Amanirenas',era:'Kusch',color:'#2f8f7a',power:'Kandake',powerText:'Verursacht 1 Schaden an einem zufälligen Feind. Stirbt dadurch ein Diener, zieht 1 Karte.',cost:2,icon:'☉',age:'afrika',ability:A(E('damage',1,{onKill:[E('draw',1)]}),'random'),ai:'aggressive'},
+{id:'amanirenas',name:'Amanirenas',era:'Kusch',color:'#2f8f7a',power:'Kandake',powerText:'Verursacht 1 Schaden an einem zufälligen Feind. Stirbt dadurch ein Diener, der nicht beschworen wurde, zieht 1 Karte.',cost:2,icon:'☉',age:'afrika',ability:A(E('damage',1,{onKill:[E('draw',1)],noToken:true}),'random'),ai:'aggressive'},
 {id:'anna',name:'Anna Komnene',era:'Byzanz',color:'#7b2d6a',power:'Alexiade',powerText:'Ergründet eine Karte, die in dieser Partie schon gespielt wurde.',cost:2,icon:'☧',age:'byzanz',ability:A(E('discover',1,{pool:'played'})),ai:'combo'},
 {id:'nezahualcoyotl',name:'Nezahualcóyotl',era:'Texcoco',color:'#4f9a3a',power:'Blumenlied',powerText:'Stellt bei allen eigenen Charakteren 2 Leben wieder her.',cost:2,icon:'❀',age:'amerika',ability:A(E('healAll',2)),ai:'defensive'},
 {id:'masako',name:'Hōjō Masako',era:'Kamakura',color:'#3f4f8f',power:'Rede an die Vasallen',powerText:'Ein befreundeter Diener erhält +1 Leben und Schildwall.',cost:2,icon:'☸',age:'ostasien',ability:A([E('buff',0,{health:1}),E('grant',1,{key:'taunt'})],'friendlyMinion'),ai:'defensive'}
@@ -92,7 +92,7 @@ const RUNES=['totem_heal','totem_fire','totem_guard','totem_strength'];
 const wave1=[
  ['leonidas_10','common',M('Spartiat der Dreihundert',3,2,4,'Schildwall. Wann immer dieser Diener Schaden erleidet, erhält er +1 Angriff.',{taunt:true,onDamage:[E('buffSelf',1)]})],
  ['leonidas_11','rare',S('Engpass der Thermopylen',3,'Versetzt alle feindlichen Diener mit 3 oder mehr Angriff in Starre.',E('freeze',1,{all:true,minAttack:3}))],
- ['hypatia_10','common',M('Astronomin des Museions',2,1,3,'Arkaner Fokus +1.',{focus:1})],
+ ['hypatia_10','common',M('Astronomin des Museions',2,2,3,'Arkaner Fokus +1.',{focus:1})],
  ['hypatia_11','rare',S('Kommentar zu Diophant',2,'Verursacht 2 Schaden an einem Diener. Stirbt er, ergründet Ihr einen Zauber.',E('damage',2,{onKill:[E('discover',1,{pool:'spell'})]}),'minion')],
  ['imhotep_11','common',M('Priesterin der Sachmet',3,3,3,'Einmarsch: Stellt bei einem Ziel 3 Leben wieder her.',{target:'any',battle:[E('heal',3)]})],
  ['imhotep_12','rare',M('Ka-Statue',2,0,6,'Bauwerk. Schildwall. Vermächtnis: Stellt bei Eurem Helden 5 Leben wieder her.',{building:true,taunt:true,death:[E('healHero',5)]})],
@@ -101,7 +101,7 @@ const wave1=[
  ['khan_11','common',M('Jurtenlager',3,0,4,'Bauwerk. Zu Beginn Eures Zuges: Ruft einen Steppenreiter (1/1, Sturmangriff).',{building:true,start:[E('summon',1,{token:'rider'})]})],
  ['khan_12','rare',S('Kurultai',4,'Ruft drei Steppenreiter (1/1, Sturmangriff).',E('summon',3,{token:'rider'}))],
  ['boudicca_11','common',M('Barde der Icener',2,2,2,'Einmarsch: Euer Held erhält in diesem Zug +2 Angriff.',{battle:[E('heroAttack',2)]})],
- ['boudicca_12','rare',M('Sichelwagen',5,3,4,'Sturmangriff. Einmarsch: Fügt allen feindlichen Dienern 1 Schaden zu.',{charge:true,battle:[E('aoe',1)]})],
+ ['boudicca_12','rare',M('Sichelwagen',5,3,3,'Sturmangriff. Einmarsch: Fügt allen feindlichen Dienern 1 Schaden zu.',{charge:true,battle:[E('aoe',1)]})],
  ['nostradamus_11','common',S('Almanach der Quatrains',1,'Zieht 1 Karte. Sie kostet 1 weniger.',E('draw',1,{mod:-1}))],
  ['nostradamus_12','rare',S('Horoskop der Königin',3,'Ergründet eine Karte. Sie kostet 2 weniger. Euer Held erleidet 2 Schaden.',[E('discover',1,{pool:'any',mod:-2}),E('selfDamage',2)])],
  ['jeanne_10','common',M('Pilgerin aus Domrémy',1,1,2,'Einmarsch: Ruft einen Rekruten (1/1).',{battle:[E('summon',1,{token:'recruit'})]})],
@@ -114,7 +114,7 @@ const wave1=[
  ['perikles_11','rare',S('Schatz des Seebunds',3,'Zieht 1 Karte, dazu 1 für jedes eigene Bauwerk (höchstens 3).',E('draw',1,{per:'building',max:3}))],
  ['agrippa_10','common',M('Aquilifer',3,2,3,'Einmarsch: Gebt Euren anderen Dienern +1 Leben.',{battle:[E('buffAll',0,{health:1,excludeSelf:true})]})],
  ['agrippa_11','rare',{...S('Harpax',4,'Übernehmt die Kontrolle über einen feindlichen Diener mit höchstens 2 Angriff.',E('steal',1),'enemyMinion'),targetMax:2}],
- ['amanirenas_10','common',M('Pfeilmacher aus Meroë',2,2,2,'Einmarsch: Fügt einem zufälligen Feind 1 Schaden zu.',{battle:[E('randomDamage',1)]})],
+ ['amanirenas_10','common',M('Pfeilmacher aus Meroë',2,2,3,'Einmarsch: Fügt einem zufälligen Feind 1 Schaden zu.',{battle:[E('randomDamage',1)]})],
  ['amanirenas_11','rare',S('Gift der Wüstenviper',3,'Zwei zufällige eigene Diener erhalten Tödliches Gift. Zieht 1 Karte.',[E('grantRandom',1,{key:'poison'}),E('grantRandom',1,{key:'poison'}),E('draw',1)])],
  ['anna_10','common',M('Spitalarzt des Pantokrator',2,1,3,'Am Ende Eures Zuges: Heilt Eure Diener um 1.',{passive:'heal'})],
  ['anna_11','rare',M('Chronist am Kaiserhof',6,5,6,'Kostet 1 weniger je drei Karten, die in dieser Partie gespielt wurden.',{costPerPlayed:3})],

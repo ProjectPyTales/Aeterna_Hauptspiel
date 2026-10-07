@@ -87,7 +87,8 @@ function choose(s,index){const c=s.choice;s.choice=null;take(s,c.p,c.options[ind
 // ---------- Effects ----------
 // ctx: {spell} adds Arkaner Fokus to damage, {auto} resolves Ergründen at random (Theon's echo at the end of a turn).
 function effects(s,p,list,target,source,ctx={}){const a=s.players[p],enemy=s.players[1-p],plus=ctx.spell?focus(s,p):0;for(const e of list||[]){const t=unit(s,target);switch(e.type){
-case 'damage':hurt(s,target,e.n+plus);if(e.onKill&&t&&!t.hero&&t.obj.health<=0)effects(s,p,e.onKill,null,source,ctx);break;case 'heal':heal(s,target,e.n);break;case 'face':hurt(s,'h'+(1-p),e.n+plus);break;case 'selfDamage':hurt(s,'h'+p,e.n);break;
+// noToken (1.10.0, Kandake): no reward for a summoned token – recruits and runes no longer feed Amanirenas cards.
+case 'damage':hurt(s,target,e.n+plus);if(e.onKill&&t&&!t.hero&&t.obj.health<=0&&!(e.noToken&&D.byId[t.obj.id].rarity==='token'))effects(s,p,e.onKill,null,source,ctx);break;case 'heal':heal(s,target,e.n);break;case 'face':hurt(s,'h'+(1-p),e.n+plus);break;case 'selfDamage':hurt(s,'h'+p,e.n);break;
 case 'armor':a.armor+=e.n;emit(s,'armor',{target:'h'+p,n:e.n});break;
 case 'healHero':heal(s,'h'+p,e.n);break;case 'draw':{const got=draw(s,p,e.n+(e.per==='building'?Math.min(e.max||7,a.board.filter(u=>u.building).length):0));if(e.mod)for(const h of got)h.mod=(h.mod||0)+e.mod;break;}
 case 'mana':a.mana=Math.min(10,a.mana+e.n);break;

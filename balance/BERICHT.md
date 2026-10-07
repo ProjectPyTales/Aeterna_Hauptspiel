@@ -1,6 +1,6 @@
 # Balance-Bericht
 
-Erzeugt mit `node werkzeuge/balance.js` (AP 5.1). KI gegen KI, jede Paarung 200 Partien, je zur Hälfte mit jedem Helden als Beginner; Startwert 20261006, Regelstand `eb8b7e6ec1` (Prüfsumme von `data.js` und `engine.js`). Gleicher Startwert und Regelstand ergeben genau diesen Bericht.
+Erzeugt mit `node werkzeuge/balance.js` (AP 5.1). KI gegen KI, jede Paarung 200 Partien, je zur Hälfte mit jedem Helden als Beginner; Startwert 20261006, Regelstand `9083c726e6` (Prüfsumme von `data.js` und `engine.js`). Gleicher Startwert und Regelstand ergeben genau diesen Bericht.
 
 Beide Seiten tauschen beim Start Karten ab 4 Mana. Unentschieden zählen halb. „Gegen das Feld“ ist der Mittelwert der Siegquoten gegen die neun anderen Helden (Spiegelduelle zählen nicht). Zufallsfehler (95 %): je Paarung etwa ±6,9 Prozentpunkte, gegen das Feld etwa ±1,8.
 
@@ -8,8 +8,8 @@ Beide Seiten tauschen beim Start Karten ab 4 Mana. Unentschieden zählen halb. �
 
 | Deckart | Partien | Helden 47–53 % | Paarungen ≥ 40/60 | Beginner gewinnt | Legendäre, wenn gezogen | Unentschieden | Züge je Partie (Median) |
 |---|---|---|---|---|---|---|---|
-| Startdecks | 27200 | ✗ 15/16 | ✗ 110/120 | ✓ 46,3 % | – | 0 | 23 |
-| Zufallsdecks | 27200 | ✗ 15/16 | ✗ 116/120 | ✓ 50,9 % | ✓ 52,9 % (+3,0) | 0 | 20 |
+| Startdecks | 27200 | ✓ 16/16 | ✗ 113/120 | ✓ 46,2 % | – | 0 | 23 |
+| Zufallsdecks | 27200 | ✗ 15/16 | ✗ 118/120 | ✓ 50,9 % | ✓ 52,9 % (+3,0) | 0 | 20 |
 
 ## Startdecks
 
@@ -17,68 +17,68 @@ Jeder Held spielt sein Basisdeck (`E.starter`: 4 Heldenkarten und 11 neutrale Ka
 
 | Held | gegen das Feld | als Beginner | als Zweiter | schwerste Paarung | leichteste Paarung | KI-Spielweise: Angriffe aufs Gesicht | Ziel |
 |---|---|---|---|---|---|---|---|
-| Imhotep | **53,2 %** | 50,4 % | 55,4 % | Nostradamus 41,5 % | Boudicca 61,5 % | Defensiv: 37,9 % | ✗ |
-| Leonidas I. | **51,8 %** | 50,9 % | 52,3 % | Dandolo 47,0 % | Amanirenas 63,5 % | Defensiv: 37,2 % | ✓ |
-| Hypatia | **51,8 %** | 45,6 % | 57,5 % | Anna 43,5 % | Masako 61,5 % | Kombinierend: 45,1 % | ✓ |
-| Hōjō Masako | **51,5 %** | 45,0 % | 57,7 % | Hypatia 38,5 % | Khan 60,5 % | Defensiv: 40,5 % | ✓ |
-| Nezahualcóyotl | **51,2 %** | 46,9 % | 55,2 % | Imhotep 44,5 % | Anna 58,5 % | Defensiv: 39,3 % | ✓ |
-| Dschingis Khan | **51,1 %** | 45,9 % | 56,0 % | Masako 39,5 % | Nostradamus 64,5 % | Aggressiv: 45,1 % | ✓ |
-| Amanirenas | **50,8 %** | 47,9 % | 53,5 % | Leonidas 36,5 % | Jeanne 69,5 % | Aggressiv: 45,2 % | ✓ |
-| Nostradamus | **50,5 %** | 49,7 % | 51,2 % | Khan 35,5 % | Imhotep 58,5 % | Kombinierend: 41,4 % | ✓ |
-| Anna Komnene | **49,7 %** | 50,9 % | 48,5 % | Nezahualcóyotl 41,5 % | Hypatia 56,5 % | Kombinierend: 39,4 % | ✓ |
-| Ragnar Lodbrok | **49,5 %** | 45,9 % | 53,2 % | Jeanne 40,0 % | Anna 56,5 % | Aggressiv: 41,4 % | ✓ |
-| Jeanne d’Arc | **49,1 %** | 43,4 % | 55,1 % | Amanirenas 30,5 % | Musashi 62,0 % | Aggressiv: 51,7 % | ✓ |
-| Enrico Dandolo | **48,6 %** | 46,4 % | 51,2 % | Musashi 42,5 % | Perikles 55,0 % | Kombinierend: 41,8 % | ✓ |
-| Perikles | **48,3 %** | 43,5 % | 53,5 % | Hypatia 43,0 % | Agrippa 55,5 % | Defensiv: 40,0 % | ✓ |
-| Boudicca | **48,0 %** | 42,0 % | 54,5 % | Imhotep 38,5 % | Musashi 63,0 % | Aggressiv: 43,0 % | ✓ |
-| Marcus Agrippa | **47,6 %** | 43,0 % | 52,8 % | Khan 35,5 % | Boudicca 57,5 % | Kombinierend: 44,0 % | ✓ |
-| Miyamoto Musashi | **47,1 %** | 43,0 % | 51,9 % | Boudicca 37,0 % | Dandolo 57,5 % | Aggressiv: 48,4 % | ✓ |
+| Miyamoto Musashi | **52,7 %** | 47,7 % | 57,1 % | Jeanne 41,5 % | Dandolo 62,0 % | Aggressiv: 49,2 % | ✓ |
+| Hypatia | **51,7 %** | 45,4 % | 57,6 % | Anna 43,5 % | Masako 61,5 % | Kombinierend: 45,1 % | ✓ |
+| Hōjō Masako | **51,4 %** | 44,9 % | 57,6 % | Hypatia 38,5 % | Khan 60,5 % | Defensiv: 40,6 % | ✓ |
+| Nezahualcóyotl | **51,4 %** | 47,3 % | 55,2 % | Masako 44,5 % | Anna 58,5 % | Defensiv: 39,4 % | ✓ |
+| Dschingis Khan | **51,3 %** | 46,2 % | 56,2 % | Masako 39,5 % | Nostradamus 64,5 % | Aggressiv: 45,2 % | ✓ |
+| Leonidas I. | **51,3 %** | 50,8 % | 51,6 % | Musashi 45,5 % | Amanirenas 63,5 % | Defensiv: 37,2 % | ✓ |
+| Amanirenas | **50,8 %** | 47,8 % | 53,6 % | Leonidas 36,5 % | Jeanne 69,5 % | Aggressiv: 45,2 % | ✓ |
+| Nostradamus | **50,1 %** | 49,2 % | 50,9 % | Khan 35,5 % | Imhotep 56,5 % | Kombinierend: 41,4 % | ✓ |
+| Ragnar Lodbrok | **49,6 %** | 46,1 % | 53,2 % | Jeanne 40,0 % | Anna 56,5 % | Aggressiv: 41,6 % | ✓ |
+| Jeanne d’Arc | **49,2 %** | 43,1 % | 55,6 % | Amanirenas 30,5 % | Ragnar 60,0 % | Aggressiv: 51,8 % | ✓ |
+| Anna Komnene | **49,2 %** | 50,3 % | 48,3 % | Nezahualcóyotl 41,5 % | Hypatia 56,5 % | Kombinierend: 39,4 % | ✓ |
+| Imhotep | **49,0 %** | 46,2 % | 51,9 % | Nostradamus 43,5 % | Boudicca 60,0 % | Defensiv: 36,9 % | ✓ |
+| Enrico Dandolo | **48,8 %** | 46,5 % | 51,4 % | Musashi 38,0 % | Imhotep 55,5 % | Kombinierend: 42,0 % | ✓ |
+| Perikles | **48,1 %** | 43,5 % | 53,2 % | Hypatia 43,0 % | Agrippa 55,5 % | Defensiv: 40,1 % | ✓ |
+| Marcus Agrippa | **47,8 %** | 43,1 % | 52,9 % | Khan 35,5 % | Boudicca 57,5 % | Kombinierend: 44,2 % | ✓ |
+| Boudicca | **47,6 %** | 41,8 % | 53,9 % | Imhotep 40,0 % | Jeanne 55,0 % | Aggressiv: 43,0 % | ✓ |
 
 **Siegquoten-Matrix** (Zeile gegen Spalte, in %; fett = außerhalb 40–60):
 
 | | Leon. | Hypa. | Imho. | Dand. | Khan. | Boud. | Nost. | Jean. | Ragn. | Musa. | Peri. | Agri. | Aman. | Anna. | Neza. | Masa. |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Leonidas | · | 51 | 49 | 47 | 47 | 56 | 55 | 51 | 52 | 55 | 50 | 54 | **64** | 51 | 52 | 48 |
-| Hypatia | 49 | · | 45 | 50 | 59 | 54 | 51 | 60 | 51 | 48 | 57 | 47 | 54 | 44 | 50 | **62** |
-| Imhotep | 52 | 55 | · | 52 | 59 | **62** | 42 | 55 | 54 | 54 | 56 | 51 | 60 | 44 | 56 | 51 |
-| Dandolo | 53 | 50 | 48 | · | 43 | 47 | 47 | 47 | 48 | 43 | 55 | 54 | 49 | 50 | 45 | 52 |
-| Khan | 53 | 42 | 41 | 57 | · | 47 | **65** | 46 | 55 | 53 | 50 | **65** | 47 | 57 | 50 | **40** |
-| Boudicca | 44 | 47 | **39** | 53 | 53 | · | 45 | 55 | 49 | **63** | 46 | 43 | 43 | 50 | 45 | 48 |
-| Nostradamus | 45 | 50 | 59 | 53 | **36** | 55 | · | 53 | 47 | 49 | 54 | 53 | 52 | 49 | 55 | 50 |
-| Jeanne | 49 | 41 | 45 | 53 | 54 | 45 | 47 | · | 60 | **62** | 56 | 51 | **31** | 53 | 49 | 43 |
-| Ragnar | 49 | 50 | 47 | 52 | 45 | 51 | 53 | 40 | · | 47 | 50 | 52 | 47 | 56 | 54 | 51 |
-| Musashi | 45 | 53 | 46 | 57 | 47 | **37** | 51 | **38** | 53 | · | 51 | 52 | **38** | 49 | 43 | 46 |
-| Perikles | 51 | 43 | 44 | 45 | 50 | 54 | 46 | 44 | 51 | 49 | · | 56 | 45 | 52 | 50 | 46 |
-| Agrippa | 46 | 53 | 50 | 46 | **36** | 57 | 48 | 49 | 48 | 48 | 44 | · | 47 | 49 | 46 | 49 |
-| Amanirenas | **37** | 46 | 40 | 51 | 53 | 57 | 49 | **70** | 53 | **62** | 55 | 53 | · | 44 | 44 | 50 |
-| Anna | 49 | 56 | 56 | 51 | 43 | 50 | 51 | 47 | 44 | 51 | 49 | 51 | 56 | · | 42 | 51 |
-| Nezahualcóyotl | 49 | 51 | 44 | 55 | 50 | 55 | 45 | 52 | 47 | 57 | 51 | 54 | 56 | 59 | · | 45 |
-| Masako | 53 | **39** | 50 | 48 | **61** | 52 | 51 | 57 | 49 | 54 | 54 | 52 | 51 | 50 | 55 | · |
+| Leonidas | · | 51 | 50 | 47 | 47 | 56 | 55 | 51 | 52 | 46 | 50 | 54 | **64** | 51 | 52 | 48 |
+| Hypatia | 49 | · | 47 | 50 | 59 | 54 | 51 | 60 | 51 | 45 | 57 | 47 | 54 | 44 | 50 | **62** |
+| Imhotep | 50 | 53 | · | 45 | 49 | 60 | 44 | 50 | 48 | 45 | 53 | 44 | 54 | 45 | 51 | 47 |
+| Dandolo | 53 | 50 | 55 | · | 43 | 47 | 47 | 47 | 48 | **38** | 55 | 54 | 49 | 50 | 45 | 52 |
+| Khan | 53 | 42 | 52 | 57 | · | 47 | **65** | 46 | 55 | 47 | 50 | **65** | 47 | 57 | 50 | **40** |
+| Boudicca | 44 | 47 | 40 | 53 | 53 | · | 45 | 55 | 49 | 55 | 46 | 43 | 43 | 50 | 45 | 48 |
+| Nostradamus | 45 | 50 | 56 | 53 | **36** | 55 | · | 53 | 47 | 44 | 54 | 53 | 52 | 49 | 55 | 50 |
+| Jeanne | 49 | 41 | 51 | 53 | 54 | 45 | 47 | · | 60 | 59 | 56 | 51 | **31** | 53 | 49 | 43 |
+| Ragnar | 49 | 50 | 52 | 52 | 45 | 51 | 53 | 40 | · | 43 | 50 | 52 | 47 | 56 | 54 | 51 |
+| Musashi | 54 | 55 | 55 | **62** | 53 | 45 | 56 | 42 | 57 | · | 57 | 57 | 45 | 55 | 45 | 51 |
+| Perikles | 51 | 43 | 48 | 45 | 50 | 54 | 46 | 44 | 51 | 43 | · | 56 | 45 | 52 | 50 | 46 |
+| Agrippa | 46 | 53 | 56 | 46 | **36** | 57 | 48 | 49 | 48 | 43 | 44 | · | 47 | 49 | 46 | 49 |
+| Amanirenas | **37** | 46 | 46 | 51 | 53 | 57 | 49 | **70** | 53 | 55 | 55 | 53 | · | 44 | 44 | 50 |
+| Anna | 49 | 56 | 55 | 51 | 43 | 50 | 51 | 47 | 44 | 45 | 49 | 51 | 56 | · | 42 | 51 |
+| Nezahualcóyotl | 49 | 51 | 49 | 55 | 50 | 55 | 45 | 52 | 47 | 55 | 51 | 54 | 56 | 59 | · | 45 |
+| Masako | 53 | **39** | 53 | 48 | **61** | 52 | 51 | 57 | 49 | 49 | 54 | 52 | 51 | 50 | 55 | · |
 
-**KI-Persönlichkeit** (AP 5.8 Teil 2) – Anteil der Angriffe: **Aggressiv** (6 Helden) 45,8 % aufs Gesicht, 1,3 % auf Bauwerke · **Defensiv** (5 Helden) 39,0 % aufs Gesicht, 1,4 % auf Bauwerke · **Kombinierend** (5 Helden) 42,3 % aufs Gesicht, 1,5 % auf Bauwerke.
+**KI-Persönlichkeit** (AP 5.8 Teil 2) – Anteil der Angriffe: **Aggressiv** (6 Helden) 46,0 % aufs Gesicht, 1,3 % auf Bauwerke · **Defensiv** (5 Helden) 38,8 % aufs Gesicht, 1,4 % auf Bauwerke · **Kombinierend** (5 Helden) 42,4 % aufs Gesicht, 1,5 % auf Bauwerke.
 
-**Partielänge** (Züge beider Seiten zusammen): Mittel 24,2, Median 23, 10–90 %: 17–33, kürzeste 9, längste 63. Beginner gewinnt 46,3 %, Unentschieden (Zuglimit 120): 0.
+**Partielänge** (Züge beider Seiten zusammen): Mittel 24,2, Median 23, 10–90 %: 17–33, kürzeste 9, längste 63. Beginner gewinnt 46,2 %, Unentschieden (Zuglimit 120): 0.
 
 **Auffällige Karten** – „gewinnt, wenn gezogen“ im Vergleich zur Siegquote des eigenen Helden (Δ in Prozentpunkten):
 
 | Karte | Held | Mana | gewinnt, wenn gezogen | Δ | gespielt |
 |---|---|---:|---:|---:|---:|
-| Belagerungsturm | neutral | 6 | 55,5 % | +5,5 | 75,3 % |
-| Goldener Reiter | Khan | 4 | 56,1 % | +5,2 | 69,5 % |
-| Warägergardist | Anna | 3 | 53,9 % | +4,2 | 81,9 % |
-| Pilumwerfer | Agrippa | 1 | 51,8 % | +3,8 | 76,9 % |
-| Rede auf die Gefallenen | Perikles | 3 | 52,3 % | +3,8 | 78,6 % |
-| Kopistin der Chronik | Anna | 1 | 52,9 % | +3,2 | 80,7 % |
-| Sternenregen | Hypatia | 4 | 54,6 % | +3,0 | 77,4 % |
-| Handelsgesandter | Dandolo | 4 | 51,8 % | +3,0 | 77,4 % |
-| Hainwächterin | Boudicca | 1 | 46,7 % | −1,6 | 81,6 % |
-| Reiterbogenschütze | Khan | 2 | 49,4 % | −1,6 | 75,9 % |
-| Eichenhaut | Boudicca | 2 | 46,6 % | −1,6 | 72,7 % |
-| Bibliothekslehrling | Hypatia | 1 | 49,9 % | −1,7 | 83,2 % |
-| Pfeilschuss | Khan | 2 | 49,1 % | −1,8 | 75,4 % |
+| Belagerungsturm | neutral | 6 | 55,5 % | +5,5 | 75,2 % |
+| Goldener Reiter | Khan | 4 | 56,3 % | +5,1 | 69,5 % |
+| Warägergardist | Anna | 3 | 53,5 % | +4,2 | 81,8 % |
+| Pilumwerfer | Agrippa | 1 | 52,0 % | +4,0 | 76,7 % |
+| Rede auf die Gefallenen | Perikles | 3 | 52,1 % | +3,8 | 78,6 % |
+| Sternenregen | Hypatia | 4 | 54,6 % | +3,2 | 77,4 % |
+| Kopistin der Chronik | Anna | 1 | 52,4 % | +3,1 | 80,8 % |
+| Handelsgesandter | Dandolo | 4 | 52,0 % | +3,0 | 77,1 % |
+| Hainwächterin | Boudicca | 1 | 46,5 % | −1,4 | 81,6 % |
+| Reiterbogenschütze | Khan | 2 | 49,7 % | −1,5 | 75,9 % |
+| Bibliothekslehrling | Hypatia | 1 | 49,8 % | −1,6 | 83,1 % |
+| Eichenhaut | Boudicca | 2 | 46,1 % | −1,7 | 72,7 % |
 | Gokenin aus Sagami | Masako | 1 | 49,4 % | −1,9 | 80,3 % |
-| Nonne von Kamakura | Masako | 2 | 49,3 % | −2,0 | 81,4 % |
-| Lange Mauern | Perikles | 2 | 44,2 % | −4,3 | 77,4 % |
+| Nonne von Kamakura | Masako | 2 | 49,4 % | −1,9 | 81,6 % |
+| Pfeilschuss | Khan | 2 | 49,2 % | −2,0 | 75,5 % |
+| Lange Mauern | Perikles | 2 | 44,1 % | −4,3 | 77,4 % |
 
 ## Zufallsdecks
 
@@ -86,91 +86,91 @@ Jede Partie mit neu gemischten Zufallsdecks (`E.randomDeck`, wie die KI im freie
 
 | Held | gegen das Feld | als Beginner | als Zweiter | schwerste Paarung | leichteste Paarung | KI-Spielweise: Angriffe aufs Gesicht | Ziel |
 |---|---|---|---|---|---|---|---|
-| Enrico Dandolo | **53,2 %** | 55,1 % | 50,6 % | Ragnar 43,5 % | Jeanne 60,5 % | Kombinierend: 45,4 % | ✗ |
-| Boudicca | **53,0 %** | 53,9 % | 51,4 % | Leonidas 45,5 % | Khan 60,5 % | Aggressiv: 50,2 % | ✓ |
-| Ragnar Lodbrok | **51,6 %** | 51,8 % | 51,1 % | Nostradamus 46,5 % | Khan 59,5 % | Aggressiv: 48,8 % | ✓ |
-| Nostradamus | **51,3 %** | 52,6 % | 49,7 % | Dandolo 44,5 % | Masako 61,0 % | Kombinierend: 45,9 % | ✓ |
-| Marcus Agrippa | **50,2 %** | 49,4 % | 50,9 % | Leonidas 43,5 % | Imhotep 60,5 % | Kombinierend: 47,3 % | ✓ |
-| Leonidas I. | **50,1 %** | 49,4 % | 50,8 % | Dandolo 43,5 % | Agrippa 56,5 % | Defensiv: 39,4 % | ✓ |
-| Anna Komnene | **50,0 %** | 52,5 % | 47,5 % | Boudicca 44,5 % | Nezahualcóyotl 57,0 % | Kombinierend: 44,1 % | ✓ |
-| Dschingis Khan | **49,9 %** | 48,8 % | 51,0 % | Boudicca 39,5 % | Anna 55,0 % | Aggressiv: 51,8 % | ✓ |
-| Miyamoto Musashi | **49,9 %** | 50,0 % | 49,8 % | Khan 45,5 % | Imhotep 55,0 % | Aggressiv: 54,6 % | ✓ |
-| Nezahualcóyotl | **49,8 %** | 51,6 % | 48,1 % | Dandolo 41,5 % | Agrippa 55,5 % | Defensiv: 40,7 % | ✓ |
-| Perikles | **49,6 %** | 51,5 % | 47,9 % | Dandolo 42,5 % | Imhotep 55,5 % | Defensiv: 42,6 % | ✓ |
-| Hypatia | **49,1 %** | 50,5 % | 47,9 % | Boudicca 42,5 % | Agrippa 52,0 % | Kombinierend: 44,9 % | ✓ |
-| Amanirenas | **49,0 %** | 50,6 % | 47,6 % | Nostradamus 44,0 % | Jeanne 58,5 % | Aggressiv: 49,3 % | ✓ |
-| Jeanne d’Arc | **48,3 %** | 50,5 % | 46,5 % | Dandolo 39,5 % | Imhotep 56,5 % | Aggressiv: 51,3 % | ✓ |
-| Imhotep | **47,9 %** | 49,4 % | 46,9 % | Agrippa 39,5 % | Nezahualcóyotl 57,0 % | Defensiv: 39,6 % | ✓ |
-| Hōjō Masako | **47,1 %** | 47,6 % | 47,3 % | Nostradamus 39,0 % | Musashi 53,0 % | Defensiv: 39,5 % | ✓ |
+| Boudicca | **53,7 %** | 54,0 % | 52,5 % | Ragnar 46,0 % | Khan 60,5 % | Aggressiv: 50,2 % | ✗ |
+| Ragnar Lodbrok | **52,9 %** | 51,9 % | 53,2 % | Jeanne 46,0 % | Imhotep 59,0 % | Aggressiv: 48,6 % | ✓ |
+| Enrico Dandolo | **52,3 %** | 55,4 % | 48,6 % | Boudicca 41,5 % | Agrippa 59,5 % | Kombinierend: 45,3 % | ✓ |
+| Miyamoto Musashi | **51,8 %** | 52,5 % | 50,6 % | Ragnar 47,0 % | Hypatia 59,5 % | Aggressiv: 54,4 % | ✓ |
+| Hōjō Masako | **51,1 %** | 51,3 % | 50,6 % | Jeanne 44,5 % | Khan 56,0 % | Defensiv: 40,2 % | ✓ |
+| Leonidas I. | **50,3 %** | 51,0 % | 49,5 % | Ragnar 47,0 % | Imhotep 55,5 % | Defensiv: 39,6 % | ✓ |
+| Nostradamus | **50,1 %** | 51,2 % | 48,9 % | Leonidas 44,5 % | Jeanne 57,0 % | Kombinierend: 45,4 % | ✓ |
+| Jeanne d’Arc | **49,7 %** | 51,4 % | 48,0 % | Nostradamus 43,0 % | Anna 57,5 % | Aggressiv: 50,6 % | ✓ |
+| Perikles | **49,3 %** | 50,7 % | 48,1 % | Boudicca 43,0 % | Hypatia 58,0 % | Defensiv: 41,8 % | ✓ |
+| Marcus Agrippa | **49,3 %** | 48,2 % | 50,5 % | Boudicca 39,5 % | Imhotep 58,5 % | Kombinierend: 47,0 % | ✓ |
+| Nezahualcóyotl | **49,3 %** | 50,5 % | 48,2 % | Imhotep 41,5 % | Khan 54,5 % | Defensiv: 40,4 % | ✓ |
+| Dschingis Khan | **49,0 %** | 48,2 % | 50,1 % | Boudicca 39,5 % | Anna 55,5 % | Aggressiv: 51,2 % | ✓ |
+| Amanirenas | **48,6 %** | 50,5 % | 47,1 % | Nostradamus 43,5 % | Jeanne 54,5 % | Aggressiv: 48,9 % | ✓ |
+| Anna Komnene | **48,3 %** | 50,8 % | 46,2 % | Jeanne 42,5 % | Nostradamus 55,5 % | Kombinierend: 43,7 % | ✓ |
+| Imhotep | **47,5 %** | 47,9 % | 47,6 % | Ragnar 41,0 % | Nezahualcóyotl 58,5 % | Defensiv: 38,8 % | ✓ |
+| Hypatia | **47,0 %** | 48,9 % | 45,8 % | Musashi 40,5 % | Anna 53,5 % | Kombinierend: 44,0 % | ✓ |
 
 **Siegquoten-Matrix** (Zeile gegen Spalte, in %; fett = außerhalb 40–60):
 
 | | Leon. | Hypa. | Imho. | Dand. | Khan. | Boud. | Nost. | Jean. | Ragn. | Musa. | Peri. | Agri. | Aman. | Anna. | Neza. | Masa. |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Leonidas | · | 49 | 54 | 44 | 49 | 55 | 54 | 48 | 48 | 48 | 46 | 56 | 54 | 47 | 50 | 53 |
-| Hypatia | 52 | · | 50 | 51 | 49 | 43 | 47 | 48 | 51 | 49 | 45 | 52 | 51 | 51 | 50 | 51 |
-| Imhotep | 47 | 50 | · | 45 | 51 | 48 | 47 | 44 | 46 | 45 | 45 | **40** | 51 | 50 | 57 | 56 |
-| Dandolo | 56 | 50 | 55 | · | 46 | 48 | 56 | **61** | 44 | 53 | 57 | 56 | 53 | 50 | 59 | 56 |
-| Khan | 51 | 51 | 50 | 54 | · | **40** | 52 | 51 | 41 | 55 | 54 | 48 | 52 | 55 | 45 | 53 |
-| Boudicca | 45 | 57 | 52 | 53 | **61** | · | 47 | 57 | 51 | 55 | 56 | 54 | 53 | 56 | 48 | 53 |
-| Nostradamus | 47 | 53 | 53 | 44 | 48 | 53 | · | 57 | 54 | 47 | 49 | 53 | 56 | 46 | 49 | **61** |
-| Jeanne | 52 | 53 | 56 | **40** | 49 | 43 | 43 | · | 54 | 49 | 45 | 48 | 42 | 52 | 50 | 52 |
-| Ragnar | 52 | 49 | 54 | 56 | 60 | 50 | 47 | 47 | · | 49 | 54 | 55 | 50 | 52 | 50 | 53 |
-| Musashi | 52 | 52 | 55 | 47 | 45 | 45 | 53 | 51 | 52 | · | 48 | 49 | 52 | 53 | 49 | 47 |
-| Perikles | 54 | 55 | 55 | 43 | 47 | 44 | 51 | 55 | 46 | 52 | · | 48 | 50 | 44 | 51 | 52 |
-| Agrippa | 44 | 48 | **61** | 44 | 53 | 47 | 48 | 52 | 45 | 52 | 53 | · | 51 | 56 | 45 | 59 |
-| Amanirenas | 47 | 50 | 50 | 47 | 48 | 47 | 44 | 59 | 51 | 49 | 51 | 50 | · | 49 | 47 | 50 |
-| Anna | 53 | 49 | 51 | 50 | 45 | 44 | 54 | 49 | 48 | 48 | 56 | 44 | 51 | · | 57 | 51 |
-| Nezahualcóyotl | 51 | 50 | 43 | 42 | 55 | 52 | 51 | 51 | 51 | 52 | 50 | 55 | 53 | 43 | · | 51 |
-| Masako | 47 | 49 | 44 | 44 | 48 | 48 | **39** | 49 | 48 | 53 | 49 | 42 | 51 | 50 | 50 | · |
+| Leonidas | · | 50 | 56 | 48 | 51 | 52 | 56 | 50 | 47 | 47 | 47 | 55 | 51 | 48 | 50 | 50 |
+| Hypatia | 50 | · | 49 | 46 | 49 | 45 | 46 | 46 | 46 | 41 | 42 | 48 | 50 | 54 | 49 | 47 |
+| Imhotep | 44 | 52 | · | 44 | 49 | 47 | 48 | 46 | 41 | 48 | 45 | 42 | 47 | 54 | 59 | 50 |
+| Dandolo | 53 | 54 | 56 | · | 53 | 42 | 56 | 56 | 49 | 44 | 55 | 60 | 55 | 50 | 54 | 51 |
+| Khan | 50 | 51 | 52 | 48 | · | **40** | 53 | 54 | 43 | 50 | 53 | 48 | 52 | 56 | 46 | 44 |
+| Boudicca | 48 | 55 | 53 | 59 | **61** | · | 48 | 52 | 46 | 52 | 57 | **61** | 56 | 56 | 52 | 50 |
+| Nostradamus | 44 | 54 | 53 | 44 | 48 | 52 | · | 57 | 51 | 48 | 49 | 52 | 56 | 45 | 47 | 52 |
+| Jeanne | 51 | 54 | 54 | 44 | 46 | 48 | 43 | · | 54 | 46 | 49 | 46 | 46 | 57 | 52 | 56 |
+| Ragnar | 53 | 54 | 59 | 52 | 57 | 54 | 50 | 46 | · | 53 | 54 | 55 | 50 | 52 | 53 | 53 |
+| Musashi | 53 | 60 | 52 | 56 | 50 | 49 | 52 | 54 | 47 | · | 51 | 50 | 52 | 53 | 49 | 50 |
+| Perikles | 53 | 58 | 55 | 45 | 48 | 43 | 52 | 51 | 46 | 49 | · | 47 | 50 | 47 | 51 | 47 |
+| Agrippa | 45 | 52 | 59 | 41 | 52 | **40** | 48 | 54 | 45 | 50 | 53 | · | 50 | 56 | 46 | 49 |
+| Amanirenas | 49 | 51 | 53 | 45 | 49 | 44 | 44 | 54 | 50 | 49 | 51 | 50 | · | 48 | 47 | 47 |
+| Anna | 52 | 47 | 46 | 51 | 44 | 44 | 55 | 43 | 49 | 48 | 53 | 44 | 52 | · | 54 | 45 |
+| Nezahualcóyotl | 50 | 51 | 42 | 46 | 54 | 48 | 53 | 48 | 48 | 51 | 50 | 54 | 53 | 46 | · | 46 |
+| Masako | 51 | 53 | 50 | 50 | 56 | 50 | 48 | 44 | 47 | 50 | 53 | 52 | 53 | 55 | 54 | · |
 
-**KI-Persönlichkeit** (AP 5.8 Teil 2) – Anteil der Angriffe: **Aggressiv** (6 Helden) 51,0 % aufs Gesicht, 6,4 % auf Bauwerke · **Defensiv** (5 Helden) 40,4 % aufs Gesicht, 8,9 % auf Bauwerke · **Kombinierend** (5 Helden) 45,5 % aufs Gesicht, 8,0 % auf Bauwerke.
+**KI-Persönlichkeit** (AP 5.8 Teil 2) – Anteil der Angriffe: **Aggressiv** (6 Helden) 50,6 % aufs Gesicht, 6,8 % auf Bauwerke · **Defensiv** (5 Helden) 40,2 % aufs Gesicht, 9,1 % auf Bauwerke · **Kombinierend** (5 Helden) 45,1 % aufs Gesicht, 8,4 % auf Bauwerke.
 
-**Partielänge** (Züge beider Seiten zusammen): Mittel 21,5, Median 20, 10–90 %: 15–30, kürzeste 8, längste 73. Beginner gewinnt 50,9 %, Unentschieden (Zuglimit 120): 0.
+**Partielänge** (Züge beider Seiten zusammen): Mittel 21,6, Median 20, 10–90 %: 15–30, kürzeste 8, längste 67. Beginner gewinnt 50,9 %, Unentschieden (Zuglimit 120): 0.
 
 **Auffällige Karten** – „gewinnt, wenn gezogen“ im Vergleich zur Siegquote des eigenen Helden (Δ in Prozentpunkten):
 
 | Karte | Held | Mana | gewinnt, wenn gezogen | Δ | gespielt |
 |---|---|---:|---:|---:|---:|
-| Kataphrakt | Anna | 5 | 63,4 % | +13,4 | 47,2 % |
-| Wächter des Weltenbaums | neutral | 8 | 60,6 % | +10,6 | 44,4 % |
-| Phalanxveteran | Leonidas | 5 | 59,1 % | +9,0 | 56,3 % |
-| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | 58,2 % | +8,4 | 56,8 % |
-| Goldener Reiter | Khan | 4 | 58,2 % | +8,3 | 45,4 % |
-| Triere von Salamis | Perikles | 4 | 57,8 % | +8,1 | 52,1 % |
-| Strategos | Perikles | 3 | 57,7 % | +8,0 | 57,1 % |
-| Griechisches Feuer | Anna | 4 | 57,9 % | +7,9 | 48,2 % |
-| Schwertschüler aus Kokura | Musashi | 4 | 44,0 % | −5,9 | 43,1 % |
-| Leuchtturm von Pharos | Griechische Antike | 3 | 43,7 % | −6,0 | 38,3 % |
-| Engpass der Thermopylen | Leonidas | 3 | 44,1 % | −6,0 | 52,6 % |
-| Eichenhaut | Boudicca | 2 | 46,2 % | −6,4 | 41,0 % |
-| Burgfried | Europäisches Mittelalter | 2 | 43,6 % | −7,7 | 56,9 % |
-| Jurtenlager | Khan | 3 | 41,8 % | −8,1 | 35,1 % |
-| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | 40,5 % | −9,4 | 53,7 % |
-| Große Mauer | China, Korea, Japan | 3 | 36,4 % | −12,2 | 58,3 % |
+| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | 59,5 % | +10,1 | 57,3 % |
+| Phalanxveteran | Leonidas | 5 | 59,8 % | +9,6 | 56,2 % |
+| Wächter des Weltenbaums | neutral | 8 | 58,7 % | +8,7 | 44,4 % |
+| Pestdoktor | Nostradamus | 4 | 58,5 % | +8,4 | 56,1 % |
+| Triere von Salamis | Perikles | 4 | 57,4 % | +8,0 | 52,8 % |
+| Kataphrakt | Anna | 5 | 56,4 % | +7,9 | 45,2 % |
+| Chronist am Kaiserhof | Anna | 6 | 55,7 % | +7,2 | 58,6 % |
+| Griechisches Feuer | Anna | 4 | 55,6 % | +7,1 | 48,1 % |
+| Odeion | Perikles | 4 | 44,1 % | −5,3 | 35,6 % |
+| Kolosseum | neutral | 3 | 44,5 % | −5,4 | 33,0 % |
+| Pyramiden von Gizeh | neutral | 4 | 43,9 % | −6,0 | 27,3 % |
+| Burgfried | Europäisches Mittelalter | 2 | 44,5 % | −7,4 | 56,7 % |
+| Leuchtturm von Pharos | Griechische Antike | 3 | 41,6 % | −7,4 | 54,2 % |
+| Große Mauer | China, Korea, Japan | 2 | 43,5 % | −7,7 | 60,2 % |
+| Jurtenlager | Khan | 3 | 41,3 % | −7,8 | 35,0 % |
+| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | 41,1 % | −8,3 | 54,7 % |
 
-**Legendäre** (AP 5.3) – als Gruppe 52,9 % „gewinnt, wenn gezogen“ (+3,0 gegenüber ihrem Helden, 32577 Partien):
+**Legendäre** (AP 5.3) – als Gruppe 52,9 % „gewinnt, wenn gezogen“ (+3,0 gegenüber ihrem Helden, 32881 Partien):
 
 | Karte | Held | Mana | gewinnt, wenn gezogen | Δ | gespielt |
 |---|---|---:|---:|---:|---:|
-| Lagertha, Schildmaid | Ragnar | 7 | 56,8 % | +5,4 | 44,4 % |
-| Marco Polo, der Weltenfahrer | Dandolo | 6 | 56,3 % | +3,4 | 42,9 % |
-| Zenobia, Rebellin von Palmyra | neutral | 8 | 55,8 % | +5,8 | 42,5 % |
-| Gorgo, Stimme Spartas | Leonidas | 7 | 55,7 % | +5,6 | 49,1 % |
-| Subutai, der Stratege | Khan | 6 | 53,6 % | +3,7 | 42,7 % |
-| Theon von Alexandria | Hypatia | 5 | 53,6 % | +4,4 | 49,1 % |
-| Herodot, Vater der Geschichte | neutral | 4 | 52,4 % | +2,4 | 42,1 % |
-| Bronzekopf des Augustus | Amanirenas | 6 | 52,0 % | +3,0 | 46,7 % |
-| Caterina de’ Medici | Nostradamus | 5 | 51,7 % | +0,5 | 50,5 % |
-| Djoser, der Erbauer | Imhotep | 6 | 51,2 % | +3,0 | 49,5 % |
-| Phidias, Meister der Akropolis | Perikles | 7 | 51,2 % | +1,5 | 51,7 % |
-| La Hire, der Unbeugsame | Jeanne | 7 | 50,1 % | +1,6 | 42,1 % |
-| Vitruv, Baumeister Roms | Agrippa | 5 | 50,1 % | −0,1 | 42,4 % |
-| Alexios I. Komnenos | Anna | 6 | 49,6 % | −0,4 | 46,6 % |
-| Sasaki Kojirō, der Rivale | Musashi | 6 | 49,4 % | −0,5 | 46,4 % |
-| Andraste, Göttin des Sieges | Boudicca | 8 | 48,4 % | −4,2 | 45,9 % |
-| Minamoto no Yoritomo | Masako | 6 | 48,0 % | +0,5 | 50,2 % |
-| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | 44,2 % | −5,6 | 46,0 % |
+| Lagertha, Schildmaid | Ragnar | 7 | 57,1 % | +4,6 | 43,4 % |
+| Marco Polo, der Weltenfahrer | Dandolo | 6 | 55,4 % | +3,4 | 44,3 % |
+| Zenobia, Rebellin von Palmyra | neutral | 8 | 55,1 % | +5,2 | 42,7 % |
+| Gorgo, Stimme Spartas | Leonidas | 7 | 54,7 % | +4,4 | 49,4 % |
+| Andraste, Göttin des Sieges | Boudicca | 8 | 54,2 % | +1,0 | 47,4 % |
+| Subutai, der Stratege | Khan | 6 | 53,6 % | +4,5 | 43,8 % |
+| Minamoto no Yoritomo | Masako | 6 | 52,8 % | +1,8 | 51,6 % |
+| Herodot, Vater der Geschichte | neutral | 4 | 52,6 % | +2,7 | 42,6 % |
+| Djoser, der Erbauer | Imhotep | 6 | 52,4 % | +4,6 | 50,8 % |
+| Theon von Alexandria | Hypatia | 5 | 51,4 % | +4,0 | 48,8 % |
+| La Hire, der Unbeugsame | Jeanne | 7 | 51,3 % | +1,6 | 41,6 % |
+| Sasaki Kojirō, der Rivale | Musashi | 6 | 51,1 % | −0,4 | 44,7 % |
+| Vitruv, Baumeister Roms | Agrippa | 5 | 51,0 % | +1,6 | 42,8 % |
+| Caterina de’ Medici | Nostradamus | 5 | 50,9 % | +0,9 | 52,6 % |
+| Bronzekopf des Augustus | Amanirenas | 6 | 50,9 % | +2,1 | 46,3 % |
+| Phidias, Meister der Akropolis | Perikles | 7 | 49,8 % | +0,4 | 52,6 % |
+| Alexios I. Komnenos | Anna | 6 | 46,4 % | −2,1 | 46,7 % |
+| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | 44,2 % | −5,2 | 46,6 % |
 
 ## Alle Karten
 
@@ -178,272 +178,272 @@ Jede Partie mit neu gemischten Zufallsdecks (`E.randomDeck`, wie die KI im freie
 
 | Karte | Held | Mana | Seltenheit | Startdecks: im Deck | gespielt | gewinnt, wenn gezogen | Δ | Zufallsdecks: im Deck | gespielt | gewinnt, wenn gezogen | Δ |
 |---|---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Spartanischer Rekrut | Leonidas | 1 | Basis | 3400 | 80,4 % | 52,6 % | +1,0 | 886 | 53,3 % | 53,1 % | +3,0 |
-| Wächter der Thermopylen | Leonidas | 2 | Basis | 3400 | 80,8 % | 52,1 % | +0,4 | 1230 | 57,2 % | 53,4 % | +3,3 |
-| Bronzener Wall | Leonidas | 2 | Basis | 3400 | 80,7 % | 53,5 % | +1,9 | 1230 | 52,8 % | 49,2 % | −0,9 |
-| Hoplitenhauptmann | Leonidas | 4 | Basis | 3400 | 76,7 % | 53,5 % | +1,9 | 1170 | 45,8 % | 48,2 % | −1,9 |
-| Speerträger | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1268 | 56,9 % | 55,3 % | +5,2 |
-| Schildstoß | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1290 | 54,3 % | 48,6 % | −1,5 |
-| Phalanxveteran | Leonidas | 5 | Selten | – | – | – | – | 1438 | 56,3 % | 59,1 % | +9,0 |
-| Spartas Erbe | Leonidas | 4 | Selten | – | – | – | – | 1186 | 46,6 % | 47,6 % | −2,5 |
-| Dienekes | Leonidas | 6 | Episch | – | – | – | – | 1792 | 53,1 % | 46,7 % | −3,4 |
-| Gorgo, Stimme Spartas | Leonidas | 7 | Legendär | – | – | – | – | 1548 | 49,1 % | 55,7 % | +5,6 |
-| Bibliothekslehrling | Hypatia | 1 | Basis | 3400 | 83,2 % | 49,9 % | −1,7 | 878 | 55,5 % | 47,3 % | −1,9 |
-| Himmelsstrahl | Hypatia | 2 | Basis | 3400 | 86,1 % | 51,2 % | −0,4 | 1210 | 55,9 % | 53,3 % | +4,1 |
-| Sternenkundiger | Hypatia | 3 | Basis | 3400 | 81,2 % | 53,2 % | +1,6 | 1406 | 48,2 % | 51,8 % | +2,6 |
-| Sternenregen | Hypatia | 4 | Basis | 3400 | 77,4 % | 54,6 % | +3,0 | 1124 | 47,3 % | 56,9 % | +7,6 |
-| Astrolabienwächter | Hypatia | 3 | Gewöhnlich | – | – | – | – | 1322 | 58,8 % | 54,5 % | +5,3 |
-| Lehrsatz | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1246 | 41,9 % | 48,5 % | −0,7 |
-| Museionshüterin | Hypatia | 5 | Selten | – | – | – | – | 1358 | 46,9 % | 52,3 % | +3,1 |
-| Sonnenfokus | Hypatia | 6 | Selten | – | – | – | – | 1902 | 54,9 % | 47,8 % | −1,4 |
-| Sternenorakel | Hypatia | 5 | Episch | – | – | – | – | 1396 | 53,3 % | 46,6 % | −2,6 |
-| Theon von Alexandria | Hypatia | 5 | Legendär | – | – | – | – | 1470 | 49,1 % | 53,6 % | +4,4 |
-| Nilschülerin | Imhotep | 1 | Basis | 3400 | 82,9 % | 52,9 % | +0,1 | 1022 | 57,7 % | 48,2 % | +0,0 |
-| Heilender Balsam | Imhotep | 1 | Basis | 3400 | 82,6 % | 54,6 % | +1,7 | 988 | 56,6 % | 54,2 % | +6,1 |
-| Pyramidenwächter | Imhotep | 3 | Basis | 3400 | 84,7 % | 53,4 % | +0,5 | 1418 | 58,2 % | 50,9 % | +2,7 |
-| Tempelärztin | Imhotep | 4 | Basis | 3400 | 80,7 % | 52,8 % | −0,0 | 1340 | 51,6 % | 46,0 % | −2,1 |
-| Sonnensegen | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1358 | 53,7 % | 52,4 % | +4,2 |
-| Balsamierer | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1442 | 59,7 % | 52,8 % | +4,7 |
-| Nilschwemme | Imhotep | 3 | Selten | – | – | – | – | 1332 | 48,9 % | 48,7 % | +0,6 |
-| Goldener Skarabäus | Imhotep | 5 | Selten | – | – | – | – | 1538 | 54,1 % | 53,8 % | +5,7 |
-| Urteil der Sonne | Imhotep | 5 | Episch | – | – | – | – | 1510 | 55,3 % | 48,1 % | −0,0 |
-| Djoser, der Erbauer | Imhotep | 6 | Legendär | – | – | – | – | 1866 | 49,5 % | 51,2 % | +3,0 |
-| Lagunenbote | Dandolo | 1 | Basis | 3400 | 78,5 % | 51,3 % | +2,5 | 886 | 56,2 % | 55,7 % | +2,8 |
-| Arsenalarbeiter | Dandolo | 2 | Basis | 3400 | 79,7 % | 48,1 % | −0,7 | 1214 | 48,4 % | 51,7 % | −1,1 |
-| Präziser Stich | Dandolo | 2 | Basis | 3400 | 83,6 % | 50,0 % | +1,2 | 1238 | 57,3 % | 52,2 % | −0,6 |
-| Handelsgesandter | Dandolo | 4 | Basis | 3400 | 77,4 % | 51,8 % | +3,0 | 1142 | 51,8 % | 57,3 % | +4,5 |
-| Dogenklinge | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1232 | 41,2 % | 55,7 % | +2,8 |
-| Maskierte Wache | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1262 | 57,1 % | 58,4 % | +5,6 |
-| Geheimer Vertrag | Dandolo | 2 | Selten | – | – | – | – | 1276 | 44,7 % | 54,6 % | +1,8 |
-| Admiral der Galeeren | Dandolo | 5 | Selten | – | – | – | – | 1248 | 51,3 % | 54,3 % | +1,4 |
-| Arsenal von Venedig | Dandolo | 5 | Episch | – | – | – | – | 1312 | 35,3 % | 50,7 % | −2,1 |
-| Marco Polo, der Weltenfahrer | Dandolo | 6 | Legendär | – | – | – | – | 1716 | 42,9 % | 56,3 % | +3,4 |
-| Steppenspäher | Khan | 1 | Basis | 3400 | 75,3 % | 49,8 % | −1,1 | 1048 | 48,1 % | 47,4 % | −2,5 |
-| Reiterbogenschütze | Khan | 2 | Basis | 3400 | 75,9 % | 49,4 % | −1,6 | 1466 | 50,8 % | 52,1 % | +2,2 |
-| Pfeilschuss | Khan | 2 | Basis | 3400 | 75,4 % | 49,1 % | −1,8 | 1482 | 55,5 % | 50,7 % | +0,8 |
-| Goldener Reiter | Khan | 4 | Basis | 3400 | 69,5 % | 56,1 % | +5,2 | 1298 | 45,4 % | 58,2 % | +8,3 |
-| Adlerjägerin | Khan | 3 | Gewöhnlich | – | – | – | – | 1492 | 44,8 % | 51,8 % | +1,8 |
-| Steppensturm | Khan | 3 | Gewöhnlich | – | – | – | – | 1474 | 44,5 % | 48,9 % | −1,0 |
-| Tumenwächter | Khan | 5 | Selten | – | – | – | – | 1400 | 43,2 % | 51,6 % | +1,6 |
-| Belagerungsfeuer | Khan | 6 | Selten | – | – | – | – | 1752 | 48,1 % | 54,4 % | +4,5 |
-| Keshig-Elite | Khan | 6 | Episch | – | – | – | – | 1768 | 40,9 % | 44,7 % | −5,2 |
-| Subutai, der Stratege | Khan | 6 | Legendär | – | – | – | – | 1672 | 42,7 % | 53,6 % | +3,7 |
-| Hainwächterin | Boudicca | 1 | Basis | 3400 | 81,6 % | 46,7 % | −1,6 | 934 | 49,8 % | 57,4 % | +4,8 |
-| Eichenhaut | Boudicca | 2 | Basis | 3400 | 72,7 % | 46,6 % | −1,6 | 1270 | 41,0 % | 46,2 % | −6,4 |
-| Icenerkrieger | Boudicca | 3 | Basis | 3400 | 84,6 % | 49,2 % | +0,9 | 1268 | 55,8 % | 55,9 % | +3,3 |
-| Wilder Hieb | Boudicca | 3 | Basis | 3400 | 83,6 % | 47,2 % | −1,0 | 1302 | 57,7 % | 50,3 % | −2,4 |
-| Streitwagenlenkerin | Boudicca | 4 | Gewöhnlich | – | – | – | – | 1174 | 47,2 % | 52,4 % | −0,2 |
-| Druidin des Hains | Boudicca | 3 | Gewöhnlich | – | – | – | – | 1300 | 52,3 % | 48,1 % | −4,6 |
-| Aufstand | Boudicca | 3 | Selten | – | – | – | – | 1276 | 54,8 % | 54,7 % | +2,1 |
-| Eichenkoloss | Boudicca | 6 | Selten | – | – | – | – | 1838 | 51,7 % | 52,0 % | −0,6 |
-| Zorn der Königin | Boudicca | 5 | Episch | – | – | – | – | 1370 | 35,0 % | 48,8 % | −3,8 |
-| Andraste, Göttin des Sieges | Boudicca | 8 | Legendär | – | – | – | – | 1038 | 45,9 % | 48,4 % | −4,2 |
-| Tintenlehrling | Nostradamus | 1 | Basis | 3400 | 84,6 % | 53,3 % | +2,8 | 1034 | 56,1 % | 56,4 % | +5,2 |
-| Dunkle Vorahnung | Nostradamus | 2 | Basis | 3400 | 88,6 % | 53,3 % | +2,8 | 1414 | 65,5 % | 53,8 % | +2,6 |
-| Maskierter Seher | Nostradamus | 3 | Basis | 3400 | 83,9 % | 51,0 % | +0,6 | 1482 | 47,2 % | 50,1 % | −1,1 |
-| Prophezeiung | Nostradamus | 4 | Basis | 3400 | 63,9 % | 50,9 % | +0,5 | 1270 | 20,8 % | 51,0 % | −0,2 |
-| Pestdoktor | Nostradamus | 4 | Gewöhnlich | – | – | – | – | 1302 | 56,8 % | 58,7 % | +7,5 |
-| Schattenpakt | Nostradamus | 2 | Gewöhnlich | – | – | – | – | 1370 | 59,2 % | 56,1 % | +4,9 |
-| Chronist der Nacht | Nostradamus | 5 | Selten | – | – | – | – | 1404 | 50,4 % | 51,0 % | −0,2 |
-| Rote Finsternis | Nostradamus | 5 | Selten | – | – | – | – | 1488 | 41,4 % | 54,8 % | +3,6 |
-| Wächter der Zeiten | Nostradamus | 6 | Episch | – | – | – | – | 1862 | 58,1 % | 54,6 % | +3,4 |
-| Caterina de’ Medici | Nostradamus | 5 | Legendär | – | – | – | – | 1458 | 50,5 % | 51,7 % | +0,5 |
-| Bauernrekrut | Jeanne | 1 | Basis | 3400 | 78,8 % | 48,8 % | −0,4 | 936 | 55,8 % | 52,7 % | +4,2 |
-| Bannersegen | Jeanne | 2 | Basis | 3400 | 78,6 % | 50,0 % | +0,7 | 1224 | 50,6 % | 51,6 % | +3,1 |
-| Wache von Orléans | Jeanne | 3 | Basis | 3400 | 77,9 % | 48,7 % | −0,5 | 1338 | 54,3 % | 50,6 % | +2,1 |
-| Die Fahne erheben | Jeanne | 2 | Basis | 3400 | 77,0 % | 48,2 % | −1,0 | 1222 | 51,9 % | 51,2 % | +2,7 |
-| Lilienritter | Jeanne | 4 | Gewöhnlich | – | – | – | – | 1164 | 40,5 % | 49,4 % | +0,9 |
-| Heiliger Schutz | Jeanne | 2 | Gewöhnlich | – | – | – | – | 1256 | 45,5 % | 51,1 % | +2,6 |
-| Standartenträgerin | Jeanne | 5 | Selten | – | – | – | – | 1286 | 47,4 % | 49,4 % | +0,9 |
-| Glocken von Reims | Jeanne | 6 | Selten | – | – | – | – | 1670 | 41,8 % | 48,9 % | +0,4 |
-| Paladin der Loire | Jeanne | 7 | Episch | – | – | – | – | 1538 | 42,4 % | 49,5 % | +1,0 |
-| La Hire, der Unbeugsame | Jeanne | 7 | Legendär | – | – | – | – | 1458 | 42,1 % | 50,1 % | +1,6 |
-| Fjordspäher | Ragnar | 1 | Basis | 3400 | 77,0 % | 48,1 % | −1,4 | 898 | 49,9 % | 56,0 % | +4,5 |
-| Runenblitz | Ragnar | 2 | Basis | 3400 | 81,4 % | 49,6 % | +0,1 | 1252 | 57,3 % | 54,9 % | +3,5 |
-| Schildmaid | Ragnar | 3 | Basis | 3400 | 80,0 % | 50,2 % | +0,7 | 1264 | 53,2 % | 54,6 % | +3,1 |
-| Runenschnitzer | Ragnar | 4 | Basis | 3400 | 75,9 % | 51,5 % | +2,0 | 1152 | 49,5 % | 51,3 % | −0,1 |
-| Donnerschlag | Ragnar | 3 | Gewöhnlich | – | – | – | – | 1326 | 55,6 % | 51,1 % | −0,3 |
-| Berserker vom Fjord | Ragnar | 4 | Gewöhnlich | – | – | – | – | 1130 | 45,9 % | 52,0 % | +0,6 |
-| Ahnenbund | Ragnar | 3 | Selten | – | – | – | – | 1244 | 52,4 % | 52,6 % | +1,2 |
-| Runenhüter | Ragnar | 5 | Selten | – | – | – | – | 1354 | 45,5 % | 46,7 % | −4,7 |
-| Sturm der Nordsee | Ragnar | 5 | Episch | – | – | – | – | 1324 | 52,6 % | 55,1 % | +3,7 |
-| Lagertha, Schildmaid | Ragnar | 7 | Legendär | – | – | – | – | 1620 | 44,4 % | 56,8 % | +5,4 |
-| Dojoschüler | Musashi | 1 | Basis | 3400 | 79,7 % | 46,8 % | −0,6 | 898 | 51,9 % | 53,4 % | +3,5 |
-| Schneller Schnitt | Musashi | 1 | Basis | 3400 | 83,1 % | 48,5 % | +1,0 | 898 | 47,3 % | 49,7 % | −0,2 |
-| Rōnin | Musashi | 3 | Basis | 3400 | 82,3 % | 48,4 % | +1,0 | 1300 | 47,5 % | 51,9 % | +2,0 |
-| Konzentration | Musashi | 2 | Basis | 3400 | 72,8 % | 49,3 % | +1,8 | 1280 | 40,9 % | 49,0 % | −0,9 |
-| Kirschblütenwache | Musashi | 3 | Gewöhnlich | – | – | – | – | 1312 | 52,0 % | 50,3 % | +0,3 |
-| Zwei Himmel | Musashi | 3 | Gewöhnlich | – | – | – | – | 1282 | 36,3 % | 50,7 % | +0,8 |
-| Duellant | Musashi | 4 | Selten | – | – | – | – | 1134 | 40,1 % | 46,4 % | −3,5 |
-| Der leere Geist | Musashi | 5 | Selten | – | – | – | – | 1348 | 37,3 % | 55,0 % | +5,1 |
-| Meister der fünf Ringe | Musashi | 6 | Episch | – | – | – | – | 1772 | 50,1 % | 48,8 % | −1,1 |
-| Sasaki Kojirō, der Rivale | Musashi | 6 | Legendär | – | – | – | – | 1648 | 46,4 % | 49,4 % | −0,5 |
-| Dorfwache | neutral | 1 | Basis | 54400 | 79,6 % | 49,3 % | −0,7 | 15290 | 53,4 % | 49,1 % | −0,9 |
-| Wandernder Händler | neutral | 2 | Basis | 54400 | 76,6 % | 49,2 % | −0,8 | 21000 | 48,8 % | 49,8 % | −0,2 |
-| Steinschleuderer | neutral | 2 | Basis | 54400 | 80,3 % | 49,4 % | −0,6 | 20674 | 52,4 % | 50,1 % | +0,1 |
-| Grenzläuferin | neutral | 3 | Basis | 54400 | 81,6 % | 50,7 % | +0,7 | 21436 | 52,1 % | 52,7 % | +2,7 |
-| Festungsschild | neutral | 4 | Basis | 54400 | 75,4 % | 50,9 % | +0,9 | 19944 | 46,1 % | 50,6 % | +0,6 |
-| Kavallerist | neutral | 4 | Basis | 54400 | 77,0 % | 51,3 % | +1,3 | 19942 | 46,0 % | 51,7 % | +1,7 |
-| Feldheilerin | neutral | 3 | Basis | 54400 | 79,2 % | 49,4 % | −0,6 | 21912 | 51,7 % | 48,6 % | −1,4 |
-| Archivarin | neutral | 4 | Basis | 54400 | 72,9 % | 52,4 % | +2,4 | 20066 | 44,7 % | 51,2 % | +1,2 |
-| Wachhund | neutral | 2 | Basis | 54400 | 78,4 % | 48,6 % | −1,4 | 20522 | 49,6 % | 48,9 % | −1,1 |
-| Veteran | neutral | 5 | Basis | 54400 | 78,0 % | 52,5 % | +2,5 | 23262 | 49,1 % | 49,3 % | −0,7 |
-| Belagerungsturm | neutral | 6 | Basis | 54400 | 75,3 % | 55,5 % | +5,5 | 29342 | 50,2 % | 50,0 % | +0,1 |
-| Schmied | neutral | 3 | Basis | – | – | – | – | 21708 | 50,1 % | 50,0 % | +0,1 |
-| Wüstenspäherin | neutral | 1 | Basis | – | – | – | – | 15340 | 52,5 % | 51,7 % | +1,7 |
-| Gebirgswache | neutral | 5 | Basis | – | – | – | – | 23312 | 50,3 % | 53,7 % | +3,8 |
-| Verwegener Bote | neutral | 3 | Basis | – | – | – | – | 21614 | 50,1 % | 49,7 % | −0,3 |
-| Laternenträger | neutral | 2 | Basis | – | – | – | – | 20560 | 49,2 % | 49,5 % | −0,5 |
-| Versorgung | neutral | 2 | Basis | – | – | – | – | 20664 | 40,7 % | 49,8 % | −0,2 |
-| Erste Hilfe | neutral | 1 | Basis | – | – | – | – | 15288 | 49,1 % | 47,5 % | −2,5 |
-| Wurfmesser | neutral | 2 | Basis | – | – | – | – | 20860 | 56,4 % | 49,9 % | −0,1 |
-| Kriegselefant | neutral | 7 | Basis | – | – | – | – | 25974 | 50,5 % | 54,0 % | +4,0 |
-| Bernsteinhüter | neutral | 3 | Gewöhnlich | – | – | – | – | 21774 | 53,8 % | 50,5 % | +0,5 |
-| Söldnerhauptmann | neutral | 4 | Gewöhnlich | – | – | – | – | 19994 | 47,1 % | 48,9 % | −1,1 |
-| Adler der Berge | neutral | 2 | Gewöhnlich | – | – | – | – | 20878 | 53,1 % | 52,4 % | +2,4 |
-| Grabwächter | neutral | 4 | Gewöhnlich | – | – | – | – | 20216 | 47,8 % | 51,9 % | +2,0 |
-| Sammelruf | neutral | 3 | Gewöhnlich | – | – | – | – | 21594 | 55,7 % | 53,0 % | +3,1 |
-| Feldration | neutral | 2 | Gewöhnlich | – | – | – | – | 20638 | 27,6 % | 44,8 % | −5,2 |
-| Bogenmeisterin | neutral | 4 | Gewöhnlich | – | – | – | – | 19986 | 47,8 % | 46,3 % | −3,7 |
-| Marmorwächter | neutral | 5 | Gewöhnlich | – | – | – | – | 23200 | 46,2 % | 51,0 % | +1,1 |
-| Silberner Bannerträger | neutral | 4 | Selten | – | – | – | – | 19930 | 51,1 % | 53,1 % | +3,2 |
-| Flammenkrug | neutral | 4 | Selten | – | – | – | – | 20248 | 45,4 % | 54,2 % | +4,3 |
-| Goldene Löwin | neutral | 5 | Selten | – | – | – | – | 23446 | 51,1 % | 51,2 % | +1,2 |
-| Seidenkarawanenführer | neutral | 5 | Selten | – | – | – | – | 23062 | 48,0 % | 50,2 % | +0,3 |
-| Schlachtruf | neutral | 4 | Selten | – | – | – | – | 20376 | 40,8 % | 48,7 % | −1,2 |
-| Ruinengolem | neutral | 6 | Selten | – | – | – | – | 29592 | 53,3 % | 51,0 % | +1,0 |
-| Phönix der Chroniken | neutral | 7 | Episch | – | – | – | – | 26234 | 45,2 % | 52,3 % | +2,3 |
-| Vergessene Weisheit | neutral | 4 | Episch | – | – | – | – | 19876 | 23,6 % | 48,7 % | −1,3 |
-| Wächter des Weltenbaums | neutral | 8 | Episch | – | – | – | – | 18126 | 44,4 % | 60,6 % | +10,6 |
-| Donnernde Legion | neutral | 7 | Episch | – | – | – | – | 26216 | 53,5 % | 52,8 % | +2,8 |
-| Herodot, Vater der Geschichte | neutral | 4 | Legendär | – | – | – | – | 19850 | 42,1 % | 52,4 % | +2,4 |
-| Zenobia, Rebellin von Palmyra | neutral | 8 | Legendär | – | – | – | – | 17936 | 42,5 % | 55,8 % | +5,8 |
-| Agent des Zehnerrats | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1300 | 57,7 % | 54,3 % | +1,5 |
-| Tributeintreiber | Khan | 3 | Gewöhnlich | – | – | – | – | 1394 | 50,4 % | 45,9 % | −4,0 |
-| Kobra des Nils | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1394 | 54,2 % | 50,2 % | +2,1 |
-| Brand von Londinium | Boudicca | 3 | Selten | – | – | – | – | 1270 | 50,2 % | 53,5 % | +0,8 |
-| Bannbulle | Nostradamus | 1 | Selten | – | – | – | – | 1072 | 57,0 % | 54,7 % | +3,5 |
-| Plünderer von Paris | Ragnar | 4 | Gewöhnlich | – | – | – | – | 1196 | 47,6 % | 48,3 % | −3,1 |
-| Zorn des Donnergottes | Ragnar | 1 | Gewöhnlich | – | – | – | – | 926 | 57,3 % | 49,6 % | −1,8 |
-| Shinobi aus Iga | Musashi | 2 | Gewöhnlich | – | – | – | – | 1266 | 52,1 % | 52,4 % | +2,5 |
-| Freibeuterin | neutral | 2 | Gewöhnlich | – | – | – | – | 20824 | 51,2 % | 48,9 % | −1,1 |
-| Späherin im Unterholz | neutral | 1 | Gewöhnlich | – | – | – | – | 15626 | 53,6 % | 52,2 % | +2,2 |
-| Wandermönch | neutral | 2 | Gewöhnlich | – | – | – | – | 20626 | 56,0 % | 52,2 % | +2,2 |
-| Giftmischerin | neutral | 3 | Selten | – | – | – | – | 21662 | 50,2 % | 52,6 % | +2,6 |
-| Condottiere | neutral | 3 | Gewöhnlich | – | – | – | – | 21614 | 55,3 % | 51,4 % | +1,4 |
-| Ruderer der Triere | Perikles | 1 | Basis | 3400 | 78,8 % | 50,3 % | +1,8 | 878 | 57,1 % | 54,5 % | +4,8 |
-| Lange Mauern | Perikles | 2 | Basis | 3400 | 77,4 % | 44,2 % | −4,3 | 1182 | 55,2 % | 45,7 % | −4,0 |
-| Rede auf die Gefallenen | Perikles | 3 | Basis | 3400 | 78,6 % | 52,3 % | +3,8 | 1208 | 54,2 % | 54,5 % | +4,8 |
-| Strategos | Perikles | 3 | Basis | 3400 | 77,0 % | 51,1 % | +2,6 | 1248 | 57,1 % | 57,7 % | +8,0 |
-| Pnyx | Perikles | 3 | Gewöhnlich | – | – | – | – | 1256 | 48,0 % | 45,1 % | −4,6 |
-| Scherbengericht | Perikles | 2 | Gewöhnlich | – | – | – | – | 1254 | 58,1 % | 55,7 % | +6,0 |
-| Triere von Salamis | Perikles | 4 | Selten | – | – | – | – | 1158 | 52,1 % | 57,8 % | +8,1 |
-| Pest von Athen | Perikles | 4 | Selten | – | – | – | – | 1200 | 36,5 % | 53,8 % | +4,1 |
-| Odeion | Perikles | 4 | Episch | – | – | – | – | 1136 | 35,9 % | 44,9 % | −4,8 |
-| Phidias, Meister der Akropolis | Perikles | 7 | Legendär | – | – | – | – | 1806 | 51,7 % | 51,2 % | +1,5 |
-| Pilumwerfer | Agrippa | 1 | Basis | 3400 | 76,9 % | 51,8 % | +3,8 | 1036 | 56,0 % | 56,4 % | +6,3 |
-| Legionär der Zehnten | Agrippa | 2 | Basis | 3400 | 73,3 % | 50,1 % | +2,2 | 1442 | 46,7 % | 54,2 % | +4,1 |
-| Castra | Agrippa | 3 | Basis | 3400 | 81,9 % | 48,9 % | +1,0 | 1406 | 61,2 % | 50,3 % | +0,1 |
-| Testudo | Agrippa | 2 | Basis | 3400 | 73,2 % | 50,0 % | +2,1 | 1376 | 48,8 % | 53,8 % | +3,6 |
-| Ballista | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1350 | 49,6 % | 47,3 % | −2,8 |
-| Liburnen bei Actium | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1326 | 51,2 % | 54,6 % | +4,5 |
-| Primus Pilus | Agrippa | 5 | Selten | – | – | – | – | 1550 | 51,2 % | 54,3 % | +4,1 |
-| Thermen des Agrippa | Agrippa | 2 | Selten | – | – | – | – | 1416 | 51,9 % | 51,1 % | +1,0 |
-| Pantheon | Agrippa | 4 | Episch | – | – | – | – | 1296 | 39,9 % | 48,5 % | −1,6 |
-| Vitruv, Baumeister Roms | Agrippa | 5 | Legendär | – | – | – | – | 1590 | 42,4 % | 50,1 % | −0,1 |
-| Bogenschütze von Ta-Seti | Amanirenas | 1 | Basis | 3400 | 81,9 % | 51,2 % | +0,5 | 1042 | 57,0 % | 49,1 % | +0,1 |
-| Wüstenreiter | Amanirenas | 2 | Basis | 3400 | 80,9 % | 50,1 % | −0,6 | 1328 | 58,3 % | 48,1 % | −1,0 |
-| Pfeilregen von Kusch | Amanirenas | 2 | Basis | 3400 | 77,9 % | 51,8 % | +1,1 | 1446 | 45,6 % | 51,1 % | +2,0 |
-| Speerträger von Napata | Amanirenas | 3 | Basis | 3400 | 82,2 % | 51,9 % | +1,2 | 1426 | 53,6 % | 48,5 % | −0,6 |
-| Wächter des Löwentempels | Amanirenas | 3 | Gewöhnlich | – | – | – | – | 1366 | 52,9 % | 55,2 % | +6,1 |
-| Kundschafter aus Meroë | Amanirenas | 3 | Gewöhnlich | – | – | – | – | 1398 | 56,7 % | 49,0 % | −0,1 |
-| Kriegselefant von Kusch | Amanirenas | 6 | Selten | – | – | – | – | 1882 | 55,9 % | 51,0 % | +2,0 |
-| Überfall auf Syene | Amanirenas | 3 | Selten | – | – | – | – | 1514 | 56,5 % | 46,7 % | −2,4 |
-| Akinidad, Prinz von Kusch | Amanirenas | 5 | Episch | – | – | – | – | 1506 | 56,6 % | 44,3 % | −4,8 |
-| Bronzekopf des Augustus | Amanirenas | 6 | Legendär | – | – | – | – | 1774 | 46,7 % | 52,0 % | +3,0 |
-| Kopistin der Chronik | Anna | 1 | Basis | 3400 | 80,7 % | 52,9 % | +3,2 | 1010 | 53,8 % | 52,7 % | +2,7 |
-| Pantokrator-Spital | Anna | 3 | Basis | 3400 | 70,9 % | 50,7 % | +1,0 | 1456 | 28,7 % | 47,6 % | −2,4 |
-| Warägergardist | Anna | 3 | Basis | 3400 | 81,9 % | 53,9 % | +4,2 | 1476 | 53,5 % | 56,0 % | +6,0 |
-| Hofärztin | Anna | 3 | Basis | 3400 | 80,2 % | 49,3 % | −0,4 | 1422 | 43,2 % | 46,7 % | −3,3 |
-| Griechisches Feuer | Anna | 4 | Gewöhnlich | – | – | – | – | 1284 | 48,2 % | 57,9 % | +7,9 |
-| Bibliothekar von Konstantinopel | Anna | 4 | Gewöhnlich | – | – | – | – | 1234 | 45,5 % | 55,7 % | +5,7 |
-| Kataphrakt | Anna | 5 | Selten | – | – | – | – | 1408 | 47,2 % | 63,4 % | +13,4 |
-| Chrysobull | Anna | 3 | Selten | – | – | – | – | 1468 | 36,1 % | 50,5 % | +0,5 |
-| Nikephoros Bryennios | Anna | 5 | Episch | – | – | – | – | 1478 | 45,7 % | 51,9 % | +1,9 |
-| Alexios I. Komnenos | Anna | 6 | Legendär | – | – | – | – | 1784 | 46,6 % | 49,6 % | −0,4 |
-| Gärtner von Tetzcotzinco | Nezahualcóyotl | 1 | Basis | 3400 | 82,1 % | 51,4 % | +0,3 | 992 | 52,9 % | 53,4 % | +3,6 |
-| Adlerkrieger | Nezahualcóyotl | 2 | Basis | 3400 | 80,4 % | 51,6 % | +0,5 | 1268 | 53,1 % | 48,3 % | −1,5 |
-| Blumenkrieg | Nezahualcóyotl | 2 | Basis | 3400 | 82,2 % | 51,1 % | +0,0 | 1314 | 58,1 % | 52,0 % | +2,2 |
-| Jaguarkrieger | Nezahualcóyotl | 3 | Basis | 3400 | 81,6 % | 49,7 % | −1,3 | 1464 | 59,6 % | 49,2 % | −0,6 |
-| Aquädukt von Chapultepec | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1338 | 54,3 % | 45,8 % | −4,0 |
-| Gesetze von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1276 | 53,0 % | 49,2 % | −0,6 |
-| Quetzal-Hauptmann | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1314 | 53,7 % | 49,9 % | +0,0 |
-| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1340 | 53,7 % | 40,5 % | −9,4 |
-| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | Episch | – | – | – | – | 1978 | 56,8 % | 58,2 % | +8,4 |
-| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | Legendär | – | – | – | – | 1568 | 46,0 % | 44,2 % | −5,6 |
-| Gokenin aus Sagami | Masako | 1 | Basis | 3400 | 80,3 % | 49,4 % | −1,9 | 864 | 57,9 % | 48,3 % | +0,9 |
-| Bogenreiter aus Kamakura | Masako | 2 | Basis | 3400 | 81,4 % | 50,1 % | −1,2 | 1128 | 58,2 % | 52,8 % | +5,3 |
-| Treueschwur | Masako | 1 | Basis | 3400 | 80,1 % | 53,3 % | +1,9 | 896 | 51,5 % | 54,7 % | +7,3 |
-| Nonne von Kamakura | Masako | 2 | Basis | 3400 | 81,4 % | 49,3 % | −2,0 | 1198 | 60,1 % | 50,9 % | +3,5 |
-| Rokuhara-Späher | Masako | 2 | Gewöhnlich | – | – | – | – | 1216 | 56,1 % | 48,0 % | +0,5 |
-| Aufgebot von Jōkyū | Masako | 4 | Gewöhnlich | – | – | – | – | 1256 | 52,7 % | 52,2 % | +4,7 |
-| Tsurugaoka Hachiman-gū | Masako | 2 | Selten | – | – | – | – | 1234 | 56,0 % | 46,5 % | −0,9 |
-| Verbannung nach Oki | Masako | 3 | Selten | – | – | – | – | 1306 | 50,5 % | 45,5 % | −1,9 |
-| Hōjō Yoshitoki, Regent | Masako | 5 | Episch | – | – | – | – | 1458 | 51,2 % | 53,6 % | +6,2 |
-| Minamoto no Yoritomo | Masako | 6 | Legendär | – | – | – | – | 1912 | 50,2 % | 48,0 % | +0,5 |
-| Spartiat der Dreihundert | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1308 | 54,1 % | 53,4 % | +3,3 |
-| Engpass der Thermopylen | Leonidas | 3 | Selten | – | – | – | – | 1228 | 52,6 % | 44,1 % | −6,0 |
-| Astronomin des Museions | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1216 | 52,5 % | 45,9 % | −3,3 |
-| Kommentar zu Diophant | Hypatia | 2 | Selten | – | – | – | – | 1226 | 53,2 % | 53,6 % | +4,4 |
-| Priesterin der Sachmet | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1436 | 58,2 % | 47,5 % | −0,7 |
-| Ka-Statue | Imhotep | 2 | Selten | – | – | – | – | 1340 | 60,0 % | 44,1 % | −4,0 |
-| Galeerenschmied | Dandolo | 2 | Gewöhnlich | – | – | – | – | 1212 | 48,0 % | 52,1 % | −0,7 |
-| Plünderung Konstantinopels | Dandolo | 6 | Selten | – | – | – | – | 1734 | 45,4 % | 55,9 % | +3,0 |
-| Jurtenlager | Khan | 3 | Gewöhnlich | – | – | – | – | 1430 | 35,1 % | 41,8 % | −8,1 |
-| Kurultai | Khan | 4 | Selten | – | – | – | – | 1296 | 30,0 % | 47,5 % | −2,4 |
-| Barde der Icener | Boudicca | 2 | Gewöhnlich | – | – | – | – | 1250 | 55,8 % | 54,3 % | +1,6 |
-| Sichelwagen | Boudicca | 5 | Selten | – | – | – | – | 1406 | 51,0 % | 53,7 % | +1,1 |
-| Almanach der Quatrains | Nostradamus | 1 | Gewöhnlich | – | – | – | – | 972 | 56,8 % | 55,1 % | +3,9 |
-| Horoskop der Königin | Nostradamus | 3 | Selten | – | – | – | – | 1448 | 2,6 % | 46,2 % | −5,0 |
-| Pilgerin aus Domrémy | Jeanne | 1 | Gewöhnlich | – | – | – | – | 960 | 51,1 % | 54,2 % | +5,7 |
-| Die Weihe von Reims | Jeanne | 4 | Selten | – | – | – | – | 1250 | 29,4 % | 47,5 % | −1,0 |
-| Runenmeisterin | Ragnar | 2 | Gewöhnlich | – | – | – | – | 1198 | 53,0 % | 55,7 % | +4,3 |
-| Berserkergang | Ragnar | 1 | Selten | – | – | – | – | 942 | 59,1 % | 52,9 % | +1,5 |
-| Schwertschüler aus Kokura | Musashi | 4 | Selten | – | – | – | – | 1128 | 43,1 % | 44,0 % | −5,9 |
-| Niten Ichi-ryū | Musashi | 2 | Gewöhnlich | – | – | – | – | 1274 | 49,0 % | 48,9 % | −1,0 |
-| Steinmetz vom Pentelikon | Perikles | 2 | Gewöhnlich | – | – | – | – | 1194 | 50,8 % | 54,5 % | +4,9 |
-| Schatz des Seebunds | Perikles | 3 | Selten | – | – | – | – | 1232 | 27,1 % | 48,9 % | −0,8 |
-| Aquilifer | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1372 | 45,1 % | 49,7 % | −0,5 |
-| Harpax | Agrippa | 4 | Selten | – | – | – | – | 1292 | 38,8 % | 54,5 % | +4,4 |
-| Pfeilmacher aus Meroë | Amanirenas | 2 | Gewöhnlich | – | – | – | – | 1360 | 54,2 % | 46,2 % | −2,9 |
-| Gift der Wüstenviper | Amanirenas | 3 | Selten | – | – | – | – | 1410 | 42,8 % | 53,0 % | +3,9 |
-| Spitalarzt des Pantokrator | Anna | 2 | Gewöhnlich | – | – | – | – | 1460 | 52,5 % | 52,5 % | +2,5 |
-| Chronist am Kaiserhof | Anna | 6 | Selten | – | – | – | – | 1742 | 58,4 % | 56,1 % | +6,1 |
-| Dichter von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1346 | 56,3 % | 49,3 % | −0,5 |
-| Chinampa | Nezahualcóyotl | 2 | Selten | – | – | – | – | 1304 | 51,4 % | 47,5 % | −2,3 |
-| Jitō-Verwalter | Masako | 2 | Gewöhnlich | – | – | – | – | 1208 | 56,5 % | 49,7 % | +2,2 |
-| Siegel des Shikken | Masako | 2 | Selten | – | – | – | – | 1152 | 36,3 % | 46,6 % | −0,8 |
-| Olympionike | Griechische Antike | 4 | Gewöhnlich | – | – | – | – | 3612 | 52,7 % | 55,5 % | +5,9 |
-| Rhapsode | Griechische Antike | 2 | Gewöhnlich | – | – | – | – | 3528 | 52,7 % | 51,8 % | +2,2 |
-| Marathonläufer | Griechische Antike | 2 | Gewöhnlich | – | – | – | – | 3574 | 53,2 % | 52,5 % | +2,8 |
-| Orakel von Delphi | Griechische Antike | 3 | Selten | – | – | – | – | 3980 | 30,7 % | 49,3 % | −0,4 |
-| Leuchtturm von Pharos | Griechische Antike | 3 | Selten | – | – | – | – | 3908 | 38,3 % | 43,7 % | −6,0 |
-| Akropolis | Griechische Antike | 2 | Selten | – | – | – | – | 3530 | 55,3 % | 50,2 % | +0,5 |
-| Bibliothek von Alexandria | Griechische Antike | 3 | Episch | – | – | – | – | 3876 | 50,1 % | 48,6 % | −1,0 |
-| Knappe | Europäisches Mittelalter | 1 | Gewöhnlich | – | – | – | – | 3712 | 54,0 % | 53,0 % | +1,6 |
-| Armbrustschütze | Europäisches Mittelalter | 3 | Gewöhnlich | – | – | – | – | 5290 | 57,3 % | 54,3 % | +2,9 |
-| Mönch von Cluny | Europäisches Mittelalter | 3 | Gewöhnlich | – | – | – | – | 5164 | 49,8 % | 54,9 % | +3,5 |
-| Hansekogge | Europäisches Mittelalter | 4 | Gewöhnlich | – | – | – | – | 4764 | 47,1 % | 50,0 % | −1,2 |
-| Turnierritter | Europäisches Mittelalter | 4 | Selten | – | – | – | – | 4854 | 50,2 % | 54,6 % | +3,2 |
-| Burgfried | Europäisches Mittelalter | 2 | Selten | – | – | – | – | 5052 | 56,9 % | 43,6 % | −7,7 |
-| Tribok | Europäisches Mittelalter | 5 | Episch | – | – | – | – | 5398 | 27,0 % | 46,1 % | −5,2 |
-| Ashigaru | China, Korea, Japan | 1 | Gewöhnlich | – | – | – | – | 1766 | 52,9 % | 51,5 % | +2,8 |
-| Mandarin-Gelehrter | China, Korea, Japan | 3 | Gewöhnlich | – | – | – | – | 2638 | 51,1 % | 50,4 % | +1,8 |
-| Teezeremonie | China, Korea, Japan | 2 | Gewöhnlich | – | – | – | – | 2434 | 43,4 % | 45,6 % | −3,0 |
-| Hwacha-Salve | China, Korea, Japan | 3 | Selten | – | – | – | – | 2610 | 54,8 % | 49,3 % | +0,7 |
-| Schildkrötenschiff | China, Korea, Japan | 5 | Selten | – | – | – | – | 2750 | 54,5 % | 48,3 % | −0,3 |
-| Terrakotta-Armee | China, Korea, Japan | 5 | Episch | – | – | – | – | 2856 | 52,7 % | 49,2 % | +0,6 |
-| Große Mauer | China, Korea, Japan | 3 | Episch | – | – | – | – | 2612 | 58,3 % | 36,4 % | −12,2 |
-| Kolosseum | neutral | 3 | Selten | – | – | – | – | 21764 | 32,4 % | 44,5 % | −5,5 |
-| Hängende Gärten | neutral | 2 | Selten | – | – | – | – | 20778 | 56,1 % | 45,6 % | −4,4 |
-| Pyramiden von Gizeh | neutral | 4 | Episch | – | – | – | – | 20176 | 27,3 % | 44,3 % | −5,7 |
+| Spartanischer Rekrut | Leonidas | 1 | Basis | 3400 | 80,2 % | 52,1 % | +0,9 | 886 | 53,7 % | 53,3 % | +3,0 |
+| Wächter der Thermopylen | Leonidas | 2 | Basis | 3400 | 80,7 % | 51,6 % | +0,4 | 1230 | 57,0 % | 53,9 % | +3,6 |
+| Bronzener Wall | Leonidas | 2 | Basis | 3400 | 80,6 % | 53,0 % | +1,9 | 1230 | 52,4 % | 48,9 % | −1,4 |
+| Hoplitenhauptmann | Leonidas | 4 | Basis | 3400 | 76,6 % | 53,0 % | +1,9 | 1170 | 46,3 % | 49,7 % | −0,6 |
+| Speerträger | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1268 | 56,9 % | 55,1 % | +4,8 |
+| Schildstoß | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1290 | 54,1 % | 49,1 % | −1,1 |
+| Phalanxveteran | Leonidas | 5 | Selten | – | – | – | – | 1438 | 56,2 % | 59,8 % | +9,6 |
+| Spartas Erbe | Leonidas | 4 | Selten | – | – | – | – | 1186 | 45,8 % | 50,1 % | −0,1 |
+| Dienekes | Leonidas | 6 | Episch | – | – | – | – | 1792 | 52,8 % | 46,2 % | −4,1 |
+| Gorgo, Stimme Spartas | Leonidas | 7 | Legendär | – | – | – | – | 1548 | 49,4 % | 54,7 % | +4,4 |
+| Bibliothekslehrling | Hypatia | 1 | Basis | 3400 | 83,1 % | 49,8 % | −1,6 | 878 | 56,8 % | 47,3 % | −0,1 |
+| Himmelsstrahl | Hypatia | 2 | Basis | 3400 | 86,1 % | 51,1 % | −0,4 | 1210 | 57,3 % | 51,8 % | +4,5 |
+| Sternenkundiger | Hypatia | 3 | Basis | 3400 | 81,2 % | 53,0 % | +1,6 | 1406 | 48,0 % | 49,1 % | +1,7 |
+| Sternenregen | Hypatia | 4 | Basis | 3400 | 77,4 % | 54,6 % | +3,2 | 1124 | 46,4 % | 53,6 % | +6,3 |
+| Astrolabienwächter | Hypatia | 3 | Gewöhnlich | – | – | – | – | 1322 | 58,9 % | 53,4 % | +6,0 |
+| Lehrsatz | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1246 | 41,7 % | 46,2 % | −1,1 |
+| Museionshüterin | Hypatia | 5 | Selten | – | – | – | – | 1358 | 46,3 % | 51,6 % | +4,2 |
+| Sonnenfokus | Hypatia | 6 | Selten | – | – | – | – | 1902 | 56,6 % | 47,8 % | +0,5 |
+| Sternenorakel | Hypatia | 5 | Episch | – | – | – | – | 1396 | 53,2 % | 43,7 % | −3,7 |
+| Theon von Alexandria | Hypatia | 5 | Legendär | – | – | – | – | 1470 | 48,8 % | 51,4 % | +4,0 |
+| Nilschülerin | Imhotep | 1 | Basis | 3400 | 82,6 % | 48,6 % | −0,5 | 1022 | 57,9 % | 45,9 % | −1,9 |
+| Heilender Balsam | Imhotep | 1 | Basis | 3400 | 82,4 % | 50,8 % | +1,7 | 988 | 57,9 % | 53,2 % | +5,4 |
+| Pyramidenwächter | Imhotep | 3 | Basis | 3400 | 84,4 % | 50,1 % | +1,0 | 1418 | 58,8 % | 49,8 % | +2,0 |
+| Tempelärztin | Imhotep | 4 | Basis | 3400 | 80,9 % | 49,6 % | +0,6 | 1340 | 51,9 % | 45,5 % | −2,3 |
+| Sonnensegen | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1358 | 53,1 % | 51,8 % | +4,0 |
+| Balsamierer | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1442 | 60,5 % | 51,9 % | +4,1 |
+| Nilschwemme | Imhotep | 3 | Selten | – | – | – | – | 1332 | 48,9 % | 49,2 % | +1,4 |
+| Goldener Skarabäus | Imhotep | 5 | Selten | – | – | – | – | 1538 | 54,7 % | 53,2 % | +5,5 |
+| Urteil der Sonne | Imhotep | 5 | Episch | – | – | – | – | 1510 | 56,7 % | 47,6 % | −0,2 |
+| Djoser, der Erbauer | Imhotep | 6 | Legendär | – | – | – | – | 1866 | 50,8 % | 52,4 % | +4,6 |
+| Lagunenbote | Dandolo | 1 | Basis | 3400 | 78,5 % | 51,5 % | +2,5 | 884 | 53,5 % | 53,9 % | +1,9 |
+| Arsenalarbeiter | Dandolo | 2 | Basis | 3400 | 79,6 % | 48,5 % | −0,5 | 1210 | 47,9 % | 50,7 % | −1,3 |
+| Präziser Stich | Dandolo | 2 | Basis | 3400 | 83,7 % | 50,3 % | +1,3 | 1228 | 55,1 % | 51,0 % | −1,0 |
+| Handelsgesandter | Dandolo | 4 | Basis | 3400 | 77,1 % | 52,0 % | +3,0 | 1152 | 51,0 % | 57,9 % | +5,9 |
+| Dogenklinge | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1232 | 39,9 % | 52,0 % | +0,0 |
+| Maskierte Wache | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1258 | 54,9 % | 52,4 % | +0,4 |
+| Geheimer Vertrag | Dandolo | 2 | Selten | – | – | – | – | 1262 | 43,6 % | 53,4 % | +1,4 |
+| Admiral der Galeeren | Dandolo | 5 | Selten | – | – | – | – | 1284 | 49,6 % | 52,9 % | +0,9 |
+| Arsenal von Venedig | Dandolo | 5 | Episch | – | – | – | – | 1356 | 33,3 % | 55,4 % | +3,4 |
+| Marco Polo, der Weltenfahrer | Dandolo | 6 | Legendär | – | – | – | – | 1746 | 44,3 % | 55,4 % | +3,4 |
+| Steppenspäher | Khan | 1 | Basis | 3400 | 75,2 % | 50,2 % | −1,0 | 1048 | 48,2 % | 48,9 % | −0,2 |
+| Reiterbogenschütze | Khan | 2 | Basis | 3400 | 75,9 % | 49,7 % | −1,5 | 1466 | 51,0 % | 49,4 % | +0,3 |
+| Pfeilschuss | Khan | 2 | Basis | 3400 | 75,5 % | 49,2 % | −2,0 | 1482 | 56,3 % | 50,2 % | +1,1 |
+| Goldener Reiter | Khan | 4 | Basis | 3400 | 69,5 % | 56,3 % | +5,1 | 1298 | 46,2 % | 55,5 % | +6,4 |
+| Adlerjägerin | Khan | 3 | Gewöhnlich | – | – | – | – | 1492 | 45,2 % | 48,6 % | −0,5 |
+| Steppensturm | Khan | 3 | Gewöhnlich | – | – | – | – | 1474 | 46,1 % | 47,3 % | −1,9 |
+| Tumenwächter | Khan | 5 | Selten | – | – | – | – | 1400 | 43,9 % | 49,9 % | +0,7 |
+| Belagerungsfeuer | Khan | 6 | Selten | – | – | – | – | 1752 | 48,8 % | 53,7 % | +4,5 |
+| Keshig-Elite | Khan | 6 | Episch | – | – | – | – | 1768 | 41,2 % | 44,2 % | −5,0 |
+| Subutai, der Stratege | Khan | 6 | Legendär | – | – | – | – | 1672 | 43,8 % | 53,6 % | +4,5 |
+| Hainwächterin | Boudicca | 1 | Basis | 3400 | 81,6 % | 46,5 % | −1,4 | 936 | 50,9 % | 56,9 % | +3,7 |
+| Eichenhaut | Boudicca | 2 | Basis | 3400 | 72,7 % | 46,1 % | −1,7 | 1266 | 39,2 % | 48,4 % | −4,8 |
+| Icenerkrieger | Boudicca | 3 | Basis | 3400 | 84,6 % | 48,7 % | +0,8 | 1256 | 56,4 % | 56,8 % | +3,6 |
+| Wilder Hieb | Boudicca | 3 | Basis | 3400 | 83,5 % | 46,8 % | −1,0 | 1278 | 59,2 % | 49,6 % | −3,7 |
+| Streitwagenlenkerin | Boudicca | 4 | Gewöhnlich | – | – | – | – | 1146 | 46,6 % | 51,7 % | −1,6 |
+| Druidin des Hains | Boudicca | 3 | Gewöhnlich | – | – | – | – | 1324 | 52,6 % | 51,1 % | −2,1 |
+| Aufstand | Boudicca | 3 | Selten | – | – | – | – | 1250 | 54,4 % | 57,8 % | +4,6 |
+| Eichenkoloss | Boudicca | 6 | Selten | – | – | – | – | 1874 | 52,6 % | 55,3 % | +2,1 |
+| Zorn der Königin | Boudicca | 5 | Episch | – | – | – | – | 1356 | 32,4 % | 50,3 % | −3,0 |
+| Andraste, Göttin des Sieges | Boudicca | 8 | Legendär | – | – | – | – | 1040 | 47,4 % | 54,2 % | +1,0 |
+| Tintenlehrling | Nostradamus | 1 | Basis | 3400 | 84,6 % | 52,9 % | +2,8 | 1034 | 56,3 % | 55,0 % | +5,0 |
+| Dunkle Vorahnung | Nostradamus | 2 | Basis | 3400 | 88,4 % | 52,9 % | +2,8 | 1414 | 64,2 % | 51,4 % | +1,4 |
+| Maskierter Seher | Nostradamus | 3 | Basis | 3400 | 84,0 % | 50,6 % | +0,5 | 1482 | 48,3 % | 49,2 % | −0,9 |
+| Prophezeiung | Nostradamus | 4 | Basis | 3400 | 64,1 % | 50,4 % | +0,3 | 1270 | 22,7 % | 49,3 % | −0,8 |
+| Pestdoktor | Nostradamus | 4 | Gewöhnlich | – | – | – | – | 1302 | 56,1 % | 58,5 % | +8,4 |
+| Schattenpakt | Nostradamus | 2 | Gewöhnlich | – | – | – | – | 1370 | 59,7 % | 54,4 % | +4,4 |
+| Chronist der Nacht | Nostradamus | 5 | Selten | – | – | – | – | 1404 | 50,3 % | 50,5 % | +0,4 |
+| Rote Finsternis | Nostradamus | 5 | Selten | – | – | – | – | 1488 | 42,3 % | 52,9 % | +2,8 |
+| Wächter der Zeiten | Nostradamus | 6 | Episch | – | – | – | – | 1862 | 59,0 % | 53,0 % | +2,9 |
+| Caterina de’ Medici | Nostradamus | 5 | Legendär | – | – | – | – | 1458 | 52,6 % | 50,9 % | +0,9 |
+| Bauernrekrut | Jeanne | 1 | Basis | 3400 | 78,7 % | 49,0 % | −0,3 | 940 | 55,7 % | 56,1 % | +6,4 |
+| Bannersegen | Jeanne | 2 | Basis | 3400 | 78,8 % | 50,0 % | +0,6 | 1212 | 50,7 % | 48,2 % | −1,5 |
+| Wache von Orléans | Jeanne | 3 | Basis | 3400 | 77,8 % | 48,8 % | −0,5 | 1314 | 54,2 % | 52,7 % | +3,0 |
+| Die Fahne erheben | Jeanne | 2 | Basis | 3400 | 76,9 % | 48,4 % | −1,0 | 1218 | 53,1 % | 53,5 % | +3,8 |
+| Lilienritter | Jeanne | 4 | Gewöhnlich | – | – | – | – | 1154 | 41,3 % | 51,3 % | +1,6 |
+| Heiliger Schutz | Jeanne | 2 | Gewöhnlich | – | – | – | – | 1244 | 47,4 % | 51,8 % | +2,1 |
+| Standartenträgerin | Jeanne | 5 | Selten | – | – | – | – | 1310 | 48,0 % | 51,4 % | +1,7 |
+| Glocken von Reims | Jeanne | 6 | Selten | – | – | – | – | 1678 | 41,3 % | 49,9 % | +0,2 |
+| Paladin der Loire | Jeanne | 7 | Episch | – | – | – | – | 1560 | 43,9 % | 50,2 % | +0,5 |
+| La Hire, der Unbeugsame | Jeanne | 7 | Legendär | – | – | – | – | 1512 | 41,6 % | 51,3 % | +1,6 |
+| Fjordspäher | Ragnar | 1 | Basis | 3400 | 77,2 % | 48,3 % | −1,4 | 898 | 50,3 % | 56,1 % | +3,6 |
+| Runenblitz | Ragnar | 2 | Basis | 3400 | 81,3 % | 49,7 % | +0,0 | 1238 | 58,5 % | 52,6 % | +0,1 |
+| Schildmaid | Ragnar | 3 | Basis | 3400 | 80,0 % | 50,3 % | +0,6 | 1262 | 52,5 % | 55,1 % | +2,6 |
+| Runenschnitzer | Ragnar | 4 | Basis | 3400 | 75,7 % | 51,6 % | +1,9 | 1166 | 49,1 % | 53,3 % | +0,8 |
+| Donnerschlag | Ragnar | 3 | Gewöhnlich | – | – | – | – | 1292 | 54,9 % | 54,6 % | +2,1 |
+| Berserker vom Fjord | Ragnar | 4 | Gewöhnlich | – | – | – | – | 1152 | 45,4 % | 53,3 % | +0,8 |
+| Ahnenbund | Ragnar | 3 | Selten | – | – | – | – | 1232 | 52,0 % | 56,7 % | +4,2 |
+| Runenhüter | Ragnar | 5 | Selten | – | – | – | – | 1386 | 46,8 % | 48,6 % | −4,0 |
+| Sturm der Nordsee | Ragnar | 5 | Episch | – | – | – | – | 1378 | 52,1 % | 53,6 % | +1,0 |
+| Lagertha, Schildmaid | Ragnar | 7 | Legendär | – | – | – | – | 1638 | 43,4 % | 57,1 % | +4,6 |
+| Dojoschüler | Musashi | 1 | Basis | 3400 | 78,9 % | 51,4 % | −1,0 | 888 | 52,0 % | 52,7 % | +1,1 |
+| Schneller Schnitt | Musashi | 1 | Basis | 3400 | 82,8 % | 52,8 % | +0,5 | 886 | 49,4 % | 53,5 % | +1,9 |
+| Rōnin | Musashi | 3 | Basis | 3400 | 83,1 % | 54,5 % | +2,1 | 1306 | 53,8 % | 55,2 % | +3,6 |
+| Konzentration | Musashi | 2 | Basis | 3400 | 72,1 % | 54,0 % | +1,6 | 1270 | 41,9 % | 50,3 % | −1,2 |
+| Kirschblütenwache | Musashi | 3 | Gewöhnlich | – | – | – | – | 1316 | 52,3 % | 53,9 % | +2,4 |
+| Zwei Himmel | Musashi | 3 | Gewöhnlich | – | – | – | – | 1294 | 36,0 % | 51,8 % | +0,2 |
+| Duellant | Musashi | 4 | Selten | – | – | – | – | 1140 | 39,5 % | 48,6 % | −3,0 |
+| Der leere Geist | Musashi | 5 | Selten | – | – | – | – | 1352 | 39,5 % | 56,7 % | +5,1 |
+| Meister der fünf Ringe | Musashi | 6 | Episch | – | – | – | – | 1776 | 50,8 % | 49,4 % | −2,1 |
+| Sasaki Kojirō, der Rivale | Musashi | 6 | Legendär | – | – | – | – | 1638 | 44,7 % | 51,1 % | −0,4 |
+| Dorfwache | neutral | 1 | Basis | 54400 | 79,5 % | 49,3 % | −0,7 | 15282 | 53,5 % | 49,1 % | −0,8 |
+| Wandernder Händler | neutral | 2 | Basis | 54400 | 76,5 % | 49,2 % | −0,8 | 20912 | 48,7 % | 49,5 % | −0,5 |
+| Steinschleuderer | neutral | 2 | Basis | 54400 | 80,2 % | 49,4 % | −0,6 | 20660 | 52,2 % | 50,2 % | +0,2 |
+| Grenzläuferin | neutral | 3 | Basis | 54400 | 81,4 % | 50,7 % | +0,7 | 21420 | 52,2 % | 52,3 % | +2,4 |
+| Festungsschild | neutral | 4 | Basis | 54400 | 75,2 % | 50,9 % | +0,9 | 19930 | 46,4 % | 50,8 % | +0,9 |
+| Kavallerist | neutral | 4 | Basis | 54400 | 76,8 % | 51,3 % | +1,3 | 19940 | 46,2 % | 51,7 % | +1,7 |
+| Feldheilerin | neutral | 3 | Basis | 54400 | 79,1 % | 49,4 % | −0,6 | 21810 | 51,4 % | 48,5 % | −1,4 |
+| Archivarin | neutral | 4 | Basis | 54400 | 72,8 % | 52,4 % | +2,4 | 20100 | 45,0 % | 50,5 % | +0,5 |
+| Wachhund | neutral | 2 | Basis | 54400 | 78,3 % | 48,7 % | −1,3 | 20514 | 49,8 % | 48,8 % | −1,2 |
+| Veteran | neutral | 5 | Basis | 54400 | 78,0 % | 52,5 % | +2,5 | 23438 | 49,4 % | 48,9 % | −1,1 |
+| Belagerungsturm | neutral | 6 | Basis | 54400 | 75,2 % | 55,5 % | +5,5 | 29530 | 50,5 % | 50,1 % | +0,2 |
+| Schmied | neutral | 3 | Basis | – | – | – | – | 21730 | 49,9 % | 50,8 % | +0,8 |
+| Wüstenspäherin | neutral | 1 | Basis | – | – | – | – | 15362 | 52,7 % | 51,2 % | +1,2 |
+| Gebirgswache | neutral | 5 | Basis | – | – | – | – | 23468 | 50,4 % | 53,4 % | +3,4 |
+| Verwegener Bote | neutral | 3 | Basis | – | – | – | – | 21710 | 50,2 % | 49,2 % | −0,8 |
+| Laternenträger | neutral | 2 | Basis | – | – | – | – | 20354 | 49,4 % | 50,0 % | +0,0 |
+| Versorgung | neutral | 2 | Basis | – | – | – | – | 20606 | 41,0 % | 49,6 % | −0,3 |
+| Erste Hilfe | neutral | 1 | Basis | – | – | – | – | 15272 | 49,8 % | 47,7 % | −2,2 |
+| Wurfmesser | neutral | 2 | Basis | – | – | – | – | 20802 | 56,5 % | 49,8 % | −0,1 |
+| Kriegselefant | neutral | 7 | Basis | – | – | – | – | 26102 | 51,2 % | 54,1 % | +4,1 |
+| Bernsteinhüter | neutral | 3 | Gewöhnlich | – | – | – | – | 21680 | 53,9 % | 50,8 % | +0,9 |
+| Söldnerhauptmann | neutral | 4 | Gewöhnlich | – | – | – | – | 20108 | 47,3 % | 49,0 % | −0,9 |
+| Adler der Berge | neutral | 2 | Gewöhnlich | – | – | – | – | 20718 | 53,4 % | 52,4 % | +2,4 |
+| Grabwächter | neutral | 4 | Gewöhnlich | – | – | – | – | 20202 | 47,6 % | 52,3 % | +2,4 |
+| Sammelruf | neutral | 3 | Gewöhnlich | – | – | – | – | 21552 | 56,5 % | 53,0 % | +3,0 |
+| Feldration | neutral | 2 | Gewöhnlich | – | – | – | – | 20632 | 28,3 % | 45,1 % | −4,8 |
+| Bogenmeisterin | neutral | 4 | Gewöhnlich | – | – | – | – | 19968 | 47,7 % | 46,3 % | −3,7 |
+| Marmorwächter | neutral | 5 | Gewöhnlich | – | – | – | – | 23444 | 46,3 % | 50,6 % | +0,6 |
+| Silberner Bannerträger | neutral | 4 | Selten | – | – | – | – | 19866 | 52,1 % | 53,6 % | +3,7 |
+| Flammenkrug | neutral | 4 | Selten | – | – | – | – | 20172 | 46,0 % | 54,6 % | +4,7 |
+| Goldene Löwin | neutral | 5 | Selten | – | – | – | – | 23624 | 51,3 % | 51,2 % | +1,3 |
+| Seidenkarawanenführer | neutral | 5 | Selten | – | – | – | – | 23288 | 49,1 % | 49,8 % | −0,2 |
+| Schlachtruf | neutral | 4 | Selten | – | – | – | – | 20312 | 41,1 % | 48,9 % | −1,0 |
+| Ruinengolem | neutral | 6 | Selten | – | – | – | – | 29650 | 53,6 % | 51,0 % | +1,0 |
+| Phönix der Chroniken | neutral | 7 | Episch | – | – | – | – | 26290 | 45,5 % | 52,1 % | +2,1 |
+| Vergessene Weisheit | neutral | 4 | Episch | – | – | – | – | 19830 | 24,0 % | 48,8 % | −1,1 |
+| Wächter des Weltenbaums | neutral | 8 | Episch | – | – | – | – | 18116 | 44,4 % | 58,7 % | +8,7 |
+| Donnernde Legion | neutral | 7 | Episch | – | – | – | – | 26282 | 53,6 % | 52,9 % | +2,9 |
+| Herodot, Vater der Geschichte | neutral | 4 | Legendär | – | – | – | – | 19794 | 42,6 % | 52,6 % | +2,7 |
+| Zenobia, Rebellin von Palmyra | neutral | 8 | Legendär | – | – | – | – | 17988 | 42,7 % | 55,1 % | +5,2 |
+| Agent des Zehnerrats | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1242 | 60,6 % | 51,1 % | −0,9 |
+| Tributeintreiber | Khan | 3 | Gewöhnlich | – | – | – | – | 1394 | 50,5 % | 45,0 % | −4,1 |
+| Kobra des Nils | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1394 | 54,2 % | 50,3 % | +2,5 |
+| Brand von Londinium | Boudicca | 3 | Selten | – | – | – | – | 1254 | 49,9 % | 56,6 % | +3,3 |
+| Bannbulle | Nostradamus | 1 | Selten | – | – | – | – | 1072 | 58,3 % | 51,9 % | +1,9 |
+| Plünderer von Paris | Ragnar | 4 | Gewöhnlich | – | – | – | – | 1250 | 46,3 % | 53,2 % | +0,7 |
+| Zorn des Donnergottes | Ragnar | 1 | Gewöhnlich | – | – | – | – | 926 | 60,7 % | 51,5 % | −1,1 |
+| Shinobi aus Iga | Musashi | 2 | Gewöhnlich | – | – | – | – | 1280 | 50,9 % | 54,7 % | +3,2 |
+| Freibeuterin | neutral | 2 | Gewöhnlich | – | – | – | – | 20596 | 51,3 % | 48,8 % | −1,1 |
+| Späherin im Unterholz | neutral | 1 | Gewöhnlich | – | – | – | – | 15566 | 53,6 % | 52,4 % | +2,5 |
+| Wandermönch | neutral | 2 | Gewöhnlich | – | – | – | – | 20698 | 56,5 % | 52,4 % | +2,4 |
+| Giftmischerin | neutral | 3 | Selten | – | – | – | – | 21654 | 50,0 % | 52,5 % | +2,5 |
+| Condottiere | neutral | 3 | Gewöhnlich | – | – | – | – | 21688 | 55,5 % | 50,4 % | +0,4 |
+| Ruderer der Triere | Perikles | 1 | Basis | 3400 | 78,7 % | 50,2 % | +1,8 | 878 | 57,5 % | 56,1 % | +6,7 |
+| Lange Mauern | Perikles | 2 | Basis | 3400 | 77,4 % | 44,1 % | −4,3 | 1182 | 56,1 % | 45,1 % | −4,3 |
+| Rede auf die Gefallenen | Perikles | 3 | Basis | 3400 | 78,6 % | 52,1 % | +3,8 | 1208 | 54,6 % | 54,2 % | +4,7 |
+| Strategos | Perikles | 3 | Basis | 3400 | 77,1 % | 50,9 % | +2,6 | 1248 | 57,1 % | 54,6 % | +5,2 |
+| Pnyx | Perikles | 3 | Gewöhnlich | – | – | – | – | 1256 | 47,1 % | 44,9 % | −4,5 |
+| Scherbengericht | Perikles | 2 | Gewöhnlich | – | – | – | – | 1254 | 58,5 % | 55,4 % | +5,9 |
+| Triere von Salamis | Perikles | 4 | Selten | – | – | – | – | 1158 | 52,8 % | 57,4 % | +8,0 |
+| Pest von Athen | Perikles | 4 | Selten | – | – | – | – | 1200 | 38,4 % | 53,0 % | +3,6 |
+| Odeion | Perikles | 4 | Episch | – | – | – | – | 1136 | 35,6 % | 44,1 % | −5,3 |
+| Phidias, Meister der Akropolis | Perikles | 7 | Legendär | – | – | – | – | 1806 | 52,6 % | 49,8 % | +0,4 |
+| Pilumwerfer | Agrippa | 1 | Basis | 3400 | 76,7 % | 52,0 % | +4,0 | 1036 | 56,0 % | 55,1 % | +5,8 |
+| Legionär der Zehnten | Agrippa | 2 | Basis | 3400 | 73,2 % | 50,4 % | +2,4 | 1442 | 46,9 % | 52,3 % | +2,9 |
+| Castra | Agrippa | 3 | Basis | 3400 | 81,9 % | 49,0 % | +1,0 | 1406 | 61,3 % | 50,5 % | +1,1 |
+| Testudo | Agrippa | 2 | Basis | 3400 | 73,1 % | 50,4 % | +2,4 | 1376 | 49,7 % | 53,2 % | +3,9 |
+| Ballista | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1350 | 49,8 % | 47,8 % | −1,6 |
+| Liburnen bei Actium | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1326 | 52,1 % | 54,0 % | +4,6 |
+| Primus Pilus | Agrippa | 5 | Selten | – | – | – | – | 1550 | 51,2 % | 54,2 % | +4,8 |
+| Thermen des Agrippa | Agrippa | 2 | Selten | – | – | – | – | 1416 | 52,0 % | 47,8 % | −1,6 |
+| Pantheon | Agrippa | 4 | Episch | – | – | – | – | 1296 | 39,8 % | 47,5 % | −1,9 |
+| Vitruv, Baumeister Roms | Agrippa | 5 | Legendär | – | – | – | – | 1590 | 42,8 % | 51,0 % | +1,6 |
+| Bogenschütze von Ta-Seti | Amanirenas | 1 | Basis | 3400 | 81,9 % | 51,2 % | +0,5 | 1042 | 59,1 % | 48,8 % | +0,0 |
+| Wüstenreiter | Amanirenas | 2 | Basis | 3400 | 81,0 % | 50,1 % | −0,6 | 1328 | 58,7 % | 46,2 % | −2,6 |
+| Pfeilregen von Kusch | Amanirenas | 2 | Basis | 3400 | 77,9 % | 51,7 % | +1,0 | 1446 | 45,6 % | 50,8 % | +2,0 |
+| Speerträger von Napata | Amanirenas | 3 | Basis | 3400 | 82,4 % | 51,9 % | +1,2 | 1426 | 55,0 % | 49,1 % | +0,3 |
+| Wächter des Löwentempels | Amanirenas | 3 | Gewöhnlich | – | – | – | – | 1366 | 53,6 % | 52,7 % | +3,9 |
+| Kundschafter aus Meroë | Amanirenas | 3 | Gewöhnlich | – | – | – | – | 1398 | 57,1 % | 49,3 % | +0,6 |
+| Kriegselefant von Kusch | Amanirenas | 6 | Selten | – | – | – | – | 1882 | 55,0 % | 50,0 % | +1,3 |
+| Überfall auf Syene | Amanirenas | 3 | Selten | – | – | – | – | 1514 | 56,6 % | 46,2 % | −2,6 |
+| Akinidad, Prinz von Kusch | Amanirenas | 5 | Episch | – | – | – | – | 1506 | 56,7 % | 44,6 % | −4,2 |
+| Bronzekopf des Augustus | Amanirenas | 6 | Legendär | – | – | – | – | 1774 | 46,3 % | 50,9 % | +2,1 |
+| Kopistin der Chronik | Anna | 1 | Basis | 3400 | 80,8 % | 52,4 % | +3,1 | 1010 | 53,6 % | 51,9 % | +3,4 |
+| Pantokrator-Spital | Anna | 3 | Basis | 3400 | 70,7 % | 50,2 % | +0,9 | 1456 | 29,5 % | 45,9 % | −2,6 |
+| Warägergardist | Anna | 3 | Basis | 3400 | 81,8 % | 53,5 % | +4,2 | 1476 | 54,7 % | 54,1 % | +5,6 |
+| Hofärztin | Anna | 3 | Basis | 3400 | 80,1 % | 49,0 % | −0,3 | 1422 | 43,2 % | 45,5 % | −3,0 |
+| Griechisches Feuer | Anna | 4 | Gewöhnlich | – | – | – | – | 1284 | 48,1 % | 55,6 % | +7,1 |
+| Bibliothekar von Konstantinopel | Anna | 4 | Gewöhnlich | – | – | – | – | 1234 | 45,2 % | 53,7 % | +5,2 |
+| Kataphrakt | Anna | 5 | Selten | – | – | – | – | 1408 | 45,2 % | 56,4 % | +7,9 |
+| Chrysobull | Anna | 3 | Selten | – | – | – | – | 1468 | 35,3 % | 49,2 % | +0,7 |
+| Nikephoros Bryennios | Anna | 5 | Episch | – | – | – | – | 1478 | 46,3 % | 50,2 % | +1,7 |
+| Alexios I. Komnenos | Anna | 6 | Legendär | – | – | – | – | 1784 | 46,7 % | 46,4 % | −2,1 |
+| Gärtner von Tetzcotzinco | Nezahualcóyotl | 1 | Basis | 3400 | 82,0 % | 51,5 % | +0,3 | 992 | 53,7 % | 52,3 % | +2,9 |
+| Adlerkrieger | Nezahualcóyotl | 2 | Basis | 3400 | 80,3 % | 51,8 % | +0,6 | 1268 | 53,1 % | 49,8 % | +0,5 |
+| Blumenkrieg | Nezahualcóyotl | 2 | Basis | 3400 | 82,3 % | 51,4 % | +0,1 | 1314 | 58,3 % | 50,8 % | +1,5 |
+| Jaguarkrieger | Nezahualcóyotl | 3 | Basis | 3400 | 81,5 % | 49,9 % | −1,3 | 1464 | 59,8 % | 48,4 % | −1,0 |
+| Aquädukt von Chapultepec | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1338 | 55,2 % | 45,8 % | −3,5 |
+| Gesetze von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1276 | 53,8 % | 50,3 % | +0,9 |
+| Quetzal-Hauptmann | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1314 | 54,1 % | 49,8 % | +0,5 |
+| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1340 | 54,7 % | 41,1 % | −8,3 |
+| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | Episch | – | – | – | – | 1978 | 57,3 % | 59,5 % | +10,1 |
+| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | Legendär | – | – | – | – | 1568 | 46,6 % | 44,2 % | −5,2 |
+| Gokenin aus Sagami | Masako | 1 | Basis | 3400 | 80,3 % | 49,4 % | −1,9 | 820 | 57,4 % | 52,1 % | +1,2 |
+| Bogenreiter aus Kamakura | Masako | 2 | Basis | 3400 | 81,3 % | 50,1 % | −1,1 | 1112 | 57,6 % | 53,4 % | +2,5 |
+| Treueschwur | Masako | 1 | Basis | 3400 | 80,1 % | 53,3 % | +2,0 | 840 | 51,9 % | 56,9 % | +5,9 |
+| Nonne von Kamakura | Masako | 2 | Basis | 3400 | 81,6 % | 49,4 % | −1,9 | 1208 | 59,4 % | 53,9 % | +2,9 |
+| Rokuhara-Späher | Masako | 2 | Gewöhnlich | – | – | – | – | 1144 | 57,4 % | 53,6 % | +2,7 |
+| Aufgebot von Jōkyū | Masako | 4 | Gewöhnlich | – | – | – | – | 1288 | 56,7 % | 54,4 % | +3,5 |
+| Tsurugaoka Hachiman-gū | Masako | 2 | Selten | – | – | – | – | 1198 | 55,0 % | 49,7 % | −1,2 |
+| Verbannung nach Oki | Masako | 3 | Selten | – | – | – | – | 1312 | 50,1 % | 48,7 % | −2,3 |
+| Hōjō Yoshitoki, Regent | Masako | 5 | Episch | – | – | – | – | 1440 | 54,2 % | 54,1 % | +3,1 |
+| Minamoto no Yoritomo | Masako | 6 | Legendär | – | – | – | – | 1900 | 51,6 % | 52,8 % | +1,8 |
+| Spartiat der Dreihundert | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1308 | 55,0 % | 51,8 % | +1,6 |
+| Engpass der Thermopylen | Leonidas | 3 | Selten | – | – | – | – | 1228 | 53,0 % | 46,3 % | −3,9 |
+| Astronomin des Museions | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1216 | 52,5 % | 44,8 % | −2,6 |
+| Kommentar zu Diophant | Hypatia | 2 | Selten | – | – | – | – | 1226 | 52,9 % | 51,3 % | +3,9 |
+| Priesterin der Sachmet | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1436 | 59,1 % | 48,6 % | +0,8 |
+| Ka-Statue | Imhotep | 2 | Selten | – | – | – | – | 1340 | 61,4 % | 44,7 % | −3,1 |
+| Galeerenschmied | Dandolo | 2 | Gewöhnlich | – | – | – | – | 1222 | 47,4 % | 48,9 % | −3,1 |
+| Plünderung Konstantinopels | Dandolo | 6 | Selten | – | – | – | – | 1774 | 44,6 % | 53,6 % | +1,6 |
+| Jurtenlager | Khan | 3 | Gewöhnlich | – | – | – | – | 1430 | 35,0 % | 41,3 % | −7,8 |
+| Kurultai | Khan | 4 | Selten | – | – | – | – | 1296 | 30,9 % | 46,4 % | −2,7 |
+| Barde der Icener | Boudicca | 2 | Gewöhnlich | – | – | – | – | 1268 | 55,0 % | 54,4 % | +1,2 |
+| Sichelwagen | Boudicca | 5 | Selten | – | – | – | – | 1402 | 49,6 % | 56,4 % | +3,2 |
+| Almanach der Quatrains | Nostradamus | 1 | Gewöhnlich | – | – | – | – | 972 | 57,3 % | 53,0 % | +2,9 |
+| Horoskop der Königin | Nostradamus | 3 | Selten | – | – | – | – | 1448 | 2,3 % | 47,4 % | −2,7 |
+| Pilgerin aus Domrémy | Jeanne | 1 | Gewöhnlich | – | – | – | – | 978 | 52,4 % | 56,6 % | +6,9 |
+| Die Weihe von Reims | Jeanne | 4 | Selten | – | – | – | – | 1214 | 32,1 % | 49,5 % | −0,2 |
+| Runenmeisterin | Ragnar | 2 | Gewöhnlich | – | – | – | – | 1160 | 51,8 % | 57,9 % | +5,4 |
+| Berserkergang | Ragnar | 1 | Selten | – | – | – | – | 946 | 60,0 % | 50,1 % | −2,4 |
+| Schwertschüler aus Kokura | Musashi | 4 | Selten | – | – | – | – | 1146 | 44,2 % | 48,6 % | −2,9 |
+| Niten Ichi-ryū | Musashi | 2 | Gewöhnlich | – | – | – | – | 1202 | 48,9 % | 48,9 % | −2,6 |
+| Steinmetz vom Pentelikon | Perikles | 2 | Gewöhnlich | – | – | – | – | 1194 | 49,8 % | 54,5 % | +5,1 |
+| Schatz des Seebunds | Perikles | 3 | Selten | – | – | – | – | 1232 | 28,1 % | 49,1 % | −0,3 |
+| Aquilifer | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1372 | 45,8 % | 49,1 % | −0,3 |
+| Harpax | Agrippa | 4 | Selten | – | – | – | – | 1292 | 40,2 % | 52,1 % | +2,7 |
+| Pfeilmacher aus Meroë | Amanirenas | 2 | Gewöhnlich | – | – | – | – | 1360 | 55,1 % | 45,0 % | −3,7 |
+| Gift der Wüstenviper | Amanirenas | 3 | Selten | – | – | – | – | 1410 | 44,0 % | 53,2 % | +4,4 |
+| Spitalarzt des Pantokrator | Anna | 2 | Gewöhnlich | – | – | – | – | 1460 | 53,4 % | 49,4 % | +0,9 |
+| Chronist am Kaiserhof | Anna | 6 | Selten | – | – | – | – | 1742 | 58,6 % | 55,7 % | +7,2 |
+| Dichter von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1346 | 56,8 % | 48,4 % | −1,0 |
+| Chinampa | Nezahualcóyotl | 2 | Selten | – | – | – | – | 1304 | 51,2 % | 47,7 % | −1,7 |
+| Jitō-Verwalter | Masako | 2 | Gewöhnlich | – | – | – | – | 1196 | 56,3 % | 52,4 % | +1,5 |
+| Siegel des Shikken | Masako | 2 | Selten | – | – | – | – | 1164 | 46,7 % | 50,2 % | −0,7 |
+| Olympionike | Griechische Antike | 4 | Gewöhnlich | – | – | – | – | 3612 | 53,0 % | 55,9 % | +6,9 |
+| Rhapsode | Griechische Antike | 2 | Gewöhnlich | – | – | – | – | 3528 | 53,0 % | 50,7 % | +1,7 |
+| Marathonläufer | Griechische Antike | 2 | Gewöhnlich | – | – | – | – | 3574 | 52,7 % | 51,3 % | +2,3 |
+| Orakel von Delphi | Griechische Antike | 3 | Selten | – | – | – | – | 3980 | 31,0 % | 48,5 % | −0,5 |
+| Leuchtturm von Pharos | Griechische Antike | 3 | Selten | – | – | – | – | 3908 | 54,2 % | 41,6 % | −7,4 |
+| Akropolis | Griechische Antike | 2 | Selten | – | – | – | – | 3530 | 55,2 % | 49,7 % | +0,7 |
+| Bibliothek von Alexandria | Griechische Antike | 3 | Episch | – | – | – | – | 3876 | 49,6 % | 47,7 % | −1,3 |
+| Knappe | Europäisches Mittelalter | 1 | Gewöhnlich | – | – | – | – | 3714 | 54,2 % | 53,1 % | +1,2 |
+| Armbrustschütze | Europäisches Mittelalter | 3 | Gewöhnlich | – | – | – | – | 5218 | 58,0 % | 56,2 % | +4,3 |
+| Mönch von Cluny | Europäisches Mittelalter | 3 | Gewöhnlich | – | – | – | – | 5158 | 50,4 % | 55,0 % | +3,1 |
+| Hansekogge | Europäisches Mittelalter | 4 | Gewöhnlich | – | – | – | – | 4744 | 46,6 % | 49,7 % | −2,2 |
+| Turnierritter | Europäisches Mittelalter | 4 | Selten | – | – | – | – | 4816 | 50,6 % | 54,8 % | +2,9 |
+| Burgfried | Europäisches Mittelalter | 2 | Selten | – | – | – | – | 5054 | 56,7 % | 44,5 % | −7,4 |
+| Tribok | Europäisches Mittelalter | 4 | Episch | – | – | – | – | 4706 | 31,4 % | 48,9 % | −2,9 |
+| Ashigaru | China, Korea, Japan | 1 | Gewöhnlich | – | – | – | – | 1708 | 53,9 % | 55,9 % | +4,7 |
+| Mandarin-Gelehrter | China, Korea, Japan | 3 | Gewöhnlich | – | – | – | – | 2642 | 51,7 % | 53,6 % | +2,4 |
+| Teezeremonie | China, Korea, Japan | 2 | Gewöhnlich | – | – | – | – | 2410 | 43,3 % | 48,7 % | −2,6 |
+| Hwacha-Salve | China, Korea, Japan | 3 | Selten | – | – | – | – | 2624 | 56,1 % | 51,7 % | +0,4 |
+| Schildkrötenschiff | China, Korea, Japan | 5 | Selten | – | – | – | – | 2792 | 52,4 % | 50,9 % | −0,4 |
+| Terrakotta-Armee | China, Korea, Japan | 5 | Episch | – | – | – | – | 2818 | 53,9 % | 50,1 % | −1,1 |
+| Große Mauer | China, Korea, Japan | 2 | Episch | – | – | – | – | 2388 | 60,2 % | 43,5 % | −7,7 |
+| Kolosseum | neutral | 3 | Selten | – | – | – | – | 21800 | 33,0 % | 44,5 % | −5,4 |
+| Hängende Gärten | neutral | 2 | Selten | – | – | – | – | 20730 | 56,3 % | 45,7 % | −4,3 |
+| Pyramiden von Gizeh | neutral | 4 | Episch | – | – | – | – | 20186 | 27,3 % | 43,9 % | −6,0 |
