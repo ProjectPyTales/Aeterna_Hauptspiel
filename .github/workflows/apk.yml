@@ -80,6 +80,12 @@ jobs:
       - name: Messlauf Hauptmenü (Screenshots Handy und Tablet, Bildzeiten)
         run: node werkzeuge/sichtpruefung.js
 
+      - name: Messlauf Match (AP 2.4, 7 Diener je Seite, volle Hand)
+        run: node werkzeuge/matchmessung.js
+
+      - name: Renderer-Labor (AP 2.5, Canvas 2D gegen PixiJS – ohne GPU nur Funktionsprobe)
+        run: node werkzeuge/labormessung.js
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:

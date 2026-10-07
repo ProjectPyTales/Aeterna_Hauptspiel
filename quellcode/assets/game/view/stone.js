@@ -100,7 +100,10 @@ const cache={},urls={};
 S.backCanvas=id=>{if(!cache[id]){const el=document.createElement('canvas');el.width=120;el.height=169;S.paintBack(el.getContext('2d'),id,120,169);cache[id]=el;}return cache[id];};
 S.backURL=id=>{if(!urls[id]){const el=document.createElement('canvas');el.width=300;el.height=423;S.paintBack(el.getContext('2d'),id,300,423);urls[id]=el.toDataURL('image/png');}return urls[id];};
 // Deck stack on the board: relief backs plus a slow, faint gloss that sweeps the top card.
-S.deck=(c,id,x,y,w,h,count,now,phase=0)=>{const im=S.backCanvas(id);for(let i=0;i<count;i++){c.save();c.shadowColor='#0000006b';c.shadowBlur=4;c.shadowOffsetX=1.5;c.shadowOffsetY=2;c.drawImage(im,x+i*3,y-i*3,w,h);c.restore();}
+// The match keeps the stack as a pre-rendered sprite (AP 2.4) and draws only the gloss on every frame.
+S.deck=(c,id,x,y,w,h,count,now,phase=0)=>{S.stack(c,id,x,y,w,h,count);S.gloss(c,x,y,w,h,count,now,phase);};
+S.stack=(c,id,x,y,w,h,count)=>{const im=S.backCanvas(id);for(let i=0;i<count;i++){c.save();c.shadowColor='#0000006b';c.shadowBlur=4;c.shadowOffsetX=1.5;c.shadowOffsetY=2;c.drawImage(im,x+i*3,y-i*3,w,h);c.restore();}};
+S.gloss=(c,x,y,w,h,count,now,phase=0)=>{
  if(!count)return;const tx=x+(count-1)*3,ty=y-(count-1)*3;c.save();c.beginPath();c.roundRect(tx+1,ty+1,w-2,h-2,5);c.clip();
  c.fillStyle=lin(c,tx,ty,tx+w,ty+h,['#ffffff30','#ffffff00','#ffffff00','#00000022']);c.fillRect(tx,ty,w,h);
  const q=((now+phase)%5600)/1100;if(q<1){const bx=tx-30+q*(w+60);c.globalCompositeOperation='screen';c.fillStyle=lin(c,bx-22,ty,bx+22,ty+30,['#fff3d000','#fff3d070','#fff3d000']);c.fillRect(tx,ty,w,h);}c.restore();};

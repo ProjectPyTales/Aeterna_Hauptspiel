@@ -1,5 +1,6 @@
 // Historische Schlüsselwörter (AP 5.4, Teil 2, 1.8.0): Plünderung, Tarnung, Bannung, Tödliches Gift und Belastung –
 // je mit Regel-Test und KI-Bewertung (AP 5.8). Dazu die Platzhalter (AP 5.12) und die Chronik der Helden (AP 5.9).
+require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const D=require(path.join(game,'model/data.js')),E=require(path.join(game,'model/engine.js')),P=require(path.join(game,'model/profile.js')),L=require(path.join(game,'model/lore.js'));
@@ -28,7 +29,7 @@ test('Neue Karten: feste IDs hinten angehängt, Text nennt das Schlüsselwort, G
 
 test('Plünderung: Schaden im Angriff und beim Gegenschlag heilt den eigenen Helden',()=>{
  const s=ready('khan','leonidas');s.players[0].health=20;const u=play(s,id('Tributeintreiber'));u.ready=true;
- const foe=E.summon(s,1,'neutral_3');// 3/4
+ const foe=E.summon(s,1,'attrappe_34');// 3/4
  act(s,{type:'attack',uid:u.uid,target:foe.uid});assert.equal(s.players[0].health,23);
  end(s);const mine=E.summon(s,0,'ragnar_10'),b=E.summon(s,1,'neutral_0');b.ready=true;s.players[0].health=20;
  act(s,{type:'attack',uid:b.uid,target:mine.uid});assert.equal(s.players[0].health,23,'Gegenschlag zählt');
@@ -36,12 +37,12 @@ test('Plünderung: Schaden im Angriff und beim Gegenschlag heilt den eigenen Hel
 
 test('Tarnung: weder angreifbar noch Ziel, Schildwall zählt nicht; nach dem eigenen Angriff sichtbar',()=>{
  const s=ready('musashi','leonidas');const shin=play(s,id('Shinobi aus Iga'));
- end(s);const a=s.players[1];const att=E.summon(s,1,'neutral_3');att.ready=true;
+ end(s);const a=s.players[1];const att=E.summon(s,1,'attrappe_34');att.ready=true;
  assert.ok(!E.attackTargets(s,1,att.uid).includes(shin.uid));
  give(s,1,'hypatia_1');assert.ok(!E.validTargets(s,1,'any').includes(shin.uid));
  end(s);const foe=E.summon(s,1,'neutral_0');
  act(s,{type:'attack',uid:shin.uid,target:foe.uid});assert.ok(!shin.stealth);
- const s2=ready('musashi','leonidas');const hidden=E.summon(s2,1,'neutral_43');hidden.taunt=true;const me=E.summon(s2,0,'neutral_3');me.ready=true;
+ const s2=ready('musashi','leonidas');const hidden=E.summon(s2,1,'neutral_43');hidden.taunt=true;const me=E.summon(s2,0,'attrappe_34');me.ready=true;
  assert.ok(E.attackTargets(s2,0,me.uid).includes('h1'),'getarnter Schildwall sperrt nicht');
  E.effects(s2,0,[{type:'aoe',n:1}]);E.settle(s2);assert.equal(s2.players[1].board.length,0,'Flächenschaden trifft');
 });

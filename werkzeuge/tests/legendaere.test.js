@@ -1,4 +1,5 @@
 // Legendäre neu gedacht (AP 5.3): Jede der zwölf hat eine eigene Regel.
+require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const D=require(path.join(game,'model/data.js')),E=require(path.join(game,'model/engine.js'));
@@ -22,7 +23,7 @@ test('Alle zwölf Legendären sind neu: kein „großer Körper plus Bonus“, K
 });
 
 test('Gorgo: ein Hoplit je feindlichem Diener, Schildwall-Diener haben +1 Angriff, solange sie lebt',()=>{
- const s=ready('leonidas','khan');for(let i=0;i<3;i++)E.summon(s,1,'neutral_1');
+ const s=ready('leonidas','khan');for(let i=0;i<3;i++)E.summon(s,1,'attrappe_23');
  const guard=E.summon(s,0,'leonidas_1');// 2/3 Schildwall
  play(s,'leonidas_9');
  assert.deepEqual(ids(s.players[0]),['leonidas_1','leonidas_9','hoplite','hoplite','hoplite']);
@@ -48,7 +49,7 @@ test('Marco Polo: zwei heldenfremde Karten, je 1 billiger',()=>{
 });
 
 test('Subutai: Vorstoß und Zangenangriff – ein weiterer Diener greift dasselbe Ziel an',()=>{
- const s=ready('khan','leonidas');const a=E.summon(s,0,'neutral_9'),b=E.summon(s,0,'neutral_3');a.ready=b.ready=true;
+ const s=ready('khan','leonidas');const a=E.summon(s,0,'neutral_9'),b=E.summon(s,0,'attrappe_34');a.ready=b.ready=true;
  const foe=E.summon(s,1,'neutral_13');// 4/7 Schildwall
  play(s,'khan_9');
  act(s,{type:'attack',uid:a.uid,target:foe.uid});
@@ -60,7 +61,7 @@ test('Subutai: Vorstoß und Zangenangriff – ein weiterer Diener greift dasselb
 
 test('Andraste: kostet 1 weniger je zwei gefallenen eigenen Dienern und holt den letzten zurück',()=>{
  const s=ready('boudicca','khan');const h=give(s,0,'boudicca_9');assert.equal(E.cost(s,0,h),8);
- for(const id of ['neutral_1','neutral_2','neutral_3']){const u=E.summon(s,0,id);u.health=0;E.settle(s);}
+ for(const id of ['attrappe_23','neutral_2','attrappe_34']){const u=E.summon(s,0,id);u.health=0;E.settle(s);}
  assert.equal(E.cost(s,0,h),7,'drei Gefallene: 1 weniger');
  const u=E.summon(s,0,'neutral_9');u.health=0;E.settle(s);assert.equal(E.cost(s,0,h),6);
  act(s,{type:'play',uid:h.uid});
@@ -93,7 +94,7 @@ test('Lagertha: ruft jeden Runenstein, Runensteine haben Schildwall und +1 Leben
 });
 
 test('Zenobia: übernimmt einen feindlichen Diener mit höchstens 4 Angriff',()=>{
- const s=ready('leonidas','khan');const big=E.summon(s,1,'neutral_9'),small=E.summon(s,1,'neutral_3');
+ const s=ready('leonidas','khan');const big=E.summon(s,1,'neutral_9'),small=E.summon(s,1,'attrappe_34');
  const h=give(s,0,'neutral_39');
  const targets=E.legal(s,0).filter(a=>a.uid===h.uid).map(a=>a.target);assert.deepEqual(targets,[small.uid]);
  act(s,{type:'play',uid:h.uid,target:small.uid});

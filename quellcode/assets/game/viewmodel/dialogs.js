@@ -28,6 +28,16 @@ class Settings extends LiveDialog{
 }
 const SAMPLES=[['stone','Tippen'],['scrape','Schleifen'],['slam','Einrasten'],['grind','Mahlen'],['draw','Karte'],['hit','Treffer']];
 
+// Über das Spiel. Versteckte Entwickler-Einstellung (AP 2.4): fünfmal auf die Versionsnummer tippen schaltet die
+// Bildraten-Anzeige im Match (settings.fps) und den Knopf zum Renderer-Labor (AP 2.5).
+class Credits extends LiveDialog{
+ constructor(ctx,state){super(ctx,state);this.taps=0;}
+ get dev(){return this.profile.settings.fps===true;}
+ tapVersion(){if(++this.taps<5)return;this.taps=0;const s=this.profile.settings;s.fps=!s.fps;this.ctx.store.commit();
+  this.ctx.ui.toast(s.fps?'Entwickler: Bildrate wird im Match angezeigt.':'Entwickler: Bildraten-Anzeige aus.');}
+ lab(){if(this.dev)this.ctx.ui.lab?.();}
+}
+
 // Code einlösen (Rückmeldung zu 1.10.0): welche Codes es gibt und dass jeder nur einmal je Spielstand gilt, regelt
 // model/profile.js (CHP.redeem). Das Feld wird beim Tippen nicht neu gezeichnet (Cursor bleibt).
 class Redeem extends LiveDialog{
@@ -47,7 +57,7 @@ class Dialogs{
  // Chronikseite eines Helden (AP 5.9): Heldenwahl und Großansicht des Helden im Match.
  lore(id){const hero=D.heroes.find(h=>h.id===id),page=LORE.of(id);if(!hero||!page)return;
   this.ui.dialog('lore',new Dialog(this.ctx,{hero,page,favorites:page.favorites.map(c=>D.byId[c]).filter(Boolean)}));}
- credits(){this.ui.dialog('credits',new Dialog(this.ctx,{version:this.version,cards:D.cards.length,heroes:D.heroes.length,missions:D.missions.length,shell:this.ui.platform?.()||null}));}
+ credits(){this.ui.dialog('credits',new Credits(this.ctx,{version:this.version,cards:D.cards.length,heroes:D.heroes.length,missions:D.missions.length,shell:this.ui.platform?.()||null}));}
  redeem(){this.ui.dialog('redeem',new Redeem(this.ctx));}
  exportSave(){this.ui.exportSave(this.ctx.store.exportText());}
  askImport(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Spielstand laden',close:false,
@@ -61,6 +71,6 @@ class Dialogs{
    buttons:[{label:'Abbrechen'},{label:'Importieren',style:'gold',run:()=>{this.ctx.store.replace(candidate);this.ctx.reset?.();this.ui.go('menu',null,true);this.ui.toast('Spielstand importiert.');}}]}));}
 }
 
-const api={Dialogs,Quests,Settings,Redeem};
+const api={Dialogs,Quests,Settings,Redeem,Credits};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

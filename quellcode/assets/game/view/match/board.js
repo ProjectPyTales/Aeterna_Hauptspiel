@@ -34,9 +34,34 @@ window.AEMatchView=function(canvas,vm,ui){
  canvas.addEventListener('pointercancel',cancel);
  canvas.addEventListener('lostpointercapture',()=>{if(down)cancel();});
 
- // Frame loop (the 15 ms throttle goes with AP 2.4).
- let last=0;
- const frame=now=>{const s=vm.game;if(ui.screen()==='game'&&s&&now-last>=15){last=now;R.draw(ctx,M.frame(s,now),vm.view,now);A.intensity(s.players.some(p=>p.health<=12)?.8:0);}requestAnimationFrame(frame);};
+ // Pixel density (AP 2.4): the canvas holds R.scale device pixels per stage unit, at most 2. Drawing and touch stay in
+ // stage units (1600 × 800); only the backing store grows. Checked again whenever the canvas changes its size.
+ let fitted=false;
+ const fit=()=>{const w=canvas.getBoundingClientRect().width;if(!w)return;fitted=true;
+  const k=Math.round(Math.max(1,Math.min(2,w*(window.devicePixelRatio||1)/1600))*100)/100;
+  if(canvas.width!==Math.round(1600*k)){canvas.width=Math.round(1600*k);canvas.height=Math.round(800*k);}R.scale=k;R.scaled(ctx,k);};
+ if(window.ResizeObserver)new ResizeObserver(()=>{fitted=false;}).observe(canvas);
+ window.addEventListener('resize',()=>{fitted=false;});
+
+ // Developer overlay (AP 2.4), switched on by the hidden setting settings.fps: pictures per second, drawing time of a
+ // picture (mean and 95th percentile) and the longest gap between two pictures, over the last second.
+ const stats=[];
+ function overlay(now){while(stats.length&&now-stats[0].at>1000)stats.shift();if(stats.length<2)return;
+  const d=stats.map(x=>x.ms).sort((a,b)=>a-b),mean=d.reduce((a,b)=>a+b,0)/d.length,p95=d[Math.min(d.length-1,Math.floor(d.length*.95))];
+  const gap=Math.max(...stats.slice(1).map((x,i)=>x.at-stats[i].at)),fps=Math.round((stats.length-1)*1000/(stats[stats.length-1].at-stats[0].at));
+  const f=n=>n.toFixed(1).replace('.',',');
+  ctx.save();ctx.fillStyle='#0d0f12d0';ctx.beginPath();ctx.roundRect(1032,6,360,34,10);ctx.fill();ctx.font='16px Body,serif';ctx.textAlign='left';ctx.textBaseline='middle';
+  ctx.fillStyle=fps>=55?'#9cf07a':fps>=40?'#ffd27a':'#ff8f7a';ctx.fillText(fps+' fps',1044,24);ctx.fillStyle='#f2dfaf';
+  ctx.fillText('Bild '+f(mean)+' ms · 95 %: '+f(p95)+' · Lücke '+Math.round(gap)+' · ×'+f(R.scale),1110,24,272);ctx.restore();}
+
+ // Frame loop: one picture per display refresh. The former 15 ms throttle skipped pictures on 90/120 Hz screens
+ // (gaps of 11 and 22 ms in turn); now the loop follows the display.
+ const frame=now=>{const s=vm.game;
+  if(ui.screen()==='game'&&s){if(!fitted)fit();ctx.setTransform(R.scale,0,0,R.scale,0,0);
+   const dev=vm.profile.settings.fps,t0=dev?performance.now():0;R.draw(ctx,M.frame(s,now),vm.view,now);
+   if(dev){stats.push({at:now,ms:performance.now()-t0});overlay(now);}else stats.length=0;
+   A.intensity(s.players.some(p=>p.health<=12)?.8:0);}
+  requestAnimationFrame(frame);};
  return {board,cancel,start:()=>requestAnimationFrame(frame)};
 };
 })();
