@@ -75,22 +75,24 @@ test('Caterina: am Zugende eine Karte, 2 billiger, und 1 Schaden am eigenen Held
  assert.equal(E.cost(s,0,h),Math.max(0,D.byId[h.id].cost-2));
 });
 
-test('La Hire: Rekruten +1/+1 mit Göttlicher Gunst, die Heldenfähigkeit ruft zwei',()=>{
- const s=ready('jeanne','khan');const old=E.summon(s,0,'recruit');play(s,'jeanne_9');
+test('Jutta von Sponheim (bis 1.14.0 La Hire): Novizinnen +1/+1 mit Göttlicher Gunst, die Heldenfähigkeit ruft zwei',()=>{
+ const s=ready('jeanne','khan');const old=E.summon(s,0,'novice');play(s,'jeanne_9');
  assert.deepEqual([old.attack,old.health,old.shield],[2,2,true]);
  act(s,{type:'power'});
- assert.deepEqual(ids(s.players[0]),['recruit','jeanne_9','recruit','recruit']);
- for(const u of s.players[0].board.filter(u=>u.id==='recruit'))assert.deepEqual([u.attack,u.health,u.shield],[2,2,true]);
+ assert.deepEqual(ids(s.players[0]),['novice','jeanne_9','novice','novice']);
+ for(const u of s.players[0].board.filter(u=>u.id==='novice'))assert.deepEqual([u.attack,u.health,u.shield],[2,2,true]);
  const hire=s.players[0].board[1];hire.health=0;E.settle(s);
- for(const u of s.players[0].board)assert.deepEqual([u.attack,u.health],[1,1],'ohne La Hire wieder 1/1');
+ for(const u of s.players[0].board)assert.deepEqual([u.attack,u.health],[1,1],'ohne Jutta wieder 1/1');
+ // Rekruten anderer Karten (Dandolos Admiral, Caesars Mission) stärkt sie nicht.
+ const r=E.summon(s,0,'recruit');E.summon(s,0,'jeanne_9');assert.deepEqual([r.attack,r.health,!!r.shield],[1,1,false]);
 });
 
-test('Lagertha: ruft jeden Runenstein, Runensteine haben Schildwall und +1 Leben',()=>{
+test('Judith von Böhmen (bis 1.14.0 Lagertha): ruft jeden Grenzstein, Grenzsteine haben Schildwall und +1 Leben',()=>{
  const s=ready('ragnar','khan');play(s,'ragnar_9');
  assert.deepEqual(ids(s.players[0]),['ragnar_9','totem_heal','totem_fire','totem_guard','totem_strength']);
  for(const u of s.players[0].board.slice(1)){assert.ok(u.taunt);assert.equal(u.health,3);}
  s.players[0].board[0].health=0;E.settle(s);
- const [heal,,guard]=s.players[0].board;assert.equal(heal.taunt,false);assert.equal(heal.health,2);assert.equal(guard.taunt,true,'Schutzrune behält Schildwall');
+ const [heal,,guard]=s.players[0].board;assert.equal(heal.taunt,false);assert.equal(heal.health,2);assert.equal(guard.taunt,true,'Grenzstein der Burg behält Schildwall');
 });
 
 test('Zenobia: übernimmt einen feindlichen Diener mit höchstens 4 Angriff',()=>{

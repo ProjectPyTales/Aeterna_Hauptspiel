@@ -28,7 +28,7 @@ test('Neue Karten: feste IDs hinten angehängt, Text nennt das Schlüsselwort, G
 });
 
 test('Plünderung: Schaden im Angriff und beim Gegenschlag heilt den eigenen Helden',()=>{
- const s=ready('khan','leonidas');s.players[0].health=20;const u=play(s,id('Tributeintreiber'));u.ready=true;
+ const s=ready('khan','leonidas');s.players[0].health=20;const u=play(s,id('Plünderer am Rhein'));u.ready=true;
  const foe=E.summon(s,1,'attrappe_34');// 3/4
  act(s,{type:'attack',uid:u.uid,target:foe.uid});assert.equal(s.players[0].health,23);
  end(s);const mine=E.summon(s,0,'ragnar_10'),b=E.summon(s,1,'neutral_0');b.ready=true;s.players[0].health=20;
@@ -36,7 +36,7 @@ test('Plünderung: Schaden im Angriff und beim Gegenschlag heilt den eigenen Hel
 });
 
 test('Tarnung: weder angreifbar noch Ziel, Schildwall zählt nicht; nach dem eigenen Angriff sichtbar',()=>{
- const s=ready('musashi','leonidas');const shin=play(s,id('Shinobi aus Iga'));
+ const s=ready('musashi','leonidas');const shin=play(s,id('Heimlicher Bote'));
  end(s);const a=s.players[1];const att=E.summon(s,1,'attrappe_34');att.ready=true;
  assert.ok(!E.attackTargets(s,1,att.uid).includes(shin.uid));
  give(s,1,'hypatia_1');assert.ok(!E.validTargets(s,1,'any').includes(shin.uid));
@@ -61,7 +61,7 @@ test('Bannung: Fähigkeiten, Segnungen und Auren weg, Werte auf Kartenwert, Verm
 
 test('Tödliches Gift: vernichtet beschädigte Diener, nicht Helden, Bauwerke oder Göttliche Gunst',()=>{
  const s=ready('imhotep','leonidas');const cobra=play(s,id('Kobra des Nils'));cobra.ready=true;
- const big=E.summon(s,1,'neutral_36');// Wächter des Weltenbaums 7/9, Göttliche Gunst
+ const big=E.summon(s,1,'neutral_36');// Burgbesatzung 7/9, Göttliche Gunst
  act(s,{type:'attack',uid:cobra.uid,target:big.uid});assert.ok(s.players[1].board.includes(big),'Gunst fängt ab');
  assert.equal(s.players[0].board.length,0,'Kobra fällt');
  const s2=ready('imhotep','leonidas');const c2=play(s2,id('Kobra des Nils'));c2.ready=true;const v=E.summon(s2,1,'neutral_9');

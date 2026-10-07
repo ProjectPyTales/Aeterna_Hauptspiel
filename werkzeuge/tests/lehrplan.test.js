@@ -66,3 +66,38 @@ test('Astra (AP L.4): Code und MOTIVE.md nennen dieselben Kennungen, jede mit Gr
  assert.deepEqual(listed.sort(),[...code].sort(),'MOTIVE.md veraltet – node werkzeuge/motive.js ausführen');
  for(const id of ['kartenrahmen','diener-plakette','manasaeule','faehigkeitssymbole','steinknopf','stufenpyramide'])assert.ok(code.includes(id),id);
 });
+
+// AP L.2 (1.15.0): Karten der elf Lehrplan-Helden und neutrale Karten aus Lebenswelten statt Fantasy.
+// Welten der ersetzten Helden – Mongolen, Icener, Prophetie, Jeanne, Wikinger, Samurai, Kusch, Kamakura, Hussiten, Shang.
+const FAR=/Steppe|Mongol|Khan\b|Khatun|Tumen|Jurt|Kurultai|Keshig|Subutai|Icener|Andraste|Londinium|Quatrain|Prophez|Horoskop|Medici|Orléans|Reims|Lilie|Domrémy|La Hire|Loire|Rune|Fjord|Berserk|Lagertha|Donnergott|Nordsee|Samurai|Rōnin|Dojo|Shinobi|Kojir|Niten|Kirschblüt|Kusch|Meroë|Napata|Ta-Seti|Akinidad|Syene|Kamakura|Gokenin|Jōkyū|Hachiman|Shikken|Jitō|Hōjō|Minamoto|Rokuhara|Chahar|Oirat|Tas Bürd|Möngke|Zwilling|Tabor|Wagenburg|Píšťala|Prokop|Jan Hus|Prager|Laienkelch|Shang|Yue-Axt|Qiang|Wu Ding|Weltenbaum|Golem|Phönix/;
+const texts=c=>[c.name,c.text||'',...['effects','battle','death','start','end'].flatMap(k=>(c[k]||[]).filter(e=>e.token).map(e=>D.byId[e.token].name))].join(' ');
+
+test('Heldenkarten (AP L.2): 132 Karten der elf Lehrplan-Helden aus ihrer Lebenswelt, Wirkungen und IDs unverändert',()=>{
+ const set=D.cards.filter(c=>D.replaced.includes(c.hero));
+ assert.equal(set.length,132);
+ for(const c of set){assert.ok(!OLD.test(texts(c))&&!FAR.test(texts(c)),c.id+': '+texts(c));}
+ for(const h of D.replaced)assert.ok(!FAR.test(D.heroById[h].powerText),h+': '+D.heroById[h].powerText);
+ // Spielsteine: Novizinnen, Grenzsteine, Schanzkörbe, Füsiliere, Sippenbruder
+ assert.deepEqual(['novice','totem_heal','totem_fire','totem_guard','totem_strength','wagon','taborite','twin'].map(id=>D.tokens[id].name),
+  ['Novizin','Grenzstein des Klosters','Grenzstein der Mark','Grenzstein der Burg','Grenzstein des Dorfes','Schanzkorb','Füsilier','Sippenbruder']);
+ assert.equal(D.heroById.jeanne.ability.effects[0].token,'novice');assert.equal(D.tokens.recruit.name,'Rekrut','Rekruten bleiben für Dandolo und Caesar');
+ assert.deepEqual(['khan_9','boudicca_9','nostradamus_9','jeanne_9','ragnar_9','musashi_9','amanirenas_9','masako_9','mandukhai_9','zizka_9','fuhao_9'].map(id=>D.byId[id].name),
+  ['Abbi, Gefährte Widukinds','Commius, Führer des Entsatzheers','Tschirnhaus, Naturforscher','Jutta von Sponheim, Magistra','Judith von Böhmen',
+   'Friedrich der Streitbare','Zeremonialaxt des Ahmose','Otto II., Kaiser','Bund der Stämme','Ludwig XIV., der Sonnenkönig','Gesandter aus Massalia']);
+ // Bilder: Nur Motive, die zur neuen Person passen, bleiben; die übrigen sind Platzhalter mit Bildidee in MOTIVE.md.
+ assert.deepEqual(set.filter(c=>!D.missingArt(c)).map(c=>c.id),['khan_2','boudicca_0','boudicca_1','boudicca_5','boudicca_6','nostradamus_0','nostradamus_3','nostradamus_4']);
+ const md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8');
+ for(const c of set.filter(D.missingArt)){const row=md.split('\n').find(r=>r.startsWith('| `'+c.id+'` |'));
+  assert.ok(row&&row.includes('| '+c.name+' |'),c.id+': MOTIVE.md veraltet');
+  assert.ok(!/Mongol|Viking|Samurai|Japan|Hussite|Kush|Meroe|Shang|Joan|Kamakura|steppe/i.test(row),c.id+': alte Bildidee');}
+});
+
+test('Kartentexte nennen nur Helden, die es gibt (AP L.2): keine Karte, kein Spielstein und keine Chronik-Lieblingskarte mit alter Welt',()=>{
+ for(const c of Object.values(D.byId))assert.ok(!OLD.test(texts(c))&&!FAR.test(texts(c)),c.id+': '+texts(c));
+ // Neutrale Karten aus den Lebenswelten des Lehrplans statt Fantasy (Wirkungen unverändert)
+ assert.deepEqual([3,4,15,17,20,27,30,33,34,36].map(i=>D.byId['neutral_'+i].name),
+  ['Wilderin','Torwache der Burg','Nachtwächter','Heilkräuter','Ordensritter','Prätorianer','Löwin der Arena','Trojanisches Pferd','Brander','Burgbesatzung']);
+ for(const h of D.heroes)for(const id of L.of(h.id).favorites)assert.ok(!FAR.test(D.byId[id].name),h.id+': '+D.byId[id].name);
+ // Legendäre der Lehrplan-Helden stehen auf ihrer Chronikseite.
+ for(const h of D.replaced.filter(h=>h!=='mandukhai'))assert.ok(JSON.stringify(L.of(h).relations).includes('Legendäre'),h+': Legendäre fehlt in der Chronik');
+});
