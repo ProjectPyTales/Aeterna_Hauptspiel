@@ -1,10 +1,11 @@
 # Aeterna
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
-22 Helden von Fu Hao bis Musashi, 22 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.11.0**
-(Welle 2 der neuen Helden – Epaminondas, Fabius Maximus, Mandukhai, Baibars, Jan Žižka und Fu Hao mit je zehn Karten,
-Chronikseite und Mission –, 21 Zeitalterkarten für Rom, Persien & Steppe und Byzanz, Massenöffnung der Kartenpakete und
-Code-Eingabe); davor 1.10.0 mit Kartenwelle 1 (56 Karten – je Held zwei, je sieben Zeitalterkarten für Griechische Antike, Europäisches Mittelalter
+22 Helden von Fu Hao bis Musashi, 22 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.12.0**
+(neue native Android-Hülle in Kotlin mit Vollbild bis in die Kamera-Aussparung, Splash, Icon und Vibrationsmustern; Bilder als
+WebP – APK 56 → 12 MB –, Laden in Stufen, Massenöffnung aller Pakete ohne Standbild, angeglichene Steingeräusche mit
+Klangprobe); davor 1.11.0 mit Welle 2 der neuen Helden (Epaminondas, Fabius Maximus, Mandukhai, Baibars, Jan Žižka, Fu Hao),
+21 Zeitalterkarten, Massenöffnung und Code-Eingabe; 1.10.0 mit Kartenwelle 1 (56 Karten – je Held zwei, je sieben Zeitalterkarten für Griechische Antike, Europäisches Mittelalter
 und China/Korea/Japan, Weltwunder wie Kolosseum und Pyramiden –, neue Bauwerk-Regeln, eine KI, die Bauwerke belagert
 oder ignoriert, und eine KI-Persönlichkeit je Held); davor 1.9.0 mit sechs neuen Helden und Heldenfähigkeiten als
 Daten, 1.8.0 mit Platzhaltern, Chronik der Helden
@@ -46,7 +47,7 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
 
 ## APK herunterladen
 
-Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`).
+Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`, seit 1.12.0 mit Gradle aus `android/`).
 
 1. Im Repo auf **Actions** gehen und den obersten grünen Lauf **„Test-APK bauen“** auf `main` öffnen.
 2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen. (Das Artefakt „Sichtpruefung“ daneben
@@ -55,9 +56,9 @@ Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (z. B. 1.10.0 → 1.11.0: einfach die neue APK installieren; eine
-laufende Partie läuft mit den neuen Regeln weiter, die neuen Karten stehen in der Sammlung auf 0, Decks bleiben gültig,
-die sechs neuen Helden bekommen ihr Basisdeck).
+installieren sich neue Versionen direkt als Update (z. B. 1.11.0 → 1.12.0: einfach die neue APK installieren – die neue
+Hülle hat dieselbe Paket-ID, denselben Schlüssel und liest denselben Spielstand; Sammlung, Decks und eine laufende Partie
+bleiben).
 
 **Codes** (*Einstellungen → Code einlösen*, je Spielstand einmal, Groß-/Kleinschreibung egal; Liste in
 `model/profile.js`, `CHP.codes`):
@@ -65,7 +66,7 @@ die sechs neuen Helden bekommen ihr Basisdeck).
 | Code | Belohnung |
 |---|---|
 | `AETERNA` | 500 Gold |
-| `KARTENPAKETE` | 10 Kartenpakete – im Basar mit „Alle öffnen“ auf einmal aufdecken (bis zu 50) |
+| `KARTENPAKETE` | 10 Kartenpakete – im Basar mit „Alle öffnen“ auf einmal aufdecken (seit 1.12.0 alle, vorher höchstens 50) |
 | `ZEITALTER` | 1 000 Staub |
 | `CHRONIK` | jede Karte in voller Zahl (zwei, Legendäre eine) – zum Ausprobieren aller 350 Karten |
 
@@ -91,17 +92,19 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`) |
 | `view/match/` | View | Match-Canvas: `render.js` (`CHR`), `motion.js` (`CHM`), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife) |
 | `view/css/` | View | `style.css`, `packs.css`, `stone.css`, `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css` |
-| `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`), `platform.js` (Android-Brücke, `AEP`) |
+| `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`) |
 | `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
 | `assets/fonts/` | – | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
+| `assets/art/` | – | Bilder als WebP, erzeugt von `werkzeuge/bilder_webp.py` aus `ungenutzte_assets/art-original/` (nie von Hand ersetzen) |
 
 | Pfad | Inhalt |
 |---|---|
-| `quellcode/` | Kompletter APK-Inhalt. `classes.dex` ist die **kompilierte** native Hülle (kein Java-Quelltext vorhanden). |
-| `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive `motive.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `android/` | **Native Hülle** (seit 1.12.0, AP 2.1): Gradle-Projekt in Kotlin – `MainActivity.kt` (WebView, Vollbild, Aussparung, Zurück, Export/Import), `Bridge.kt` (`window.Android`), `AssetClient.kt` (liefert `quellcode/assets/game` unter `https://chroniken.local/` aus), `Haptics.kt`; Version, Paket-ID und Signatur in `app/build.gradle.kts` |
+| `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
+| `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive `motive.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
 | `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
-| `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs; `MOTIVE.md` listet alle fehlenden Motive mit fertigem Prompt (AP 5.12) |
+| `ungenutzte_assets/` | Ausgangsbilder; `art-original/` sind die Originale aller Spielbilder (Quelle der WebP-Dateien); `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs; `MOTIVE.md` listet alle fehlenden Motive mit fertigem Prompt (AP 5.12) |
 
 ### Architektur: wohin neuer Code gehört (MVVM)
 
@@ -119,10 +122,12 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 - Das Match-Canvas zeichnet jedes Bild aus `vm.view` (Auswahl, Ziele, Ziehen); `view/match/board.js` liefert dem
   ViewModel nur Geometrie (Hand, Ablagezone, Platz), die Regeln entscheidet das ViewModel.
 
-Native Brücke (`window.Android`): `save`, `load`, `exportSave`, `importSave`, `haptic(0|1)`,
-`exitApp`; die Hülle ruft `App.back()`, `App.importText()`, `App.onPause()` und `App.onResume()` auf.
-Inhalte werden unter `https://chroniken.local/` ausgeliefert (Unterordner gehen, Pfade mit `..` nicht);
-die Hülle kennt nur die Endungen `.html .js .css .png .ogg .ttf .json`.
+Native Brücke (`window.Android`): `save`, `load`, `exportSave`, `importSave`, `haptic(0–3)` (leicht, mittel, schwer,
+doppelt), `exitApp`, seit 1.12.0 auch `keepAwake(an)` (Bildschirm bleibt im Match an) und `info()` (Hülle, Version,
+Android); die Hülle ruft `App.back()`, `App.importText()`, `App.onPause()`, `App.onResume()` und `App.resize()` (mit
+`window.safeInsets` der Kamera-Aussparung) auf. Spielstand wie bisher in den SharedPreferences `chroniken_v1` und im
+localStorage. Inhalte werden unter `https://chroniken.local/` ausgeliefert (Unterordner gehen, Pfade mit `..` nicht),
+mit echten MIME-Typen (u. a. `.webp .jpg .svg .woff2 .mp3`, Liste in `AssetClient.kt`).
 
 **Bereits vorhandene Spielmechanik** (damit nichts doppelt gebaut wird): Mana 1 → 10,
 Startkarten-Tausch, Münze für den zweiten Spieler („Gunst der Stunde“, 0 Mana, +2 Mana in diesem Zug),
@@ -153,9 +158,12 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
+  Der Job „apk“ baut seit 1.12.0 mit Gradle (`android/`) und prüft Paket-ID, Version und Zertifikat. Lokal fehlt in den
+  Claude-Code-Sitzungen das Android-SDK (`dl.google.com` gesperrt): Kotlin-Änderungen dort gegen die Android-API aus
+  `org.robolectric:android-all` (Maven Central) vorkompilieren, gebaut wird in der CI.
 - **MVVM einhalten:** Regeln und Spielstand in `model/`, Bildschirmzustand und Befehle in `viewmodel/` (ohne DOM,
   mit Test in `werkzeuge/tests/viewmodel.test.js`), Markup in `view/` (ohne Spiellogik), gemeinsame Bausteine aus
   `view/kit.js` statt eigener Knöpfe und Fenster. Kein `innerHTML`-Neuaufbau ganzer Bildschirme, kein `onclick="App…"`.
@@ -175,8 +183,12 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
   ausführen – der Test prüft, dass `ungenutzte_assets/MOTIVE.md` jede Karte ohne Motiv nennt. Neue Karten-IDs nur
   hinten anhängen, nie bestehende umnummerieren (Spielstände).
 - **Stil:** Neue Oberflächen folgen `stil/STILBIBEL.md` (Palette als `--ae-…`-Variablen in `view/css/hall.css`).
-- **Signatur und Paket-ID:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren, Paket-ID
-  `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht.
+- **Signatur, Paket-ID und Version:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren (Alias `chroniken`), Paket-ID
+  `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht. Neue Version: `versionCode` +1 und `versionName` in
+  `android/app/build.gradle.kts`, dazu `VERSION` in `app.js` (ein Test prüft, dass beide übereinstimmen).
+- **Bilder:** Originale nach `ungenutzte_assets/art-original/` (PNG oder JPEG mit `.png`-Endung), dann
+  `python3 werkzeuge/bilder_webp.py` – das Spiel lädt nur die WebP-Dateien. Atlanten für Match, Sammlung und Basar in
+  `R.atlases()` eintragen (lädt im Hintergrund), Bilder des Hauptmenüs in `H.preload`.
 - **Lizenzen:** Nur eigene, generierte oder klar lizenzfreie Assets (CC0/OFL/MIT), Quelle in der Credits-Liste notieren.
 - **Effort-Empfehlung:** Der [Vorschlag für die nächste Sitzung](#vorschlag-für-die-nächste-sitzung) endet immer mit
   dem empfohlenen Effort (low, medium, high, xhigh oder max) für den nächsten Prompt.
@@ -236,15 +248,18 @@ Ornamente und Charakter müssen aus gemalten Bildern kommen.
    Folgen: CSS-Übergänge sind unmöglich, Bilder flackern, die Scrollposition springt zurück (z. B. nach
    einem Kauf im Basar).~~ *Behoben in 1.5.0 (AP 2.3):* Views werden per Abgleich aktualisiert; nach einem Kauf
    bleiben Scrollposition, Reiter und alle Bilder (gemessen: 0 statt 51 neu erzeugte Elemente).
-4. **Lange Ladezeit, großes APK.** Alle 29 Bilder (51 MB, Heldenatlanten je 3–3,4 MB PNG) werden vor
-   dem Hauptmenü geladen und dekodiert. APK ≈ 53 MB.
+4. ~~**Lange Ladezeit, großes APK.** Alle 29 Bilder (51 MB, Heldenatlanten je 3–3,4 MB PNG) werden vor
+   dem Hauptmenü geladen und dekodiert. APK ≈ 53 MB.~~ *Behoben in 1.12.0 (AP 2.2):* WebP (53 → 9,4 MB), Hauptmenü
+   wartet nur auf Schriften und sein Bild, die Atlanten laden danach im Hintergrund.
 5. **Animationen ohne Persönlichkeit.** Bewegungen haben kaum Ausholen, Nachschwingen, Gewicht oder
    Treffer-Stopp. Gezogene Karten fliegen sofort aufgedeckt aus dem Deck, Diener verschwinden beim Tod
    fast ohne Effekt.
-6. **Native Hülle nur kompiliert.** Ohne Quelltext sind Verbesserungen wie echte Vibrationsmuster,
-   Vollbild, Splash-Screen, 120 Hz, WebP-Unterstützung oder eine saubere Versionierung kaum möglich.
+6. ~~**Native Hülle nur kompiliert.** Ohne Quelltext sind Verbesserungen wie echte Vibrationsmuster,
+   Vollbild, Splash-Screen, 120 Hz, WebP-Unterstützung oder eine saubere Versionierung kaum möglich.~~ *Behoben in 1.12.0
+   (AP 2.1):* Kotlin-Hülle unter `android/`, gebaut mit Gradle.
 7. **Audio ungeprüft und dünn.** Die Steingeräusche wurden synthetisch erzeugt und nie auf einem Gerät
    angehört; die Musik ist eine prozedurale Eigenkomposition; Diener haben keine eigenen Stimmen oder Laute.
+   *Stand 1.12.0:* Pegel gemessen und angeglichen, Klangprobe in den Einstellungen – der Höreindruck auf dem Gerät fehlt noch.
 8. *Nebenpunkt:* Das Match-Canvas (1600 × 800) wird auf Handys hochskaliert (`devicePixelRatio` fehlt).
 
 ### Was schon gut ist
@@ -282,21 +297,24 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 
 ## Qualitätsziele
 
-| Bereich | Ziel | Stand 1.11.0 (gemessen; Menü- und Bildwerte aus 1.9.0, das Hauptmenü ist unverändert) |
+| Bereich | Ziel | Stand 1.12.0 (gemessen; Menü- und Bildwerte aus 1.9.0, das Hauptmenü ist unverändert) |
 |---|---|---|
 | Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben, Blitz und Seitenränder nach deiner Rückmeldung zu 1.6.0 überarbeitet, Stern nach deiner Rückmeldung zu 1.8.0 leiser); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
 | Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0 von 181 Bildern > 20 ms, auch bei 4× gedrosselter CPU (1.8.0: 0–4; weniger Glitzer am Stern)¹ |
 | Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 6 ms, mit 4× gedrosselter CPU 23 ms¹; Kauf im Basar ohne Ruckler (längstes Bild 16 ms bei 4× CPU) |
 | Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 561 ms (4× CPU: 584 ms), neuer Bildschirm ab 401 ms; zurück ins Menü 328 ms (4× CPU: 362 ms)¹ – nicht unterbrechbar (1.8.0: 525–549 ms) |
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
-| Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
-| APK-Größe | < 25 MB | 55,9 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,48 MB, Schriften 0,29 MB) |
+| Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
+| APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
 | Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **22 Helden, 350 Karten** (1.11.0, 101 200 Partien): Startdecks 46,6–53,9 % (20 von 22: Musashi 53,9 %, Žižka 46,6 %), Zufallsdecks 46,5–52,8 % (21 von 22: Hypatia 46,5 %) – alle Abweichungen ≤ 0,9 Punkte, im Zufallsfehler ±1,5; die sechs neuen Helden 46,6–50,7 % bzw. 48,9–52,8 %. Paarungen 201 bzw. 227 von 231 innerhalb 40/60 – Ausreißer vor allem mit Startdecks: Khan – Fu Hao 69/31, Khan – Mandukhai 68/32, Fu Hao – Imhotep 66,5/33,5, Leonidas – Fabius und Nezahualcóyotl – Žižka je 65,5/34,5; mit Zufallsdecks Fabius – Perikles 65/35. Beginner gewinnt 46,2 / 50,9 % (1.10.0 mit 16 Helden: 47,6–52,7 % bzw. 47,6–53,2 %, 114/119 von 120 Paarungen; 1.9.0: 47,6–51,7 % bzw. 47,6–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 52,8 % (1.10.0: 52,9 %), einzeln 43,4 (Nezahualpilli) bis 57,7 % (Lagertha); die sechs neuen 46,5 (Marcellus) bis 56,4 % (Qalawun)² |
 | Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: 347 von 350 Karten unter 60 %, darüber Goldener Reiter (Khan) 60,9 %, Botin der Stämme 60,5 % und Kämpfer der Heiligen Schar 60,4 % – im Zufallsfehler, aber für Sitzung 10 notiert; die 81 neuen 38,3 (Wagenburg am Vítkov) bis 60,5 %² |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
+
+³ Playwright, Handyformat, lokaler Server, je drei Kaltstarts; gemessen bis der Ladebildschirm verschwindet. Auf dem Gerät
+kommt das Lesen aus der APK dazu – dort wirkt der Unterschied 51 MB PNG ↔ 9,4 MB WebP stärker als am Desktop.
 
 ² KI gegen KI, `node werkzeuge/balance.js` (200 Partien je Paarung, Startwert 20261006), Bericht
 [`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,5 Punkte je Held (21 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 22 Helden und 350 Karten 27 min auf 4 Kernen.
@@ -322,7 +340,22 @@ Jedes Arbeitspaket (AP) hat Abnahmekriterien; abhaken, wenn erfüllt.
   „Sichtpruefung“ der CI.
 
 **AP 0.2 – Audio-Check auf dem Gerät**
-- [ ] Steingeräusche (`stone`, `scrape`, `grind`, `slam`) auf dem Handy anhören, Lautstärken in `audio.js` angleichen, bei Bedarf ersetzen.
+- [x] Lautstärken der Steingeräusche (`stone`, `scrape`, `grind`, `slam`) in `audio.js` angleichen. *Umgesetzt in 1.12.0:*
+  gemessen je Datei das lauteste 100-ms-Fenster (RMS, ffmpeg + NumPy, Mittel der Varianten); wirksam ist Messwert + Pegel
+  (`CHA.levels`) + Verstärkung des Aufrufs. Ziel: Tippen leise und knapp, der Platten-Übergang gleichmäßig, das Einrasten als
+  Akzent, nichts Bedienendes so laut wie ein Treffer. Abgesichert durch `werkzeuge/tests/audio.test.js`.
+
+  | Klang | Datei (dBFS) | Pegel 1.11.0 → 1.12.0 | wirksam 1.11.0 → 1.12.0 |
+  |---|---|---|---|
+  | `stone` – Menü-Tipp, Reiter, Ausrüsten | −13,8 | 0,8 → 0,31 | −15,7 → **−24,0 dB** |
+  | `scrape` – Platten schließen (Aufruf ×0,9) | −15,3 | 0,45 → 0,42 | −23,2 → **−23,8 dB** |
+  | `grind` – Platten öffnen | −14,2 | 0,5 → 0,36 | −20,2 → **−23,1 dB** |
+  | `slam` – Einrasten (mit Vibration) | −13,0 | 0,75 → 0,5 | −15,5 → **−19,0 dB** |
+  | `click` – Dialog-Klick | −27,5 | 0,38 → 1 | −35,9 → **−27,5 dB** |
+  | zum Vergleich: `hit` (Treffer) / `draw` (Karte) | −12,1 / −21,7 | unverändert | −14,0 / −25,4 dB |
+
+- [ ] Auf dem Handy anhören, bei Bedarf ersetzen. *Dafür neu:* **Einstellungen → Klangprobe** spielt Tippen, Schleifen,
+  Einrasten, Mahlen, Karte und Treffer nacheinander zum Vergleich. Rückmeldung bitte als „lauter/leiser“ je Knopf.
 
 **AP 0.3 – Umbenennung in „Aeterna“**
 - [x] Texte: Fenstertitel und Ladebildschirm (`index.html`), Titeltafel im Hauptmenü, „Über das Spiel“,
@@ -480,10 +513,15 @@ Das textfreie Konzeptbild ist als Grundlage geeignet. Umsetzung:
   zwei Glitzersterne pro Sekunde. Jetzt: 84 px, warmer Kern ohne Weiß, pulsiert nur noch zwischen 30 und 55 %
   Deckkraft; Glitzer 0,5 pro Sekunde, kleiner und blasser; Auftrittsblitz und Startfunken schwächer. Bitte auf dem
   OnePlus 15 gegenprüfen – wenn er noch stört, kann er auch ganz weg.
-- [ ] *Niedrige Priorität (deine Rückmeldung zu 1.8.0):* **Der linke Rand wirkt tot** und wird von Untermenüs nicht
+- [x] *Niedrige Priorität (deine Rückmeldung zu 1.8.0):* **Der linke Rand wirkt tot** und wird von Untermenüs nicht
   überdeckt – auf dem OnePlus 15 bleibt links ein dunkler Streifen (rechts nicht), vermutlich die Kamera-Aussparung,
   in die die WebView der alten Hülle nicht zeichnet. Stört laut dir nur wenig; Lösung mit AP 2.1 (Vollbild mit
   Display-Aussparung, `layoutInDisplayCutoutMode`) oder vorher mit dem randlosen Hintergrund aus AP 1.2.
+  *Ursache gefunden (beim Auslesen der alten Hülle):* Die alte Hülle zeichnete schon in die Aussparung und meldete deren
+  sicheren Rand (`window.safeInsets`); `resize()` in `app.js` legte aber auch die Flügel der Untermenüs in den sicheren
+  Bereich – der Streifen über der Kamera blieb leer. Seit 1.12.0 reichen die Flügel um die Breite der Aussparung weiter
+  (Inhalte bleiben im sicheren Bereich); im Browser ohne Aussparung ändert sich nichts. **Bitte auf dem OnePlus 15
+  gegenprüfen.**
 - Abnahme: Screenshot neben dem Konzeptbild – gleiche Qualität; alle Knöpfe reagieren; du gibst frei.
   *Stand:* Vergleichsbild [`stil/vergleich-hauptmenue.jpg`](stil/vergleich-hauptmenue.jpg) (neu mit 1.5.0); alle
   acht Knöpfe und das Zahnrad per Playwright angetippt. **Freigegeben** (manueller Test erfolgreich), Zahnrad und
@@ -555,19 +593,52 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
 ### Phase 2 – Technisches Fundament (L)
 
 **AP 2.1 – Native Android-Hülle neu aufsetzen (M)**
-- [ ] Gradle-Projekt (Kotlin) mit gleicher Paket-ID, `WebViewAssetLoader` für `https://chroniken.local/`,
+- [x] Gradle-Projekt (Kotlin) mit gleicher Paket-ID, `WebViewAssetLoader` für `https://chroniken.local/`,
   Brücke mit identischer JS-API. Verhalten der alten Hülle lässt sich aus `classes.dex` ablesen.
-- [ ] Gleicher Signaturschlüssel, CI baut mit Gradle statt mit `apk_bauen.py`; App-Name, Versionen und
-  Dateinamen werden normal gepflegt statt binär gepatcht.
-- [ ] Gewinne: echte MIME-Typen (WebP/JPEG), Vollbild mit Display-Aussparung (behebt den toten linken Rand auf dem
+  *Umgesetzt in 1.12.0 unter `android/` (AGP 8.10, Kotlin 2.2, Gradle 8.14, minSdk 28, targetSdk 36, ohne AndroidX).*
+  `classes.dex` mit androguard ausgelesen und nachgebaut: SharedPreferences `chroniken_v1`/`profile` (gleiche Prüfung:
+  höchstens 2 MB, `version` 1), Export/Import über das Speicherzugriffs-Framework, Zurück → `App.back()`,
+  Pause/Fortsetzen, sichere Ränder der Aussparung, alle Adressen außer `https://chroniken.local/` gesperrt. Statt
+  `WebViewAssetLoader` (AndroidX) liefert ein eigener `AssetClient` aus – wie die alte Hülle, aber mit vollständiger
+  MIME-Tabelle; so braucht die Hülle keine Bibliothek. Activity-Name `de.chroniken.helden.MainActivity` bleibt
+  (Verknüpfung auf dem Startbildschirm).
+- [x] Gleicher Signaturschlüssel, CI baut mit Gradle statt mit `apk_bauen.py`; App-Name, Versionen und
+  Dateinamen werden normal gepflegt statt binär gepatcht. *Job „apk“: `./gradlew assembleRelease` (R8 verkleinert die
+  Hülle, `proguard-rules.pro` schützt die Brücke), danach prüft `aapt2` Paket-ID und Version und `apksigner` das Zertifikat
+  (SHA-256 `8d4ab16f…e509` wie seit 1.3.0). `apk_bauen.py`, `manifest_version.py` und die binären Teile der alten Hülle
+  sind entfernt (in der Git-Geschichte bis 1.11.0). Export-Dateiname jetzt `Aeterna-Spielstand.json`.*
+- [x] Gewinne: echte MIME-Typen (WebP/JPEG), Vollbild mit Display-Aussparung (behebt den toten linken Rand auf dem
   OnePlus 15, AP 1.3), Bildschirm bleibt an im Match,
   Splash-Screen mit Aeterna-Logo, App-Icon, `VIBRATE` mit Mustern, hohe Bildwiederholrate.
+  *Alles drin:* WebP/JPEG/WOFF2/SVG; Vollbild (`WindowInsetsController`, Wischen zeigt die Leisten kurz),
+  `shortEdges` und Flügel bis in die Aussparung (AP 1.3); Bildschirm-an nur noch im Match (`keepAwake`, die alte Hülle
+  hielt ihn überall an); Splash ab Android 12 mit dem Aeterna-Zeichen (✦ im Bronzering), bleibt bis der Ladebildschirm
+  steht (höchstens 1,5 s); adaptives Icon mit Themen-Variante; `haptic(0–3)` über die vordefinierten Effekte des Geräts
+  (Tick, Klick, schwerer Klick, Doppelklick – Grundlage für AP 4.5); höchster Bildmodus des Displays bei gleicher
+  Auflösung (`preferredDisplayModeId`, 120 Hz). „Über das Spiel“ nennt Hülle und Android-Version.
 - Abnahme: Update über die Vorversion installierbar, Spielstand bleibt, alle Brückenfunktionen getestet.
+  *Stand:* in der CI gebaut und geprüft (Paket-ID, Version 1.12.0 / versionCode 15, Zertifikat); die Kotlin-Quellen
+  kompilieren gegen die Android-API 36; `werkzeuge/tests/huelle.test.js` prüft, dass jede Brückenfunktion, die das Spiel
+  aufruft, in der Hülle existiert. **Offen: dein Test auf dem OnePlus 15** (Update über 1.11.0, Spielstand, Export/Import,
+  Zurück-Geste, Vibration, linker Rand, 120 Hz) – siehe [Vorschlag für die nächste Sitzung](#vorschlag-für-die-nächste-sitzung).
 
 **AP 2.2 – Asset-Pipeline (S)**
-- [ ] Alle Bilder nach WebP (Qualität ~85), Atlanten in benötigter Größe; Kartenmotive für Daumennagel und Großansicht getrennt.
-- [ ] Laden in Stufen: Hauptmenü sofort, Match-Assets im Hintergrund, Ladebalken mit echtem Fortschritt.
-- Abnahme: APK < 25 MB, Start bis Menü < 2,5 s auf dem Testhandy.
+- [x] Alle Bilder nach WebP (Qualität ~85), Atlanten in benötigter Größe; Kartenmotive für Daumennagel und Großansicht getrennt.
+  *`werkzeuge/bilder_webp.py`:* Originale in `ungenutzte_assets/art-original/` (verschoben, nicht kopiert), 30 Bilder
+  **53,1 → 9,4 MB**; Atlanten Qualität 85 (PSNR 33–36 dB, im Vergleichsbild nicht zu unterscheiden), Hauptmenü 90,
+  Hintergründe 80. Der Lorbeerrahmen der Legendären wird höchstens 384 px breit gezeichnet und ist jetzt halb so groß
+  (1,58 → 0,10 MB). Die Atlasfelder (362 px) entsprechen der Großansicht und bleiben; die Daumennägel entstehen wie bisher
+  zur Laufzeit aus ihnen (`R.thumb`), jetzt als kurze `blob:`-Adressen statt ~150 KB langer `data:`-Adressen im HTML –
+  getrennte Bilddateien für Daumennägel hätten nichts gespart. Dabei gefunden: Aus WebP-`<img>` dekodiert Chromium bei
+  jedem Zeichnen neu (ein legendäres Kartenbild 84 statt 11 ms) – die Atlanten liegen deshalb als `ImageBitmap` vor.
+- [x] Laden in Stufen: Hauptmenü sofort, Match-Assets im Hintergrund, Ladebalken mit echtem Fortschritt.
+  *Stufe 1 (Ladebalken mit echtem Fortschritt):* fünf Schriften und das Hauptmenü-Bild (`H.preload`). *Stufe 2* nach dem
+  Auftritt des Menüs: 18 Atlanten (`R.atlases()`), aus der Datei im Hintergrund-Thread dekodiert – `createImageBitmap(<img>)`
+  hätte das Menü bei CPU 4× bis zu 3 s blockiert. Wer vorher Basar, Sammlung oder ein Duell öffnet, sieht „Die Chronik
+  lädt ihre Bilder … %“ und kommt nach, sobald alles da ist.
+- Abnahme: APK < 25 MB, Start bis Menü < 2,5 s auf dem Testhandy. *APK ✓ 12,1 MB (vorher 55,9 MB). Start in der
+  Emulation 171–225 ms statt 307–371 ms (siehe [Qualitätsziele](#qualitätsziele)); **auf dem OnePlus 15 bitte stoppen**
+  (Antippen des Icons bis die Platten stehen).*
 
 **AP 2.3 – UI ohne Komplett-Neuaufbau (M)**
 - [x] Bildschirme behalten ihre DOM-Knoten; nur geänderte Teile werden aktualisiert (kleiner eigener Helfer oder
@@ -1341,7 +1412,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 |
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
-| Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“ |
+| Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“; Rückmeldung zu 1.11.0 ✓ in 1.12.0: alle Pakete auf einmal, ohne Standbild |
 
 ---
 
@@ -1372,10 +1443,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     einfache Reihenfolge reicht – es bleibt bei 1 bis 16 nacheinander, jeder Sieg schaltet die nächste frei.
 15. ~~**Welle 2 der neuen Helden** (AP 5.10)~~ – *entschieden:* wie vorgeschlagen Epaminondas, Baibars, Jan Žižka,
     Fabius Maximus, Fu Hao und Mandukhai; umgesetzt in 1.11.0.
-16. **Codes** (Rückmeldung zu 1.10.0): Die Code-Eingabe und die Massenöffnung waren in keiner Version im Repo (auch nicht
-    in der 1.2.2-APK) – sie stammen vermutlich aus einer Fassung außerhalb des Repos. Ich habe beide neu gebaut und vier
-    Codes angelegt (siehe [APK herunterladen](#apk-herunterladen)). Kennst Du noch Deine alten Codes oder möchtest Du
-    andere Belohnungen? Dann trage ich sie in `CHP.codes` ein.
+16. ~~**Codes** (Rückmeldung zu 1.10.0)~~ – *Rückmeldung zu 1.11.0:* Die Code-Eingabe funktioniert (stichprobenartig mit
+    `CHRONIK` geprüft). Die vier Codes bleiben; wenn Du alte Codes wiederfindest oder andere Belohnungen möchtest, trage ich
+    sie in `CHP.codes` ein.
 
 ---
 
@@ -1392,7 +1462,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 7 ✓ | AP 5.11 (Kartenwelle 1), AP 5.5, AP 5.8 Teil 2, Rückmeldung 1.9.0 | erledigt in 1.10.0 – 56 Karten mit Zeitalterkarten, Weltwunder, KI-Persönlichkeit und Belagern |
 | 8 ✓ | AP 5.10 Welle 2 (sechs Helden), Zeitalterkarten für Rom, Persien & Steppe, Byzanz, Rückmeldung 1.10.0 | erledigt in 1.11.0 – 22 Helden, 350 Karten, Massenöffnung und Codes |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
-| 9 | AP 2.1, AP 2.2, AP 0.2 – siehe unten | Native Hülle, WebP, schneller Start, Haptik-Grundlage, randloser linker Rand |
+| 9 ✓ | AP 2.1, AP 2.2, AP 0.2, Rückmeldung 1.11.0 | erledigt in 1.12.0 – Kotlin-Hülle mit Gradle, WebP (APK 12,1 MB), Laden in Stufen, Massenöffnung ohne Grenze, Klangpegel und Klangprobe |
 | 10 | AP 2.4, AP 2.5, AP 5.11 Teil 2 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon); „nur Werte“-Karten und Balance-Feinschliff aus 1.11.0 |
 | 11–13 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht |
 | 14 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
@@ -1405,61 +1475,68 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 8 (Version 1.11.0):** AP 5.10 Welle 2 – Epaminondas, Fabius Maximus, Mandukhai, Baibars, Jan Žižka
-und Fu Hao mit je zehn Karten, Chronikseite, Startdeck, KI-Persönlichkeit, Monogramm und Mission 17–22; 21 Zeitalterkarten
-für Rom, Persien & Steppe und Byzanz (jetzt sechs Zeitalter mit je zwei bis fünf Helden); neue Regeln (Diener ganz links,
-Bündnis-Bedingung, verliehener Vorstoß, Ergründen aus dem eigenen Deck, Ziele in Starre); drei volle Balance-Läufe mit
-22 Helden (alle neuen Helden 46,6–52,8 %). Deine Rückmeldung zu 1.10.0: **Massenöffnung** (im Basar „Alle öffnen“, bis zu 50 Pakete, Übersicht mit den
-seltensten Karten zuerst) und **Code-Eingabe** (*Einstellungen → Code einlösen*, vier Codes) – beide gab es in keiner
-Version im Repo, sie sind neu gebaut (siehe Entscheidung 16). Nebenbei: Heldenwahl mit 8 Spalten für 22 Helden,
-Monogramme passen ins Medaillon, „Über das Spiel“ nennt die echten Zahlen statt „140 Karten, zehn Helden“. Davor:
-Sitzung 7 (1.10.0) AP 5.11 Kartenwelle 1, AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0)
-AP 5.12, AP 5.9, AP 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, AP 5.3, AP 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, AP 5.2;
-Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6; Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
+**Erledigt in Sitzung 9 (Version 1.12.0):** AP 2.1 – neue **native Hülle** in Kotlin unter `android/` (Gradle, gleiche
+Paket-ID, gleicher Schlüssel, gleicher Spielstand, gleiche JS-Brücke plus `keepAwake`/`info`/Vibrationsmuster; Vollbild bis
+in die Kamera-Aussparung, Splash, Icon, 120 Hz), die CI baut mit Gradle. AP 2.2 – **Bilder als WebP** (53,1 → 9,4 MB, APK
+55,9 → 12,1 MB), Hauptmenü nach 171–225 statt 307–371 ms (Emulation), Atlanten im Hintergrund. AP 0.2 – **Pegel** der
+Steingeräusche gemessen und angeglichen, **Klangprobe** in den Einstellungen. Deine Rückmeldung zu 1.11.0:
+**Massenöffnung** öffnet jetzt alle Pakete; die 50 waren eine willkürliche Grenze von mir. Der Ruckler kam daher, dass die
+Übersicht alle Kartenbilder in einem Rutsch zeichnete und als ~150 KB lange Texte ins HTML schrieb. Jetzt erscheint sie
+sofort und deckt die Karten seltenste zuerst in Schritten auf:
 
-**Vorher bitte von dir auf dem OnePlus 15 (10–15 Minuten):**
-1. Test-APK `Aeterna-1.11.0-Test-APK` aus Actions installieren (Update über 1.10.0, Spielstand und Decks bleiben, die
-   sechs neuen Helden bekommen ihr Basisdeck).
-2. *Einstellungen → Code einlösen:* `CHRONIK` (alle 350 Karten) oder `KARTENPAKETE` und im Basar **„Alle öffnen“** – ist
-   die Übersicht auf dem Handy lesbar, oder möchtest Du die Karten lieber groß nacheinander sehen?
-3. **Heldenwahl:** 22 Helden in acht Spalten – Namen und Monogramme gut lesbar?
-4. Je eine Partie mit **Epaminondas** (beim Ausspielen bestimmst Du, wer ganz links steht), **Fabius** (seine Fähigkeit
-   kostet als einzige 3 Mana) und **Fu Hao** (Orakel: drei Karten aus dem eigenen Deck zur Wahl). Fühlen sie sich
-   verschieden an?
-5. Offene Entscheidungen **2**, **3**, **5**, **7** und **16** (Codes).
-6. *Asset-Aufgabe (AP 1.2), sobald es passt:* 225 Karten- und 12 Porträtmotive stehen mit fertigem Prompt in
-   `ungenutzte_assets/MOTIVE.md` (81 Karten und 6 Porträts davon neu).
+| Massenöffnung, 50 Pakete (155 Karten), Handyformat | 1.11.0 | 1.12.0 |
+|---|---|---|
+| Übersicht sichtbar nach | 2 283 ms (Standbild) | **16 ms** |
+| längstes Einzelbild | 2 283 ms | **133 ms** |
+| mit CPU 4× gedrosselt: Übersicht / längstes Bild | 9 782 / 9 782 ms | **83 / 267 ms** |
+| alle Karten aufgedeckt | 2,3 s | 2,4 s (als Kaskade); 300 Pakete (238 Karten): 3,2 s |
 
-**Sitzung 9 – AP 2.1 native Android-Hülle, AP 2.2 Asset-Pipeline, AP 0.2 Audio**
+Die **Code-Eingabe** hast Du bestätigt (Entscheidung 16 erledigt). Davor: Sitzung 8 (1.11.0) AP 5.10 Welle 2; Sitzung 7
+(1.10.0) AP 5.11 Kartenwelle 1, AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0) AP 5.12, AP 5.9,
+AP 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, AP 5.3, AP 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, AP 5.2; Sitzung 2 (1.5.0)
+AP 2.3, AP 0.1, AP 2.6; Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
 
-Nach drei Inhalts-Sitzungen (1.8.0–1.11.0) wieder Technik, wie im Plan: Die alte Hülle liegt nur kompiliert vor
-(`classes.dex`), deshalb gehen Vollbild mit Display-Aussparung (der tote linke Rand auf Deinem OnePlus 15), WebP,
-Splash-Screen, Vibrationsmuster und 120 Hz bisher nicht.
+**Vorher bitte von dir auf dem OnePlus 15 (15 Minuten) – die neue Hülle ließ sich nur in der CI bauen:**
+1. *In 1.11.0 zur Sicherheit* **Einstellungen → Spielstand exportieren.** Dann `Aeterna-1.12.0-Test-APK` aus Actions als
+   Update installieren – **nicht vorher deinstallieren**. Meldet Android einen Konflikt, bitte abbrechen und mir schreiben.
+2. Heißt die App „Aeterna“, mit neuem Icon (✦ im Bronzering) und Splash? Sind Gold, Sammlung und Decks noch da?
+   *Über das Spiel* sollte „Android-Hülle 2 auf Android 16“ zeigen.
+3. **Linker Rand:** Basar oder Sammlung öffnen – reicht der Hintergrund jetzt über die Kamera bis an den Rand?
+4. **Zurück-Geste** in einem Dialog, einem Untermenü und im Hauptmenü; **Vibration** beim Menüwechsel und beim Pack;
+   **Export und Import** (Dateiname `Aeterna-Spielstand.json`).
+5. **Start stoppen:** App aus dem Verlauf wischen, Icon tippen, bis die Platten stehen (Ziel < 2,5 s). Wirkt das Menü mit
+   120 Hz flüssiger?
+6. **Einstellungen → Klangprobe:** je Knopf „passt / lauter / leiser“ (Tippen, Schleifen, Einrasten, Mahlen; Karte und
+   Treffer zum Vergleich).
+7. **Basar → Alle öffnen** mit vielen Paketen – flüssig?
+8. Offene Entscheidungen **2**, **3**, **5** und **7**; *Asset-Aufgabe (AP 1.2):* 225 Karten- und 12 Porträtmotive in
+   `ungenutzte_assets/MOTIVE.md`.
+
+**Sitzung 10 – AP 2.4 Match-Renderer entlasten, AP 2.5 Canvas oder PixiJS, AP 5.11 Teil 2**
+
+Mit der neuen Hülle (120 Hz, echte MIME-Typen) lohnt jetzt der Blick ins Match: Die Zeichenschleife überspringt auf
+90/120-Hz-Displays Bilder (`now-lastFrame>=15`), das Canvas ignoriert die Pixeldichte, `render.js` nutzt 23-mal
+`shadowBlur`. Danach ist klar, ob Phase 3 (Wucht, Partikel, Risse) in Canvas 2D reicht oder PixiJS braucht.
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.11.0 | Codes, Massenöffnung, neue Helden | kurz |
-| AP 2.1 | Gradle-Projekt (Kotlin) mit gleicher Paket-ID `de.chroniken.helden.layout`, gleicher Signatur (`chroniken-test.p12`), `WebViewAssetLoader` für `https://chroniken.local/`, dieselbe JS-Brücke (`save`, `load`, `exportSave`, `importSave`, `haptic`, `exitApp`; `App.back()` …), Vollbild mit `layoutInDisplayCutoutMode`; die CI baut mit Gradle statt `apk_bauen.py` | randloser Rand, Grundlage für alles Weitere; Update über 1.11.0 muss klappen (gleicher Schlüssel, höherer versionCode) |
-| AP 2.2 | Bilder nach WebP, gestuftes Laden mit echtem Fortschritt | APK 56 MB → Ziel < 25 MB, schnellerer Start |
-| AP 0.2 | Lautstärken der Steingeräusche angleichen | braucht Deinen Höreindruck, passt zur neuen Hülle |
+| Rückmeldung 1.12.0 | Hülle, Rand, Klangpegel, Start | was auf dem Gerät auffällt, zuerst |
+| AP 2.4 | Frame-Drossel weg, Canvas mit Pixeldichte (höchstens 2), statische Ebene offscreen, Leuchten als vorgerenderte Sprites, FPS-Overlay über eine versteckte Einstellung; Messung vorher/nachher im Klickpfad (Match mit 7 Dienern je Seite) | 120 Hz der neuen Hülle ausnutzen, Grundlage für Phase 3 |
+| AP 2.5 | PixiJS-Prototyp (MIT, offline) desselben Matches gegen den optimierten Canvas messen, Entscheidung festhalten | bevor AP 1.8 und Phase 3 viel Zeichencode erzeugen |
+| AP 5.11 Teil 2 | „nur Werte“-Karten der Startdecks, Khan-Paarungen (69/31, 68/32), drei Karten knapp über 60 %, Musashi 53,9 % – mit vollem Balance-Lauf | Balance-Feinschliff aus 1.11.0, braucht ≈ 30 min Rechenzeit, die parallel zu AP 2.4 laufen |
 
-Das Risiko liegt in AP 2.1: Die Hülle lässt sich in der Sitzung nur in der CI bauen und nicht auf einem Gerät testen –
-deshalb mit Abnahme über Deinen Test (Update über 1.11.0, Spielstand bleibt, Export/Import, Zurück-Taste, Vibration).
-Regeln und Karten bleiben unverändert (kein Balance-Lauf nötig, nur Tests und Klickpfad). Der Balance-Feinschliff aus
-1.11.0 – die Khan-Paarungen (gegen Fu Hao und Mandukhai 69/31 bzw. 68/32 mit Startdecks), drei Karten knapp über 60 %
-(Goldener Reiter, Botin der Stämme, Kämpfer der Heiligen Schar), Musashi 53,9 % – gehört zu AP 5.11 Teil 2 in Sitzung 10.
+Risiko: Die Messungen in Playwright laufen ohne GPU; die Gewinne auf dem OnePlus 15 bitte mit dem FPS-Overlay gegenprüfen.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 2.1 (native Android-Hülle), AP 2.2
-> (Asset-Pipeline) und AP 0.2 (Audio)** ab und übernimm mein Feedback zu Version 1.11.0: *(hier Feedback und Entscheidungen
-> einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit
-> Screenshots im Handyformat, lass die zwingend notwendigen Tests und den Klickpfad (falls notwendig) laufen und sorge für
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 2.4 (Match-Renderer), AP 2.5 (Canvas oder
+> PixiJS) und AP 5.11 Teil 2 (Balance-Feinschliff)** ab und übernimm mein Feedback zu Version 1.12.0: *(hier Feedback und
+> Entscheidungen einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen
+> mit Screenshots im Handyformat, lass die zwingend notwendigen Tests und den Klickpfad (falls notwendig) laufen und sorge für
 > eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere Prüfungen an mich und mein OnePlus 15.) Hake
 > erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull Request nach `main` und schreibe unten
 > in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: xhigh.** Eine neue Android-Hülle aus dem Nichts (Gradle, Kotlin, Signatur,
-CI-Umbau) ist Neuland im Projekt und lässt sich nur über die CI prüfen; Fehler dort kosten viele Runden. *high* reicht,
-wenn Du nur AP 2.2 und AP 0.2 machen und die Hülle verschieben möchtest – dann wäre stattdessen AP 5.11 Teil 2 (die
-„nur Werte“-Karten der Startdecks) mit einem Balance-Lauf ein guter zweiter Block.
+**Empfohlener Effort für den nächsten Prompt: high.** Renderer-Umbau und Balance-Feinschliff sind bekanntes Terrain mit
+lokalen Messwerkzeugen (Klickpfad, Balance-Lauf); *xhigh* lohnt nur, wenn Dein Test der neuen Hülle Fehler zeigt, die zuerst
+behoben werden müssen, oder wenn der PixiJS-Prototyp ein ganzes Match nachbauen soll.
