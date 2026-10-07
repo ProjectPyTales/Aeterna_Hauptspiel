@@ -123,5 +123,5 @@ test('Neue Helden (AP 5.10): Heldenwahl nach Zeitalter, Kampagne mit 16 Missione
  const c=new Campaign(ctx);assert.equal(c.missions.length,16);assert.ok(c.missions[10].locked);
  store.profile.campaign=[...Array(10).keys()];assert.ok(!c.missions[10].locked,'Neue Chroniken nach Mission 10');
  const coll=new Collection(ctx);coll.filter('hero','perikles');const seen=new Set(coll.view.cards.map(x=>x.card.hero));
- assert.ok(seen.has('perikles')||seen.has('neutral'));assert.ok(![...seen].some(h=>h!=='perikles'&&h!=='neutral'));
+ assert.ok(seen.has('perikles')||seen.has('neutral'));assert.ok(![...seen].some(h=>!['perikles','neutral','griechen'].includes(h)),'eigene, neutrale und Karten der Griechischen Antike');
 });

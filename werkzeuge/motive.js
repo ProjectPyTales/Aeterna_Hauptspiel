@@ -87,7 +87,66 @@ const IDEA={
  masako_9:'Minamoto no Yoritomo, the first shogun, seated in court robes with a war fan',
  citizen:'an Athenian citizen in a himation holding a voting pebble, agora behind',
  pioneer:'a Roman legion engineer with pickaxe and surveying groma, building a road',
- parthenos:'the colossal gold-and-ivory statue of Athena Parthenos inside the Parthenon, Nike in her hand'};
+ parthenos:'the colossal gold-and-ivory statue of Athena Parthenos inside the Parthenon, Nike in her hand',
+ // Kartenwelle 1 (AP 5.11) mit Zeitalterkarten und Weltwundern (AP 5.5)
+ leonidas_10:'one of the three hundred Spartans, bloodied but unbroken, bronze shield raised in the pass of Thermopylae',
+ leonidas_11:'the narrow pass of Thermopylae between cliffs and sea, a wall of Spartan shields holding back a vast army',
+ hypatia_10:'a woman astronomer of the Museion of Alexandria measuring stars with an armillary sphere at night',
+ hypatia_11:'a scroll of Diophantus’ Arithmetica with Hypatia’s commentary, glowing equations above a lamp',
+ imhotep_11:'a priestess of the lioness goddess Sekhmet raising her hands in healing, lion statue behind',
+ imhotep_12:'an Egyptian ka statue of a seated official in a temple niche, painted limestone, offerings before it',
+ dandolo_11:'a Venetian shipwright forging a blade in the Arsenal of Venice, galleys under construction behind',
+ dandolo_12:'Venetian crusaders carrying the bronze horses and treasures out of Constantinople in 1204',
+ khan_11:'a Mongol ger camp on the steppe at dawn, horses saddled and riders mounting',
+ khan_12:'a Mongol kurultai, chieftains gathered in a great white tent around the khan',
+ boudicca_11:'a Celtic bard with a lyre chanting a war song before Iceni warriors',
+ boudicca_12:'a British scythed war chariot thundering forward, blades on the wheels',
+ nostradamus_11:'Nostradamus’ almanac of quatrains open on a desk, candle, quill and star chart',
+ nostradamus_12:'a royal horoscope wheel drawn for Queen Catherine de’ Medici, zodiac signs in gold',
+ jeanne_10:'a young pilgrim woman from Domrémy walking with a staff and a small banner, village behind',
+ jeanne_11:'the coronation of Charles VII in Reims cathedral, Joan of Arc with her banner beside the altar',
+ ragnar_12:'a Norse rune mistress carving glowing runes into a standing stone',
+ ragnar_13:'a Viking berserker in a frenzy, bear pelt, axe raised, eyes burning',
+ musashi_11:'a young swordsman from Kokura practising with two swords in a dojo',
+ musashi_12:'the two-sword stance of the Niten Ichi-ryu school, a samurai silhouette against a red sun',
+ perikles_10:'a stonemason quarrying white marble on Mount Pentelikon, blocks for the Parthenon',
+ perikles_11:'the treasury of the Delian League, chests of silver coins with the Athenian owl',
+ agrippa_10:'a Roman aquilifer carrying the golden legionary eagle standard, lion pelt over his helmet',
+ agrippa_11:'the harpax, a grappling hook fired from a Roman ship catapult hooking an enemy galley',
+ amanirenas_10:'a Kushite arrow maker fletching arrows in Meroë, quivers and bows on the wall',
+ amanirenas_11:'a desert viper coiled beside poisoned Kushite arrowheads on a stone',
+ anna_10:'a physician of the Pantokrator hospital in Constantinople tending a patient by lamplight',
+ anna_11:'a Byzantine court chronicler with a long scroll of history, imperial palace behind',
+ nezahualcoyotl_10:'a poet of Texcoco reciting flower songs with a drum, flowers in his hair',
+ nezahualcoyotl_11:'chinampas, floating gardens on Lake Texcoco, canals and maize fields',
+ masako_10:'a jito estate steward of the Kamakura shogunate inspecting rice fields with a scroll',
+ masako_11:'the seal of the Hojo regent (shikken) pressed onto an order, red ink and brush',
+ griechen_0:'an Olympic victor with an olive wreath and a palm branch, stadium of Olympia behind',
+ griechen_1:'a Greek rhapsode reciting Homer with a staff before listeners',
+ griechen_2:'the runner from Marathon arriving exhausted in Athens, arms raised',
+ griechen_3:'the Pythia of Delphi on her tripod above the vapours, temple of Apollo',
+ griechen_4:'the Pharos lighthouse of Alexandria at night, its great fire shining over the harbour',
+ griechen_5:'the Acropolis of Athens with the Parthenon in morning light',
+ griechen_6:'the Library of Alexandria, scholars among shelves of scrolls under high columns',
+ mittelalter_0:'a medieval squire polishing his knight’s helmet beside a horse',
+ mittelalter_1:'a medieval crossbowman spanning his crossbow behind a pavise shield',
+ mittelalter_2:'a Benedictine monk of Cluny copying a manuscript in the scriptorium',
+ mittelalter_3:'a Hanseatic cog sailing into a harbour with bales of cloth and barrels',
+ mittelalter_4:'a jousting knight in a tournament, lance lowered, banners and crowd',
+ mittelalter_5:'a stone keep of a medieval castle on a hill, banners on the battlements',
+ mittelalter_6:'a medieval trebuchet hurling a stone at a castle wall',
+ ostasien_0:'Japanese ashigaru foot soldiers with long spears charging',
+ ostasien_1:'a Chinese mandarin scholar official with a scroll in an imperial hall',
+ ostasien_2:'a Japanese tea ceremony in a quiet tea house, steam rising from the bowl',
+ ostasien_3:'a Korean hwacha firing a volley of rocket arrows from a wooden cart',
+ ostasien_4:'the Korean turtle ship of Yi Sun-sin with an iron-spiked roof and dragon head',
+ ostasien_5:'rows of the terracotta army of Qin Shi Huang in the pit, warm light',
+ ostasien_6:'the Great Wall of China winding over green mountains',
+ neutral_47:'the Colosseum of Rome filled with spectators, gladiators in the arena',
+ neutral_48:'the Hanging Gardens of Babylon, terraces overflowing with plants and waterfalls',
+ neutral_49:'the pyramids of Giza at sunset with the Sphinx, desert sky',
+ rider:'a light Mongol rider galloping across the steppe with a short bow',
+ terracotta:'a single terracotta warrior from the army of Qin Shi Huang, shield ready'};
 // Porträts der Helden ohne Atlasfeld.
 const PORTRAIT={
  perikles:'Portrait of Pericles, Athenian statesman, bearded, wearing a Corinthian helmet pushed up on his head, Acropolis behind',
@@ -97,10 +156,10 @@ const PORTRAIT={
  nezahualcoyotl:'Portrait of Nezahualcoyotl, poet-king of Texcoco, feathered headdress, flower in hand, lake and dike behind',
  masako:'Portrait of Hojo Masako, the nun shogun, in a white Buddhist nun’s hood over dark robes, Kamakura behind'};
 const kind=c=>c.building?'Bauwerk':c.type==='spell'?'Zauber':'Diener';
-const epoch=hero=>{const h=D.heroes.find(x=>x.id===hero),l=h&&L.of(h.id);return l?`${l.epoch}, ${l.place}`:'neutral, any historical epoch';};
+const epoch=hero=>{const h=D.heroes.find(x=>x.id===hero),l=h&&L.of(h.id),age=D.ageById[hero];return l?`${l.epoch}, ${l.place}`:age?age.name:'neutral, any historical epoch';};
 const cards=Object.values(D.byId).filter(D.missingArt),heroes=D.heroes.filter(h=>!h.art);
 const row=c=>{const prompt=`${START}. ${IDEA[c.id]||`${c.name}: ${c.text||'a soldier'}`}. Epoch: ${epoch(c.hero)}.`;
- return `| \`${c.id}\` | ${c.name} | ${c.hero==='neutral'?'Neutral':D.heroes.find(h=>h.id===c.hero).name} | ${kind(c)} | 724 × 724 (Atlasfeld 362 × 362) | ${prompt} |`;};
+ return `| \`${c.id}\` | ${c.name} | ${D.heroById[c.hero]?.name||D.eraOf(c)} | ${kind(c)} | 724 × 724 (Atlasfeld 362 × 362) | ${prompt} |`;};
 const out=`# Fehlende Motive
 
 *Automatisch erzeugt von \`node werkzeuge/motive.js\` – nicht von Hand ändern.* Bis ein Motiv da ist, zeichnet das Spiel

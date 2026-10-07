@@ -23,7 +23,7 @@ function pyramidArt(c,x,y,w,h){c.save();c.beginPath();c.rect(x,y,w,h);c.clip();
 R.placeholderIds=new Set();
 function mix(hex,t){const n=parseInt(hex.slice(1,7),16),ch=[n>>16,n>>8&255,n&255].map(v=>Math.round(t>0?v+(255-v)*t:v*(1+t)));return '#'+ch.map(v=>v.toString(16).padStart(2,'0')).join('');}
 const monogram=name=>{const w=name.replace(/[,.’']/g,'').split(/\s+/).filter(x=>/^[A-ZÄÖÜ]/.test(x));return ((w[0]||name)[0]+(w.length>1?w[w.length-1][0]:'')).toUpperCase();};
-function placeholderArt(c,item,x,y,w,h){R.placeholderIds.add(item.id);const isHero=!!item.power,hero=isHero?item:D.heroes.find(h=>h.id===item.hero),col=hero?hero.color:'#7c6a4c',k=Math.min(w,h),cx=x+w/2,big=w>=250;
+function placeholderArt(c,item,x,y,w,h){R.placeholderIds.add(item.id);const isHero=!!item.power,hero=isHero?item:D.owner(item),col=hero?hero.color:'#7c6a4c',k=Math.min(w,h),cx=x+w/2,big=w>=250;
  c.save();c.beginPath();c.rect(x,y,w,h);c.clip();
  const g=c.createRadialGradient(cx,y+h*.4,k*.04,cx,y+h*.45,k*.8);g.addColorStop(0,mix(col,.45));g.addColorStop(.55,col);g.addColorStop(1,mix(col,-.65));c.fillStyle=g;c.fillRect(x,y,w,h);
  c.save();c.translate(cx,y+h*.42);c.strokeStyle=mix(col,.6)+'55';c.lineWidth=Math.max(1,k*.012);for(let i=0;i<16;i++){c.rotate(Math.PI/8);c.beginPath();c.moveTo(k*.2,0);c.lineTo(k*.5,0);c.stroke();}c.restore();
@@ -39,7 +39,7 @@ R.tile=(c,name,cell,x,y,w,h,item)=>{if(name==='@pyramid'){R.placeholderIds.add('
 function lines(c,text,max){const words=text.split(' '),out=[];let line='';for(const w of words){const n=line?line+' '+w:w;if(c.measureText(n).width>max&&line){out.push(line);line=w;}else line=n;}if(line)out.push(line);return out;}
 const rarityColor={basic:'#99938a',common:'#c6cac7',rare:'#55b8f9',epic:'#b56fe9',legendary:'#ffb94b',token:'#988a69'};
 R.rarityColor=rarityColor;
-R.card=(c,card,x,y,w=200,h=282,opts={})=>{const rare=rarityColor[card.rarity],legend=card.rarity==='legendary';c.save();c.translate(x,y);c.scale(w/200,h/282);if(opts.glow){c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=20;}round(c,0,0,200,282,14,'#241d19','#130e0c',3);round(c,4,4,192,274,12,grad(c,0,0,200,282,legend?'#8b501f':'#75573a',legend?'#ffe29a':'#d3b879'),rare,3);round(c,8,8,184,266,10,null,rare,2);c.shadowBlur=0;round(c,10,10,180,258,11,D.heroes.find(h=>h.id===card.hero)?.color||'#625b4c','#38251e',3);
+R.card=(c,card,x,y,w=200,h=282,opts={})=>{const rare=rarityColor[card.rarity],legend=card.rarity==='legendary';c.save();c.translate(x,y);c.scale(w/200,h/282);if(opts.glow){c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=20;}round(c,0,0,200,282,14,'#241d19','#130e0c',3);round(c,4,4,192,274,12,grad(c,0,0,200,282,legend?'#8b501f':'#75573a',legend?'#ffe29a':'#d3b879'),rare,3);round(c,8,8,184,266,10,null,rare,2);c.shadowBlur=0;round(c,10,10,180,258,11,D.owner(card)?.color||'#625b4c','#38251e',3);
 c.save();c.beginPath();c.ellipse(100,85,78,74,0,0,Math.PI*2);c.clip();R.tile(c,card.art,card.cell,21,legend?38:10,158,154,card);c.restore();ellipse(c,100,85,79,75,null,'#dbbf7b',4);ellipse(c,100,85,74,70,null,'#1b1719',2);
 if(legend&&R.images['legendary-frame'])c.drawImage(R.images['legendary-frame'],4,0,192,153);
 else if(card.rarity==='epic'||card.rarity==='rare'){for(const x of [14,186]){gem(c,x,84,9,rare);gem(c,x,126,6,rare);}}
@@ -50,7 +50,9 @@ c.font='13px Body';const ls=lines(c,card.text||'Diener',144);let fs=ls.length>4?
 if(body.length>5){fs=10;c.font=fs+'px Body';body=lines(c,card.text,150);lh=9.4;top=Math.max(186,212-(body.length-1)*lh/2);}body.slice(0,7).forEach((t,i)=>txt(c,t,100,top+i*lh,fs,'#30251a'));
 gem(c,18,20,24,'#2162ba',card.cost);c.save();c.shadowColor=rare;c.shadowBlur=9;gem(c,100,176,12,rare);c.restore();
 round(c,47,247,106,18,6,legend?'#713d15':'#332b27',rare,1);txt(c,(D.rarities[card.rarity]||'Spezial').toUpperCase(),100,256,9.5,legend?'#ffe6a3':rare);
-if(card.type==='minion'){ellipse(c,21,259,21,21,'#d5ab3f','#362814',3);c.strokeStyle='#f9eee0';c.lineWidth=4;c.beginPath();c.moveTo(4,272);c.lineTo(35,237);c.moveTo(10,250);c.lineTo(22,260);c.stroke();number(c,card.attack,22,261,26);heart(c,179,254,20,card.health);}else{txt(c,'ZAUBER',100,274,9,'#77603b');}
+// Bauwerk (AP 5.5): no attack, durability on the same stone tower badge as on the board.
+if(card.building){round(c,148,238,46,34,8,grad(c,148,238,46,34,'#6f6a62','#cfc8ba'),'#3a3631',2.5);txt(c,'♜',161,255,16,'#3a3631');number(c,card.health,181,256,22);txt(c,'BAUWERK',100,274,9,'#77603b');}
+else if(card.type==='minion'){ellipse(c,21,259,21,21,'#d5ab3f','#362814',3);c.strokeStyle='#f9eee0';c.lineWidth=4;c.beginPath();c.moveTo(4,272);c.lineTo(35,237);c.moveTo(10,250);c.lineTo(22,260);c.stroke();number(c,card.attack,22,261,26);heart(c,179,254,20,card.health);}else{txt(c,'ZAUBER',100,274,9,'#77603b');}
 if(legend){for(const x of [10,190])gem(c,x,214,7,'#ffc460');}
 if(opts.count!=null){round(c,61,260,78,22,8,'#211b17','#c2a66e',1);txt(c,'× '+opts.count,100,271,13);}
 if(opts.locked){round(c,0,0,200,282,14,'#131b23a0');round(c,60,110,80,40,6,'#161a20d9','#aa8d56',1);txt(c,'GESPERRT',100,130,11,'#cfb886');}c.restore();};

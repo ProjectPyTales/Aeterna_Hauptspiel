@@ -32,6 +32,7 @@ body.stone-hall #stage{background:none}
 .slab{width:calc(50% + 12px)}
 /* Chronik der Helden (AP 5.9) */
 .setup-links{display:flex;gap:10px}.setup-links button{flex:1}
+.setup-side .foe-style{font-size:15px;line-height:1.4;margin-top:8px;color:#c9bd9f}
 .lore{max-height:760px;padding:30px 38px}
 .lore-head{display:flex;gap:28px;align-items:center;margin-bottom:14px}
 .lore-portrait{width:150px;height:150px;flex:none;border-radius:50%;border:4px solid #c9a35f;box-shadow:0 0 0 3px #2a2017,0 8px 18px #0008}

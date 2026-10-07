@@ -11,9 +11,9 @@ class Setup extends Screen{
  get view(){const s=this.session,p=this.profile,day=s.mode==='daily'?P.daily():null,heroId=day?day.hero:s.hero;
   const decks=p.decks.filter(d=>d.hero===s.hero);if(!decks.some(d=>d.id===s.deckId))s.deckId=decks[0]?.id||'';
   return {mode:s.mode,day,hero:D.heroes.find(h=>h.id===heroId),foe:day?D.heroes.find(h=>h.id===day.foe):null,heroes:HEROES,
-   selected:heroId,decks,deckId:s.deckId,foeId:s.foe,mission:s.mode==='campaign'?D.missions[s.mission]:null};}
+   selected:heroId,decks,deckId:s.deckId,foeId:s.foe,foeStyle:D.personalities[D.heroById[s.foe]?.ai]||null,mission:s.mode==='campaign'?D.missions[s.mission]:null};}
  chooseHero(id){if(this.session.mode==='daily'||!D.heroes.some(h=>h.id===id))return;this.session.hero=id;this.notify();}
- chooseFoe(id){this.session.foe=id;}
+ chooseFoe(id){this.session.foe=id;this.notify();}
  chooseDeck(id){this.session.deckId=id;}
  help(){this.ctx.dialogs.help();}
  lore(){const day=this.session.mode==='daily'?P.daily():null;this.ctx.dialogs.lore(day?day.hero:this.session.hero);}

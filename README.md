@@ -67,7 +67,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | Pfad | Schicht | Inhalt |
 |---|---|---|
 | `core/mvvm.js` | Kern | Kleiner eigener Binder (`AEM`, ~5 KB, offline): beobachtbare ViewModels, DOM-Abgleich statt `innerHTML`-Neuaufbau, Befehle über `data-cmd`, maskierendes `html`-Template |
-| `model/data.js` | Model | 16 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel) und Zeitalter (`age`, Liste `CHD.ages`), 213 Karten, Spielsteine (Tokens), 16 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf |
+| `model/data.js` | Model | 16 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel), Zeitalter (`age`, Liste `CHD.ages` mit Farbe und Zeichen) und KI-Persönlichkeit (`ai`, `CHD.personalities`), 269 Karten (davon 21 Zeitalterkarten), Spielsteine (Tokens), 16 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf, `CHD.owner`/`CHD.eraOf` nennen Held, Zeitalter oder „Neutral“ |
 | `model/lore.js` | Model | Chronik der Helden (AP 5.9, 16 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`) |
 | `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs, Aufgaben, Import-Prüfung (`CHP`) |
@@ -86,7 +86,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 |---|---|
 | `quellcode/` | Kompletter APK-Inhalt. `classes.dex` ist die **kompilierte** native Hülle (kein Java-Quelltext vorhanden). |
 | `werkzeuge/` | APK-Build und -Signatur, Manifest (Version, App-Name), Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive `motive.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 16 Helden), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 16 Helden, 269 Karten), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder; `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs; `MOTIVE.md` listet alle fehlenden Motive mit fertigem Prompt (AP 5.12) |
 
@@ -124,6 +124,11 @@ zum Rufen leitet `E.canPower` aus den Effekten ab – ein neuer Held braucht kei
 Auslösern `start`/`end` (Zugbeginn/-ende), `onHeal`/`allyHeal` (Heilung), Auren `buffAura` und `buildingDiscount`, neue
 Effekte `fortify`, `bounce`, `destroy`, `randomDamage`, `grant`/`grantAll`/`grantRandom`, `buffSelf`/`buffRandom`,
 `enemyOverload`, Ergründen aus Bauwerken (`pool:'building'`) und Missionen mit Bossfähigkeit als Daten (`effects`, `every`).
+Seit 1.10.0 (AP 5.5, 5.8, 5.11) **Zeitalterkarten** (`hero` und `age` = Zeitalter, nur für Helden dieses Zeitalters),
+Auslöser `onDamage` (Schaden erlitten) und `anyDeath` (irgendein Diener stirbt), Auren `spellDiscount`, `healDouble`,
+`doubleDeath` (Vermächtnis zweimal) und `wall` (Große Mauer), Kosten je gespielter Karte (`costPerPlayed`), Ergründen aus
+den Pools `hero`, `age` und `ages`, eine **KI-Persönlichkeit** je Held (`ai`: aggressiv, defensiv, kombinierend; Gewichte
+`E.STYLE`) und eine Bauwerk-Bewertung nach Wirkung (`E.impact`: wirkungslose ignoriert die KI, wirksame belagert sie).
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -131,7 +136,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
 - **MVVM einhalten:** Regeln und Spielstand in `model/`, Bildschirmzustand und Befehle in `viewmodel/` (ohne DOM,
@@ -922,12 +927,31 @@ Neuer Kartentyp ohne Angriff mit dauerhaftem Effekt, ähnlich Schauplätzen in R
 - [x] Regelvorschlag *von dir bestätigt (Entscheidung 6, Sitzung 5):* Ein Bauwerk belegt einen der 7 Plätze, greift nie an, hat **Haltbarkeit** statt Leben, kann von
   Dienern, Helden und gezielten Zaubern angegriffen (belagert) werden; Flächenschaden trifft es nicht; Heilung wirkt
   nicht, nur eigene Reparatur-Effekte. Beim Einsturz bricht die Plakette zusammen.
-- [ ] Beispiele: **Bibliothek von Alexandria** (zu Beginn Eures Zuges: Ergründet einen Zauber), **Aquädukt** (am Ende
+- [x] Beispiele: **Bibliothek von Alexandria** (zu Beginn Eures Zuges: Ergründet einen Zauber), **Aquädukt** (am Ende
   Eures Zuges: 2 Heilung für alle eigenen Charaktere), **Große Mauer** (Schildwall; feindliche Diener mit Sturmangriff
   können Euren Helden nicht angreifen), **Leuchtturm von Pharos** (Eure Zauber kosten 1 weniger), **Kolosseum**
   (wann immer ein Diener stirbt: +1 Rüstung), **Hängende Gärten** (Heilung auf eigene Diener verdoppelt),
   **Akropolis** (eigene Diener +1 Leben), **Pyramiden von Gizeh** (Vermächtnis löst zweimal aus).
-- [ ] Engine: neuer Typ `building`, Zielwahl und KI-Bewertung („belagern oder ignorieren?“), Darstellung mit Turm-Symbol.
+  *Umgesetzt in 1.10.0* – vier als Zeitalterkarten, drei als neutrale Weltwunder; das Aquädukt gibt es schon als
+  *Aquädukt von Chapultepec* (Nezahualcóyotl, 1.9.0), eine zweite gleiche Karte wäre eine Dopplung. Werte nach den Messrunden:
+
+  | Bauwerk | Wo | Werte | Regel |
+  |---|---|---|---|
+  | Bibliothek von Alexandria | Griechische Antike, episch | 3: 0/5 | Zu Beginn Eures Zuges: Ergründet einen Zauber |
+  | Leuchtturm von Pharos | Griechische Antike, selten | 3: 0/5 | Arkaner Fokus +1, Eure Zauber kosten 1 weniger (nur mit der Kostensenkung lag er bei −12 Punkten) |
+  | Akropolis | Griechische Antike, selten | 2: 0/5 | Eure Diener haben +1 Leben |
+  | Große Mauer | China, Korea, Japan, episch | 3: 0/7 | Schildwall; feindliche Diener können Euren Helden nicht in dem Zug angreifen, in dem sie erscheinen (gilt für Sturmangriff wie Vorstoß) |
+  | Kolosseum | neutral, selten | 3: 0/6 | Wann immer ein Diener stirbt (beide Seiten): +1 Rüstung |
+  | Hängende Gärten | neutral, selten | 2: 0/5 | Am Ende Eures Zuges 1 Heilung für Eure Diener; Heilung wirkt bei Euren Dienern doppelt |
+  | Pyramiden von Gizeh | neutral, episch | 4: 0/7 | Eure Vermächtnisse wirken zweimal |
+
+  Dazu fünf weitere neue Bauwerke in der Kartenwelle (Ka-Statue, Jurtenlager, Chinampa, Burgfried, Tribok – siehe AP 5.11).
+- [x] Engine: neuer Typ `building`, Zielwahl und KI-Bewertung („belagern oder ignorieren?“), Darstellung mit Turm-Symbol.
+  *Umgesetzt in 1.10.0:* Die KI bewertet ein Bauwerk nach seiner Wirkung (`E.impact`: Auslöser, Auren, Kostensenkungen,
+  Vermächtnis, Mauer). Ein wirkungsloses (z. B. gebanntes) Bauwerk ist ihr kaum etwas wert – sie greift lieber den Helden
+  an; ein wirksames reißt sie ein, sobald es fällt (Test: Bibliothek mit 3 Haltbarkeit wird eingerissen, gebannt ignoriert).
+  Schildwall-Mauern bewertet sie wie bisher, weil sie den Weg versperren. Bauwerke auf der Hand zeigen jetzt ein
+  Turm-Abzeichen mit Haltbarkeit statt Angriff und Leben, die Kartendetails „♜ Haltbarkeit“.
   *Teilweise in 1.7.0:* Die Stufenpyramide (Spielstein von Djoser) ist das erste Bauwerk – Feld `building`: belegt einen
   der 7 Plätze, greift nie an, Haltbarkeit statt Leben, kein Flächenschaden, keine Heilung, keine Buffs; Diener, Helden
   und gezielte Zauber dürfen sie belagern; die KI bewertet sie über ihre Haltbarkeit. Plakette grau mit ♜ und gezeichneter
@@ -949,13 +973,21 @@ Neuer Kartentyp ohne Angriff mit dauerhaftem Effekt, ähnlich Schauplätzen in R
 - [ ] Jede neue Karte mit Motiv aus dem Bild-Atlas (Grafiken über AP 1.2).
 
 **AP 5.8 – KI erweitern (M)**
-- [ ] KI versteht alle neuen Mechaniken; Schwierigkeitsgrade Lehrling, Feldherr, Legende; Vorausschau 1–2 Züge;
-  Persönlichkeit je Held (aggressiv, defensiv, kombinierend).
+- [x] **Persönlichkeit je Held (aggressiv, defensiv, kombinierend)** – *Teil 2 in 1.10.0*, siehe unten.
+- [ ] KI versteht alle neuen Mechaniken; Schwierigkeitsgrade Lehrling, Feldherr, Legende; Vorausschau 1–2 Züge.
   *Teil 1 in 1.7.0:* Die Bewertung (`E.value`) kennt Starre (erstarrter Diener zählt weniger), Doppelschlag, Arkaner
   Fokus, Bauwerke (Haltbarkeit), die Dauerwirkung der Legendären, verbilligte Handkarten und eine offene Ergründen-Wahl
   (zählt als Karte); beim Ergründen wählt sie nach Kosten, Seltenheit, Werten und Spielbarkeit (`E.cardWorth`); die
   Suche nach tödlichen Zügen berücksichtigt Vorstoß, Doppelschlag, Duell und Starre. Gemessen im Balance-Lauf: Die KI
   spielt jede Legendäre in 37–49 % der Partien, in denen sie im Deck liegt (1.6.0: 34–53 %).
+  *Teil 2 in 1.10.0:* Feld `ai` je Held neben `ability` – **aggressiv** (Khan, Boudicca, Jeanne, Ragnar, Musashi,
+  Amanirenas): Schaden am feindlichen Helden zählt 30 % mehr; **defensiv** (Leonidas, Imhotep, Perikles, Nezahualcóyotl,
+  Masako): eigenes Leben +12 %, feindliches Feld räumen +6 %; **kombinierend** (Hypatia, Dandolo, Nostradamus, Agrippa,
+  Anna): Handkarten und Ergründen +12 %, jede verschiedene eigene Dauerwirkung (Auslöser, Aura, Fokus, Kostensenkung)
+  +0,8. Die Heldenwahl nennt die Spielweise des KI-Gegners. Die Faktoren sind bewusst klein: Eine erste, stärkere
+  Fassung (defensiv +25 %) machte die defensiven Helden um 4–5 Punkte stärker und Agrippa als „kombinierend“ (jeder
+  Pionier zählte als Dauerwirkung) fiel auf 30 %. Wie sich die Spielweisen unterscheiden, misst das Balance-Werkzeug
+  (Anteil der Angriffe aufs Gesicht, siehe AP 5.11).
 
 **Dein Wunsch aus Sitzung 2: mehr Tiefe bei Helden und Karten.** Die drei Pakete unten bauen auf AP 5.1 (Messen)
 auf und greifen AP 5.3, 5.4 und 5.7 auf. Grafiken entstehen erst danach (AP 1.2) – bis dahin mit Platzhaltern (AP 5.12).
@@ -1030,7 +1062,8 @@ Schlüsselwort aus AP 5.4/5.5):
 - [x] Du wählst aus. *Entschieden (Sitzung 5): mein Vorschlag für Welle 1 (6 Helden, größtmögliche Vielfalt):*
   Perikles (Griechenland), Marcus Agrippa (Rom), Amanirenas (Kusch), Anna Komnene (Byzanz), Nezahualcóyotl (Texcoco),
   Hōjō Masako (Japan).
-  Welle 2 als Rivalen und Gegenstücke: Epaminondas, Baibars, Jan Žižka, Fabius Maximus, Fu Hao, Mandukhai.
+  Welle 2 als Rivalen und Gegenstücke: Epaminondas, Baibars, Jan Žižka, Fabius Maximus, Fu Hao, Mandukhai –
+  *von dir bestätigt (Entscheidung 15, Rückmeldung zu 1.9.0), geplant für Sitzung 8.*
 - [x] **Engine: Heldenfähigkeiten datengetrieben.** *Umgesetzt in 1.9.0:* Jeder Held trägt seine Fähigkeit als Daten
   (`ability:{effects,target}` in `data.js`) – dieselben Effekte wie Karten. `E.power` hat keinen `switch` über Helden mehr,
   `E.canPower` leitet die Bedingungen aus den Effekten ab (Platz zum Rufen, ein fehlender Runenstein, etwas zum Ergründen,
@@ -1103,7 +1136,8 @@ So, dass es im Spiel nicht kaputt aussieht:
   über `R.heroStyle`). `node werkzeuge/motive.js` schreibt die Liste mit Größe (724 × 724 für ein Atlasfeld 362 × 362)
   und Prompt; ein Test prüft, dass sie aktuell ist. *Gemessen:* **14 Motive fehlen** (13 neue Karten und die
   Stufenpyramide), 0 Heldenporträts (`sichtpruefung/messwerte.json` → `platzhalter`). *Stand 1.9.0:* **77 Karten und 6 Heldenporträts** (die
-  60 Karten und drei Spielsteine der neuen Helden kamen hinzu; Prompts mit Bildidee in `MOTIVE.md`).
+  60 Karten und drei Spielsteine der neuen Helden kamen hinzu; Prompts mit Bildidee in `MOTIVE.md`). *Stand 1.10.0:*
+  **135 Karten und 6 Heldenporträts** (dazu 56 Karten der Kartenwelle und zwei Spielsteine, alle mit Bildidee).
 
 ### Phase 6 – Spielmodi und Motivation (fortlaufend)
 
@@ -1153,11 +1187,11 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 |---|---|
 | Name „Aeterna“ | AP 0.3 |
 | Textfreies Hauptmenü-Bild mit interaktiven Knöpfen und Animationen | AP 1.3 (Bild liegt in `ungenutzte_assets/ui/`) |
-| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) |
+| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) – Welle 1 ✓ in 1.10.0 (56 Karten, 269 insgesamt) |
 | Legendäre aufwerten | AP 5.3 – ✓ in 1.7.0 |
 | Hintergründe der Helden ausarbeiten | AP 5.9 – ✓ in 1.8.0 |
-| Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 – Welle 1 ✓ in 1.9.0 (sechs Helden), Welle 2 offen |
-| Bestehende Karteneffekte überarbeiten | AP 5.11 |
+| Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 – Welle 1 ✓ in 1.9.0 (sechs Helden), Zeitalterkarten ✓ in 1.10.0, Welle 2 in Sitzung 8 |
+| Bestehende Karteneffekte überarbeiten | AP 5.11 (Dopplungen Herodot/Anna und Thermen/Aquädukt entzerrt in 1.10.0) |
 | Platzhalter statt fehlender Grafiken | AP 5.12 – ✓ in 1.8.0 |
 | Heldenbalance | AP 5.1, AP 5.2 – ✓ in 1.6.0 |
 | Heldenfähigkeit dreht sich nach Benutzung um | AP 1.8, AP 3.7 |
@@ -1182,7 +1216,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Taktische Hinterhalte | AP 5.6, AP 1.8 |
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 |
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
-| Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 (erstes Bauwerk in 1.7.0: Stufenpyramide; belegen einen der 7 Plätze – bestätigt) |
+| Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
 
 ---
 
@@ -1209,10 +1243,10 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 12. ~~**Platzhalter** (AP 5.12)~~ – *freigegeben:* neue Karten und Helden zuerst mit gestalteten Platzhaltern.
 13. ~~**Namen aus der Chronik-Prüfung** (AP 5.9)~~ – *entschieden:* Ragnars Totems heißen Runensteine, Dandolos
     Fähigkeit *Rammsporn der Galeeren*; umgesetzt in 1.9.0 (nur Namen und Texte).
-14. **Neue Chroniken** (AP 5.10): Die Missionen 11–16 der neuen Helden werden wie bisher nacheinander frei, also erst
-    nach Mission 10. Sollen sie stattdessen sofort spielbar sein (eigenes Kapitel)?
-15. **Welle 2 der neuen Helden** (AP 5.10): Epaminondas, Baibars, Jan Žižka, Fabius Maximus, Fu Hao, Mandukhai wie
-    vorgeschlagen – oder zuerst die Kartenwelle (AP 5.11), damit jeder Held mehr Auswahl bekommt?
+14. ~~**Neue Chroniken** (AP 5.10)~~ – *entschieden (Rückmeldung zu 1.9.0):* Die Missionen sind nicht so wichtig, eine
+    einfache Reihenfolge reicht – es bleibt bei 1 bis 16 nacheinander, jeder Sieg schaltet die nächste frei.
+15. ~~**Welle 2 der neuen Helden** (AP 5.10)~~ – *entschieden:* wie vorgeschlagen Epaminondas, Baibars, Jan Žižka,
+    Fabius Maximus, Fu Hao und Mandukhai; die Kartenwelle 1 kam zuerst (diese Sitzung), Welle 2 folgt in Sitzung 8.
 
 ---
 
@@ -1226,14 +1260,15 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 4 ✓ | AP 5.4 (Teil 1), AP 5.3, AP 5.8 (Teil 1), Feinschliff AP 1.3 | erledigt in 1.7.0 – eigene Schlüsselwörter, Vorstoß/Starre/Ergründen, alle zwölf Legendären neu, Menü-Blitz und Seitenränder |
 | 5 ✓ | AP 5.12, AP 5.9, AP 5.4 (Teil 2), Rückmeldung 1.7.0 | erledigt in 1.8.0 – Platzhalter, Chronik der Helden, fünf neue Schlüsselwörter mit 13 Karten, randlose Untermenüs |
 | 6 ✓ | AP 5.10 (Engine-Teil und Welle 1), Rückmeldung 1.8.0 | erledigt in 1.9.0 – Heldenfähigkeiten als Daten, Zeitalter, sechs neue Helden mit Chronik und Mission, leiserer Stern |
-| 7 | AP 5.11 (Effekte überarbeiten, Kartenwelle 1 mit Zeitalterkarten), AP 5.5 (Bauwerke: Beispiele, KI „belagern oder ignorieren“), AP 5.8 Teil 2 (KI-Persönlichkeit) – siehe unten | Engine und 16 Helden stehen; jetzt mehr Auswahl je Held |
+| 7 ✓ | AP 5.11 (Kartenwelle 1), AP 5.5, AP 5.8 Teil 2, Rückmeldung 1.9.0 | erledigt in 1.10.0 – 56 Karten mit Zeitalterkarten, Weltwunder, KI-Persönlichkeit und Belagern |
+| 8 | AP 5.10 Welle 2 (sechs Helden) mit Zeitalterkarten für Rom, Persien & Steppe, Byzanz – siehe unten | Entscheidung 15; Rivalen zu bestehenden Helden |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
-| 7–8 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
-| 8 | AP 2.4, AP 2.5 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon) |
-| 9–11 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht |
-| 12 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
-| 13–14 | AP 3.6–3.9, Phase 4 | Effekte, Stimmen, Chronist, Klang, Haptik aus einem Guss |
-| 15+ | AP 5.5–5.7, Phase 6 | Bauwerke, Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
+| 9 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
+| 10 | AP 2.4, AP 2.5 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon) |
+| 11–13 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht |
+| 14 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
+| 15–16 | AP 3.6–3.9, Phase 4 | Effekte, Stimmen, Chronist, Klang, Haptik aus einem Guss |
+| 17+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
 

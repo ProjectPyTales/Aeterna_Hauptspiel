@@ -9,7 +9,8 @@ function side(v){const h=v.hero,day=v.day,m=v.mode;
   m==='random'?html`<p>Du und die KI erhalten jeweils einen zufälligen Helden und ein zufälliges Deck aus dem gesamten Set. Deine Sammlung bleibt unverändert.</p>`
   :day?html`<p>Die Herausforderung des Tages: ${day.first?'Die KI beginnt':'Du beginnst'}, beide Decks sind fest vorgegeben. Jeden Tag wartet ein neues Duell – findest Du den Weg zum Sieg?</p>`
   :html`<div><label>DEIN DECK · 30 KARTEN</label><select data-change="chooseDeck">${v.decks.map(d=>option(d.id,d.name,d.id===v.deckId))}</select></div>`}${
-  m==='free'?html`<div><label>GEGNER · OFFLINE-KI</label><select data-change="chooseFoe">${D.heroes.map(h=>option(h.id,h.name,h.id===v.foeId))}</select></div>`
+  m==='free'?html`<div><label>GEGNER · OFFLINE-KI</label><select data-change="chooseFoe">${D.heroes.map(h=>option(h.id,h.name,h.id===v.foeId))}</select>${
+   v.foeStyle?html`<p class="foe-style">Spielweise: <b>${v.foeStyle.name}</b> – ${v.foeStyle.text}</p>`:''}</div>`
   :m==='campaign'?html`<p><b>${v.mission.boss}</b><br>${v.mission.description}</p>`:''}<div class="spacer"></div>${
   V.button({label:(m==='campaign'?'Mission beginnen':'Duell beginnen')+' ›',cmd:'begin',style:'gold'})}${html`<div class="setup-links">${V.button({label:'Chronik',cmd:'lore',small:true,aria:'Chronik von '+h.name})}${V.button({label:'Spielregeln',cmd:'help',small:true})}</div>`}`,{extra:'setup-side'});}
 
