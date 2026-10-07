@@ -214,7 +214,7 @@ function mulligan(s,ids=[]){if(s.phase!=='mulligan')return false;for(let p=0;p<2
 // Extra worth of legendaries whose rule keeps working while they stand (AP 5.8, part 1).
 const SPECIAL={leonidas_9:2,hypatia_9:2.5,khan_9:3.5,nostradamus_9:1.5,jeanne_9:2,ragnar_9:1.5,anna_9:1.5,nezahualcoyotl_9:1.5,masako_9:2.5};
 // What a building does every turn or while it stands (1.10.0) – the reason to besiege it (AP 5.5).
-function impact(c){const b=c.buffAura;return (c.start||c.end||c.passive?2.5:0)+(b?((b.attack||0)*1.65+(b.health||0))*1.6:0)+(c.buildingDiscount?1:0)+(c.spellDiscount||0)*1.5
+function impact(c){const b=c.buffAura;return (c.start||c.end||c.passive?2.5:0)+(b?((b.attack||0)*1.65+(b.health||0))*1.6:0)+(c.buildingDiscount?1:0)+(c.spellDiscount||0)*1.5+(c.focus||0)*1.6
  +(c.anyDeath?1.2:0)+(c.healDouble?.8:0)+(c.doubleDeath?1.6:0)+(c.wall?1.2:0)+(c.death?1.2:0);}
 // Buildings: a building that does nothing is a wall – its durability counts little, so the AI ignores it unless it blocks
 // (Schildwall). The more it does, the more each point of durability and its fall are worth: then the AI besieges it.
