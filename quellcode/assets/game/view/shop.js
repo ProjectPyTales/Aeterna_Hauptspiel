@@ -23,7 +23,8 @@ const tile=e=>html`<div class="${V.cls('shop-tile',e.equipped&&'equipped',!e.own
 const display=()=>html`<div class="pack-display"><span class="emblem">✦</span><span class="packtitle">AETERNA</span></div>`;
 const packs=p=>html`<div class="pack-area">${display()}<div class="pack-info"><div class="eyebrow">Das historische Grundset</div><h1>Fünf neue Möglichkeiten.</h1><p>Jedes Pack enthält 5 Karten. Mindestens eine davon ist selten oder besser. Erspiele Gold in Duellen, Missionen und Aufträgen.</p>${
  V.button({label:p.pending?'Geöffnetes Pack ansehen':'Pack öffnen · '+p.packs+' verfügbar',cmd:'openPack',style:'gold',disabled:!p.packs&&!p.pending})}${
- V.button({label:'Ein Pack kaufen · 100 Gold',cmd:'buyPack',disabled:!p.canBuy})}<small>Keine Käufe mit echtem Geld. Duplikatschutz bis zur vollständigen Seltenheitsstufe. Eine legendäre Karte in den ersten 10 Packs, danach spätestens alle 40 Packs.<br>${
+ html`<div class="pack-row">${p.bulk?V.button({label:'Alle öffnen · '+p.bulk,cmd:'openAll',extra:'open-all',aria:p.bulk+' Kartenpakete auf einmal öffnen'}):''}${
+ V.button({label:p.bulk?'Pack kaufen · 100 Gold':'Ein Pack kaufen · 100 Gold',cmd:'buyPack',disabled:!p.canBuy})}</div>`}<small>Keine Käufe mit echtem Geld. Duplikatschutz bis zur vollständigen Seltenheitsstufe. Eine legendäre Karte in den ersten 10 Packs, danach spätestens alle 40 Packs.<br>${
  V.button({label:'Chancen & Staubwerte',cmd:'packOdds',small:true})}</small></div></div>`;
 const shelf=(vm,kind)=>html`<p class="shop-hint">${HINT[kind]}</p><div class="shop-grid grid-${kind}">${vm.items(kind).map(tile)}</div>`;
 

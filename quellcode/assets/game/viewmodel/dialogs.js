@@ -21,6 +21,17 @@ class Settings extends LiveDialog{
  exportSave(){this.ctx.dialogs.exportSave();}
  askImport(){this.ctx.dialogs.askImport();}
  credits(){this.ctx.dialogs.credits();}
+ redeem(){this.ctx.dialogs.redeem();}
+}
+
+// Code einlösen (Rückmeldung zu 1.10.0): welche Codes es gibt und dass jeder nur einmal je Spielstand gilt, regelt
+// model/profile.js (CHP.redeem). Das Feld wird beim Tippen nicht neu gezeichnet (Cursor bleibt).
+class Redeem extends LiveDialog{
+ constructor(ctx){super(ctx,{code:'',error:null,result:null});}
+ type(v){this.state.code=String(v??'').slice(0,32);}
+ redeem(){const r=P.redeem(this.profile,this.state.code);
+  if(r.error){this.set({error:r.error,result:null});this.ctx.ui.play('click');return;}
+  this.set({code:'',error:null,result:'Eingelöst: '+r.text+'.'});this.ctx.store.commit();this.ctx.ui.play('pack');this.ctx.ui.haptic(1);}
 }
 
 class Dialogs{
@@ -32,7 +43,8 @@ class Dialogs{
  // Chronikseite eines Helden (AP 5.9): Heldenwahl und Großansicht des Helden im Match.
  lore(id){const hero=D.heroes.find(h=>h.id===id),page=LORE.of(id);if(!hero||!page)return;
   this.ui.dialog('lore',new Dialog(this.ctx,{hero,page,favorites:page.favorites.map(c=>D.byId[c]).filter(Boolean)}));}
- credits(){this.ui.dialog('credits',new Dialog(this.ctx,{version:this.version}));}
+ credits(){this.ui.dialog('credits',new Dialog(this.ctx,{version:this.version,cards:D.cards.length,heroes:D.heroes.length,missions:D.missions.length}));}
+ redeem(){this.ui.dialog('redeem',new Redeem(this.ctx));}
  exportSave(){this.ui.exportSave(this.ctx.store.exportText());}
  askImport(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Spielstand laden',close:false,
   text:'Wähle eine zuvor exportierte Spielstand-Datei (JSON). Vor dem Ersetzen siehst Du eine Zusammenfassung.',
@@ -45,6 +57,6 @@ class Dialogs{
    buttons:[{label:'Abbrechen'},{label:'Importieren',style:'gold',run:()=>{this.ctx.store.replace(candidate);this.ctx.reset?.();this.ui.go('menu',null,true);this.ui.toast('Spielstand importiert.');}}]}));}
 }
 
-const api={Dialogs,Quests,Settings};
+const api={Dialogs,Quests,Settings,Redeem};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

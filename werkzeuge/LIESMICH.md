@@ -1,7 +1,29 @@
-# Aeterna 1.10.0 – Bauen & Prüfen
+# Aeterna 1.11.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
 `classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+
+## Neu in 1.11.0 (AP 5.10 Welle 2, Rückmeldung zu 1.10.0)
+
+- **Sechs neue Helden** (`D.heroes[16…21]`): Epaminondas (`griechen`), Fabius Maximus (`rom`), Mandukhai (`steppe`),
+  Baibars (`byzanz`), Jan Žižka (`mittelalter`), Fu Hao (`ostasien`) – je 10 Karten (`<held>_0`–`_9`, Seltenheiten wie
+  Welle 1), Chronikseite in `model/lore.js`, KI-Persönlichkeit, Monogramm-Porträt und Mission 17–22 (Bossfähigkeit als
+  Daten). Neue Spielsteine: `tribesman`, `wagon`, `taborite`, `mamluk`, `immortal`, `messenian`, `companion`, `twin`,
+  `elephant`.
+- **21 Zeitalterkarten** `rom_0`–`_6`, `steppe_0`–`_6`, `byzanz_0`–`_6` – Rom, Persien & Steppe und Byzanz haben jetzt je
+  zwei Helden. Alle 81 neuen Karten mit Platzhalter und Bildidee in `ungenutzte_assets/MOTIVE.md`.
+- **Neue Regeln** (`model/engine.js`): `buffLeft` (Diener ganz links, optional `grant`), `ifMinions` (ab n eigenen Dienern
+  `then`, sonst `else`), ein verliehener Vorstoß/Sturmangriff (`grant`, `grantAll`) macht frische Diener sofort
+  angriffsbereit, `freeze` mit `random`, `randomDamage` mit `per:'taunt'`, `buffSelf` mit `per:'minion'`, `buffAll`/
+  `grantAll` mit beliebigem `only`, Auren `buffAura.only:'taunt'`, Ziele nur in Starre (`targetFrozen`) und Ergründen aus
+  den obersten drei Karten des eigenen Decks (`pool:'deck'`, die gewählte verlässt das Deck). `canPower` kennt `buffLeft`
+  und `ifMinions`; Bauwerke mit `onDamage` zählen für die KI-Bewertung (`E.impact`).
+- **Massenöffnung** (`CHP.openPacks`, `Packs.openAll`, Phase `bulk`): bis zu 50 Pakete auf einmal, gleiche Regeln wie beim
+  einzelnen Paket, Übersicht seltenste zuerst. **Codes** (`CHP.codes`, `CHP.redeem`, Dialog `redeem` in den Einstellungen):
+  einmal je Spielstand, Feld `redeemed` (alte Spielstände bekommen `[]`).
+- Heldenwahl mit 8 Spalten (22 Helden), Monogramm-Medaillons im Hochformat (`R.heroStyle`), „Über das Spiel“ zählt Karten,
+  Helden und Missionen. Tests: `tests/welle2.test.js`, Massenöffnung und Codes in `tests/viewmodel.test.js`.
+- Version 1.11.0 / versionCode 14. Balance-Lauf mit 22 Helden ≈ 30 min auf 4 Kernen.
 
 ## Neu in 1.10.0 (AP 5.11 Kartenwelle 1, AP 5.5 Bauwerke, AP 5.8 Teil 2 KI-Persönlichkeit)
 

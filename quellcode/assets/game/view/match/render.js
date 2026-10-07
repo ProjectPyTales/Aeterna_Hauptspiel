@@ -31,7 +31,7 @@ function placeholderArt(c,item,x,y,w,h){R.placeholderIds.add(item.id);const isHe
  c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);c.fillStyle=mix(col,-.45)+'cc';c.fill();c.lineWidth=k*.025;c.strokeStyle=grad(c,cx-r,cy-r,2*r,2*r,'#7a5a2c','#f1d79a');c.stroke();
  c.beginPath();c.arc(cx,cy,r*.84,0,Math.PI*2);c.lineWidth=Math.max(1,k*.007);c.strokeStyle='#f1d79a99';c.stroke();
  const sign=isHero?monogram(item.name):item.building?'♜':hero?hero.icon:item.type==='spell'?'✦':'⚔';
- c.font=`${Math.round(r*(isHero?.95:1.05))}px Title,serif`;c.textAlign='center';c.textBaseline='middle';c.lineWidth=k*.02;c.strokeStyle='#1d140c';c.strokeText(sign,cx,cy+r*.05);c.fillStyle='#f8e7bd';c.fillText(sign,cx,cy+r*.05);
+ c.font=`${Math.round(r*(isHero?.95:1.05))}px Title,serif`;c.textAlign='center';c.textBaseline='middle';c.lineWidth=k*.02;c.strokeStyle='#1d140c';c.strokeText(sign,cx,cy+r*.05,r*1.5);c.fillStyle='#f8e7bd';c.fillText(sign,cx,cy+r*.05,r*1.5);
  if(!isHero){if(big)txt(c,item.name,cx,y+h*.12,Math.round(k*.07),'#fff1cf','center',w*.9);
   if(k>=130){c.font=`${Math.round(k*(big?.05:.062))}px Body,serif`;c.fillStyle='#fff1cfd0';c.fillText('MOTIV FOLGT',cx,cy+r+k*(big?.08:.07));}}
  c.restore();}
@@ -70,7 +70,7 @@ R.artworks={};R.artwork=id=>{if(!R.artworks[id]){const card=D.byId[id],im=R.imag
  R.tile(c.getContext('2d'),card.art,card.cell,0,0,c.width,c.height);R.artworks[id]=c.toDataURL('image/png');}return R.artworks[id];};
 // atlas === true picks the player's equipped skin for that hero.
 R.medals={};R.heroStyle=(id,atlas='heroes')=>{const i=D.heroes.findIndex(h=>h.id===id),hero=D.heroes[i];
- if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=c.height=300;R.tile(c.getContext('2d'),null,0,0,0,300,300,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.png');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
+ if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=300;c.height=450;R.tile(c.getContext('2d'),null,0,0,0,300,450,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.png');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
 function hit(id,x,y,w,h,data={}){R.hits.push({id,x,y,w,h,...data});}
 R.hit=(x,y)=>[...R.hits].reverse().find(h=>{if(h.angle!=null){const dx=x-h.cx,dy=y-h.cy,co=Math.cos(-h.angle),si=Math.sin(-h.angle),xx=dx*co-dy*si,yy=dx*si+dy*co;return Math.abs(xx)<=h.w/2&&Math.abs(yy)<=h.h/2;}return x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h;});
 function button(c,text,x,y,w,h,active,id){c.save();if(active){c.shadowColor='#ffc44b';c.shadowBlur=12;}round(c,x,y,w,h,12,grad(c,x,y,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);c.shadowBlur=0;round(c,x+6,y+6,w-12,h-12,8,null,'#ffffff45',1);txt(c,text,x+w/2,y+h/2,19,active?'#2a2016':'#c8cfcb','center',w-14);c.restore();hit(id,x,y,w,h);}

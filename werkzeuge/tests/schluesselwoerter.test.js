@@ -16,7 +16,7 @@ const play=(s,id,extra={})=>{const h=give(s,s.active,id);act(s,{type:'play',uid:
 const end=s=>act(s,{type:'end'});
 
 // Karten, die ein Schlüsselwort verleihen oder danach filtern (AP 5.10: Testudo, Treueschwur, Löwentempel …).
-const grants=(c,key)=>[...(c.effects||[]),...(c.battle||[]),...(c.death||[]),...(c.start||[])].some(e=>e.key===key||e.only===key||key==='shield'&&e.type==='shield');
+const grants=(c,key)=>[...(c.effects||[]),...(c.battle||[]),...(c.death||[]),...(c.start||[])].some(e=>e.key===key||e.only===key||e.per===key||(e.grant||[]).includes(key)||key==='shield'&&e.type==='shield');
 test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schlüsselwort',()=>{
  const old=/Spott|Gottesschild|Kampfschrei|Todesröcheln|Ansturm|Initiative/;
  for(const c of Object.values(D.byId))assert.doesNotMatch(c.name+' '+(c.text||''),old,c.id);
@@ -31,7 +31,7 @@ test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schl�
   assert.equal(c.text.startsWith('Einmarsch')||c.text.includes(' Einmarsch:'),!!c.battle,c.name);
   assert.equal(c.text.includes('Vermächtnis'),!!c.death||!!c.doubleDeath,c.name);
   assert.equal(c.text.includes('Sturmangriff'),!!c.charge,c.name);
-  assert.equal(c.text.includes('Vorstoß'),!!c.rush,c.name);
+  assert.equal(c.text.includes('Vorstoß'),!!c.rush||grants(c,'rush'),c.name);
  }
  assert.deepEqual(D.keywordsOf('Schildwall. Einmarsch: Ergründet …').map(k=>k.name),['Schildwall','Einmarsch','Ergründen']);
  for(const k of D.keywords)assert.ok(k.text.length>10,k.name);

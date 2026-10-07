@@ -15,8 +15,8 @@ const end=s=>act(s,{type:'end'});
 const ids=a=>a.board.map(u=>u.id);
 
 test('Alle zwölf Legendären sind neu: kein „großer Körper plus Bonus“, Kosten 4–8',()=>{
- // Die zwölf aus AP 5.3; die Legendären der neuen Helden (AP 5.10) prüft helden.test.js.
- const NEW=['perikles','agrippa','amanirenas','anna','nezahualcoyotl','masako'];
+ // Die zwölf aus AP 5.3; die Legendären der neuen Helden (AP 5.10, beide Wellen) prüfen helden.test.js und welle2.test.js.
+ const NEW=['perikles','agrippa','amanirenas','anna','nezahualcoyotl','masako','epaminondas','fabius','mandukhai','baibars','zizka','fuhao'];
  const legends=D.cards.filter(c=>c.rarity==='legendary'&&!NEW.includes(c.hero));assert.equal(legends.length,12);
  for(const c of legends){assert.ok(c.cost>=4&&c.cost<=8,c.name);assert.ok(c.aura||c.passive||c.battle||c.costPerFallen||c.focus,c.name);}
 });
@@ -102,7 +102,7 @@ test('Zenobia: übernimmt einen feindlichen Diener mit höchstens 4 Angriff',()=
 });
 
 test('Kosten nach dem Balance-Lauf (Herodot und Kojirō: siehe schluesselwoerter.test.js)',()=>{
- const NEW=['perikles','agrippa','amanirenas','anna','nezahualcoyotl','masako'];
+ const NEW=['perikles','agrippa','amanirenas','anna','nezahualcoyotl','masako','epaminondas','fabius','mandukhai','baibars','zizka','fuhao'];
  const cost=Object.fromEntries(D.cards.filter(c=>c.rarity==='legendary'&&!NEW.includes(c.hero)).map(c=>[c.id,c.cost]));
  assert.deepEqual(cost,{leonidas_9:7,hypatia_9:5,imhotep_9:6,dandolo_9:6,khan_9:6,boudicca_9:8,nostradamus_9:5,jeanne_9:7,ragnar_9:7,musashi_9:6,neutral_38:4,neutral_39:8});
 });

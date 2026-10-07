@@ -23,7 +23,7 @@ test('Heldenfähigkeiten sind Daten: kein Sonderfall je Held mehr in der Engine'
  for(const h of D.heroes){assert.ok(Array.isArray(h.ability.effects)&&h.ability.effects.length,h.id);assert.ok(D.ages.some(a=>a.id===h.age),h.id+' hat ein Zeitalter');}
 });
 
-test('Jeder der 16 Helden kann seine Fähigkeit nutzen, sobald ihre Bedingung erfüllt ist',()=>{
+test('Jeder der 22 Helden kann seine Fähigkeit nutzen, sobald ihre Bedingung erfüllt ist',()=>{
  for(const h of D.heroes){const s=ready(h.id,'khan');const a=s.players[0];
   E.summon(s,0,'neutral_1');E.summon(s,1,'neutral_1');E.summon(s,0,'perikles_1');// eigener Diener, feindlicher Diener, Bauwerk
   if(h.id==='anna')s.played=['neutral_1'];
@@ -101,23 +101,23 @@ test('Scherbengericht schickt einen Diener auf die Hand seines Besitzers zurück
 });
 
 test('Welle 1: sechs Helden mit je 10 Karten, Chronik, Startdeck, Mission und Zeitalter',()=>{
- assert.equal(D.heroes.length,16);
+ assert.equal(D.heroes.length,22,'16 bis 1.10.0, Welle 2: sechs weitere');
  for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id&&+c.id.split('_')[1]<10);
   assert.equal(set.length,10,id);assert.deepEqual(set.map(c=>c.rarity),['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'],id);
   assert.ok(set.every(c=>D.missingArt(c)),id+': Platzhalter bis zu den Motiven');assert.ok(!h.art,'Monogramm statt Porträt');
   assert.ok(L.of(id),id+' hat eine Chronikseite');assert.ok(D.missions.some(m=>m.hero===id&&m.effects),id+' hat eine Mission');
   assert.equal(P.validateDeck(P.fresh(),id,E.starter(id)),null,id+': Startdeck gültig');
   const legend=set[9];assert.ok(legend.cost>=4&&legend.cost<=8,legend.name);}
- assert.equal(D.missions.length,16);assert.deepEqual(D.missions.map(m=>m.id),[...Array(16).keys()]);
+ assert.equal(D.missions.length,22);assert.deepEqual(D.missions.map(m=>m.id),[...Array(22).keys()]);
  assert.ok(D.playable(D.byId.perikles_0,'perikles')&&D.playable(D.byId.neutral_0,'perikles')&&!D.playable(D.byId.leonidas_0,'perikles'));
 });
 
-test('Spielstand: Profile ohne die neuen Helden bekommen deren Startdecks; Mission 16 ist gültig',()=>{
+test('Spielstand: Profile ohne die neuen Helden bekommen deren Startdecks; Mission 22 ist gültig',()=>{
  const old=P.fresh();old.decks=old.decks.filter(d=>!NEW.includes(d.hero));for(const c of D.cards)if(NEW.includes(c.hero))delete old.collection[c.id];
  old.campaign=[0,1,2];const p=P.parse(JSON.stringify(old));
  for(const id of NEW)assert.ok(p.decks.some(d=>d.hero===id&&d.cards.length===30),id);
  assert.equal(p.collection.perikles_0,2);assert.equal(p.collection.perikles_9,0);
- old.campaign=[15];assert.doesNotThrow(()=>P.parse(JSON.stringify(old)));old.campaign=[16];assert.throws(()=>P.parse(JSON.stringify(old)));
+ old.campaign=[21];assert.doesNotThrow(()=>P.parse(JSON.stringify(old)));old.campaign=[22];assert.throws(()=>P.parse(JSON.stringify(old)));
 });
 
 test('Missionen der neuen Helden: Bossfähigkeit aus Daten, je eine Partie bis zum Ende',()=>{

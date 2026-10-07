@@ -20,7 +20,7 @@ class Shop extends Screen{
   return {kind,item,owned:K.owns(p,kind,item.id),equipped:K.equipped(p,kind,item.id),short:p.gold<item.price,
    hero:kind==='skins'?D.heroes.find(h=>h.id===item.hero):null};}
  items(kind){return (K.catalog[kind]||[]).map(item=>this.entry(kind,item));}
- get pack(){const p=this.profile;return {packs:p.packs,pending:!!p.pendingPack,canBuy:p.gold>=100};}
+ get pack(){const p=this.profile;return {packs:p.packs,pending:!!p.pendingPack,canBuy:p.gold>=100,bulk:!p.pendingPack&&p.packs>=2?Math.min(p.packs,50):0};}
 
  preview(kind,id){const item=K.find(kind,id);if(item)this.ui.dialog('shopPreview',new Preview(this,kind,item));}
  buy(kind,id){const item=K.find(kind,id),p=this.profile;if(!item)return;
@@ -39,6 +39,7 @@ class Shop extends Screen{
 
  buyPack(){if(P.buy(this.profile)){this.commit();this.ui.play('click');}else this.ui.toast('Du brauchst 100 Gold.');}
  openPack(){this.ctx.packs.open();}
+ openAll(){this.ctx.packs.openAll();}
  packOdds(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Packs & Seltenheiten',close:false,text:[
   'Pro regulärem Kartenplatz: 73 % gewöhnlich, 21 % selten, 5 % episch, 1 % legendär. Der letzte Platz wird bei Bedarf auf mindestens selten angehoben. Legendär ist spätestens im 10. Startpack und danach nach 40 Packs ohne legendäre Karte garantiert.',
   'Herstellung / Entzauberung: Gewöhnlich 40 / 5, Selten 100 / 20, Episch 400 / 100, Legendär 1600 / 400 Staub. Basiskarten sind kostenlos und nicht entzauberbar.',
