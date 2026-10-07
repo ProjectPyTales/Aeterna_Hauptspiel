@@ -7,7 +7,9 @@
  * New in 1.9.0 (AP 5.10): hero powers are data (hero.ability: effects and target, conditions follow from the effects),
  * triggers start/end on cards and buildings, ages (D.playable). New in 1.10.0 (AP 5.5, 5.8, 5.11): onDamage, anyDeath,
  * spellDiscount, healDouble, doubleDeath and wall (Große Mauer) on cards and buildings, discover pools of the ages, an AI
- * personality per hero (hero.ai) and buildings valued by what they do. Older saved games simply lack the new fields. */
+ * personality per hero (hero.ai) and buildings valued by what they do. New in 1.11.0 (AP 5.10 wave 2): buffLeft (the
+ * leftmost minion), ifMinions, a granted Vorstoß that acts at once, random Starre, Ergründen from the top of the own deck
+ * (pool 'deck'), auras for Schildwall minions only and targets in Starre. Older saved games simply lack the new fields. */
 (function(root){'use strict';
 const D=typeof module!=='undefined'?require('./data.js'):root.CHD;
 const clone=x=>JSON.parse(JSON.stringify(x));
@@ -51,7 +53,7 @@ function auras(s){for(const a of s.players){const gorgo=has(a,'leonidas_9'),lahi
   const wall=lagertha>0&&totem;if(wall&&!u.taunt){u.taunt=true;u.auraTaunt=true;}else if(!wall&&u.auraTaunt){u.taunt=false;delete u.auraTaunt;}
   if(recruit&&lahire&&!u.graced){u.shield=true;u.graced=true;}
   let atk=(u.taunt?gorgo:0)+(recruit?lahire:0),hp=(totem?lagertha:0)+(recruit?lahire:0);
-  for(const b of anthems)if(b!==u){atk+=rule(b).buffAura.attack||0;hp+=rule(b).buffAura.health||0;}
+  for(const b of anthems)if(b!==u&&(rule(b).buffAura.only!=='taunt'||u.taunt)){atk+=rule(b).buffAura.attack||0;hp+=rule(b).buffAura.health||0;}
   const da=atk-(u.auraAtk||0),dh=hp-(u.auraHp||0);
   if(da){u.attack+=da;if(atk)u.auraAtk=atk;else delete u.auraAtk;}
   if(dh){u.maxHealth+=dh;u.health=dh>0?u.health+dh:Math.min(u.health,u.maxHealth);if(hp)u.auraHp=hp;else delete u.auraHp;}}}}
@@ -71,17 +73,19 @@ const collectible=c=>c.rarity!=='token';
 // Pools: played (this game), foreign (cards of another hero), hero (own hero cards), age (cards of the own age, without one
 // all age cards), ages (all age cards – Herodot), spell, building or any playable card.
 function pool(s,p,kind){const own=s.players[p].hero,age=D.heroById[own].age;
+ // Fu Hao (1.11.0): the top three cards of the own deck; the chosen one leaves the deck.
+ if(kind==='deck')return [...new Set(s.players[p].deck.slice(0,3))];
  if(kind==='played')return [...new Set(s.played||[])];
  if(kind==='age'&&!D.cards.some(c=>c.age===age))kind='ages';
  return D.cards.filter(c=>kind==='foreign'?!!D.heroById[c.hero]&&c.hero!==own:kind==='hero'?c.hero===own:kind==='age'?c.age===age:kind==='ages'?!!c.age
   :D.playable(c,own)&&(kind==='spell'?c.type==='spell':kind==='building'?!!c.building:true)).map(c=>c.id);}
 function offer(s,p,kind){const list=pool(s,p,kind).slice(),out=[];while(out.length<3&&list.length)out.push(list.splice(Math.floor(rand(s)*list.length),1)[0]);return out;}
 function discover(s,p,e,auto){const left=e.n||1;for(let i=0;i<left;i++){const options=offer(s,p,e.pool);if(!options.length)return;
-  if(auto||s.choice){take(s,p,pick(s,options),e.mod);continue;}
+  if(auto||s.choice){take(s,p,pick(s,options),e.mod,e.pool);continue;}
   s.choice={p,pool:e.pool,options,left:left-i,mod:e.mod||0};emit(s,'choice',{p});return;}}
-function take(s,p,id,mod){const a=s.players[p];if(a.hand.length>=10){a.grave.push(id);emit(s,'burn',{p,id});log(s,D.byId[id].name+' verbrannt (Hand voll).');return;}
+function take(s,p,id,mod,kind){const a=s.players[p];if(kind==='deck'){const i=a.deck.indexOf(id);if(i>=0)a.deck.splice(i,1);}if(a.hand.length>=10){a.grave.push(id);emit(s,'burn',{p,id});log(s,D.byId[id].name+' verbrannt (Hand voll).');return;}
  const h={id,uid:'c'+s.nextId++};if(mod)h.mod=mod;a.hand.push(h);emit(s,'discover',{p,id});log(s,heroName(s,p)+' ergründet eine Karte.');}
-function choose(s,index){const c=s.choice;s.choice=null;take(s,c.p,c.options[index],c.mod);
+function choose(s,index){const c=s.choice;s.choice=null;take(s,c.p,c.options[index],c.mod,c.pool);
  if(c.left>1){const options=offer(s,c.p,c.pool);if(options.length){s.choice={...c,options,left:c.left-1};emit(s,'choice',{p:c.p});}}}
 
 // ---------- Effects ----------
@@ -97,7 +101,7 @@ case 'weapon':a.weapon={attack:e.n,durability:e.durability};emit(s,'weapon',{p})
 case 'weaponUp':if(a.weapon){a.weapon.attack+=e.n;a.weapon.durability+=e.n;emit(s,'weapon',{p});}break;
 case 'buff':if(t&&!t.hero){t.obj.attack+=e.n;t.obj.maxHealth+=e.health||0;t.obj.health+=e.health||0;emit(s,'buff',{target});}break;
 case 'shield':if(t&&!t.hero){t.obj.shield=true;emit(s,'buff',{target});}break;
-case 'buffAll':for(const u of minions(a)){if(e.excludeSelf&&u.uid===source||e.only==='taunt'&&!u.taunt)continue;u.attack+=e.n;u.health+=e.health||0;u.maxHealth+=e.health||0;emit(s,'buff',{target:u.uid});}break;
+case 'buffAll':for(const u of minions(a)){if(e.excludeSelf&&u.uid===source||e.only&&!u[e.only])continue;u.attack+=e.n;u.health+=e.health||0;u.maxHealth+=e.health||0;emit(s,'buff',{target:u.uid});}break;
 case 'summon':for(let i=e.n+(e.bonusIf&&has(a,e.bonusIf)?1:0);i>0;i--)summon(s,p,e.token);break;
 // Ragnar: one of the tokens that is not on the board yet.
 case 'summonNew':{const avail=e.tokens.filter(id=>!a.board.some(u=>u.id===id));if(avail.length)summon(s,p,avail[Math.floor(rand(s)*avail.length)]);break;}
@@ -105,16 +109,16 @@ case 'summonNew':{const avail=e.tokens.filter(id=>!a.board.some(u=>u.id===id));i
 case 'buffWeakest':{const list=minions(a);if(!list.length)break;const w=list.reduce((m,u)=>u.attack+u.health<m.attack+m.health?u:m);w.attack+=e.n;w.health+=e.health||0;w.maxHealth+=e.health||0;emit(s,'buff',{target:w.uid});break;}
 case 'healAll':heal(s,'h'+p,e.n);for(const u of a.board)heal(s,u.uid,e.n);break;
 case 'aoe':for(const u of [...enemy.board,...(e.both?a.board:[])])if(!u.building)hurt(s,u.uid,e.n+plus);if(e.heroes)hurt(s,'h'+(1-p),e.n+plus);break;
-case 'freeze':if(e.all){for(const u of minions(enemy))if(u.health>0&&u.attack>=(e.minAttack||0))freeze(s,u.uid);}else if(t&&t.obj.health>0)freeze(s,target);break;
+case 'freeze':if(e.all){for(const u of minions(enemy))if(u.health>0&&u.attack>=(e.minAttack||0))freeze(s,u.uid);}else if(e.random){const list=minions(enemy).filter(u=>u.health>0&&!u.stealth&&!u.frozen);if(list.length)freeze(s,pick(s,list).uid);}else if(t&&t.obj.health>0)freeze(s,target);break;
 case 'discover':discover(s,p,e,ctx.auto);break;
 case 'silence':if(t&&!t.hero)silence(s,target);break;
 // New in 1.9.0 (AP 5.10): keywords on a minion, random targets, buildings and more.
-case 'grant':if(t&&!t.hero&&!t.obj.building){t.obj[e.key]=true;emit(s,'buff',{target});}break;
-case 'grantAll':for(const u of minions(a)){if(e.only==='taunt'&&!u.taunt)continue;u[e.key]=true;emit(s,'buff',{target:u.uid});}break;
+case 'grant':if(t&&!t.hero&&!t.obj.building){t.obj[e.key]=true;if(e.key==='rush'||e.key==='charge')t.obj.ready=t.obj.attacks<(t.obj.double?2:1);emit(s,'buff',{target});}break;
+case 'grantAll':for(const u of minions(a)){if(e.only&&!u[e.only])continue;u[e.key]=true;if(e.key==='rush'||e.key==='charge')u.ready=u.attacks<(u.double?2:1);emit(s,'buff',{target:u.uid});}break;
 case 'grantRandom':{const list=minions(a).filter(u=>!u[e.key]&&u.health>0);if(list.length){const u=pick(s,list);u[e.key]=true;emit(s,'buff',{target:u.uid});}break;}
-case 'buffSelf':{const u=unit(s,source);if(u&&!u.hero){u.obj.attack+=e.n;u.obj.health+=e.health||0;u.obj.maxHealth+=e.health||0;emit(s,'buff',{target:source});}break;}
+case 'buffSelf':{const u=unit(s,source),k=e.per==='minion'?minions(a).filter(x=>x.uid!==source).length:1;if(u&&!u.hero&&k){u.obj.attack+=e.n*k;u.obj.health+=(e.health||0)*k;u.obj.maxHealth+=(e.health||0)*k;emit(s,'buff',{target:source});}break;}
 case 'buffRandom':{const list=minions(a).filter(u=>u.uid!==source&&u.health>0);if(list.length){const u=pick(s,list);u.attack+=e.n;u.health+=e.health||0;u.maxHealth+=e.health||0;emit(s,'buff',{target:u.uid});}break;}
-case 'randomDamage':for(let i=0;i<(e.times||1);i++){const list=[...(e.minions||e.board?[]:['h'+(1-p)]),...enemy.board.filter(u=>!u.stealth&&u.health>0&&!(e.minions&&u.building)).map(u=>u.uid)];if(!list.length)break;hurt(s,pick(s,list),e.n+plus);}break;
+case 'randomDamage':for(let i=0,times=e.per==='taunt'?minions(a).filter(u=>u.taunt&&u.health>0).length:e.times||1;i<times;i++){const list=[...(e.minions||e.board?[]:['h'+(1-p)]),...enemy.board.filter(u=>!u.stealth&&u.health>0&&!(e.minions&&u.building)).map(u=>u.uid)];if(!list.length)break;hurt(s,pick(s,list),e.n+plus);}break;
 // Perikles: the weakest own building gains durability; without a building the else effects apply.
 case 'fortify':{const list=a.board.filter(u=>u.building&&u.health>0);if(list.length){const w=list.reduce((m,u)=>u.health<m.health?u:m);w.health+=e.n;w.maxHealth+=e.n;emit(s,'buff',{target:w.uid});}else effects(s,p,e.else,target,source,ctx);break;}
 case 'bounce':if(t&&!t.hero)bounce(s,target);break;
@@ -127,6 +131,10 @@ case 'revive':for(const id of (a.fallen||[]).slice(-e.n))summon(s,p,id);break;
 case 'totems':for(const id of ['totem_heal','totem_fire','totem_guard','totem_strength'])summon(s,p,id);break;
 // Kojirō: he and the chosen minion trade blows until one of them falls.
 case 'duel':{const k=unit(s,source);if(!k||!t||t.hero||t.p===p)break;for(let r=0;r<12&&k.obj.health>0&&t.obj.health>0;r++){if(!k.obj.attack&&!t.obj.attack)break;emit(s,'attack',{source,target,duel:true});hurt(s,target,k.obj.attack,source);hurt(s,source,t.obj.attack,target);}break;}
+// Welle 2 (1.11.0): Epaminondas' schiefe Schlachtordnung strengthens the leftmost own minion (no building).
+case 'buffLeft':{const u=minions(a).find(u=>u.health>0);if(u){u.attack+=e.n;u.health+=e.health||0;u.maxHealth+=e.health||0;for(const k of e.grant||[])u[k]=true;emit(s,'buff',{target:u.uid});}break;}
+// Mandukhai: with at least n own minions the then effects apply, else the others.
+case 'ifMinions':effects(s,p,minions(a).filter(u=>u.health>0).length>=e.n?e.then:e.else,target,source,ctx);break;
 // Zenobia: the chosen enemy minion changes sides (no room: it is destroyed).
 case 'steal':{if(!t||t.hero||t.p===p)break;const u=t.obj;if(a.board.length>=7){u.health=0;break;}enemy.board=enemy.board.filter(x=>x!==u);const c=D.byId[u.id];
  Object.assign(u,{ready:!!(c.charge||c.rush),attacks:0,fresh:true});delete u.frozen;a.board.push(u);emit(s,'steal',{p,target:u.uid});log(s,heroName(s,p)+' übernimmt '+c.name+'.');auras(s);break;}
@@ -144,7 +152,7 @@ function settle(s){let loops=0;while(loops++<40){const dead=[];for(let p=0;p<2;p
  for(const {u} of dead)if(!u.building)for(let q=0;q<2;q++)for(const b of [...s.players[q].board])if(rule(b).anyDeath&&b.health>0)effects(s,q,rule(b).anyDeath,null,b.uid);}
 const a=s.players[0].health<=0,b=s.players[1].health<=0;if(a||b){s.phase='over';s.winner=a&&b?-1:a?1:0;s.choice=null;emit(s,'over',{winner:s.winner});log(s,s.winner===-1?'Unentschieden.':heroName(s,s.winner)+' gewinnt.');}}
 function validTargets(s,p,kind,card){const all=['h0','h1',...s.players[0].board.map(u=>u.uid),...s.players[1].board.map(u=>u.uid)];return all.filter(id=>{const t=unit(s,id);if(!t.hero&&t.p!==p&&t.obj.stealth)return false;if(kind==='any')return true;if(kind==='minion')return !t.hero;if(kind==='friendlyMinion')return !t.hero&&t.p===p&&!t.obj.building;if(kind==='enemy')return t.p!==p;
- if(kind==='enemyMinion')return !t.hero&&t.p!==p&&!t.obj.building&&(card?.targetMax==null||t.obj.attack<=card.targetMax);return false;});}
+ if(kind==='enemyMinion')return !t.hero&&t.p!==p&&!t.obj.building&&(card?.targetMax==null||t.obj.attack<=card.targetMax)&&(!card?.targetFrozen||!!t.obj.frozen);return false;});}
 function targetKind(s,p,action){if(action.type==='play'){const h=s.players[p].hand.find(c=>c.uid===action.uid),c=h&&D.byId[h.id];if(!c||!c.target)return null;
   // A minion whose Einmarsch finds no target is still played (without it).
   return c.type==='minion'&&!validTargets(s,p,c.target,c).length?null:c.target;}
@@ -161,7 +169,8 @@ const canAttack=u=>u.ready&&!u.building&&!u.frozen&&u.attack>0&&u.attacks<(u.dou
 function canPower(s,p){const a=s.players[p],h=heroOf(a),ab=h.ability;if(s.phase!=='play'||s.active!==p||s.choice||a.powerUsed||a.mana<h.cost)return false;
  if(ab.target==='randomMinion'&&!randomMinions(s,p).length)return false;
  const ok=e=>e.type==='summon'||e.type==='summonNew'?a.board.length<7&&(e.type==='summon'||e.tokens.some(id=>!a.board.some(u=>u.id===id)))
-  :e.type==='discover'?pool(s,p,e.pool).length>0:e.type==='fortify'&&!a.board.some(u=>u.building)?e.else.every(ok):true;
+  :e.type==='discover'?pool(s,p,e.pool).length>0:e.type==='fortify'&&!a.board.some(u=>u.building)?e.else.every(ok)
+  :e.type==='buffLeft'?minions(a).length>0:e.type==='ifMinions'?(minions(a).length>=e.n?e.then:e.else).every(ok):true;
  return ab.effects.every(ok);}
 // Amanirenas: the visible enemy minions (no buildings) a random power can hit.
 const randomMinions=(s,p)=>s.players[1-p].board.filter(u=>!u.stealth&&!u.building&&u.health>0).map(u=>u.uid);
@@ -216,7 +225,7 @@ function mulligan(s,ids=[]){if(s.phase!=='mulligan')return false;for(let p=0;p<2
 const SPECIAL={leonidas_9:2,hypatia_9:2.5,khan_9:3.5,nostradamus_9:1.5,jeanne_9:2,ragnar_9:1.5,anna_9:1.5,nezahualcoyotl_9:1.5,masako_9:2.5};
 // What a building does every turn or while it stands (1.10.0) – the reason to besiege it (AP 5.5).
 function impact(c){const b=c.buffAura;return (c.start||c.end||c.passive?2.5:0)+(b?((b.attack||0)*1.65+(b.health||0))*1.6:0)+(c.buildingDiscount?1:0)+(c.spellDiscount||0)*1.5+(c.focus||0)*1.6
- +(c.anyDeath?1.2:0)+(c.healDouble?.8:0)+(c.doubleDeath?1.6:0)+(c.wall?1.2:0)+(c.death?1.2:0);}
+ +(c.anyDeath?1.2:0)+(c.onDamage?1:0)+(c.healDouble?.8:0)+(c.doubleDeath?1.6:0)+(c.wall?1.2:0)+(c.death?1.2:0);}
 // Buildings: a building that does nothing is a wall – its durability counts little, so the AI ignores it unless it blocks
 // (Schildwall). The more it does, the more each point of durability and its fall are worth: then the AI besieges it.
 function buildingValue(u,c){if(u.silenced)return u.health*.25+(u.taunt?1:0);const k=impact(c);

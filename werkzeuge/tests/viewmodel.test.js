@@ -116,12 +116,40 @@ test('Chronik (AP 5.9): Heldenwahl und langes Drücken auf einen Helden im Match
  m.longPress({kind:'target',id:'h1'});assert.equal(log.open.vm.state.hero.id,'musashi');
 });
 
-test('Neue Helden (AP 5.10): Heldenwahl nach Zeitalter, Kampagne mit 16 Missionen, Sammlung mit Zeitalterkarten',()=>{
+test('Neue Helden (AP 5.10): Heldenwahl nach Zeitalter, Kampagne mit 22 Missionen, Sammlung mit Zeitalterkarten',()=>{
  const {Setup}=need('viewmodel/setup.js'),{Campaign}=need('viewmodel/campaign.js');const {ctx,store}=setup('setup');
  const heroes=new Setup(ctx).view.heroes,age=Object.fromEntries(D.ages.map((a,i)=>[a.id,i]));
- assert.equal(heroes.length,16);assert.ok(heroes.every((h,i)=>!i||age[heroes[i-1].age]<=age[h.age]),'gruppiert nach Zeitalter');
- const c=new Campaign(ctx);assert.equal(c.missions.length,16);assert.ok(c.missions[10].locked);
+ assert.equal(heroes.length,22);assert.ok(heroes.every((h,i)=>!i||age[heroes[i-1].age]<=age[h.age]),'gruppiert nach Zeitalter');
+ const c=new Campaign(ctx);assert.equal(c.missions.length,22);assert.ok(c.missions[10].locked);
  store.profile.campaign=[...Array(10).keys()];assert.ok(!c.missions[10].locked,'Neue Chroniken nach Mission 10');
  const coll=new Collection(ctx);coll.filter('hero','perikles');const seen=new Set(coll.view.cards.map(x=>x.card.hero));
  assert.ok(seen.has('perikles')||seen.has('neutral'));assert.ok(![...seen].some(h=>!['perikles','neutral','griechen'].includes(h)),'eigene, neutrale und Karten der Griechischen Antike');
+});
+
+test('Rückmeldung zu 1.10.0: Massenöffnung legt alle Karten sofort ab und fasst sie zusammen',()=>{
+ const {ctx,store,log}=setup(),shop=new Shop(ctx),p=store.profile;
+ assert.equal(shop.pack.bulk,2,'zwei Startpakete: Knopf „Alle öffnen · 2“');p.packs=1;assert.equal(shop.pack.bulk,0,'ein Paket: normal öffnen');
+ p.packs=60;const before=Object.values(p.collection).reduce((a,b)=>a+b,0);
+ shop.openAll();const vm=ctx.packs,b=vm.state.bulk;
+ assert.equal(log.open.kind,'packs');assert.equal(vm.state.phase,'bulk');assert.equal(b.packs,50,'höchstens 50 auf einmal');
+ assert.equal(p.packs,10);assert.equal(p.pendingPack,null,'kein Paket bleibt zum Aufdecken liegen');
+ assert.equal(Object.values(p.collection).reduce((a,b)=>a+b,0),before+250,'250 Karten in der Sammlung');
+ assert.equal(JSON.parse(ctx.store.exportText()).packs,10,'vor der Anzeige gespeichert');
+ assert.equal(b.list.reduce((n,g)=>n+g.count,0),250);const rank=['legendary','epic','rare','common'];
+ assert.ok(b.list.every((g,i)=>!i||rank.indexOf(b.list[i-1].card.rarity)<=rank.indexOf(g.card.rarity)),'seltenste zuerst');
+ assert.ok(b.list.some(g=>g.isNew));assert.equal(b.fresh,b.list.filter(g=>g.isNew).length,'jede neue Karte einmal');
+ vm.close();assert.equal(vm.state.phase,null);assert.equal(log.open,null,'Zurück schließt die Übersicht');
+ p.packs=3;shop.openPack();shop.openAll();assert.equal(vm.state.phase,'opening','während ein Paket aufgedeckt wird: keine Massenöffnung');
+});
+
+test('Rückmeldung zu 1.10.0: Codes in den Einstellungen – einmal je Spielstand, alte Spielstände ohne Feld',()=>{
+ const {ctx,store,log}=setup();ctx.dialogs.settings();log.open.vm.redeem();assert.equal(log.open.kind,'redeem');
+ const vm=log.open.vm,p=store.profile;
+ vm.type('  kartenpakete ');vm.redeem();assert.equal(p.packs,12);assert.match(vm.state.result,/10 Kartenpakete/);
+ vm.type('KARTENPAKETE');vm.redeem();assert.equal(p.packs,12);assert.match(vm.state.error,/schon eingelöst/);
+ vm.type('gibtsnicht');vm.redeem();assert.match(vm.state.error,/kennt die Chronik nicht/);
+ vm.type('chronik');vm.redeem();assert.ok(D.cards.every(c=>p.collection[c.id]>=(c.rarity==='legendary'?1:2)),'jede Karte in voller Zahl');
+ assert.deepEqual(JSON.parse(store.exportText()).redeemed,['KARTENPAKETE','CHRONIK'],'gespeichert');
+ const old=P.fresh();delete old.redeemed;assert.deepEqual(P.parse(JSON.stringify(old)).redeemed,[]);
+ old.redeemed=['AETERNA','unsinn',5];assert.deepEqual(P.parse(JSON.stringify(old)).redeemed,['AETERNA']);
 });

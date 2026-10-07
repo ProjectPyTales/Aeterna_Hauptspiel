@@ -14,11 +14,11 @@ const give=(s,p,id)=>{const h={id,uid:'t'+s.nextId++};s.players[p].hand.push(h);
 const act=(s,a)=>{const r=E.apply(s,a);assert.ok(r.ok,r.error+' '+JSON.stringify(a));};
 const play=(s,id,extra={})=>{const h=give(s,s.active,id);act(s,{type:'play',uid:h.uid,...extra});return s.players[s.active].board.at(-1);};
 const end=s=>act(s,{type:'end'});
-const wave=D.cards.slice(213);
+const wave=D.cards.slice(213,269);
 
 test('Welle 1: 56 neue Karten mit festen IDs hinten, zwei je Held, sieben je Zeitalter, drei Weltwunder',()=>{
  assert.equal(wave.length,56);
- for(const h of D.heroes)assert.equal(wave.filter(c=>c.hero===h.id).length,2,h.id);
+ for(const h of D.heroes.slice(0,16))assert.equal(wave.filter(c=>c.hero===h.id).length,2,h.id);
  for(const a of AGES){const set=wave.filter(c=>c.age===a);assert.equal(set.length,7,a);assert.ok(set.every(c=>c.hero===a&&c.id.startsWith(a+'_')),a);}
  assert.deepEqual(wave.filter(c=>c.hero==='neutral').map(c=>c.name),['Kolosseum','Hängende Gärten','Pyramiden von Gizeh']);
  assert.ok(wave.every(c=>D.missingArt(c)&&['common','rare','epic'].includes(c.rarity)),'Platzhalter, keine Basis- oder Legendären');
