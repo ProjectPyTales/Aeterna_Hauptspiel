@@ -1,10 +1,12 @@
 # Aeterna
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
-22 Helden von Fu Hao bis Musashi, 22 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.13.0**
-(Match ohne Bilddrossel mit voller Pixeldichte und vorgerenderten Leuchteffekten – Zeichenzeit −69 % –, versteckte
-Bildraten-Anzeige, Renderer-Labor Canvas 2D gegen PixiJS, Balance-Feinschliff der „nur Werte“-Karten, eigene Musik für
-Hauptmenü und Duell); davor 1.12.0 mit neuer nativer Android-Hülle in Kotlin mit Vollbild bis in die Kamera-Aussparung, Splash, Icon und Vibrationsmustern; Bilder als
+22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
+Aktueller Stand im Code: **Version 1.14.0** (elf neue Helden nach dem Lehrplan – Widukind, Hildegard von Bingen,
+Vercingetorix, Thusnelda, Theophanu, Böttger und andere – mit Chronikseiten und Missionen, sechs Zeitalter nach den
+Epochen des Lehrplans, neue Zeitalterkarten für Frühzeit und Frühe Neuzeit, alle im Code gezeichneten Grafiken für Astra
+gekennzeichnet); davor 1.13.0 mit Match ohne Bilddrossel (volle Pixeldichte, vorgerenderte Leuchteffekte, Zeichenzeit
+−69 %), Bildraten-Anzeige, Renderer-Labor, Balance-Feinschliff und eigener Musik für Hauptmenü und Duell; davor 1.12.0 mit neuer nativer Android-Hülle in Kotlin mit Vollbild bis in die Kamera-Aussparung, Splash, Icon und Vibrationsmustern; Bilder als
 WebP – APK 56 → 12 MB –, Laden in Stufen, Massenöffnung aller Pakete ohne Standbild, angeglichene Steingeräusche mit
 Klangprobe); davor 1.11.0 mit Welle 2 der neuen Helden (Epaminondas, Fabius Maximus, Mandukhai, Baibars, Jan Žižka, Fu Hao),
 21 Zeitalterkarten, Massenöffnung und Code-Eingabe; 1.10.0 mit Kartenwelle 1 (56 Karten – je Held zwei, je sieben Zeitalterkarten für Griechische Antike, Europäisches Mittelalter
@@ -58,7 +60,7 @@ Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (z. B. 1.12.0 → 1.13.0: einfach die neue APK installieren – die neue
+installieren sich neue Versionen direkt als Update (z. B. 1.13.0 → 1.14.0: einfach die neue APK installieren – die neue
 Hülle hat dieselbe Paket-ID, denselben Schlüssel und liest denselben Spielstand; Sammlung, Decks und eine laufende Partie
 bleiben).
 
@@ -83,8 +85,8 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | Pfad | Schicht | Inhalt |
 |---|---|---|
 | `core/mvvm.js` | Kern | Kleiner eigener Binder (`AEM`, ~5 KB, offline): beobachtbare ViewModels, DOM-Abgleich statt `innerHTML`-Neuaufbau, Befehle über `data-cmd`, maskierendes `html`-Template |
-| `model/data.js` | Model | 22 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel), Zeitalter (`age`, Liste `CHD.ages` mit Farbe und Zeichen) und KI-Persönlichkeit (`ai`, `CHD.personalities`), 350 Karten (davon 42 Zeitalterkarten), Spielsteine (Tokens), 22 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf, `CHD.owner`/`CHD.eraOf` nennen Held, Zeitalter oder „Neutral“ |
-| `model/lore.js` | Model | Chronik der Helden (AP 5.9, 22 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`) |
+| `model/data.js` | Model | 22 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel), Zeitalter (`age`, Liste `CHD.ages` mit Farbe und Zeichen, seit 1.14.0 sechs Epochen nach dem Lehrplan; `CHD.replaced` nennt die elf in AP L.1 ersetzten Helden) und KI-Persönlichkeit (`ai`, `CHD.personalities`), 350 Karten (davon 42 Zeitalterkarten), Spielsteine (Tokens), 22 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf, `CHD.owner`/`CHD.eraOf` nennen Held, Zeitalter oder „Neutral“ |
+| `model/lore.js` | Model | Chronik der Helden (AP 5.9, 22 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`); seit 1.14.0 die Tabelle `curriculum` mit Klassenstufe und Lernbereich je Held (AP L.1) |
 | `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs (auch mehrere auf einmal, `openPacks`), Codes (`codes`, `redeem`), Aufgaben, Import-Prüfung (`CHP`) |
 | `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`) |
@@ -104,10 +106,10 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `android/` | **Native Hülle** (seit 1.12.0, AP 2.1): Gradle-Projekt in Kotlin – `MainActivity.kt` (WebView, Vollbild, Aussparung, Zurück, Export/Import), `Bridge.kt` (`window.Android`), `AssetClient.kt` (liefert `quellcode/assets/game` unter `https://chroniken.local/` aus), `Haptics.kt`; Version, Paket-ID und Signatur in `app/build.gradle.kts` |
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
-| `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
+| `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generator, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
-| `ungenutzte_assets/` | Ausgangsbilder; `art-original/` sind die Originale aller Spielbilder (Quelle der WebP-Dateien); `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs; `MOTIVE.md` listet alle fehlenden Motive mit fertigem Prompt (AP 5.12) |
+| `ungenutzte_assets/` | Ausgangsbilder; `art-original/` sind die Originale aller Spielbilder (Quelle der WebP-Dateien); `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs; `MOTIVE.md` listet alle fehlenden Motive mit fertigem Prompt (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
 ### Architektur: wohin neuer Code gehört (MVVM)
 
@@ -154,6 +156,9 @@ Seit 1.11.0 (AP 5.10 Welle 2) der **Diener ganz links** (`buffLeft`, Epaminondas
 (`ifMinions`), verliehener Vorstoß, der frische Diener sofort angreifen lässt (Baibars), zufällige Starre und Ziele nur in
 Starre (`targetFrozen`, Fabius), Schaden je Schildwall-Diener und Auren nur für Schildwall (Žižka), Wachstum je eigenem
 Diener (`per:'minion'`) und **Ergründen aus dem eigenen Deck** (`pool:'deck'`: die obersten drei Karten, Fu Hao).
+Seit 1.14.0 (AP L.1) sind elf Helden durch Personen aus dem sächsischen Lehrplan ersetzt: IDs, Fähigkeiten, KI und
+Karten-IDs bleiben (`khan` ist Widukind, `fuhao` die Fürstin von Vix), ebenso die Zeitalter-IDs (`steppe` = Frühzeit und
+Ägypten, `ostasien` = Frühe Neuzeit, `byzanz` = Kreuzzüge).
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -161,7 +166,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden und Astra-Kennzeichnung, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
   Der Job „apk“ baut seit 1.12.0 mit Gradle (`android/`) und prüft Paket-ID, Version und Zertifikat. Lokal fehlt in den
@@ -248,7 +253,7 @@ Ornamente und Charakter müssen aus gemalten Bildern kommen.
 
 1. ~~**Ungleichmäßige Bildrate auf 90/120-Hz-Displays.** Die Zeichenschleife überspringt Frames
    (`now-lastFrame>=15` in `app.js`). Bei 90 Hz wechseln sich 11- und 22-ms-Abstände ab → Ruckeln.~~ *Behoben in 1.13.0
-   (AP 2.4):* ein Bild je Bildwechsel.
+   (AP 2.4):* ein Bild je Bildwechsel. *Rückmeldung zu 1.13.0:* auf dem OnePlus 15 stabil rund 120 fps in mehreren Partien.
 2. ~~**Teure Effekte pro Frame.** `render.js` nutzt 23-mal `shadowBlur` und erzeugt Verläufe neu, statt
    sie zwischenzuspeichern – auf schwächeren Handys der größte Bremsklotz.~~ *Behoben in 1.13.0 (AP 2.4):* Sprites je
    Zustand, Zeichenzeit eines vollen Matches 1,9 → 0,6 ms.
@@ -268,7 +273,8 @@ Ornamente und Charakter müssen aus gemalten Bildern kommen.
 7. **Audio ungeprüft und dünn.** Die Steingeräusche wurden synthetisch erzeugt und nie auf einem Gerät
    angehört; die Musik ist eine prozedurale Eigenkomposition; Diener haben keine eigenen Stimmen oder Laute.
    *Stand 1.12.0:* Pegel gemessen und angeglichen, Klangprobe in den Einstellungen – der Höreindruck auf dem Gerät fehlt noch.
-   *Stand 1.13.0:* Deine Stücke für Hauptmenü und Duell ersetzen die prozedurale Musik (AP L.3).
+   *Stand 1.13.0:* Deine Stücke für Hauptmenü und Duell ersetzen die prozedurale Musik (AP L.3) – auf dem Gerät „läuft super“
+   (Rückmeldung zu 1.13.0).
 8. ~~*Nebenpunkt:* Das Match-Canvas (1600 × 800) wird auf Handys hochskaliert (`devicePixelRatio` fehlt).~~ *Behoben in
    1.13.0 (AP 2.4):* Pixeldichte bis 2.
 
@@ -310,15 +316,15 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 | Bereich | Ziel | Stand 1.12.0 (gemessen; Menü- und Bildwerte aus 1.9.0, das Hauptmenü ist unverändert) |
 |---|---|---|
 | Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben, Blitz und Seitenränder nach deiner Rückmeldung zu 1.6.0 überarbeitet, Stern nach deiner Rückmeldung zu 1.8.0 leiser); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
-| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match mit 7 gegen 7 und voller Hand (AP 2.4, Emulation): Zeichenzeit 0,6 ms (95 %: 0,9 ms), 60 fps ohne Drossel bei 2144 × 1072; CPU 4×: 3,5 ms (1.12.0: 1,9 / 10,6 ms, ≈ 30 fps)¹ – auf dem Gerät mit dem Overlay prüfen. Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0 von 181 Bildern > 20 ms, auch bei 4× gedrosselter CPU (1.8.0: 0–4; weniger Glitzer am Stern)¹ |
+| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | **✓ OnePlus 15: stabil rund 120 fps** in mehreren Partien (Rückmeldung zu 1.13.0, Overlay des Geräts: 121 fps). Match mit 7 gegen 7 und voller Hand (AP 2.4, Emulation): Zeichenzeit 0,6 ms (95 %: 0,9 ms), 60 fps ohne Drossel bei 2144 × 1072; CPU 4×: 3,5 ms (1.12.0: 1,9 / 10,6 ms, ≈ 30 fps)¹ – auf dem Gerät mit dem Overlay prüfen. Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0 von 181 Bildern > 20 ms, auch bei 4× gedrosselter CPU (1.8.0: 0–4; weniger Glitzer am Stern)¹ |
 | Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 6 ms, mit 4× gedrosselter CPU 23 ms¹; Kauf im Basar ohne Ruckler (längstes Bild 16 ms bei 4× CPU) |
 | Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 561 ms (4× CPU: 584 ms), neuer Bildschirm ab 401 ms; zurück ins Menü 328 ms (4× CPU: 362 ms)¹ – nicht unterbrechbar (1.8.0: 525–549 ms) |
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
 | APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **22 Helden, 350 Karten** (1.13.0, 101 200 Partien): Startdecks 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Boudicca 46,5 %), Zufallsdecks 46,5–53,0 % (21 von 22: Hypatia 46,5 %) – alle Abweichungen ≤ 1,3 Punkte, im Zufallsfehler ±1,5. Paarungen 199 bzw. 224 von 231 innerhalb 40/60 – Ausreißer mit Startdecks vor allem um Fabius (Leonidas 72/28, Epaminondas 29/71, Anna 69/31), Khan – Agrippa 68/32, Khan – Fu Hao 67/33; mit Zufallsdecks Dandolo – Imhotep 65/35. Beginner gewinnt 47,3 / 51,3 % (1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %, 201/227 Paarungen; 1.10.0 mit 16 Helden: 47,6–52,7 % bzw. 47,6–53,2 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
-| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,0 % (1.11.0: 52,8 %), einzeln 42,2 (Nezahualpilli) bis 58,3 % (Lagertha)² |
-| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: **349 von 350** Karten unter 60 % (1.12.0: 347), darüber nur Goldener Reiter (Khan) 61,2 % – im Zufallsfehler; Botin der Stämme 59,4 %, Kämpfer der Heiligen Schar 57,3 % (AP 5.11 Teil 2)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,5 % (1.13.0: 53,0 %), einzeln 45,8 (Nezahualpilli) bis 58,6 % (Lagertha)² |
+| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
@@ -327,7 +333,7 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 kommt das Lesen aus der APK dazu – dort wirkt der Unterschied 51 MB PNG ↔ 9,4 MB WebP stärker als am Desktop.
 
 ² KI gegen KI, `node werkzeuge/balance.js` (200 Partien je Paarung, Startwert 20261006), Bericht
-[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,5 Punkte je Held (21 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 22 Helden und 350 Karten 27 min auf 4 Kernen.
+[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,5 Punkte je Held (21 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 22 Helden und 350 Karten 27–36 min auf 4 Kernen.
 
 ---
 
@@ -349,47 +355,78 @@ Leitlinien: nur ältere Geschichte (bis etwa 1800), **eher unbekannte Personen a
 (Perikles statt Sokrates, ein Weggefährte oder Gegner statt Napoleon), keine problematischen Figuren. Kartenwirkungen
 und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
 
-**AP L.1 – Helden nach dem Lehrplan (M)** – *Vorschlag, bitte bestätigen oder Namen tauschen*
-- [ ] 11 Helden bleiben, weil sie im Lehrplan stehen: Leonidas (Sparta), Perikles (Athen), Epaminondas (griechische
-  Poleis), Hypatia (Alexandria, Kl. 5 WB 2), Imhotep (Ägypten), Marcus Agrippa (Umfeld des Augustus), Fabius Maximus
+**AP L.1 – Helden nach dem Lehrplan (M)** – *✓ in 1.14.0 (Entscheidung 17: wie vorgeschlagen, Leonidas bleibt)*
+- [x] 11 Helden bleiben, weil sie im Lehrplan stehen: Leonidas (Sparta), Perikles (Athen), Epaminondas (griechische
+  Poleis), Hypatia (Alexandria), Imhotep (Ägypten), Marcus Agrippa (Umfeld des Augustus), Fabius Maximus
   (Roms Ausdehnung), Enrico Dandolo, Anna Komnene und Baibars (Kreuzzüge aus christlicher, byzantinischer und
-  islamischer Sicht, Kl. 6 LB 3), Nezahualcóyotl (indianische Hochkultur, Kl. 7 LB 1). *Leonidas ist recht bekannt –
-  falls Du tauschen willst: Gorgo (bisher seine Legendäre) wird Heldin.*
-- [ ] 11 Helden werden ersetzt. Die neue Person erbt Spielweise, Heldenfähigkeit, KI-Persönlichkeit und die Karten-IDs:
+  islamischer Sicht), Nezahualcóyotl (indianische Hochkultur). *Leonidas bleibt (Deine Rückmeldung: „ich folge
+  deinen Vorschlägen“).*
+- [x] 11 Helden werden ersetzt. Die neue Person erbt Spielweise, Heldenfähigkeit, KI-Persönlichkeit und die Karten-IDs:
 
-  | bisher | neu (Vorschlag) | Lehrplan | was bleibt / was neu entsteht |
-  |---|---|---|---|
-  | Boudicca | **Vercingetorix**, Gallier, Gegner Caesars | Kl. 6 LB 1 (Caesar) | Streitwagen, Barden, keltische Krieger: alle 4 Kartenbilder passen weiter; Porträt neu |
-  | Nostradamus | **Johann Friedrich Böttger**, Alchemist, Erfinder des Meißner Porzellans | Kl. 7 LB 2 (Sachsen unter August dem Starken) | Astrolabium, Bücher, Alchemie: Kartenbilder passen; Porträt neu |
-  | Jeanne d’Arc | **Hildegard von Bingen**, Äbtissin | Kl. 6 LB 2 (Kloster) | Rekruten → Novizinnen, Göttliche Gunst bleibt; Bilder teils (Pilgerin, Weihe) |
-  | Miyamoto Musashi | **Ulrich von Liechtenstein**, Turnierritter und Minnesänger | Kl. 6 LB 2 (Burg, Rittertum, Minne) | Doppelschlag = Tjost; Samurai-Bilder nicht übertragbar |
-  | Ragnar Lodbrok | **Wiprecht von Groitzsch**, Graf in der Mark Meißen | Kl. 6 WB 1/2 (Besiedlung Sachsens) | Runensteine → Rodungs- und Grenzsteine, Plünderung → Fehde; Bilder neu |
-  | Dschingis Khan | **Widukind**, Anführer der Sachsen gegen Karl den Großen | Kl. 6 LB 2 (Frankenreich) | Reiterbogenschützen → sächsische Reiter; Bilder neu |
-  | Mandukhai Khatun | **Thusnelda**, Cheruskerin | Kl. 6 LB 1 (Germanien, Teutoburg) | Stammeskrieger passen unverändert; Platzhalter |
-  | Hōjō Masako | **Theophanu**, Kaiserin und Regentin | Kl. 6 LB 2 (Reichsstruktur) | Schildwall und Treue → Gefolgschaft; Platzhalter |
-  | Fu Hao | **Fürstin von Vix**, keltische Fürstin der frühen Eisenzeit | Kl. 5 LB 2 (Metallzeit) | Bronzeaxt, Wagen, Orakel → Opfergaben; Platzhalter |
-  | Amanirenas | **Ahhotep I.**, ägyptische Königin im Kampf gegen die Hyksos | Kl. 5 LB 2 (Ägypten) | Bogenschützinnen, Gift; Platzhalter |
-  | Jan Žižka | **Vauban**, Festungsbaumeister Ludwigs XIV. | Kl. 7 LB 2 (Absolutismus) | Wagenburg → Bastion und Sternschanze; Platzhalter |
+  | bisher | neu | Lehrplan | Heldenfähigkeit (Wirkung unverändert) | Mission (Boss) |
+  |---|---|---|---|---|
+  | Boudicca | **Vercingetorix**, Gallier, Gegner Caesars | Kl. 6 · Rom: Caesar und Gallien | Schild der Arverner | Alesia (Caesar) |
+  | Nostradamus | **Johann Friedrich Böttger**, Erfinder des Meißner Porzellans | Kl. 7 · Barock in Sachsen | Arkanum | Gefangen auf dem Königstein (Statthalter Fürstenberg) |
+  | Jeanne d’Arc | **Hildegard von Bingen**, Äbtissin | Kl. 6 · Leben im Kloster | Klostergemeinschaft | Der Weg zum Rupertsberg (Abt Kuno) |
+  | Miyamoto Musashi | **Ulrich von Liechtenstein**, Turnierritter und Minnesänger | Kl. 6 · Burg, Rittertum, Minne | Tjost | Der letzte Horizont (Finale, unverändert) |
+  | Ragnar Lodbrok | **Wiprecht von Groitzsch**, Graf in der Mark Meißen | Kl. 6 · Besiedlung Sachsens | Grenzsteine setzen | Streit um die Mark Meißen (Konrad von Wettin) |
+  | Dschingis Khan | **Widukind**, Anführer der Sachsen gegen Karl den Großen | Kl. 6 · Frankenreich | Überfall aus dem Wald | Der Sachsenkrieg (Karl der Große) |
+  | Mandukhai Khatun | **Thusnelda**, Cheruskerin | Kl. 6 · Rom und die Germanen | Stammesbündnis | Der Feldzug des Germanicus |
+  | Hōjō Masako | **Theophanu**, Kaiserin und Regentin | Kl. 6 · Reich der Ottonen | Regentschaft | Das Kind auf dem Thron (Heinrich der Zänker) |
+  | Fu Hao | **Fürstin von Vix**, keltische Fürstin der frühen Eisenzeit | Kl. 5 · Metallzeit und frühe Kelten | Opfergabe | Der Fürstensitz am Mont Lassois (Fürst der Heuneburg) |
+  | Amanirenas | **Ahhotep I.**, ägyptische Königin im Kampf gegen die Hyksos | Kl. 5 · Ägypten | Goldene Fliegen | Gegen die Hyksos (Apophis) |
+  | Jan Žižka | **Vauban**, Festungsbaumeister Ludwigs XIV. | Kl. 7 · Absolutismus | Festungsbau | Namur 1692 (Menno van Coehoorn) |
 
-- [ ] **Zeitalter neu** (Heldenwahl, Zeitalterkarten): *Frühzeit und Ägypten* (Fürstin von Vix, Imhotep, Ahhotep) ·
+  *Umgesetzt: Name, Epoche (`era`), Name der Fähigkeit, Zeichen, Medaillon mit Monogramm statt des alten Porträts
+  (`CHD.replaced`); Wirkung, Kosten und KI bleiben. Die Karten der elf tragen noch Namen und Bilder der Vorgänger
+  (Widukind spielt vorerst „Subutai“) – das ist AP L.2. Die Spielsteine der Fähigkeiten (Rekrut, Runensteine,
+  Kriegswagen) heißen ebenfalls noch wie bisher.*
+- [x] **Zeitalter neu** (Heldenwahl, Zeitalterkarten): *Frühzeit und Ägypten* (Fürstin von Vix, Imhotep, Ahhotep) ·
   *Griechenland und Hellenismus* (Leonidas, Perikles, Epaminondas, Hypatia) · *Rom und Germanien* (Agrippa, Fabius,
   Vercingetorix, Thusnelda) · *Mittelalter im Reich* (Widukind, Theophanu, Wiprecht, Ulrich, Hildegard) ·
   *Kreuzzüge* (Dandolo, Anna Komnene, Baibars) · *Frühe Neuzeit* (Nezahualcóyotl, Vauban, Böttger).
-- [ ] Spielstände bleiben gültig: **interne IDs bleiben** (`khan`, `musashi_3`, `steppe_2` …), nur Anzeige-Felder ändern
+  *Die sechs Kartensätze bleiben unter ihren IDs: `steppe` ist jetzt Frühzeit und Ägypten, `ostasien` Frühe Neuzeit,
+  `byzanz` Kreuzzüge, `mittelalter` Mittelalter im Reich. Orient, Afrika, Renaissance und Amerika ohne eigene Karten
+  entfallen. Neu mit Zeitalterkarten: Imhotep, Ahhotep, Böttger, Nezahualcóyotl und Vauban (bisher keine); Dandolo
+  wechselt zu den Kreuzzügen.*
+- [x] Spielstände bleiben gültig: **interne IDs bleiben** (`khan`, `musashi_3`, `steppe_2` …), nur Anzeige-Felder ändern
   sich – wie beim Schlüssel `chroniken.profile`. Gekaufte Marmor-Skins ersetzter Helden: 300 Gold zurück (über `normalize`).
-- [ ] Chronik der Helden (`model/lore.js`), Missionen (Bossnamen, Texte), Glossar, KI-Persönlichkeitsnamen und
+  *Die sechs Marmor-Skins von Khan bis Musashi entfallen; `CHK.refund` zahlt je 300 Gold einmal zurück, `normalize`
+  entfernt sie danach. Alte Decknamen wie „Mongolen · Basis“ heißen jetzt „Sachsen · Basis“, eigene Namen bleiben.*
+- [x] Chronik der Helden (`model/lore.js`), Missionen (Bossnamen, Texte), Glossar, KI-Persönlichkeitsnamen und
   `ungenutzte_assets/MOTIVE.md` (neue Porträt- und Bildideen) für alle 11 neuen Personen.
+  *Elf Chronikseiten neu, jede mit Quelle (Einhard, Caesar, Tacitus, Strabon, Scivias, Pegauer Annalen, Frauendienst,
+  Ahmose-Stele, Theophanus Urkunde von 990, Herodot); Zitate, die nur sinngemäß überliefert sind, sind so markiert.
+  Zehn Missionen neu erzählt (Tabelle oben), Bossfähigkeit und Belohnung unverändert; Mission 10 bleibt das Finale.
+  Glossar und KI-Persönlichkeiten nennen keine Personen – unverändert. Neu: Jede Chronikseite zeigt ihren Lernbereich
+  („Lehrplan Sachsen · Klasse 6 · Frankenreich: Karl der Große und die Sachsen“). 18 Porträt-Prompts in `MOTIVE.md`.
+  Beziehungen der gebliebenen Helden, die auf ersetzte zeigten, nennen jetzt Xerxes, Thusnelda, Vercingetorix,
+  Kitbuqa, Baibars und Vauban.*
 - Abnahme: Jeder Held ist einem Lernbereich zugeordnet (Tabelle in `model/lore.js`, Test prüft das); alte Spielstände
   laden ohne Verlust; Balance-Bericht unverändert (nur Namen geändert → gleiche Prüfsumme der Regeln oder gleiche Zahlen).
+  *✓ Tabelle `curriculum`, geprüft in `werkzeuge/tests/lehrplan.test.js` (auch: keine alten Namen an Helden, Chronik und
+  Missionen; alter Spielstand mit Decks, Skins und Zeitalterkarten). Lernbereiche stehen mit Klassenstufe und Thema –
+  die Nummern der Lernbereiche habe ich nicht gegen den amtlichen Lehrplan geprüft und darum weggelassen.
+  Balance (voller Lauf, 101 200 Partien): Mit **Startdecks sind alle Zahlen gleich wie in 1.13.0** – die Gegenprobe,
+  dass nur Namen geändert sind. Mit Zufallsdecks verschieben die neuen Zeitalter die Werte (zwölf Helden spielen andere
+  Zeitalterkarten): 21 von 22 Helden im Ziel, Theophanu 54,4 % knapp darüber (im Zufallsfehler) – bei AP L.2 im Blick
+  behalten. Bericht in `balance/BERICHT.md`, der alte in `balance/BERICHT-1.13.0.md`.*
 
-**AP L.2 – Kartennamen nach Epoche und Lebenswelt (M)**
-- [ ] Alle Karten der 11 neuen Helden (≈ 120) und die Zeitalterkarten von *Persien & Steppe* und *China, Korea, Japan*
-  (14) bekommen Namen, Texte und Bildideen aus der Lebenswelt der neuen Person und Epoche (z. B. Ashigaru → Landsknecht,
-  Hwacha-Salve → Kartaunen-Salve, Jurtenlager → Heerlager an der Weser, Schildkrötenschiff → Kogge der Hanse).
+**AP L.2 – Kartennamen nach Epoche und Lebenswelt (M)** – *Zeitalterkarten ✓ in 1.14.0, Heldenkarten offen*
+- [x] Die Zeitalterkarten von *Persien & Steppe* und *China, Korea, Japan* (14) bekommen Namen, Texte und Bildideen der
+  neuen Zeitalter. *✓ in 1.14.0, Wirkungen unverändert:* **Frühzeit und Ägypten** – Wagenbauer, Schreiber im Lebenshaus,
+  Schuss vom Streitwagen, Wache der Medjai, Angriff der Streitwagen, Bernsteinstraße, Festung Buhen (Spielsteine
+  Streitwagen und Medjai-Krieger); **Frühe Neuzeit** – Landsknecht, Buchdrucker aus Mainz, Leipziger Kaffeehaus,
+  Kartaunen-Salve, Kriegsgaleone, Stehendes Heer (Musketiere), Sternschanze. Der Spielstein „Steppenreiter“ heißt
+  jetzt „Reiter“ (Widukinds Karten, Thusneldas Mission); der neue Spielstein „Streitwagen“ hat dieselben Werte.
+- [ ] Alle Karten der 11 neuen Helden (≈ 130) und ihre Spielsteine bekommen Namen, Texte und Bildideen aus der
+  Lebenswelt der neuen Person und Epoche (z. B. Jurtenlager → Heerlager an der Weser, Rekruten → Novizinnen,
+  Runensteine → Grenzsteine, Wagenburg → Bastion). Kartenbilder, die nicht mehr passen (Samurai, Wikinger,
+  Mongolen), werden Platzhalter mit Bildidee in `MOTIVE.md`.
 - [ ] Neutrale Karten nach Lehrplan-Lebenswelten durchsehen: Grundherrschaft, Zunft, Hanse, Kloster, Burg, Buchdruck,
   Bauernstand – Namen schärfen, wo sie nur „Fantasy“ sind; Wirkungen unverändert.
 - Abnahme: keine Karte mehr mit Bezug auf entfernte Helden oder Kulturen ohne Lehrplanbezug; Test: Kartentexte nennen
-  nur Helden, die es gibt.
+  nur Helden, die es gibt. *Für die Zeitalterkarten ✓ (`lehrplan.test.js`).*
 
 **AP L.3 – Musik für Hauptmenü und Duell (S)** – *✓ in 1.13.0*
 - [x] Deine beiden Stücke ersetzen die prozedurale Musik: `musik-menue.ogg` im Hauptmenü und in allen Untermenüs,
@@ -399,20 +436,26 @@ und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
   Musikregler mit Ducking – dekodiert hätte jedes Stück ≈ 64 MB Arbeitsspeicher gebraucht. Die frühere Spannungsschicht
   bei wenig Leben entfällt (das Duellstück hat eigene Steigerungen); `menu.ogg`, `battle.ogg`, `tension.ogg` sind entfernt.*
 - Abnahme: *auf dem OnePlus 15 anhören* – Lautstärke gegenüber den Effekten (Einstellungen → Klangprobe), Übergang
-  Menü → Duell → Menü, Pause beim Wechsel in eine andere App.
+  Menü → Duell → Menü, Pause beim Wechsel in eine andere App. *✓ Rückmeldung zu 1.13.0: „Musik läuft super“.*
 
-**AP L.4 – Platzhalter für Astra kennzeichnen (S, fortlaufend)**
+**AP L.4 – Platzhalter für Astra kennzeichnen (S, fortlaufend)** – *✓ in 1.14.0, gilt weiter für jede neue Grafik*
 
 Alle Platzhalter und alle bisher nur im Code gezeichneten Grafiken erzeugst Du in einigen Wochen mit **ChatGPT Astra**.
 Bis dahin entstehen weiter Platzhalter – einheitlich gekennzeichnet, damit Astra sie findet:
-- [ ] **Bilder ohne Motiv:** `art` weglassen (wie seit AP 5.12) – `ungenutzte_assets/MOTIVE.md` listet sie mit Größe
-  und Prompt.
-- [ ] **Im Code gezeichnete Grafiken** bekommen einen Kommentar `ASTRA: <kennung> – <was>, <Größe>` direkt an der
+- [x] **Bilder ohne Motiv:** `art` weglassen (wie seit AP 5.12) – `ungenutzte_assets/MOTIVE.md` listet sie mit Größe
+  und Prompt. *Stand 1.14.0: 226 Karten und Spielsteine, 18 Helden.*
+- [x] **Im Code gezeichnete Grafiken** bekommen einen Kommentar `ASTRA: <kennung> – <was>, <Größe>` direkt an der
   Zeichenfunktion (z. B. Stufenpyramide, Fähigkeitssymbole, Manasäule, Steinknöpfe, Kartenrahmen, Diener-Plakette,
   Kartenrücken, Rahmen der Legendären). `node werkzeuge/motive.js` sammelt diese Stellen als zweiten Abschnitt
-  „Im Code gezeichnet“ in `MOTIVE.md`.
-- [ ] Platzhalter-Bilder, die doch als Datei nötig sind, heißen `platzhalter-<kennung>.webp`.
-- Abnahme: `grep -rn "ASTRA:" quellcode/` und `MOTIVE.md` nennen dieselben Kennungen (Test).
+  „Im Code gezeichnet“ in `MOTIVE.md`. *✓ 26 Kennungen: Kartenrahmen, Diener-Plakette, Heldenfassung,
+  Fähigkeitssymbole, Manasäule, Edelstein, Lebensherz, Schildwall-Rahmen, Starre-Reif, Knopf im Match, Gegnerhand,
+  Stufenpyramide, acht Kartenrücken, Steinplatten, Steinknopf, Panel, Reiter, Kartenpaket, Währungssymbole – je mit
+  Prompt und Ablageort `ungenutzte_assets/astra/<kennung>.png`. Der Rahmen der Legendären ist schon gemalt
+  (`legendary-frame`). Bewusst ohne Kennung: Partikel, Glühen und Zielpfeil (bleiben Code bzw. kommen in die
+  PixiJS-Ebene), der Platzhalter-Generator selbst (er steht für die Motive der Liste) und das gemalte Hauptmenü.*
+- [x] Platzhalter-Bilder, die doch als Datei nötig sind, heißen `platzhalter-<kennung>.webp`. *Bisher keins nötig.*
+- Abnahme: `grep -rn "ASTRA:" quellcode/` und `MOTIVE.md` nennen dieselben Kennungen (Test). *✓ `lehrplan.test.js`
+  prüft auch, dass jede Kennzeichnung Kennung, Beschreibung und Größe hat und keine Kennung doppelt vorkommt.*
 
 ### Phase 0 – Sofortkorrekturen und Umbenennung (S)
 
@@ -788,7 +831,8 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
 
   Die Emulation hat keine GPU: Die Zeichenzeit ist die Arbeit im Hauptthread, die Bildabstände enthalten das Rastern in
   Software – deshalb nur 30 bzw. 60 fps. *Auf dem OnePlus 15 bitte mit dem Overlay gegenprüfen* (erwartet: 120 fps bei
-  einer Zeichenzeit unter 1 ms).
+  einer Zeichenzeit unter 1 ms). **✓ Rückmeldung zu 1.13.0:** auf dem OnePlus 15 stabil rund 120 fps in mehreren
+  Partien (Overlay des Geräts: 121 fps).
 
 **AP 2.5 – Entscheidung Canvas 2D oder WebGL (PixiJS) (S)** – *Labor in 1.13.0, Entscheidung unten (Gerätewert offen)*
 - [x] Prototyp eines Matches mit 7 Dienern pro Seite, voller Hand, Partikelregen und Verformung (Karte → Siegel) in
@@ -816,7 +860,8 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
   Rastern der additiven Partikel und Netze praktisch weg, während Canvas 2D die Verformung in Hunderte Clip-Operationen
   zerlegen muss (Emulation: 30 statt 60 fps schon bei 500 Partikeln). Engine und Brett bleiben unverändert; AP 3.x baut
   die Effektebene. *Vorbehalt:* Zeigt die Messreihe auf dem OnePlus 15, dass Canvas 2D auch mit 2000 Partikeln und vier
-  Verformungen 120 fps hält, bleibt alles in Canvas 2D und das Labor fliegt wieder heraus.
+  Verformungen 120 fps hält, bleibt alles in Canvas 2D und das Labor fliegt wieder heraus. *Stand 1.14.0:* Das normale
+  Match hält auf dem OnePlus 15 120 fps; die Messreihe mit 500 und 2000 Partikeln steht noch aus.
 
 **AP 2.6 – Automatische Sichtprüfung (S)**
 - [x] Playwright-Tests in CI: Klickpfad Menü → Basar → Match → Ergebnis, Screenshots als Artefakt, Vergleich gegen Referenzbilder.
@@ -1577,6 +1622,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 |
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
+| Helden nach dem sächsischen Lehrplan, Lebenswelten, eigene Musik, Astra-Platzhalter (Wunsch vom 7. 10. 2026) | AP L.1 ✓ in 1.14.0, AP L.2 (Zeitalterkarten ✓ in 1.14.0), AP L.3 ✓ in 1.13.0, AP L.4 ✓ in 1.14.0 |
 | Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“; Rückmeldung zu 1.11.0 ✓ in 1.12.0: alle Pakete auf einmal, ohne Standbild |
 
 ---
@@ -1611,11 +1657,11 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 16. ~~**Codes** (Rückmeldung zu 1.10.0)~~ – *Rückmeldung zu 1.11.0:* Die Code-Eingabe funktioniert (stichprobenartig mit
     `CHRONIK` geprüft). Die vier Codes bleiben; wenn Du alte Codes wiederfindest oder andere Belohnungen möchtest, trage ich
     sie in `CHP.codes` ein.
-17. **Lehrplan-Helden** (AP L.1, neu und mit sehr hoher Priorität): Bitte die Tabelle der elf Ersatzhelden bestätigen
-    oder einzelne Namen tauschen (Leonidas bleiben lassen oder durch Gorgo ersetzen?). Erst danach benenne ich Karten,
-    Chronik und Missionen um.
+17. ~~**Lehrplan-Helden** (AP L.1)~~ – *entschieden (Rückmeldung zu 1.13.0: „ich folge deinen Vorschlägen und
+    Empfehlungen“):* die elf Ersatzhelden wie vorgeschlagen, Leonidas bleibt; umgesetzt in 1.14.0.
 18. **Renderer** (AP 2.5): Brett bleibt Canvas 2D, Effekte von Phase 3 kommen in eine PixiJS-Ebene – es sei denn, die
     Messreihe im Renderer-Labor auf dem OnePlus 15 zeigt, dass Canvas 2D auch mit 2000 Partikeln 120 fps hält.
+    *Stand 1.14.0:* Das Match ohne Effekte läuft auf dem Gerät mit 120 fps; es fehlt nur noch die Messreihe (≈ 20 s).
 
 ---
 
@@ -1634,8 +1680,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
 | 9 ✓ | AP 2.1, AP 2.2, AP 0.2, Rückmeldung 1.11.0 | erledigt in 1.12.0 – Kotlin-Hülle mit Gradle, WebP (APK 12,1 MB), Laden in Stufen, Massenöffnung ohne Grenze, Klangpegel und Klangprobe |
 | 10 ✓ | AP 2.4, AP 2.5, AP 5.11 Teil 2, AP L.3 | erledigt in 1.13.0 – Match ohne Drossel mit Pixeldichte und Sprites (Zeichenzeit −69 %), Renderer-Labor mit PixiJS, „nur Werte“-Karten und Balance-Feinschliff, Deine Musik für Menü und Duell |
-| 11 | AP L.1, AP L.4, Rückmeldung 1.13.0 | **sehr hohe Priorität:** Helden nach dem Lehrplan (nach Deiner Bestätigung), Astra-Kennzeichnung aller Platzhalter |
-| 12 | AP L.2 | **sehr hohe Priorität:** Kartennamen nach Epoche und Lebenswelt |
+| 11 ✓ | AP L.1, AP L.4, AP L.2 (Zeitalterkarten), Rückmeldung 1.13.0 | erledigt in 1.14.0 – elf Lehrplan-Helden mit Chronik und Mission, sechs Zeitalter nach den Epochen des Lehrplans, 14 Zeitalterkarten neu benannt, 26 Astra-Kennungen |
+| 12 | AP L.2 (Heldenkarten, neutrale Karten) | **sehr hohe Priorität:** Karten der elf neuen Helden nach Epoche und Lebenswelt |
 | 13–15 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht (Effekte in der PixiJS-Ebene, AP 2.5) |
 | 16 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
 | 17–18 | AP 3.6–3.9, Phase 4 | Effekte, Stimmen, Chronist, Klang, Haptik aus einem Guss |
@@ -1648,53 +1694,51 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 10 (Version 1.13.0):** AP 2.4 – **Match-Renderer**: Bildschleife ohne 15-ms-Drossel, Leinwand mit
-Pixeldichte (Handyformat 2144 × 1072), Sprites statt `shadowBlur`; Zeichenzeit eines vollen Matches 1,91 → 0,61 ms, in der
-Emulation 60 statt 30 fps; **Bildraten-Anzeige** über *Über das Spiel → fünfmal auf „Version“ tippen*. AP 2.5 –
-**Renderer-Labor** mit PixiJS (offline, MIT); Entscheidung: Brett bleibt Canvas 2D, Effekte von Phase 3 in eine
-PixiJS-Ebene (Gerätewert offen). AP 5.11 Teil 2 – **Balance**: Händler und Grenzläuferin mit eigener Regel, Rōnin,
-Bronzener Wall und Kämpfer der Heiligen Schar angepasst; 349 von 350 Karten unter 60 %. AP L.3 – **Deine Musik** für
-Hauptmenü/Untermenüs und Duell (auf −20 LUFS angeglichen, gestreamt). Neu aufgenommen mit sehr hoher Priorität:
-AP L.1–L.4 (Lehrplan-Helden, Kartennamen nach Lebenswelt, Astra-Kennzeichnung). Davor: Sitzung 9 (1.12.0) AP 2.1, 2.2,
-0.2; Sitzung 8 (1.11.0) AP 5.10 Welle 2; Sitzung 7 (1.10.0) AP 5.11 Kartenwelle 1, AP 5.5, AP 5.8 Teil 2; Sitzung 6
-(1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0) AP 5.12, 5.9, 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, 5.3, 5.8 Teil 1;
-Sitzung 3 (1.6.0) AP 5.1, 5.2; Sitzung 2 (1.5.0) AP 2.3, 0.1, 2.6; Sitzung 1 (1.4.0) AP 0.3, 1.1, 1.3.
+**Erledigt in Sitzung 11 (Version 1.14.0):** AP L.1 – **elf Helden nach dem sächsischen Lehrplan** (Widukind,
+Vercingetorix, Thusnelda, Theophanu, Hildegard von Bingen, Ulrich von Liechtenstein, Wiprecht von Groitzsch, Böttger,
+Vauban, Ahhotep I., Fürstin von Vix) mit Chronikseite, Quelle, Mission, Porträt-Prompt und Lernbereich auf jeder
+Chronikseite; **sechs Zeitalter** nach den Epochen des Lehrplans; Marmor-Skins ersetzter Helden mit 300 Gold erstattet,
+alte Decknamen angepasst. AP L.2 (erster Teil) – **14 Zeitalterkarten** der Frühzeit und der Frühen Neuzeit neu benannt.
+AP L.4 – **26 Astra-Kennungen** an allen im Code gezeichneten Grafiken, gesammelt in `MOTIVE.md`. Rückmeldung zu
+1.13.0: Musik ✓, 120 fps auf dem OnePlus 15 ✓, Entscheidung 17 ✓. Davor: Sitzung 10 (1.13.0) AP 2.4, 2.5, 5.11 Teil 2,
+L.3; Sitzung 9 (1.12.0) AP 2.1, 2.2, 0.2; Sitzung 8 (1.11.0) AP 5.10 Welle 2; Sitzung 7 (1.10.0) AP 5.11 Kartenwelle 1,
+AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0) AP 5.12, 5.9, 5.4 Teil 2; Sitzung 4 (1.7.0)
+AP 5.4 Teil 1, 5.3, 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, 5.2; Sitzung 2 (1.5.0) AP 2.3, 0.1, 2.6; Sitzung 1 (1.4.0)
+AP 0.3, 1.1, 1.3.
 
-**Vorher bitte von dir auf dem OnePlus 15 (15 Minuten):**
-1. `Aeterna-1.13.0-Test-APK` aus Actions als Update installieren (vorher zur Sicherheit Spielstand exportieren). Falls
-   noch offen: die Prüfpunkte der neuen Hülle aus 1.12.0 (Icon, Splash, linker Rand, Zurück-Geste, Vibration, Start < 2,5 s).
-2. **Musik:** Hauptmenü → Basar → Sammlung (Menüstück läuft durch) → Duell (Überblendung zum Duellstück) → zurück.
-   Lautstärke gegenüber den Effekten passend? (Einstellungen → Klangprobe zum Vergleich.)
-3. **Bildrate:** Einstellungen → Über das Spiel → fünfmal auf „Version“ tippen. Ein Duell bis zu vollen Brettern
-   spielen: Was zeigt die Anzeige oben rechts (fps, Bild … ms)? Ziel: 120 fps.
-4. **Renderer-Labor:** Über das Spiel → Renderer-Labor → **Messreihe** (≈ 20 s), Foto oder Abschrift der sechs Zeilen
-   an mich – das entscheidet AP 2.5 endgültig (offene Entscheidung 18).
-5. **Offene Entscheidung 17:** die Tabelle der elf Lehrplan-Helden in AP L.1 bestätigen oder Namen tauschen;
-   dazu weiter 2, 3, 5 und 7.
+**Vorher bitte von dir auf dem OnePlus 15 (10 Minuten):**
+1. `Aeterna-1.14.0-Test-APK` aus Actions als Update installieren (vorher zur Sicherheit Spielstand exportieren).
+2. **Heldenwahl:** Stimmen Namen, Zeitalter-Reihenfolge und Monogramme? Bei zwei, drei neuen Helden auf **Chronik**
+   tippen – passen Text, Lehrplan-Zeile und Länge (die Seite scrollt bei langen Texten)?
+3. **Eine Mission** eines neuen Helden spielen (z. B. Mission 5 „Der Sachsenkrieg“ oder Mission 6 „Alesia“).
+4. Falls Du einen Marmor-Skin von Khan, Boudicca, Nostradamus, Jeanne, Ragnar oder Musashi hattest: 300 Gold zurück?
+5. **Renderer-Labor:** Über das Spiel → Renderer-Labor → **Messreihe** (≈ 20 s), Foto der sechs Zeilen – die letzte
+   offene Gerätemessung (Entscheidung 18). Dazu weiter offen: Entscheidungen 2, 3, 5 und 7.
 
-**Sitzung 11 – AP L.1 Lehrplan-Helden, AP L.4 Astra-Kennzeichnung (sehr hohe Priorität)**
+**Sitzung 12 – AP L.2: Karten der elf neuen Helden (sehr hohe Priorität)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.13.0 | Musik, Bildrate, Messreihe des Labors | Gerätewerte zuerst |
-| AP L.1 | elf Helden nach Deiner Bestätigung ersetzen: Name, Zeitalter, Chronikseite, Mission, Bildideen, Monogramm-Platzhalter; interne IDs bleiben, Skins ersetzter Helden erstattet; Test „jeder Held hat einen Lernbereich“ | Dein Wunsch mit sehr hoher Priorität |
-| AP L.4 | `ASTRA:`-Kommentar an allen im Code gezeichneten Grafiken, `motive.js` sammelt sie in `MOTIVE.md`, Test | damit Astra in ein paar Wochen alles findet |
-| (AP L.2 Anfang) | Zeitalterkarten von *Persien & Steppe* und *China, Korea, Japan* umbenennen | hängt direkt an den neuen Zeitaltern |
+| Rückmeldung 1.14.0 | Heldenwahl, Chronik, Mission, Messreihe des Labors | Gerätewerte zuerst |
+| AP L.2 Heldenkarten | ≈ 130 Karten der elf neuen Helden neu benennen und betexten (Wirkungen bleiben), dazu ihre Spielsteine: Rekrut → Novizin, Runensteine → Grenzsteine, Kriegswagen → Schanzkorb, Zwilling der Khatun, Taborit; Lieblingskarten und Legendäre in den Chronikseiten nachziehen | Widukind spielt heute noch „Subutai“, Hildegard „La Hire“ |
+| Bilder | Je Held entscheiden, welche Kartenbilder bleiben (Vercingetorix: Streitwagen und Barden passen), die übrigen werden Platzhalter mit Bildidee in `MOTIVE.md` (Samurai, Wikinger, Mongolen) | für Astra in ein paar Wochen |
+| AP L.2 neutral | Neutrale Karten nach Lehrplan-Lebenswelten durchsehen, Test „Kartentexte nennen nur Helden, die es gibt“ | schließt AP L.2 ab |
 
-Risiko: Die Chronikseiten verlangen genaue Lebensdaten und Quellen-Zitate für elf Personen – lieber kürzer und belegt als
-ausgeschmückt. Balance ändert sich nicht (nur Namen), ein kurzer Lauf mit `--partien 40` genügt als Gegenprobe.
+Risiko: Viel Text mit historischer Sorgfalt – lieber schlichte, belegte Namen als ausgeschmückte. Regeln ändern sich
+nicht; wo ein Spielstein eine neue ID braucht (z. B. Novizin statt Rekrut), muss die Engine-Regel mitwandern (La Hire
+zählt heute `recruit`) – dann voller Balance-Lauf. Im Blick: Theophanu liegt mit Zufallsdecks bei 54,4 % (seit sie die
+Zeitalterkarten des Mittelalters spielt), Itzcoatl und Phalanxveteran knapp über 60 %.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP L.1 (Lehrplan-Helden) und AP L.4
-> (Astra-Kennzeichnung)** ab, beginne AP L.2 mit den Zeitalterkarten, und übernimm mein Feedback zu Version 1.13.0:
-> *(hier Feedback, Messreihe des Labors und Entscheidung 17 einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an
-> die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen Tests und den
-> Klickpfad (falls notwendig) laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und
-> delegiere Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne
-> am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung
-> mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP L.2 (Karten der elf Lehrplan-Helden und
+> neutrale Karten)** ab und übernimm mein Feedback zu Version 1.14.0: *(hier Feedback und Messreihe des Labors einfügen)*.
+> Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im
+> Handyformat, lass die zwingend notwendigen Tests und den Klickpfad (falls notwendig) laufen und sorge für eine grüne
+> CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere Prüfungen an mich und mein OnePlus 15.) Hake erledigte
+> Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull Request nach `main` und schreibe unten in die
+> README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Umbenennen und neue Chronikseiten sind viel Text mit
-historischer Sorgfalt, aber ohne Regel- oder Renderer-Risiko; *xhigh* nur, wenn Du zusätzlich AP L.2 vollständig
-(≈ 130 Karten) in derselben Sitzung willst.
+**Empfohlener Effort für den nächsten Prompt: high.** ≈ 130 Karten sind viel Text mit historischer Sorgfalt, aber
+ohne Renderer-Risiko; *xhigh* nur, wenn Du zusätzlich die Spielsteine mit eigener Regel (Novizinnen statt Rekruten)
+und einen vollen Balance-Lauf in derselben Sitzung willst.

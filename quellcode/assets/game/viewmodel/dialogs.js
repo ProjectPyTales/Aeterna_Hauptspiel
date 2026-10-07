@@ -56,7 +56,7 @@ class Dialogs{
  help(){this.ui.dialog('help',new Dialog(this.ctx,{}));}
  // Chronikseite eines Helden (AP 5.9): Heldenwahl und Großansicht des Helden im Match.
  lore(id){const hero=D.heroes.find(h=>h.id===id),page=LORE.of(id);if(!hero||!page)return;
-  this.ui.dialog('lore',new Dialog(this.ctx,{hero,page,favorites:page.favorites.map(c=>D.byId[c]).filter(Boolean)}));}
+  this.ui.dialog('lore',new Dialog(this.ctx,{hero,page,school:LORE.school(id),favorites:page.favorites.map(c=>D.byId[c]).filter(Boolean)}));}
  credits(){this.ui.dialog('credits',new Credits(this.ctx,{version:this.version,cards:D.cards.length,heroes:D.heroes.length,missions:D.missions.length,shell:this.ui.platform?.()||null}));}
  redeem(){this.ui.dialog('redeem',new Redeem(this.ctx));}
  exportSave(){this.ui.exportSave(this.ctx.store.exportText());}

@@ -110,7 +110,7 @@ async function run(opts={}){
 // ---------- Auswertung ----------
 const pct=x=>x==null||isNaN(x)?'–':(x*100).toFixed(1).replace('.',',')+' %';
 const pp=x=>(x>=0?'+':'−')+Math.abs(x*100).toFixed(1).replace('.',',');
-const short=h=>D.ageById[h]?.name||({leonidas:'Leonidas',hypatia:'Hypatia',imhotep:'Imhotep',dandolo:'Dandolo',khan:'Khan',boudicca:'Boudicca',nostradamus:'Nostradamus',jeanne:'Jeanne',ragnar:'Ragnar',musashi:'Musashi',perikles:'Perikles',agrippa:'Agrippa',amanirenas:'Amanirenas',anna:'Anna',nezahualcoyotl:'Nezahualcóyotl',masako:'Masako',epaminondas:'Epaminondas',fabius:'Fabius',mandukhai:'Mandukhai',baibars:'Baibars',zizka:'Žižka',fuhao:'Fu Hao'})[h]||h;
+const short=h=>D.ageById[h]?.name||({leonidas:'Leonidas',hypatia:'Hypatia',imhotep:'Imhotep',dandolo:'Dandolo',khan:'Widukind',boudicca:'Vercingetorix',nostradamus:'Böttger',jeanne:'Hildegard',ragnar:'Wiprecht',musashi:'Ulrich',perikles:'Perikles',agrippa:'Agrippa',amanirenas:'Ahhotep',anna:'Anna',nezahualcoyotl:'Nezahualcóyotl',masako:'Theophanu',epaminondas:'Epaminondas',fabius:'Fabius',mandukhai:'Thusnelda',baibars:'Baibars',zizka:'Vauban',fuhao:'Vix'})[h]||h;
 
 // Siegquote von Held i gegen Held j (Unentschieden zählen halb).
 function rate(M,i,j){if(i<=j){const p=M.pairs[i+'|'+j];return p?p.pts/(2*p.games):null;}const p=M.pairs[j+'|'+i];return p?1-p.pts/(2*p.games):null;}

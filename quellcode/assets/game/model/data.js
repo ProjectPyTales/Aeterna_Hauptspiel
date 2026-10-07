@@ -7,38 +7,43 @@ const E=(type,n,extra={})=>({type,n,...extra});
 // Karten oder 'random' (ein zufälliger sichtbarer Feind). Bedingungen leitet die Engine aus den Effekten ab (Platz zum
 // Rufen, ein noch fehlender Runenstein, etwas zum Ergründen).
 const A=(effects,target=null)=>({effects:Array.isArray(effects)?effects:[effects],target});
-// Zeitalter (AP 5.10): Helden derselben Epochengruppe teilen später Zeitalterkarten (Feld age an der Karte) und eine
-// Spielfeldhälfte (AP 1.8).
-// Farbe und Zeichen färben Rahmen und Platzhalter der Zeitalterkarten (AP 5.11).
-const ages=[['orient','Alter Orient & Ägypten','#a8843c','☥'],['griechen','Griechische Antike','#4f7193','Ω'],['rom','Rom','#9a4a2c','R'],['steppe','Persien & Steppe','#8c6c3e','➶'],
- ['afrika','Afrika','#2f7f6c','☉'],['byzanz','Byzanz & islamische Welt','#6d2f62','☧'],['mittelalter','Europäisches Mittelalter','#6e5a3c','✠'],['renaissance','Renaissance','#5f4b8f','◈'],
- ['ostasien','China, Korea, Japan','#93404c','龍'],['amerika','Amerika','#468a35','❀']]
+// Zeitalter (AP 5.10): Helden derselben Epochengruppe teilen Zeitalterkarten (Feld age an der Karte) und später eine
+// Spielfeldhälfte (AP 1.8). Farbe und Zeichen färben Rahmen und Platzhalter der Zeitalterkarten (AP 5.11).
+// Seit 1.14.0 (AP L.1) sechs Epochen nach dem sächsischen Lehrplan (Klasse 5–7) mit je drei bis fünf Helden, in
+// zeitlicher Reihenfolge. Die IDs bleiben, weil sie in den Karten-IDs der Zeitalterkarten stecken (steppe_2 gehört jetzt
+// zu „Frühzeit und Ägypten“, ostasien_2 zur „Frühen Neuzeit“) – wie beim Schlüssel chroniken.profile.
+const ages=[['steppe','Frühzeit und Ägypten','#a8843c','☥'],['griechen','Griechenland und Hellenismus','#4f7193','Ω'],['rom','Rom und Germanien','#9a4a2c','R'],
+ ['mittelalter','Mittelalter im Reich','#6e5a3c','✠'],['byzanz','Kreuzzüge','#6d2f62','☧'],['ostasien','Frühe Neuzeit','#5f4b8f','⚜']]
  .map(([id,name,color,icon])=>({id,name,era:name,color,icon}));
+// Helden nach dem Lehrplan (AP L.1, 1.14.0): elf Personen sind ersetzt. Die neue Person erbt ID, Spielweise,
+// Heldenfähigkeit, KI-Persönlichkeit und Karten-IDs (khan ist Widukind, musashi_3 bleibt musashi_3) – Spielstände gelten
+// weiter. Ersetzte Helden zeigen bis zum Astra-Porträt das Medaillon mit Monogramm (AP 5.12); ihre Karten folgen in AP L.2.
+const replaced=['khan','boudicca','nostradamus','jeanne','ragnar','musashi','amanirenas','masako','mandukhai','zizka','fuhao'];
 const heroes=[
 {id:'leonidas',name:'Leonidas I.',era:'Sparta',color:'#9c3830',power:'Phalanx',powerText:'Erhaltet 1 Rüstung. Eure Diener erhalten +1 Leben.',cost:2,icon:'Λ',age:'griechen',ability:A([E('armor',1),E('buffAll',0,{health:1})]),ai:'defensive'},
 {id:'hypatia',name:'Hypatia',era:'Alexandria',color:'#336ea6',power:'Sternenfunke',powerText:'Verursacht 1 Schaden an einem zufälligen Feind.',cost:2,icon:'✦',age:'griechen',ability:A(E('damage',1),'random'),ai:'combo'},
-{id:'imhotep',name:'Imhotep',era:'Ägypten',color:'#c19940',power:'Heilkunst',powerText:'Stellt bei einem Ziel 3 Leben wieder her.',cost:2,icon:'☥',age:'orient',ability:A(E('heal',3),'any'),ai:'defensive'},
-{id:'dandolo',name:'Enrico Dandolo',era:'Venedig',color:'#8d5065',power:'Rammsporn der Galeeren',powerText:'Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus.',cost:2,icon:'†',age:'mittelalter',ability:A(E('weapon',1,{durability:2})),ai:'combo'},
-{id:'khan',name:'Dschingis Khan',era:'Mongolen',color:'#947142',power:'Pfeilhagel',powerText:'Fügt dem feindlichen Helden 2 Schaden zu.',cost:2,icon:'➶',age:'steppe',ability:A(E('face',2)),ai:'aggressive'},
-{id:'boudicca',name:'Boudicca',era:'Kelten',color:'#45835b',power:'Kriegsrausch',powerText:'+1 Angriff für diesen Zug und +2 Rüstung.',cost:2,icon:'✹',age:'mittelalter',ability:A([E('heroAttack',1),E('armor',2)]),ai:'aggressive'},
-{id:'nostradamus',name:'Nostradamus',era:'Renaissance',color:'#69509c',power:'Verbotene Vision',powerText:'Zieht 1 Karte. Euer Held erleidet 1 Schaden.',cost:2,icon:'◈',age:'renaissance',ability:A([E('draw',1),E('selfDamage',1)]),ai:'combo'},
-{id:'jeanne',name:'Jeanne d’Arc',era:'Frankreich',color:'#b39853',power:'Aufruf',powerText:'Ruft einen Rekruten (1/1) herbei.',cost:2,icon:'⚑',age:'mittelalter',ability:A(E('summon',1,{token:'recruit',bonusIf:'jeanne_9'})),ai:'aggressive'},
-{id:'ragnar',name:'Ragnar Lodbrok',era:'Wikinger',color:'#397c89',power:'Ahnenruf',powerText:'Ruft einen zufälligen Runenstein, den Ihr noch nicht habt.',cost:2,icon:'Y',age:'mittelalter',ability:A(E('summonNew',1,{tokens:['totem_heal','totem_fire','totem_guard','totem_strength']})),ai:'aggressive'},
-{id:'musashi',name:'Miyamoto Musashi',era:'Japan',color:'#bd6571',power:'Weg der Klinge',powerText:'+1 Angriff für diesen Zug.',cost:1,icon:'⚔',age:'ostasien',ability:A(E('heroAttack',1)),ai:'aggressive'},
+{id:'imhotep',name:'Imhotep',era:'Ägypten',color:'#c19940',power:'Heilkunst',powerText:'Stellt bei einem Ziel 3 Leben wieder her.',cost:2,icon:'☥',age:'steppe',ability:A(E('heal',3),'any'),ai:'defensive'},
+{id:'dandolo',name:'Enrico Dandolo',era:'Venedig',color:'#8d5065',power:'Rammsporn der Galeeren',powerText:'Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus.',cost:2,icon:'†',age:'byzanz',ability:A(E('weapon',1,{durability:2})),ai:'combo'},
+{id:'khan',name:'Widukind',era:'Sachsen',color:'#947142',power:'Überfall aus dem Wald',powerText:'Fügt dem feindlichen Helden 2 Schaden zu.',cost:2,icon:'♘',age:'mittelalter',ability:A(E('face',2)),ai:'aggressive'},
+{id:'boudicca',name:'Vercingetorix',era:'Arverner',color:'#45835b',power:'Schild der Arverner',powerText:'+1 Angriff für diesen Zug und +2 Rüstung.',cost:2,icon:'✹',age:'rom',ability:A([E('heroAttack',1),E('armor',2)]),ai:'aggressive'},
+{id:'nostradamus',name:'Johann Friedrich Böttger',era:'Meißen',color:'#69509c',power:'Arkanum',powerText:'Zieht 1 Karte. Euer Held erleidet 1 Schaden.',cost:2,icon:'⚗',age:'ostasien',ability:A([E('draw',1),E('selfDamage',1)]),ai:'combo'},
+{id:'jeanne',name:'Hildegard von Bingen',era:'Rupertsberg',color:'#b39853',power:'Klostergemeinschaft',powerText:'Ruft einen Rekruten (1/1) herbei.',cost:2,icon:'❦',age:'mittelalter',ability:A(E('summon',1,{token:'recruit',bonusIf:'jeanne_9'})),ai:'aggressive'},
+{id:'ragnar',name:'Wiprecht von Groitzsch',era:'Mark Meißen',color:'#397c89',power:'Grenzsteine setzen',powerText:'Ruft einen zufälligen Runenstein, den Ihr noch nicht habt.',cost:2,icon:'⚒',age:'mittelalter',ability:A(E('summonNew',1,{tokens:['totem_heal','totem_fire','totem_guard','totem_strength']})),ai:'aggressive'},
+{id:'musashi',name:'Ulrich von Liechtenstein',era:'Steiermark',color:'#bd6571',power:'Tjost',powerText:'+1 Angriff für diesen Zug.',cost:1,icon:'⚔',age:'mittelalter',ability:A(E('heroAttack',1)),ai:'aggressive'},
 // Welle 1 der neuen Helden (AP 5.10, 1.9.0): noch ohne Porträt – die Oberfläche zeigt ein Medaillon mit Monogramm (AP 5.12).
 {id:'perikles',name:'Perikles',era:'Athen',color:'#7d8a3c',power:'Bauherr der Akropolis',powerText:'Ruft einen Bürger (1/2). Euer schwächstes Bauwerk erhält +2 Haltbarkeit.',cost:2,icon:'Π',age:'griechen',ability:A([E('summon',1,{token:'citizen'}),E('fortify',2,{else:[]})]),ai:'defensive'},
 {id:'agrippa',name:'Marcus Agrippa',era:'Rom',color:'#a8552a',power:'Legionspioniere',powerText:'Ruft einen Pionier (1/3). Solange er lebt, kosten Eure Bauwerke 1 weniger.',cost:2,icon:'A',age:'rom',ability:A(E('summon',1,{token:'pioneer'})),ai:'combo'},
-{id:'amanirenas',name:'Amanirenas',era:'Kusch',color:'#2f8f7a',power:'Kandake',powerText:'Verursacht 1 Schaden an einem zufälligen Feind. Stirbt dadurch ein Diener, der nicht beschworen wurde, zieht 1 Karte.',cost:2,icon:'☉',age:'afrika',ability:A(E('damage',1,{onKill:[E('draw',1)],noToken:true}),'random'),ai:'aggressive'},
+{id:'amanirenas',name:'Ahhotep I.',era:'Theben am Nil',color:'#2f8f7a',power:'Goldene Fliegen',powerText:'Verursacht 1 Schaden an einem zufälligen Feind. Stirbt dadurch ein Diener, der nicht beschworen wurde, zieht 1 Karte.',cost:2,icon:'☉',age:'steppe',ability:A(E('damage',1,{onKill:[E('draw',1)],noToken:true}),'random'),ai:'aggressive'},
 {id:'anna',name:'Anna Komnene',era:'Byzanz',color:'#7b2d6a',power:'Alexiade',powerText:'Ergründet eine Karte, die in dieser Partie schon gespielt wurde.',cost:2,icon:'☧',age:'byzanz',ability:A(E('discover',1,{pool:'played'})),ai:'combo'},
-{id:'nezahualcoyotl',name:'Nezahualcóyotl',era:'Texcoco',color:'#4f9a3a',power:'Blumenlied',powerText:'Stellt bei allen eigenen Charakteren 2 Leben wieder her.',cost:2,icon:'❀',age:'amerika',ability:A(E('healAll',2)),ai:'defensive'},
-{id:'masako',name:'Hōjō Masako',era:'Kamakura',color:'#3f4f8f',power:'Rede an die Vasallen',powerText:'Ein befreundeter Diener erhält +1 Leben und Schildwall.',cost:2,icon:'☸',age:'ostasien',ability:A([E('buff',0,{health:1}),E('grant',1,{key:'taunt'})],'friendlyMinion'),ai:'defensive'},
+{id:'nezahualcoyotl',name:'Nezahualcóyotl',era:'Texcoco',color:'#4f9a3a',power:'Blumenlied',powerText:'Stellt bei allen eigenen Charakteren 2 Leben wieder her.',cost:2,icon:'❀',age:'ostasien',ability:A(E('healAll',2)),ai:'defensive'},
+{id:'masako',name:'Theophanu',era:'Ottonen',color:'#3f4f8f',power:'Regentschaft',powerText:'Ein befreundeter Diener erhält +1 Leben und Schildwall.',cost:2,icon:'♛',age:'mittelalter',ability:A([E('buff',0,{health:1}),E('grant',1,{key:'taunt'})],'friendlyMinion'),ai:'defensive'},
 // Welle 2 (AP 5.10, 1.11.0): Rivalen und Gegenstücke, je einer pro Zeitalter mit mehreren Helden – ebenfalls mit Monogramm.
 {id:'epaminondas',name:'Epaminondas',era:'Theben',color:'#4e6fa8',power:'Schiefe Schlachtordnung',powerText:'Euer Diener ganz links erhält +1/+1.',cost:2,icon:'Θ',age:'griechen',ability:A(E('buffLeft',1,{health:1})),ai:'aggressive'},
 {id:'fabius',name:'Fabius Maximus',era:'Römische Republik',color:'#7e3b4a',power:'Cunctator',powerText:'Verursacht 1 Schaden an einem feindlichen Diener und versetzt ihn in Starre.',cost:3,icon:'F',age:'rom',ability:A([E('damage',1),E('freeze',1)],'enemyMinion'),ai:'defensive'},
-{id:'mandukhai',name:'Mandukhai Khatun',era:'Mongolei',color:'#c27c2e',power:'Stammesbündnis',powerText:'Habt Ihr 3 oder mehr Diener, erhalten alle +1 Leben. Sonst ruft Ihr einen Stammeskrieger (1/2).',cost:2,icon:'☽',age:'steppe',ability:A(E('ifMinions',3,{then:[E('buffAll',0,{health:1})],else:[E('summon',1,{token:'tribesman'})]})),ai:'combo'},
+{id:'mandukhai',name:'Thusnelda',era:'Cherusker',color:'#c27c2e',power:'Stammesbündnis',powerText:'Habt Ihr 3 oder mehr Diener, erhalten alle +1 Leben. Sonst ruft Ihr einen Stammeskrieger (1/2).',cost:2,icon:'☽',age:'rom',ability:A(E('ifMinions',3,{then:[E('buffAll',0,{health:1})],else:[E('summon',1,{token:'tribesman'})]})),ai:'combo'},
 {id:'baibars',name:'Baibars',era:'Mamluken',color:'#b84a2a',power:'Mamlukenreiter',powerText:'Ein befreundeter Diener erhält +1 Angriff und Vorstoß.',cost:2,icon:'♞',age:'byzanz',ability:A([E('buff',1),E('grant',1,{key:'rush'})],'friendlyMinion'),ai:'aggressive'},
-{id:'zizka',name:'Jan Žižka',era:'Hussiten',color:'#4f5d3a',power:'Wagenburg',powerText:'Ruft einen Kriegswagen (1/2, Schildwall).',cost:2,icon:'Ž',age:'mittelalter',ability:A(E('summon',1,{token:'wagon'})),ai:'defensive'},
-{id:'fuhao',name:'Fu Hao',era:'Shang',color:'#8c7a2c',power:'Orakelknochen',powerText:'Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand.',cost:2,icon:'卜',age:'ostasien',ability:A(E('discover',1,{pool:'deck'})),ai:'combo'}
+{id:'zizka',name:'Vauban',era:'Frankreich',color:'#4f5d3a',power:'Festungsbau',powerText:'Ruft einen Kriegswagen (1/2, Schildwall).',cost:2,icon:'✶',age:'ostasien',ability:A(E('summon',1,{token:'wagon'})),ai:'defensive'},
+{id:'fuhao',name:'Fürstin von Vix',era:'Hallstattzeit',color:'#8c7a2c',power:'Opfergabe',powerText:'Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand.',cost:2,icon:'◎',age:'steppe',ability:A(E('discover',1,{pool:'deck'})),ai:'combo'}
 ];
 const cards=[];
 const sets={
@@ -53,7 +58,7 @@ jeanne:[M('Bauernrekrut',1,1,3,'Göttliche Gunst.',{shield:true}),S('Bannersegen
 ragnar:[M('Fjordspäher',1,1,3),S('Runenblitz',2,'Verursacht 3 Schaden.',E('damage',3),'any'),M('Schildmaid',3,3,4,'Schildwall.',{taunt:true}),M('Runenschnitzer',4,4,4,'Einmarsch: Ruft eine Heilrune (0/2).',{battle:[E('summon',1,{token:'totem_heal'})]}),S('Donnerschlag',3,'Fügt allen feindlichen Dienern 1 Schaden zu und versetzt sie in Starre.',[E('aoe',1),E('freeze',1,{all:true})]),M('Berserker vom Fjord',4,5,3,'Sturmangriff.',{charge:true}),S('Ahnenbund',3,'Gebt Euren Dienern +1/+2.',E('buffAll',1,{health:2})),M('Runenhüter',5,4,6,'Vermächtnis: Ruft eine Feuerrune (0/2).',{death:[E('summon',1,{token:'totem_fire'})]}),S('Sturm der Nordsee',5,'Verursacht 6 Schaden. Zieht 1 Karte.',[E('damage',6),E('draw',1)],'any'),M('Lagertha, Schildmaid',7,6,7,'Schildwall. Einmarsch: Ruft jeden Runenstein einmal. Eure Runensteine haben Schildwall und +1 Leben.',{taunt:true,aura:'lagertha',battle:[E('totems',1)]})],
 musashi:[M('Dojoschüler',1,2,1),S('Schneller Schnitt',1,'Verursacht 2 Schaden an einem Diener.',E('damage',2),'minion'),M('Rōnin',3,3,4),S('Konzentration',2,'Zieht 2 Karten.',E('draw',2)),M('Kirschblütenwache',3,2,4,'Göttliche Gunst.',{shield:true}),S('Zwei Himmel',3,'Euer Held erhält für diesen Zug +4 Angriff und 2 Rüstung.',[E('heroAttack',4),E('armor',2)]),M('Duellant',4,4,3,'Vorstoß.',{rush:true}),S('Der leere Geist',5,'Gebt einem befreundeten Diener +3/+3 und Göttliche Gunst.',[E('buff',3,{health:3}),E('shield',1)],'friendlyMinion'),M('Meister der fünf Ringe',6,5,6,'Göttliche Gunst. Vermächtnis: Zieht 1 Karte.',{shield:true,death:[E('draw',1)]}),M('Sasaki Kojirō, der Rivale',6,5,6,'Doppelschlag. Einmarsch: Duell – Kojirō und ein feindlicher Diener Eurer Wahl kämpfen, bis einer stirbt.',{double:true,target:'enemyMinion',battle:[E('duel',1)]})]
 };
-heroes.slice(0,10).forEach((h,i)=>{h.art='heroes';h.cell=i;});
+heroes.slice(0,10).forEach((h,i)=>{if(!replaced.includes(h.id)){h.art='heroes';h.cell=i;}});
 for(const h of heroes.slice(0,10))sets[h.id].forEach((c,i)=>cards.push({...c,id:h.id+'_'+i,hero:h.id,rarity:['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'][i],art:h.id,cell:i}));
 const neutral=[
 M('Dorfwache',1,1,2,'Schildwall.',{taunt:true}),M('Wandernder Händler',2,2,2,'Vermächtnis: Erhaltet 2 Rüstung.',{death:[E('armor',2)]}),M('Steinschleuderer',2,3,2),M('Grenzläuferin',3,3,3,'Tarnung.',{stealth:true}),M('Festungsschild',4,3,5,'Schildwall.',{taunt:true}),M('Kavallerist',4,4,3,'Sturmangriff.',{charge:true}),M('Feldheilerin',3,2,4,'Einmarsch: Heilt Euren Helden um 3.',{battle:[E('healHero',3)]}),M('Archivarin',4,3,4,'Einmarsch: Zieht 1 Karte.',{battle:[E('draw',1)]}),M('Wachhund',2,2,2,'Schildwall.',{taunt:true}),M('Veteran',5,5,6),M('Belagerungsturm',6,5,7,'Schildwall.',{taunt:true}),M('Schmied',3,3,3,'Einmarsch: Erhaltet 2 Rüstung.',{battle:[E('armor',2)]}),M('Wüstenspäherin',1,2,1),M('Gebirgswache',5,4,7,'Schildwall.',{taunt:true}),M('Verwegener Bote',3,3,2,'Sturmangriff.',{charge:true}),M('Laternenträger',2,1,3,'Vermächtnis: Zieht 1 Karte.',{death:[E('draw',1)]}),S('Versorgung',2,'Zieht 2 Karten.',E('draw',2)),S('Erste Hilfe',1,'Heilt ein Ziel um 4.',E('heal',4),'any'),S('Wurfmesser',2,'Verursacht 2 Schaden.',E('damage',2),'any'),M('Kriegselefant',7,7,8,'Vorstoß.',{rush:true}),
@@ -105,8 +110,8 @@ const wave1=[
  ['imhotep_12','rare',M('Ka-Statue',2,0,6,'Bauwerk. Schildwall. Vermächtnis: Stellt bei Eurem Helden 5 Leben wieder her.',{building:true,taunt:true,death:[E('healHero',5)]})],
  ['dandolo_11','common',M('Galeerenschmied',2,2,2,'Einmarsch: Eure Waffe erhält +1 Angriff und +1 Haltbarkeit.',{battle:[E('weaponUp',1)]})],
  ['dandolo_12','rare',S('Plünderung Konstantinopels',6,'Vernichtet einen feindlichen Diener. Ergründet eine Karte eines anderen Helden.',[E('destroy',1),E('discover',1,{pool:'foreign'})],'enemyMinion')],
- ['khan_11','common',M('Jurtenlager',3,0,4,'Bauwerk. Zu Beginn Eures Zuges: Ruft einen Steppenreiter (1/1, Sturmangriff).',{building:true,start:[E('summon',1,{token:'rider'})]})],
- ['khan_12','rare',S('Kurultai',4,'Ruft drei Steppenreiter (1/1, Sturmangriff).',E('summon',3,{token:'rider'}))],
+ ['khan_11','common',M('Jurtenlager',3,0,4,'Bauwerk. Zu Beginn Eures Zuges: Ruft einen Reiter (1/1, Sturmangriff).',{building:true,start:[E('summon',1,{token:'rider'})]})],
+ ['khan_12','rare',S('Kurultai',4,'Ruft drei Reiter (1/1, Sturmangriff).',E('summon',3,{token:'rider'}))],
  ['boudicca_11','common',M('Barde der Icener',2,2,2,'Einmarsch: Euer Held erhält in diesem Zug +2 Angriff.',{battle:[E('heroAttack',2)]})],
  ['boudicca_12','rare',M('Sichelwagen',5,3,3,'Sturmangriff. Einmarsch: Fügt allen feindlichen Dienern 1 Schaden zu.',{charge:true,battle:[E('aoe',1)]})],
  ['nostradamus_11','common',S('Almanach der Quatrains',1,'Zieht 1 Karte. Sie kostet 1 weniger.',E('draw',1,{mod:-1}))],
@@ -129,7 +134,7 @@ const wave1=[
  ['nezahualcoyotl_11','rare',M('Chinampa',2,0,4,'Bauwerk. Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält +1/+1.',{building:true,start:[E('buffRandom',1,{health:1})]})],
  ['masako_10','common',M('Jitō-Verwalter',2,2,3,'Einmarsch: Gebt einem befreundeten Diener Schildwall.',{target:'friendlyMinion',battle:[E('grant',1,{key:'taunt'})]})],
  ['masako_11','rare',S('Siegel des Shikken',2,'Eure Diener mit Schildwall erhalten Göttliche Gunst. Zieht 1 Karte.',[E('grantAll',1,{key:'shield',only:'taunt'}),E('draw',1)])],
- // Zeitalterkarten: Griechische Antike (Leonidas, Hypatia, Perikles)
+ // Zeitalterkarten: Griechenland und Hellenismus (Leonidas, Hypatia, Perikles, Epaminondas)
  ['griechen_0','common',M('Olympionike',4,3,3,'Sturmangriff. Göttliche Gunst.',{charge:true,shield:true})],
  ['griechen_1','common',M('Rhapsode',2,2,2,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
  ['griechen_2','common',M('Marathonläufer',2,2,1,'Sturmangriff. Vermächtnis: Zieht 1 Karte.',{charge:true,death:[E('draw',1)]})],
@@ -137,7 +142,7 @@ const wave1=[
  ['griechen_4','rare',M('Leuchtturm von Pharos',3,0,5,'Bauwerk. Arkaner Fokus +1. Eure Zauber kosten 1 weniger.',{building:true,focus:1,spellDiscount:1})],
  ['griechen_5','rare',M('Akropolis',2,0,5,'Bauwerk. Eure Diener haben +1 Leben.',{building:true,buffAura:{health:1}})],
  ['griechen_6','epic',M('Bibliothek von Alexandria',3,0,5,'Bauwerk. Zu Beginn Eures Zuges: Ergründet einen Zauber.',{building:true,start:[E('discover',1,{pool:'spell'})]})],
- // Europäisches Mittelalter (Dandolo, Boudicca, Jeanne, Ragnar)
+ // Mittelalter im Reich (seit 1.14.0: Widukind, Hildegard, Wiprecht, Ulrich, Theophanu)
  ['mittelalter_0','common',M('Knappe',1,1,2,'Einmarsch: Gebt einem befreundeten Diener +1 Angriff.',{target:'friendlyMinion',battle:[E('buff',1)]})],
  ['mittelalter_1','common',M('Armbrustschütze',3,3,2,'Einmarsch: Verursacht 2 Schaden an einem Diener.',{target:'minion',battle:[E('damage',2)]})],
  ['mittelalter_2','common',M('Mönch von Cluny',3,2,4,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
@@ -145,14 +150,14 @@ const wave1=[
  ['mittelalter_4','rare',M('Turnierritter',4,3,3,'Vorstoß. Göttliche Gunst.',{rush:true,shield:true})],
  ['mittelalter_5','rare',M('Burgfried',2,0,6,'Bauwerk. Schildwall. Zu Beginn Eures Zuges: Erhaltet 2 Rüstung.',{building:true,taunt:true,start:[E('armor',2)]})],
  ['mittelalter_6','epic',M('Tribok',4,0,5,'Bauwerk. Am Ende Eures Zuges: Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu.',{building:true,end:[E('randomDamage',3,{board:true})]})],
- // China, Korea, Japan (Musashi, Masako)
- ['ostasien_0','common',M('Ashigaru',1,2,1,'Vorstoß.',{rush:true})],
- ['ostasien_1','common',M('Mandarin-Gelehrter',3,2,4,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
- ['ostasien_2','common',S('Teezeremonie',2,'Stellt bei Eurem Helden 4 Leben wieder her. Zieht 1 Karte.',[E('healHero',4),E('draw',1)])],
- ['ostasien_3','rare',S('Hwacha-Salve',3,'Fügt fünfmal einem zufälligen Feind 1 Schaden zu.',E('randomDamage',1,{times:5}))],
- ['ostasien_4','rare',M('Schildkrötenschiff',5,3,7,'Schildwall. Wann immer dieser Diener Schaden erleidet, fügt er einem zufälligen Feind 1 Schaden zu.',{taunt:true,onDamage:[E('randomDamage',1)]})],
- ['ostasien_5','epic',S('Terrakotta-Armee',5,'Ruft drei Terrakotta-Krieger (2/2, Schildwall).',E('summon',3,{token:'terracotta'}))],
- ['ostasien_6','epic',M('Große Mauer',2,0,7,'Bauwerk. Schildwall. Feindliche Diener können Euren Helden nicht in dem Zug angreifen, in dem sie erscheinen.',{building:true,taunt:true,wall:true})],
+ // Frühe Neuzeit (Böttger, Nezahualcóyotl, Vauban) – seit 1.14.0 (AP L.2), vormals China, Korea, Japan; Wirkungen unverändert
+ ['ostasien_0','common',M('Landsknecht',1,2,1,'Vorstoß.',{rush:true})],
+ ['ostasien_1','common',M('Buchdrucker aus Mainz',3,2,4,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
+ ['ostasien_2','common',S('Leipziger Kaffeehaus',2,'Stellt bei Eurem Helden 4 Leben wieder her. Zieht 1 Karte.',[E('healHero',4),E('draw',1)])],
+ ['ostasien_3','rare',S('Kartaunen-Salve',3,'Fügt fünfmal einem zufälligen Feind 1 Schaden zu.',E('randomDamage',1,{times:5}))],
+ ['ostasien_4','rare',M('Kriegsgaleone',5,3,7,'Schildwall. Wann immer dieser Diener Schaden erleidet, fügt er einem zufälligen Feind 1 Schaden zu.',{taunt:true,onDamage:[E('randomDamage',1)]})],
+ ['ostasien_5','epic',S('Stehendes Heer',5,'Ruft drei Musketiere (2/2, Schildwall).',E('summon',3,{token:'terracotta'}))],
+ ['ostasien_6','epic',M('Sternschanze',2,0,7,'Bauwerk. Schildwall. Feindliche Diener können Euren Helden nicht in dem Zug angreifen, in dem sie erscheinen.',{building:true,taunt:true,wall:true})],
  // Neutrale Weltwunder (AP 5.5). Das Aquädukt aus den Beispielen gibt es schon: Aquädukt von Chapultepec (Nezahualcóyotl).
  ['neutral_47','rare',M('Kolosseum',3,0,6,'Bauwerk. Wann immer ein Diener stirbt, erhaltet 1 Rüstung.',{building:true,anyDeath:[E('armor',1)]})],
  ['neutral_48','rare',M('Hängende Gärten',2,0,5,'Bauwerk. Am Ende Eures Zuges: Heilt Eure Diener um 1. Heilung wirkt bei Euren Dienern doppelt.',{building:true,passive:'heal',healDouble:true})],
@@ -188,8 +193,9 @@ fuhao:[M('Bogenschützin der Shang',1,1,2,'Einmarsch: Fügt dem feindlichen Held
  M('Ahnentempel von Yin',1,0,3,'Bauwerk. Zu Beginn Eures Zuges: Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand.',{building:true,start:[E('discover',1,{pool:'deck'})]}),M('Wu Ding, König der Shang',6,5,6,'Einmarsch: Seht zweimal die obersten drei Karten Eures Decks an und nehmt je eine davon auf die Hand. Sie kosten 2 weniger.',{battle:[E('discover',2,{pool:'deck',mod:-2})]})]
 };
 for(const [hero,list] of Object.entries(heroes3))list.forEach((c,i)=>cards.push({...c,id:hero+'_'+i,hero,rarity:['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'][i],art:null,cell:0}));
-// Zeitalterkarten der Welle 2 (AP 5.10): Rom (Agrippa, Fabius), Persien & Steppe (Khan, Mandukhai), Byzanz & islamische
-// Welt (Anna, Baibars) – diese Zeitalter haben jetzt je zwei Helden.
+// Zeitalterkarten der Welle 2 (AP 5.10): Rom und Germanien (Agrippa, Fabius, Vercingetorix, Thusnelda), Kreuzzüge (Dandolo,
+// Anna, Baibars) und – seit 1.14.0 (AP L.2) neu benannt, Wirkungen unverändert – Frühzeit und Ägypten (Fürstin von Vix,
+// Imhotep, Ahhotep; vormals Persien & Steppe).
 const wave2=[
  ['rom_0','common',M('Gladiator',3,3,3,'Vorstoß. Wann immer dieser Diener Schaden erleidet, erhält er +1 Angriff.',{rush:true,onDamage:[E('buffSelf',1)]})],
  ['rom_1','common',M('Senator der Kurie',3,2,4,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
@@ -198,13 +204,13 @@ const wave2=[
  ['rom_4','rare',M('Via Appia',2,0,5,'Bauwerk. Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält +1 Angriff.',{building:true,start:[E('buffRandom',1)]})],
  ['rom_5','rare',M('Vestalin am ewigen Feuer',3,2,4,'Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her.',{end:[E('healHero',2)]})],
  ['rom_6','epic',S('Pax Romana',5,'Versetzt alle feindlichen Diener in Starre. Stellt bei allen eigenen Charakteren 3 Leben wieder her.',[E('freeze',1,{all:true}),E('healAll',3)])],
- ['steppe_0','common',M('Pferdehirtin',2,1,2,'Einmarsch: Ruft einen Steppenreiter (1/1, Sturmangriff).',{battle:[E('summon',1,{token:'rider'})]})],
- ['steppe_1','common',M('Schamane des Ewigen Himmels',3,2,4,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
- ['steppe_2','common',S('Parthischer Schuss',2,'Verursacht 2 Schaden. Stirbt dadurch ein Diener, zieht 1 Karte.',E('damage',2,{onKill:[E('draw',1)]}),'any')],
- ['steppe_3','rare',M('Garde der Unsterblichen',4,3,3,'Vermächtnis: Ruft einen Unsterblichen (3/3).',{death:[E('summon',1,{token:'immortal'})]})],
- ['steppe_4','rare',S('Pfeilsturm der Steppe',3,'Fügt dreimal einem zufälligen Feind 1 Schaden zu. Ruft einen Steppenreiter (1/1, Sturmangriff).',[E('randomDamage',1,{times:3}),E('summon',1,{token:'rider'})])],
- ['steppe_5','rare',M('Königsstraße',2,0,4,'Bauwerk. Zu Beginn Eures Zuges: Zieht 1 Karte. Euer Held erleidet 1 Schaden.',{building:true,start:[E('draw',1),E('selfDamage',1)]})],
- ['steppe_6','epic',M('Persepolis',3,0,5,'Bauwerk. Zu Beginn Eures Zuges: Ruft einen Unsterblichen (3/3).',{building:true,start:[E('summon',1,{token:'immortal'})]})],
+ ['steppe_0','common',M('Wagenbauer',2,1,2,'Einmarsch: Ruft einen Streitwagen (1/1, Sturmangriff).',{battle:[E('summon',1,{token:'chariot'})]})],
+ ['steppe_1','common',M('Schreiber im Lebenshaus',3,2,4,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
+ ['steppe_2','common',S('Schuss vom Streitwagen',2,'Verursacht 2 Schaden. Stirbt dadurch ein Diener, zieht 1 Karte.',E('damage',2,{onKill:[E('draw',1)]}),'any')],
+ ['steppe_3','rare',M('Wache der Medjai',4,3,3,'Vermächtnis: Ruft einen Medjai-Krieger (3/3).',{death:[E('summon',1,{token:'immortal'})]})],
+ ['steppe_4','rare',S('Angriff der Streitwagen',3,'Fügt dreimal einem zufälligen Feind 1 Schaden zu. Ruft einen Streitwagen (1/1, Sturmangriff).',[E('randomDamage',1,{times:3}),E('summon',1,{token:'chariot'})])],
+ ['steppe_5','rare',M('Bernsteinstraße',2,0,4,'Bauwerk. Zu Beginn Eures Zuges: Zieht 1 Karte. Euer Held erleidet 1 Schaden.',{building:true,start:[E('draw',1),E('selfDamage',1)]})],
+ ['steppe_6','epic',M('Festung Buhen',3,0,5,'Bauwerk. Zu Beginn Eures Zuges: Ruft einen Medjai-Krieger (3/3).',{building:true,start:[E('summon',1,{token:'immortal'})]})],
  ['byzanz_0','common',M('Akrit der Grenzmark',2,2,3,'Schildwall.',{taunt:true})],
  ['byzanz_1','common',M('Gelehrter im Haus der Weisheit',3,2,4,'Einmarsch: Ergründet eine Karte Eures Zeitalters.',{battle:[E('discover',1,{pool:'age'})]})],
  ['byzanz_2','common',S('Tribut in Goldbyzantinern',2,'Euer Gegner hat im nächsten Zug 1 Mana weniger. Zieht 1 Karte.',[E('enemyOverload',1),E('draw',1)])],
@@ -215,13 +221,13 @@ const wave2=[
 for(const [id,rarity,c] of wave2){const age=id.slice(0,id.lastIndexOf('_'));cards.push({...c,id,hero:age,age,rarity,art:null,cell:0});}
 const tokens={recruit:M('Rekrut',1,1,1),warrior:M('Krieger',2,2,2),eagle:M('Adler',1,2,1),stoneguard:M('Pyramidenwächter',3,2,5,'Schildwall.',{taunt:true}),totem_heal:M('Heilrune',1,0,2,'Am Ende Eures Zuges: Heilt Eure Diener um 1.',{passive:'heal'}),totem_fire:M('Feuerrune',1,0,2,'Am Ende Eures Zuges: Fügt dem feindlichen Helden 1 Schaden zu.',{passive:'fire'}),totem_guard:M('Schutzrune',1,0,2,'Schildwall.',{taunt:true}),totem_strength:M('Kraftrune',1,0,2,'Am Ende Eures Zuges: Ein anderer zufälliger Diener erhält +1 Angriff.',{passive:'strength'}),coin:S('Gunst der Stunde',0,'Erhaltet nur in diesem Zug 2 Mana.',E('mana',2)),
  hoplite:M('Hoplit',1,1,2,'Schildwall.',{taunt:true}),citizen:M('Bürger',1,1,2),pioneer:M('Pionier',1,1,3,'Eure Bauwerke kosten 1 weniger.',{buildingDiscount:1}),
- rider:M('Steppenreiter',1,1,1,'Sturmangriff.',{charge:true}),terracotta:M('Terrakotta-Krieger',2,2,2,'Schildwall.',{taunt:true}),
+ rider:M('Reiter',1,1,1,'Sturmangriff.',{charge:true}),chariot:M('Streitwagen',1,1,1,'Sturmangriff.',{charge:true}),terracotta:M('Musketier',2,2,2,'Schildwall.',{taunt:true}),
  tribesman:M('Stammeskrieger',1,1,2),wagon:M('Kriegswagen',1,1,2,'Schildwall.',{taunt:true}),taborite:M('Taborit',2,2,3,'Schildwall.',{taunt:true}),
-  mamluk:M('Mamlukenreiter',2,2,1,'Vorstoß.',{rush:true}),immortal:M('Unsterblicher',3,3,3),messenian:M('Freier Messenier',2,2,2),
+  mamluk:M('Mamlukenreiter',2,2,1,'Vorstoß.',{rush:true}),immortal:M('Medjai-Krieger',3,3,3),messenian:M('Freier Messenier',2,2,2),
   companion:M('Gefährte der Heiligen Schar',3,3,3,'Göttliche Gunst.',{shield:true}),twin:M('Zwilling der Khatun',2,2,1),elephant:M('Kriegselefant',5,5,6,'Vorstoß.',{rush:true}),
   parthenos:M('Athena Parthenos',5,0,8,'Bauwerk. Eure Diener haben +1/+1.',{building:true,buffAura:{attack:1,health:1}}),
  pyramid:M('Stufenpyramide',4,0,8,'Bauwerk. Zu Beginn Eures Zuges erhält Euer schwächster Diener +2/+2.',{building:true,start:[E('buffWeakest',2,{health:2})]})};
-const ART={hoplite:['leonidas',10],pyramid:['@pyramid',0],eagle:['khan',10],stoneguard:['imhotep',10],citizen:[null,0],pioneer:[null,0],parthenos:[null,0],rider:[null,0],terracotta:[null,0],
+const ART={hoplite:['leonidas',10],pyramid:['@pyramid',0],eagle:['khan',10],stoneguard:['imhotep',10],citizen:[null,0],pioneer:[null,0],parthenos:[null,0],rider:[null,0],chariot:[null,0],terracotta:[null,0],
  tribesman:[null,0],wagon:[null,0],taborite:[null,0],mamluk:[null,0],immortal:[null,0],messenian:[null,0],companion:[null,0],twin:[null,0],elephant:[null,0]};
 for(const [id,c] of Object.entries(tokens)){c.id=id;c.hero='neutral';c.rarity='token';const [art,cell]=ART[id]||[id.startsWith('totem')?'ragnar':'jeanne',id==='coin'?11:10];c.art=art;c.cell=cell;}
 const byId=Object.fromEntries([...cards,...Object.values(tokens)].map(c=>[c.id,c]));
@@ -230,26 +236,27 @@ const missions=[
 ['Die Bibliothek','Der Zensor','hypatia','Das Wissen bewahren',30,'draw','Der Boss zieht jeden dritten eigenen Zug eine zusätzliche Karte.'],
 ['Unter der Pyramide','Hüter der Grabkammer','imhotep','Die versiegelte Kammer',32,'heal','Der Boss heilt sich zu Beginn seines Zuges um 2.'],
 ['Nebel über Venedig','Der Maskendoge','dandolo','Der Preis des Handels',32,'weapon','Der Boss rüstet jeden dritten eigenen Zug eine 2/2-Waffe aus.'],
-['Jenseits der Steppe','Der Eiserne Reiter','khan','Unter dem endlosen Himmel',34,'arrow','Der Boss fügt Eurem Helden zu Beginn seines Zuges 1 Schaden zu.'],
-['Die brennende Insel','Roms Statthalter','boudicca','Der Ruf der Icener',34,'recruit','Der Boss ruft jeden zweiten eigenen Zug einen Rekruten (1/1).'],
-['Die rote Konjunktion','Der Hofastrologe','nostradamus','Zwischen den Zeiten',36,'storm','Der Boss fügt Euren Dienern jeden dritten eigenen Zug 1 Schaden zu.'],
-['Die Tore von Orléans','Der Schwarze Marschall','jeanne','Ein Licht in der Belagerung',36,'shield','Der Boss verleiht seinem ersten Diener zu Beginn seines Zuges Göttliche Gunst.'],
-['Das eisige Meer','Der Runenkönig','ragnar','Wo die Ahnen wachen',38,'totem','Der Boss ruft jeden dritten eigenen Zug eine Feuerrune.'],
+['Der Sachsenkrieg','Karl der Große','khan','Widerstand an der Weser',34,'arrow','Der Boss fügt Eurem Helden zu Beginn seines Zuges 1 Schaden zu.'],
+['Alesia','Gaius Iulius Caesar','boudicca','Der doppelte Belagerungsring',34,'recruit','Der Boss ruft jeden zweiten eigenen Zug einen Rekruten (1/1).'],
+['Gefangen auf dem Königstein','Statthalter Fürstenberg','nostradamus','Gold oder Porzellan',36,'storm','Giftige Dämpfe: Der Boss fügt Euren Dienern jeden dritten eigenen Zug 1 Schaden zu.'],
+['Der Weg zum Rupertsberg','Abt Kuno vom Disibodenberg','jeanne','Ein eigenes Kloster',36,'shield','Der Boss verleiht seinem ersten Diener zu Beginn seines Zuges Göttliche Gunst.'],
+['Streit um die Mark Meißen','Konrad von Wettin','ragnar','Groitzsch gegen Wettin',38,'totem','Der Boss ruft jeden dritten eigenen Zug eine Feuerrune.'],
 ['Der letzte Horizont','Der Hüter der Chronik','musashi','Die Geschichte gehört Euch',40,'final','Der Boss erhält zu Beginn seines Zuges 2 Rüstung und verstärkt einen Diener um +1/+1.'],
 // Neue Chroniken (AP 5.10): je eine Mission für die neuen Helden; die Bossfähigkeit ist ein Datensatz (Effekte, jeder n-te Zug).
+// Seit 1.14.0 (AP L.1) erzählen die Missionen der ersetzten Helden deren Geschichte; Bossfähigkeit und Belohnung bleiben.
 ['Die Langen Mauern','Archidamos von Sparta','perikles','Athen im Belagerungsring',38,'fortify','Der Boss stärkt zu Beginn seines Zuges sein schwächstes Bauwerk um 2 Haltbarkeit – ohne Bauwerk erhält er 2 Rüstung.',{effects:[E('fortify',2,{else:[E('armor',2)]})]}],
 ['Actium','Die Flotte des Antonius','agrippa','Die Seeschlacht um Rom',38,'ballista','Der Boss fügt jeden zweiten eigenen Zug einem zufälligen Feind 2 Schaden zu.',{every:2,effects:[E('randomDamage',2)]}],
-['Die Tore von Syene','Gaius Petronius','amanirenas','Die Kandake zieht in den Krieg',40,'venom','Der Boss gibt jeden dritten eigenen Zug einem zufälligen eigenen Diener Tödliches Gift.',{every:3,effects:[E('grantRandom',1,{key:'poison'})]}],
+['Gegen die Hyksos','Apophis von Auaris','amanirenas','Die Mutter des Befreiers',40,'venom','Der Boss gibt jeden dritten eigenen Zug einem zufälligen eigenen Diener Tödliches Gift.',{every:3,effects:[E('grantRandom',1,{key:'poison'})]}],
 ['Purpur und Pergament','Der Kaisersohn Johannes','anna','Die Erbin der Komnenen',40,'archive','Der Boss erhält jeden dritten eigenen Zug eine zufällige Karte, die schon gespielt wurde.',{every:3,effects:[E('discover',1,{pool:'played'})]}],
 ['Der Damm im See','Maxtla von Azcapotzalco','nezahualcoyotl','Der Dichterkönig kehrt heim',40,'bloom','Der Boss stellt zu Beginn seines Zuges bei allen eigenen Charakteren 1 Leben wieder her.',{effects:[E('healAll',1)]}],
-['Der Krieg von Jōkyū','Kaiser Go-Toba','masako','Die Rede der Nonnen-Shōgun',42,'oath','Der Boss gibt zu Beginn seines Zuges einem zufälligen eigenen Diener Schildwall.',{effects:[E('grantRandom',1,{key:'taunt'})]}],
+['Das Kind auf dem Thron','Heinrich der Zänker','masako','Die Kaiserin übernimmt die Regentschaft',42,'oath','Der Boss gibt zu Beginn seines Zuges einem zufälligen eigenen Diener Schildwall.',{effects:[E('grantRandom',1,{key:'taunt'})]}],
 // Welle 2 (1.11.0): einfach hinten angehängt (Entscheidung 14) – Mission 17 bis 22.
 ['Leuktra','Kleombrotos von Sparta','epaminondas','Die schiefe Schlachtordnung',40,'phalanx','Der Boss ruft jeden zweiten eigenen Zug einen Hopliten (1/2, Schildwall).',{every:2,effects:[E('summon',1,{token:'hoplite'})]}],
 ['Der Zauderer','Hannibal Barkas','fabius','Schild Roms',42,'elephants','Der Boss ruft jeden vierten eigenen Zug einen Kriegselefanten (5/6, Vorstoß).',{every:4,effects:[E('summon',1,{token:'elephant'})]}],
-['Die Schlacht von Tas Bürd','Die Fürsten der Oiraten','mandukhai','Die Khatun im Sattel',40,'oirats','Der Boss ruft jeden zweiten eigenen Zug einen Steppenreiter (1/1, Sturmangriff).',{every:2,effects:[E('summon',1,{token:'rider'})]}],
+['Der Feldzug des Germanicus','Germanicus','mandukhai','Zwischen Vater und Gemahl',40,'oirats','Der Boss ruft jeden zweiten eigenen Zug einen Reiter (1/1, Sturmangriff).',{every:2,effects:[E('summon',1,{token:'rider'})]}],
 ['Ain Dschalut','Kitbuqa Noyan','baibars','An der Quelle des Goliath',42,'volley','Der Boss fügt jeden zweiten eigenen Zug zweimal einem zufälligen Feind 1 Schaden zu.',{every:2,effects:[E('randomDamage',1,{times:2})]}],
-['Sudoměř','Die Eisernen Herren','zizka','Die Wagenburg am Teich',42,'knights','Der Boss gibt zu Beginn seines Zuges einem zufälligen eigenen Diener Göttliche Gunst.',{effects:[E('grantRandom',1,{key:'shield'})]}],
-['Der Feldzug gegen die Qiang','Der Fürst der Qiang','fuhao','Die Feldherrin der Shang',44,'qiang','Der Boss ruft jeden dritten eigenen Zug einen Krieger (2/2).',{every:3,effects:[E('summon',1,{token:'warrior'})]}]
+['Namur 1692','Menno van Coehoorn','zizka','Festungsbauer gegen Festungsbauer',42,'knights','Der Boss gibt zu Beginn seines Zuges einem zufälligen eigenen Diener Göttliche Gunst.',{effects:[E('grantRandom',1,{key:'shield'})]}],
+['Der Fürstensitz am Mont Lassois','Der Fürst der Heuneburg','fuhao','Zinn, Wein und Bronze',44,'qiang','Der Boss ruft jeden dritten eigenen Zug einen Krieger (2/2).',{every:3,effects:[E('summon',1,{token:'warrior'})]}]
 ].map((m,i)=>({id:i,title:m[0],boss:m[1],hero:m[2],subtitle:m[3],health:m[4],ability:m[5],description:m[6],reward:100+i*15,...(m[7]||{})}));
 // Schlüsselwörter (AP 5.4): Name auf der Karte und Erklärung für Hilfe und Großansicht. Die Engine-Felder bleiben
 // (taunt, shield, battle, death, charge); Spielstände sind davon unberührt.
@@ -285,6 +292,6 @@ const eraOf=c=>owner(c)?.era||'Neutral';
 // KI-Persönlichkeit je Held (AP 5.8 Teil 2): Feld ai am Helden, Gewichte in E.value.
 const personalities={aggressive:{name:'Aggressiv',text:'sucht den Weg zum feindlichen Helden'},defensive:{name:'Defensiv',text:'hält das Feld und schützt den eigenen Helden'},
  combo:{name:'Kombinierend',text:'sammelt Karten und baut auf Dauerwirkungen'}};
-const api={heroes,ages,ageById,heroById,playable,owner,eraOf,personalities,cards,byId,tokens,missions,keywords,keywordsOf,missingArt,rarities:{basic:'Basis',common:'Gewöhnlich',rare:'Selten',epic:'Episch',legendary:'Legendär',token:'Beschworen'}};
+const api={heroes,replaced,ages,ageById,heroById,playable,owner,eraOf,personalities,cards,byId,tokens,missions,keywords,keywordsOf,missingArt,rarities:{basic:'Basis',common:'Gewöhnlich',rare:'Selten',epic:'Episch',legendary:'Legendär',token:'Beschworen'}};
 if(typeof module!=='undefined')module.exports=api;else root.CHD=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
