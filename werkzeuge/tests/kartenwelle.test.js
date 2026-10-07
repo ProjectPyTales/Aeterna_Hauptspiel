@@ -77,9 +77,9 @@ test('Neue Regeln der Heldenkarten: Spartiat, Thermopylen, Galeerenschmied, Seeb
 });
 
 test('Schildkrötenschiff schlägt zurück, Ergründen nach Zeitalter, Herodot über alle Zeitalter, zwei Ergründen zugleich',()=>{
- // Kandake (1.10.0): ein getöteter Spielstein bringt keine Karte mehr (Konter gegen Jeannes Rekruten entschärft).
- for(let k=1;k<30;k++){const t=ready('amanirenas','jeanne');t.seed=(k*2654435761)>>>0;E.summon(t,1,'recruit');t.players[1].health=1e6;act(t,{type:'power'});
-  if(!t.players[1].board.length){assert.equal(t.players[0].hand.length,0,'Rekrut getötet: keine Karte');break;}}
+ // Kandake (1.10.0): ein getöteter Spielstein bringt keine Karte mehr (Konter gegen Hildegards Novizinnen, bis 1.14.0 Jeannes Rekruten, entschärft).
+ for(let k=1;k<30;k++){const t=ready('amanirenas','jeanne');t.seed=(k*2654435761)>>>0;E.summon(t,1,'novice');t.players[1].health=1e6;act(t,{type:'power'});
+  if(!t.players[1].board.length){assert.equal(t.players[0].hand.length,0,'Novizin getötet: keine Karte');break;}}
  const s=ready('musashi','khan');const ship=E.summon(s,0,'ostasien_4');E.hurt(s,ship.uid,2);assert.equal(s.players[1].health,29,'1 Schaden am einzigen Feind');
  const g=ready('perikles');play(g,'griechen_1');assert.ok(g.choice.options.every(id=>D.byId[id].age==='griechen'));
  const o=ready('leonidas');play(o,'griechen_3');assert.ok(o.choice.options.every(id=>D.byId[id].hero==='leonidas'));act(o,{type:'choose',index:0});assert.equal(o.choice?.left,1);

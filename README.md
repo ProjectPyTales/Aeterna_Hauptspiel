@@ -2,10 +2,12 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.14.0** (elf neue Helden nach dem Lehrplan – Widukind, Hildegard von Bingen,
-Vercingetorix, Thusnelda, Theophanu, Böttger und andere – mit Chronikseiten und Missionen, sechs Zeitalter nach den
-Epochen des Lehrplans, neue Zeitalterkarten für Frühzeit und Frühe Neuzeit, alle im Code gezeichneten Grafiken für Astra
-gekennzeichnet); davor 1.13.0 mit Match ohne Bilddrossel (volle Pixeldichte, vorgerenderte Leuchteffekte, Zeichenzeit
+Aktueller Stand im Code: **Version 1.15.0** (die 132 Karten der elf Lehrplan-Helden heißen jetzt nach deren Lebenswelt –
+Novizinnen auf dem Rupertsberg, Grenzsteine in der Mark Meißen, Schanzkörbe vor Lille, Varusschlacht und Venusfahrt –,
+neutrale Karten ohne Fantasy-Namen, Bildideen für Astra); davor 1.14.0 mit elf neuen Helden nach dem Lehrplan – Widukind,
+Hildegard von Bingen, Vercingetorix, Thusnelda, Theophanu, Böttger und andere – mit Chronikseiten und Missionen, sechs
+Zeitalter nach den Epochen des Lehrplans, neue Zeitalterkarten für Frühzeit und Frühe Neuzeit, alle im Code gezeichneten
+Grafiken für Astra gekennzeichnet; davor 1.13.0 mit Match ohne Bilddrossel (volle Pixeldichte, vorgerenderte Leuchteffekte, Zeichenzeit
 −69 %), Bildraten-Anzeige, Renderer-Labor, Balance-Feinschliff und eigener Musik für Hauptmenü und Duell; davor 1.12.0 mit neuer nativer Android-Hülle in Kotlin mit Vollbild bis in die Kamera-Aussparung, Splash, Icon und Vibrationsmustern; Bilder als
 WebP – APK 56 → 12 MB –, Laden in Stufen, Massenöffnung aller Pakete ohne Standbild, angeglichene Steingeräusche mit
 Klangprobe); davor 1.11.0 mit Welle 2 der neuen Helden (Epaminondas, Fabius Maximus, Mandukhai, Baibars, Jan Žižka, Fu Hao),
@@ -60,7 +62,7 @@ Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (z. B. 1.13.0 → 1.14.0: einfach die neue APK installieren – die neue
+installieren sich neue Versionen direkt als Update (z. B. 1.14.0 → 1.15.0: einfach die neue APK installieren – die neue
 Hülle hat dieselbe Paket-ID, denselben Schlüssel und liest denselben Spielstand; Sammlung, Decks und eine laufende Partie
 bleiben).
 
@@ -158,7 +160,9 @@ Starre (`targetFrozen`, Fabius), Schaden je Schildwall-Diener und Auren nur für
 Diener (`per:'minion'`) und **Ergründen aus dem eigenen Deck** (`pool:'deck'`: die obersten drei Karten, Fu Hao).
 Seit 1.14.0 (AP L.1) sind elf Helden durch Personen aus dem sächsischen Lehrplan ersetzt: IDs, Fähigkeiten, KI und
 Karten-IDs bleiben (`khan` ist Widukind, `fuhao` die Fürstin von Vix), ebenso die Zeitalter-IDs (`steppe` = Frühzeit und
-Ägypten, `ostasien` = Frühe Neuzeit, `byzanz` = Kreuzzüge).
+Ägypten, `ostasien` = Frühe Neuzeit, `byzanz` = Kreuzzüge). Seit 1.15.0 (AP L.2) tragen auch ihre Karten und Spielsteine
+Namen aus der Lebenswelt der neuen Person; neu ist nur der Spielstein `novice` (Novizin, 1/1) für Hildegard – Jutta von
+Sponheim stärkt Novizinnen, die Rekruten (`recruit`) bleiben Dandolo und Caesars Mission.
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -166,7 +170,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden und Astra-Kennzeichnung, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
   Der Job „apk“ baut seit 1.12.0 mit Gradle (`android/`) und prüft Paket-ID, Version und Zertifikat. Lokal fehlt in den
@@ -380,7 +384,7 @@ und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
   *Umgesetzt: Name, Epoche (`era`), Name der Fähigkeit, Zeichen, Medaillon mit Monogramm statt des alten Porträts
   (`CHD.replaced`); Wirkung, Kosten und KI bleiben. Die Karten der elf tragen noch Namen und Bilder der Vorgänger
   (Widukind spielt vorerst „Subutai“) – das ist AP L.2. Die Spielsteine der Fähigkeiten (Rekrut, Runensteine,
-  Kriegswagen) heißen ebenfalls noch wie bisher.*
+  Kriegswagen) heißen ebenfalls noch wie bisher. → ✓ in 1.15.0 (AP L.2).*
 - [x] **Zeitalter neu** (Heldenwahl, Zeitalterkarten): *Frühzeit und Ägypten* (Fürstin von Vix, Imhotep, Ahhotep) ·
   *Griechenland und Hellenismus* (Leonidas, Perikles, Epaminondas, Hypatia) · *Rom und Germanien* (Agrippa, Fabius,
   Vercingetorix, Thusnelda) · *Mittelalter im Reich* (Widukind, Theophanu, Wiprecht, Ulrich, Hildegard) ·
@@ -412,21 +416,41 @@ und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
   Zeitalterkarten): 21 von 22 Helden im Ziel, Theophanu 54,4 % knapp darüber (im Zufallsfehler) – bei AP L.2 im Blick
   behalten. Bericht in `balance/BERICHT.md`, der alte in `balance/BERICHT-1.13.0.md`.*
 
-**AP L.2 – Kartennamen nach Epoche und Lebenswelt (M)** – *Zeitalterkarten ✓ in 1.14.0, Heldenkarten offen*
+**AP L.2 – Kartennamen nach Epoche und Lebenswelt (M)** – *✓ in 1.15.0 (Zeitalterkarten schon in 1.14.0)*
 - [x] Die Zeitalterkarten von *Persien & Steppe* und *China, Korea, Japan* (14) bekommen Namen, Texte und Bildideen der
   neuen Zeitalter. *✓ in 1.14.0, Wirkungen unverändert:* **Frühzeit und Ägypten** – Wagenbauer, Schreiber im Lebenshaus,
   Schuss vom Streitwagen, Wache der Medjai, Angriff der Streitwagen, Bernsteinstraße, Festung Buhen (Spielsteine
   Streitwagen und Medjai-Krieger); **Frühe Neuzeit** – Landsknecht, Buchdrucker aus Mainz, Leipziger Kaffeehaus,
   Kartaunen-Salve, Kriegsgaleone, Stehendes Heer (Musketiere), Sternschanze. Der Spielstein „Steppenreiter“ heißt
   jetzt „Reiter“ (Widukinds Karten, Thusneldas Mission); der neue Spielstein „Streitwagen“ hat dieselben Werte.
-- [ ] Alle Karten der 11 neuen Helden (≈ 130) und ihre Spielsteine bekommen Namen, Texte und Bildideen aus der
+- [x] Alle Karten der 11 neuen Helden (≈ 130) und ihre Spielsteine bekommen Namen, Texte und Bildideen aus der
   Lebenswelt der neuen Person und Epoche (z. B. Jurtenlager → Heerlager an der Weser, Rekruten → Novizinnen,
   Runensteine → Grenzsteine, Wagenburg → Bastion). Kartenbilder, die nicht mehr passen (Samurai, Wikinger,
   Mongolen), werden Platzhalter mit Bildidee in `MOTIVE.md`.
-- [ ] Neutrale Karten nach Lehrplan-Lebenswelten durchsehen: Grundherrschaft, Zunft, Hanse, Kloster, Burg, Buchdruck,
+  *✓ in 1.15.0: 129 von 132 Karten neu benannt (Pfeilschuss, Treueschwur und Hüterin des Herdfeuers passten schon),
+  Wirkungen, Kosten und IDs unverändert – ein Vergleich aller Kartenfelder alt gegen neu zeigt null Regeländerungen.
+  Legendäre: **Abbi** (Widukind), **Commius** (Vercingetorix), **Tschirnhaus** (Böttger), **Jutta von Sponheim**
+  (Hildegard), **Judith von Böhmen** (Wiprecht), **Friedrich der Streitbare** (Ulrich), **Zeremonialaxt des Ahmose**
+  (Ahhotep), **Otto II.** (Theophanu), **Bund der Stämme** (Thusnelda), **Ludwig XIV.** (Vauban), **Gesandter aus
+  Massalia** (Fürstin von Vix); dazu z. B. Heerlager an der Weser, Versammlung in Marklo, Letzter Ritt vor Alesia,
+  Zwanzig Städte in Flammen, Glut des Brennofens, Eid der Arkanisten, Spiel der Tugenden, Lokator, Rodung, Venusfahrt,
+  Überfall auf Nefrusi, Haft in Utrecht, Varusschlacht, Zitadelle von Lille, Gelage am Krater. Spielsteine: Novizin
+  (neu, Regel der Legendären zieht mit), Grenzstein des Klosters / der Mark / der Burg / des Dorfes, Schanzkorb,
+  Füsilier, Sippenbruder, Habicht. Die Chronikseiten nennen die neuen Legendären bei den Beziehungen. Bilder: 8 alte
+  Motive bleiben (Pfeil, Hüterin des Hains, Eichenschild, Heilkundige mit der Mistel, Erhebung der Gallier,
+  Apothekerlehrling, Rezeptbuch, Pestarzt), 52 werden Platzhalter; alle 124 Platzhalter der elf haben eine neue
+  englische Bildidee in `MOTIVE.md`.*
+- [x] Neutrale Karten nach Lehrplan-Lebenswelten durchsehen: Grundherrschaft, Zunft, Hanse, Kloster, Burg, Buchdruck,
   Bauernstand – Namen schärfen, wo sie nur „Fantasy“ sind; Wirkungen unverändert.
+  *✓ in 1.15.0, zehn neue Namen: Grenzläuferin → **Wilderin**, Festungsschild → **Torwache der Burg**,
+  Laternenträger → **Nachtwächter**, Erste Hilfe → **Heilkräuter**, Bernsteinhüter → **Ordensritter**, Goldene Löwin →
+  **Löwin der Arena** (Motiv bleibt); Marmorwächter → **Prätorianer**, Ruinengolem → **Trojanisches Pferd** (Vermächtnis:
+  zwei Krieger), Phönix der Chroniken → **Brander**, Wächter des Weltenbaums → **Burgbesatzung** (vier neue
+  Platzhalter). Die übrigen neutralen Namen (Dorfwache, Schmied, Wandermönch, Condottiere …) sind schon Lebenswelt.*
 - Abnahme: keine Karte mehr mit Bezug auf entfernte Helden oder Kulturen ohne Lehrplanbezug; Test: Kartentexte nennen
-  nur Helden, die es gibt. *Für die Zeitalterkarten ✓ (`lehrplan.test.js`).*
+  nur Helden, die es gibt. *✓ (`lehrplan.test.js`): Name, Text und gerufene Spielsteine aller 350 Karten und Spielsteine
+  ohne Personen und Welten der ersetzten Helden (Mongolen, Icener, Wikinger, Samurai, Kusch, Kamakura, Hussiten, Shang …)
+  und ohne Fantasy-Wesen; die Zeilen in `MOTIVE.md` tragen die neuen Namen und Bildideen.*
 
 **AP L.3 – Musik für Hauptmenü und Duell (S)** – *✓ in 1.13.0*
 - [x] Deine beiden Stücke ersetzen die prozedurale Musik: `musik-menue.ogg` im Hauptmenü und in allen Untermenüs,
@@ -443,7 +467,7 @@ und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
 Alle Platzhalter und alle bisher nur im Code gezeichneten Grafiken erzeugst Du in einigen Wochen mit **ChatGPT Astra**.
 Bis dahin entstehen weiter Platzhalter – einheitlich gekennzeichnet, damit Astra sie findet:
 - [x] **Bilder ohne Motiv:** `art` weglassen (wie seit AP 5.12) – `ungenutzte_assets/MOTIVE.md` listet sie mit Größe
-  und Prompt. *Stand 1.14.0: 226 Karten und Spielsteine, 18 Helden.*
+  und Prompt. *Stand 1.15.0: 288 Karten und Spielsteine, 18 Helden (1.14.0: 226).*
 - [x] **Im Code gezeichnete Grafiken** bekommen einen Kommentar `ASTRA: <kennung> – <was>, <Größe>` direkt an der
   Zeichenfunktion (z. B. Stufenpyramide, Fähigkeitssymbole, Manasäule, Steinknöpfe, Kartenrahmen, Diener-Plakette,
   Kartenrücken, Rahmen der Legendären). `node werkzeuge/motive.js` sammelt diese Stellen als zweiten Abschnitt
@@ -1622,7 +1646,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 |
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
-| Helden nach dem sächsischen Lehrplan, Lebenswelten, eigene Musik, Astra-Platzhalter (Wunsch vom 7. 10. 2026) | AP L.1 ✓ in 1.14.0, AP L.2 (Zeitalterkarten ✓ in 1.14.0), AP L.3 ✓ in 1.13.0, AP L.4 ✓ in 1.14.0 |
+| Helden nach dem sächsischen Lehrplan, Lebenswelten, eigene Musik, Astra-Platzhalter (Wunsch vom 7. 10. 2026) | AP L.1 ✓ in 1.14.0, AP L.2 ✓ in 1.15.0 (Zeitalterkarten in 1.14.0), AP L.3 ✓ in 1.13.0, AP L.4 ✓ in 1.14.0 |
 | Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“; Rückmeldung zu 1.11.0 ✓ in 1.12.0: alle Pakete auf einmal, ohne Standbild |
 
 ---
@@ -1681,8 +1705,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 9 ✓ | AP 2.1, AP 2.2, AP 0.2, Rückmeldung 1.11.0 | erledigt in 1.12.0 – Kotlin-Hülle mit Gradle, WebP (APK 12,1 MB), Laden in Stufen, Massenöffnung ohne Grenze, Klangpegel und Klangprobe |
 | 10 ✓ | AP 2.4, AP 2.5, AP 5.11 Teil 2, AP L.3 | erledigt in 1.13.0 – Match ohne Drossel mit Pixeldichte und Sprites (Zeichenzeit −69 %), Renderer-Labor mit PixiJS, „nur Werte“-Karten und Balance-Feinschliff, Deine Musik für Menü und Duell |
 | 11 ✓ | AP L.1, AP L.4, AP L.2 (Zeitalterkarten), Rückmeldung 1.13.0 | erledigt in 1.14.0 – elf Lehrplan-Helden mit Chronik und Mission, sechs Zeitalter nach den Epochen des Lehrplans, 14 Zeitalterkarten neu benannt, 26 Astra-Kennungen |
-| 12 | AP L.2 (Heldenkarten, neutrale Karten) | **sehr hohe Priorität:** Karten der elf neuen Helden nach Epoche und Lebenswelt |
-| 13–15 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht (Effekte in der PixiJS-Ebene, AP 2.5) |
+| 12 ✓ | AP L.2 (Heldenkarten, neutrale Karten) | erledigt in 1.15.0 – 129 Karten der elf Lehrplan-Helden und 10 neutrale Karten neu benannt, Spielsteine Novizin, Grenzsteine, Schanzkorb, 124 neue Bildideen für Astra |
+| 13 | AP 1.8 Teil 1, Rückmeldung 1.15.0 | Feldherrentisch, Helden-Münzen, Siegel, Mana-Amulette, Epochen-Hälften – als Astra-Platzhalter |
+| 14–15 | AP 1.8 Teil 2, AP 1.5, AP 3.1–3.5 | Chronik-Leiste und Dioramen, neue Karten, Gewicht und Wucht (Effekte in der PixiJS-Ebene, AP 2.5) |
 | 16 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
 | 17–18 | AP 3.6–3.9, Phase 4 | Effekte, Stimmen, Chronist, Klang, Haptik aus einem Guss |
 | 19+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |

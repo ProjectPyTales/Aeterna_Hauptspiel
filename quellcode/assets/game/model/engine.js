@@ -45,14 +45,14 @@ function summon(s,p,id,position){const a=s.players[p];if(a.board.length>=7)retur
  const u={uid:'u'+s.nextId++,id,attack:c.attack,health:c.health,maxHealth:c.health,shield:!!c.shield,taunt:!!c.taunt,ready:!!(c.charge||c.rush),attacks:0};
  if(c.rush)u.rush=true;if(c.double)u.double=true;if(c.stealth)u.stealth=true;if(c.plunder)u.plunder=true;if(c.poison)u.poison=true;if(c.building){u.building=true;u.ready=false;}u.fresh=true;
  a.board.splice(position==null?a.board.length:position,0,u);emit(s,'summon',{p,target:u.uid,id});auras(s);return u;}
-// Auras of the legendaries, recomputed after every change: Gorgo (+1 attack for Schildwall), La Hire (recruits +1/+1 and
-// Göttliche Gunst once), Lagertha (totems Schildwall and +1 health) and buffAura of any card (Castra, Athena Parthenos:
+// Auras of the legendaries, recomputed after every change: Gorgo (+1 attack for Schildwall), Jutta von Sponheim (novices
+// +1/+1 and Göttliche Gunst once; until 1.14.0 La Hire with recruits), Judith von Böhmen (boundary stones Schildwall and +1 health) and buffAura of any card (Castra, Athena Parthenos:
 // all other own minions). Only the difference to the last value is applied.
-function auras(s){for(const a of s.players){const gorgo=has(a,'leonidas_9'),lahire=has(a,'jeanne_9'),lagertha=has(a,'ragnar_9'),anthems=a.board.filter(u=>rule(u).buffAura);
- for(const u of a.board){if(u.building)continue;const totem=u.id.startsWith('totem_'),recruit=u.id==='recruit';
-  const wall=lagertha>0&&totem;if(wall&&!u.taunt){u.taunt=true;u.auraTaunt=true;}else if(!wall&&u.auraTaunt){u.taunt=false;delete u.auraTaunt;}
-  if(recruit&&lahire&&!u.graced){u.shield=true;u.graced=true;}
-  let atk=(u.taunt?gorgo:0)+(recruit?lahire:0),hp=(totem?lagertha:0)+(recruit?lahire:0);
+function auras(s){for(const a of s.players){const gorgo=has(a,'leonidas_9'),jutta=has(a,'jeanne_9'),judith=has(a,'ragnar_9'),anthems=a.board.filter(u=>rule(u).buffAura);
+ for(const u of a.board){if(u.building)continue;const totem=u.id.startsWith('totem_'),novice=u.id==='novice';
+  const wall=judith>0&&totem;if(wall&&!u.taunt){u.taunt=true;u.auraTaunt=true;}else if(!wall&&u.auraTaunt){u.taunt=false;delete u.auraTaunt;}
+  if(novice&&jutta&&!u.graced){u.shield=true;u.graced=true;}
+  let atk=(u.taunt?gorgo:0)+(novice?jutta:0),hp=(totem?judith:0)+(novice?jutta:0);
   for(const b of anthems)if(b!==u&&(rule(b).buffAura.only!=='taunt'||u.taunt)){atk+=rule(b).buffAura.attack||0;hp+=rule(b).buffAura.health||0;}
   const da=atk-(u.auraAtk||0),dh=hp-(u.auraHp||0);
   if(da){u.attack+=da;if(atk)u.auraAtk=atk;else delete u.auraAtk;}
@@ -91,7 +91,7 @@ function choose(s,index){const c=s.choice;s.choice=null;take(s,c.p,c.options[ind
 // ---------- Effects ----------
 // ctx: {spell} adds Arkaner Fokus to damage, {auto} resolves Ergründen at random (Theon's echo at the end of a turn).
 function effects(s,p,list,target,source,ctx={}){const a=s.players[p],enemy=s.players[1-p],plus=ctx.spell?focus(s,p):0;for(const e of list||[]){const t=unit(s,target);switch(e.type){
-// noToken (1.10.0, Kandake): no reward for a summoned token – recruits and runes no longer feed Amanirenas cards.
+// noToken (1.10.0, Kandake): no reward for a summoned token – novices and boundary stones no longer feed Ahhotep's cards.
 case 'damage':hurt(s,target,e.n+plus);if(e.onKill&&t&&!t.hero&&t.obj.health<=0&&!(e.noToken&&D.byId[t.obj.id].rarity==='token'))effects(s,p,e.onKill,null,source,ctx);break;case 'heal':heal(s,target,e.n);break;case 'face':hurt(s,'h'+(1-p),e.n+plus);break;case 'selfDamage':hurt(s,'h'+p,e.n);break;
 case 'armor':a.armor+=e.n;emit(s,'armor',{target:'h'+p,n:e.n});break;
 case 'healHero':heal(s,'h'+p,e.n);break;case 'draw':{const got=draw(s,p,e.n+(e.per==='building'?Math.min(e.max||7,a.board.filter(u=>u.building).length):0));if(e.mod)for(const h of got)h.mod=(h.mod||0)+e.mod;break;}
