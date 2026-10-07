@@ -1,11 +1,11 @@
 // Gemeinsames Gerüst für Sichtprüfung und Klickpfad: lokaler Server für das Web-Spiel und Playwright.
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 let pw;try{pw=require('playwright');}catch{pw=require(path.join(require('node:child_process').execSync('npm root -g').toString().trim(),'playwright'));}
-const TYPES={'.html':'text/html','.js':'application/javascript','.css':'text/css','.png':'image/png','.ogg':'audio/ogg','.ttf':'font/ttf','.json':'application/json'};
+const TYPES={'.html':'text/html','.js':'application/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.ogg':'audio/ogg','.ttf':'font/ttf','.json':'application/json'};
 // Handyformat wie in den Regeln für jede Sitzung; Tablet = Bühne 1:1.
 const PHONE={viewport:{width:915,height:412},deviceScaleFactor:2.6,isMobile:true,hasTouch:true},TABLET={viewport:{width:1600,height:800}};
 
-// Liefert das Spiel aus root aus (Standard: quellcode/assets/game) – wie die App-Hülle nur bekannte Endungen.
+// Liefert das Spiel aus root aus (Standard: quellcode/assets/game) – mit denselben MIME-Typen wie die App-Hülle.
 function serve(root=path.join(__dirname,'../quellcode/assets/game')){
  const server=http.createServer((req,res)=>{const p=path.join(root,decodeURIComponent(req.url.split('?')[0]).replace(/^\/$/,'/index.html'));
   if(!p.startsWith(root)){res.writeHead(403);res.end();return;}

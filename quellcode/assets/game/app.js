@@ -58,6 +58,7 @@ const matchView=AEMatchView(canvas,screens.game.vm,ui);ctx.board=matchView.board
 function navigate(next,arg,force=false){
  if(!force&&!screens[screen].vm.canLeave(next))return;
  if(busy)return;
+ if(next!=='menu'&&!art.ready){art.next=[next,arg,force];artToast();return;}
  if(next===screen||reduced()){show(next,arg);return;}
  if(screen==='menu'||next==='menu')ring(next,arg);else slide(()=>show(next,arg));}
 function hold(){busy=true;clearTimeout(screens.game.vm.aiTimer);matchView.cancel();}
@@ -89,7 +90,7 @@ function back(){if(busy)return;if(dialog){dialog.vm.close?.();return;}screens[sc
 function onPause(){ctx.packs.pause();matchView.cancel();screens.game.vm.pauseApp();store.save();A.pause();}
 function onResume(){A.resume();screens.game.vm.resumeApp();}
 
-window.App={get profile(){return store.profile;},get view(){return screens.game.vm.view;},get screen(){return screen;},get dialog(){return dialog?.kind||null;},
+window.App={get profile(){return store.profile;},get artReady(){return art.ready;},get view(){return screens.game.vm.view;},get screen(){return screen;},get dialog(){return dialog?.kind||null;},
  vm:Object.fromEntries(Object.entries(screens).map(([k,s])=>[k,s.vm])),store,ui,
  navigate:(next,arg)=>navigate(next,arg),close:()=>ui.close(),toast:msg=>ui.toast(msg),back,onPause,onResume,resize,
  importText:raw=>ctx.dialogs.importText(raw)};
@@ -105,10 +106,17 @@ window.addEventListener('resize',resize);
 window.addEventListener('keydown',ev=>{if(ev.key==='Escape')back();});
 store.subscribe(applyProfile);
 
-// ---------- Start ----------
+// ---------- Start in stages (AP 2.2) ----------
+// Stage 1 behind the loading bar: fonts and the hall picture. Stage 2 in the background: the atlases for the match,
+// the collection and the bazaar. Opening another screen before they are there shows the progress and follows on.
+const art={ready:false,done:0,total:0,next:null};
+function artToast(){ui.toast('Die Chronik lädt ihre Bilder … '+Math.round(100*art.done/Math.max(1,art.total))+' %');}
+function artLoaded(){art.ready=true;if(art.next){const [next,arg,force]=art.next;art.next=null;$('toast').classList.remove('show');navigate(next,arg,force);}}
 store.load();applyProfile();resize();
-Promise.all([R.load(),H.preload()]).then(()=>{$('loading').remove();
+const bar=$('loading').querySelector('.loading-track span');
+H.preload((done,total)=>{bar.style.width=Math.round(100*done/total)+'%';}).then(()=>{$('loading').remove();
  $('slabs').querySelector('.slab-l').innerHTML=S.slabArt('l');$('slabs').querySelector('.slab-r').innerHTML=S.slabArt('r');
- show('menu',!reduced());store.save();matchView.start();})
- .catch(e=>{$('loading').innerHTML='<h2>Ladefehler</h2><p>'+AEM.esc(e.message)+'</p>';});
+ show('menu',!reduced());store.save();matchView.start();
+ return R.load((done,total)=>{art.done=done;art.total=total;if(art.next)artToast();}).then(artLoaded);})
+ .catch(e=>{const el=$('loading');if(el)el.innerHTML='<h2>Ladefehler</h2><p>'+AEM.esc(e.message)+'</p>';else console.error(e);});
 })();

@@ -5,7 +5,7 @@
 const H=window.CHH={};
 // Picture geometry: concept art is 2000 × 1116; the delivered file is 2602 × 1084 (24 px cut at the
 // top, 301 px added left). The stage shows 2168 × 1084 of it, i.e. concept x −84 … 2084.
-const ART={src:'assets/art/hall-aeterna.png',w:2602,h:1084,left:301,top:-24,stage:217},K=800/ART.h;
+const ART={src:'assets/art/hall-aeterna.webp',w:2602,h:1084,left:301,top:-24,stage:217},K=800/ART.h;
 const sx=x=>(x+ART.left-ART.stage)*K,sy=y=>(y+ART.top)*K,f=n=>Math.round(n*10)/10;
 H.ART=ART;H.bgWidth=ART.w*K;H.bgOffset=ART.stage*K;
 // Measured on hauptmenue-konzept.jpg (concept pixels).
@@ -107,8 +107,10 @@ function sparks(hall){const canvas=hall.querySelector('.hall-sparks');if(!canvas
 // MVVM view for the menu: the hall re-renders from viewmodel/menu.js and keeps its nodes.
 H.view={render:vm=>H.render(vm.view),mounted:(el,vm)=>H.mount(el,()=>vm.introDone()),updated:el=>H.fit(el)};
 // Fonts and the decoded picture are ready before the hall is shown, so nothing pops in late.
-H.preload=()=>Promise.all([...['700 66px "Aeterna Zier"','700 33px "Aeterna Titel"','600 16px "Aeterna Titel"','500 17px "Aeterna Text"','700 23px "Aeterna Text"'].map(font=>document.fonts.load(font).catch(()=>null)),
- new Promise(resolve=>{const im=new Image();H.picture=im;im.onload=()=>(im.decode?im.decode():Promise.resolve()).catch(()=>null).then(resolve);im.onerror=()=>resolve();im.src=ART.src;})]);
+// progress(done,total) drives the loading bar (AP 2.2).
+H.preload=(progress=()=>{})=>{let done=0;const parts=[...['700 66px "Aeterna Zier"','700 33px "Aeterna Titel"','600 16px "Aeterna Titel"','500 17px "Aeterna Text"','700 23px "Aeterna Text"'].map(font=>document.fonts.load(font).catch(()=>null)),
+ new Promise(resolve=>{const im=new Image();H.picture=im;im.onload=()=>(im.decode?im.decode():Promise.resolve()).catch(()=>null).then(resolve);im.onerror=()=>resolve();im.src=ART.src;}),document.fonts.ready];
+ return Promise.all(parts.map(p=>p.then(()=>progress(++done,parts.length))));};
 // Ring transition: light bursts from the star, the hall zooms into the ring, the next screen appears.
 function flash(){let el=document.getElementById('ring-flash');if(!el){el=document.createElement('div');el.id='ring-flash';el.innerHTML='<i></i>';document.getElementById('stage').appendChild(el);}
  el.style.setProperty('--fx',f(H.star.x)+'px');el.style.setProperty('--fy',f(H.star.y)+'px');return el;}
