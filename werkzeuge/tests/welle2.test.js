@@ -33,8 +33,7 @@ test('Epaminondas: der Diener ganz links wächst, Bauwerke zählen nicht; Pelopi
 
 test('Fabius: Schaden und Starre; Marcellus und Tarent zielen nur auf Diener in Starre',()=>{
  const s=ready('fabius');const a=E.summon(s,1,'neutral_3'),b=E.summon(s,1,'neutral_4');
- act(s,{type:'power',target:a.uid});assert.ok(a.frozen);assert.equal(a.health,a.maxHealth-1);
-const h=ready('fabius');act(h,{type:'power',target:'h1'});assert.equal(h.players[1].health,29,'auch der Held ist ein Ziel');
+ assert.ok(!E.legal(s).some(x=>x.type==='power'&&x.target==='h1'),'nur Diener');act(s,{type:'power',target:a.uid});assert.ok(a.frozen);assert.equal(a.health,a.maxHealth-1);
  const marcellus=give(s,0,'fabius_9');const targets=E.legal(s).filter(x=>x.uid===marcellus.uid).map(x=>x.target);
  assert.deepEqual(targets,[a.uid]);act(s,{type:'play',uid:marcellus.uid,target:a.uid});assert.ok(!s.players[1].board.includes(a));
  const t=give(s,0,'fabius_7');assert.ok(!E.legal(s).some(x=>x.uid===t.uid),'kein Ziel in Starre: Tarent nicht spielbar');
@@ -59,7 +58,7 @@ test('Žižka: Kriegswagen, Salve je Schildwall-Diener, Wagenburg stärkt nur Sc
  const s=ready('zizka');act(s,{type:'power'});end(s);end(s);act(s,{type:'power'});const foe=s.players[1];foe.health=30;
  play(s,'zizka_2');assert.equal(foe.health,28,'zwei Kriegswagen → zwei Treffer am einzigen Feind');
  const t=ready('zizka');const wagon=E.summon(t,0,'wagon'),plain=E.summon(t,0,'neutral_1');E.summon(t,0,'zizka_7');
- assert.deepEqual([wagon.attack,wagon.health],[2,4]);assert.deepEqual([plain.attack,plain.health],[2,3]);
+ assert.deepEqual([wagon.attack,wagon.health],[2,3]);assert.deepEqual([plain.attack,plain.health],[2,3]);
 });
 
 test('Fu Hao: Orakelknochen bietet die obersten drei Karten des eigenen Decks; die gewählte verlässt das Deck',()=>{

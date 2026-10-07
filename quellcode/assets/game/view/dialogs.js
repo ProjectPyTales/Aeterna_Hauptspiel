@@ -29,7 +29,7 @@ D_.redeem={render:vm=>{const s=vm.state;return V.modal({width:760,body:html`<h2>
 
 const RULES=[['1 · Karte ausspielen','Karte antippen, dann „Ausspielen“ oder ein gültiges Ziel wählen. Karten folgen Deinem Finger. Ziehe sie an die gewünschte Position auf Deiner Spielfeldhälfte. In der Hand kannst Du sie umsortieren; außerhalb des Felds springen sie zurück.'],
  ['2 · Angreifen','Grün leuchtenden Diener oder bewaffneten Helden antippen und Gegner wählen. Ziehen zeigt einen Zielpfeil.'],
- ['3 · Heldenfähigkeit','Das runde Symbol neben Deinem Helden ist einmal pro Zug nutzbar. Musashi kostet 1 Mana, alle anderen 2.'],
+ ['3 · Heldenfähigkeit','Das runde Symbol neben Deinem Helden ist einmal pro Zug nutzbar. Musashi kostet 1 Mana, Fabius Maximus 3, alle anderen 2.'],
  ['4 · Karten ansehen','Eine Karte, einen Diener oder die Heldenfähigkeit lange drücken. Friedhöfe zeigen bereits abgelegte Karten.'],
  ['Schildwall & Göttliche Gunst','Angriffe müssen zuerst Diener mit Schildwall treffen; Zauber umgehen ihn. Göttliche Gunst fängt den nächsten Schaden ab.'],
  ['Einmarsch & Vermächtnis','Einmarsch wirkt beim Ausspielen aus der Hand, Vermächtnis nach dem Tod. Sturmangriff: sofort angreifen. Vorstoß: sofort angreifen, im ersten Zug nur Diener.'],
