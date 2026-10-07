@@ -1081,7 +1081,7 @@ Schlüsselwort aus AP 5.4/5.5):
   Perikles (Griechenland), Marcus Agrippa (Rom), Amanirenas (Kusch), Anna Komnene (Byzanz), Nezahualcóyotl (Texcoco),
   Hōjō Masako (Japan).
   Welle 2 als Rivalen und Gegenstücke: Epaminondas, Baibars, Jan Žižka, Fabius Maximus, Fu Hao, Mandukhai –
-  *von dir bestätigt (Entscheidung 15, Rückmeldung zu 1.9.0), geplant für Sitzung 8.*
+  *von dir bestätigt (Entscheidung 15, Rückmeldung zu 1.9.0), umgesetzt in 1.11.0 (Sitzung 8).*
 - [x] **Engine: Heldenfähigkeiten datengetrieben.** *Umgesetzt in 1.9.0:* Jeder Held trägt seine Fähigkeit als Daten
   (`ability:{effects,target}` in `data.js`) – dieselben Effekte wie Karten. `E.power` hat keinen `switch` über Helden mehr,
   `E.canPower` leitet die Bedingungen aus den Effekten ab (Platz zum Rufen, ein fehlender Runenstein, etwas zum Ergründen,
@@ -1119,6 +1119,36 @@ Schlüsselwort aus AP 5.4/5.5):
   **Angepasst bei den bisherigen Helden**, weil das größere Feld sie verschob: Imhotep *Nilschülerin* 1/4 (1/3),
   *Tempelärztin* heilt 3 (4); Dandolo *Handelsgesandter* 3/5 (3/4), *Dogenklinge* 3 Mana (2), *Arsenal von Venedig*
   5 Mana (4).
+- [x] **Welle 2 – sechs Helden** *(1.11.0, Sitzung 8)*: Rivalen und Gegenstücke, je einer pro Zeitalter, das bisher nur
+  einen Helden hatte oder einen Rivalen brauchte; je Chronikseite, 10 eigene Karten (Seltenheiten wie Welle 1), Startdeck,
+  Mission 17–22 (einfach angehängt, Entscheidung 14), KI-Persönlichkeit und Monogramm-Porträt; 60 Motive als Platzhalter
+  mit Bildidee in `MOTIVE.md`. Neue Regeln dafür siehe Projektaufbau (Diener ganz links, Bündnis-Bedingung, Vorstoß
+  verleihen, Ergründen aus dem eigenen Deck, Ziele in Starre).
+
+  | Held | Zeitalter | Heldenfähigkeit | Spielstil, KI | Legendäre | Mission (Boss) |
+  |---|---|---|---|---|---|
+  | **Epaminondas** (um 418–362 v. Chr.) | Griechische Antike, **Rivale von Leonidas** | *Schiefe Schlachtordnung* (2): Euer Diener ganz links erhält +1/+1 | Ein Flügel, fünfzig Reihen tief: Heilige Schar, Böotarch, Megalopolis stärken den Diener ganz links; aggressiv | Pelopidas: der Diener ganz links erhält Doppelschlag und Göttliche Gunst | Leuktra (Kleombrotos von Sparta) |
+  | **Fabius Maximus** (um 280–203 v. Chr.) | Rom | *Cunctator* (**3 Mana**): 1 Schaden an einem feindlichen Diener, er gerät in Starre | Zeit gewinnen: Starre, Schildwall, Rüstung, *Rückeroberung von Tarent* übernimmt einen Diener in Starre; defensiv | Marcellus, Schwert Roms: vernichtet einen Diener in Starre | Der Zauderer (Hannibal Barkas, Kriegselefanten) |
+  | **Mandukhai Khatun** (um 1449–1510) | Persien & Steppe | *Stammesbündnis* (2): ab 3 Dienern alle +1 Leben, sonst ein Stammeskrieger (1/2) | Breite statt Pfeile: Stammeskrieger, Herdfeuer, Schwarzes Banner, Batu Möngke wächst mit dem Feld; kombinierend | Wiedervereinigung der Mongolen (Zauber): füllt das Feld, alle +1/+1 | Die Schlacht von Tas Bürd (die Oiraten) |
+  | **Baibars** (um 1223–1277) | Byzanz & islamische Welt, **Rivale von Dschingis Khan** | *Mamlukenreiter* (2): ein befreundeter Diener erhält +1 Angriff und Vorstoß – auch frisch ausgespielt greift er sofort an | Gegenangriff und Belagerung: Mamlukenreiter, Ain Dschalut, Manjaniq gegen Bauwerke; aggressiv | Qalawun: Diener mit Vorstoß +2/+2 und Göttliche Gunst | Ain Dschalut (Kitbuqa Noyan) |
+  | **Jan Žižka** (um 1360–1424) | Europäisches Mittelalter | *Wagenburg* (2): ruft einen Kriegswagen (1/2, Schildwall) | Wagenburg: Kriegswagen, Hakenbüchsen, *Salve* je Schildwall-Diener, *Prager Fenstersturz*; defensiv | Jan Hus: Vermächtnis drei Taboriten (2/3, Schildwall) | Sudoměř (die Eisernen Herren) |
+  | **Fu Hao** (gest. um 1200 v. Chr.) | China, Korea, Japan | *Orakelknochen* (2): seht die obersten drei Karten Eures Decks an, eine davon auf die Hand | Planung und frühe Angriffe: Yue-Axt, Streitwagen, Knochenwahrsager, Ahnentempel; kombinierend | Wu Ding: zweimal Orakel, die Karten kosten 2 weniger | Der Feldzug gegen die Qiang (der Fürst der Qiang) |
+
+  **Zeitalterkarten der Welle 2** (je sieben, `hero` = `age`, nur für die zwei Helden des Zeitalters):
+  *Rom* (Agrippa, Fabius): Gladiator, Senator der Kurie, Centurio, Triumphzug, Via Appia, Vestalin am ewigen Feuer, Pax Romana ·
+  *Persien & Steppe* (Khan, Mandukhai): Pferdehirtin, Schamane des Ewigen Himmels, Parthischer Schuss, Garde der
+  Unsterblichen, Pfeilsturm der Steppe, Königsstraße, Persepolis · *Byzanz & islamische Welt* (Anna, Baibars): Akrit der
+  Grenzmark, Gelehrter im Haus der Weisheit, Tribut in Goldbyzantinern, Arzt des Bimaristan, Theodosianische Mauern, Hagia
+  Sophia, Ibn an-Nafis.
+
+  *Was die Messungen verändert haben* (drei Messrunden mit 20–40 Partien je Paarung, dazu ein schneller Einzelheldentest
+  mit 840 Partien je Variante): **Fabius** gewann mit „Starre + 1 Rüstung“ nur 19,5 % mit Startdeck – reine Verzögerung
+  gewinnt nicht, wie bei Leonidas und Perikles. Mit „1 Schaden + Starre“ stieg er auf 65 %, auch nur gegen Diener; erst
+  **3 Mana** für die Fähigkeit (wie der Zauderer: langsam, aber stetig) bringt ihn in die Mitte. **Žižka** schwankte mit dem
+  Kriegswagen am stärksten: 0/3 → 37 %, 1/3 → 66 %, jetzt 1/2. **Baibars**, **Fu Hao** und **Epaminondas** begannen bei
+  60–63 % (Ain Dschalut, Yue-Axt 2/3, Thebanischer Phalangit) und wurden leicht abgeschwächt. Die byzantinischen
+  Zeitalterkarten drückten **Anna** mit Zufallsdeck von 48 auf 42 % – Hagia Sophia, Theodosianische Mauern und der Arzt des
+  Bimaristan sind deshalb stärker als geplant.
 - Abnahme: Simulationslauf (AP 5.1) mit allen Helden, jeder neue Held 47–53 % gegen das Feld. *✓ Gemessen (voller Lauf, 200 Partien je Paarung, 54 400 Partien in 15 min):* die sechs neuen Helden mit Startdeck
   47,6 (Agrippa) bis 51,5 % (Amanirenas), mit Zufallsdeck 47,6 (Agrippa) bis 51,4 % (Amanirenas); alle 16 Helden in beiden
   Deckarten 47,6–52,8 %. Fünf von 240 Paarungen liegen außerhalb 40/60 (siehe Qualitätsziele) – der deutlichste Konter ist
@@ -1263,10 +1293,10 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 |---|---|
 | Name „Aeterna“ | AP 0.3 |
 | Textfreies Hauptmenü-Bild mit interaktiven Knöpfen und Animationen | AP 1.3 (Bild liegt in `ungenutzte_assets/ui/`) |
-| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) – Welle 1 ✓ in 1.10.0 (56 Karten, 269 insgesamt) |
+| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) – Welle 1 ✓ in 1.10.0 (56 Karten), mit Welle 2 der Helden ✓ in 1.11.0 350 Karten |
 | Legendäre aufwerten | AP 5.3 – ✓ in 1.7.0 |
 | Hintergründe der Helden ausarbeiten | AP 5.9 – ✓ in 1.8.0 |
-| Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 – Welle 1 ✓ in 1.9.0 (sechs Helden), Zeitalterkarten ✓ in 1.10.0, Welle 2 in Sitzung 8 |
+| Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 – Welle 1 ✓ in 1.9.0, Zeitalterkarten ✓ in 1.10.0, Welle 2 ✓ in 1.11.0 (22 Helden, sechs Zeitalter mit Zeitalterkarten) |
 | Bestehende Karteneffekte überarbeiten | AP 5.11 (Dopplungen Herodot/Anna und Thermen/Aquädukt entzerrt in 1.10.0) |
 | Platzhalter statt fehlender Grafiken | AP 5.12 – ✓ in 1.8.0 |
 | Heldenbalance | AP 5.1, AP 5.2 – ✓ in 1.6.0 |
@@ -1293,6 +1323,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 |
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
+| Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“ |
 
 ---
 
@@ -1322,7 +1353,11 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 14. ~~**Neue Chroniken** (AP 5.10)~~ – *entschieden (Rückmeldung zu 1.9.0):* Die Missionen sind nicht so wichtig, eine
     einfache Reihenfolge reicht – es bleibt bei 1 bis 16 nacheinander, jeder Sieg schaltet die nächste frei.
 15. ~~**Welle 2 der neuen Helden** (AP 5.10)~~ – *entschieden:* wie vorgeschlagen Epaminondas, Baibars, Jan Žižka,
-    Fabius Maximus, Fu Hao und Mandukhai; die Kartenwelle 1 kam zuerst (diese Sitzung), Welle 2 folgt in Sitzung 8.
+    Fabius Maximus, Fu Hao und Mandukhai; umgesetzt in 1.11.0.
+16. **Codes** (Rückmeldung zu 1.10.0): Die Code-Eingabe und die Massenöffnung waren in keiner Version im Repo (auch nicht
+    in der 1.2.2-APK) – sie stammen vermutlich aus einer Fassung außerhalb des Repos. Ich habe beide neu gebaut und vier
+    Codes angelegt (siehe [APK herunterladen](#apk-herunterladen)). Kennst Du noch Deine alten Codes oder möchtest Du
+    andere Belohnungen? Dann trage ich sie in `CHP.codes` ein.
 
 ---
 
@@ -1337,9 +1372,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 5 ✓ | AP 5.12, AP 5.9, AP 5.4 (Teil 2), Rückmeldung 1.7.0 | erledigt in 1.8.0 – Platzhalter, Chronik der Helden, fünf neue Schlüsselwörter mit 13 Karten, randlose Untermenüs |
 | 6 ✓ | AP 5.10 (Engine-Teil und Welle 1), Rückmeldung 1.8.0 | erledigt in 1.9.0 – Heldenfähigkeiten als Daten, Zeitalter, sechs neue Helden mit Chronik und Mission, leiserer Stern |
 | 7 ✓ | AP 5.11 (Kartenwelle 1), AP 5.5, AP 5.8 Teil 2, Rückmeldung 1.9.0 | erledigt in 1.10.0 – 56 Karten mit Zeitalterkarten, Weltwunder, KI-Persönlichkeit und Belagern |
-| 8 | AP 5.10 Welle 2 (sechs Helden) mit Zeitalterkarten für Rom, Persien & Steppe, Byzanz – siehe unten | Entscheidung 15; Rivalen zu bestehenden Helden |
+| 8 ✓ | AP 5.10 Welle 2 (sechs Helden), Zeitalterkarten für Rom, Persien & Steppe, Byzanz, Rückmeldung 1.10.0 | erledigt in 1.11.0 – 22 Helden, 350 Karten, Massenöffnung und Codes |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
-| 9 | AP 2.1, AP 2.2, AP 0.2 | Native Hülle, WebP, schneller Start, Haptik-Grundlage |
+| 9 | AP 2.1, AP 2.2, AP 0.2 – siehe unten | Native Hülle, WebP, schneller Start, Haptik-Grundlage, randloser linker Rand |
 | 10 | AP 2.4, AP 2.5 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon) |
 | 11–13 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht |
 | 14 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
