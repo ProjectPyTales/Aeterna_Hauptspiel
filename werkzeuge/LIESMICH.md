@@ -37,7 +37,7 @@
   (`<held>_0`–`_9`), Chronikseite, Mission 11–16, Platzhalter-Porträt; neue Spielsteine `citizen`, `pioneer`, `parthenos`.
   Ältere Spielstände bekommen die Basisdecks der neuen Helden (`starters` in `profile.js`). Tests: `tests/helden.test.js`.
 - Heldenwahl 6 × 3 nach Zeitalter, Kampagne scrollt (16 Missionen), Stern im Hauptmenü leiser.
-- Version 1.9.0 / versionCode 12. Balance-Lauf mit 16 Helden ≈ 15 min auf 4 Kernen.
+- Version 1.9.0 / versionCode 12. Balance-Lauf mit 16 Helden ≈ 15 min auf 4 Kernen (mit 1.10.0: ≈ 25 min).
 
 ## Neu in 1.8.0 (Platzhalter, Chronik der Helden, fünf neue Schlüsselwörter, randlose Menüs)
 

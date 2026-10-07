@@ -1,10 +1,11 @@
 # Aeterna
 
-*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 213 Karten,
-16 Helden von Imhotep bis Musashi, 16 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.9.0**
-(sechs neue Helden – Perikles, Marcus Agrippa, Amanirenas, Anna Komnene, Nezahualcóyotl, Hōjō Masako – mit je zehn
-Karten, Chronikseite und Mission; Heldenfähigkeiten als Daten statt Sonderfall-Code, Zeitalter, Bauwerke aus der Hand
-mit Auslösern zu Zugbeginn und -ende, leiserer Stern im Hauptmenü); davor 1.8.0 mit Platzhaltern, Chronik der Helden
+*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 269 Karten,
+16 Helden von Imhotep bis Musashi, 16 Kampagnenmissionen. Aktueller Stand im Code: **Version 1.10.0**
+(Kartenwelle 1 mit 56 Karten – je Held zwei, je sieben Zeitalterkarten für Griechische Antike, Europäisches Mittelalter
+und China/Korea/Japan, Weltwunder wie Kolosseum und Pyramiden –, neue Bauwerk-Regeln, eine KI, die Bauwerke belagert
+oder ignoriert, und eine KI-Persönlichkeit je Held); davor 1.9.0 mit sechs neuen Helden und Heldenfähigkeiten als
+Daten, 1.8.0 mit Platzhaltern, Chronik der Helden
 und fünf neuen Schlüsselwörtern, 1.7.0 mit eigenen Schlüsselwörtern und zwölf neuen Legendären, 1.6.0 mit
 Balance-Werkzeug und ausbalancierten Helden (47–53 %), 1.5.0 mit MVVM-Struktur und automatischer Sichtprüfung in der
 CI, 1.4.0 mit neuem Namen Aeterna, gemaltem Hauptmenü, Stil-Bibel und Tagesduell.
@@ -52,9 +53,8 @@ Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (z. B. 1.8.0 → 1.9.0: einfach die neue APK installieren; eine
-laufende Partie läuft mit den neuen Regeln weiter, die neuen Karten stehen in der Sammlung auf 0, die Basiskarten der
-neuen Helden auf 2, und jeder neue Held bekommt sein Basisdeck).
+installieren sich neue Versionen direkt als Update (z. B. 1.9.0 → 1.10.0: einfach die neue APK installieren; eine
+laufende Partie läuft mit den neuen Regeln weiter, die neuen Karten stehen in der Sammlung auf 0, Decks bleiben gültig).
 
 ---
 
@@ -147,7 +147,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
   `chroniken.profile` bleiben trotz Umbenennung bestehen.
 - **Regeländerungen nur bewusst:** `data.js`/`engine.js` nur in Arbeitspaketen anfassen, die das
   ausdrücklich vorsehen (Phase 5), und dann mit neuen Tests und vollem Balance-Lauf `node werkzeuge/balance.js`
-  (mit 16 Helden ≈ 15 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
+  (mit 16 Helden und 269 Karten ≈ 25 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
   vergleichen: Kopie von `model/` anlegen und `AETERNA_MODELL=<Ordner> node werkzeuge/balance.js --partien 40`.
 - **Sichtprüfung:** Jede optische Änderung per Playwright-Screenshot im Handyformat
   (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen –
@@ -200,7 +200,7 @@ Ornamente und Charakter müssen aus gemalten Bildern kommen.
    *Behoben in 1.7.0 (AP 5.3):* Jede Legendäre hat eine eigene Regel (Aura, Duell, Übernahme, Ergründen,
    Bauwerk …), alle zwölf liegen „gewinnt, wenn gezogen“ nah an ihrem Helden. Legendäre Zauber und Waffen fehlen noch.
 2. **Kleines, gleichförmiges Set.** 1.6.0: 60 Basis-, 28 gewöhnliche, 26 seltene, 14 epische, 12 legendäre Karten;
-   je Held 10 eigene, 40 neutrale. *Stand 1.9.0:* 213 Karten, 16 Helden mit je 10 (einige mit 11–12) eigenen Karten. Bis 1.6.0 nur fünf Schlüsselwörter (Schildwall 22×, Einmarsch 27×, Göttliche Gunst
+   je Held 10 eigene, 40 neutrale. *Stand 1.10.0:* 269 Karten, 16 Helden mit je 12–14 eigenen Karten, dazu 21 Zeitalterkarten für drei Zeitalter. Bis 1.6.0 nur fünf Schlüsselwörter (Schildwall 22×, Einmarsch 27×, Göttliche Gunst
    15×, Vermächtnis 13×, Sturmangriff 11×); seit 1.7.0 dazu Vorstoß, Starre, Ergründen, Doppelschlag, Arkaner Fokus und
    ein erstes Bauwerk – die Karten dazu sind noch wenige (AP 5.11).
 3. ~~**Schlüsselwörter tragen die deutschen Hearthstone-Namen.** Das verstärkt den Eindruck einer Kopie.~~
@@ -265,7 +265,7 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 
 ## Qualitätsziele
 
-| Bereich | Ziel | Stand 1.9.0 (gemessen) |
+| Bereich | Ziel | Stand 1.10.0 (gemessen; Menü- und Bildwerte aus 1.9.0, das Hauptmenü ist unverändert) |
 |---|---|---|
 | Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben, Blitz und Seitenränder nach deiner Rückmeldung zu 1.6.0 überarbeitet, Stern nach deiner Rückmeldung zu 1.8.0 leiser); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
 | Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0 von 181 Bildern > 20 ms, auch bei 4× gedrosselter CPU (1.8.0: 0–4; weniger Glitzer am Stern)¹ |
@@ -274,14 +274,15 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
 | APK-Größe | < 25 MB | 55,9 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,48 MB, Schriften 0,29 MB) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | ✓ **16 Helden** (1.9.0, 136 Paarungen, 54 400 Partien): Startdecks 47,6–51,7 %, Zufallsdecks 47,6–52,8 %; Paarungen 117 bzw. 118 von 120 innerhalb 40/60 (Ausreißer: Amanirenas – Jeanne 74/26, Leonidas – Amanirenas 63/37, Hypatia – Masako 63/37, Khan – Anna 62/38, Dandolo – Nezahualcóyotl 61/39); Beginner gewinnt 45,7 / 49,8 % (1.8.0 mit 10 Helden: 47,9–51,8 % bzw. 47,4–52,3 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
-| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 18 Legendäre mit eigener Regel (12 aus AP 5.3, 6 neue aus AP 5.10, darunter der erste legendäre Zauber); Gruppe 52,6 % (1.8.0: 53,1 %), die sechs neuen 46,1–54,1 %, jede Legendäre −2,3 bis +5,6 Punkte zu ihrem Helden² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | ✓ **16 Helden, 269 Karten** (1.10.0, 54 400 Partien): Startdecks 47,6–52,7 % (16 von 16), Zufallsdecks 47,6–53,2 % (Boudicca 0,2 Punkte über der Grenze, im Zufallsfehler ±1,8); Paarungen 114 bzw. 119 von 120 innerhalb 40/60 – Amanirenas – Jeanne von 74/26 auf 56/44 entschärft; Ausreißer jetzt Khan – Nostradamus und Khan – Agrippa je 65/35, Leonidas – Amanirenas 64/36, Hypatia – Masako und Musashi – Dandolo je 62/38, Masako – Khan 60/40 (Startdecks), Boudicca – Khan 61/39 (Zufallsdecks); Beginner gewinnt 46,2 / 50,9 % (1.9.0: 47,6–51,7 % bzw. 47,6–52,8 %, 5 Ausreißer-Paarungen; 1.8.0 mit 10 Helden: 47,9–51,8 % bzw. 47,4–52,3 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 18 Legendäre mit eigener Regel (12 aus AP 5.3, 6 neue aus AP 5.10, darunter der erste legendäre Zauber); Gruppe 52,9 % (1.9.0: 52,6 %), einzeln 44,2 (Nezahualpilli) bis 56,8 % (Lagertha), −5,1 bis +5,3 Punkte zu ihrem Helden² |
+| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | ✓ alle 269 Karten unter 60 % (höchste: Phalanxveteran 59,7 %, Itzcoatl 59,1 %); die 56 neuen 41,1 (Jurtenlager) bis 57,5 % (Runenmeisterin)² |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
 
 ² KI gegen KI, `node werkzeuge/balance.js` (200 Partien je Paarung, Startwert 20261006), Bericht
-[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,8 Punkte je Held (15 Gegner), ±6,9 je Paarung.
+[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,8 Punkte je Held (15 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 269 Karten 25 min auf 4 Kernen.
 
 ---
 
@@ -1081,7 +1082,7 @@ Schlüsselwort aus AP 5.4/5.5):
 - [x] **Welle 1 – sechs Helden**, je Chronikseite (Vorlage AP 5.9), 10 eigene Karten (4 Basis fürs Startdeck, 2 gewöhnlich,
   2 selten, 1 episch, 1 legendär), Startdeck, Kampagnenmission „Neue Chroniken“ (11–16, frei nach Mission 10),
   KI-Bewertung der neuen Mechaniken; Porträts als Monogramm-Medaillon und 63 Motive als Platzhalter (Prompts in
-  `ungenutzte_assets/MOTIVE.md`). *KI-Persönlichkeit je Held (AP 5.8) steht noch aus – alle spielen mit derselben Bewertung.*
+  `ungenutzte_assets/MOTIVE.md`). *KI-Persönlichkeit je Held: seit 1.10.0 (AP 5.8 Teil 2).*
 
   | Held | Zeitalter | Heldenfähigkeit (2 Mana) | Spielstil | Legendäre | Mission (Boss) |
   |---|---|---|---|---|---|
@@ -1111,12 +1112,70 @@ Schlüsselwort aus AP 5.4/5.5):
 **AP 5.11 – Karteneffekte überarbeiten und Set vergrößern (L)**
 - [ ] Alle 140 Karten durchgehen: doppelte Effekte zusammenlegen oder unterscheiden (z. B. Andraste/Lagertha,
   Marco/Herodot), langweilige „nur Werte“-Karten mit kleinen Regeln versehen, Namen und Texte historisch schärfen,
-  Schlüsselwörter nach AP 5.4.
-- [ ] Neue Karten in Wellen statt auf einmal: Welle 1 ≈ 60 Karten (je Held 4, dazu 20 neutrale, erste Bauwerke
+  Schlüsselwörter nach AP 5.4. *Teil 1 in 1.10.0 – Dopplungen entzerrt:* Andraste und Lagertha sind seit 1.7.0
+  verschieden; **Herodot** ergründet jetzt Zeitalterkarten aller Zeitalter (das Ergründen gespielter Karten bleibt Anna
+  Komnene), die **Thermen des Agrippa** heilen nur noch den Helden (vorher wie das Aquädukt von Chapultepec). *Offen:* die
+  „nur Werte“-Karten (z. B. Wandernder Händler, Veteran, Steinschleuderer) – viele davon liegen in allen Startdecks, eine
+  Änderung verschiebt die ganze Startdeck-Balance; das passt besser in eine eigene Runde.
+- [x] Neue Karten in Wellen statt auf einmal: Welle 1 ≈ 60 Karten (je Held 4, dazu 20 neutrale, erste Bauwerke
   aus AP 5.5), Welle 2 ≈ 90 Karten („Wunder der Welt“, AP 5.7), danach je neuem Held 10. Ziel nach Welle 2:
-  ≈ 300 Karten.
-- [ ] Budgetformel und Simulation entscheiden die Werte (AP 5.7): keine Welle ohne Balance-Lauf und KI-Bewertung.
+  ≈ 300 Karten. *Welle 1 in 1.10.0 – 56 Karten nach dem Plan aus Sitzung 6* (je Held zwei statt vier, dafür
+  Zeitalterkarten): je Held zwei, je sieben **Zeitalterkarten** für die drei Zeitalter mit mehreren Helden und drei
+  neutrale Weltwunder; alle mit festen IDs hinten angehängt und Platzhalter-Motiv (Prompts in `MOTIVE.md`).
+  Zeitalterkarten gehören zum Zeitalter (`hero` = `age` = z. B. `griechen`) und stehen nur dessen Helden offen –
+  Sammlung, Deckbau, Zufallsdecks und Ergründen kennen sie. Neue Regeln dafür: siehe AP 5.5 und Projektaufbau.
+
+  | Held / Zeitalter | neue Karten (Werte nach den Messrunden) |
+  |---|---|
+  | Leonidas | Spartiat der Dreihundert 3: 2/4 Schildwall, wächst bei Schaden · Engpass der Thermopylen 3: Starre für alle Feinde mit 3+ Angriff |
+  | Hypatia | Astronomin des Museions 2: 2/3 Arkaner Fokus +1 · Kommentar zu Diophant 2: 2 Schaden, stirbt das Ziel: Ergründen (Zauber) |
+  | Imhotep | Priesterin der Sachmet 3: 3/3 heilt 3 · Ka-Statue 2: Bauwerk 0/6, Schildwall, Vermächtnis 5 Heilung |
+  | Dandolo | Galeerenschmied 2: 2/2, Waffe +1/+1 · Plünderung Konstantinopels 6: vernichtet einen Diener, Ergründen (fremder Held) |
+  | Khan | Jurtenlager 3: Bauwerk, ruft jeden Zug einen Steppenreiter (1/1, Sturmangriff) · Kurultai 4: drei Steppenreiter |
+  | Boudicca | Barde der Icener 2: 2/2, Held +2 Angriff · Sichelwagen 5: 3/3 Sturmangriff, 1 Schaden an allen Feinden |
+  | Nostradamus | Almanach der Quatrains 1: zieht 1, kostet 1 weniger · Horoskop der Königin 3: Ergründen, −2 Kosten, 2 Schaden am eigenen Helden |
+  | Jeanne | Pilgerin aus Domrémy 1: 1/2 ruft einen Rekruten · Die Weihe von Reims 4: alle Diener Göttliche Gunst |
+  | Ragnar | Runenmeisterin 2: 1/3 ruft einen Runenstein · Berserkergang 1: +3 Angriff und Plünderung |
+  | Musashi | **Schwertschüler aus Kokura 4: 3/4 Doppelschlag** (dein Wunsch aus AP 5.9) · Niten Ichi-ryū 2: +1 Angriff und Doppelschlag |
+  | Perikles | Steinmetz vom Pentelikon 2: 1/3, Bauwerk +2 oder Bürger · Schatz des Seebunds 3: zieht 1 + 1 je Bauwerk |
+  | Agrippa | Aquilifer 3: 2/3, andere Diener +1 Leben · Harpax 4: übernimmt einen Diener mit höchstens 2 Angriff |
+  | Amanirenas | Pfeilmacher aus Meroë 2: 2/3, 1 Schaden an zufälligem Feind · Gift der Wüstenviper 3: zwei Diener Tödliches Gift, zieht 1 |
+  | Anna Komnene | Spitalarzt des Pantokrator 2: 1/3 heilt Diener am Zugende · Chronist am Kaiserhof 6: 5/6, 1 billiger je drei gespielte Karten |
+  | Nezahualcóyotl | Dichter von Texcoco 2: 2/3 heilt alle um 1 · Chinampa 2: Bauwerk, jeden Zug ein Diener +1/+1 |
+  | Hōjō Masako | Jitō-Verwalter 2: 2/3 verleiht Schildwall · Siegel des Shikken 2: Schildwall-Diener erhalten Göttliche Gunst, zieht 1 |
+  | **Griechische Antike** (Leonidas, Hypatia, Perikles) | Olympionike 4: 3/3 Sturmangriff, Göttliche Gunst · Rhapsode 2: Ergründen (Zeitalter) · Marathonläufer 2: 2/1 Sturmangriff, Vermächtnis zieht · Orakel von Delphi 3: zweimal Ergründen (eigener Held) · Leuchtturm von Pharos · Akropolis · Bibliothek von Alexandria |
+  | **Europäisches Mittelalter** (Dandolo, Boudicca, Jeanne, Ragnar) | Knappe 1: Diener +1 Angriff · Armbrustschütze 3: 2 Schaden · Mönch von Cluny 3: Ergründen (Zeitalter) · Hansekogge 4: zieht 2, Belastung 1 · Turnierritter 4: 3/3 Vorstoß, Göttliche Gunst · Burgfried 2: Bauwerk 0/6, Schildwall, 2 Rüstung je Zug · Tribok 4: Bauwerk, 3 Schaden an feindlichem Diener oder Bauwerk |
+  | **China, Korea, Japan** (Musashi, Masako) | Ashigaru 1: 2/1 Vorstoß · Mandarin-Gelehrter 3: Ergründen (Zeitalter) · Teezeremonie 2: 4 Heilung, zieht 1 · Hwacha-Salve 3: fünfmal 1 Schaden · Schildkrötenschiff 5: 3/7 Schildwall, trifft zurück · Terrakotta-Armee 5: drei 2/2 mit Schildwall · Große Mauer 2: Bauwerk 0/7 |
+  | Neutral | Kolosseum · Hängende Gärten · Pyramiden von Gizeh (siehe AP 5.5) |
+
+- [x] Budgetformel und Simulation entscheiden die Werte (AP 5.7): keine Welle ohne Balance-Lauf und KI-Bewertung.
+  *Welle 1:* Werte in sechs Messrunden (40 Partien je Paarung) und drei vollen Läufen (200 je Paarung) festgelegt; die KI
+  bewertet alle neuen Regeln (Auslöser, Auren, Kostensenkungen, Bauwerke nach Wirkung). Eine feste Budgetformel gibt es
+  noch nicht – sie kommt mit Welle 2 (AP 5.7). *Was die Messungen verändert haben:* Steinmetz (65 %, +12,9),
+  Sichelwagen, Plünderung Konstantinopels und Turnierritter wurden schwächer; Pharos (−12,5), Burgfried, Ka-Statue,
+  Große Mauer und die drei Weltwunder billiger oder stärker. Durch die klügere Bauwerk-Bewertung der KI stieg Perikles
+  mit Startdeck auf 56–58 % – seine *Rede auf die Gefallenen* kostet jetzt 3 statt 2 Mana (mit +1/+1 statt +1/+2 fiel er
+  auf 43 %). **Amanirenas gegen Jeanne** (1.9.0: 74/26): Kandake zieht keine Karte mehr, wenn sie einen beschworenen
+  Diener (Rekrut, Runenstein …) tötet – jetzt 56/44. Kleine Korrekturen bei bisherigen Karten: Nilschülerin 1/3 (1/4),
+  Maskierte Wache 3/3 (3/4), Rōnin 3/5 (3/4), Pilumwerfer 1/2 (1/1), Kopistin der Chronik 1/3 (1/2), Kataphrakt 4/6 (5/6,
+  vorher 63 %), Wächter des Weltenbaums 6/9 (7/9, vorher 61 %).
 - Abnahme: je Welle Simulationsbericht, Legendäre ≤ 55 % „gewinnt, wenn gezogen“, keine Karte über 60 %.
+  *✓ Welle 1 (voller Lauf, 54 400 Partien, 25 min; Bericht [`balance/BERICHT.md`](balance/BERICHT.md), vorher
+  [`balance/BERICHT-1.9.0.md`](balance/BERICHT-1.9.0.md)):*
+
+  | Messung | 1.9.0 | 1.10.0 |
+  |---|---|---|
+  | Karten | 213 | **269** |
+  | Helden mit 47–53 % (Start- / Zufallsdecks) | 16 / 16 | **16 / 15** (Boudicca 53,2 %) |
+  | Spanne gegen das Feld (Start- / Zufallsdecks) | 47,6–51,7 / 47,6–52,8 % | **47,6–52,7 / 47,6–53,2 %** |
+  | Paarungen innerhalb 40/60 (Start- / Zufallsdecks) | 117 / 118 von 120 | **114 / 119** |
+  | Beginner gewinnt (Start- / Zufallsdecks) | 45,7 / 49,8 % | **46,2 / 50,9 %** |
+  | Legendäre als Gruppe „gewinnt, wenn gezogen“ | 52,6 % | **52,9 %** |
+  | Höchste Karte „gewinnt, wenn gezogen“ | 61,7 % (Wächter des Weltenbaums; Kataphrakt 60,1 %) | **59,7 %** (Phalanxveteran) |
+  | Neue Karten „gewinnt, wenn gezogen“ | 42,3–60,1 % | **41,1–57,5 %** |
+  | KI: Angriffe aufs Gesicht, aggressiv / kombinierend / defensiv (Zufallsdecks) | – | **50,7 / 45,1 / 40,1 %** (Startdecks 46,0 / 42,4 / 38,8 %) |
+  | KI: Angriffe auf Bauwerke (Zufallsdecks) | – | **6,7–9,1 %** |
+  | Züge je Partie (Median, Start- / Zufallsdecks) | 23 / 20 | 23 / 20 |
 
 **AP 5.12 – Platzhalter für fehlende Grafiken (S)** – *von dir freigegeben (Sitzung 2): erst mit Platzhaltern.*
 Regeln, Balance und KI lassen sich ohne Bilder bauen und testen; die Grafiken (AP 1.2) kommen danach gesammelt.
@@ -1276,50 +1335,55 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 6 (Version 1.9.0):** AP 5.10 Engine-Teil (Heldenfähigkeiten als Daten, nachweislich ohne
-Verhaltensänderung; Zeitalter; Auslöser für Bauwerke und Diener; Bossfähigkeiten als Daten) und Welle 1 mit Perikles,
-Marcus Agrippa, Amanirenas, Anna Komnene, Nezahualcóyotl und Hōjō Masako – je Chronikseite, 10 Karten, Startdeck,
-Mission, Platzhalter-Porträt und Motiv-Prompts. Heldenwahl mit 16 Helden nach Zeitalter, Kampagne mit 16 Missionen.
-Deine Rückmeldung zu 1.8.0: Stern oben Mitte deutlich leiser (AP 1.3), toter linker Rand als niedrige Priorität
-eingetragen (AP 1.3, AP 2.1). Alle 16 Helden bleiben bei 47–53 % in beiden Deckarten, Legendäre als Gruppe 52,6 %. Davor: Sitzung 5 (1.8.0) AP 5.12, AP 5.9, AP 5.4 Teil 2; Sitzung 4 (1.7.0)
-AP 5.4 Teil 1, AP 5.3, AP 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, AP 5.2; Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6;
-Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
+**Erledigt in Sitzung 7 (Version 1.10.0):** AP 5.11 Kartenwelle 1 – 56 Karten (je Held zwei, darunter Musashis
+Doppelschlag-Karte, je sieben Zeitalterkarten für Griechische Antike, Europäisches Mittelalter und China/Korea/Japan),
+Dopplungen Herodot/Anna und Thermen/Aquädukt entzerrt; AP 5.5 – sieben Beispiel-Bauwerke als Zeitalterkarten und
+Weltwunder, neue Regeln (Zauber billiger, Rüstung je Tod, doppelte Heilung, doppeltes Vermächtnis, Große Mauer), KI
+belagert wirksame Bauwerke und ignoriert wirkungslose, Bauwerk-Karten mit Turm-Abzeichen; AP 5.8 Teil 2 –
+KI-Persönlichkeit je Held (aggressiv, defensiv, kombinierend), sichtbar in der Heldenwahl und messbar im Balance-Bericht.
+Deine Rückmeldung zu 1.9.0: Entscheidung 14 (einfache Reihenfolge der Missionen – bleibt 1 bis 16) und 15 (Welle 2 wie
+vorgeschlagen) eingetragen; der Ausreißer Amanirenas gegen Jeanne ist von 74/26 auf 56/44 entschärft. Nebenbei: Die
+Sammlung zählte fest „/ 140 Karten“, jetzt die echte Zahl. Davor: Sitzung 6 (1.9.0) AP 5.10; Sitzung 5 (1.8.0) AP 5.12,
+AP 5.9, AP 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, AP 5.3, AP 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, AP 5.2;
+Sitzung 2 (1.5.0) AP 2.3, AP 0.1, AP 2.6; Sitzung 1 (1.4.0) AP 0.3, AP 1.1, AP 1.3.
 
 **Vorher bitte von dir auf dem OnePlus 15 (10–15 Minuten):**
-1. Test-APK `Aeterna-1.9.0-Test-APK` aus Actions installieren (Update über 1.8.0, Spielstand bleibt; die sechs neuen
-   Helden haben sofort ein Basisdeck). **Stern oben Mitte:** jetzt angenehm – oder ganz weg?
-2. **Heldenwahl** (Schlacht): passen 16 Kacheln in 6 × 3 und sind die Monogramme lesbar? Je eine Partie mit zwei, drei
-   neuen Helden. Fühlen sich Perikles (Bauwerke), Agrippa (Pioniere), Amanirenas (Pfeile und Gift), Anna (Alexiade),
-   Nezahualcóyotl (Heilen und Wachsen) und Masako (Schildwall) unterschiedlich an?
-3. **Chronik der neuen Helden gegenlesen** (Heldenwahl → Chronik): Ton, Fakten, Zitate.
-4. **Kampagne:** nach unten wischen – die Neuen Chroniken 11–16 (frei nach Mission 10, siehe Entscheidung 14).
-5. Offene Entscheidungen **2**, **3**, **5**, **7**, neu **14** und **15**.
-6. *Asset-Aufgabe (AP 1.2), sobald es passt:* sechs Porträts und 63 neue Motive stehen mit fertigem Prompt in
-   `ungenutzte_assets/MOTIVE.md` (zusammen 77 Motive), dazu weiter der randlose Hintergrund und die Runensteine.
+1. Test-APK `Aeterna-1.10.0-Test-APK` aus Actions installieren (Update über 1.9.0, Spielstand und Decks bleiben; die
+   neuen Karten stehen auf 0 – zwei, drei Kartenpakete öffnen oder im Kolosseum spielen, dort sind alle Karten dabei).
+2. **Schlacht → Gegner wählen:** Unter dem Gegner steht seine Spielweise. Merkt man im Spiel, dass Khan (aggressiv) auf
+   dein Gesicht geht und Leonidas (defensiv) eher dein Feld räumt?
+3. **Bauwerke:** Sind die Handkarten mit Turm-Abzeichen und die Plaketten auf dem Feld klar lesbar? Reißt die KI deine
+   Bibliothek oder deinen Leuchtturm ein, lässt sie eine harmlose Mauer stehen?
+4. **Sammlung:** Held „Sparta“ wählen – Zeitalterkarten der Griechischen Antike (blau, Ω) stehen zwischen den eigenen
+   Karten. Gefällt dir die Farbe je Zeitalter (Griechen blau, Mittelalter braun ✠, Ostasien rot 龍)?
+5. Offene Entscheidungen **2**, **3**, **5**, **7**.
+6. *Asset-Aufgabe (AP 1.2), sobald es passt:* 135 Karten- und 6 Porträtmotive stehen mit fertigem Prompt in
+   `ungenutzte_assets/MOTIVE.md` (58 davon neu), dazu weiter der randlose Hintergrund und die Runensteine.
 
-**Sitzung 7 – AP 5.11 Kartenwelle 1 mit Zeitalterkarten, AP 5.5 Bauwerke, AP 5.8 Teil 2**
+**Sitzung 8 – AP 5.10 Welle 2: sechs neue Helden mit Zeitalterkarten**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.9.0 | Chronik-Korrekturen, Werte der neuen Helden, Stern, Entscheidungen 14/15 | kurz, Balance-Lauf läuft ohnehin |
-| AP 5.11 Kartenwelle 1 | ≈ 60 Karten: je Held 2–3 (16 Helden), dazu je 6–8 Zeitalterkarten für die drei Zeitalter mit mehreren Helden (Griechische Antike, Europäisches Mittelalter, China/Korea/Japan – das Feld `age` ist da); doppelte Effekte entzerren (Andraste/Lagertha, Marco/Herodot, Thermen/Aquädukt), Musashi-Karte mit Doppelschlag | 16 Helden mit je 10 Karten sind dünn; die Engine kann jetzt Auslöser, Auren und Bauwerke |
-| AP 5.5 Bauwerke | die Beispiele aus AP 5.5 (Bibliothek von Alexandria, Große Mauer, Leuchtturm von Pharos …) als neutrale oder Zeitalter-Bauwerke; KI entscheidet „belagern oder ignorieren“; Plakette mit Turm-Symbol | Bauwerke aus der Hand gibt es seit 1.9.0, die KI greift sie noch nicht gezielt an |
-| AP 5.8 Teil 2 | KI-Persönlichkeit je Held (aggressiv, defensiv, kombinierend) als Datenfeld neben `ability` | macht die 16 Helden auch als Gegner unterscheidbar |
-| Balance | voller Lauf mit 16 Helden (≈ 15 min), Ausreißer-Paarungen aus 1.9.0 angehen (Amanirenas gegen Jeanne) | Abnahme von AP 5.11 |
+| Rückmeldung 1.10.0 | Spielweisen, Bauwerke, Zeitalterfarben | kurz, Balance-Lauf läuft ohnehin |
+| AP 5.10 Welle 2 | **Epaminondas** (Griechische Antike, Rivale von Leonidas), **Fabius Maximus** (Rom), **Mandukhai** (Persien & Steppe), **Baibars** (Byzanz & islamische Welt, Rivale von Khan), **Jan Žižka** (Europäisches Mittelalter), **Fu Hao** (China, Korea, Japan) – je Chronikseite, 10 Karten, Startdeck, Mission 17–22 (einfach angehängt, Entscheidung 14), KI-Persönlichkeit und Monogramm-Porträt | Entscheidung 15; die Engine kann alles, was die Vorschläge brauchen (Starre, Vorstoß, Schildwall-Spielsteine, Ergründen) |
+| Zeitalterkarten | je 6–7 für **Rom, Persien & Steppe, Byzanz** – diese Zeitalter haben dann zwei Helden | gleiche Struktur wie in 1.10.0 (`hero` = `age`) |
+| Balance | voller Lauf mit 22 Helden (≈ 50 min, 253 Paarungen je Deckart); die Ausreißer-Paarungen um Khan angehen | Abnahme von Welle 2 |
 
-Neue Bildschirm-Logik kommt dabei immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Balance-Lauf.
+Neue Bildschirm-Logik kommt dabei immer in ein ViewModel mit Test, Regeländerungen nur in `model/` mit Balance-Lauf. Die
+Heldenwahl braucht für 22 Helden eine neue Anordnung (heute 6 × 3 Kacheln) – mit Screenshot im Handyformat prüfen.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.11 (Kartenwelle 1 mit Zeitalterkarten),
-> AP 5.5 (Bauwerke) und AP 5.8 Teil 2 (KI-Persönlichkeit)** ab und übernimm mein Feedback zu Version 1.9.0: *(hier
-> Feedback, Korrekturen zur Chronik und Entscheidungen 14/15 einfügen)*. Halte dich an die „Regeln für jede Sitzung“
-> und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen
-> Tests, den Balance-Lauf und den Klickpfad (falls notwendig) laufen und sorge für eine grüne CI. (Spare im Zweifel
-> Tokens bei der Prüfphase und delegiere Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab
-> und trage Messwerte ein. Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen
-> Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 5.10 Welle 2 (sechs neue Helden mit
+> Zeitalterkarten für Rom, Persien & Steppe und Byzanz)** ab und übernimm mein Feedback zu Version 1.10.0: *(hier
+> Feedback und Entscheidungen einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe
+> optische Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen Tests, den Balance-Lauf und den
+> Klickpfad (falls notwendig) laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und
+> delegiere Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein.
+> Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste
+> Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: xhigh.** Rund 60 Karten mit Balance-Runden über 16 Helden, dazu eine neue
-KI-Ebene – ähnlich groß wie diese Sitzung, deren Balance allein zehn Messrunden brauchte. *high* reicht, wenn du nur
-die Kartenwelle machst und AP 5.5/5.8 auf Sitzung 8 schiebst.
+**Empfohlener Effort für den nächsten Prompt: xhigh.** Sechs Helden mit je zehn Karten, Chronik und Mission plus rund
+20 Zeitalterkarten – so groß wie Sitzung 6 und 7 zusammen, und jeder volle Balance-Lauf dauert mit 22 Helden etwa doppelt
+so lange (diese Sitzung brauchte drei volle Läufe). *high* reicht, wenn du nur die Helden machst und die
+Zeitalterkarten auf Sitzung 9 schiebst.
