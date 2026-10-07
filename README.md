@@ -282,7 +282,7 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 
 ## Qualitätsziele
 
-| Bereich | Ziel | Stand 1.10.0 (gemessen; Menü- und Bildwerte aus 1.9.0, das Hauptmenü ist unverändert) |
+| Bereich | Ziel | Stand 1.11.0 (gemessen; Menü- und Bildwerte aus 1.9.0, das Hauptmenü ist unverändert) |
 |---|---|---|
 | Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben, Blitz und Seitenränder nach deiner Rückmeldung zu 1.6.0 überarbeitet, Stern nach deiner Rückmeldung zu 1.8.0 leiser); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
 | Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | Match noch nicht gemessen (AP 2.4). Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0 von 181 Bildern > 20 ms, auch bei 4× gedrosselter CPU (1.8.0: 0–4; weniger Glitzer am Stern)¹ |
@@ -291,15 +291,15 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen; Desktop-Chromium mit lokalem Server 0,5 s (nicht aussagekräftig) |
 | APK-Größe | < 25 MB | 55,9 MB (1.3.0: 55,2 MB; Hauptmenü-Bild 0,48 MB, Schriften 0,29 MB) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | ✓ **16 Helden, 269 Karten** (1.10.0, 54 400 Partien): Startdecks 47,6–52,7 % (16 von 16), Zufallsdecks 47,6–53,2 % (Boudicca 0,2 Punkte über der Grenze, im Zufallsfehler ±1,8); Paarungen 114 bzw. 119 von 120 innerhalb 40/60 – Amanirenas – Jeanne von 74/26 auf 56/44 entschärft; Ausreißer jetzt Khan – Nostradamus und Khan – Agrippa je 65/35, Leonidas – Amanirenas 64/36, Hypatia – Masako und Musashi – Dandolo je 62/38, Masako – Khan 60/40 (Startdecks), Boudicca – Khan 61/39 (Zufallsdecks); Beginner gewinnt 46,2 / 50,9 % (1.9.0: 47,6–51,7 % bzw. 47,6–52,8 %, 5 Ausreißer-Paarungen; 1.8.0 mit 10 Helden: 47,9–51,8 % bzw. 47,4–52,3 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
-| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 18 Legendäre mit eigener Regel (12 aus AP 5.3, 6 neue aus AP 5.10, darunter der erste legendäre Zauber); Gruppe 52,9 % (1.9.0: 52,6 %), einzeln 44,2 (Nezahualpilli) bis 56,8 % (Lagertha), −5,1 bis +5,3 Punkte zu ihrem Helden² |
-| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | ✓ alle 269 Karten unter 60 % (höchste: Phalanxveteran 59,7 %, Itzcoatl 59,1 %); die 56 neuen 41,1 (Jurtenlager) bis 57,5 % (Runenmeisterin)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **22 Helden, 350 Karten** (1.11.0, 101 200 Partien): Startdecks 46,6–53,9 % (20 von 22: Musashi 53,9 %, Žižka 46,6 %), Zufallsdecks 46,5–52,8 % (21 von 22: Hypatia 46,5 %) – alle Abweichungen ≤ 0,9 Punkte, im Zufallsfehler ±1,5; die sechs neuen Helden 46,6–50,7 % bzw. 48,9–52,8 %. Paarungen 201 bzw. 227 von 231 innerhalb 40/60 – Ausreißer vor allem mit Startdecks: Khan – Fu Hao 69/31, Khan – Mandukhai 68/32, Fu Hao – Imhotep 66,5/33,5, Leonidas – Fabius und Nezahualcóyotl – Žižka je 65,5/34,5; mit Zufallsdecks Fabius – Perikles 65/35. Beginner gewinnt 46,2 / 50,9 % (1.10.0 mit 16 Helden: 47,6–52,7 % bzw. 47,6–53,2 %, 114/119 von 120 Paarungen; 1.9.0: 47,6–51,7 % bzw. 47,6–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 52,8 % (1.10.0: 52,9 %), einzeln 43,4 (Nezahualpilli) bis 57,7 % (Lagertha); die sechs neuen 46,5 (Marcellus) bis 56,4 % (Qalawun)² |
+| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: 347 von 350 Karten unter 60 %, darüber Goldener Reiter (Khan) 60,9 %, Botin der Stämme 60,5 % und Kämpfer der Heiligen Schar 60,4 % – im Zufallsfehler, aber für Sitzung 10 notiert; die 81 neuen 38,3 (Wagenburg am Vítkov) bis 60,5 %² |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
 
 ² KI gegen KI, `node werkzeuge/balance.js` (200 Partien je Paarung, Startwert 20261006), Bericht
-[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,8 Punkte je Held (15 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 269 Karten 25 min auf 4 Kernen.
+[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,5 Punkte je Held (21 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 22 Helden und 350 Karten 27 min auf 4 Kernen.
 
 ---
 
@@ -1090,7 +1090,7 @@ Schlüsselwort aus AP 5.4/5.5):
   Startwert) – der Umbau ändert kein Verhalten. Ein Test stellt sicher, dass `engine.js` keine Helden-ID mehr abfragt.
 - [x] **Zeitalter als Datenfeld:** `CHD.ages` (zehn Gruppen von „Alter Orient & Ägypten“ bis „Amerika“), Feld `age` je Held;
   `CHD.playable(karte, held)` lässt Karten mit gleichem `age` in Decks, Ergründen-Pools und Zufallsdecks zu – die
-  Zeitalterkarten selbst kommen mit AP 5.11. Die Heldenwahl gruppiert die 16 Helden nach Zeitalter (6 × 3 Kacheln).
+  Zeitalterkarten selbst kommen mit AP 5.11. Die Heldenwahl gruppiert die Helden nach Zeitalter (6 × 3 Kacheln, seit 1.11.0 mit 22 Helden 8 × 3).
 - [x] **Bauwerke aus der Hand und neue Auslöser** (Vorgriff auf AP 5.5): Karten und Bauwerke können zu Zugbeginn (`start`)
   oder -ende (`end`) wirken, bei Heilung (`onHeal`, `allyHeal`), als Aura (`buffAura`, `buildingDiscount`); die
   Stufenpyramide nutzt jetzt denselben Mechanismus. Neue Effekte: Bauwerk verstärken, auf die Hand zurückschicken,
@@ -1148,13 +1148,30 @@ Schlüsselwort aus AP 5.4/5.5):
   Kriegswagen am stärksten: 0/3 → 37 %, 1/3 → 66 %, jetzt 1/2. **Baibars**, **Fu Hao** und **Epaminondas** begannen bei
   60–63 % (Ain Dschalut, Yue-Axt 2/3, Thebanischer Phalangit) und wurden leicht abgeschwächt. Die byzantinischen
   Zeitalterkarten drückten **Anna** mit Zufallsdeck von 48 auf 42 % – Hagia Sophia, Theodosianische Mauern und der Arzt des
-  Bimaristan sind deshalb stärker als geplant.
+  Bimaristan sind deshalb stärker als geplant. *Nach den vollen Läufen:* Žižka 57,7 % mit Startdeck → Hauptmann der
+  Taboriten 2/3, danach doch wieder 2/4, dafür Dreschflegelbauer (62,8 % „gewinnt, wenn gezogen“) 2 statt 1 Mana; Mandukhai 53,8 % mit Zufallsdeck →
+  Ruf der Tumen 3 Mana, Zwilling 2/1; Baibars 53,1 % → Qutuz und Qalawun je −1 Angriff.
 - Abnahme: Simulationslauf (AP 5.1) mit allen Helden, jeder neue Held 47–53 % gegen das Feld. *✓ Gemessen (voller Lauf, 200 Partien je Paarung, 54 400 Partien in 15 min):* die sechs neuen Helden mit Startdeck
   47,6 (Agrippa) bis 51,5 % (Amanirenas), mit Zufallsdeck 47,6 (Agrippa) bis 51,4 % (Amanirenas); alle 16 Helden in beiden
   Deckarten 47,6–52,8 %. Fünf von 240 Paarungen liegen außerhalb 40/60 (siehe Qualitätsziele) – der deutlichste Konter ist
   Amanirenas gegen Jeanne (74/26): Ihr Pfeil trifft die 1/1-Rekruten und zieht dabei Karten. Neue Karten 42,3 % (Aquädukt
   von Chapultepec) bis 60,1 % (Kataphrakt, knapp über der 60-%-Grenze aus AP 5.11) „gewinnt, wenn gezogen“.
-  Vorher/nachher: [`balance/BERICHT-1.8.0.md`](balance/BERICHT-1.8.0.md) → [`balance/BERICHT.md`](balance/BERICHT.md).
+  Vorher/nachher: [`balance/BERICHT-1.8.0.md`](balance/BERICHT-1.8.0.md) → [`balance/BERICHT-1.9.0.md`](balance/BERICHT-1.9.0.md).
+- Abnahme Welle 2: jeder neue Held 47–53 % gegen das Feld. *Gemessen (drei volle Läufe, je 101 200 Partien in 27 min;
+  [`balance/BERICHT-1.10.0.md`](balance/BERICHT-1.10.0.md) → [`balance/BERICHT.md`](balance/BERICHT.md)):*
+
+  | Held | Startdeck | Zufallsdeck | KI | schwerste / leichteste Paarung (Startdeck) |
+  |---|---|---|---|---|
+  | Epaminondas | 50,7 % | 52,3 % | aggressiv | Fabius 36,5 % / Imhotep 61,0 % |
+  | Fabius Maximus | 48,9 % | 48,9 % | defensiv | Leonidas 34,5 % / Epaminondas 63,5 % |
+  | Mandukhai | 49,8 % | 52,8 % | kombinierend | Khan 32,0 % / Fabius 62,0 % |
+  | Baibars | 51,4 % | 51,4 % | aggressiv | Fabius 38,5 % / Ragnar 61,5 % |
+  | Jan Žižka | 46,6 % ✗ | 50,7 % | defensiv | Nezahualcóyotl 34,5 % / Jeanne 64,0 % |
+  | Fu Hao | 49,5 % | 49,8 % | kombinierend | Khan 31,0 % / Imhotep 66,5 % |
+
+  ✓ bis auf Žižka mit Startdeck (0,4 Punkte unter der Grenze, im Zufallsfehler ±1,5). Von den bisherigen Helden liegen Musashi
+  (Startdeck 53,9 %) und Hypatia (Zufallsdeck 46,5 %) knapp außerhalb; Rivalen wirken: Epaminondas schlägt Leonidas 59,5/40,5,
+  Baibars gegen Khan 52/48 (Startdecks).
 
 **AP 5.11 – Karteneffekte überarbeiten und Set vergrößern (L)**
 - [ ] Alle 140 Karten durchgehen: doppelte Effekte zusammenlegen oder unterscheiden (z. B. Andraste/Lagertha,
@@ -1243,7 +1260,8 @@ So, dass es im Spiel nicht kaputt aussieht:
   und Prompt; ein Test prüft, dass sie aktuell ist. *Gemessen:* **14 Motive fehlen** (13 neue Karten und die
   Stufenpyramide), 0 Heldenporträts (`sichtpruefung/messwerte.json` → `platzhalter`). *Stand 1.9.0:* **77 Karten und 6 Heldenporträts** (die
   60 Karten und drei Spielsteine der neuen Helden kamen hinzu; Prompts mit Bildidee in `MOTIVE.md`). *Stand 1.10.0:*
-  **135 Karten und 6 Heldenporträts** (dazu 56 Karten der Kartenwelle und zwei Spielsteine, alle mit Bildidee).
+  **135 Karten und 6 Heldenporträts** (dazu 56 Karten der Kartenwelle und zwei Spielsteine, alle mit Bildidee). *Stand 1.11.0:*
+  **225 Karten und 12 Heldenporträts** (81 Karten und neun Spielsteine der Welle 2, alle mit Bildidee).
 
 ### Phase 6 – Spielmodi und Motivation (fortlaufend)
 
@@ -1375,7 +1393,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 8 ✓ | AP 5.10 Welle 2 (sechs Helden), Zeitalterkarten für Rom, Persien & Steppe, Byzanz, Rückmeldung 1.10.0 | erledigt in 1.11.0 – 22 Helden, 350 Karten, Massenöffnung und Codes |
 | zwischendurch | AP 1.2 (du) | Grafiken für Karten, Spielbrett und HUD erzeugen |
 | 9 | AP 2.1, AP 2.2, AP 0.2 – siehe unten | Native Hülle, WebP, schneller Start, Haptik-Grundlage, randloser linker Rand |
-| 10 | AP 2.4, AP 2.5 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon) |
+| 10 | AP 2.4, AP 2.5, AP 5.11 Teil 2 | Flüssiges Match, Renderer-Entscheidung (das Sicherheitsnetz AP 2.6 läuft schon); „nur Werte“-Karten und Balance-Feinschliff aus 1.11.0 |
 | 11–13 | AP 1.8, AP 1.5, AP 3.1–3.5 | Neues Spielbrett, neue Karten, Gewicht und Wucht |
 | 14 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
 | 15–16 | AP 3.6–3.9, Phase 4 | Effekte, Stimmen, Chronist, Klang, Haptik aus einem Guss |
@@ -1390,8 +1408,8 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 **Erledigt in Sitzung 8 (Version 1.11.0):** AP 5.10 Welle 2 – Epaminondas, Fabius Maximus, Mandukhai, Baibars, Jan Žižka
 und Fu Hao mit je zehn Karten, Chronikseite, Startdeck, KI-Persönlichkeit, Monogramm und Mission 17–22; 21 Zeitalterkarten
 für Rom, Persien & Steppe und Byzanz (jetzt sechs Zeitalter mit je zwei bis fünf Helden); neue Regeln (Diener ganz links,
-Bündnis-Bedingung, verliehener Vorstoß, Ergründen aus dem eigenen Deck, Ziele in Starre); zwei volle Balance-Läufe mit
-22 Helden. Deine Rückmeldung zu 1.10.0: **Massenöffnung** (im Basar „Alle öffnen“, bis zu 50 Pakete, Übersicht mit den
+Bündnis-Bedingung, verliehener Vorstoß, Ergründen aus dem eigenen Deck, Ziele in Starre); drei volle Balance-Läufe mit
+22 Helden (alle neuen Helden 46,6–52,8 %). Deine Rückmeldung zu 1.10.0: **Massenöffnung** (im Basar „Alle öffnen“, bis zu 50 Pakete, Übersicht mit den
 seltensten Karten zuerst) und **Code-Eingabe** (*Einstellungen → Code einlösen*, vier Codes) – beide gab es in keiner
 Version im Repo, sie sind neu gebaut (siehe Entscheidung 16). Nebenbei: Heldenwahl mit 8 Spalten für 22 Helden,
 Monogramme passen ins Medaillon, „Über das Spiel“ nennt die echten Zahlen statt „140 Karten, zehn Helden“. Davor:
@@ -1427,7 +1445,9 @@ Splash-Screen, Vibrationsmuster und 120 Hz bisher nicht.
 
 Das Risiko liegt in AP 2.1: Die Hülle lässt sich in der Sitzung nur in der CI bauen und nicht auf einem Gerät testen –
 deshalb mit Abnahme über Deinen Test (Update über 1.11.0, Spielstand bleibt, Export/Import, Zurück-Taste, Vibration).
-Regeln und Karten bleiben unverändert (kein Balance-Lauf nötig, nur Tests und Klickpfad).
+Regeln und Karten bleiben unverändert (kein Balance-Lauf nötig, nur Tests und Klickpfad). Der Balance-Feinschliff aus
+1.11.0 – die Khan-Paarungen (gegen Fu Hao und Mandukhai 69/31 bzw. 68/32 mit Startdecks), drei Karten knapp über 60 %
+(Goldener Reiter, Botin der Stämme, Kämpfer der Heiligen Schar), Musashi 53,9 % – gehört zu AP 5.11 Teil 2 in Sitzung 10.
 
 **Text zum Kopieren für den Start:**
 
