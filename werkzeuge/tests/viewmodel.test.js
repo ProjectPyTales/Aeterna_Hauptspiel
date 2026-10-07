@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),path=requir
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
 const {ViewModel,html,raw}=need('core/mvvm.js'),{Store}=need('model/store.js'),P=need('model/profile.js'),K=need('model/cosmetics.js'),D=need('model/data.js'),E=need('model/engine.js');
-const {Shop}=need('viewmodel/shop.js'),{Collection}=need('viewmodel/collection.js'),{Packs}=need('viewmodel/packs.js'),{Menu}=need('viewmodel/menu.js'),{Match}=need('viewmodel/match.js'),{Dialogs}=need('viewmodel/dialogs.js');
+const {Shop}=need('viewmodel/shop.js'),{Collection}=need('viewmodel/collection.js'),{Packs,STEP,TICK}=need('viewmodel/packs.js'),{Menu}=need('viewmodel/menu.js'),{Match}=need('viewmodel/match.js'),{Dialogs}=need('viewmodel/dialogs.js');
 
 function memory(init={}){const m=new Map(Object.entries(init));return {getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),map:m};}
 // Shell attrappe: records toasts, dialogs, navigation and sounds.
@@ -126,19 +126,24 @@ test('Neue Helden (AP 5.10): Heldenwahl nach Zeitalter, Kampagne mit 22 Missione
  assert.ok(seen.has('perikles')||seen.has('neutral'));assert.ok(![...seen].some(h=>!['perikles','neutral','griechen'].includes(h)),'eigene, neutrale und Karten der Griechischen Antike');
 });
 
-test('Rückmeldung zu 1.10.0: Massenöffnung legt alle Karten sofort ab und fasst sie zusammen',()=>{
+test('Rückmeldung zu 1.10.0 und 1.11.0: Massenöffnung legt alle Karten sofort ab und fasst sie zusammen',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
  const {ctx,store,log}=setup(),shop=new Shop(ctx),p=store.profile;
  assert.equal(shop.pack.bulk,2,'zwei Startpakete: Knopf „Alle öffnen · 2“');p.packs=1;assert.equal(shop.pack.bulk,0,'ein Paket: normal öffnen');
  p.packs=60;const before=Object.values(p.collection).reduce((a,b)=>a+b,0);
  shop.openAll();const vm=ctx.packs,b=vm.state.bulk;
- assert.equal(log.open.kind,'packs');assert.equal(vm.state.phase,'bulk');assert.equal(b.packs,50,'höchstens 50 auf einmal');
- assert.equal(p.packs,10);assert.equal(p.pendingPack,null,'kein Paket bleibt zum Aufdecken liegen');
- assert.equal(Object.values(p.collection).reduce((a,b)=>a+b,0),before+250,'250 Karten in der Sammlung');
- assert.equal(JSON.parse(ctx.store.exportText()).packs,10,'vor der Anzeige gespeichert');
- assert.equal(b.list.reduce((n,g)=>n+g.count,0),250);const rank=['legendary','epic','rare','common'];
+ assert.equal(log.open.kind,'packs');assert.equal(vm.state.phase,'bulk');assert.equal(b.packs,60,'alle Pakete auf einmal (bis 1.11.0 höchstens 50)');
+ assert.equal(p.packs,0);assert.equal(p.pendingPack,null,'kein Paket bleibt zum Aufdecken liegen');
+ assert.equal(Object.values(p.collection).reduce((a,b)=>a+b,0),before+300,'300 Karten in der Sammlung');
+ assert.equal(JSON.parse(ctx.store.exportText()).packs,0,'vor der Anzeige gespeichert');
+ assert.equal(b.list.reduce((n,g)=>n+g.count,0),300);
+ assert.equal(b.shown,0,'die Übersicht beginnt verdeckt');t.mock.timers.tick(0);
+ assert.equal(vm.state.bulk.shown,STEP,'seltenste zuerst, wenige Karten je Schritt');t.mock.timers.tick(TICK);assert.equal(vm.state.bulk.shown,2*STEP);
+ for(let i=0;i<200;i++)t.mock.timers.tick(TICK);assert.equal(vm.state.bulk.shown,b.list.length,'am Ende sind alle Karten aufgedeckt');const rank=['legendary','epic','rare','common'];
  assert.ok(b.list.every((g,i)=>!i||rank.indexOf(b.list[i-1].card.rarity)<=rank.indexOf(g.card.rarity)),'seltenste zuerst');
  assert.ok(b.list.some(g=>g.isNew));assert.equal(b.fresh,b.list.filter(g=>g.isNew).length,'jede neue Karte einmal');
  vm.close();assert.equal(vm.state.phase,null);assert.equal(log.open,null,'Zurück schließt die Übersicht');
+ p.packs=5;shop.openAll();t.mock.timers.tick(0);vm.close();t.mock.timers.tick(10*TICK);assert.equal(vm.state.bulk,null,'nach dem Schließen läuft nichts weiter');
  p.packs=3;shop.openPack();shop.openAll();assert.equal(vm.state.phase,'opening','während ein Paket aufgedeckt wird: keine Massenöffnung');
 });
 
@@ -152,4 +157,10 @@ test('Rückmeldung zu 1.10.0: Codes in den Einstellungen – einmal je Spielstan
  assert.deepEqual(JSON.parse(store.exportText()).redeemed,['KARTENPAKETE','CHRONIK'],'gespeichert');
  const old=P.fresh();delete old.redeemed;assert.deepEqual(P.parse(JSON.stringify(old)).redeemed,[]);
  old.redeemed=['AETERNA','unsinn',5];assert.deepEqual(P.parse(JSON.stringify(old)).redeemed,['AETERNA']);
+});
+
+test('AP 0.2: Klangprobe in den Einstellungen spielt nur die angebotenen Geräusche',()=>{
+ const {ctx,log}=setup(),played=[];ctx.ui.play=g=>played.push(g);ctx.dialogs.settings();const vm=log.open.vm;
+ assert.deepEqual(vm.samples.map(([g])=>g),['stone','scrape','slam','grind','draw','hit']);
+ vm.sample('slam');vm.sample('victory');vm.sample('stone');assert.deepEqual(played,['slam','stone']);
 });

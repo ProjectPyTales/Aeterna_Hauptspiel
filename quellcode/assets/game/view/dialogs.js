@@ -18,7 +18,8 @@ D_.settings={render:vm=>{const s=vm.settings,row=(label,control)=>html`<div clas
  return V.modal({body:html`<h2>Einstellungen</h2>${row('Musik',range('music'))}${row('Geräusche',range('sfx'))}${
   row('Touch-Vibration',pick('haptics',[['true','Ein',s.haptics!==false],['false','Aus',s.haptics===false]]))}${
   row('KI-Zugtempo',pick('speed',[['1','Normal',s.speed===1],['2','Schnell',s.speed===2]]))}${
-  row('Partikeleffekte',pick('particles',[['true','Ein',!!s.particles],['false','Aus',!s.particles]]))}<p>Sammlung und laufende Partie werden nach jeder Aktion gespeichert. Sichere Deinen Fortschritt vor einer Neuinstallation.</p>${
+  row('Partikeleffekte',pick('particles',[['true','Ein',!!s.particles],['false','Aus',!s.particles]]))}${
+  row('Klangprobe',html`<div class="sound-samples">${vm.samples.map(([g,l])=>V.button({label:l,cmd:'sample',a:g,small:true}))}</div>`)}<p>Sammlung und laufende Partie werden nach jeder Aktion gespeichert. Sichere Deinen Fortschritt vor einer Neuinstallation.</p>${
   V.buttons([V.button({label:'Spielstand exportieren',cmd:'exportSave'}),V.button({label:'Spielstand importieren',cmd:'askImport'})])}${
   V.buttons([V.button({label:'Code einlösen',cmd:'redeem'}),V.button({label:'Über das Spiel',cmd:'credits'}),V.button({label:'Fertig',cmd:'close',style:'gold'})])}`});}};
 
@@ -39,7 +40,7 @@ const RULES=[['1 · Karte ausspielen','Karte antippen, dann „Ausspielen“ ode
  ['Waffen & Fortschritt','Waffen verlieren pro Heldenangriff 1 Haltbarkeit. Siege geben 40 Gold. Niederlagen nach 4 eigenen Zügen geben 10 Gold; Aufgeben gibt keines.']];
 D_.help={render:()=>V.modal({width:1080,body:html`<h2>So spielst Du</h2><div class="help-list">${RULES.map(([t,x])=>html`<div><b>${t}</b>${x}</div>`)}</div>${V.buttons([V.button({label:'Verstanden',cmd:'close',style:'gold'})])}`})};
 
-D_.credits={render:vm=>V.modal({close:false,body:html`<h2>Aeterna</h2><p>Version ${vm.state.version} · Vormals „Chroniken der Helden“. Ein eigenständiges historisches Offline-Kartenspiel mit ${vm.state.cards} Karten, ${vm.state.heroes} Helden und ${vm.state.missions} Missionen.</p><p>Eigene Illustrationen: mit dem integrierten Bildgenerierungswerkzeug erstellt. Geräusche: aufgenommene Karten-, Material- und Waffensounds von Kenney und StarNinjas (CC0), neu abgemischt. Musik: eigene prozedurale Komposition. Historische Motive sind künstlerisch interpretiert.</p><p>Ohne Werbung, Netzwerkzugriff oder Käufe mit echtem Geld. Schriften: Cinzel und Cinzel Decorative von Natanael Gama, Alegreya Sans von Huerta Tipográfica (beide SIL Open Font License) sowie DejaVu (freie Font-Lizenz).</p>${
+D_.credits={render:vm=>V.modal({close:false,body:html`<h2>Aeterna</h2><p>Version ${vm.state.version}${vm.state.shell?` · Android-Hülle ${vm.state.shell.shell}${vm.state.shell.android?' auf Android '+vm.state.shell.android:''}`:''} · Vormals „Chroniken der Helden“. Ein eigenständiges historisches Offline-Kartenspiel mit ${vm.state.cards} Karten, ${vm.state.heroes} Helden und ${vm.state.missions} Missionen.</p><p>Eigene Illustrationen: mit dem integrierten Bildgenerierungswerkzeug erstellt. Geräusche: aufgenommene Karten-, Material- und Waffensounds von Kenney und StarNinjas (CC0), neu abgemischt. Musik: eigene prozedurale Komposition. Historische Motive sind künstlerisch interpretiert.</p><p>Ohne Werbung, Netzwerkzugriff oder Käufe mit echtem Geld. Schriften: Cinzel und Cinzel Decorative von Natanael Gama, Alegreya Sans von Huerta Tipográfica (beide SIL Open Font License) sowie DejaVu (freie Font-Lizenz).</p>${
  V.buttons([V.button({label:'Zurück',cmd:'close',style:'gold'})])}`})};
 
 // Chronikseite eines Helden (AP 5.9): Porträt, Lebensdaten, Biografie, Zitat, Spielstil, Lieblingskarten, Beziehungen.

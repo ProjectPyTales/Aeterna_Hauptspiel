@@ -1,7 +1,26 @@
-# Aeterna 1.11.0 – Bauen & Prüfen
+# Aeterna 1.12.0 – Bauen & Prüfen
 
-*Vormals „Chroniken der Helden“.* `quellcode/` enthält den vollständigen Inhalt der APK (Manifest,
-`classes.dex`, `resources.arsc`, Web-Spiel unter `assets/game/`). Die Signatur wird beim Bauen erzeugt.
+*Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
+das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.12.0 (AP 2.1 Hülle, AP 2.2 Asset-Pipeline, AP 0.2 Audio, Rückmeldung zu 1.11.0)
+
+- **Native Hülle in Kotlin** (`android/`, AGP 8.10, Kotlin 2.2, Gradle 8.14, ohne AndroidX): ersetzt `classes.dex`,
+  `resources.arsc` und das binär gepatchte Manifest; `apk_bauen.py` und `manifest_version.py` entfallen. Gleich bleiben
+  Paket-ID, Schlüssel, Activity-Name, SharedPreferences `chroniken_v1` und die JS-Brücke; neu sind `keepAwake`, `info`,
+  `haptic(0–3)` über die Geräte-Effekte, Vollbild mit Aussparung (`shortEdges`, `window.safeInsets`), Splash (Android 12+),
+  adaptives Icon, höchste Bildwiederholrate, echte MIME-Typen. Version 1.12.0 / versionCode 15 in `app/build.gradle.kts`.
+- **Flügel bis in die Kamera-Aussparung** (`resize()` in `app.js`): Untermenüs und Dialoge reichen über den sicheren Rand
+  hinaus bis an die Kante, Inhalte bleiben im sicheren Bereich (toter linker Rand auf dem OnePlus 15, AP 1.3).
+- **Bilder als WebP** (`bilder_webp.py`, Originale in `ungenutzte_assets/art-original/`): 53,1 → 9,4 MB. **Laden in
+  Stufen:** `H.preload(progress)` für Ladebalken und Hauptmenü, danach `R.load(progress)` mit `R.atlases()` im Hintergrund
+  als `ImageBitmap` (aus der Datei dekodiert); `App.navigate` wartet bis dahin mit Fortschrittsanzeige.
+- **Kartenbilder als `blob:`-Adressen** (`R.thumb`, `R.artwork`) statt `data:`-Adressen.
+- **Massenöffnung ohne Grenze** (`Packs.openAll` öffnet alle Pakete; Übersicht mit `bulk.shown`, `STEP` Karten je `TICK` ms,
+  noch verdeckte Karten als Siegel).
+- **Klangpegel** in `CHA.levels` (gemessen, Tabelle in der README unter AP 0.2), **Klangprobe** in den Einstellungen
+  (`Settings.sample`). Tests: `tests/huelle.test.js`, `tests/audio.test.js`, Massenöffnung und Klangprobe in
+  `tests/viewmodel.test.js`.
 
 ## Neu in 1.11.0 (AP 5.10 Welle 2, Rückmeldung zu 1.10.0)
 
@@ -175,14 +194,14 @@ Die vollständige Übersicht der Spielmodule (MVVM) steht in der README unter �
 | `assets/game/view/css/stone.css` | Steinplatten-Übergang, Basar |
 | `assets/game/view/kit.js`, `view/css/kit.css` | Gemeinsame Bausteine: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal |
 | `assets/game/assets/fonts/*` | Cinzel, Cinzel Decorative, Alegreya Sans mit Lizenztexten (OFL) |
-| `assets/game/assets/art/*` | Neue Bilder (JPEG-Daten mit `.png`-Endung, da die App nur `.png` als Bild ausliefert) |
+| `assets/game/assets/art/*.webp` | Bilder des Spiels, erzeugt von `bilder_webp.py` aus `ungenutzte_assets/art-original/` |
 | `assets/game/assets/audio/stone-*, scrape-*, grind-*, slam-*` | Steingeräusche (`werkzeuge/stein_sounds.py`) |
 
 ## Test-APK herunterladen (GitHub Actions)
 
-Bei jedem Push baut der Workflow `.github/workflows/apk.yml` die APK: Tests laufen, die APK
-wird gebaut, signiert und die Signatur geprüft. Parallel spielt der Job „sichtpruefung“ den Klickpfad im
-Handyformat und vergleicht ihn mit den Referenzbildern (Artefakt „Sichtpruefung“).
+Bei jedem Push baut der Workflow `.github/workflows/apk.yml` die APK mit Gradle: Tests laufen, `./gradlew assembleRelease`
+baut und signiert, `aapt2` prüft Paket-ID und Version, `apksigner` das Zertifikat (SHA-256 `8d4ab16f…e509`). Parallel spielt
+der Job „sichtpruefung“ den Klickpfad im Handyformat und vergleicht ihn mit den Referenzbildern (Artefakt „Sichtpruefung“).
 
 1. Im Repo auf **Actions** gehen und den obersten grünen Lauf „Test-APK bauen“ öffnen.
 2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen.
@@ -192,19 +211,23 @@ Artefakte bleiben 30 Tage erhalten. Über „Run workflow“ lässt sich jederze
 
 ## Lokal bauen
 
+Mit Android-SDK (Android Studio oder `ANDROID_HOME`) und JDK 17:
+
 ```sh
-pip install cryptography
-python3 werkzeuge/apk_bauen.py quellcode Aeterna-1.7.0-Test.apk \
-    werkzeuge/signatur/chroniken-test.p12 chroniken-test
+cd android && ./gradlew assembleRelease     # → app/build/outputs/apk/release/app-release.apk (signiert)
 ```
 
-- Version und App-Name setzen (beliebige Länge, der String-Pool wird neu aufgebaut):
-  `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml 10 1.7.0 --label Aeterna`
-  (dazu `VERSION` in `assets/game/app.js` anpassen – ein Test prüft, dass beide übereinstimmen)
-- Version anzeigen: `python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml` (mit `--info` auch den App-Namen)
+- Neue Version: `versionCode` +1 und `versionName` in `android/app/build.gradle.kts`, dazu `VERSION` in
+  `assets/game/app.js` (ein Test prüft, dass beide übereinstimmen). App-Name: `app/src/main/res/values/strings.xml`.
+- In den Claude-Code-Sitzungen gibt es kein Android-SDK (`dl.google.com` ist gesperrt). Die Kotlin-Quellen lassen sich dort
+  trotzdem prüfen: ein kleines Gradle-Projekt mit `kotlin("jvm")` und `compileOnly("org.robolectric:android-all:16-…")`
+  aus Maven Central, das `android/app/src/main/java` kompiliert. Gebaut wird in der CI.
+- Bilder neu erzeugen (nach neuen Originalen in `ungenutzte_assets/art-original/`): `python3 werkzeuge/bilder_webp.py`
+  (Pillow mit WebP). Größen und Qualität stehen oben im Skript.
 - Hauptmenü-Hintergrund neu erzeugen (z. B. nach einem höher aufgelösten Konzeptbild):
-  `python3 werkzeuge/hauptmenue_bild.py` (Pillow, NumPy). Die Fugen (`JOINTS`), Sperrflächen (`KEEP_OUT`) und die
-  Zahnrad-Winkel stehen oben im Skript und gelten für das jetzige Konzeptbild; bei einem neuen Bild prüfen.
+  `python3 werkzeuge/hauptmenue_bild.py` (Pillow, NumPy) schreibt nach `ungenutzte_assets/art-original/hall-aeterna.png`,
+  danach `bilder_webp.py`. Die Fugen (`JOINTS`), Sperrflächen (`KEEP_OUT`) und die Zahnrad-Winkel stehen oben im Skript und
+  gelten für das jetzige Konzeptbild; bei einem neuen Bild prüfen.
 
 ## Tests
 
@@ -214,7 +237,7 @@ node --test werkzeuge/tests/*.test.js
 
 Kosmetik-Käufe (Gold wird genau einmal abgezogen), Ausrüsten nur nach Freischaltung,
 Speichern/Laden, alte 1.2.2-Spielstände, manipulierte Spielstände, 100 simulierte Partien,
-Manifest (App-Name, Version, Neuaufbau des String-Pools), unveränderte Speicher-Schlüssel,
+die native Hülle (Paket-ID, Version, Schlüssel, Brückenfunktionen, MIME-Typen, Speicherort), die Klangpegel, unveränderte Speicher-Schlüssel,
 umbenannte Texte, das Tagesduell und die ViewModels (MVVM-Kern, Store mit Sicherung, Basar mit Kauf über
 Rückfrage, Pack öffnen, Sammlung und Deckbau, Hauptmenü, Match mit KI-Takt), die geänderten Heldenfähigkeiten und
 die Gunst der Stunde, die schnelle Zustandskopie der KI und das Balance-Werkzeug (gleiche Zahlen unabhängig von der Zahl der
@@ -252,10 +275,10 @@ Lokal: Playwright 1.56.1 (`npm install --no-save playwright@1.56.1`), in den Cla
 
 ## Signatur
 
-Der private Schlüssel der Version 1.2.2 lag nicht im Repository. 1.3.0 ist deshalb mit dem
-neuen Testschlüssel `werkzeuge/signatur/chroniken-test.p12` (Passwort `chroniken-test`)
-signiert. Künftige Versionen mit diesem Schlüssel lassen sich direkt als Update installieren.
+Der private Schlüssel der Version 1.2.2 lag nicht im Repository. Seit 1.3.0 ist jede Version mit dem Testschlüssel
+`werkzeuge/signatur/chroniken-test.p12` signiert (Passwort `chroniken-test`, Alias `chroniken`); Gradle nutzt ihn für
+Release und Debug. Versionen mit diesem Schlüssel lassen sich direkt als Update installieren – auch 1.12.0 mit der neuen
+Hülle über 1.11.0.
 
 Umstieg von 1.2.2: In der alten App *Einstellungen → Spielstand exportieren*, alte App
 deinstallieren, die neue Version installieren, *Einstellungen → Spielstand importieren*.
-Ab 1.3.0 (auch 1.5.0 → 1.6.0) genügt es, die neue APK über die alte zu installieren.

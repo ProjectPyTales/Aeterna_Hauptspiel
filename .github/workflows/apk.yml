@@ -1,4 +1,4 @@
-# Baut bei jedem Push die signierte Test-APK und stellt sie unter "Artifacts" zum Download bereit.
+# Baut bei jedem Push die signierte Test-APK (Gradle, native Hülle unter android/) und stellt sie unter "Artifacts" zum Download bereit.
 # Parallel prüft die Sichtprüfung (AP 2.6) den Klickpfad im Handyformat gegen die Referenzbilder,
 # und ein verkürzter Balance-Lauf (AP 5.1) misst die Siegquoten der Helden.
 name: Test-APK bauen
@@ -17,31 +17,40 @@ jobs:
         with:
           node-version: 22
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Werkzeuge installieren
-        run: pip install cryptography apksigtool
-
-      - name: Tests (Kosmetik, Spielstand, ViewModels, Balance-Werkzeug, 100 simulierte Partien)
+      - name: Tests (Spielstand, ViewModels, Regeln, Hülle, Balance-Werkzeug, 100 simulierte Partien)
         run: node --test werkzeuge/tests/*.test.js
+
+      # Native Hülle (AP 2.1): Gradle-Projekt unter android/, das Web-Spiel kommt aus quellcode/assets.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
 
       - name: Version lesen
         id: version
         run: |
-          read name code < <(python3 werkzeuge/manifest_version.py quellcode/AndroidManifest.xml)
+          name=$(sed -n 's/.*versionName = "\(.*\)".*/\1/p' android/app/build.gradle.kts)
           echo "name=$name" >> "$GITHUB_OUTPUT"
-          echo "Version $name (versionCode $code)"
+          echo "Version $name"
 
-      - name: APK bauen und signieren
-        run: >-
-          python3 werkzeuge/apk_bauen.py quellcode
-          Aeterna-${{ steps.version.outputs.name }}-Test.apk
-          werkzeuge/signatur/chroniken-test.p12 chroniken-test
+      - name: APK mit Gradle bauen und signieren
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
 
-      - name: Signatur prüfen
-        run: apksigtool verify Aeterna-${{ steps.version.outputs.name }}-Test.apk | tee verify.txt && grep -q "v2 verified" verify.txt
+      # Gleicher Schlüssel wie seit 1.3.0 (chroniken-test.p12), sonst gibt es kein Update über die Vorversion.
+      - name: Paket-ID, Version und Signatur prüfen
+        run: |
+          apk=Aeterna-${{ steps.version.outputs.name }}-Test.apk
+          cp android/app/build/outputs/apk/release/app-release.apk "$apk"
+          tools=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          "$tools/aapt2" dump badging "$apk" | head -1 | tee badging.txt
+          grep -q "name='de.chroniken.helden.layout'" badging.txt
+          grep -q "versionName='${{ steps.version.outputs.name }}'" badging.txt
+          "$tools/apksigner" verify --verbose --print-certs "$apk" | tee verify.txt
+          grep -qi "SHA-256 digest: 8d4ab16f74df55c6ea0c119e2074e02ee7aeb2e1262c2770fede660b29e9e509" verify.txt
+          echo "APK-Größe: $(stat -c %s "$apk") Bytes"
 
       - uses: actions/upload-artifact@v4
         with:

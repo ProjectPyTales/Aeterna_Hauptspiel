@@ -23,7 +23,8 @@ Steinlage für Steinlage aus Originalpixeln, mit eigenem Nahtschnitt – und dun
 Bis 1.6.0 waren das gestreckte, weichgezeichnete Randstreifen; sie wirkten verschwommen (Rückmeldung zu 1.6.0).
 Das Zahnrad an der rechten Bühnenkante bleibt dabei unangetastet.
 
-Ergebnis: JPEG-Daten mit .png-Endung (die App-Hülle liefert Bilder nur als .png aus).
+Ergebnis: JPEG-Daten mit .png-Endung in ungenutzte_assets/art-original/ (Quelle der Asset-Pipeline, AP 2.2);
+danach `python3 werkzeuge/bilder_webp.py` ausführen – erst das erzeugt hall-aeterna.webp für das Spiel.
 Sobald eine höher aufgelöste oder breitere Fassung vorliegt (AP 1.2), dieses Skript mit der
 neuen Datei erneut ausführen und die Geometrie in hall.js (ART) prüfen.
 
@@ -36,7 +37,7 @@ import numpy as np
 from PIL import Image, ImageFilter
 
 SRC = 'ungenutzte_assets/ui/hauptmenue-konzept.jpg'
-DST = 'quellcode/assets/game/assets/art/hall-aeterna.png'
+DST = 'ungenutzte_assets/art-original/hall-aeterna.png'
 TOP, BOTTOM = 24, 8          # abgeschnittene Zeilen
 INNER, OUTER = 84, 217       # Verbreiterung je Seite: in der Bühne / nur auf breiten Handys
 CONCEPT_W = 2000             # Breite des Konzeptbilds; Quellen für die Ergänzung liegen immer darin

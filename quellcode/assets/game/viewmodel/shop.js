@@ -20,7 +20,7 @@ class Shop extends Screen{
   return {kind,item,owned:K.owns(p,kind,item.id),equipped:K.equipped(p,kind,item.id),short:p.gold<item.price,
    hero:kind==='skins'?D.heroes.find(h=>h.id===item.hero):null};}
  items(kind){return (K.catalog[kind]||[]).map(item=>this.entry(kind,item));}
- get pack(){const p=this.profile;return {packs:p.packs,pending:!!p.pendingPack,canBuy:p.gold>=100,bulk:!p.pendingPack&&p.packs>=2?Math.min(p.packs,50):0};}
+ get pack(){const p=this.profile;return {packs:p.packs,pending:!!p.pendingPack,canBuy:p.gold>=100,bulk:!p.pendingPack&&p.packs>=2?p.packs:0};}
 
  preview(kind,id){const item=K.find(kind,id);if(item)this.ui.dialog('shopPreview',new Preview(this,kind,item));}
  buy(kind,id){const item=K.find(kind,id),p=this.profile;if(!item)return;

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aus der Stil-Bibel und dem Ladebildschirm (view/css/hall.css). -->
+<resources>
+    <color name="night">#FF15212A</color>
+    <color name="hall">#FF2B2119</color>
+    <color name="gold">#FFD6B675</color>
+    <color name="gold_light">#FFF1CB44</color>
+    <color name="bronze">#FF9A6A26</color>
+</resources>

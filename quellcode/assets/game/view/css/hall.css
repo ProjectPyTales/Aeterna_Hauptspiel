@@ -21,11 +21,11 @@
 .hero-tile.foe{border:4px solid #c0503f;box-shadow:0 0 22px #c0503f50}
 
 /* Side bars on phones wider than 2:1 continue the painted wall (positioned by app.js). */
-body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.png') no-repeat;background-size:var(--hall-bw,0) var(--hall-bh,0);background-position:var(--hall-bx,0) var(--hall-by,0)}
+body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.webp') no-repeat;background-size:var(--hall-bw,0) var(--hall-bh,0);background-position:var(--hall-bx,0) var(--hall-by,0)}
 
 .hall.aeterna{background:#2b231c;font-family:'Aeterna Text',Body,sans-serif}
 .hall-zoom{position:absolute;inset:0}
-.hall-bg,.hall .face{background-image:url('../../assets/art/hall-aeterna.png');background-repeat:no-repeat;background-size:var(--bgw) 800px}
+.hall-bg,.hall .face{background-image:url('../../assets/art/hall-aeterna.webp');background-repeat:no-repeat;background-size:var(--bgw) 800px}
 .hall-bg{position:absolute;inset:0;background-position:calc(var(--bgw) * -.0833975) 0}
 
 /* Chiselled lettering: dark cut, bright lower lip (light falls from the upper right). */

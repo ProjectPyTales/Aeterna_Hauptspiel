@@ -1,7 +1,14 @@
 (function(){'use strict';const D=CHD,E=CHE,L=CHL;const R=window.CHR={images:{},thumbs:{},hits:[],positions:{},fx:[],pointer:null,look:{back:'chroniken',board:'board',skins:{}},pending:{}};
-R.load=async()=>{await document.fonts.ready;await Promise.all(['board','menu','heroes','heroes-marble','legendary-frame',...D.heroes.filter(h=>h.art).map(h=>h.id),'neutral0','neutral1','neutral2','neutral3'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{R.images[name]=im;resolve();};im.onerror=()=>resolve();im.src='assets/art/'+name+'.png';})));};
-// Cosmetic textures load on demand; the standard board stands in until they arrive.
-R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;const im=new Image();im.onload=()=>{R.images[name]=im;delete R.pending[name];};im.onerror=()=>delete R.pending[name];im.src='assets/art/'+name+'.png';};
+// Pictures for the match, the collection and the bazaar (AP 2.2): they load in the background while the hall is already
+// shown; progress(done,total) drives the loading bar. Kept as decoded ImageBitmaps: drawing from an <img> may decode
+// the WebP again on every drawImage (a legendary card picture took 84 instead of 11 ms). Decoded from the fetched
+// file, which happens off the main thread – createImageBitmap(<img>) blocked the hall for up to 3 s at 4× CPU.
+const picture=name=>{const src='assets/art/'+name+'.webp',viaImage=()=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=src;});
+ return window.createImageBitmap?fetch(src).then(r=>{if(!r.ok)throw Error(r.status);return r.blob();}).then(b=>createImageBitmap(b)).catch(viaImage):viaImage();};
+R.atlases=()=>['board','heroes','heroes-marble','legendary-frame',...D.heroes.filter(h=>h.art).map(h=>h.id),'neutral0','neutral1','neutral2','neutral3'];
+R.load=(progress=()=>{})=>{const names=R.atlases();let done=0;
+ return Promise.all(names.map(name=>picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>progress(++done,names.length))));};
+R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>delete R.pending[name]);};
 function round(c,x,y,w,h,r,fill,stroke,lw=1){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
 function ellipse(c,x,y,rx,ry,fill,stroke,lw=1){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
 function txt(c,t,x,y,size=18,color='#fff',align='center',max){c.font=`${size}px ${size>=22?'Title':'Body'},serif`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;if(max)c.fillText(t,x,y,max);else c.fillText(t,x,y);}
@@ -61,16 +68,20 @@ R.cardCache={};R.fastCard=(c,card,x,y,w,h,opts={})=>{let im=R.cardCache[card.id]
  // A changed cost (Marco Polo, Caterina, Andraste) covers the printed gem: green when cheaper.
  if(opts.cost!=null&&opts.cost!==card.cost){const k=w/200;c.save();c.translate(x,y);c.scale(k,k);gem(c,18,20,24,opts.cost<card.cost?'#3aa84e':'#c0453a',opts.cost);c.restore();}};
 R.smoothed={};R.smooth=(id,x,y,dt)=>{const old=R.smoothed[id]||{x,y},q=1-Math.exp(-dt/58);const p={x:old.x+(x-old.x)*q,y:old.y+(y-old.y)*q};R.smoothed[id]=p;return p;};
-R.thumb=(id)=>{if(!R.thumbs[id]){const c=document.createElement('canvas');c.width=240;c.height=338;R.card(c.getContext('2d'),D.byId[id],0,0,240,338);R.thumbs[id]=c.toDataURL('image/png');}return R.thumbs[id];};
+// Rendered cards and artworks become short blob: URLs instead of ~150 KB data: URLs – the views and the binder
+// handle hundreds of them (collection, mass opening) without copying megabytes of text on every render.
+const blobURL=canvas=>{const data=canvas.toDataURL('image/png'),bin=atob(data.slice(data.indexOf(',')+1)),bytes=new Uint8Array(bin.length);
+ for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return URL.createObjectURL(new Blob([bytes],{type:'image/png'}));};
+R.thumb=(id)=>{if(!R.thumbs[id]){const c=document.createElement('canvas');c.width=240;c.height=338;R.card(c.getContext('2d'),D.byId[id],0,0,240,338);R.thumbs[id]=blobURL(c);}return R.thumbs[id];};
 // The detail view gets the entire atlas cell, without the portrait crop.
 R.artworks={};R.artwork=id=>{if(!R.artworks[id]){const card=D.byId[id],im=R.images[card.art];
- if(card.art==='@pyramid'||!card.art){const c=document.createElement('canvas');c.width=362;c.height=362;R.tile(c.getContext('2d'),card.art,0,0,0,362,362,card);R.artworks[id]=c.toDataURL('image/png');return R.artworks[id];}
+ if(card.art==='@pyramid'||!card.art){const c=document.createElement('canvas');c.width=362;c.height=362;R.tile(c.getContext('2d'),card.art,0,0,0,362,362,card);R.artworks[id]=blobURL(c);return R.artworks[id];}
  if(!im)return R.thumb(id);
  const c=document.createElement('canvas');c.width=im.width/4;c.height=im.height/3;
- R.tile(c.getContext('2d'),card.art,card.cell,0,0,c.width,c.height);R.artworks[id]=c.toDataURL('image/png');}return R.artworks[id];};
+ R.tile(c.getContext('2d'),card.art,card.cell,0,0,c.width,c.height);R.artworks[id]=blobURL(c);}return R.artworks[id];};
 // atlas === true picks the player's equipped skin for that hero.
 R.medals={};R.heroStyle=(id,atlas='heroes')=>{const i=D.heroes.findIndex(h=>h.id===id),hero=D.heroes[i];
- if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=300;c.height=450;R.tile(c.getContext('2d'),null,0,0,0,300,450,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.png');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
+ if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=300;c.height=450;R.tile(c.getContext('2d'),null,0,0,0,300,450,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.webp');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
 function hit(id,x,y,w,h,data={}){R.hits.push({id,x,y,w,h,...data});}
 R.hit=(x,y)=>[...R.hits].reverse().find(h=>{if(h.angle!=null){const dx=x-h.cx,dy=y-h.cy,co=Math.cos(-h.angle),si=Math.sin(-h.angle),xx=dx*co-dy*si,yy=dx*si+dy*co;return Math.abs(xx)<=h.w/2&&Math.abs(yy)<=h.h/2;}return x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h;});
 function button(c,text,x,y,w,h,active,id){c.save();if(active){c.shadowColor='#ffc44b';c.shadowBlur=12;}round(c,x,y,w,h,12,grad(c,x,y,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);c.shadowBlur=0;round(c,x+6,y+6,w-12,h-12,8,null,'#ffffff45',1);txt(c,text,x+w/2,y+h/2,19,active?'#2a2016':'#c8cfcb','center',w-14);c.restore();hit(id,x,y,w,h);}

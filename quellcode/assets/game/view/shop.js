@@ -15,7 +15,7 @@ function action(e){const {kind,item}=e;
 const art={
  backs:e=>html`<img class="back-art" src="${S.backURL(e.item.id)}" alt="">`,
  skins:e=>html`<span class="skin-art" style="${R.heroStyle(e.item.hero,e.item.atlas)}"></span>`,
- boards:e=>html`<img class="board-art" src="assets/art/${e.item.image}-preview.png" alt="">`};
+ boards:e=>html`<img class="board-art" src="assets/art/${e.item.image}-preview.webp" alt="">`};
 const title=e=>e.kind==='skins'?e.hero.name:e.item.name;
 const sub=e=>e.kind==='backs'?(e.item.price?'Kosmetik':'Standard'):e.item.text;
 const tile=e=>html`<div class="${V.cls('shop-tile',e.equipped&&'equipped',!e.owned&&'locked')}" data-key="${e.item.id}"><button class="shop-preview" aria-label="Vorschau: ${title(e)}" data-cmd="preview" data-a="${e.kind}" data-b="${e.item.id}">${art[e.kind](e)}</button><h4>${title(e)}</h4><small>${sub(e)}</small><span class="shop-state">${state(e)}</span>${action(e)}</div>`;
@@ -33,7 +33,7 @@ AEV.screens.packs={render:vm=>{const tab=vm.state.tab;
  return html`<div class="screen bazaar">${V.topbar('Basar',vm.wallet())}${V.tabs(vm.tabs,tab,'tab')}<div class="shop-body" data-key="shelf-${tab}">${tab==='packs'?packs(vm.pack):shelf(vm,tab)}</div></div>`;}};
 
 AEV.dialogs.shopPreview={render:vm=>{const e=vm.entry,{kind,item}=e;
- const big=kind==='backs'?html`<img class="preview-back" src="${S.backURL(item.id)}" alt="${item.name}">`:kind==='boards'?html`<img class="preview-board" src="assets/art/${item.image}.png" alt="${item.name}">`:
+ const big=kind==='backs'?html`<img class="preview-back" src="${S.backURL(item.id)}" alt="${item.name}">`:kind==='boards'?html`<img class="preview-board" src="assets/art/${item.image}.webp" alt="${item.name}">`:
   html`<div class="preview-skins"><figure><span class="skin-art" style="${R.heroStyle(item.hero,'heroes')}"></span><figcaption>Standard</figcaption></figure><figure><span class="skin-art" style="${R.heroStyle(item.hero,item.atlas)}"></span><figcaption>${item.name}</figcaption></figure></div>`;
  return V.modal({width:kind==='boards'?1180:960,body:html`<div class="shop-preview-modal ${kind}">${big}<div class="details"><div class="eyebrow">${LABEL[kind]}</div><h2>${e.hero?e.hero.name:item.name}</h2><p>${e.hero?item.name+' · '+item.text:item.text}</p><p class="shop-state">${state(e)}</p>${V.buttons([action(e)])}</div></div>`});}};
 })();

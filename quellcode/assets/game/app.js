@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.11.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.12.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -33,7 +33,7 @@ const ui={
  unlockAudio:()=>A.init().catch(console.warn),
  exportSave:raw=>AEP.exportSave(raw,AES.EXPORT_NAME),
  pickImport:()=>AEP.pickImport(),
- exit:()=>AEP.exit()};
+ exit:()=>AEP.exit(),platform:()=>AEP.info()};
 function closeDialog(resume){if(!dialog)return;const d=dialog;dialog=null;d.binding.unbind();overlay.textContent='';d.vm.closed?.();
  if(resume&&screen==='game')screens.game.vm.dialogChanged(false);}
 
@@ -58,6 +58,7 @@ const matchView=AEMatchView(canvas,screens.game.vm,ui);ctx.board=matchView.board
 function navigate(next,arg,force=false){
  if(!force&&!screens[screen].vm.canLeave(next))return;
  if(busy)return;
+ if(next!=='menu'&&!art.ready){art.next=[next,arg,force];artToast();return;}
  if(next===screen||reduced()){show(next,arg);return;}
  if(screen==='menu'||next==='menu')ring(next,arg);else slide(()=>show(next,arg));}
 function hold(){busy=true;clearTimeout(screens.game.vm.aiTimer);matchView.cancel();}
@@ -69,7 +70,7 @@ function slide(swap){hold();const el=$('slabs');el.className='active closing';A.
   setTimeout(()=>{el.className='active opening';A.play('grind');setTimeout(()=>{el.className='';release();},560);},140);},300);}
 // Swap the screen: the old binding goes, the new view model is entered and bound to #ui.
 function show(next,arg){
- closeDialog(false);clearTimeout(toastTimer);$('toast').classList.remove('show');
+ closeDialog(false);AEP.keepAwake(next==='game');clearTimeout(toastTimer);$('toast').classList.remove('show');
  if(screen==='game'||next==='game'){matchView.cancel();screens.game.vm.leave();matchView.board.cancel();}
  current?.unbind();current=null;$('ui').textContent='';
  screen=next;document.body.classList.toggle('stone-hall',next==='menu');stage.classList.toggle('match-active',next==='game');
@@ -81,14 +82,15 @@ function show(next,arg){
 // ---------- Platform ----------
 // On screens wider than 2:1 the stage grows sideways ("wings"): menus, dialogs and their backdrops reach the edges,
 // while the hall, the match canvas and the content of the screens stay in the centred 1600 × 800 area.
-function resize(){const inset=window.safeInsets||{left:0,right:0,top:0,bottom:0},w=innerWidth-inset.left-inset.right,h=innerHeight-inset.top-inset.bottom,scale=Math.min(w/1600,h/800),wing=Math.max(0,Math.floor((w/scale-1600)/2)),left=inset.left+(w-1600*scale)/2,topY=inset.top+(h-800*scale)/2;
+// The wings also cover a camera cutout (safeInsets from the shell): only the 1600 × 800 content keeps to the safe area.
+function resize(){const inset=window.safeInsets||{left:0,right:0,top:0,bottom:0},w=innerWidth-inset.left-inset.right,h=innerHeight-inset.top-inset.bottom,scale=Math.min(w/1600,h/800),wing=Math.max(0,Math.floor((w/scale-1600)/2))+Math.ceil(Math.max(inset.left,inset.right)/scale),left=inset.left+(w-1600*scale)/2,topY=inset.top+(h-800*scale)/2;
  stage.style.transform=`scale(${scale})`;stage.style.width=1600+2*wing+'px';stage.style.left=left-wing*scale+'px';stage.style.top=topY+'px';stage.style.setProperty('--wing',wing+'px');
  for(const [k,v] of [['bw',H.bgWidth*scale],['bh',800*scale],['bx',left-H.bgOffset*scale],['by',topY]])document.body.style.setProperty('--hall-'+k,v+'px');}
 function back(){if(busy)return;if(dialog){dialog.vm.close?.();return;}screens[screen].vm.back();}
 function onPause(){ctx.packs.pause();matchView.cancel();screens.game.vm.pauseApp();store.save();A.pause();}
 function onResume(){A.resume();screens.game.vm.resumeApp();}
 
-window.App={get profile(){return store.profile;},get view(){return screens.game.vm.view;},get screen(){return screen;},get dialog(){return dialog?.kind||null;},
+window.App={get profile(){return store.profile;},get artReady(){return art.ready;},get view(){return screens.game.vm.view;},get screen(){return screen;},get dialog(){return dialog?.kind||null;},
  vm:Object.fromEntries(Object.entries(screens).map(([k,s])=>[k,s.vm])),store,ui,
  navigate:(next,arg)=>navigate(next,arg),close:()=>ui.close(),toast:msg=>ui.toast(msg),back,onPause,onResume,resize,
  importText:raw=>ctx.dialogs.importText(raw)};
@@ -104,10 +106,17 @@ window.addEventListener('resize',resize);
 window.addEventListener('keydown',ev=>{if(ev.key==='Escape')back();});
 store.subscribe(applyProfile);
 
-// ---------- Start ----------
+// ---------- Start in stages (AP 2.2) ----------
+// Stage 1 behind the loading bar: fonts and the hall picture. Stage 2 in the background: the atlases for the match,
+// the collection and the bazaar. Opening another screen before they are there shows the progress and follows on.
+const art={ready:false,done:0,total:0,next:null};
+function artToast(){ui.toast('Die Chronik lädt ihre Bilder … '+Math.round(100*art.done/Math.max(1,art.total))+' %');}
+function artLoaded(){art.ready=true;if(art.next){const [next,arg,force]=art.next;art.next=null;$('toast').classList.remove('show');navigate(next,arg,force);}}
 store.load();applyProfile();resize();
-Promise.all([R.load(),H.preload()]).then(()=>{$('loading').remove();
+const bar=$('loading').querySelector('.loading-track span');
+H.preload((done,total)=>{bar.style.width=Math.round(100*done/total)+'%';}).then(()=>{$('loading').remove();
  $('slabs').querySelector('.slab-l').innerHTML=S.slabArt('l');$('slabs').querySelector('.slab-r').innerHTML=S.slabArt('r');
- show('menu',!reduced());store.save();matchView.start();})
- .catch(e=>{$('loading').innerHTML='<h2>Ladefehler</h2><p>'+AEM.esc(e.message)+'</p>';});
+ show('menu',!reduced());store.save();matchView.start();
+ return R.load((done,total)=>{art.done=done;art.total=total;if(art.next)artToast();}).then(artLoaded);})
+ .catch(e=>{const el=$('loading');if(el)el.innerHTML='<h2>Ladefehler</h2><p>'+AEM.esc(e.message)+'</p>';else console.error(e);});
 })();
