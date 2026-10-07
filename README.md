@@ -326,7 +326,7 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
 | APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,5 % (1.13.0: 53,0 %), einzeln 45,8 (Nezahualpilli) bis 58,6 % (Lagertha)² |
 | Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
 
@@ -414,7 +414,7 @@ und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
   Balance (voller Lauf, 101 200 Partien): Mit **Startdecks sind alle Zahlen gleich wie in 1.13.0** – die Gegenprobe,
   dass nur Namen geändert sind. Mit Zufallsdecks verschieben die neuen Zeitalter die Werte (zwölf Helden spielen andere
   Zeitalterkarten): 21 von 22 Helden im Ziel, Theophanu 54,4 % knapp darüber (im Zufallsfehler) – bei AP L.2 im Blick
-  behalten. Bericht in `balance/BERICHT.md`, der alte in `balance/BERICHT-1.13.0.md`.*
+  behalten. *1.15.0: unverändert 54,4 % – AP L.2 ändert nur Namen, Regeln bleiben (siehe AP L.2).* Bericht in `balance/BERICHT.md`, der alte in `balance/BERICHT-1.13.0.md`.*
 
 **AP L.2 – Kartennamen nach Epoche und Lebenswelt (M)** – *✓ in 1.15.0 (Zeitalterkarten schon in 1.14.0)*
 - [x] Die Zeitalterkarten von *Persien & Steppe* und *China, Korea, Japan* (14) bekommen Namen, Texte und Bildideen der
@@ -436,7 +436,9 @@ und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
   Zwanzig Städte in Flammen, Glut des Brennofens, Eid der Arkanisten, Spiel der Tugenden, Lokator, Rodung, Venusfahrt,
   Überfall auf Nefrusi, Haft in Utrecht, Varusschlacht, Zitadelle von Lille, Gelage am Krater. Spielsteine: Novizin
   (neu, Regel der Legendären zieht mit), Grenzstein des Klosters / der Mark / der Burg / des Dorfes, Schanzkorb,
-  Füsilier, Sippenbruder, Habicht. Die Chronikseiten nennen die neuen Legendären bei den Beziehungen. Bilder: 8 alte
+  Füsilier, Sippenbruder, Habicht. Die Chronikseiten nennen die neuen Legendären bei den Beziehungen. Voller
+  Balance-Lauf (101 200 Partien, ≈ 60 min auf 3 Threads): Startdecks Zahl für Zahl wie in 1.14.0, Zufallsdecks bis auf
+  Dandolo gegen Hildegard (49 → 48 %) gleich. Bilder: 8 alte
   Motive bleiben (Pfeil, Hüterin des Hains, Eichenschild, Heilkundige mit der Mistel, Erhebung der Gallier,
   Apothekerlehrling, Rezeptbuch, Pestarzt), 52 werden Platzhalter; alle 124 Platzhalter der elf haben eine neue
   englische Bildidee in `MOTIVE.md`.*
@@ -1719,51 +1721,53 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 11 (Version 1.14.0):** AP L.1 – **elf Helden nach dem sächsischen Lehrplan** (Widukind,
-Vercingetorix, Thusnelda, Theophanu, Hildegard von Bingen, Ulrich von Liechtenstein, Wiprecht von Groitzsch, Böttger,
-Vauban, Ahhotep I., Fürstin von Vix) mit Chronikseite, Quelle, Mission, Porträt-Prompt und Lernbereich auf jeder
-Chronikseite; **sechs Zeitalter** nach den Epochen des Lehrplans; Marmor-Skins ersetzter Helden mit 300 Gold erstattet,
-alte Decknamen angepasst. AP L.2 (erster Teil) – **14 Zeitalterkarten** der Frühzeit und der Frühen Neuzeit neu benannt.
-AP L.4 – **26 Astra-Kennungen** an allen im Code gezeichneten Grafiken, gesammelt in `MOTIVE.md`. Rückmeldung zu
-1.13.0: Musik ✓, 120 fps auf dem OnePlus 15 ✓, Entscheidung 17 ✓. Davor: Sitzung 10 (1.13.0) AP 2.4, 2.5, 5.11 Teil 2,
-L.3; Sitzung 9 (1.12.0) AP 2.1, 2.2, 0.2; Sitzung 8 (1.11.0) AP 5.10 Welle 2; Sitzung 7 (1.10.0) AP 5.11 Kartenwelle 1,
-AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0) AP 5.12, 5.9, 5.4 Teil 2; Sitzung 4 (1.7.0)
-AP 5.4 Teil 1, 5.3, 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, 5.2; Sitzung 2 (1.5.0) AP 2.3, 0.1, 2.6; Sitzung 1 (1.4.0)
-AP 0.3, 1.1, 1.3.
+**Erledigt in Sitzung 12 (Version 1.15.0):** AP L.2 – **Karten der elf Lehrplan-Helden** aus ihrer Lebenswelt: 129 von
+132 Karten neu benannt und betextet (Wirkungen, Kosten und IDs unverändert, per Feldvergleich geprüft), neue Legendäre
+von Abbi bis Ludwig XIV., Spielsteine Novizin, Grenzsteine, Schanzkorb, Füsilier, Sippenbruder und Habicht; 8 alte
+Kartenbilder bleiben, 52 werden Platzhalter, alle 124 Platzhalter der elf mit neuer Bildidee in `MOTIVE.md`; zehn
+neutrale Karten ohne Fantasy-Namen (Wilderin, Nachtwächter, Trojanisches Pferd, Burgbesatzung …); Test „Kartentexte
+nennen nur Helden, die es gibt“. Voller Balance-Lauf: Startdecks Zahl für Zahl wie in 1.14.0, Zufallsdecks bis auf eine Paarung
+(Dandolo gegen Hildegard 49 → 48 %) gleich. Davor: Sitzung 11 (1.14.0) AP L.1, L.4, L.2 Zeitalterkarten; Sitzung 10
+(1.13.0) AP 2.4, 2.5, 5.11 Teil 2, L.3; Sitzung 9 (1.12.0) AP 2.1, 2.2, 0.2; Sitzung 8 (1.11.0) AP 5.10 Welle 2;
+Sitzung 7 (1.10.0) AP 5.11 Kartenwelle 1, AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0)
+AP 5.12, 5.9, 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, 5.3, 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, 5.2; Sitzung 2
+(1.5.0) AP 2.3, 0.1, 2.6; Sitzung 1 (1.4.0) AP 0.3, 1.1, 1.3.
 
 **Vorher bitte von dir auf dem OnePlus 15 (10 Minuten):**
-1. `Aeterna-1.14.0-Test-APK` aus Actions als Update installieren (vorher zur Sicherheit Spielstand exportieren).
-2. **Heldenwahl:** Stimmen Namen, Zeitalter-Reihenfolge und Monogramme? Bei zwei, drei neuen Helden auf **Chronik**
-   tippen – passen Text, Lehrplan-Zeile und Länge (die Seite scrollt bei langen Texten)?
-3. **Eine Mission** eines neuen Helden spielen (z. B. Mission 5 „Der Sachsenkrieg“ oder Mission 6 „Alesia“).
-4. Falls Du einen Marmor-Skin von Khan, Boudicca, Nostradamus, Jeanne, Ragnar oder Musashi hattest: 300 Gold zurück?
-5. **Renderer-Labor:** Über das Spiel → Renderer-Labor → **Messreihe** (≈ 20 s), Foto der sechs Zeilen – die letzte
-   offene Gerätemessung (Entscheidung 18). Dazu weiter offen: Entscheidungen 2, 3, 5 und 7.
+1. `Aeterna-1.15.0-Test-APK` aus Actions als Update installieren (vorher zur Sicherheit Spielstand exportieren).
+2. **Sammlung:** Filter auf zwei, drei neue Helden (z. B. Hildegard, Wiprecht, Vauban) – lesen sich die Namen gut, passen
+   lange Namen wie „Commius, Führer des Entsatzheers“ in den Kartenrahmen? Wo ein Name nicht stimmt oder holpert:
+   Karten-ID oder Name nennen, ich ändere ihn.
+3. **Ein Match mit Hildegard** (Heldenfähigkeit ruft Novizinnen, Jutta stärkt sie) **oder Wiprecht** (Grenzsteine).
+4. Noch offen aus 1.14.0: Heldenwahl mit Chronik, eine Mission eines neuen Helden, Rückerstattung der Marmor-Skins.
+5. **Renderer-Labor:** Über das Spiel → Renderer-Labor → **Messreihe** (≈ 20 s), Foto der sechs Zeilen – entscheidet
+   Entscheidung 18 und damit, wie Sitzung 13 die Effekte baut. Dazu weiter offen: Entscheidungen 2, 3, 5 und 7.
 
-**Sitzung 12 – AP L.2: Karten der elf neuen Helden (sehr hohe Priorität)**
+**Sitzung 13 – AP 1.8: Spielbrett und HUD neu, Teil 1 (Feldherrentisch)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.14.0 | Heldenwahl, Chronik, Mission, Messreihe des Labors | Gerätewerte zuerst |
-| AP L.2 Heldenkarten | ≈ 130 Karten der elf neuen Helden neu benennen und betexten (Wirkungen bleiben), dazu ihre Spielsteine: Rekrut → Novizin, Runensteine → Grenzsteine, Kriegswagen → Schanzkorb, Zwilling der Khatun, Taborit; Lieblingskarten und Legendäre in den Chronikseiten nachziehen | Widukind spielt heute noch „Subutai“, Hildegard „La Hire“ |
-| Bilder | Je Held entscheiden, welche Kartenbilder bleiben (Vercingetorix: Streitwagen und Barden passen), die übrigen werden Platzhalter mit Bildidee in `MOTIVE.md` (Samurai, Wikinger, Mongolen) | für Astra in ein paar Wochen |
-| AP L.2 neutral | Neutrale Karten nach Lehrplan-Lebenswelten durchsehen, Test „Kartentexte nennen nur Helden, die es gibt“ | schließt AP L.2 ab |
+| Rückmeldung 1.15.0 | Kartennamen, Match mit Hildegard oder Wiprecht, Messreihe des Labors | Namen und Gerätewerte zuerst |
+| AP 1.8 Teil 1 | Feldherrentisch als Grundfläche, Helden als Münzen oben und unten, Rüstung als Schild, Heldenfähigkeit als Siegel, das sich nach Benutzung umdreht, Mana als 1–10 Amulette unten rechts, „Zug beenden“ als Chronometer – alles als gekennzeichnete Platzhalter (`ASTRA: …`) im Stil der Stilbibel | die Lehrplan-Inhalte stehen; als Nächstes das Herzstück der Optik, mit Platzhaltern, damit Astra in ein paar Wochen nur noch Bilder liefert |
+| AP 1.8 Hälften | Epochen-Spielfeldhälfte je Held (sechs Zeitalter, Farbe und Zeichen aus `CHD.ages`), Verhältnis zu den Schlachtfeld-Skins aus dem Basar klären | macht die Zeitalter im Match sichtbar |
+| Messung | Zeichenzeit und Bildrate wie in 1.13.0 (`matchmessung.js`), Referenzbilder des Klickpfads neu | das neue Brett darf die 120 fps nicht kosten |
 
-Risiko: Viel Text mit historischer Sorgfalt – lieber schlichte, belegte Namen als ausgeschmückte. Regeln ändern sich
-nicht; wo ein Spielstein eine neue ID braucht (z. B. Novizin statt Rekrut), muss die Engine-Regel mitwandern (La Hire
-zählt heute `recruit`) – dann voller Balance-Lauf. Im Blick: Theophanu liegt mit Zufallsdecks bei 54,4 % (seit sie die
-Zeitalterkarten des Mittelalters spielt), Itzcoatl und Phalanxveteran knapp über 60 %.
+Risiko: AP 1.8 ist groß (L) und betrifft Renderer, View und alle Referenzbilder. Lieber zwei saubere Teile (Brett und
+HUD in Sitzung 13, Chronik-Leiste, Dioramen und Hinterhalte später) als ein halbes Brett. Regeln ändern sich nicht.
+Im Blick aus der Balance: Theophanu bleibt mit Zufallsdecks bei 54,4 %, Dandolo bei 47,0 % (knapp unter dem Ziel), Vercingetorix mit
+Startdecks bei 46,5 % – ein kleiner Balance-Feinschliff (AP 5.11) passt in eine spätere Sitzung mit vollem Lauf.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP L.2 (Karten der elf Lehrplan-Helden und
-> neutrale Karten)** ab und übernimm mein Feedback zu Version 1.14.0: *(hier Feedback und Messreihe des Labors einfügen)*.
-> Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im
-> Handyformat, lass die zwingend notwendigen Tests und den Klickpfad (falls notwendig) laufen und sorge für eine grüne
-> CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere Prüfungen an mich und mein OnePlus 15.) Hake erledigte
-> Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull Request nach `main` und schreibe unten in die
-> README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 1.8 Teil 1 (Feldherrentisch, Helden-Münzen,
+> Siegel der Heldenfähigkeit, Mana-Amulette, Chronometer, Epochen-Hälften)** ab und übernimm mein Feedback zu Version
+> 1.15.0: *(hier Feedback, Namenswünsche und Messreihe des Labors einfügen)*. Halte dich an die „Regeln für jede Sitzung“
+> und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen Tests
+> und den Klickpfad laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere
+> Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende
+> einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
+> Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** ≈ 130 Karten sind viel Text mit historischer Sorgfalt, aber
-ohne Renderer-Risiko; *xhigh* nur, wenn Du zusätzlich die Spielsteine mit eigener Regel (Novizinnen statt Rekruten)
-und einen vollen Balance-Lauf in derselben Sitzung willst.
+**Empfohlener Effort für den nächsten Prompt: xhigh.** Das neue Spielbrett greift in Renderer, View, Messung und alle
+Referenzbilder ein – dort lohnt die gründlichere Prüfung; *high* reicht, wenn Du Sitzung 13 auf das Brett ohne
+Epochen-Hälften beschränkst.
