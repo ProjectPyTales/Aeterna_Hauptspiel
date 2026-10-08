@@ -341,7 +341,13 @@ function dial(c,p,a,now){const {x,y,r}=L.mana[p],locked=a.locked||0;let f=R.dial
 // Not part of the action's busy time, so it never holds up a tap; skipped under reduced motion.
 const PLATE={drop:300,snap:170,hold:{0:1250,1:850},lift:260};R.plate=null;
 // ASTRA: zugtafel – herabfallende Steintafel „Dein Zug“ / „Zug des Gegners“ an zwei Ketten, mit Bronzerahmen, 960 × 200
-function plateArt(g,mine){const w=mine?460:380,h=mine?92:74;
+// Feedback 1.18.0: „ZUG DES GEGNERS“ was wider than its plate – the plate now takes the measured width of its text.
+const PLATE_TEXT={true:['DEIN ZUG',40],false:['ZUG DES GEGNERS',30]};R.plateWidth={};
+function plateSize(mine){let w=R.plateWidth[mine];
+ if(w==null){const [text,px]=PLATE_TEXT[mine],g=document.createElement('canvas').getContext('2d');g.font=`${px}px Title,serif`;
+  const tw=g.measureText(text).width+3*text.length;w=Math.max(mine?460:380,Math.ceil(tw)+96);if(document.fonts?.check?.(`${px}px Title`))R.plateWidth[mine]=w;}
+ return {w,h:mine?92:74};}
+function plateArt(g,mine){const {w,h}=plateSize(mine);
  g.save();g.shadowColor='#160e09cc';g.shadowBlur=18;g.shadowOffsetY=8;round(g,-w/2,-h/2,w,h,14,grad(g,-w/2,-h/2,w,h,'#5a3d1e','#efcd85'),'#2e2012',3);g.restore();
  round(g,-w/2+8,-h/2+8,w-16,h-16,9,grad(g,0,-h/2,0,h,mine?'#d9cfb8':'#b9b3a7','#f6eedb'),'#4a3418',2);
  round(g,-w/2+14,-h/2+14,w-28,h-28,6,null,'#4a341855',1);
@@ -357,9 +363,9 @@ function turnPlate(c,s,now){const key=s.phase==='play'?s.turn+':'+s.active:'-';l
  else if(t<PLATE.drop+PLATE.snap){if(!f.clicked){f.clicked=true;CHA.play('stone',{gain:.7});}const q=(t-PLATE.drop)/PLATE.snap;y=rest-16*Math.sin(q*Math.PI)*(1-q*.4);}
  else if(t<PLATE.drop+PLATE.snap+hold)y=rest;
  else{const q=(t-PLATE.drop-PLATE.snap-hold)/PLATE.lift;y=rest+(top-rest)*q*q;}
- const w=f.mine?460:380,h=f.mine?92:74;c.save();c.strokeStyle='#3a2a16';c.lineWidth=4;c.setLineDash([9,5]);
+ const {w,h}=plateSize(f.mine);c.save();c.strokeStyle='#3a2a16';c.lineWidth=4;c.setLineDash([9,5]);
  for(const sx of [-1,1]){c.beginPath();c.moveTo(800+sx*(w/2-26),0);c.lineTo(800+sx*(w/2-26),y-h/2+4);c.stroke();}c.restore();
- R.blit(c,R.sprite('plate:'+f.mine,-w/2-40,-h/2-40,w+80,h+80,g=>plateArt(g,f.mine)),800,y);}
+ R.blit(c,R.sprite('plate:'+f.mine+':'+w,-w/2-40,-h/2-40,w+80,h+80,g=>plateArt(g,f.mine)),800,y);}
 // AP 1.8 Teil 2: the deck as a pile of parchment scrolls that visibly shrinks (one scroll per five cards, at most six);
 // an empty deck becomes the hourglass of Erschöpfung („Zahn der Zeit“) with the damage of the next draw.
 // ASTRA: pergamentstapel – Deck als Stapel gerollter Pergamente (1–6 Rollen), 160 × 200
@@ -516,8 +522,10 @@ function handSpring(uid,pose){let f=R.springs[uid];
  if(!f)f=R.springs[uid]={x:new T.Spring(pose.x,HAND_SPRING),y:new T.Spring(pose.y,HAND_SPRING),a:new T.Spring(pose.angle,HAND_SPRING),k:new T.Spring(1,{stiffness:420,damping:28})};return f;}
 // ASTRA: goldglanz – Glanzstreifen, der über Goldene Karten läuft, 160 × 800
 const glintSprite=()=>R.sprite('glint',-40,-200,80,400,g=>{const gr=g.createLinearGradient(-40,0,40,0);gr.addColorStop(0,'#fff4c800');gr.addColorStop(.5,'#fff8dcb0');gr.addColorStop(1,'#fff4c800');g.fillStyle=gr;g.fillRect(-40,-200,80,400);});
+// Feedback 1.18.0: the card is drawn around its centre, the gate path from its corner – without the shift the streak ran
+// below and right of the card and never crossed the picture. Now it sweeps the whole gate, picture included, top left to bottom right.
 function glint(c,w,h,t,i){const ph=((t+i*430)%2800)/2800;if(ph>.32)return;const q=ph/.32;
- c.save();c.scale(w/200,h/282);R.gatePath(c);c.clip();c.translate(-60+q*320,141);c.rotate(.38);R.blit(c,glintSprite());c.restore();}
+ c.save();c.translate(-w/2,-h/2);c.scale(w/200,h/282);R.gatePath(c);c.clip();c.translate(-70+q*340,141);c.rotate(.38);R.blit(c,glintSprite());c.restore();}
 function hand(c,s,view,handInfo,t,gold){const a=s.players[0];let cards=a.hand;
  if(view.drag?.cardId&&view.handIndex!=null){cards=[...cards];const i=cards.findIndex(h=>h.uid===view.drag.uid);if(i>=0)cards.splice(view.handIndex,0,cards.splice(i,1)[0]);}
  const n=cards.length,left=Math.ceil(n/2),press=view.drag?null:view.press,selected=view.selected?.type==='play'?view.selected.uid:null,focus=press||selected,fi=cards.findIndex(h=>h.uid===focus),dt=T.clock.dt;
@@ -573,11 +581,11 @@ const pumpSprite=()=>R.sprite('pump',-30,-30,60,60,g=>{const gr=g.createRadialGr
 // Shards of a broken plaque: triangles from an off-centre point to the outline, each with its own push and spin.
 const SHARDS=(()=>{const o=[-8,-14],rim=[[-60,-82],[-14,-82],[26,-82],[60,-82],[60,-28],[60,26],[60,84],[16,84],[-28,84],[-60,84],[-60,24],[-60,-30]],out=[];
  rim.forEach((a,i)=>{const b=rim[(i+1)%rim.length],cx=(o[0]+a[0]+b[0])/3,cy=(o[1]+a[1]+b[1])/3,len=Math.hypot(cx,cy)||1,r=(i*37%11)/11;
-  out.push({pts:[o,a,b],cx,cy,vx:cx/len*(170+r*130),vy:cy/len*(110+r*90)-210,spin:(r-.5)*9});});return out;})();
+  out.push({pts:[o,a,b],cx,cy,vx:cx/len*(70+r*60),vy:cy/len*(50+r*40)-90,spin:(r-.5)*4});});return out;})();
 // Each shard is the plaque's last picture (R.units) under a triangular clip – nothing new has to be painted when a unit dies.
 function shatter(c,f,t){const e=(t-f.start)/1000,q=(t-f.start)/f.life,k=L.minionScale;
- c.save();c.globalAlpha=q<.55?1:Math.max(0,1-(q-.55)/.45);
- for(const sh of SHARDS){c.save();c.translate(f.x,f.y);c.scale(k,k);c.translate(sh.cx+sh.vx*e,sh.cy+sh.vy*e+520*e*e);c.rotate(sh.spin*e);c.translate(-sh.cx,-sh.cy);
+ c.save();c.globalAlpha=q<.35?1:Math.max(0,1-(q-.35)/.65);
+ for(const sh of SHARDS){c.save();c.translate(f.x,f.y);c.scale(k,k);c.translate(sh.cx+sh.vx*e,sh.cy+sh.vy*e+260*e*e);c.rotate(sh.spin*e);c.translate(-sh.cx,-sh.cy);
   c.beginPath();sh.pts.forEach(([x,y],i)=>c[i?'lineTo':'moveTo'](x,y));c.closePath();c.clip();R.blit(c,f.sp);c.restore();}
  c.restore();}
 function dust(c,f,t){const q=(t-f.start)/f.life,n=8+Math.round(12*f.weight),sp=dustSprite(),spread=(40+80*f.weight)*T.ease.outCubic(q);
@@ -660,15 +668,15 @@ const hash=s=>String(s).split('').reduce((n,ch)=>n*31+ch.charCodeAt(0)>>>0,7);
 R.events=(events,settings)=>{const t=T.clock.now(),played=new Set(),fx=settings.particles!==false;
  for(const ev of events){const pos=R.positions[ev.target]||R.positions['h'+(ev.p||0)]||{x:800,y:400};
   if(ev.type==='death'){const u=R.units[ev.target];
-   if(fx){if(u)R.fx.push({type:'shatter',sp:u.sp,x:u.x,y:u.y,start:t,life:850});else R.fx.push({type:'death',x:pos.x,y:pos.y,start:t,life:660});R.fx.push({type:'dust',x:pos.x,y:pos.y+40,weight:.3,start:t,life:800});}
+   if(fx){if(u)R.fx.push({type:'shatter',sp:u.sp,x:u.x,y:u.y,start:t,life:560});else R.fx.push({type:'death',x:pos.x,y:pos.y,start:t,life:560});R.fx.push({type:'dust',x:pos.x,y:pos.y+40,weight:.05,start:t,life:520});}
    // The fall after the break: a building crashes down, a unit's shards scrape over the table.
-   R.fx.push({type:'sound',sound:ev.building?'slam':'scrape',x:pos.x,gain:.55,start:t+260,life:400});}
+   R.fx.push({type:'sound',sound:ev.building?'slam':'scrape',x:pos.x,gain:.3,start:t+200,life:400});}
   if(fx){if(ev.type==='damage'){R.fx.push({type:'damage',n:ev.n,x:pos.x,y:pos.y-18,seed:hash(ev.target),start:t,life:1050});R.fx.push({type:'pump',target:ev.target,start:t,life:560});}
    else if(ev.type==='heal')R.fx.push({type:'heal',n:ev.n,x:pos.x,y:pos.y,start:t,life:750});
    else if(['buff','shield','freeze','steal'].includes(ev.type))R.fx.push({...ev,x:pos.x,y:pos.y,start:t,life:750});
    if(ev.type==='attack'||ev.type==='damage')R.fx.push({type:'impact',x:pos.x,y:pos.y,start:t,life:280});}
   // A unit's own blow (AP 3.5): blades, hooves or a lance; a played minion's thud comes from the landing (motion.js).
-  const sound={attack:R.hitSound(R.units[ev.source]?.card),damage:'hit',heal:'heal',death:ev.building?'slam':'destroy',shield:'armor',power:'power',play:ev.spell?'fire':null,draw:'draw',weapon:'sword',turn:'gong',armor:'armor',freeze:'channel',steal:'power',discover:'draw',echo:'fire',choice:'pack'}[ev.type];
+  const sound={attack:R.hitSound(R.units[ev.source]?.card),damage:'hit',heal:'heal',death:ev.building?'slam':'destroy',shield:'armor',power:'power',play:ev.spell?'fire':null,draw:'draw',weapon:'sword',turn:'chime',armor:'armor',freeze:'channel',steal:'power',discover:'draw',echo:'fire',choice:'pack'}[ev.type];
   if(sound&&!played.has(sound)){CHA.play(sound,{x:pos.x,gain:ev.type==='damage'&&events.some(e=>e.type==='attack')?.55:1});played.add(sound);}}
 };
 })();

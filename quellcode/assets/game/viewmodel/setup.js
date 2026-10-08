@@ -1,18 +1,27 @@
-/* Duel preparation: hero, deck and opponent for a free duel, the colosseum, the daily duel or a mission. */
+/* Duel preparation: hero, deck and opponent for a free duel, the colosseum, the daily duel or a mission.
+ * Heldenwahl 2.0 (AP 1.7): a gallery – the heroes by age on the left, the chosen one large in the middle with portrait,
+ * epoch, curriculum, hero power and favourite cards from the chronicle (model/lore.js), deck and opponent on the right. */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP;
+const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,LORE=node?require('../model/lore.js'):root.AELORE;
 const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 
 // Hero tiles grouped by age (AP 5.10); within an age the order of D.heroes.
 const AGE=Object.fromEntries(D.ages.map((a,i)=>[a.id,i])),HEROES=D.heroes.slice().sort((a,b)=>AGE[a.age]-AGE[b.age]);
+const GALLERY=D.ages.map(age=>({age,heroes:HEROES.filter(h=>h.age===age.id)}));
 
 class Setup extends Screen{
  get view(){const s=this.session,p=this.profile,day=s.mode==='daily'?P.daily():null,heroId=day?day.hero:s.hero;
   const decks=p.decks.filter(d=>d.hero===s.hero);if(!decks.some(d=>d.id===s.deckId))s.deckId=decks[0]?.id||'';
-  return {mode:s.mode,day,hero:D.heroes.find(h=>h.id===heroId),foe:day?D.heroes.find(h=>h.id===day.foe):null,heroes:HEROES,
+  const hero=D.heroes.find(h=>h.id===heroId),page=LORE.of(heroId);
+  return {mode:s.mode,day,hero,foe:day?D.heroes.find(h=>h.id===day.foe):null,heroes:HEROES,gallery:GALLERY,
+   age:D.ageById[hero.age],school:LORE.school(heroId),life:page?.life||'',style:D.personalities[hero.ai]||null,
+   favorites:(page?.favorites||[]).map(id=>D.byId[id]).filter(Boolean),
    selected:heroId,decks,deckId:s.deckId,foeId:s.foe,foeStyle:D.personalities[D.heroById[s.foe]?.ai]||null,mission:s.mode==='campaign'?D.missions[s.mission]:null};}
- chooseHero(id){if(this.session.mode==='daily'||!D.heroes.some(h=>h.id===id))return;this.session.hero=id;this.notify();}
+ chooseHero(id){if(this.session.mode==='daily'||this.session.mode==='random'||!D.heroes.some(h=>h.id===id)||this.session.hero===id)return;
+  this.session.hero=id;this.notify();this.ui.play('stone',{gain:.6});this.ui.haptic(0);}
+ // A favourite card from the gallery opens in the card zoom of the match (same dialog as in the chronicle).
+ inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:D.eraOf(c)}));}
  chooseFoe(id){this.session.foe=id;this.notify();}
  chooseDeck(id){this.session.deckId=id;}
  help(){this.ctx.dialogs.help();}
@@ -32,6 +41,6 @@ class Setup extends Screen{
   delete p.matchChronicle;this.commit();this.ctx.match.reset();this.ui.go('game');}
 }
 
-const api={Setup};
+const api={Setup,GALLERY};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

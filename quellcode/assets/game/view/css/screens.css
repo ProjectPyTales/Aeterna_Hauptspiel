@@ -1,0 +1,151 @@
+/* Sammlung 2.0 (AP 1.6), Heldenwahl und Kampagnenkarte (AP 1.7). Painted parts are placeholders for Astra (MOTIVE.md). */
+
+/* ---------- Sammlung: open card book, stone filters, mana curve ---------- */
+.book{display:flex;height:708px;position:relative;background:linear-gradient(100deg,#1d1914,#2a241c 16%,#221d17 74%,#171e21)}
+.filters{width:250px;flex:none;padding:18px 20px;display:flex;flex-direction:column;gap:9px}
+.filters input,.filters select{width:100%;font-size:16px;min-height:48px}
+.filters label{font-size:14px;color:#c2b18b;letter-spacing:1px;margin-top:2px}
+.filters label b{color:#efcf8c;font-weight:normal;letter-spacing:0;margin-left:6px}
+.mana-knobs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+button.knob{height:48px;min-height:48px;padding:0;border-radius:50%;font:20px Title,serif;color:#eaf6ff;background:radial-gradient(circle at 35% 30%,#7fb6d9,#2c5b85 60%,#173452);border:3px solid #6f6250;box-shadow:inset 0 -3px 0 #0e2236,0 3px 0 #0b0907b0;text-shadow:0 1px 2px #0a1a2a}
+button.knob.on{background:radial-gradient(circle at 35% 30%,#d6f0ff,#5aa7e0 55%,#235a8c);border-color:#f0d48c;box-shadow:0 0 0 2px #f0d48c,0 0 14px #9fd6ff99;transform:translateY(2px)}
+.rarity-seals{display:flex;justify-content:space-between}
+button.seal-knob{width:40px;height:44px;min-height:44px;padding:0;border-radius:50%;border:2px solid #211c17;box-shadow:inset 0 0 0 3px #0003,0 3px 0 #0b0907b0;display:grid;place-items:center}
+.seal-knob.basic{background:radial-gradient(circle at 40% 35%,#d8cfbd,#8f8574 70%)}
+.seal-knob.common{background:radial-gradient(circle at 40% 35%,#e0a46a,#8a5126 70%)}
+.seal-knob.rare{background:radial-gradient(circle at 40% 35%,#f4f6f8,#8e98a3 70%)}
+.seal-knob.epic{background:radial-gradient(circle at 40% 35%,#ffe7a0,#c08a22 70%)}
+.seal-knob.legendary{background:radial-gradient(circle at 40% 35%,#5b5470,#151320 70%)}
+.seal-knob.legendary:after{content:'✦';color:#dfe6ff;font-size:18px}
+.seal-knob.on{box-shadow:0 0 0 3px #f0d48c,0 0 14px #f0d48c88;transform:translateY(2px)}
+.filters .small{min-height:44px}
+.filters .stats{font-size:15px;line-height:1.6;margin-top:2px}
+.cardbook{width:934px;flex:none;padding:10px 24px 0;position:relative}
+/* ASTRA-Platzhalter kartenbuch (view/collection.js): Ledereinband, Pergament, Buchrücken */
+.spread{position:relative;display:flex;height:616px;padding:10px 14px;border-radius:10px;perspective:1800px;background:linear-gradient(90deg,#d9c69c,#efe2c0 8%,#f3e8cc 44%,#cbb68a 49.4%,#8f7a58 50%,#cbb68a 50.6%,#f3e8cc 56%,#efe2c0 92%,#d9c69c);box-shadow:0 0 0 8px #4a2f18,0 0 0 11px #a8834a,0 16px 30px #000a}
+.page{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0 12px;justify-items:center}
+.spine{width:22px;flex:none}
+.collect-card{height:296px;position:relative;border:0;box-shadow:none;padding:0;background:none;min-height:0}
+.collect-card img{height:271px;width:192px;object-fit:contain}
+.collect-card .count{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);color:#f7e1ad;background:#39362a;border:1px solid #a99a77;padding:3px 18px;border-radius:16px;font-size:15px;white-space:nowrap}
+.collect-card.locked img{filter:grayscale(1) brightness(.62);opacity:.8}
+.collect-card .in-deck{position:absolute;right:2px;top:11px;border-radius:50%;background:#204c47;color:#f9e4a5;padding:7px;min-width:32px}
+.page-turn{position:absolute;top:8px;bottom:8px;width:calc(50% - 11px);border-radius:4px;background:linear-gradient(90deg,#cdb98f,#f1e5c6 30%,#e9dcb9 80%,#bba67a);box-shadow:0 0 18px #0005;pointer-events:none;opacity:0}
+.turn-next .page-turn{left:calc(50% + 11px);transform-origin:-11px 50%;animation:turn-next 560ms cubic-bezier(.45,.05,.4,1) both}
+.turn-prev .page-turn{right:calc(50% + 11px);transform-origin:calc(100% + 11px) 50%;animation:turn-prev 560ms cubic-bezier(.45,.05,.4,1) both}
+.turn-next .page.left,.turn-prev .page.right{animation:page-show 560ms both}
+@keyframes turn-next{0%{opacity:1;transform:rotateY(0)}92%{opacity:1}100%{opacity:0;transform:rotateY(-180deg)}}
+@keyframes turn-prev{0%{opacity:1;transform:rotateY(0)}92%{opacity:1}100%{opacity:0;transform:rotateY(180deg)}}
+@keyframes page-show{0%,52%{opacity:0}100%{opacity:1}}
+.pagination{display:flex;align-items:center;justify-content:center;gap:28px;height:62px;margin-top:8px;color:#d9c49a;font-size:19px}
+.deck-side{width:416px;flex:none;padding:16px 20px 14px;display:flex;flex-direction:column;gap:9px;background:linear-gradient(130deg,#2b2721,#181e22);border-left:2px solid #9a7948}
+.deck-side h3{font-size:21px}
+.deck-side input{font-size:17px;min-height:44px;width:100%}
+.deck-controls{display:flex;gap:7px}.deck-controls button{flex:1;font-size:14px;padding:8px 5px;min-height:44px}
+.decklist{overflow:auto;flex:1;touch-action:pan-y;min-height:0;border-top:1px solid #8c724d;border-bottom:1px solid #8c724d;padding:6px 0}
+.deckrow{display:flex;align-items:center;gap:10px;min-height:42px;margin:4px 0;border:1px solid #766548;background:#393c36;padding:6px 10px;border-radius:5px;color:#e7d6b2;font-size:15px;width:100%;text-align:left}
+.deckrow .mana{border-radius:50%;background:#386b90;min-width:26px;text-align:center;color:white;padding:3px}
+.deckrow b{flex:1;font-size:14px}
+.deckrow .legend{color:#f4be60}
+.mini-curve{display:flex;align-items:flex-end;gap:2px;height:24px}
+.mini-curve i{width:5px;border-radius:1px 1px 0 0}
+.mini-curve .ph-early,.bar.ph-early{background:linear-gradient(#86cfae,#2f6f5a)}
+.mini-curve .ph-mid,.bar.ph-mid{background:linear-gradient(#f0cf7a,#a7752c)}
+.mini-curve .ph-late,.bar.ph-late{background:linear-gradient(#e8917a,#8e3626)}
+.curve-box{flex:none;padding:4px 2px 0}
+.curve{height:88px;display:flex;gap:8px;align-items:flex-end;border-bottom:1px solid #867753;padding:0 4px;margin-bottom:20px}
+.bar{flex:1;position:relative;min-height:3px;border-radius:3px 3px 0 0;transition:height .38s cubic-bezier(.3,1.5,.5,1)}
+.bar em{position:absolute;top:-19px;left:0;right:0;text-align:center;font:13px Title,serif;font-style:normal;color:#f1dcab}
+.bar span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:11px;color:#baa887}
+.bar .grow{position:absolute;inset:-4px;border-radius:4px;box-shadow:0 0 0 2px #fff3c4,0 0 16px #ffd77a;opacity:0;animation:bar-grow .9s .45s ease-out both}
+@keyframes bar-grow{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+.phases{display:flex;gap:12px;font-size:13px;letter-spacing:.5px}
+.phases .ph-early{color:#8fd3b4}.phases .ph-mid{color:#f0cf7a}.phases .ph-late{color:#ee9a7c}.phases .avg{margin-left:auto;color:#cdbd9b}
+.curve-hint{font-size:14px;line-height:1.35;color:#b9c7a4;margin:5px 0 0;min-height:38px}
+.curve-hint.warn{color:#f3ba63}
+.deck-info{text-align:center;font-size:13px;color:#c7b88c}
+.deck-actions{display:flex;gap:8px}.deck-actions .gold{flex:1}
+.fly-card{position:absolute;left:340px;top:96px;width:300px;height:423px;z-index:30;pointer-events:none;filter:drop-shadow(0 12px 16px #000a);animation:card-fly 620ms cubic-bezier(.5,0,.75,.45) both}
+@keyframes card-fly{0%{transform:none;opacity:1}85%{opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(.12) rotate(8deg);opacity:0}}
+.card-detail img{width:300px;flex:none}
+.card-detail img.zoom-in{animation:zoom-in 300ms cubic-bezier(.2,.8,.3,1.08) both}
+.card-detail img.from-slot{animation-name:zoom-from;animation-duration:340ms}
+@keyframes zoom-in{from{transform:scale(.7);opacity:0}}
+@keyframes zoom-from{from{transform:translate(var(--fx),var(--fy)) scale(.64);opacity:.6}}
+@media(prefers-reduced-motion:reduce){.page-turn,.fly-card,.bar .grow{display:none}.spread .page{animation:none!important}.card-detail img.zoom-in{animation:none}.bar{transition:none}}
+
+/* ---------- Heldenwahl: gallery by age, the chosen hero large, deck and opponent ---------- */
+.setup-content{display:flex;gap:18px;margin:20px 30px 0;height:668px}
+.hero-gallery{width:450px;flex:none;display:flex;flex-direction:column;gap:6px;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding-right:4px}
+.age-row{padding:6px 10px 4px;border-radius:10px;border-left:3px solid var(--age);background:linear-gradient(90deg,color-mix(in srgb,var(--age) 32%,#1b1a17),#1b1a1700)}
+.age-label{display:flex;gap:8px;align-items:center;font:13px Title,serif;letter-spacing:2px;text-transform:uppercase;color:#e9d3a2}
+.age-label span{font-size:16px;color:color-mix(in srgb,var(--age) 50%,#fff)}
+.age-heroes{display:flex;gap:8px;margin-top:4px}
+button.hero-coin{width:76px;min-height:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:3px;color:#d5bb87;background:none;border:0;box-shadow:none}
+.hero-coin .coin-face{display:block;width:56px;height:56px;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 3px #8a6a3a,0 0 0 5px #2a1f14,0 4px 6px #0008}
+.hero-coin small{max-width:76px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-coin.selected .coin-face{box-shadow:0 0 0 3px #f0d48c,0 0 0 5px #2a1f14,0 0 18px #f0d48caa}
+.hero-coin.selected small{color:#fff0c8}
+.hero-coin.foe .coin-face{box-shadow:0 0 0 3px #c0503c,0 0 0 5px #2a1f14,0 0 14px #c0503c99}
+.hero-gallery.fixed .hero-coin:not(.selected):not(.foe){opacity:.45}
+.hero-show{flex:1;min-width:0;display:grid;grid-template-columns:260px 1fr;align-content:center;gap:18px 24px;padding:22px 26px;border-radius:14px;border:2px solid #9a7948;box-shadow:inset 0 0 0 5px #44372b,0 12px 30px #0006;background:radial-gradient(ellipse at 22% 30%,color-mix(in srgb,var(--age,#6e5a3c) 38%,transparent),transparent 60%),linear-gradient(130deg,#2b2721f2,#181e22f2)}
+.hero-medal{position:relative;width:260px;height:260px;filter:drop-shadow(0 14px 14px #000a)}
+.hero-medal .coin-face{position:absolute;inset:40px;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 4px #3a2a16,inset 0 0 18px #0008}
+.coin-face.mystery{display:grid;place-items:center;font:110px Title,serif;color:#f0d48c;background:radial-gradient(#3b4a52,#141c21)}
+.age-badge{display:inline-flex;gap:8px;align-items:center;padding:4px 12px;border-radius:14px;border:1px solid #c9a96a;font-size:14px;letter-spacing:1px;color:#f6e7c4;background:color-mix(in srgb,var(--age) 62%,#1b1a17)}
+.show-info h2{font-size:34px;line-height:1.1;margin:10px 0 4px;color:#f4ddb0}
+.show-info>p{font-size:18px;line-height:1.5;color:#d6c9ac;margin-top:10px}
+.show-meta{font-size:16px;color:#d5bb87}
+.show-school{margin-top:4px;font-size:14px;line-height:1.35;color:#b9c7a4}
+.show-power{display:flex;gap:12px;align-items:flex-start;margin-top:14px;padding:12px;border-radius:10px;background:#11191b80;border:1px solid #746148}
+.power-cost{flex:none;width:40px;height:44px;display:grid;place-items:center;font:22px Title,serif;color:#fff;background:linear-gradient(135deg,#7fc7eb,#17467c 70%);clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%)}
+.show-power b{font-family:Title,serif;font-size:17px;color:#efcf8c}
+.show-power p{margin:3px 0 0;font-size:15px;line-height:1.4;color:#e2d6bd}
+.show-style{margin-top:8px;font-size:14px;color:#c9bd9f}
+.show-favorites{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;gap:8px 20px;align-items:end}
+.show-favorites .eyebrow{grid-column:1/-1}
+.fav-row{display:flex;gap:12px}
+button.fav-card{padding:0;min-height:0;background:none;border:0;box-shadow:none}
+.fav-card img{display:block;width:116px;height:164px;filter:drop-shadow(0 6px 8px #000a)}
+.show-favorites>button{justify-self:end}
+.setup-side{width:360px;flex:none;padding:22px;display:flex;flex-direction:column;gap:14px}
+.setup-side h3{font-size:24px}
+.setup-side p{font-size:17px;line-height:1.5;color:#d6c9ac}
+.setup-side select{width:100%}
+.setup-side label{display:block;margin-bottom:8px;font-size:15px;color:#aaab9e}
+.setup-side .spacer{flex:1}
+
+/* ---------- Kampagnenkarte: stations on the map, march route, mission panel ---------- */
+.campaign-content{display:flex;gap:20px;margin:24px 36px 0;height:650px}
+.world-map{position:relative;width:1080px;height:640px;flex:none;overflow:hidden;border-radius:10px;background:radial-gradient(ellipse at 50% 45%,#efe4c6,#e2d3ac 70%,#cdb98d);box-shadow:0 0 0 6px #4a2f18,0 0 0 9px #a8834a,0 16px 30px #000a}
+.map-art,.map-route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.map-route path{fill:none;stroke-linecap:round}
+.map-route .open{stroke:#7a2a1c;stroke-width:3;stroke-dasharray:2 9;stroke-opacity:.7}
+.map-route .won{stroke:#b5853f;stroke-width:4;stroke-opacity:.9}
+.map-route .lead{stroke:#4a3418;stroke-width:1.2;stroke-opacity:.55}
+.map-route .place{fill:#4a3418;fill-opacity:.7}
+.map-title{position:absolute;left:24px;bottom:18px;padding:8px 18px;font:22px Title,serif;letter-spacing:3px;color:#3a2810;background:#e9dcb9e6;border:2px solid #8a6a3a;border-radius:6px;box-shadow:0 0 0 3px #e9dcb9}
+.inset-title{position:absolute;left:842px;top:144px;width:224px;text-align:center;font:12px Title,serif;letter-spacing:3px;text-transform:uppercase;color:#4a3418}
+button.station{position:absolute;width:48px;height:48px;min-height:0;margin:-24px 0 0 -24px;padding:0;border-radius:50%;background:none;border:0;box-shadow:none;z-index:1}
+.station .st-seal{position:absolute;inset:3px;border-radius:50%;display:grid;place-items:center;font:16px Title,serif;color:#fff3dc;text-shadow:0 1px 1px #4a0d08;background:radial-gradient(circle at 38% 32%,#d0503f,#8e1f18 72%);box-shadow:inset 0 0 0 3px #6a150f,0 3px 5px #0008}
+.station.done .st-seal{color:#3a2810;text-shadow:0 1px #fff4;background:radial-gradient(circle at 38% 32%,#f6dc93,#b5853f 70%);box-shadow:inset 0 0 0 3px #7a5420,0 3px 5px #0008}
+.station.locked .st-seal{color:#e6e0d4;text-shadow:none;background:radial-gradient(circle at 38% 32%,#a59d90,#5f574b 72%);box-shadow:inset 0 0 0 3px #3e382f,0 3px 5px #0007}
+.station.open .st-seal{animation:station-pulse 1.8s ease-in-out infinite}
+@keyframes station-pulse{50%{box-shadow:inset 0 0 0 3px #6a150f,0 0 0 7px #d0503f55,0 3px 5px #0008}}
+.station.picked{z-index:3}
+.station.picked:before{content:'';position:absolute;inset:-5px;border-radius:50%;border:3px solid #fff3c4;box-shadow:0 0 14px #ffd77a}
+.station .tower{position:absolute;right:-7px;top:-8px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-style:normal;color:#f3e2bd;background:#3a2a16;border:1px solid #c9a96a}
+.place-name{position:absolute;top:52px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:3px 10px;border-radius:10px;font:13px Title,serif;letter-spacing:1px;color:#f6e7c4;background:#2a1f14e6;border:1px solid #a8834a}
+.mission-panel{flex:1;min-width:0;padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+.mission-panel h2{font-size:28px;line-height:1.15;color:#f4ddb0}
+.mission-panel p{font-size:16px;line-height:1.5;color:#d9cbb0}
+.mission-panel .reward{color:#e8c36f}
+.mission-panel .sealed{font-size:15px;color:#c9b892}
+.mission-panel .spacer{flex:1}
+.mission-foe{display:flex;gap:12px;align-items:center}
+.mission-foe .coin-face{width:64px;height:64px;flex:none;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 3px #c0503c,0 0 0 5px #2a1f14}
+.mission-foe small{display:block;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#c2b18b}
+.mission-foe b{display:block;font-family:Title,serif;font-size:18px;color:#f1dcab}
+.mission-foe span{font-size:14px;color:#cdbd9b}
+.campaign-foot{display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#cdbd9b}
+@media(prefers-reduced-motion:reduce){.station.open .st-seal{animation:none}}

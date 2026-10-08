@@ -28,7 +28,7 @@ body.stone-hall #stage{background:none}
 #ui>.hall{position:absolute;top:0;left:var(--wing);width:1600px;height:800px}
 .screen{padding-inline:var(--wing)}
 .screen>.topbar{margin-inline:calc(var(--wing) * -1);padding-inline:calc(36px + var(--wing))}
-.book{box-shadow:calc(var(--wing) * -1) 0 #383229,var(--wing) 0 #171e21}
+.book{box-shadow:calc(var(--wing) * -1) 0 #1d1914,var(--wing) 0 #171e21}
 .slab{width:calc(50% + 12px)}
 /* Chronik der Helden (AP 5.9) */
 .setup-links{display:flex;gap:10px}.setup-links button{flex:1}

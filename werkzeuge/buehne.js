@@ -1,7 +1,7 @@
 // Gemeinsames Gerüst für Sichtprüfung und Klickpfad: lokaler Server für das Web-Spiel und Playwright.
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 let pw;try{pw=require('playwright');}catch{pw=require(path.join(require('node:child_process').execSync('npm root -g').toString().trim(),'playwright'));}
-const TYPES={'.html':'text/html','.js':'application/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.ogg':'audio/ogg','.ttf':'font/ttf','.json':'application/json'};
+const TYPES={'.html':'text/html','.js':'application/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.ogg':'audio/ogg','.ttf':'font/ttf','.json':'application/json','.svg':'image/svg+xml'};
 // Handyformat wie in den Regeln für jede Sitzung; Tablet = Bühne 1:1.
 const PHONE={viewport:{width:915,height:412},deviceScaleFactor:2.6,isMobile:true,hasTouch:true},TABLET={viewport:{width:1600,height:800}};
 

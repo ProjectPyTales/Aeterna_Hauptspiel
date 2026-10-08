@@ -1,6 +1,6 @@
 // Automatische Sichtprüfung (AP 2.6) und Abnahme von AP 2.3 / AP 0.1, im Handyformat (915 × 412, Pixeldichte 2,6).
-// Klickpfad wie ein Spieler: Hauptmenü → Basar (Reiter, Kauf, Ausrüsten) → Sammlung (Suche) → Herausforderung →
-// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü.
+// Klickpfad wie ein Spieler: Hauptmenü → Basar (Reiter, Schaufenster, Kauf, Ausrüsten) → Sammlung (Suche) → Herausforderung →
+// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü → Kampagnenkarte (seit 1.19.0).
 // Jeder Schritt wird fotografiert (sichtpruefung/klickpfad/) und verkleinert mit werkzeuge/referenz/*.webp verglichen.
 // Der Lauf schlägt fehl bei JavaScript-Fehlern, nicht erfüllten Prüfungen oder starken Bildabweichungen.
 //
@@ -61,22 +61,26 @@ async function longestFrame(page,fn,after=600){
  await fn();await page.waitForTimeout(after);
  return page.evaluate(()=>{window.__frames.run=false;return Math.round(window.__frames.max);});}
 
-// Basar (AP 0.1, AP 2.3): Reiter Schlachtfelder, ganz nach unten scrollen, kaufen, ausrüsten.
+// Basar (AP 0.1, AP 2.3, seit 1.19.0 als Schaufenster nach AP 1.4): Reiter Schlachtfelder, Auswahl links ganz nach unten
+// scrollen, den Tisch aufs Podest legen, kaufen, ausrüsten.
 async function basar(page,cmpPage,cdp){
  await tapHall(page,C(238,936));await waitScreen(page,'packs');
  await shot(page,cmpPage,'02-basar-kartenruecken');
  check('Basar öffnet auf dem Reiter Kartenrücken',await page.evaluate(()=>document.querySelector('.stone-tab.active')?.textContent.trim())==='Kartenrücken');
  await page.locator('.stone-tab',{hasText:'Schlachtfelder'}).click();await settle(page,100);
- const before=await page.evaluate(()=>{const b=document.querySelector('.shop-body');b.scrollTop=b.scrollHeight;
+ await page.evaluate(()=>{const b=document.querySelector('.shop-list');b.scrollTop=b.scrollHeight;});await settle(page,50);
+ await page.locator('.shop-tile',{hasText:'Meißner Porzellan'}).locator('.shop-pick').click();await settle(page,100);
+ check('Antippen legt den Tisch aufs Podest (AP 1.4)',await page.evaluate(()=>document.querySelector('.plaque-info h2')?.textContent.trim())==='Meißner Porzellan');
+ const before=await page.evaluate(()=>{const b=document.querySelector('.shop-list');
   document.querySelectorAll('#ui img,#ui *').forEach(i=>{i.__vorher=1;});return {scroll:Math.round(b.scrollTop),bilder:document.querySelectorAll('#ui img').length,gold:App.profile.gold};});
  check('Schlachtfelder lassen sich scrollen',before.scroll>0,before);
  await shot(page,cmpPage,'03-basar-schlachtfelder');
- await page.locator('.shop-tile',{hasText:'Meißner Porzellan'}).locator('button',{hasText:'Kaufen'}).click();await settle(page,100);
+ await page.locator('.plaque-info button',{hasText:'Kaufen'}).click();await settle(page,100);
  await shot(page,cmpPage,'04-basar-kauf-bestaetigen');
  await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
  const frame=await longestFrame(page,()=>page.locator('#overlay button',{hasText:'Für 100 Gold kaufen'}).click());
  await cdp.send('Emulation.setCPUThrottlingRate',{rate:1});
- const after=await page.evaluate(()=>{const b=document.querySelector('.shop-body');const imgs=[...document.querySelectorAll('#ui img')];
+ const after=await page.evaluate(()=>{const b=document.querySelector('.shop-list');const imgs=[...document.querySelectorAll('#ui img')];
   const all=[...document.querySelectorAll('#ui *')];
   return {scroll:Math.round(b.scrollTop),reiter:document.querySelector('.stone-tab.active')?.textContent.trim(),gold:App.profile.gold,neueBilder:imgs.filter(i=>!i.__vorher).length,bilder:imgs.length,
    neueElemente:all.filter(e=>!e.__vorher).length,elemente:all.length};});
@@ -85,8 +89,8 @@ async function basar(page,cmpPage,cdp){
  check('Scrollposition bleibt nach dem Kauf (AP 0.1)',Math.abs(after.scroll-before.scroll)<=1,{vorher:before.scroll,nachher:after.scroll});
  check('Keine Bilder neu erzeugt (AP 2.3)',after.neueBilder===0,{neu:after.neueBilder,gesamt:after.bilder});
  await shot(page,cmpPage,'05-basar-nach-kauf');
- const frame2=await longestFrame(page,()=>page.locator('.shop-tile',{hasText:'Meißner Porzellan'}).locator('button',{hasText:'Ausrüsten'}).click());
- const equip=await page.evaluate(()=>{const b=document.querySelector('.shop-body');return {scroll:Math.round(b.scrollTop),neueBilder:[...document.querySelectorAll('#ui img')].filter(i=>!i.__vorher).length,
+ const frame2=await longestFrame(page,()=>page.locator('.plaque-info button',{hasText:'Ausrüsten'}).click());
+ const equip=await page.evaluate(()=>{const b=document.querySelector('.shop-list');return {scroll:Math.round(b.scrollTop),neueBilder:[...document.querySelectorAll('#ui img')].filter(i=>!i.__vorher).length,
   ausgeruestet:App.profile.cosmetics.equipped.board};});
  check('Ausrüsten: Scrollposition und Bilder bleiben',Math.abs(equip.scroll-before.scroll)<=1&&equip.neueBilder===0,equip);
  check('Meißner Porzellan (Platzhalter-Tisch) ist ausgerüstet',equip.ausgeruestet==='porzellan');
@@ -130,6 +134,14 @@ async function basar(page,cmpPage,cdp){
    await shot(page,cmpPage,'12-ergebnis');
    await page.locator('#overlay button',{hasText:'Zum Hauptmenü'}).click();await waitScreen(page,'menu');
    check('Zurück im Hauptmenü',await screen(page)==='menu');
+   // Kampagnenkarte (AP 1.7): Stationen auf der Weltkarte, Antippen öffnet die Mission rechts.
+   await page.evaluate(()=>App.navigate('campaign'));await waitScreen(page,'campaign');
+   const map=await page.evaluate(()=>({stationen:document.querySelectorAll('.station').length,karte:document.querySelector('.map-art')?.naturalWidth||0}));
+   check('Kampagnenkarte: 22 Stationen auf der Karte',map.stationen===22&&map.karte>0,map);
+   await shot(page,cmpPage,'13-kampagne');
+   await page.locator('.station',{hasText:'02'}).click();await settle(page,100);
+   check('Station öffnet ihre Mission',await page.evaluate(()=>document.querySelector('.mission-panel h2')?.textContent.trim()===CHD.missions[1].title));
+   await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
   }
  }catch(e){check('Klickpfad vollständig',false,e.message.split('\n')[0]);}
  check('Keine JavaScript-Fehler',errors.length===0,errors);
