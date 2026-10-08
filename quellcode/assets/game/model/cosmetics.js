@@ -15,13 +15,19 @@ const skins=Object.keys(skinEpithets).map(hero=>({id:hero+'-marmor',hero,atlas:'
 // Lehrplan-Helden (AP L.1, 1.14.0): Die Marmor-Skins der sechs ersetzten Helden zeigten die alten Personen. Sie entfallen;
 // wer einen gekauft hat, bekommt den Preis zurück – einmal, denn normalize entfernt die ID danach aus dem Spielstand.
 const retired=['khan','boudicca','nostradamus','jeanne','ragnar','musashi'].map(hero=>hero+'-marmor');
-const refund=raw=>raw&&typeof raw==='object'&&Array.isArray(raw.skins)?[...new Set(raw.skins)].filter(id=>retired.includes(id)).length*300:0;
+// Schlachtfelder (Rückmeldung zu 1.15.0): Die vier gemalten Felder von 1.4.0 (Marmor, Gruft, Basalt, Schiefer) sahen
+// schlecht aus und entfallen; wer eins gekauft hat, bekommt 100 Gold zurück – ebenfalls einmal.
+const retiredBoards=['ancient','egypt','viking','japan'];
+const refund=raw=>{if(!raw||typeof raw!=='object')return 0;const ids=list=>Array.isArray(list)?[...new Set(list)]:[];
+ return ids(raw.skins).filter(id=>retired.includes(id)).length*300+ids(raw.boards).filter(id=>retiredBoards.includes(id)).length*100;};
+// Ein Schlachtfeld ist der Tisch unter beiden Epochenhälften (AP 1.8, Entscheidung 3). Tische ohne image sind Platzhalter
+// für Astra (MOTIVE.md): Bis das Bild da ist, zeichnet das Spiel den Standardtisch mit dem Farbfilter tint (CSS-Filter).
 const boards=[
-{id:'standard',name:'Standard',text:'Das sandsteinerne Schlachtfeld der Chronik.',image:'board',price:0},
-{id:'ancient',name:'Griechischer Marmor',text:'Weißer Marmor, Eulen und der Helm eines Hopliten.',image:'board-ancient',price:100},
-{id:'egypt',name:'Pharaonen-Gruft',text:'Goldene Wände einer Grabkammer am Nil.',image:'board-egypt',price:100},
-{id:'viking',name:'Wikinger-Basalt',text:'Runenbasalt im Holzrahmen eines Langhauses.',image:'board-viking',price:100},
-{id:'japan',name:'Zen-Schiefer',text:'Geharkter Schiefer, Laterne und Ahornlaub.',image:'board-japan',price:100}];
+{id:'standard',name:'Standard',text:'Der Feldherrentisch aus Sandstein und poliertem Holz.',image:'board',price:0},
+{id:'athen',name:'Marmortisch von Athen',text:'Weißer Marmor vom Pentelikon, wie im Rat der Fünfhundert.',tint:'grayscale(.9) brightness(1.2) contrast(.9)',price:100},
+{id:'kapitol',name:'Porphyr des Kapitols',text:'Roter Porphyr mit Bronzebeschlägen aus dem Senat Roms.',tint:'hue-rotate(-24deg) saturate(1.2) brightness(.74)',price:100},
+{id:'skriptorium',name:'Pult des Skriptoriums',text:'Dunkle Eiche und Schiefer aus der Schreibstube eines Klosters.',tint:'grayscale(.6) sepia(.3) brightness(.6) contrast(1.1)',price:100},
+{id:'porzellan',name:'Meißner Porzellan',text:'Weißes Porzellan und Kobaltblau aus Böttgers Manufaktur.',tint:'grayscale(1) sepia(.35) hue-rotate(170deg) saturate(1.8) brightness(1.25)',price:100}];
 const catalog={backs,skins,boards};
 const find=(kind,id)=>(catalog[kind]||[]).find(x=>x.id===id);
 function fresh(){return {backs:['chroniken'],skins:[],boards:['standard'],equipped:{back:'chroniken',board:'standard',skins:{}}};}
@@ -39,6 +45,6 @@ function buy(p,kind,id){const item=find(kind,id);if(!item)return 'Unbekannter Ge
 function equip(p,kind,id){const item=find(kind,id);if(!item)return 'Unbekannter Gegenstand.';if(!owns(p,kind,id))return 'Zuerst freischalten.';const e=p.cosmetics.equipped;if(kind==='backs')e.back=id;else if(kind==='boards')e.board=id;else e.skins[item.hero]=id;return null;}
 function unequipSkin(p,hero){delete p.cosmetics.equipped.skins[hero];}
 function equipped(p,kind,id){const e=p.cosmetics.equipped;if(kind==='backs')return e.back===id;if(kind==='boards')return e.board===id;const s=find('skins',id);return !!s&&e.skins[s.hero]===id;}
-const api={catalog,find,fresh,normalize,retired,refund,owns,buy,equip,unequipSkin,equipped};
+const api={catalog,find,fresh,normalize,retired,retiredBoards,refund,owns,buy,equip,unequipSkin,equipped};
 if(typeof module!=='undefined')module.exports=api;else root.CHK=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -1,7 +1,25 @@
-# Aeterna 1.13.0 – Bauen & Prüfen
+# Aeterna 1.16.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.16.0 (AP 1.8 Teil 1 Spielbrett und HUD, Rückmeldung zu 1.15.0 Schlachtfelder)
+
+- **Statisches Bild** (`view/match/render.js`, `table`): Tisch (`R.look.board`, bei Platzhaltern mit `ctx.filter` =
+  `R.look.tint`), eingeritzte Karte `chart`, je Spieler eine Epochenhälfte `half` (Zeitalter des Helden aus `CHD.ages`),
+  Bronzenaht `seam` bei `CHL.seam`. Sprite-Schlüssel: Tisch, Filter, beide Zeitalter.
+- **Held** (`portrait`): Münze `coinArt` als Sprite je Zustand (Leben, Rüstung als `aspis`, Angriff, `weaponRack`), das Siegel
+  `seal` als eigenes Sprite (Vorderseite bereit/ruhend, Rückseite), damit es sich drehen kann: `R.seals[p]` merkt Zustand und
+  Zeitpunkt, 440 ms Drehung um die senkrechte Achse, 150 ms Einrasten. **Chronometer** (`chronometer`, `R.chrono`): Zeiger
+  oben im eigenen Zug, schwingt mit Überschwingen um 180°. Beides ohne Animation bei `AEP.reducedMotion()` (Klickpfad).
+- **Mana-Amulette** (`amulets`, Geometrie `CHL.amulets`/`CHL.amulet(p,i)`): eine Reihe je Spieler als Sprite je Mana-Stand;
+  `CHL.mana` und `manaColumn` entfallen. **Touch-Ziele** über `touch(id,x,y,w,h)`: mindestens 84 Einheiten (48 dp im
+  Handyformat), das Bild bleibt gleich groß.
+- **Schlachtfelder** (`model/cosmetics.js`): `retiredBoards` (ancient, egypt, viking, japan) – `refund` zahlt 100 Gold je Feld
+  einmal; neue Tische `athen`, `kapitol`, `skriptorium`, `porzellan` ohne `image`, mit `tint` (CSS-Filter, im Basar als
+  `--tint` auf dem Standardbild). `motive.js` listet Tische ohne Bild in `MOTIVE.md`. Klickpfad kauft „Meißner Porzellan“.
+- Tests: `tests/spielbrett.test.js` (Geometrie, Touch-Ziele, Drehen), Schlachtfelder in `tests/kosmetik.test.js`.
+  Version 1.16.0 / versionCode 19.
 
 ## Neu in 1.13.0 (AP 2.4 Match-Renderer, AP 2.5 Renderer-Labor, AP 5.11 Teil 2 Balance)
 

@@ -1,10 +1,14 @@
 /* Shared geometry for rendering, animation and touch targets. 1600 × 800 stage. */
 (function(){'use strict';
 const L=window.CHL={center:800,spacing:158,rows:[448,264],heroY:[656,91],heroScales:[1.23,1.02],
-  powerOffset:{x:99,y:20},mana:{x:66,y:187,w:98,h:394},
+  // AP 1.8: hero coin (radius in coin units), ruler's seal beside it, chronometer, seam between the epoch halves.
+  coin:74,powerOffset:{x:112,y:22},chrono:{x:1490,y:366,r:56},seam:357,
   minionScale:1.22*.85,handCenter:800,handY:764,handWidth:144,dragWidth:258,handTop:700,
   drop:{left:225,right:1370,top:365,bottom:551}};
 L.heroScale=p=>L.heroScales[p];
+// Mana amulets (AP 1.8): the player's row lies bottom right between the hero seal and the deck, the rival's top right.
+L.amulets=[{x:1086,y:604,step:33,r:14.5},{x:1054,y:40,step:27,r:11.5}];
+L.amulet=(p,i)=>{const a=L.amulets[p];return {x:a.x+i*a.step,y:a.y,r:a.r};};
 L.powerPosition=(p,x=L.center,y=L.heroY[p])=>({x:x+L.powerOffset.x*L.heroScale(p),y:y+L.powerOffset.y*L.heroScale(p)});
 // Two low fans leave a permanent clear corridor for the hero and attached power.
 // Rendering, card flights and reorder hit testing all use this same geometry.

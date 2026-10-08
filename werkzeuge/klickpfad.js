@@ -71,7 +71,7 @@ async function basar(page,cmpPage,cdp){
   document.querySelectorAll('#ui img,#ui *').forEach(i=>{i.__vorher=1;});return {scroll:Math.round(b.scrollTop),bilder:document.querySelectorAll('#ui img').length,gold:App.profile.gold};});
  check('Schlachtfelder lassen sich scrollen',before.scroll>0,before);
  await shot(page,cmpPage,'03-basar-schlachtfelder');
- await page.locator('.shop-tile',{hasText:'Zen-Schiefer'}).locator('button',{hasText:'Kaufen'}).click();await settle(page,100);
+ await page.locator('.shop-tile',{hasText:'Meißner Porzellan'}).locator('button',{hasText:'Kaufen'}).click();await settle(page,100);
  await shot(page,cmpPage,'04-basar-kauf-bestaetigen');
  await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
  const frame=await longestFrame(page,()=>page.locator('#overlay button',{hasText:'Für 100 Gold kaufen'}).click());
@@ -85,11 +85,11 @@ async function basar(page,cmpPage,cdp){
  check('Scrollposition bleibt nach dem Kauf (AP 0.1)',Math.abs(after.scroll-before.scroll)<=1,{vorher:before.scroll,nachher:after.scroll});
  check('Keine Bilder neu erzeugt (AP 2.3)',after.neueBilder===0,{neu:after.neueBilder,gesamt:after.bilder});
  await shot(page,cmpPage,'05-basar-nach-kauf');
- const frame2=await longestFrame(page,()=>page.locator('.shop-tile',{hasText:'Zen-Schiefer'}).locator('button',{hasText:'Ausrüsten'}).click());
+ const frame2=await longestFrame(page,()=>page.locator('.shop-tile',{hasText:'Meißner Porzellan'}).locator('button',{hasText:'Ausrüsten'}).click());
  const equip=await page.evaluate(()=>{const b=document.querySelector('.shop-body');return {scroll:Math.round(b.scrollTop),neueBilder:[...document.querySelectorAll('#ui img')].filter(i=>!i.__vorher).length,
   ausgeruestet:App.profile.cosmetics.equipped.board};});
  check('Ausrüsten: Scrollposition und Bilder bleiben',Math.abs(equip.scroll-before.scroll)<=1&&equip.neueBilder===0,equip);
- check('Zen-Schiefer ist ausgerüstet',equip.ausgeruestet==='japan');
+ check('Meißner Porzellan (Platzhalter-Tisch) ist ausgerüstet',equip.ausgeruestet==='porzellan');
  return {scroll_vorher:before.scroll,scroll_nach_kauf:after.scroll,scroll_nach_ausruesten:equip.scroll,neue_bilder_nach_kauf:after.neueBilder,
   neue_bilder_nach_ausruesten:equip.neueBilder,bilder:after.bilder,neue_elemente_nach_kauf:after.neueElemente,elemente:after.elemente,laengstes_bild_kauf_cpu4x_ms:frame,laengstes_bild_ausruesten_ms:frame2};}
 

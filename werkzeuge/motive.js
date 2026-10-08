@@ -3,7 +3,7 @@
 // Aufruf: node werkzeuge/motive.js   (der Test schluesselwoerter2.test.js prüft, dass die Liste aktuell ist)
 const fs=require('node:fs'),path=require('node:path');
 const game=path.join(__dirname,'../quellcode/assets/game');
-const D=require(path.join(game,'model/data.js')),L=require(path.join(game,'model/lore.js'));
+const D=require(path.join(game,'model/data.js')),L=require(path.join(game,'model/lore.js')),K=require(path.join(game,'model/cosmetics.js'));
 
 // Gemeinsamer Prompt-Anfang für Kartenmotive – derselbe Stil wie der Prompt-Anfang aus AP 1.2, aber als Bild im Kartenfenster.
 const START='Card illustration for a mobile card game, hand-painted stylized fantasy-antique style matching the Aeterna concept art, '+
@@ -322,6 +322,16 @@ const PORTRAIT={
  baibars:'Portrait of Baibars, Mamluk sultan, blue eyes, turban with helmet, lance, Cairo citadel behind',
  zizka:'Portrait of Sebastien Vauban, Marshal of France, Baroque periwig, breastplate and blue sash, plan of a star fort in hand, fortress walls behind',
  fuhao:'Portrait of the Lady of Vix, Celtic princess of the Hallstatt period, massive gold torc, amber beads, the great bronze krater behind'};
+// Schlachtfelder ohne Bild (Rückmeldung zu 1.15.0, AP 1.8): der ganze Feldherrentisch, 1600 × 800 im Spiel.
+const TABLE='Top-down view of a commander’s war table for a mobile card game, hand-painted in the Aeterna style matching the '+
+ 'concept art, a calm empty playing surface framed by a carved border with small corner ornaments, warm light from the upper left, '+
+ 'faintly engraved map lines, no text, no figures, the centre must stay quiet for cards';
+const BOARD={
+ athen:'white Pentelic marble surface with a fine meander border, bronze owl ornaments in the corners, Athens in the 5th century BC',
+ kapitol:'polished red porphyry surface with bronze fittings and laurel ornaments, frame of dark Roman walnut, Senate of Rome',
+ skriptorium:'dark oak writing desk of a medieval monastery scriptorium with a slate inlay, inkwells and quills in the corners',
+ porzellan:'white Meissen porcelain surface with cobalt-blue Baroque ornament border, gilded rococo corners, Dresden around 1720'};
+const tables=K.catalog.boards.filter(b=>!b.image);
 // Im Code gezeichnete Grafiken (AP L.4): Jede Zeichenfunktion trägt den Kommentar „ASTRA: <kennung> – <was>, <Größe>“.
 // Die Liste sammelt sie aus quellcode/ (ohne fremde Bibliotheken *.min.js); lehrplan.test.js prüft, dass Code und
 // MOTIVE.md dieselben Kennungen nennen.
@@ -344,7 +354,7 @@ const out=`# Fehlende Motive
 *Automatisch erzeugt von \`node werkzeuge/motive.js\` – nicht von Hand ändern.* Bis ein Motiv da ist, zeichnet das Spiel
 einen gestalteten Platzhalter (Epochenfarbe, Symbol, „Motiv folgt“; AP 5.12).
 
-**Stand:** ${cards.length} Karten ohne Motiv, ${heroes.length} Helden ohne Porträt, ${drawn.length} im Code gezeichnete Grafiken.
+**Stand:** ${cards.length} Karten ohne Motiv, ${heroes.length} Helden ohne Porträt, ${tables.length} Schlachtfelder ohne Bild, ${drawn.length} im Code gezeichnete Grafiken.
 Die Karten der elf Lehrplan-Helden tragen seit 1.15.0 (AP L.2) Namen und Bildideen aus deren Lebenswelt.
 
 Ablauf wie in AP 1.2: Konzeptbild als Stilreferenz anhängen, in doppelter Zielgröße erzeugen, Ablage in
@@ -353,7 +363,7 @@ Ablauf wie in AP 1.2: Konzeptbild als Stilreferenz anhängen, in doppelter Zielg
 | ID | Name | Held | Typ | Größe (px) | Prompt |
 |---|---|---|---|---|---|
 ${cards.map(row).join('\n')}
-${heroes.length?`\n## Helden ohne Porträt\n\n| ID | Name | Größe (px) | Prompt |\n|---|---|---|---|\n${heroes.map(h=>`| \`${h.id}\` | ${h.name} | 768 × 768 (Atlasfeld 384 × 384) | ${START}. ${PORTRAIT[h.id]||'Portrait of '+h.name}. Epoch: ${epoch(h.id)}. |`).join('\n')}\n`:''}
+${tables.length?`\n## Schlachtfelder ohne Bild\n\nBis das Bild da ist, zeichnet das Spiel den Standardtisch mit einem Farbfilter (\`tint\` in \`model/cosmetics.js\`).\nAblage: \`ungenutzte_assets/art-original/board-<id>.png\` und \`board-<id>-preview.png\` (480 × 240), dann \`image\` eintragen.\n\n| ID | Name | Größe (px) | Prompt |\n|---|---|---|---|\n${tables.map(b=>`| \`${b.id}\` | ${b.name} | 3200 × 1600 (im Spiel 1600 × 800) | ${TABLE}: ${BOARD[b.id]||b.text}. |`).join('\n')}\n`:''}${heroes.length?`\n## Helden ohne Porträt\n\n| ID | Name | Größe (px) | Prompt |\n|---|---|---|---|\n${heroes.map(h=>`| \`${h.id}\` | ${h.name} | 768 × 768 (Atlasfeld 384 × 384) | ${START}. ${PORTRAIT[h.id]||'Portrait of '+h.name}. Epoch: ${epoch(h.id)}. |`).join('\n')}\n`:''}
 ## Im Code gezeichnet (AP L.4)
 
 Diese Grafiken zeichnet das Spiel heute selbst (Canvas, SVG oder CSS). Im Code steht an der Zeichenfunktion der Kommentar
@@ -366,4 +376,4 @@ ${drawn.map(d=>`| \`${d.id}\` | ${d.what} | ${d.size} | \`${d.at}\` | ${UI}. ${d
 `;
 fs.mkdirSync(path.join(__dirname,'../ungenutzte_assets'),{recursive:true});
 fs.writeFileSync(path.join(__dirname,'../ungenutzte_assets/MOTIVE.md'),out);
-console.log(`MOTIVE.md: ${cards.length} Karten, ${heroes.length} Helden ohne Motiv, ${drawn.length} im Code gezeichnete Grafiken.`);
+console.log(`MOTIVE.md: ${cards.length} Karten, ${heroes.length} Helden, ${tables.length} Schlachtfelder ohne Motiv, ${drawn.length} im Code gezeichnete Grafiken.`);

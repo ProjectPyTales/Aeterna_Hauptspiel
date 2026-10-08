@@ -12,11 +12,11 @@ test('neues Profil: Standard freigeschaltet und ausgerüstet',()=>{
 
 test('Kauf zieht Gold genau einmal ab',()=>{
  const p=P.fresh();
- assert.equal(K.buy(p,'boards','viking'),null);
+ assert.equal(K.buy(p,'boards','athen'),null);
  assert.equal(p.gold,200);
- assert.equal(K.buy(p,'boards','viking'),'Bereits freigeschaltet.');
+ assert.equal(K.buy(p,'boards','athen'),'Bereits freigeschaltet.');
  assert.equal(p.gold,200);
- assert.equal(p.cosmetics.boards.filter(x=>x==='viking').length,1);
+ assert.equal(p.cosmetics.boards.filter(x=>x==='athen').length,1);
 });
 
 test('zu wenig Gold: kein Kauf, kein Abzug',()=>{
@@ -29,16 +29,16 @@ test('zu wenig Gold: kein Kauf, kein Abzug',()=>{
 test('gesperrte Gegenstände lassen sich nicht ausrüsten',()=>{
  const p=P.fresh();
  assert.equal(K.equip(p,'backs','zen'),'Zuerst freischalten.');
- assert.equal(K.equip(p,'boards','egypt'),'Zuerst freischalten.');
+ assert.equal(K.equip(p,'boards','kapitol'),'Zuerst freischalten.');
  assert.equal(K.equip(p,'skins','dandolo-marmor'),'Zuerst freischalten.');
  assert.deepEqual(p.cosmetics.equipped,{back:'chroniken',board:'standard',skins:{}});
 });
 
 test('Ausrüstung bleibt nach Speichern und Laden erhalten',()=>{
  const p=P.fresh();p.gold=2000;
- for(const [k,id] of [['backs','runen'],['boards','japan'],['skins','hypatia-marmor']]){assert.equal(K.buy(p,k,id),null);assert.equal(K.equip(p,k,id),null);}
+ for(const [k,id] of [['backs','runen'],['boards','porzellan'],['skins','hypatia-marmor']]){assert.equal(K.buy(p,k,id),null);assert.equal(K.equip(p,k,id),null);}
  const q=P.parse(JSON.stringify(p));
- assert.deepEqual(q.cosmetics.equipped,{back:'runen',board:'japan',skins:{hypatia:'hypatia-marmor'}});
+ assert.deepEqual(q.cosmetics.equipped,{back:'runen',board:'porzellan',skins:{hypatia:'hypatia-marmor'}});
  assert.equal(q.gold,2000-200-100-300);
  K.unequipSkin(q,'hypatia');
  assert.deepEqual(P.parse(JSON.stringify(q)).cosmetics.equipped.skins,{});
@@ -71,8 +71,29 @@ test('Lehrplan-Helden (AP L.1): Marmor-Skins ersetzter Helden entfallen, der Pre
 test('Katalog: 8 Rücken, 4 Skins, 5 Schlachtfelder, Preise laut Vorgabe',()=>{
  assert.equal(K.catalog.backs.length,8);
  assert.equal(K.catalog.skins.length,4);
- assert.deepEqual(K.catalog.boards.map(b=>[b.id,b.name,b.price]),[['standard','Standard',0],['ancient','Griechischer Marmor',100],['egypt','Pharaonen-Gruft',100],['viking','Wikinger-Basalt',100],['japan','Zen-Schiefer',100]]);
+ assert.deepEqual(K.catalog.boards.map(b=>[b.id,b.name,b.price]),[['standard','Standard',0],['athen','Marmortisch von Athen',100],['kapitol','Porphyr des Kapitols',100],['skriptorium','Pult des Skriptoriums',100],['porzellan','Meißner Porzellan',100]]);
  const D=require(path.join(game,'model/data.js'));
  // Skins gibt es für Helden mit gemaltem Porträt; die neuen (AP 5.10, AP L.1) bekommen sie mit ihrem Astra-Porträt.
  assert.deepEqual(K.catalog.skins.map(s=>s.hero),D.heroes.filter(h=>h.art).map(h=>h.id));
+});
+
+// Rückmeldung zu 1.15.0: Die vier gemalten Schlachtfelder von 1.4.0 entfallen, an ihrer Stelle stehen Platzhalter-Tische.
+test('Schlachtfelder (Rückmeldung 1.15.0): alte Felder entfallen, 100 Gold je Feld kommen einmal zurück',()=>{
+ const p=P.fresh();p.gold=40;p.cosmetics.boards=['standard','viking','japan','japan','ancient'];p.cosmetics.equipped.board='japan';p.cosmetics.skins=['khan-marmor'];
+ const q=P.parse(JSON.stringify(p));
+ assert.equal(q.gold,40+3*100+300,'drei Felder (doppelte ID einmal) und ein ersetzter Skin');
+ assert.deepEqual(q.cosmetics.boards,['standard']);assert.equal(q.cosmetics.equipped.board,'standard','ausgerüstetes altes Feld → Standard');
+ assert.equal(P.parse(JSON.stringify(q)).gold,q.gold,'kein zweites Mal');
+ assert.ok(K.retiredBoards.every(id=>!K.find('boards',id)));
+ const fs=require('node:fs'),art=path.join(game,'assets/art');
+ for(const id of ['ancient','egypt','viking','japan'])assert.ok(!fs.existsSync(path.join(art,'board-'+id+'.webp')),'Bild entfernt: '+id);
+});
+
+test('Platzhalter-Tische (AP L.4): ohne Bild, mit Farbfilter, in MOTIVE.md gelistet; Bilder vorhandener Tische liegen bereit',()=>{
+ const fs=require('node:fs'),md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8');
+ for(const b of K.catalog.boards){
+  if(b.image){for(const f of [b.image,b.image+'-preview'])assert.ok(fs.existsSync(path.join(game,'assets/art',f+'.webp')),f);continue;}
+  assert.match(b.tint,/^([a-z-]+\([-\d.]+(deg)?\) ?)+$/,'CSS-Filter für '+b.id);
+  assert.ok(md.includes('| `'+b.id+'` | '+b.name+' |'),'MOTIVE.md nennt '+b.id);}
+ assert.equal(K.catalog.boards.filter(b=>!b.image).length,4);
 });
