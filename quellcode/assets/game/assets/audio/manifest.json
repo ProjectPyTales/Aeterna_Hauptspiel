@@ -107,5 +107,21 @@
   "aether": [
     "aether-1",
     "aether-2"
+  ],
+  "parchment": [
+    "parchment-1",
+    "parchment-2"
+  ],
+  "thud": [
+    "thud-1",
+    "thud-2"
+  ],
+  "hooves": [
+    "hooves-1",
+    "hooves-2"
+  ],
+  "lance": [
+    "lance-1",
+    "lance-2"
   ]
 }

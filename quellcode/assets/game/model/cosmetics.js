@@ -28,23 +28,29 @@ const boards=[
 {id:'kapitol',name:'Porphyr des Kapitols',text:'Roter Porphyr mit Bronzebeschlägen aus dem Senat Roms.',tint:'hue-rotate(-24deg) saturate(1.2) brightness(.74)',price:100},
 {id:'skriptorium',name:'Pult des Skriptoriums',text:'Dunkle Eiche und Schiefer aus der Schreibstube eines Klosters.',tint:'grayscale(.6) sepia(.3) brightness(.6) contrast(1.1)',price:100},
 {id:'porzellan',name:'Meißner Porzellan',text:'Weißes Porzellan und Kobaltblau aus Böttgers Manufaktur.',tint:'grayscale(1) sepia(.35) hue-rotate(170deg) saturate(1.8) brightness(1.25)',price:100}];
-const catalog={backs,skins,boards};
+// Kartenrahmen (AP 1.5, 1.18.0): the temple gate is the standard; golden cards gild every frame of your own cards – in
+// the hand, in the air, in the collection – and a glint passes over them in the match. Purely cosmetic.
+const frames=[
+{id:'tempeltor',name:'Tempeltor',text:'Kalkstein, Bronze und ein Bogenfenster – der Rahmen jeder Karte.',price:0},
+{id:'gold',name:'Goldene Karten',text:'Blattgold auf jedem Rahmen Deiner Karten; im Duell läuft ein Glanz darüber.',price:600}];
+const catalog={backs,skins,boards,frames};
 const find=(kind,id)=>(catalog[kind]||[]).find(x=>x.id===id);
-function fresh(){return {backs:['chroniken'],skins:[],boards:['standard'],equipped:{back:'chroniken',board:'standard',skins:{}}};}
+function fresh(){return {backs:['chroniken'],skins:[],boards:['standard'],frames:['tempeltor'],equipped:{back:'chroniken',board:'standard',frame:'tempeltor',skins:{}}};}
 // Accepts anything from an older or edited save and returns a consistent record.
 function normalize(raw){const c=fresh();if(!raw||typeof raw!=='object')return c;
- for(const kind of ['backs','skins','boards'])if(Array.isArray(raw[kind]))for(const id of raw[kind])if(typeof id==='string'&&find(kind,id)&&!c[kind].includes(id))c[kind].push(id);
+ for(const kind of ['backs','skins','boards','frames'])if(Array.isArray(raw[kind]))for(const id of raw[kind])if(typeof id==='string'&&find(kind,id)&&!c[kind].includes(id))c[kind].push(id);
  const e=raw.equipped&&typeof raw.equipped==='object'?raw.equipped:{};
  if(c.backs.includes(e.back))c.equipped.back=e.back;
  if(c.boards.includes(e.board))c.equipped.board=e.board;
+ if(c.frames.includes(e.frame))c.equipped.frame=e.frame;
  if(e.skins&&typeof e.skins==='object')for(const [hero,id] of Object.entries(e.skins)){const s=find('skins',id);if(s&&s.hero===hero&&c.skins.includes(id))c.equipped.skins[hero]=id;}
  return c;}
 function owns(p,kind,id){return !!find(kind,id)&&p.cosmetics[kind].includes(id);}
 // Gold leaves the wallet exactly once; repeated taps on an owned item are refused.
 function buy(p,kind,id){const item=find(kind,id);if(!item)return 'Unbekannter Gegenstand.';if(owns(p,kind,id))return 'Bereits freigeschaltet.';if(p.gold<item.price)return 'Du brauchst '+item.price+' Gold.';p.gold-=item.price;p.cosmetics[kind].push(id);return null;}
-function equip(p,kind,id){const item=find(kind,id);if(!item)return 'Unbekannter Gegenstand.';if(!owns(p,kind,id))return 'Zuerst freischalten.';const e=p.cosmetics.equipped;if(kind==='backs')e.back=id;else if(kind==='boards')e.board=id;else e.skins[item.hero]=id;return null;}
+function equip(p,kind,id){const item=find(kind,id);if(!item)return 'Unbekannter Gegenstand.';if(!owns(p,kind,id))return 'Zuerst freischalten.';const e=p.cosmetics.equipped;if(kind==='backs')e.back=id;else if(kind==='boards')e.board=id;else if(kind==='frames')e.frame=id;else e.skins[item.hero]=id;return null;}
 function unequipSkin(p,hero){delete p.cosmetics.equipped.skins[hero];}
-function equipped(p,kind,id){const e=p.cosmetics.equipped;if(kind==='backs')return e.back===id;if(kind==='boards')return e.board===id;const s=find('skins',id);return !!s&&e.skins[s.hero]===id;}
+function equipped(p,kind,id){const e=p.cosmetics.equipped;if(kind==='backs')return e.back===id;if(kind==='boards')return e.board===id;if(kind==='frames')return e.frame===id;const s=find('skins',id);return !!s&&e.skins[s.hero]===id;}
 const api={catalog,find,fresh,normalize,retired,retiredBoards,refund,owns,buy,equip,unequipSkin,equipped};
 if(typeof module!=='undefined')module.exports=api;else root.CHK=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

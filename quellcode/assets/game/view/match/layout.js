@@ -24,6 +24,10 @@ L.handPose=(i,n)=>{const left=Math.ceil(n/2),side=i<left?-1:1,depth=side<0?left-
   return {x:L.center+side*(262+depth*L.handStep(n)),y:L.handY+depth*.8,
     w:L.handWidth,h:L.handWidth*1.41,angle:side*(.012+depth*.012)};};
 L.raisedHandPose=pose=>({...pose,x:pose.x<L.center?Math.min(pose.x,530):Math.max(pose.x,1086),y:pose.y-58,angle:0});
+// AP 3.2: a pressed hand card grows at once (× 1.75) and rises upright – inside the stage and clear of the hero coin.
+L.pressScale=1.75;
+L.pressedHandPose=pose=>{const w=L.handWidth*L.pressScale,h=w*1.41;
+  return {...pose,x:pose.x<L.center?Math.max(w/2+10,Math.min(pose.x,L.center-240)):Math.min(1590-w/2,Math.max(pose.x,L.center+240)),y:800-h/2-12,angle:0};};
 L.handIndex=(x,n)=>{let nearest=0,distance=Infinity;for(let i=0;i<n;i++){const d=Math.abs(x-L.handPose(i,n).x);if(d<distance){nearest=i;distance=d;}}return nearest;};
 L.inDrop=(x,y)=>x>L.drop.left&&x<L.drop.right&&y>L.drop.top&&y<L.drop.bottom;
 L.insertIndex=(x,n)=>Math.max(0,Math.min(n,Math.round((x-L.center)/L.spacing+n/2)));

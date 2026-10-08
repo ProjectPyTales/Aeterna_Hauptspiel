@@ -5,8 +5,8 @@ const K=require(path.join(game,'model/cosmetics.js')),P=require(path.join(game,'
 
 test('neues Profil: Standard freigeschaltet und ausgerüstet',()=>{
  const p=P.fresh();
- assert.deepEqual(p.cosmetics.equipped,{back:'chroniken',board:'standard',skins:{}});
- assert.ok(K.owns(p,'backs','chroniken')&&K.owns(p,'boards','standard'));
+ assert.deepEqual(p.cosmetics.equipped,{back:'chroniken',board:'standard',frame:'tempeltor',skins:{}});
+ assert.ok(K.owns(p,'backs','chroniken')&&K.owns(p,'boards','standard')&&K.owns(p,'frames','tempeltor'));
  assert.equal(p.gold,300);
 });
 
@@ -31,14 +31,15 @@ test('gesperrte Gegenstände lassen sich nicht ausrüsten',()=>{
  assert.equal(K.equip(p,'backs','zen'),'Zuerst freischalten.');
  assert.equal(K.equip(p,'boards','kapitol'),'Zuerst freischalten.');
  assert.equal(K.equip(p,'skins','dandolo-marmor'),'Zuerst freischalten.');
- assert.deepEqual(p.cosmetics.equipped,{back:'chroniken',board:'standard',skins:{}});
+ assert.equal(K.equip(p,'frames','gold'),'Zuerst freischalten.');
+ assert.deepEqual(p.cosmetics.equipped,{back:'chroniken',board:'standard',frame:'tempeltor',skins:{}});
 });
 
 test('Ausrüstung bleibt nach Speichern und Laden erhalten',()=>{
  const p=P.fresh();p.gold=2000;
  for(const [k,id] of [['backs','runen'],['boards','porzellan'],['skins','hypatia-marmor']]){assert.equal(K.buy(p,k,id),null);assert.equal(K.equip(p,k,id),null);}
  const q=P.parse(JSON.stringify(p));
- assert.deepEqual(q.cosmetics.equipped,{back:'runen',board:'porzellan',skins:{hypatia:'hypatia-marmor'}});
+ assert.deepEqual(q.cosmetics.equipped,{back:'runen',board:'porzellan',frame:'tempeltor',skins:{hypatia:'hypatia-marmor'}});
  assert.equal(q.gold,2000-200-100-300);
  K.unequipSkin(q,'hypatia');
  assert.deepEqual(P.parse(JSON.stringify(q)).cosmetics.equipped.skins,{});
@@ -56,7 +57,7 @@ test('manipulierte Kosmetik wird bereinigt',()=>{
  const c=P.parse(JSON.stringify(p)).cosmetics;
  assert.deepEqual(c.backs,['chroniken','zen']);
  assert.deepEqual(c.boards,['standard']);
- assert.deepEqual(c.equipped,{back:'chroniken',board:'standard',skins:{imhotep:'imhotep-marmor'}});
+ assert.deepEqual(c.equipped,{back:'chroniken',board:'standard',frame:'tempeltor',skins:{imhotep:'imhotep-marmor'}});
 });
 
 test('Lehrplan-Helden (AP L.1): Marmor-Skins ersetzter Helden entfallen, der Preis kommt einmal zurück',()=>{
@@ -96,4 +97,16 @@ test('Platzhalter-Tische (AP L.4): ohne Bild, mit Farbfilter, in MOTIVE.md gelis
   assert.match(b.tint,/^([a-z-]+\([-\d.]+(deg)?\) ?)+$/,'CSS-Filter für '+b.id);
   assert.ok(md.includes('| `'+b.id+'` | '+b.name+' |'),'MOTIVE.md nennt '+b.id);}
  assert.equal(K.catalog.boards.filter(b=>!b.image).length,4);
+});
+
+test('Goldene Karten (AP 1.5): Kartenrahmen als Kosmetik, alte Spielstände bekommen das Tempeltor',()=>{
+ const p=P.fresh();p.gold=1000;
+ assert.equal(K.buy(p,'frames','gold'),null);assert.equal(p.gold,400);assert.equal(K.buy(p,'frames','gold'),'Bereits freigeschaltet.');
+ assert.equal(K.equip(p,'frames','gold'),null);assert.ok(K.equipped(p,'frames','gold'));
+ const q=P.parse(JSON.stringify(p));assert.equal(q.cosmetics.equipped.frame,'gold');assert.deepEqual(q.cosmetics.frames,['tempeltor','gold']);
+ // Ein Spielstand von 1.17.0 kennt keine Rahmen.
+ const old=P.fresh();delete old.cosmetics.frames;delete old.cosmetics.equipped.frame;
+ const r=P.parse(JSON.stringify(old)).cosmetics;assert.deepEqual(r.frames,['tempeltor']);assert.equal(r.equipped.frame,'tempeltor');
+ // Ein ausgerüsteter, aber nicht gekaufter Rahmen fällt auf das Tempeltor zurück.
+ const fake=P.fresh();fake.cosmetics.equipped.frame='gold';assert.equal(P.parse(JSON.stringify(fake)).cosmetics.equipped.frame,'tempeltor');
 });

@@ -2,7 +2,8 @@
  * around a game (starting hand, result, pause, graveyards, chronicle). Rules stay in model/engine.js.
  *
  * this.view is the selection state the canvas renderer draws every frame:
- *   {selected, inspect, targets, hint, drag, insertIndex, handIndex}
+ *   {selected, inspect, targets, hint, drag, insertIndex, handIndex, press}
+ * and hand(state) says per hand card what it costs, whether it is playable and whether a condition is met (AP 3.2).
  * Geometry (where the finger is: hand, drop zone, slot) comes from view/match/input.js; the board
  * presenter ctx.board animates (busy, begin, rebound, events, effect, cancel). */
 (function(root){'use strict';
@@ -29,7 +30,7 @@ class Match extends Screen{
   if(s.phase==='mulligan')this.ui.dialog('mulligan',this);else if(s.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();}
  leave(){clearTimeout(this.aiTimer);this.cancelDrag();}
  // The shell opened or closed a dialog: hold the AI while one is open.
- dialogChanged(open){if(open){this.cancelDrag();clearTimeout(this.aiTimer);}else this.scheduleAI();}
+ dialogChanged(open){if(open){this.cancelDrag();this.release();clearTimeout(this.aiTimer);}else this.scheduleAI();}
 
  // ---------- Starting hand ----------
  get mulligan(){const s=this.game;return {first:s.active===0,hand:s.players[0].hand.map(c=>({uid:c.uid,card:D.byId[c.id],replace:this.mull.has(c.uid)})),count:this.mull.size};}
@@ -64,7 +65,17 @@ class Match extends Screen{
   if(a.type==='play'&&!legal.length)this.ui.toast('Noch nicht spielbar: Prüfe Mana und freien Platz.');
   v.hint=a.type==='attack'?'Wähle ein Angriffsziel. Diener mit Schildwall müssen zuerst angegriffen werden.':v.targets.length?'Wähle ein rot markiertes Ziel.':'Tippe auf AUSSPIELEN oder ziehe die Karte auf Deine Spielfeldhälfte.';}
 
- // ---------- Touch: tap, long press, drag ----------
+ // ---------- Touch: press, tap, long press, drag ----------
+ // Finger down on a hand card (AP 3.2): it grows at once and lifts with the rustle of heavy parchment (view.press).
+ press(hit){if(hit?.kind!=='hand'){this.release();return;}this.view.press=hit.id;this.ui.play('parchment',{gain:.8});this.ui.haptic(0);}
+ release(){if(this.view.press)this.view.press=null;}
+ // Per hand card: {cost, can (green aura), boost (golden-yellow aura)}. A condition is met when a Formation counts
+ // enough own minions (ifMinions, the card itself included) or a Kombo makes the card cheaper than printed.
+ hand(s=this.game){if(!s)return {};const a=s.players[0],open=s.active===0&&s.phase==='play'&&!s.choice,out={},army=a.board.filter(u=>!u.building).length;
+  for(const h of a.hand){const card=D.byId[h.id],cost=E.cost(s,0,h),can=open&&cost<=a.mana&&(card.type==='spell'||a.board.length<7);
+   const formation=[...(card.battle||[]),...(card.effects||[])].some(e=>e.type==='ifMinions'&&army+(card.type==='minion'&&!card.building?1:0)>=e.n);
+   out[h.uid]={cost,can,boost:can&&(formation||cost<card.cost)};}
+  return out;}
  tap(hit){const s=this.game,ui=this.ui;
   if(!hit){this.view=idle();return;}
   if(hit.kind==='decor'){this.board.effect({type:'buff',x:hit.x+hit.w/2,y:hit.y+hit.h/2,start:performance.now(),life:1000});ui.play(hit.id==='decor0'?'fire':hit.id==='decor1'?'draw':hit.id==='decor2'?'sword':'gong');return;}
@@ -94,10 +105,10 @@ class Match extends Screen{
    this.ui.dialog('message',new Dialog(this.ctx,{title:h.power+' · '+h.cost+' Mana',close:false,text:h.powerText,buttons:[{label:'Zurück',style:'gold'}]}));}}
  // The finger moved far enough: pick up a hand card, aim an attack or aim the hero power.
  pickUp(hit,x){const s=this.game,v=this.view;
-  if(hit?.kind==='hand'){this.select({type:'play',uid:hit.id},hit.idCard);this.view.inspect=null;this.view.drag={uid:hit.id,cardId:hit.idCard,at:performance.now(),angle:0};
-   this.ui.play('pickup',{x,gain:.6});this.ui.haptic(0);return true;}
-  if(s.active===0&&hit?.kind==='target'&&E.legal(s,0).some(a=>a.type==='attack'&&a.uid===hit.id)){this.select({type:'attack',uid:hit.id},hit.idCard);this.view.inspect=null;this.view.drag={at:performance.now()};return true;}
-  if(s.active===0&&hit?.id==='power0'&&E.canPower(s,0)){this.select({type:'power'});this.view.drag={at:performance.now()};return true;}
+  if(hit?.kind==='hand'){this.select({type:'play',uid:hit.id},hit.idCard);this.view.inspect=null;this.view.drag={uid:hit.id,cardId:hit.idCard,at:0,angle:0};
+   this.ui.play('pickup',{x,gain:.6});return true;}
+  if(s.active===0&&hit?.kind==='target'&&E.legal(s,0).some(a=>a.type==='attack'&&a.uid===hit.id)){this.select({type:'attack',uid:hit.id},hit.idCard);this.view.inspect=null;this.view.drag={at:0};return true;}
+  if(s.active===0&&hit?.id==='power0'&&E.canPower(s,0)){this.select({type:'power'});this.view.drag={at:0};return true;}
   return false;}
  // g: where the finger is – {hitId, inHand, handSlot, inDrop, boardSlot}.
  aim(g){const s=this.game,v=this.view,d=v.drag;if(!d)return;
