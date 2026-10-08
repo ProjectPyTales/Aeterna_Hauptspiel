@@ -123,5 +123,21 @@
   "lance": [
     "lance-1",
     "lance-2"
+  ],
+  "chime": [
+    "chime-1",
+    "chime-2"
+  ],
+  "coins": [
+    "coins-1",
+    "coins-2"
+  ],
+  "seal": [
+    "seal-1",
+    "seal-2"
+  ],
+  "page": [
+    "page-1",
+    "page-2"
   ]
 }

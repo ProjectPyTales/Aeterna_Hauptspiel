@@ -1,14 +1,33 @@
 /* Collection & deck building view model. Typing in the search field or the deck name only patches the
- * view, so the field keeps its focus and caret (no more manual focus restore). */
+ * view, so the field keeps its focus and caret (no more manual focus restore).
+ * Sammlung 2.0 (AP 1.6): a card book whose pages turn (state.turn: +1 forward, −1 back), stone buttons for mana and
+ * rarity, a tapped card zooms in from its place on the page (slot), the mana curve stays in sight while building –
+ * coloured by early (0–3), middle (4–6) and late game (7+) with a hint when it leans – and an added card flies into the
+ * deck while its bar grows (state.flight, a new token each time). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
 const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP;
 const {Screen,Dialog,LiveDialog}=node?require('./base.js'):root.AEVM;
 const PER_PAGE=8,cap=c=>c.rarity==='legendary'?1:2,era=hero=>D.heroes.find(h=>h.id===hero).era;
+// Mana curve: eight bars (0 … 7+), three phases. bucket(cost) is the bar of a card.
+const bucket=cost=>Math.min(7,cost),phase=i=>i<=3?'early':i<=6?'mid':'late';
+function curveOf(ids){const curve=Array(8).fill(0);for(const id of ids)curve[bucket(D.byId[id].cost)]++;return curve;}
+// A hint when the curve leans (AP 1.6). Counts follow the usual advice for 30-card decks: about half early,
+// a third in the middle, a few finishers.
+function curveHint(curve){const n=curve.reduce((a,b)=>a+b,0),early=curve.slice(0,4).reduce((a,b)=>a+b,0),mid=curve[4]+curve[5]+curve[6],late=curve[7];
+ const phases={early,mid,late},avg=n?curve.reduce((a,c,i)=>a+c*i,0)/n:0;
+ let text,warn=true;
+ if(n<10){text='Füge Karten hinzu – die Kurve zeigt, wann Dein Deck stark ist.';warn=false;}
+ else if(late>Math.max(5,n*.2))text='Viele teure Karten (7+): Die Hand droht zu verstopfen, bevor Du sie spielen kannst.';
+ else if(early<n*.35)text='Zu wenige frühe Karten (0–3 Mana): In den ersten Zügen fehlt Dir etwas zu tun.';
+ else if(early>n*.75)text='Fast nur frühe Karten: Im späten Spiel geht Dir die Kraft aus.';
+ else if(mid<n*.15)text='Kaum Karten für die Mitte (4–6 Mana): Zwischen Auftakt und Finale klafft eine Lücke.';
+ else{text='Ausgewogene Kurve – Früh, Mitte und Spät sind gut verteilt.';warn=false;}
+ return {text,warn,phases,avg:Math.round(avg*10)/10};}
 
 class Collection extends Screen{
- constructor(ctx){super(ctx,{filters:{q:'',hero:'leonidas',rarity:'all',mana:'all',owned:false},page:0,edit:null,dirty:false});}
- enter(){this.state.edit=null;this.state.filters.hero=this.session.hero;}
+ constructor(ctx){super(ctx,{filters:{q:'',hero:'leonidas',rarity:'all',mana:'all',owned:false},page:0,edit:null,dirty:false,turn:0,flight:null});this.flights=0;}
+ enter(){Object.assign(this.state,{edit:null,turn:0,flight:null});this.state.filters.hero=this.session.hero;}
 
  list(){const f=this.state.filters,p=this.profile,q=f.q.toLowerCase();
   return D.cards.filter(c=>(f.hero==='all'||D.playable(c,f.hero))
@@ -24,18 +43,24 @@ class Collection extends Screen{
   s.page=Math.min(pages-1,Math.max(0,s.page));
   const counts=this.counts(),view={filters:s.filters,page:s.page,pages,edit:s.edit,dirty:s.dirty,dust:p.dust,
    unique:D.cards.filter(c=>p.collection[c.id]>0).length,total:D.cards.length,
+   turn:s.turn,flight:s.flight,ahead:[...list.slice((s.page+1)*PER_PAGE,(s.page+2)*PER_PAGE),...list.slice(Math.max(0,s.page-1)*PER_PAGE,s.page*PER_PAGE)].map(c=>c.id),
    cards:list.slice(s.page*PER_PAGE,s.page*PER_PAGE+PER_PAGE).map(c=>({card:c,owned:p.collection[c.id]||0,inDeck:counts[c.id]||0}))};
   if(s.edit){
-   const curve=Array(8).fill(0);for(const id of s.edit.cards)curve[Math.min(7,D.byId[id].cost)]++;
-   view.curve=curve;view.max=Math.max(1,...curve);view.era=era(s.edit.hero);
+   const curve=curveOf(s.edit.cards);
+   view.curve=curve;view.max=Math.max(4,...curve);view.bars=curve.map((n,i)=>({n,i,phase:phase(i)}));view.hint=curveHint(curve);view.era=era(s.edit.hero);
    view.rows=Object.keys(counts).sort((a,b)=>D.byId[a].cost-D.byId[b].cost).map(id=>({card:D.byId[id],count:counts[id]}));
-  }else view.decks=p.decks.map(d=>({deck:d,icon:D.heroes.find(h=>h.id===d.hero).icon}));
+  }else view.decks=p.decks.map(d=>({deck:d,icon:D.heroes.find(h=>h.id===d.hero).icon,curve:curveOf(d.cards)}));
   return view;}
 
- filter(k,v){if(!['q','hero','rarity','mana'].includes(k))return;this.state.filters[k]=String(v);this.state.page=0;this.notify();}
- toggleOwned(){this.state.filters.owned=!this.state.filters.owned;this.state.page=0;this.notify();}
- page(n){this.state.page+=Number(n);this.notify();}
- inspect(id){if(D.byId[id])this.ui.dialog('card',new CardDialog(this,id));}
+ filter(k,v){if(!['q','hero','rarity','mana'].includes(k))return;Object.assign(this.state,{page:0,turn:0});this.state.filters[k]=String(v);this.notify();}
+ // Stone buttons for mana and rarity: a tap picks, a second tap on the same button shows all again.
+ pick(k,v){if(!['rarity','mana'].includes(k))return;this.ui.play('stone',{gain:.6});this.filter(k,this.state.filters[k]===String(v)?'all':v);}
+ toggleOwned(){Object.assign(this.state,{page:0,turn:0});this.state.filters.owned=!this.state.filters.owned;this.notify();}
+ // Turning a page of the card book (the view animates the turn in the direction of state.turn).
+ page(n){n=Math.sign(Number(n));const s=this.state,pages=Math.max(1,Math.ceil(this.list().length/PER_PAGE)),to=Math.min(pages-1,Math.max(0,s.page+n));
+  if(!n||to===s.page)return;Object.assign(s,{page:to,turn:n});this.notify();this.ui.play('page');this.ui.haptic(0);}
+ // slot: the place of the card on the open spread (0–7), so the zoom starts where the card lies.
+ inspect(id,slot){if(D.byId[id])this.ui.dialog('card',new CardDialog(this,id,slot));}
 
  newDeck(){this.ui.dialog('newDeck',new NewDeck(this));}
  createDeck(hero){if(!D.heroes.some(h=>h.id===hero))return;
@@ -48,7 +73,7 @@ class Collection extends Screen{
   if(edit.cards.length>=30){this.ui.toast('Das Deck enthält bereits 30 Karten.');return;}
   if(!D.playable(c,edit.hero)){this.ui.toast('Diese Karte gehört zu einem anderen Helden.');return;}
   if(n>=Math.min(this.profile.collection[id]||0,cap(c))){this.ui.toast('Kein weiteres erlaubtes Exemplar im Besitz.');return;}
-  edit.cards.push(id);this.state.dirty=true;this.ui.close();this.notify();this.ui.play('play');}
+  edit.cards.push(id);this.state.dirty=true;this.state.flight={id,bar:bucket(c.cost),n:++this.flights};this.ui.close();this.notify();this.ui.play('play');}
  removeCard(id){const edit=this.state.edit;if(!edit)return;const i=edit.cards.indexOf(id);if(i>=0)edit.cards.splice(i,1);this.state.dirty=true;this.notify();}
  saveDeck(){const edit=this.state.edit,p=this.profile;if(!edit)return;const err=P.validateDeck(p,edit.hero,edit.cards);if(err){this.ui.toast(err);return;}
   edit.name=edit.name.trim()||era(edit.hero)+' · Deck';
@@ -87,7 +112,7 @@ class Collection extends Screen{
 
 // One card from the collection: details, add to the deck being edited, craft or disenchant.
 class CardDialog extends LiveDialog{
- constructor(coll,id){super(coll.ctx,{id});this.coll=coll;}
+ constructor(coll,id,slot){super(coll.ctx,{id,slot:slot==null||slot===''?null:+slot});this.coll=coll;}
  get view(){const p=this.profile,c=D.byId[this.state.id],owned=p.collection[c.id]||0;
   return {card:c,owned,editing:!!this.coll.state.edit,era:D.eraOf(c),
    price:P.price[c.rarity],dust:P.dust[c.rarity],canCraft:p.dust>=(P.price[c.rarity]||Infinity)&&owned<cap(c),canDust:owned>0};}
@@ -102,6 +127,6 @@ class NewDeck extends LiveDialog{
  create(){this.coll.createDeck(this.state.hero);}
 }
 
-const api={Collection,CardDialog,NewDeck};
+const api={Collection,CardDialog,NewDeck,curveHint,curveOf,phase,PER_PAGE};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

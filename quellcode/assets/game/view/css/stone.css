@@ -33,38 +33,104 @@ button.stone-tab:active,button.stone-tab.active{transform:translateY(7px);box-sh
 button.stone-tab.active{color:#3b2a14;background:linear-gradient(#fffaf0 0 5px,#f6e9c9 5px 17px,#efdcb2 17px 42px,#d4b97f 42px)}
 button.stone-tab.active:after{content:'';position:absolute;left:30%;right:30%;bottom:7px;height:3px;border-radius:2px;background:#7a5a24;box-shadow:0 1px 0 #f6e3b4aa}
 button.stone-tab{position:relative}
-.shop-body{height:620px;padding:10px 40px 24px;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+/* Basar 2.0 (AP 1.4): a shop window – the choice on the left, the picked item on a lit pedestal on the right. */
+.shop-body{height:620px;padding:6px 40px 20px;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+.shop-body.showcase{display:flex;gap:26px;overflow:hidden}
 .shop-hint{font-size:17px;color:#cdbd9b;text-align:center;margin:2px 0 14px}
-.shop-grid{display:grid;gap:18px}
-.grid-backs,.grid-frames{grid-template-columns:repeat(4,1fr)}
-.grid-skins{grid-template-columns:repeat(5,1fr);gap:16px}
-.grid-boards{grid-template-columns:repeat(3,1fr);gap:22px}
-.shop-tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 14px 16px;text-align:center;background:linear-gradient(165deg,#3b352ced,#221e1af2);border:3px solid #211c17;border-radius:12px 15px 11px 14px;box-shadow:inset 0 0 0 2px #8c7856,0 6px 0 #0b0907b0}
-.shop-tile.equipped{box-shadow:inset 0 0 0 3px #e3c175,0 0 24px #e3c17550,0 6px 0 #0b0907b0}
-.shop-tile h4{margin:4px 0 0;font:20px Title,serif;color:#f1dcab;line-height:1.15}
-.shop-tile small{font-size:14px;color:#bfae8c;line-height:1.3;min-height:18px}
+.shop-list{width:560px;flex:none;height:100%;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;padding:2px 10px 14px 2px}
+.shop-list .shop-hint{grid-column:1/-1;text-align:left;font-size:15px;line-height:1.4;margin:0 0 2px}
+.shop-list.grid-boards{grid-template-columns:1fr}
+.shop-tile{position:relative}
+button.shop-pick{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 10px;min-height:0;text-align:center;color:inherit;background:linear-gradient(165deg,#3b352ced,#221e1af2);border:3px solid #211c17;border-radius:12px 15px 11px 14px;box-shadow:inset 0 0 0 2px #8c7856,0 5px 0 #0b0907b0}
+button.shop-pick:active{transform:translateY(2px)}
+.shop-tile.picked .shop-pick{background:linear-gradient(165deg,#5b4b33f2,#2b241cf2);box-shadow:inset 0 0 0 3px #f0d48c,0 0 18px #f0d48c55,0 5px 0 #0b0907b0}
+.tile-text b{display:block;font:18px Title,serif;color:#f1dcab;line-height:1.15}
+.tile-text small{display:block;font-size:13px;color:#bfae8c;line-height:1.3;margin-top:3px}
+.badge{position:absolute;top:9px;right:9px;padding:3px 10px;border-radius:12px;font-size:13px;letter-spacing:.5px;line-height:1.4}
+.badge.locked{background:#141a1de6;border:1px solid #8c7856;color:#ecd39a}
+.badge.locked.short{color:#d99a7c;border-color:#7a4c3a}
+.badge.owned{background:#234548f0;border:1px solid #789a8d;color:#dcf1e6}
+.badge.in-use{background:linear-gradient(#e2c07a,#a77332);border:1px solid #f3dba0;color:#271d13;font-family:Title,serif}
+.shop-list .back-art,.shop-list .frame-art{width:96px;height:136px}
+.shop-list .skin-art{width:116px;height:116px}
+.grid-boards .shop-pick{flex-direction:row;text-align:left;gap:16px;padding:12px 14px}
+.grid-boards .board-frame{width:230px;flex:none}
+.grid-boards .tile-text{flex:1;padding-right:72px}
 .shop-state{font-size:15px;color:#e2c47e;letter-spacing:1px}
-.shop-tile.locked .shop-state{color:#c9b892}
-.shop-tile .act{width:100%;min-height:46px;margin-top:auto;font-size:17px;padding:6px 10px}
-.shop-tile .act.short{filter:saturate(.5) brightness(.85)}
-button.shop-preview{padding:0;margin:0;min-height:0;border:0;background:none;box-shadow:none;border-radius:10px}
-button.shop-preview:active{transform:scale(.98)}
 .back-art,.frame-art{display:block;width:124px;height:175px;filter:drop-shadow(0 6px 6px #0009)}
 .skin-art{display:block;width:150px;height:150px;border-radius:50%;background-repeat:no-repeat;border:4px solid #211c17;box-shadow:0 0 0 3px #c7a465,0 6px 10px #0009}
-.board-frame{display:block;position:relative}.board-art,.preview-board{filter:var(--tint,)}.board-note{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);white-space:nowrap;padding:4px 14px;border-radius:14px;background:#141a1dd9;border:1px solid #c9a96a;color:#f3dcab;font-size:14px;letter-spacing:1px}.board-art{display:block;width:100%;aspect-ratio:2/1;border:3px solid #211c17;border-radius:8px;box-shadow:0 6px 10px #0009}
-.shop-tile.locked .back-art,.shop-tile.locked .frame-art,.shop-tile.locked .skin-art{filter:saturate(.75) brightness(.9) drop-shadow(0 6px 6px #0009)}.shop-tile.locked .board-art{filter:var(--tint,) saturate(.75) brightness(.9) drop-shadow(0 6px 6px #0009)}
-.shop-preview-modal{display:flex;gap:34px;align-items:center}
-.shop-preview-modal .details{flex:1;min-width:0}
-.shop-preview-modal .shop-state{font-size:19px}
-.shop-preview-modal .buttons .act{width:auto;min-width:240px}
-.shop-preview-modal.boards{flex-direction:column;align-items:stretch;gap:20px}
-.preview-back{width:250px;height:353px;filter:drop-shadow(0 12px 14px #000b)}
-.preview-board{width:100%;aspect-ratio:2/1;border:4px solid #211c17;border-radius:10px}
-.preview-skins{display:flex;gap:22px}
-.preview-skins figure{margin:0;text-align:center}
-.preview-skins .skin-art{width:210px;height:210px}
-.preview-skins figcaption{margin-top:12px;font:17px Title,serif;color:#e4cc95}
-.bazaar .pack-area{height:600px}
+.board-frame{display:block;position:relative}.board-art{filter:var(--tint,)}
+.board-note{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);white-space:nowrap;padding:4px 14px;border-radius:14px;background:#141a1dd9;border:1px solid #c9a96a;color:#f3dcab;font-size:14px;letter-spacing:1px}
+.board-art{display:block;width:100%;aspect-ratio:2/1;border:3px solid #211c17;border-radius:8px;box-shadow:0 6px 10px #0009}
+.grid-boards .board-note{font-size:11px;padding:2px 8px;bottom:6px}
+.shop-tile.locked .back-art,.shop-tile.locked .frame-art,.shop-tile.locked .skin-art{filter:saturate(.7) brightness(.82) drop-shadow(0 6px 6px #0009)}
+.shop-tile.locked .board-art{filter:var(--tint,) saturate(.7) brightness(.82)}
+/* The window: pedestal with its showpiece, the plaque with name, state and action. */
+.shop-window{flex:1;min-width:0;position:relative;display:flex;align-items:center;gap:14px}
+.podium{position:relative;width:500px;height:100%;flex:none;display:flex;align-items:flex-end;justify-content:center;padding-bottom:74px}
+.podium>*{position:relative;z-index:1}
+.podium>.spot,.podium>.spot-floor,.podium>.pedestal{position:absolute;z-index:0;pointer-events:none}
+.spot{left:50%;top:-34px;width:540px;height:600px;margin-left:-270px;background:linear-gradient(#ffeab43d,#ffdc9419 62%,#ffdc9400);clip-path:polygon(41% 0,59% 0,100% 100%,0 100%)}
+.spot-floor{left:50%;bottom:20px;width:480px;height:130px;margin-left:-240px;background:radial-gradient(ellipse,#ffe2a04a,#ffe2a000 70%)}
+.pedestal{left:50%;bottom:26px;width:390px;height:96px;margin-left:-195px;border-radius:50%;background:radial-gradient(ellipse at 50% 20%,#efe5d1,#c3b498 45%,#85765f 75%,#4f4537);box-shadow:0 20px 30px #000b,inset 0 -12px 18px #0006}
+.pedestal i{position:absolute;left:0;right:0;top:0;height:60px;border-radius:50%;background:radial-gradient(ellipse at 50% 38%,#fffaf0,#e7ddcb 55%,#b6a68a);box-shadow:0 0 0 3px #a8834a,0 5px 0 #6b5434}
+.plaque-info{flex:1;min-width:0;padding:24px 24px 26px;background:linear-gradient(130deg,#2b2721f2,#181e22f2);border:2px solid #9a7948;border-radius:14px;box-shadow:inset 0 0 0 5px #44372b,0 12px 30px #0006}
+.plaque-info h2{font-size:29px;line-height:1.15;margin:6px 0 10px;color:#f4ddb0}
+.plaque-info p{font-size:17px;line-height:1.5;color:#d9cbb0;margin:8px 0}
+.plaque-info .shop-state{font-size:18px}
+.plaque-info .buttons{margin-top:18px}
+.plaque-info .act{width:100%}
+.plaque-info .act.short{filter:saturate(.5) brightness(.85)}
+/* Card back turning in 3D (its reverse shows a card in Your frame); a frame on a standing card; golden ones glint. */
+.spin-card{width:230px;height:324px;perspective:1100px}
+.spin-card:after{content:'';position:absolute;left:10%;right:10%;bottom:-14px;height:26px;border-radius:50%;background:radial-gradient(ellipse,#000a,#0000 70%);transform:translateZ(-1px)}
+.spin-inner{position:absolute;inset:0;transform-style:preserve-3d;animation:card-spin 10s ease-in-out infinite}
+.spin-card .face{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.spin-card .reverse{transform:rotateY(180deg)}
+@keyframes card-spin{0%{transform:rotateY(-16deg)}38%{transform:rotateY(16deg)}50%{transform:rotateY(164deg)}88%{transform:rotateY(196deg)}100%{transform:rotateY(344deg)}}
+.stand-card{width:230px;height:324px;filter:drop-shadow(0 16px 14px #000b);animation:card-sway 6s ease-in-out infinite alternate}
+.stand-card img{display:block;width:100%;height:100%}
+.stand-card .glint{display:none}
+/* ASTRA: goldglanz-basar – derselbe Glanzstreifen wie im Duell über der Goldenen Karte im Schaufenster, 160 × 800 */
+.stand-card.gilded .glint{display:block;position:absolute;inset:0;overflow:hidden;clip-path:polygon(2% 12.8%,2% 9.6%,50% 1.1%,98% 9.6%,98% 95%,94.5% 99%,5.5% 99%,2% 95%)}
+.stand-card.gilded .glint:before{content:'';position:absolute;top:-25%;bottom:-25%;width:36%;left:-50%;background:linear-gradient(90deg,#fff4c800,#fff8dcc0,#fff4c800);transform:rotate(22deg);animation:gold-glint 2.8s ease-in-out infinite}
+@keyframes gold-glint{0%{left:-50%}34%,100%{left:118%}}
+@keyframes card-sway{from{transform:perspective(900px) rotateY(-9deg)}to{transform:perspective(900px) rotateY(9deg)}}
+/* A skin in the bronze hero coin, the standard portrait beside it. */
+.shop-coin{width:292px;height:292px;margin-bottom:40px;filter:drop-shadow(0 16px 14px #000b)}
+.coin-rim{position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(#8a6a3a 0 3deg,#d8b06a 3deg 6deg);box-shadow:inset 0 0 0 6px #5b4224}
+.coin-rim:after{content:'';position:absolute;inset:13px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#f4d793,#b5853f 55%,#6e4d22);box-shadow:inset 0 0 0 3px #4a3418,inset 0 0 0 30px #0000}
+.shop-coin .coin-face{position:absolute;inset:46px;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 4px #3a2a16,inset 0 0 18px #0008}
+.coin-name{position:absolute;left:0;right:0;bottom:17px;line-height:1;text-align:center;font:13px Title,serif;letter-spacing:3px;color:#3a2810;text-transform:uppercase;text-shadow:0 1px #f6dc9e}
+.coin-standard{position:absolute!important;left:6px;top:24px;width:100px;text-align:center}
+.coin-standard .coin-face{display:block;width:80px;height:80px;margin:0 auto 6px;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 3px #b5853f,0 0 0 5px #3a2a16}
+.coin-standard small{font-size:13px;color:#cdbd9b;letter-spacing:1px}
+/* A table as a miniature battlefield seen at an angle: two coins, a few plaques. */
+.mini-field{width:450px;height:300px;perspective:900px;margin-bottom:-6px}
+.mini-table{position:absolute;left:16px;right:16px;top:26px;height:226px;transform:rotateX(46deg);transform-origin:50% 62%;border:11px solid #4a2f18;border-radius:12px;background:#2a1f15;box-shadow:0 0 0 3px #a8834a,0 34px 30px #000a}
+.mini-table img{display:block;width:100%;height:100%;object-fit:cover;border-radius:3px;filter:var(--tint,)}
+.mini-plaque{position:absolute;left:calc(50% + var(--x) * 52px - 13px);top:calc(50% + var(--y) * 50px - 16px);width:26px;height:32px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#e3d3ae,#8a6f48);box-shadow:0 0 0 2px #5b4224,0 5px 4px #0009}
+.mini-coin{position:absolute;left:50%;width:40px;height:40px;margin-left:-20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f2d38e,#b5853f 60%,#6e4d22);box-shadow:0 0 0 3px #4a3418,0 5px 5px #0009}
+.mini-coin.top{top:-6px}.mini-coin.bottom{bottom:-6px}
+.mini-field .board-note{bottom:6px}
+/* The staged purchase: coins arc from the wallet onto the pedestal, a wax seal stamps and breaks, light bursts. */
+.buy-fx{position:absolute;left:250px;top:calc(100% - 118px);width:0;height:0;z-index:5;pointer-events:none}
+.fly-coin{position:absolute;left:-14px;top:-14px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff1b0,#e2b24f 50%,#8a5a1c);box-shadow:0 0 0 2px #6e4a18;opacity:0;animation:coin-fly 640ms calc(var(--i) * 45ms) cubic-bezier(.35,.05,.55,1) both}
+@keyframes coin-fly{0%{transform:translate(var(--sx),var(--sy)) scale(.7);opacity:0}10%{opacity:1}55%{transform:translate(calc(var(--sx) * .42 + var(--ex)),calc(var(--sy) * .42 - var(--lift))) scale(1.1)}88%{opacity:1}100%{transform:translate(var(--ex),var(--ey)) scale(.8);opacity:0}}
+.seal-break{position:absolute;left:-46px;top:-262px;width:92px;height:92px;animation:seal-in 1.2s both}
+.seal-break .half{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 40% 35%,#d64b3c,#8e1f18 70%);box-shadow:inset 0 0 0 5px #6a150f,0 6px 10px #0008}
+.seal-break .half:after{content:'✦';position:absolute;inset:0;display:grid;place-items:center;font-size:40px;color:#f0b6a0;text-shadow:0 2px #5a100b}
+.seal-break .l{clip-path:polygon(0 0,52% 0,44% 30%,57% 55%,46% 100%,0 100%);animation:seal-l 1.2s both}
+.seal-break .r{clip-path:polygon(52% 0,100% 0,100% 100%,46% 100%,57% 55%,44% 30%);animation:seal-r 1.2s both}
+@keyframes seal-in{0%,28%{opacity:0;transform:scale(1.7)}40%{opacity:1;transform:scale(1)}100%{opacity:1;transform:scale(1)}}
+@keyframes seal-l{0%,47%{transform:none;opacity:1}100%{transform:translate(-64px,90px) rotate(-38deg);opacity:0}}
+@keyframes seal-r{0%,47%{transform:none;opacity:1}100%{transform:translate(64px,100px) rotate(32deg);opacity:0}}
+.buy-burst{position:absolute;left:-200px;top:-420px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,#fff6d6cc,#ffd88a66 30%,#ffd88a00 66%);opacity:0;animation:buy-burst 1.4s both}
+@keyframes buy-burst{0%,42%{opacity:0;transform:scale(.3)}56%{opacity:1}100%{opacity:0;transform:scale(1.3)}}
+.bazaar .pack-area{height:600px;gap:60px}
+.pack-area .podium{width:460px}
+.pack-area .pack-display{margin-bottom:10px}
+@media(prefers-reduced-motion:reduce){.buy-fx{display:none}.spin-inner{animation:none;transform:rotateY(-14deg)}.stand-card,.stand-card.gilded .glint:before{animation:none}}
 .pack-card-back.custom{border:0;background-size:100% 100%;box-shadow:0 12px 23px #0008}
 .pack-card-back.custom:before,.pack-card-back.custom:after{display:none}
 

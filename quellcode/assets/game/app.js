@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.18.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.19.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -113,7 +113,12 @@ store.subscribe(applyProfile);
 // the collection and the bazaar. Opening another screen before they are there shows the progress and follows on.
 const art={ready:false,done:0,total:0,next:null};
 function artToast(){ui.toast('Die Chronik lädt ihre Bilder … '+Math.round(100*art.done/Math.max(1,art.total))+' %');}
-function artLoaded(){art.ready=true;if(art.next){const [next,arg,force]=art.next;art.next=null;$('toast').classList.remove('show');navigate(next,arg,force);}}
+function artLoaded(){art.ready=true;if(art.next){const [next,arg,force]=art.next;art.next=null;$('toast').classList.remove('show');navigate(next,arg,force);}
+ // Heldenwahl (AP 1.7): medals of the heroes without a portrait and the favourite cards of the current hero are drawn while
+ // the hall idles – drawn on opening they held the menu change up by about 165 ms.
+ // One picture per idle slice, so the hall's own animation never waits for a long task.
+ const jobs=[...D.heroes.map(h=>()=>R.heroStyle(h.id,true)),...(AELORE.of(session.hero)?.favorites||[]).map(id=>()=>R.thumb(id))],idle=window.requestIdleCallback||(f=>setTimeout(()=>f({timeRemaining:()=>8}),60));
+ const work=d=>{while(jobs.length&&d.timeRemaining()>6)jobs.shift()();if(jobs.length)idle(work);};idle(work);}
 store.load();applyProfile();resize();
 const bar=$('loading').querySelector('.loading-track span');
 H.preload((done,total)=>{bar.style.width=Math.round(100*done/total)+'%';}).then(()=>{$('loading').remove();

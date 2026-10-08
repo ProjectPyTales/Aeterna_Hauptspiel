@@ -1,7 +1,29 @@
-# Aeterna 1.18.0 – Bauen & Prüfen
+# Aeterna 1.19.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.19.0 (AP 1.4 Basar, AP 1.6 Sammlung, AP 1.7 Heldenwahl und Kampagnenkarte, Rückmeldung zu 1.18.0)
+
+- **Basar** (`viewmodel/shop.js`, `view/shop.js`, CSS in `stone.css`): `Shop.picked(kind)`, `showcase`, `select(kind,id)`
+  (ersetzt den Vorschau-Dialog `shopPreview`; `preview` ruft `select`), Kauf-Zeichen `state.bought` ({kind,id,n}, neuer Knoten
+  `buy-<n>` → CSS-Animation). `CHA.play(name,{delay})` startet verzögert.
+- **Sammlung** (`viewmodel/collection.js`, `view/collection.js`, CSS in `screens.css`): `page(±1)` setzt `turn`, `pick(k,v)` für
+  Mana/Seltenheit (zweiter Tipp = alle), `inspect(id,slot)` → `CardDialog.state.slot` (Zoom vom Platz), `curveOf`, `curveHint`
+  (Phasen, Ø, Warnung), `view.bars`, `view.ahead` (Nachbarseiten, im Leerlauf vorgezeichnet), `state.flight` ({id,bar,n}).
+- **Heldenwahl** (`viewmodel/setup.js`, `view/setup.js`): `GALLERY` (Helden je Zeitalter), `view.age/school/life/style/favorites`
+  aus `model/lore.js`, `inspect(id)` öffnet die Großansicht `zoom`. `app.js` zeichnet Medaillons und Lieblingskarten nach dem
+  Laden der Atlanten im Leerlauf vor (je Leerlauf-Scheibe ein Bild).
+- **Kampagnenkarte** (`viewmodel/campaign.js`, neu `view/campaign.js`): `MAP` (Projektion 1080 × 640, Kästchen „Neue Welt“),
+  `PLACES`, `STATIONS` (auseinandergeschoben, ≥ 51 Einheiten), `picked`, `pick`, `start`, `route`. Die Küsten
+  `assets/art/weltkarte.svg` schreibt `werkzeuge/weltkarte.js` aus Natural Earth `land-50m.json` (`npm pack world-atlas@2.0.2`,
+  nicht im Repo) mit derselben Projektion. `buehne.js` liefert `.svg` als `image/svg+xml`.
+- **Rückmeldung 1.18.0** (`render.js`): Zugwechsel `turn:'chime'`, Splitter `SHARDS` langsamer, `life` 560, Staub `weight .05`;
+  `glint` verschiebt um die halbe Karte; `plateSize` misst den Text der Zugtafel.
+- **Klänge**: `oberflaeche_klang.py` (numpy, ffmpeg, nutzt `spielgefuehl_klang.py`) erzeugt `chime`, `coins`, `seal`, `page`
+  (je zwei Varianten, CC0) und gibt die Pegel aus; Pegel in `CHA.levels`, Messwerte in `tests/oberflaeche.test.js`.
+- Klickpfad: Basar über Auswahl und Podest, neues Bild `13-kampagne`. Tests: `tests/oberflaeche.test.js`. Version 1.19.0 /
+  versionCode 22.
 
 ## Neu in 1.18.0 (AP 1.5 Karten, AP 3.1–3.5 Spielgefühl, Rückmeldung zu 1.17.0)
 

@@ -17,8 +17,6 @@
 #loading .loading-track{background:#3c3026}
 #loading .loading-track span{background:#e2b45a}
 
-/* Daily duel: today's opponent in the hero grid. */
-.hero-tile.foe{border:4px solid #c0503f;box-shadow:0 0 22px #c0503f50}
 
 /* Side bars on phones wider than 2:1 continue the painted wall (positioned by app.js). */
 body.stone-hall{background:#2b231c url('../../assets/art/hall-aeterna.webp') no-repeat;background-size:var(--hall-bw,0) var(--hall-bh,0);background-position:var(--hall-bx,0) var(--hall-by,0)}
