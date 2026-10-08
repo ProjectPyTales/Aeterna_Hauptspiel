@@ -1,7 +1,29 @@
-# Aeterna 1.17.0 – Bauen & Prüfen
+# Aeterna 1.18.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.18.0 (AP 1.5 Karten, AP 3.1–3.5 Spielgefühl, Rückmeldung zu 1.17.0)
+
+- **Werkzeugkasten** `view/match/anim.js` (`CHT`, UMD, in Node testbar): `ease`, `tween`, `timeline`, `Spring`, die Match-Uhr
+  `clock` (`tick(real)` je Bild in `board.js`, Tempo `speed` aus `settings.speed`, Treffer-Stopp `stop(ms)`, höchstens 100 ms
+  je Bild, `reduced` aus `AEP.reducedMotion()`) und `shake` (Trauma, Zoom-Ruck). Alle Zeiten in `motion.js`/`render.js` kommen
+  von der Uhr (`R.draw(c, s, view, t, log, hand)`); `board.effect` stempelt die Startzeit, `drag.at` setzt `board.js`.
+- **Bewegung** (`motion.js`): Zeitleisten `CHM.lines` (PLAY, SPELL, ATTACK), Gewicht `CHM.weight`, Aufprall `impact` (Treffer-Stopp,
+  Wackeln, `R.fx` Staub/Risse, Klang `thud`), Ziehen `CHM.draws` (auch Gegner, `pendingOrders`), Verbrennen `CHM.burns`
+  (`R.burning`), Erschöpfung `CHM.drains` (`R.drain`), Verformung `morph`, Stauchung `sx`/`sy` in `CHM.pose`.
+- **Renderer** (`render.js`): Kartenrahmen `R.card` neu (Tempeltor, `etherCrystal`, `blades`, `lifeShield`, `towerBadge`,
+  `archiveSeal`, `laurel`, Option `gold`), Aura `gateGlow` (grün, `boost` goldgelb, gewählt gold), `R.cardBack`,
+  `R.frameSample`, Hand mit Federn `hand` (`R.springs`, `CHL.pressedHandPose`, `CHL.pressScale`), Neigung `dragged`,
+  Marschroute `route`, Zielpuls `pulse`, Effekte `effects` (`damage` mit Tinte, `pump`, `shatter` aus `R.units[uid].sp`,
+  `dust`, `cracks`, geplante Klänge `sound`), Treffersound `R.hitSound`. Umschrift der Münze `legend` mit gemessenen Breiten.
+- **ViewModel** (`viewmodel/match.js`): `press(hit)`/`release()` (`view.press`), `hand(state)` → `{cost, can, boost}`.
+- **Kosmetik**: `CHK.catalog.frames` (`tempeltor`, `gold` 600 Gold), `equipped.frame`, Basar-Reiter „Kartenrahmen“,
+  `R.look.frame` in `app.js`. `CHS.backCanvas(id, w)` mit Breite.
+- **Klänge**: `spielgefuehl_klang.py` (numpy, ffmpeg) erzeugt `parchment`, `thud`, `hooves`, `lance` (je zwei Varianten, CC0);
+  Pegel in `CHA.levels`, Messwerte in `tests/spielgefuehl.test.js`. Einstellung „KI-Zugtempo“ heißt jetzt „Spieltempo“.
+- Tests: `tests/spielgefuehl.test.js` (Kurven, Zeitleisten, Federn, Uhr, Gewicht, Ziehen/Verbrennen/Erschöpfung, Effekte,
+  Hand, ViewModel, Kartenrahmen, Umschrift, Klänge), Kartenrahmen in `tests/kosmetik.test.js`. Version 1.18.0 / versionCode 21.
 
 ## Neu in 1.17.0 (AP 1.8 Teil 2, AP 3.7, Rückmeldung zu 1.16.0)
 

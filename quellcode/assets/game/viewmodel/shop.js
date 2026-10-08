@@ -1,12 +1,12 @@
-/* Basar view model: card packs plus three cosmetic tabs, all paid with gold (AP 0.1, AP 2.3).
+/* Basar view model: card packs plus four cosmetic tabs, all paid with gold (AP 0.1, AP 2.3).
  * Buying or equipping changes the profile and notifies – the view patches itself, so the active tab
  * and the scroll position stay where they were. */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
 const D=node?require('../model/data.js'):root.CHD,P=node?require('../model/profile.js'):root.CHP,K=node?require('../model/cosmetics.js'):root.CHK;
 const {Screen,Dialog,LiveDialog}=node?require('./base.js'):root.AEVM;
-const TABS=[['packs','Kartenpakete'],['backs','Kartenrücken'],['skins','Helden-Skins'],['boards','Schlachtfelder']];
-const LABEL={backs:'Kartenrücken',skins:'Helden-Skin',boards:'Schlachtfeld'};
+const TABS=[['packs','Kartenpakete'],['backs','Kartenrücken'],['frames','Kartenrahmen'],['skins','Helden-Skins'],['boards','Schlachtfelder']];
+const LABEL={backs:'Kartenrücken',frames:'Kartenrahmen',skins:'Helden-Skin',boards:'Schlachtfeld'};
 
 class Shop extends Screen{
  constructor(ctx){super(ctx,{tab:'packs'});}

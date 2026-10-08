@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.17.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.18.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -12,7 +12,7 @@ const session={mode:'free',hero:'leonidas',foe:'hypatia',deckId:'leonidas',missi
 // The renderer and the mixer follow the profile: equipped cosmetics and sound settings.
 function applyProfile(){const p=store.profile,e=p.cosmetics.equipped,skins={};
  for(const [hero,id] of Object.entries(e.skins))skins[hero]=CHK.find('skins',id).atlas;
- const table=CHK.find('boards',e.board);R.look={back:e.back,board:table.image||'board',tint:table.tint||'',skins};R.ensure(R.look.board);A.set(p.settings);}
+ const table=CHK.find('boards',e.board);R.look={back:e.back,board:table.image||'board',tint:table.tint||'',frame:e.frame||'tempeltor',skins};R.ensure(R.look.board);A.set(p.settings);}
 
 // ---------- Shell state ----------
 let screen='menu',current=null,dialog=null,busy=false,toastTimer=null;

@@ -106,7 +106,8 @@ S.paintBack=(c,id,w=200,h=282)=>{const paint=BACKS[id]||BACKS.chroniken,rim=RIMS
  rr(c,11,11,178,260,8);c.save();c.clip();paint(c,r);c.restore();
  rr(c,11,11,178,260,8);c.strokeStyle='#00000088';c.lineWidth=2;c.stroke();rr(c,7,7,186,268,10);c.strokeStyle='#ffffff40';c.lineWidth=1;c.stroke();c.restore();};
 const cache={},urls={};
-S.backCanvas=id=>{if(!cache[id]){const el=document.createElement('canvas');el.width=120;el.height=169;S.paintBack(el.getContext('2d'),id,120,169);cache[id]=el;}return cache[id];};
+// w: width in pixels – the deck stack uses 120, a card drawn in the air (AP 3.4) a larger one.
+S.backCanvas=(id,w=120)=>{const key=id+':'+w;if(!cache[key]){const el=document.createElement('canvas');el.width=w;el.height=Math.round(w*1.41);S.paintBack(el.getContext('2d'),id,w,el.height);cache[key]=el;}return cache[key];};
 S.backURL=id=>{if(!urls[id]){const el=document.createElement('canvas');el.width=300;el.height=423;S.paintBack(el.getContext('2d'),id,300,423);urls[id]=el.toDataURL('image/png');}return urls[id];};
 // Deck stack on the board: relief backs plus a slow, faint gloss that sweeps the top card.
 // The match keeps the stack as a pre-rendered sprite (AP 2.4) and draws only the gloss on every frame.
