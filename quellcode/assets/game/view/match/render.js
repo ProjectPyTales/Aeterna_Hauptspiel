@@ -202,11 +202,12 @@ function tauntCrest(c){
  c.beginPath();c.moveTo(0,-76);c.lineTo(0,-55);c.moveTo(-10,-70);c.lineTo(10,-70);c.strokeStyle='#fce5b4';c.lineWidth=3;c.stroke();c.restore();
 }
 // Commander's table (AP 1.8): the equipped table (picture, or the standard table under a colour filter while it is a
-// placeholder), the engraved chart, both epoch halves and the bronze seam – one static picture per match.
-function table(g,field,tint,ages){const im=R.images[field];
+// placeholder) and the engraved chart – one static picture per match. Since 1.17.0 (feedback on 1.16.0) without the
+// coloured epoch halves (wash, inlaid band, sign and name) and without the bronze seam with its medallion.
+function table(g,field,tint){const im=R.images[field];
  if(im){if(tint)g.filter=tint;g.drawImage(im,0,0,1600,800);g.filter='none';}else{g.fillStyle='#765d3e';g.fillRect(0,0,1600,800);}
  const shade=g.createRadialGradient(800,365,210,800,365,880);shade.addColorStop(0,'#3d230a00');shade.addColorStop(1,'#23150e45');g.fillStyle=shade;g.fillRect(0,0,1600,800);
- chart(g);ages.forEach((age,p)=>age&&half(g,age,p));seam(g);}
+ chart(g);}
 // ASTRA: feldherrentisch – eingeritzte Weltkarte auf dem Feldherrentisch (Kompassrose, Loxodromen, Gradnetz), 3200 × 1600
 function chart(g){g.save();g.beginPath();g.rect(40,34,1520,732);g.clip();
  // Every line is cut into the stone: a dark groove with a light lower edge.
@@ -216,41 +217,124 @@ function chart(g){g.save();g.beginPath();g.rect(40,34,1520,732);g.clip();
   for(const y of [128,236,478,586,694]){g.moveTo(40,y);g.quadraticCurveTo(800,y+(y<L.seam?-24:24),1560,y);}},1.4,.16);
  cut(()=>{g.beginPath();g.arc(800,L.seam,150,0,Math.PI*2);g.moveTo(1040,L.seam);g.arc(800,L.seam,240,0,Math.PI*2);},1.6,.16);
  g.restore();}
-// ASTRA: epochenhaelfte – Spielfeldhälfte je Zeitalter (6): Farbe, eingelegtes Band, Zeichen und Name der Epoche, 3200 × 800
-function half(g,age,p){const top=p===1,y0=top?34:L.seam,y1=top?L.seam:766;g.save();g.beginPath();g.rect(40,y0,1520,y1-y0);g.clip();
- const wash=g.createLinearGradient(0,top?y0:y1,0,top?y1:y0);wash.addColorStop(0,age.color+'48');wash.addColorStop(.6,age.color+'1c');wash.addColorStop(1,age.color+'0a');g.fillStyle=wash;g.fillRect(40,y0,1520,y1-y0);
- g.beginPath();g.roundRect(60,54,1480,692,28);g.lineWidth=9;g.strokeStyle='#2c1d0f55';g.stroke();g.lineWidth=5;g.strokeStyle=mix(age.color,.08)+'e0';g.stroke();
- g.beginPath();g.roundRect(67,61,1466,678,22);g.lineWidth=1.2;g.strokeStyle='#f3d79a77';g.stroke();
- // The epoch's sign, inlaid large on the free left side (no minion stands there), its name between sign and seam.
- const sy=top?222:494;g.font='124px Title,serif';g.textAlign='center';g.textBaseline='middle';
- g.fillStyle='#fff3d42a';g.fillText(age.icon,146,sy+2);g.fillStyle=age.color+'5a';g.fillText(age.icon,146,sy);g.lineWidth=2;g.strokeStyle='#2c1d0f40';g.strokeText(age.icon,146,sy);
- g.font='13px Title,serif';if('letterSpacing' in g)g.letterSpacing='2px';const rows=lines(g,age.name.toUpperCase(),178),y=top?L.seam-24-(rows.length-1)*17:L.seam+24;
- rows.forEach((t,i)=>{g.fillStyle='#fff3d455';g.fillText(t,146,y+i*17+1);g.fillStyle=mix(age.color,-.35)+'d8';g.fillText(t,146,y+i*17);});if('letterSpacing' in g)g.letterSpacing='0px';
+// Mana as an ether dial (1.17.0, feedback on 1.16.0: the amulet row is gone). A bronze ring like coin and chronometer,
+// ten crystals in it – full ones glow blue, spent ones are dark, locked ones (Belastung) red, missing ones an empty
+// socket – and the number in the middle. AP 3.7: when mana rises, the crystals light up one after another with a glint
+// and a chime (R.dials, MANA_STEP apart); without animation under reduced motion.
+// ASTRA: aetheruhr – Mana-Anzeige als bronzene Äther-Uhr mit zehn Kristallen (voll, verbraucht, gesperrt, fehlt) und Zahl in der Mitte, 256 × 256
+function crystal(g,x,y,an,r,state){g.save();g.translate(x,y);g.rotate(an+Math.PI/2);
+ if(state==='none'){ellipse(g,0,0,r*.55,r*.9,'#2a1c0e33','#4a341855',1);g.restore();return;}
+ ellipse(g,0,0,r*.95,r*1.6,'#2a1c0e44');
+ g.beginPath();g.moveTo(0,-r*1.45);g.lineTo(r*.8,0);g.lineTo(0,r*1.45);g.lineTo(-r*.8,0);g.closePath();
+ if(state==='full'){g.shadowColor='#5cc8ff';g.shadowBlur=r*1.3;const f=g.createLinearGradient(-r,-r*1.4,r,r*1.4);f.addColorStop(0,'#eefaff');f.addColorStop(.35,'#49aef8');f.addColorStop(1,'#123a78');g.fillStyle=f;}
+ else g.fillStyle=state==='locked'?'#7b2a1f':'#262c34';
+ g.fill();g.shadowBlur=0;g.lineWidth=1.3;g.strokeStyle=state==='full'?'#d9f2ff':state==='locked'?'#f2a58f':'#5b6470';g.stroke();
+ if(state==='full'){g.beginPath();g.moveTo(0,-r*1.45);g.lineTo(0,r*1.45);g.moveTo(-r*.8,0);g.lineTo(r*.8,0);g.strokeStyle='#ffffff55';g.lineWidth=1;g.stroke();}
+ if(state==='locked'){g.beginPath();g.moveTo(-r*.35,-r*.7);g.lineTo(r*.2,-r*.05);g.lineTo(-r*.15,r*.35);g.lineTo(r*.3,r*.8);g.strokeStyle='#f2a58f';g.lineWidth=1.4;g.stroke();}
  g.restore();}
-// ASTRA: bronzenaht – bronzene Mittelnaht zwischen den Epochenhälften mit Kompass-Medaillon, 3200 × 96
-function seam(g){const y=L.seam;g.save();g.shadowColor='#1a0f0688';g.shadowBlur=6;g.shadowOffsetY=2;
- round(g,44,y-5,1512,10,5,grad(g,0,y-5,0,10,'#5a3d1e','#ecc982'),'#3b2812',1.5);
- ellipse(g,800,y,25,25,grad(g,775,y-25,50,50,'#5a3d1e','#efd08c'),'#3b2812',2);g.restore();
- for(let x=124;x<1560;x+=168)if(Math.abs(x-800)>60)ellipse(g,x,y,2.6,2.6,'#f6dca0','#4a3218',1);
- ellipse(g,800,y,18,18,'#2c2116','#d8b46e',1.5);
- g.beginPath();for(let i=0;i<16;i++){const an=i*Math.PI/8-Math.PI/2,rr=i%2?5:15;g.lineTo(800+Math.cos(an)*rr,y+Math.sin(an)*rr);}g.closePath();g.fillStyle=grad(g,785,y-15,30,30,'#a77a36','#fbe3a6');g.fill();}
-// Mana as amulets (AP 1.8): full ones glow, spent ones are dark, locked ones (Belastung) are red, missing ones only a ring.
-// ASTRA: mana-amulett – Mana-Amulett mit Sonnenzeichen: voll, verbraucht, gesperrt (Belastung), noch nicht verfügbar, 96 × 96
-function amulet(c,x,y,r,state){
- if(state==='none'){ellipse(c,x,y,r*.9,r*.9,'#24190e30','#7a623d70',1.4);return;}
- c.save();if(state==='full'){c.shadowColor='#55c2ff';c.shadowBlur=r*.9;}else{c.shadowColor='#160e09aa';c.shadowBlur=4;c.shadowOffsetY=2;}
- ellipse(c,x,y,r,r,grad(c,x-r,y-r,2*r,2*r,'#5e3f1c','#efcd85'),'#2e2012',1.6);c.restore();
- c.beginPath();c.arc(x,y-r-1.5,r*.3,Math.PI*1.1,Math.PI*1.9);c.strokeStyle='#c9a052';c.lineWidth=2;c.stroke();
- const ri=r*.7,fill=state==='full'?(()=>{const g=c.createRadialGradient(x-ri*.3,y-ri*.3,1,x,y,ri);g.addColorStop(0,'#d8f3ff');g.addColorStop(.45,'#2b8fe8');g.addColorStop(1,'#123a78');return g;})():state==='locked'?'#7b2a1f':'#22262b';
- ellipse(c,x,y,ri,ri,fill,'#3b2812',1);
- if(state==='full'){c.beginPath();for(let i=0;i<16;i++){const an=i*Math.PI/8,rr=i%2?ri*.32:ri*.7;c.lineTo(x+Math.cos(an)*rr,y+Math.sin(an)*rr);}c.closePath();c.fillStyle='#ffe7a6';c.fill();}
- else if(state==='locked'){c.beginPath();c.moveTo(x-ri*.5,y-ri*.5);c.lineTo(x+ri*.5,y+ri*.5);c.moveTo(x+ri*.5,y-ri*.5);c.lineTo(x-ri*.5,y+ri*.5);c.strokeStyle='#f2a58f';c.lineWidth=2;c.stroke();}
- else{c.beginPath();for(let i=0;i<16;i++){const an=i*Math.PI/8,rr=i%2?ri*.3:ri*.62;c.lineTo(x+Math.cos(an)*rr,y+Math.sin(an)*rr);}c.closePath();c.fillStyle='#4a4f55';c.fill();}}
-function amulets(c,p,a){const row=L.amulets[p],locked=a.locked||0,key='amulets:'+[p,a.mana,a.maxMana,locked,p?0:a.overload||0].join();
- R.blit(c,R.sprite(key,row.x-row.r*6,row.y-row.r*2.6,row.step*9+row.r*7.5,row.r*(p?5.2:6.4),g=>{
-  for(let i=0;i<10;i++){const {x,y,r}=L.amulet(p,i),state=i<a.mana?'full':i>=a.maxMana-locked&&i<a.maxMana?'locked':i<a.maxMana?'spent':'none';amulet(g,x,y,r,state);}
-  number(g,a.mana+'/'+a.maxMana,row.x-row.r*3.4,row.y+1,p?19:24);
-  const note=[locked&&'Belastung −'+locked,!p&&a.overload&&'Folgezug −'+a.overload].filter(Boolean).join(' · ');if(note&&!p)txt(g,note,row.x+row.step*4.5,row.y+row.r+12,12,'#f2a58f');}));}
+function dialArt(g,p,lit,max,locked,shownMana){const {r}=L.mana[p],small=p===1;
+ g.save();g.shadowColor='#160e09bb';g.shadowBlur=14;g.shadowOffsetY=5;ellipse(g,0,0,r,r,grad(g,-r,-r,2*r,2*r,'#5a3d1e','#f2d18c'),'#3b2812',3);g.restore();
+ g.beginPath();for(let i=0;i<96;i++){const an=i*Math.PI/48;g.moveTo(Math.cos(an)*(r-5),Math.sin(an)*(r-5));g.lineTo(Math.cos(an)*(r-1.5),Math.sin(an)*(r-1.5));}g.strokeStyle='#3a291488';g.lineWidth=1.2;g.stroke();
+ ellipse(g,0,0,r-6,r-6,grad(g,-r,-r,2*r,2*r,'#6e4f25','#e6c27c'),'#4a3418',1.5);
+ const d=g.createRadialGradient(-r*.15,-r*.2,2,0,0,r*.5);d.addColorStop(0,'#2d5a96');d.addColorStop(1,'#0c1530');ellipse(g,0,0,r*.5,r*.5,d,'#f0d69a',2);
+ for(let i=0;i<10;i++){const c=L.crystal(p,i),m=L.mana[p];crystal(g,c.x-m.x,c.y-m.y,c.an,c.r,i<lit?'full':i>=max-locked&&i<max?'locked':i<max?'spent':'none');}
+ number(g,shownMana,0,-r*.07,r*(small?.5:.46));txt(g,'/ '+max,0,r*.27,Math.round(r*.2),'#cfe2ff');}
+const MANA_STEP=85,GLINT=300;R.dials=[null,null];
+function dial(c,p,a,now){const {x,y,r}=L.mana[p],locked=a.locked||0;let f=R.dials[p];
+ if(!f||a.mana<f.to||!motion())f=R.dials[p]={from:a.mana,to:a.mana,at:-1e9,chimed:a.mana};
+ else if(a.mana>f.to){f.from=Math.min(f.to,f.from+Math.floor((now-f.at)/MANA_STEP));f.to=a.mana;f.at=now;f.chimed=f.from;}
+ const lit=Math.min(f.to,f.from+Math.max(0,Math.floor((now-f.at)/MANA_STEP)+1));
+ if(lit>f.chimed){f.chimed=lit;CHA.play('aether',{x,gain:p?.45:.8});}
+ R.blit(c,R.sprite('dial:'+[p,lit,a.maxMana,locked,lit<f.to?lit:a.mana],-r-24,-r-24,2*r+48,2*r+48,g=>dialArt(g,p,lit,a.maxMana,locked,lit<f.to?lit:a.mana)),x,y);
+ // The glint of each crystal that has just lit: a soft white star, no shadowBlur in the frame.
+ for(let i=f.from;i<lit;i++){const t=now-(f.at+(i-f.from)*MANA_STEP);if(t<0||t>GLINT)continue;const q=t/GLINT,cr=L.crystal(p,i),rr=cr.r*(1.2+2.4*q);
+  const gl=c.createRadialGradient(cr.x,cr.y,0,cr.x,cr.y,rr);gl.addColorStop(0,`rgba(255,255,255,${.9*(1-q)})`);gl.addColorStop(.4,`rgba(150,215,255,${.6*(1-q)})`);gl.addColorStop(1,'rgba(150,215,255,0)');
+  c.fillStyle=gl;c.beginPath();c.arc(cr.x,cr.y,rr,0,Math.PI*2);c.fill();}
+ const note=[locked&&'Belastung −'+locked,!p&&a.overload&&'Folgezug −'+a.overload].filter(Boolean).join(' · ');
+ if(note&&!p)txt(c,note,x,y+r+14,11.5,'#f2a58f','center',136);}
+// AP 3.7: „Dein Zug“ – a tablet drops on two chains from the top, snaps in with a stone click, hangs and lifts away.
+// Not part of the action's busy time, so it never holds up a tap; skipped under reduced motion.
+const PLATE={drop:300,snap:170,hold:{0:1250,1:850},lift:260};R.plate=null;
+// ASTRA: zugtafel – herabfallende Steintafel „Dein Zug“ / „Zug des Gegners“ an zwei Ketten, mit Bronzerahmen, 960 × 200
+function plateArt(g,mine){const w=mine?460:380,h=mine?92:74;
+ g.save();g.shadowColor='#160e09cc';g.shadowBlur=18;g.shadowOffsetY=8;round(g,-w/2,-h/2,w,h,14,grad(g,-w/2,-h/2,w,h,'#5a3d1e','#efcd85'),'#2e2012',3);g.restore();
+ round(g,-w/2+8,-h/2+8,w-16,h-16,9,grad(g,0,-h/2,0,h,mine?'#d9cfb8':'#b9b3a7','#f6eedb'),'#4a3418',2);
+ round(g,-w/2+14,-h/2+14,w-28,h-28,6,null,'#4a341855',1);
+ for(const sx of [-1,1])ellipse(g,sx*(w/2-26),-h/2+4,7,7,grad(g,-7,-7,14,14,'#5a3d1e','#f2d18c'),'#2e2012',1.5);
+ g.font=`${mine?40:30}px Title,serif`;g.textAlign='center';g.textBaseline='middle';if('letterSpacing' in g)g.letterSpacing='3px';
+ g.fillStyle='#fff8e6';g.fillText(mine?'DEIN ZUG':'ZUG DES GEGNERS',0,3.5);g.fillStyle=mine?'#5a3510':'#3a3631';g.fillText(mine?'DEIN ZUG':'ZUG DES GEGNERS',0,2);if('letterSpacing' in g)g.letterSpacing='0px';}
+function turnPlate(c,s,now){const key=s.phase==='play'?s.turn+':'+s.active:'-';let f=R.plate;
+ if(!f){R.plate={key,at:-1e9};return;}
+ if(f.key!==key){f.key=key;f.mine=s.active===0;f.at=s.phase==='play'&&motion()?now:-1e9;f.clicked=false;}
+ const t=now-f.at,hold=PLATE.hold[f.mine?0:1],end=PLATE.drop+PLATE.snap+hold+PLATE.lift;if(t<0||t>end)return;
+ const rest=352,top=-90;let y;
+ if(t<PLATE.drop){const q=t/PLATE.drop;y=top+(rest-top)*q*q;}
+ else if(t<PLATE.drop+PLATE.snap){if(!f.clicked){f.clicked=true;CHA.play('stone',{gain:.7});}const q=(t-PLATE.drop)/PLATE.snap;y=rest-16*Math.sin(q*Math.PI)*(1-q*.4);}
+ else if(t<PLATE.drop+PLATE.snap+hold)y=rest;
+ else{const q=(t-PLATE.drop-PLATE.snap-hold)/PLATE.lift;y=rest+(top-rest)*q*q;}
+ const w=f.mine?460:380,h=f.mine?92:74;c.save();c.strokeStyle='#3a2a16';c.lineWidth=4;c.setLineDash([9,5]);
+ for(const sx of [-1,1]){c.beginPath();c.moveTo(800+sx*(w/2-26),0);c.lineTo(800+sx*(w/2-26),y-h/2+4);c.stroke();}c.restore();
+ R.blit(c,R.sprite('plate:'+f.mine,-w/2-40,-h/2-40,w+80,h+80,g=>plateArt(g,f.mine)),800,y);}
+// AP 1.8 Teil 2: the deck as a pile of parchment scrolls that visibly shrinks (one scroll per five cards, at most six);
+// an empty deck becomes the hourglass of Erschöpfung („Zahn der Zeit“) with the damage of the next draw.
+// ASTRA: pergamentstapel – Deck als Stapel gerollter Pergamente (1–6 Rollen), 160 × 200
+function scrolls(g,n){for(let i=0;i<n;i++){const y=74-i*13,dx=(i%2?3:-3),w=60,h=14,x=-w/2+dx;
+ g.save();g.shadowColor='#160e09aa';g.shadowBlur=5;g.shadowOffsetY=2;round(g,x,y-h/2,w,h,6,grad(g,0,y-h/2,0,h,'#b89a64','#f3e3bb'),'#5b4326',1.4);g.restore();
+ ellipse(g,x+w,y,4.5,h/2,'#d8c08c','#5b4326',1.2);ellipse(g,x+w,y,1.8,3,null,'#7a5e3388',1);
+ round(g,x+w*.42,y-h/2-.5,6,h+1,1.5,'#9b2f22','#4e170f',1);}}
+// ASTRA: stundenglas – Stundenglas der Erschöpfung „Zahn der Zeit“ mit rinnendem Sand, 140 × 200
+function hourglassArt(g){g.save();g.shadowColor='#160e09aa';g.shadowBlur=8;g.shadowOffsetY=3;
+ for(const y of [-2,84])round(g,-28,y,56,9,4,grad(g,-28,y,56,9,'#5a3d1e','#efcd85'),'#2e2012',1.5);g.restore();
+ for(const sx of [-1,1])round(g,sx*24-2.5,5,5,80,2,grad(g,0,0,5,0,'#5a3d1e','#d9b46e'),'#2e2012',1);
+ const bulb=()=>{g.beginPath();g.moveTo(-17,8);g.bezierCurveTo(-17,30,-3,36,-3,41);g.bezierCurveTo(-3,46,-17,52,-17,82);g.lineTo(17,82);g.bezierCurveTo(17,52,3,46,3,41);g.bezierCurveTo(3,36,17,30,17,8);g.closePath();};
+ bulb();g.fillStyle='#e8f2f455';g.fill();
+ g.save();bulb();g.clip();g.fillStyle='#d6a85a';g.fillRect(-20,28,40,8);g.beginPath();g.moveTo(-17,82);g.quadraticCurveTo(0,52,17,82);g.closePath();g.fill();g.restore();
+ bulb();g.strokeStyle='#f6fbffcc';g.lineWidth=1.6;g.stroke();g.beginPath();g.moveTo(-11,14);g.quadraticCurveTo(-12,26,-6,33);g.strokeStyle='#ffffff88';g.lineWidth=1.4;g.stroke();}
+function deck(c,s,p,now){const pp=s.players[p],yy=p===0?590:158,x=1448;
+ if(pp.deck.length){const n=Math.min(6,Math.ceil(pp.deck.length/5));R.blit(c,R.sprite('scrolls:'+n,-50,-10,100,110,g=>scrolls(g,n)),x,yy);txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');}
+ else{R.blit(c,R.sprite('hourglass',-40,-12,80,112,hourglassArt),x,yy);
+  // Falling sand: a dashed stream that runs downwards.
+  c.save();c.setLineDash([3,4]);c.lineDashOffset=-(now/40%7);c.beginPath();c.moveTo(x,yy+41);c.lineTo(x,yy+70);c.strokeStyle='#d6a85a';c.lineWidth=2;c.stroke();c.restore();
+  txt(c,'−'+(pp.fatigue+1),1451,yy+103,19,'#ff9a8a');}
+ touch('deck'+p,1411,yy-10,80,125,{kind:'deck'});
+ round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');touch('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
+// AP 1.8 Teil 2: the rival's hand as sealed orders – rolled scrolls with a red wax seal.
+// ASTRA: versiegelte-befehle – verdeckte Karte der KI-Hand als gerollter Befehl mit rotem Wachssiegel, 80 × 160
+function orderArt(g){g.save();g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowOffsetY=3;round(g,-14,-52,28,72,6,grad(g,-14,0,28,0,'#a88a58','#f3e3bb'),'#5b4326',1.5);g.restore();
+ for(const y of [-52,20])ellipse(g,0,y,14,4.5,'#d8c08c','#5b4326',1.2);
+ g.strokeStyle='#7a5e3366';g.lineWidth=1;for(const y of [-38,-28,-18])g.beginPath(),g.moveTo(-9,y),g.lineTo(9,y),g.stroke();
+ round(g,-15,-4,30,4,1.5,'#9b2f22');
+ g.save();g.shadowColor='#2a0a06aa';g.shadowBlur=3;g.shadowOffsetY=1;g.beginPath();for(let i=0;i<=24;i++){const an=i*Math.PI/12,rr=10+1.2*Math.cos(an*5);g.lineTo(Math.cos(an)*rr,-2+Math.sin(an)*rr);}g.closePath();g.fillStyle=grad(g,-10,-12,20,20,'#7a1c14','#d9473a');g.fill();g.restore();
+ ellipse(g,0,-2,6.5,6.5,null,'#f6b29a88',1.2);txt(g,'✦',0,-1.5,10,'#ffd6c4');}
+// AP 1.8 Teil 2: the chronicle strip at the left edge. Parchment with bronze rods; the newest entries on top, each a
+// picture with the side's colour (gold yours, red the rival's) and a mark (✦ spell, ☠ loss, ✕ burnt, ⌛ Erschöpfung);
+// a new turn starts a new parchment section. Tap an entry for the card, the strip for the whole chronicle.
+// ASTRA: chronikleiste – senkrechte Pergamentleiste mit Bronzestäben oben und unten, 140 × 1100
+function stripArt(g){const {x,y,w,h}=L.strip;
+ g.save();g.shadowColor='#160e09aa';g.shadowBlur=10;g.shadowOffsetY=4;round(g,x+4,y+14,w-8,h-28,4,grad(g,x,0,w,0,'#c9ad78','#f3e3bb'),'#6a5030',1.5);g.restore();
+ g.strokeStyle='#7a5e3322';g.lineWidth=1;for(let yy=y+40;yy<y+h-30;yy+=9){g.beginPath();g.moveTo(x+10,yy);g.lineTo(x+w-10,yy+(yy%3));g.stroke();}
+ for(const yy of [y,y+h-24]){round(g,x-4,yy,w+8,24,10,grad(g,0,yy,0,24,'#5a3d1e','#efcd85'),'#2e2012',2);for(const sx of [x-2,x+w+2])ellipse(g,sx,yy+12,6,12,grad(g,sx-6,yy,12,24,'#4a3216','#d9b46e'),'#2e2012',1.5);}
+ txt(g,'CHRONIK',x+w/2,y+12.5,11,'#2e2012','center',w-6);}
+// ASTRA: chronik-eintrag – Eintrag der Chronik-Leiste: Bild der Karte oder Fähigkeit mit Seitenfarbe und Marke, 116 × 116
+function entryArt(g,e){const k=54/2,col=e.p===0?'#e2bf6a':e.p===1?'#c8473b':'#9a8a6a';
+ round(g,-k-3,-k-3,2*k+6,2*k+6,7,col,'#2e2012',1.5);
+ g.save();g.beginPath();g.roundRect(-k,-k,2*k,2*k,5);g.clip();if(e.type==='death'||e.type==='burn')g.filter='grayscale(1) brightness(.8)';
+ if(e.type==='fatigue'){g.fillStyle='#3a2a1a';g.fillRect(-k,-k,2*k,2*k);g.save();g.translate(0,-k*.78);g.scale(.62,.62);hourglassArt(g);g.restore();}
+ else if(e.kind==='card'){const card=D.byId[e.id];R.tile(g,card.art,card.cell,-k*1.2,-k*1.05,k*2.4,k*2.4,card);}
+ else if(e.kind==='power'||e.kind==='hero'){const hero=D.heroById[e.id];if(e.kind==='hero'&&hero)R.tile(g,hero.art,D.heroes.indexOf(hero),-k*1.2,-k*1.1,k*2.4,k*2.4,hero);else{g.fillStyle=grad(g,-k,-k,2*k,2*k,'#292723',hero?.color||'#555');g.fillRect(-k,-k,2*k,2*k);if(hero)powerIcon(g,hero.id,0,0);}}
+ else{g.fillStyle='#26383d';g.fillRect(-k,-k,2*k,2*k);txt(g,'✦',0,0,30,'#d6b577');}
+ g.restore();
+ const card=e.kind==='card'?D.byId[e.id]:null,mark=e.type==='death'?['☠','#5b1a14']:e.type==='burn'?['✕','#5b1a14']:e.type==='fatigue'?['−'+(e.n||''),'#5b1a14']:card?.type==='spell'?['✦','#1f4f8f']:e.type==='power'?['◆','#3b2812']:e.type==='steal'?['⇄','#6a4a10']:null;
+ if(mark){ellipse(g,k-2,k-2,11,11,mark[1],'#f3d79a',1.5);txt(g,mark[0],k-2,k-1.5,mark[0].length>1?10:13,'#fff1cf');}}
+function strip(c,items,now){R.blit(c,R.sprite('strip',L.strip.x-20,L.strip.y-12,L.strip.w+40,L.strip.h+30,stripArt));touch('chronicle',L.strip.x,L.strip.y,L.strip.w,L.strip.h);
+ items.forEach((e,i)=>{const {x,y,size}=L.stripRow(i);
+  // A new parchment section per turn, headed by its number.
+  if(i&&items[i-1].turn!==e.turn){const sy=y-L.strip.step/2;c.save();c.strokeStyle='#6a503088';c.lineWidth=1.2;c.setLineDash([4,3]);c.beginPath();c.moveTo(L.strip.x+8,sy);c.lineTo(L.strip.x+L.strip.w-8,sy);c.stroke();c.restore();
+   round(c,x-23,sy-6.5,46,13,6.5,'#ead8ab','#6a503066',1);txt(c,'ZUG '+e.turn,x,sy+.5,8.5,'#5a4026');}
+  R.blit(c,R.sprite('entry:'+[e.kind,e.id,e.type,e.p,e.n||''],-size/2-6,-size/2-6,size+12,size+12,g=>entryArt(g,e)),x,y);
+  if(!i&&R.stripNew?.key===e.key&&now-R.stripNew.at<900){const q=(now-R.stripNew.at)/900;c.save();c.globalAlpha=1-q;round(c,x-size/2-6,y-size/2-6,size+12,size+12,9,null,'#fff0b4',3);c.restore();}
+  touch('log'+i,x-size/2,y-size/2,size,size,{kind:'log',idCard:e.kind==='card'?e.id:null});});
+ const top=items[0]?.key;if(top&&R.stripNew?.key!==top)R.stripNew={key:top,at:R.stripNew?now:-1e9};}
 // „Zug beenden“ as a bronze chronometer (AP 1.8): the hand points up during your turn and down during the rival's;
 // a tap swings it round with a small hop, the turn event strikes the gong.
 const CHRONO=560;R.chrono=null;
@@ -325,22 +409,21 @@ function plaque(c,u,card,ready,selected,aim){
   for(const [g,col] of marks){const gw=g.length>1?24:17;txt(c,g,xx+gw/2,33,g.length>1?13:15,col);xx+=gw;}}
  if(aim)round(c,-59,-76,118,154,13,null,'#db403d',3);
 }
-R.draw=(c,s,view,now)=>{const dt=Math.min(40,now-(R.lastTime||now-16));R.lastTime=now;R.hits=[];R.positions={};c.clearRect(0,0,1600,800);c.save();const shake=CHM.shake(now);c.translate(shake.x,shake.y);// Static layer (AP 2.4): table, chart, epoch halves and seam in one offscreen picture, redrawn only for another table or hero.
-const fieldName=R.images[R.look.board]?R.look.board:R.images.board?'board':null,tint=fieldName===R.look.board?R.look.tint||'':'',ages=s.players.map(pl=>D.ageById[D.heroById[pl.hero]?.age]);
-R.blit(c,R.sprite('field:'+[fieldName,tint,...ages.map(x=>x?.id)],0,0,1600,800,g=>table(g,fieldName,tint,ages)));
+R.draw=(c,s,view,now,log=[])=>{const dt=Math.min(40,now-(R.lastTime||now-16));R.lastTime=now;R.hits=[];R.positions={};c.clearRect(0,0,1600,800);c.save();const shake=CHM.shake(now);c.translate(shake.x,shake.y);// Static layer (AP 2.4): table and chart in one offscreen picture, redrawn only for another table.
+const fieldName=R.images[R.look.board]?R.look.board:R.images.board?'board':null,tint=fieldName===R.look.board?R.look.tint||'':'';
+R.blit(c,R.sprite('field:'+[fieldName,tint],0,0,1600,800,g=>table(g,fieldName,tint)));
 const a=s.players[0],b=s.players[1],targets=view.targets||[];hit('decor0',1485,0,112,145,{kind:'decor'});hit('decor1',0,0,110,142,{kind:'decor'});hit('decor2',0,710,120,90,{kind:'decor'});hit('decor3',1490,710,110,90,{kind:'decor'});
 const insert=view.insertIndex??CHM.insertion();
 for(let p=0;p<2;p++){const yy=L.rows[p],board=s.players[p].board,hasGap=p===0&&insert!=null&&board.length<7;if(view.drag?.cardId&&p===0)for(let i=0;i<7;i++)ellipse(c,L.center+(i-3)*L.spacing,yy,56,76,'#49331a05','#67502e22',1);
  if(hasGap){const xx=L.center+(insert-board.length/2)*L.spacing;R.blit(c,R.sprite('gap',-110,-130,220,260,g=>{g.shadowColor='#aaf36a';g.shadowBlur=24;ellipse(g,0,0,60,78,'#91d55629','#d3ed9b',2);g.shadowBlur=0;txt(g,'↓',0,0,30,'#efffd3');}),xx,yy);}
  board.forEach((u,i)=>{const index=i+(hasGap&&i>=insert?1:0),base=R.smooth(u.uid,L.center+(index-(board.length-1+(hasGap?1:0))/2)*L.spacing,yy,dt),pos=CHM.pose(u.uid,base,now);c.save();c.translate(pos.x,pos.y);c.rotate(pos.angle);c.scale(pos.scale,pos.scale);c.translate(-pos.x,-pos.y);minion(c,s,p,u,pos.x,pos.y,view.selected&&view.selected.uid===u.uid,targets);c.restore();});}
-// Rival's fanned hand.
-// ASTRA: gegnerhand – Kartenrücken der gegnerischen Hand, 108 × 156
-const rivalBack=R.sprite('rivalback',-27,-53,54,78,g=>{round(g,-24,-50,48,72,5,grad(g,0,0,40,70,'#16334d','#4c6f87'),'#c7a759',3);txt(g,'✦',0,-10,25,'#e7c675');});
-for(let i=0;i<b.hand.length;i++){c.save();c.translate(490+i*34,7);c.rotate((i-(b.hand.length-1)/2)*.033);R.blit(c,rivalBack);c.restore();}
-for(let p=0;p<2;p++){const pp=s.players[p],yy=p===0?590:158;const back=p===0?R.look.back:'chroniken',count=Math.min(5,Math.ceil(pp.deck.length/6));R.blit(c,R.sprite('deck:'+[back,count],-10,-25,90,120,g=>CHS.stack(g,back,0,0,55,83,count)),1421,yy);CHS.gloss(c,1421,yy,55,83,count,now,p*2300);txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');touch('deck'+p,1411,yy-10,80,125,{kind:'deck'});round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');touch('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
+// Rival's fanned hand as sealed orders (AP 1.8 Teil 2).
+const order=R.sprite('order',-24,-62,48,92,orderArt);
+for(let i=0;i<b.hand.length;i++){c.save();c.translate(490+i*34,12);c.rotate((i-(b.hand.length-1)/2)*.033);R.blit(c,order);c.restore();}
+deck(c,s,0,now);deck(c,s,1,now);
 chronometer(c,s,now);
-// Mana amulets (AP 1.8) replace the pillar on the left: yours bottom right, the rival's top right.
-amulets(c,0,a);amulets(c,1,b);
+// Ether dials on the left (1.17.0) and the chronicle strip at the edge (AP 1.8 Teil 2).
+dial(c,0,a,now);dial(c,1,b,now);strip(c,log,now);
 let hand=a.hand;if(view.drag?.cardId&&view.handIndex!=null){hand=[...hand];const i=hand.findIndex(h=>h.uid===view.drag.uid);if(i>=0)hand.splice(view.handIndex,0,hand.splice(i,1)[0]);}
 const handState=hand===a.hand?s:{...s,players:[{...a,hand},b]};
 // Selected cards draw last within the hand, above both resting fans.
@@ -348,9 +431,8 @@ const handState=hand===a.hand?s:{...s,players:[{...a,hand},b]};
 const ownHero=CHM.pose('h0',{x:L.center,y:L.heroY[0]},now);R.positions.h0=ownHero;R.positions.power0=L.powerPosition(0,ownHero.x,ownHero.y);
 const rivalHero=CHM.pose('h1',{x:L.center,y:L.heroY[1]},now);portrait(c,s,1,rivalHero.x,rivalHero.y,now);
 for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,'#f5473b',4);}
-// The chronicle is available on demand; combat gets the entire center.
-if(!view.selected)button(c,'CHRONIK',25,586,165,45,false,'chronicle');
-if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',25,586,184,57,true,'confirm');
+// The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
+if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
 button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':'SCHLACHT',368,55,13,'#f3dab0');
 CHM.overlay(c,s,now);
 if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
@@ -362,6 +444,7 @@ c.save();c.setLineDash(d.target?[]:[14,7]);c.beginPath();c.moveTo(start.x,start.
 portrait(c,s,0,ownHero.x,ownHero.y,now);
 if(targets.includes('h0'))ellipse(c,ownHero.x,ownHero.y,74*L.heroScale(0),86*L.heroScale(0),null,'#f5473b',4);
 R.fx=R.fx.filter(f=>now-f.start<f.life);for(const f of R.fx){const q=(now-f.start)/f.life;if(f.type==='damage'||f.type==='heal'){c.save();c.globalAlpha=1-q;number(c,(f.type==='heal'?'+':'−')+f.n,f.x,f.y-q*60,40);c.restore();}else if(['death','buff','shield','freeze','steal'].includes(f.type)){for(let i=0;i<14;i++){const ang=i*2.4,r=q*(f.type==='death'?110:65);c.globalAlpha=1-q;ellipse(c,f.x+Math.cos(ang)*r,f.y+Math.sin(ang)*r,4*(1-q)+1,4*(1-q)+1,f.type==='death'?'#d9b986':f.type==='freeze'?'#e8f8ff':f.type==='steal'?'#f0c463':'#a2e6ee');}c.globalAlpha=1;}else if(f.type==='impact'){c.save();c.globalAlpha=1-q;c.globalCompositeOperation='screen';ellipse(c,f.x,f.y,18+q*54,12+q*37,null,'#ffe7b0',4*(1-q)+1);for(let i=0;i<9;i++){const an=i*2.399+f.x,rad=12+q*86;c.strokeStyle=i%2?'#fff5d7':'#ffb449';c.lineWidth=3*(1-q)+.5;c.beginPath();c.moveTo(f.x+Math.cos(an)*rad*.55,f.y+Math.sin(an)*rad*.55);c.lineTo(f.x+Math.cos(an)*rad,f.y+Math.sin(an)*rad);c.stroke();}c.restore();}}
+turnPlate(c,s,now);
 c.restore();
 };
 R.events=(events,settings)=>{const played=new Set();for(const ev of events){const pos=R.positions[ev.target]||R.positions['h'+(ev.p||0)]||{x:800,y:400};if(settings.particles!==false&&['damage','heal','death','buff','shield','freeze','steal'].includes(ev.type))R.fx.push({...ev,x:pos.x,y:pos.y,start:performance.now(),life:ev.type==='death'?660:750});if(ev.type==='attack'||ev.type==='damage'){if(settings.particles!==false)R.fx.push({type:'impact',x:pos.x,y:pos.y,start:performance.now(),life:280});}

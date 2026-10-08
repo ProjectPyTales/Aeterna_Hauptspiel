@@ -1,7 +1,24 @@
-# Aeterna 1.16.0 – Bauen & Prüfen
+# Aeterna 1.17.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.17.0 (AP 1.8 Teil 2, AP 3.7, Rückmeldung zu 1.16.0)
+
+- **Tisch** (`view/match/render.js`, `table`): nur noch Schlachtfeld und eingeritzte Karte; `half` (Epochenhälften) und `seam`
+  (Bronzenaht) entfallen, das statische Sprite hängt nur an Tisch und Farbfilter. `CHL.seam` bleibt als Mitte des Tisches.
+- **Äther-Uhr** (`dial`, Geometrie `CHL.mana`, `CHL.crystal(p,i)`): ersetzt `amulets`/`CHL.amulets`. `R.dials[p]` merkt, ab
+  wann Kristalle aufleuchten (`MANA_STEP` 85 ms, Glanz `GLINT` 300 ms als Verlauf ohne `shadowBlur`), je Kristall
+  `CHA.play('aether')`. Klang: `assets/audio/aether-1/2.ogg` aus `werkzeuge/aether_klang.py` (numpy, ffmpeg).
+- **Chronik-Leiste** (`strip`, `CHL.strip`, `CHL.stripRow`): Daten aus `Match.strip(state, rows)` (ViewModel, zwischengespeichert
+  je Logzeile); `board.js` übergibt sie als fünftes Argument an `R.draw`. Treffer `chronicle` (Leiste → ganze Chronik) und
+  `log<i>` (`kind:'log'`, Karte → Zoom). `viewmodel/chronicle.js` (`CHC`) läuft jetzt auch in Node; `record` speichert die
+  Seite `p` je Eintrag und Erschöpfungszeilen über die Warteschlange.
+- **Deck** (`deck`): Pergamentrollen `scrolls` (eine je fünf Karten, höchstens sechs), leer: `hourglassArt` mit Schaden des
+  nächsten Zugs; **KI-Hand** `orderArt`. **Zugtafel** `turnPlate` (`R.plate`, Schlüssel Zug + aktiver Spieler), ersetzt die
+  Einblendung in `motion.js`. Tafel und Füllen entfallen bei `AEP.reducedMotion()` (Klickpfad).
+- `AUSSPIELEN` an `CHL.confirm`; der Knopf CHRONIK entfällt. Tests: `spielbrett.test.js`, Chronik-Leiste in
+  `viewmodel.test.js`. Version 1.17.0 / versionCode 20.
 
 ## Neu in 1.16.0 (AP 1.8 Teil 1 Spielbrett und HUD, Rückmeldung zu 1.15.0 Schlachtfelder)
 

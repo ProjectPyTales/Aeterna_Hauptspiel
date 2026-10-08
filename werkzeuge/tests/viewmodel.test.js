@@ -108,6 +108,30 @@ test('Match: Ergründen öffnet die Wahl, die sich nicht wegklicken lässt; auch
  assert.equal(store.profile.game.choice,null);assert.ok(store.profile.game.players[0].hand.some(h=>h.id===id));
 });
 
+test('Chronik-Leiste (AP 1.8 Teil 2): neueste Einträge oben, Seite auch im Spiegelduell, Abschnitte je Zug, Antippen',()=>{
+ const {ctx,store,log}=setup('game'),match=new Match(ctx);ctx.match=match;
+ ctx.board={busy:()=>false,begin:(b,s,a,o,impact,done)=>{impact();done();},rebound(){},cancel(){},events(){},effect(){}};
+ const s=E.create({hero:'leonidas',foe:'leonidas',deck:E.starter('leonidas'),enemyDeck:E.starter('leonidas'),mode:'free',mission:null,seed:5,first:0});E.mulligan(s,[]);
+ store.profile.game=s;assert.deepEqual(match.strip(),[],'leere Partie');
+ for(let i=0;i<400&&s.turn<12&&s.phase==='play';i++){const a=E.ai(s);if(!a||!match.action(a))break;}
+ const items=match.strip();assert.ok(items.length>0&&items.length<=6);
+ assert.equal(match.strip(),items,'zwischengespeichert, solange keine Zeile dazukommt');
+ for(const e of items){assert.ok(['play','power','death','burn','steal','echo','fatigue'].includes(e.type),e.type);assert.ok(e.p===0||e.p===1,'Seite trotz gleicher Namen: '+e.key);}
+ for(let i=1;i<items.length;i++)assert.ok(items[i-1].turn>=items[i].turn,'neueste oben');
+ const all=match.strip(s,99);assert.ok(all.some(e=>e.p===0)&&all.some(e=>e.p===1),'beide Seiten');
+ const card=all.find(e=>e.kind==='card');match.tap({id:'log0',kind:'log',idCard:card.id});assert.equal(log.open.kind,'zoom');assert.equal(log.open.vm.state.card.id,card.id);
+ match.tap({id:'log1',kind:'log',idCard:null});assert.equal(log.open.kind,'chronicle');
+ // Alte Seitenleisten ohne p: die Seite folgt aus dem Namen, wenn die Helden verschieden heißen.
+ const t=E.create({hero:'leonidas',foe:'hypatia',seed:3,first:0});E.mulligan(t,[]);store.profile.game=t;store.profile.matchChronicle=[];
+ for(let i=0;i<200&&t.turn<6&&t.phase==='play';i++){const a=E.ai(t);if(!a||!match.action(a))break;}
+ for(const e of store.profile.matchChronicle)delete e.p;match.stripCache=null;
+ assert.ok(match.strip(t,99).filter(e=>e.type==='play').every(e=>e.p===0||e.p===1));
+ // Erschöpfung: eigene Zeile mit Schaden.
+ const u=E.create({hero:'leonidas',foe:'hypatia',seed:4,first:0});E.mulligan(u,[]);u.players[0].deck=[];store.profile.game=u;store.profile.matchChronicle=[];
+ match.action({type:'end'});while(u.active===1&&u.phase==='play'){const a=E.ai(u);if(!a||!match.action(a))break;}
+ const f=match.strip().find(e=>e.type==='fatigue');assert.ok(f&&f.p===0&&f.n===1,'Erschöpfung 1 auf Deiner Seite');
+});
+
 test('Chronik (AP 5.9): Heldenwahl und langes Drücken auf einen Helden im Match öffnen die Chronikseite',()=>{
  const {Setup}=need('viewmodel/setup.js');const {ctx,log,store}=setup('setup');ctx.session.hero='boudicca';
  new Setup(ctx).lore();assert.equal(log.open.kind,'lore');assert.equal(log.open.vm.state.hero.id,'boudicca');

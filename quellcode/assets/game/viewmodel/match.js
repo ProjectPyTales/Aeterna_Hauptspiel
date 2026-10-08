@@ -9,8 +9,10 @@
 const node=typeof module!=='undefined';
 const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP;
 const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
-const chronicle=()=>node?null:root.CHC;
+const chronicle=()=>node?require('./chronicle.js'):root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
+// Chronicle strip (AP 1.8 Teil 2): which log lines it shows and how they are marked.
+const STRIP=[[/ spielt /,'play'],[/ nutzt /,'power'],[/ (wurde besiegt|stürzt ein)\.$/,'death'],[/ verbrannt \(Hand voll\)\.$/,'burn'],[/ übernimmt /,'steal'],[/ erneut\.$/,'echo'],[/: Erschöpfung (\d+)\.$/,'fatigue']];
 
 // Ergründen: the choice has to be made – the back key and the scrim do not close it.
 class Choice extends Dialog{
@@ -69,6 +71,7 @@ class Match extends Screen{
   if(hit.id==='pause')return this.pause();
   if(hit.id==='help')return this.ctx.dialogs.help();
   if(hit.id==='chronicle')return this.chronicle();
+  if(hit.kind==='log'){if(hit.idCard)this.inspect(hit.idCard);else this.chronicle();return;}
   if(hit.kind==='grave')return this.grave(+hit.id.slice(-1));
   if(hit.kind==='deck'){ui.toast('Deck: '+s.players[+hit.id.slice(-1)].deck.length+' Karten. Die Reihenfolge bleibt verborgen.');return;}
   if(s.phase!=='play'||s.active!==0||this.board.busy())return;
@@ -128,6 +131,17 @@ class Match extends Screen{
  pause(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,
   buttons:[{label:'Fortsetzen',style:'gold'},{label:'Einstellungen',run:()=>this.ctx.dialogs.settings()},{label:'Zum Hauptmenü',keep:true,run:()=>this.ui.go('menu')},{label:'Aufgeben',style:'danger',run:()=>this.confirmSurrender()}]}));}
  grave(p){const a=this.game.players[p];this.ui.dialog('grave',Object.assign(new Dialog(this.ctx,{mine:p===0,cards:a.grave.map(id=>D.byId[id])}),{inspect:id=>this.inspect(id)}));}
+ // The newest played cards, spells, powers and losses for the strip at the left edge, newest first: {key, kind, id,
+ // type, p (side, null if unknown), turn, n (Erschöpfung)}. s is the state the board shows (before or after an action).
+ // Cached per log length – the full chronicle is only rebuilt when a line is added.
+ strip(s=this.game,rows=6){if(!s)return [];const saved=this.profile.matchChronicle||[],key=[s.log.length,s.log[s.log.length-1],saved.length].join('|');
+  if(this.stripCache?.key===key)return this.stripCache.items;
+  const C=chronicle(),all=C?C.entries(s,saved):[],names=[0,1].map(p=>p===1&&s.mission!=null?D.missions[s.mission].boss:D.heroById[s.players[p].hero].name);
+  let turn=1;const items=[];
+  all.forEach((e,i)=>{const t=/^Zug (\d+): /.exec(e.text);if(t){turn=+t[1];return;}const hit=STRIP.find(([re])=>re.test(e.text));if(!hit)return;
+   let p=e.p??null;if(p==null&&names[0]!==names[1])p=e.text.startsWith(names[0])?0:e.text.startsWith(names[1])?1:null;
+   items.push({key:i+':'+e.text,kind:e.kind,id:e.id,type:hit[1],p,turn,...(hit[1]==='fatigue'?{n:+hit[0].exec(e.text)[1]}:{})});});
+  this.stripCache={key,items:items.slice(-rows).reverse()};return this.stripCache.items;}
  chronicle(){this.ui.dialog('chronicle',new Dialog(this.ctx,{entries:chronicle()?.entries(this.game,this.profile.matchChronicle)||[]}));}
  confirmSurrender(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Wirklich aufgeben?',close:false,text:'Die Partie endet als Niederlage. Für das Aufgeben erhältst Du kein Gold.',
   buttons:[{label:'Weiterspielen'},{label:'Aufgeben',style:'danger',keep:true,run:()=>this.surrender()}]}));}

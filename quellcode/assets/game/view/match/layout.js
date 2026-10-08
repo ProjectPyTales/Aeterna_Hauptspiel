@@ -1,14 +1,21 @@
 /* Shared geometry for rendering, animation and touch targets. 1600 × 800 stage. */
 (function(){'use strict';
 const L=window.CHL={center:800,spacing:158,rows:[448,264],heroY:[656,91],heroScales:[1.23,1.02],
-  // AP 1.8: hero coin (radius in coin units), ruler's seal beside it, chronometer, seam between the epoch halves.
+  // AP 1.8: hero coin (radius in coin units), ruler's seal beside it, chronometer, middle line of the table (no drawn seam
+  // since 1.17.0, the engraved chart is centred on it).
   coin:74,powerOffset:{x:112,y:22},chrono:{x:1490,y:366,r:56},seam:357,
   minionScale:1.22*.85,handCenter:800,handY:764,handWidth:144,dragWidth:258,handTop:700,
   drop:{left:225,right:1370,top:365,bottom:551}};
 L.heroScale=p=>L.heroScales[p];
-// Mana amulets (AP 1.8): the player's row lies bottom right between the hero seal and the deck, the rival's top right.
-L.amulets=[{x:1086,y:604,step:33,r:14.5},{x:1054,y:40,step:27,r:11.5}];
-L.amulet=(p,i)=>{const a=L.amulets[p];return {x:a.x+i*a.step,y:a.y,r:a.r};};
+// Mana (1.17.0, feedback on 1.16.0): an ether dial on the free left side beside the chronicle strip – yours in your
+// half, the rival's smaller one in his; ten crystals around the ring (L.crystal), the number in the middle.
+L.mana=[{x:184,y:470,r:58},{x:184,y:200,r:44}];
+L.crystal=(p,i)=>{const m=L.mana[p],an=-Math.PI/2+i*Math.PI/5;return {x:m.x+Math.cos(an)*m.r*.74,y:m.y+Math.sin(an)*m.r*.74,an,r:m.r*.17};};
+// Chronicle strip (AP 1.8 Teil 2) at the left edge: a parchment strip with the newest entries on top, one row each.
+L.strip={x:44,y:96,w:70,h:548,top:160,step:78,rows:6};
+L.stripRow=i=>({x:L.strip.x+L.strip.w/2,y:L.strip.top+i*L.strip.step,size:54});
+// AUSSPIELEN below your ether dial; the rival's sealed orders (hand) along the top edge.
+L.confirm={x:120,y:584,w:140,h:56};
 L.powerPosition=(p,x=L.center,y=L.heroY[p])=>({x:x+L.powerOffset.x*L.heroScale(p),y:y+L.powerOffset.y*L.heroScale(p)});
 // Two low fans leave a permanent clear corridor for the hero and attached power.
 // Rendering, card flights and reorder hit testing all use this same geometry.
