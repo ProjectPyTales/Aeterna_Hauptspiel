@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.19.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.20.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -64,7 +64,7 @@ function navigate(next,arg,force=false){
  if(next===screen||reduced()){show(next,arg);return;}
  if(screen==='menu'||next==='menu')ring(next,arg);else slide(()=>show(next,arg));}
 function hold(){busy=true;clearTimeout(screens.game.vm.aiTimer);matchView.cancel();}
-function release(){busy=false;if(screen==='game')screens.game.vm.scheduleAI();}
+function release(){busy=false;if(screen==='game')screens.game.vm.arrived();}
 function ring(next,arg){hold();
  if(next==='menu'){A.play('grind',{gain:.6});H.arrive(()=>show(next,arg),release);}else{A.play('power',{gain:.45});H.leave(()=>show(next,arg),release);}}
 function slide(swap){hold();const el=$('slabs');el.className='active closing';A.play('scrape',{gain:.9});

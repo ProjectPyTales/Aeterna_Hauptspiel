@@ -45,6 +45,11 @@ class Collection extends Screen{
    unique:D.cards.filter(c=>p.collection[c.id]>0).length,total:D.cards.length,
    turn:s.turn,flight:s.flight,ahead:[...list.slice((s.page+1)*PER_PAGE,(s.page+2)*PER_PAGE),...list.slice(Math.max(0,s.page-1)*PER_PAGE,s.page*PER_PAGE)].map(c=>c.id),
    cards:list.slice(s.page*PER_PAGE,s.page*PER_PAGE+PER_PAGE).map(c=>({card:c,owned:p.collection[c.id]||0,inDeck:counts[c.id]||0}))};
+  // Feedback 1.19.0 („beim Blättern sind die Seiten, die sich bewegen, vollkommen weiß“): the turning leaf carries the
+  // cards – on its front the half of the old spread it lifts, on its back the half of the new one it lays down; under it
+  // the other old half stays until the leaf covers it.
+  if(s.turn){const row=c=>({card:c,owned:p.collection[c.id]||0,inDeck:counts[c.id]||0}),old=list.slice((s.page-s.turn)*PER_PAGE,(s.page-s.turn+1)*PER_PAGE).map(row),half=(a,right)=>right?a.slice(4):a.slice(0,4);
+   view.leaf=s.turn>0?{front:half(old,true),back:half(view.cards,false),under:half(old,false)}:{front:half(old,false),back:half(view.cards,true),under:half(old,true)};}
   if(s.edit){
    const curve=curveOf(s.edit.cards);
    view.curve=curve;view.max=Math.max(4,...curve);view.bars=curve.map((n,i)=>({n,i,phase:phase(i)}));view.hint=curveHint(curve);view.era=era(s.edit.hero);

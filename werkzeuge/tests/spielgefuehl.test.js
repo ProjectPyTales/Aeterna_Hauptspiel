@@ -7,7 +7,7 @@ const T=need('view/match/anim.js'),D=need('model/data.js'),E=need('model/engine.
 const box={window:{}};vm.runInNewContext(read('view/match/layout.js'),box);const L=box.window.CHL;
 // motion.js und render.js laufen mit Attrappen für Klang und Leinwand.
 const sounds=[],stage={window:{},CHL:L,CHT:T,CHD:D,CHE:E,CHA:{play:(name,o)=>sounds.push(name)},CHS:{},performance:{now:()=>0}};
-vm.runInNewContext(read('view/match/render.js'),stage);stage.CHR=stage.window.CHR;vm.runInNewContext(read('view/match/motion.js'),stage);
+vm.runInNewContext(read('view/match/render.js'),stage);stage.CHR=stage.window.CHR;vm.runInNewContext(read('view/match/motion.js'),stage);stage.CHM=stage.window.CHM;vm.runInNewContext(read('view/match/fx.js'),stage);
 const R=stage.window.CHR,M=stage.window.CHM,render=read('view/match/render.js');
 // Die Uhr in Bildern zu 16 ms vorstellen (höchstens 100 ms je Bild, Treffer-Stopp hält sie an), M.frame je Bild.
 const advance=(s,until)=>{while(T.clock.now()<until){T.clock.tick((T.clock.real??0)+16);M.frame(s,T.clock.now());}};
@@ -92,9 +92,11 @@ test('AP 3.5: Treffersound je Einheit, Schadenszahl mit Tinte, Pumpen und Splitt
  assert.equal(R.hitSound(name(/Reiter/)),'hooves');assert.equal(R.hitSound(name(/Hoplit/)),'lance');assert.equal(R.hitSound(D.byId.neutral_0),'clash');assert.equal(R.hitSound(null),'clash');
  R.fx=[];R.units={u1:{u:{},card:D.byId.neutral_0,sp:{},x:500,y:300,p:1,seen:0}};R.positions={u1:{x:500,y:300}};
  R.events([{type:'attack',source:'h0',target:'u1'},{type:'damage',target:'u1',n:3},{type:'death',target:'u1',p:1,id:'neutral_0'}],{particles:true});
- for(const k of ['damage','pump','shatter','dust','impact','sound'])assert.ok(R.fx.some(f=>f.type===k),k);
+ for(const k of ['damage','pump','shatter','impact'])assert.ok(R.fx.some(f=>f.type===k),k);
  assert.ok(sounds.includes('clash')&&sounds.includes('destroy'));
- R.fx=[];R.events([{type:'death',target:'u1',p:1,id:'neutral_0'}],{particles:false});assert.equal(R.fx.map(f=>f.type).join(),'sound','ohne Partikel nur der Fall-Laut');R.fx=[];
+ // Seit 1.20.0 (Rückmeldung zu 1.19.0): kein Staub und kein Schleifen mehr beim Tod eines Dieners, nur ein Bauwerk stürzt hörbar ein.
+ assert.ok(!R.fx.some(f=>f.type==='dust'||f.type==='sound'),'Diener: ohne Staub und Fall-Laut');
+ R.fx=[];R.events([{type:'death',target:'u1',p:1,id:'neutral_0',building:true}],{particles:false});assert.equal(R.fx.map(f=>f.type).join(),'sound','ohne Partikel nur der Fall-Laut des Bauwerks');R.fx=[];
  for(const k of ['marschroute','tintenspritzer','staubwolke','steinrisse'])assert.match(render,new RegExp('// ASTRA: '+k+' – '),k);
  assert.match(render,/function route\([^]*?motion\(\)\?\(t\*\.09\)%step:0/,'die Winkel marschieren (nicht bei reduzierter Bewegung)');
  assert.match(render,/if\(d\.target&&d\.target!=='h0'\)pulse\(c,d\.target,t\)/,'Ziel unter der Route pulsiert');

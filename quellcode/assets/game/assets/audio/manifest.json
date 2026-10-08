@@ -139,5 +139,25 @@
   "page": [
     "page-1",
     "page-2"
+  ],
+  "clink": [
+    "clink-1",
+    "clink-2"
+  ],
+  "chains": [
+    "chains-1",
+    "chains-2"
+  ],
+  "poison": [
+    "poison-1",
+    "poison-2"
+  ],
+  "toss": [
+    "toss-1",
+    "toss-2"
+  ],
+  "horn": [
+    "horn-1",
+    "horn-2"
   ]
 }

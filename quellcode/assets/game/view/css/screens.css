@@ -30,13 +30,24 @@ button.seal-knob{width:40px;height:44px;min-height:44px;padding:0;border-radius:
 .collect-card .count{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);color:#f7e1ad;background:#39362a;border:1px solid #a99a77;padding:3px 18px;border-radius:16px;font-size:15px;white-space:nowrap}
 .collect-card.locked img{filter:grayscale(1) brightness(.62);opacity:.8}
 .collect-card .in-deck{position:absolute;right:2px;top:11px;border-radius:50%;background:#204c47;color:#f9e4a5;padding:7px;min-width:32px}
-.page-turn{position:absolute;top:8px;bottom:8px;width:calc(50% - 11px);border-radius:4px;background:linear-gradient(90deg,#cdb98f,#f1e5c6 30%,#e9dcb9 80%,#bba67a);box-shadow:0 0 18px #0005;pointer-events:none;opacity:0}
+.page-turn{position:absolute;z-index:2;top:8px;bottom:8px;width:calc(50% - 11px);pointer-events:none;visibility:hidden;transform-style:preserve-3d}
+/* Feedback 1.19.0: the leaf carries the cards of both sides (front: the old half it lifts, back: the new half it lays down). */
+.leaf-face{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0 12px;justify-items:center;padding:2px 14px 2px 0;border-radius:4px;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+ background:linear-gradient(90deg,#cdb98f,#f1e5c6 10%,#f3e8cc 60%,#e9dcb9 90%,#bba67a);box-shadow:0 0 18px #0005}
+.leaf-face.back{transform:rotateY(180deg);padding:2px 0 2px 14px;background:linear-gradient(90deg,#bba67a,#e9dcb9 10%,#f3e8cc 40%,#f1e5c6 90%,#cdb98f)}
+.turn-prev .leaf-face.front{padding:2px 0 2px 14px}.turn-prev .leaf-face.back{padding:2px 14px 2px 0}
+.leaf-face:after{content:'';position:absolute;inset:0;border-radius:4px;background:linear-gradient(90deg,#0000,#3a240f55);opacity:0;animation:leaf-shade 560ms both}
+@keyframes leaf-shade{50%{opacity:1}}
+.page.under{position:absolute;z-index:1;top:10px;bottom:10px;width:calc(50% - 25px);animation:under-hide 560ms both;pointer-events:none}
+.page.under.on-left{left:14px}.page.under.on-right{right:14px}
+@keyframes under-hide{0%,99%{visibility:visible}100%{visibility:hidden}}
 .turn-next .page-turn{left:calc(50% + 11px);transform-origin:-11px 50%;animation:turn-next 560ms cubic-bezier(.45,.05,.4,1) both}
 .turn-prev .page-turn{right:calc(50% + 11px);transform-origin:calc(100% + 11px) 50%;animation:turn-prev 560ms cubic-bezier(.45,.05,.4,1) both}
 .turn-next .page.left,.turn-prev .page.right{animation:page-show 560ms both}
-@keyframes turn-next{0%{opacity:1;transform:rotateY(0)}92%{opacity:1}100%{opacity:0;transform:rotateY(-180deg)}}
-@keyframes turn-prev{0%{opacity:1;transform:rotateY(0)}92%{opacity:1}100%{opacity:0;transform:rotateY(180deg)}}
-@keyframes page-show{0%,52%{opacity:0}100%{opacity:1}}
+/* visibility instead of opacity: an animated opacity flattens the 3D leaf, and its front would show mirrored from behind. */
+@keyframes turn-next{0%{visibility:visible;transform:rotateY(0)}99%{visibility:visible;transform:rotateY(-180deg)}100%{visibility:hidden;transform:rotateY(-180deg)}}
+@keyframes turn-prev{0%{visibility:visible;transform:rotateY(0)}99%{visibility:visible;transform:rotateY(180deg)}100%{visibility:hidden;transform:rotateY(180deg)}}
+@keyframes page-show{0%,99%{visibility:hidden}100%{visibility:visible}}
 .pagination{display:flex;align-items:center;justify-content:center;gap:28px;height:62px;margin-top:8px;color:#d9c49a;font-size:19px}
 .deck-side{width:416px;flex:none;padding:16px 20px 14px;display:flex;flex-direction:column;gap:9px;background:linear-gradient(130deg,#2b2721,#181e22);border-left:2px solid #9a7948}
 .deck-side h3{font-size:21px}
@@ -72,7 +83,7 @@ button.seal-knob{width:40px;height:44px;min-height:44px;padding:0;border-radius:
 .card-detail img.from-slot{animation-name:zoom-from;animation-duration:340ms}
 @keyframes zoom-in{from{transform:scale(.7);opacity:0}}
 @keyframes zoom-from{from{transform:translate(var(--fx),var(--fy)) scale(.64);opacity:.6}}
-@media(prefers-reduced-motion:reduce){.page-turn,.fly-card,.bar .grow{display:none}.spread .page{animation:none!important}.card-detail img.zoom-in{animation:none}.bar{transition:none}}
+@media(prefers-reduced-motion:reduce){.page-turn,.page.under,.fly-card,.bar .grow{display:none}.spread .page{animation:none!important}.card-detail img.zoom-in{animation:none}.bar{transition:none}}
 
 /* ---------- Heldenwahl: gallery by age, the chosen hero large, deck and opponent ---------- */
 .setup-content{display:flex;gap:18px;margin:20px 30px 0;height:668px}
@@ -149,3 +160,60 @@ button.station{position:absolute;width:48px;height:48px;min-height:0;margin:-24p
 .mission-foe span{font-size:14px;color:#cdbd9b}
 .campaign-foot{display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#cdbd9b}
 @media(prefers-reduced-motion:reduce){.station.open .st-seal{animation:none}}
+/* AP 3.8: starting orders as scrolls – they unroll one after another, replaced ones carry a red wax seal and roll back
+   into the deck at the right. */
+.mulligan-card{display:flex;flex-direction:column;align-items:center}
+.mulligan-card .sheet{display:block;padding:6px 8px;background:linear-gradient(90deg,#c9b085,#f1e4c3 18%,#efe1bd 82%,#c2a87c);box-shadow:0 6px 16px #0007;animation:unroll 520ms calc(120ms + var(--i)*130ms) cubic-bezier(.3,.7,.3,1) both}
+.mulligan-card .sheet img{display:block;height:290px}
+.mulligan-card .rod{position:relative;z-index:1;display:block;width:calc(100% + 18px);height:14px;border-radius:7px;background:linear-gradient(#b07a3a,#5a3612 70%,#3a220a);box-shadow:0 3px 6px #0008}
+.mulligan-card .rod:before,.mulligan-card .rod:after{content:'';position:absolute;top:-3px;width:14px;height:20px;border-radius:6px;background:radial-gradient(circle at 40% 35%,#ffe08a,#b07a1e 60%,#5a3a0a)}
+.mulligan-card .rod:before{left:-9px}.mulligan-card .rod:after{right:-9px}
+.mulligan-card .rod.top{margin-bottom:-6px;animation:rod-top 520ms calc(120ms + var(--i)*130ms) cubic-bezier(.3,.7,.3,1) both}
+.mulligan-card .rod.bottom{margin-top:-6px;animation:rod-bottom 520ms calc(120ms + var(--i)*130ms) cubic-bezier(.3,.7,.3,1) both}
+@keyframes unroll{from{clip-path:inset(50% 0 50% 0)}to{clip-path:inset(0)}}
+@keyframes rod-top{from{transform:translateY(151px)}to{transform:none}}
+@keyframes rod-bottom{from{transform:translateY(-151px)}to{transform:none}}
+.mulligan-card.replace{filter:none}
+.mulligan-card.replace .sheet img{filter:grayscale(.7) brightness(.8)}
+.mulligan-card.replace:after{content:'↻';position:absolute;inset:auto;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;display:grid;place-items:center;border-radius:50%;font-size:46px;line-height:1;color:#ffe2a0;text-shadow:0 2px #4a0c06;
+ background:radial-gradient(circle at 38% 32%,#e0503c,#a8221a 55%,#6a120c);box-shadow:0 0 0 4px #8a1a12,0 4px 10px #000a;animation:seal-press 220ms ease-out both}
+@keyframes seal-press{from{transform:scale(1.5);opacity:0}to{transform:none;opacity:1}}
+.mulligan-deck{position:relative;align-self:center;width:84px;height:150px;margin-left:10px}
+.mulligan-deck i{position:absolute;left:8px;width:68px;height:22px;border-radius:11px;background:linear-gradient(#efe1bd,#c9b085);box-shadow:inset 0 -3px #a88a5a,0 3px 5px #0007}
+.mulligan-deck i:nth-child(1){bottom:6px}.mulligan-deck i:nth-child(2){bottom:26px;left:12px}.mulligan-deck i:nth-child(3){bottom:46px;left:5px}
+.mulligan-deck b{position:absolute;left:0;right:0;bottom:-26px;text-align:center;font:16px Title,serif;color:#e8d3a6}
+.mulligan.rolling .mulligan-card.replace{pointer-events:none;animation:to-deck 700ms ease-in both}
+.mulligan.rolling .mulligan-card.replace .sheet{animation:roll-up 260ms ease-in both}
+.mulligan.rolling .mulligan-card.replace .rod.top{animation:rod-up 260ms ease-in both}
+.mulligan.rolling .mulligan-card.replace .rod.bottom{animation:rod-down 260ms ease-in both}
+.mulligan.rolling .mulligan-card.replace:after{opacity:0;transition:opacity .15s}
+@keyframes roll-up{from{clip-path:inset(0)}to{clip-path:inset(50% 0 50% 0)}}
+@keyframes rod-up{to{transform:translateY(151px)}}
+@keyframes rod-down{to{transform:translateY(-151px)}}
+@keyframes to-deck{0%,35%{transform:none;opacity:1}100%{transform:translate(calc((var(--n) - var(--i)) * 238px - 100px),20px) scale(.28) rotate(80deg);opacity:0}}
+/* AP 3.8: result – the banner of the close above, the rewards as bars that fill one after another. */
+.result{width:840px;padding:0 44px 32px}
+.result-banner{position:relative;margin:-18px auto 14px;width:470px;height:120px;display:grid;place-items:center;clip-path:polygon(0 0,100% 0,100% 78%,50% 100%,0 78%);
+ background:linear-gradient(90deg,#7a1414,#c8322a 50%,#7a1414);box-shadow:inset 0 0 0 4px #ffd36a55;animation:banner-drop 700ms cubic-bezier(.2,.8,.3,1.2) both}
+.result-banner span{font:bold 52px Title,serif;letter-spacing:4px;color:#ffd36a;text-shadow:0 3px #2a0806,0 0 18px #ff9a3a66;margin-top:-14px}
+.result.loss .result-banner{background:linear-gradient(90deg,#1e1a24,#3a3446 50%,#1e1a24);box-shadow:inset 0 0 0 4px #a8a0b855}.result.loss .result-banner span{color:#cfc6dc;font-size:44px}
+.result.draw .result-banner{background:linear-gradient(90deg,#2a2a22,#5a5444 50%,#2a2a22)}.result.draw .result-banner span{color:#efe0b0;font-size:38px}
+@keyframes banner-drop{from{clip-path:polygon(0 0,100% 0,100% 0,50% 0,0 0)}}
+.result p{margin:8px 0 14px}
+.result .rewards{display:flex;flex-direction:column;gap:9px;padding:16px 22px;margin:0 0 20px;text-align:left;font-size:18px}
+.reward-bar{position:relative;display:grid;grid-template-columns:200px 1fr 82px;grid-template-rows:auto auto;column-gap:14px;align-items:center}
+.reward-bar .label{font-size:17px;color:#ead7ae;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reward-bar .track{height:14px;border-radius:7px;background:#0f1518;box-shadow:inset 0 2px 4px #000a,0 0 0 1px #7a6038;overflow:hidden}
+.reward-bar .track i{display:block;height:100%;width:var(--to);border-radius:7px;background:linear-gradient(#9fd06a,#4f8a2a);animation:bar-fill 800ms calc(500ms + var(--i)*380ms) cubic-bezier(.3,.6,.3,1) both}
+.reward-bar.gain .track i{background:linear-gradient(#ffe08a,#c8901e)}
+.reward-bar.full .track i{background:linear-gradient(#ffe9a0,#e0a830);box-shadow:0 0 10px #ffd36a}
+.reward-bar b{font:18px Title,serif;color:#f4ddb0;text-align:right}
+.reward-bar small{grid-column:2/4;font-size:13px;color:#c2b18b;min-height:0}
+.reward-bar.full small{color:#ffd36a}
+.reward-pack{font-size:18px;color:#ead7ae}
+@keyframes bar-fill{from{width:var(--from)}}
+.coin-rain{position:absolute;left:214px;top:-26px;width:60%;height:30px;pointer-events:none}
+.coin-rain i{position:absolute;top:0;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3b0,#e0a020 55%,#8a5a0a);opacity:0;animation:coin-fall 700ms calc(450ms + var(--k)*120ms) ease-in both}
+.coin-rain i:nth-child(1){left:8%;--k:0}.coin-rain i:nth-child(2){left:26%;--k:1}.coin-rain i:nth-child(3){left:45%;--k:2}.coin-rain i:nth-child(4){left:63%;--k:3}.coin-rain i:nth-child(5){left:82%;--k:4}
+@keyframes coin-fall{0%{transform:translateY(-30px);opacity:0}25%{opacity:1}100%{transform:translateY(34px) scaleY(.6);opacity:0}}
+@media(prefers-reduced-motion:reduce){.mulligan-card .sheet,.mulligan-card .rod,.mulligan-card.replace:after,.result-banner,.reward-bar .track i{animation:none}.coin-rain{display:none}}
