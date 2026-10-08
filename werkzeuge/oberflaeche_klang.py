@@ -1,6 +1,6 @@
 """Erzeugt die Geräusche für Uhr, Basar und Kartenbuch (Rückmeldung zu 1.18.0, AP 1.4, AP 1.6; prozedural, CC0).
 
-chime-1, -2   Uhrwerk statt Gong beim Zugwechsel: Tick-Tack der Hemmung und ein weicher, tiefer Glockenton (≈ 0,9 s)
+chime-1, -2   Uhrwerk statt Gong beim Zugwechsel: Tick-Tack der Hemmung und ein leiser, kurzer Glockenton (≈ 0,9 s; seit 1.20.0 sanfter)
 coins-1, -2   Münzen fliegen aus der Goldanzeige: helles Klimpern, das auf einem Häufchen endet (≈ 0,6 s)
 seal-1, -2    Wachssiegel bricht: trockener Knacks, dumpfer Unterton, bröselnde Splitter (≈ 0,45 s)
 page-1, -2    Seite im Kartenbuch umblättern: Luftzug über Pergament und ein leises Klappen (≈ 0,4 s)
@@ -15,13 +15,14 @@ from spielgefuehl_klang import SR, biquad, t_of, write
 def chime(seed):
     rng = np.random.default_rng(seed); t = t_of(.95); s = np.zeros_like(t)
     # Tick-Tack: zwei kurze, gedämpfte Klicks der Hemmung.
-    for at, f0, amp in [(0, 2400, .5), (.11, 1900, .38)]:
+    for at, f0, amp in [(0, 2400, .42), (.11, 1900, .3)]:
         i = int(at * SR); n = int(SR * .012)
         s[i:i + n] += amp * biquad(rng.standard_normal(n), f0, 2.5) * np.hanning(n)
     # Weicher Glockenton (G4) mit wenigen, leisen Obertönen, langsamer Einsatz statt Anschlag.
     i = int(.17 * SR); tt = t[:len(t) - i]; f0 = 392 + seed % 2 * 49
-    bell = sum(a * np.sin(2 * np.pi * f0 * k * tt) * np.exp(-d * tt) for k, a, d in [(1, 1, 3.2), (2.0, .28, 5.5), (2.76, .12, 8), (4.07, .05, 12)])
-    s[i:] += .55 * bell * np.minimum(1, tt / .012)
+    # Rückmeldung 1.19.0 („immer noch etwas viel“): Glocke leiser und kürzer, das Tick-Tack trägt.
+    bell = sum(a * np.sin(2 * np.pi * f0 * k * tt) * np.exp(-d * tt) for k, a, d in [(1, 1, 4.8), (2.0, .2, 7), (2.76, .08, 10)])
+    s[i:] += .3 * bell * np.minimum(1, tt / .02)
     return s
 
 def coins(seed):

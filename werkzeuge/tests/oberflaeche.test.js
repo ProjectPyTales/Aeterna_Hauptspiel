@@ -128,12 +128,13 @@ test('Rückmeldung zu 1.18.0: weicheres Uhrwerk statt Gong, dezenterer Tod, Gold
  assert.match(render,/turn:'chime'/,'Zugwechsel klingt nach Uhrwerk');
  global.window=global.window||{};require(path.join(game,'service/audio.js'));const {levels}=window.CHA;
  // Lautestes 100-ms-Fenster je Datei (dBFS, werkzeuge/oberflaeche_klang.py) + Pegel.
- const measured={chime:-15,gong:-10.8,coins:-17.8,seal:-18.9,page:-20.5,parchment:-23.2,stone:-13.8},db=g=>measured[g]+20*Math.log10(levels[g]);
+ const measured={chime:-14.6,gong:-10.8,coins:-17.8,seal:-18.9,page:-20.5,parchment:-23.2,stone:-13.8},db=g=>measured[g]+20*Math.log10(levels[g]);
  assert.ok(db('chime')<=db('gong')-7,'Uhrwerk mindestens 7 dB leiser als der Gong: '+db('chime').toFixed(1));
  assert.ok(Math.abs(db('page')-db('parchment'))<2,'Umblättern wie das Pergament der Hand');
  assert.ok(db('coins')>db('stone')&&db('seal')>db('stone'),'Kauf kräftiger als ein Menü-Tipp');
  assert.match(render,/function glint\(c,w,h,t,i\)\{[^}]*\n c\.save\(\);c\.translate\(-w\/2,-h\/2\);c\.scale\(w\/200,h\/282\);R\.gatePath\(c\);c\.clip\(\)/,'Glanz liegt auf der Karte, nicht rechts darunter');
- assert.match(render,/type:'shatter',sp:u\.sp,x:u\.x,y:u\.y,start:t,life:560/,'Splitter kürzer');assert.match(render,/vx:cx\/len\*\(70\+r\*60\)/,'Splitter fliegen weniger weit');
- assert.match(render,/sound:ev\.building\?'slam':'scrape',x:pos\.x,gain:\.3/,'leiserer Fall-Laut');
+ // Seit 1.20.0 (Rückmeldung zu 1.19.0) noch ruhiger: tests/schluessel.test.js.
+ assert.match(render,/type:'shatter',sp:u\.sp,x:u\.x,y:u\.y,start:t,life:460/,'Splitter kürzer');assert.match(render,/vx:cx\/len\*\(55\+r\*45\)/,'Splitter fliegen weniger weit');
+ assert.match(render,/if\(ev\.building\)R\.fx\.push\(\{type:'sound',sound:'slam',x:pos\.x,gain:\.3/,'leiserer Fall-Laut, nur bei Bauwerken');
  assert.match(render,/function plateSize\(mine\)\{[^]*?measureText\(text\)[^]*?Math\.max\(mine\?460:380/,'die Tafel wächst mit ihrem Text');
 });

@@ -234,9 +234,17 @@ function sealArt(c,hero,can,back){const r=40,edge=()=>{c.beginPath();for(let i=0
  if(back){c.save();c.globalAlpha=.55;txt(c,hero.icon,0,2,30,'#2d2f33');c.restore();ellipse(c,0,0,r-14,r-14,null,'#2d2f3366',1);return;}
  powerIcon(c,hero.id,0,0);gem(c,-9,-39,16,'#347ac2',hero.cost);}
 // ASTRA: heldenmuenze – geprägte Bronzemünze des Helden mit Rändelung, Umschrift (Name) und Porträt, Spieler und Gegner, 400 × 400
-function coinArt(c,a,hero,skin,ready){const r=L.coin,idx=D.heroes.indexOf(hero);
+function coinArt(c,a,hero,skin,ready){
  c.save();if(ready){c.shadowColor='#70ff63';c.shadowBlur=22;}else{c.shadowColor='#160e09bb';c.shadowBlur=16;c.shadowOffsetY=7;}
- ellipse(c,0,0,r,r,grad(c,-r,-r,2*r,2*r,'#5e3f1c','#f0cd85'),'#2e2012',3);c.restore();
+ medal(c,hero,skin);c.restore();
+ heart(c,50,52,23,a.health);
+ if(a.armor)aspis(c,47,8,a.armor);
+ if(E.heroAttack(a)){ellipse(c,-50,52,23,23,'#e2bc55','#554521',3);number(c,E.heroAttack(a),-50,52,29);}
+ if(a.weapon)weaponRack(c,-124,18,a.weapon);}
+// The struck medal alone (AP 3.8: the coin of the Feldzug-Initiative and the relief that breaks use it too); the shadow
+// is the caller's.
+function medal(c,hero,skin){const r=L.coin,idx=D.heroes.indexOf(hero);
+ ellipse(c,0,0,r,r,grad(c,-r,-r,2*r,2*r,'#5e3f1c','#f0cd85'),'#2e2012',3);c.save();c.shadowColor='transparent';
  // Reeded edge, a raised rim with the name as legend, then the struck portrait.
  c.beginPath();for(let i=0;i<120;i++){const an=i*Math.PI/60;c.moveTo(Math.cos(an)*(r-6),Math.sin(an)*(r-6));c.lineTo(Math.cos(an)*(r-1.5),Math.sin(an)*(r-1.5));}c.strokeStyle='#3a291488';c.lineWidth=1.4;c.stroke();
  ellipse(c,0,0,r-7,r-7,grad(c,-r,-r,2*r,2*r,'#7d5a2a','#e8c47e'),'#4a3418',2);
@@ -246,11 +254,8 @@ function coinArt(c,a,hero,skin,ready){const r=L.coin,idx=D.heroes.indexOf(hero);
  c.save();c.beginPath();c.arc(0,0,51,0,Math.PI*2);c.clip();R.tile(c,skin,idx,-61,-68,122,130,hero);
  const relief=c.createLinearGradient(-47,-52,47,52);relief.addColorStop(0,'#fff1b822');relief.addColorStop(.45,'#00000000');relief.addColorStop(1,'#160b0a66');c.fillStyle=relief;c.fillRect(-52,-52,104,104);c.restore();
  ellipse(c,0,0,51,51,null,'#3a2810',2);
- legend(c,hero.name.toUpperCase(),r-13.5);
- heart(c,50,52,23,a.health);
- if(a.armor)aspis(c,47,8,a.armor);
- if(E.heroAttack(a)){ellipse(c,-50,52,23,23,'#e2bc55','#554521',3);number(c,E.heroAttack(a),-50,52,29);}
- if(a.weapon)weaponRack(c,-124,18,a.weapon);}
+ legend(c,hero.name.toUpperCase(),r-13.5);c.restore();}
+R.medal=medal;
 // The legend runs clockwise along the upper rim, letter by letter, struck into the bronze (light edge below, dark cut).
 // Each letter takes its measured width, so wide and narrow letters keep even gaps; a long name gets a smaller size
 // instead of running into the badges.
@@ -269,17 +274,6 @@ function weaponRack(c,x,y,w){c.save();c.shadowColor='#160e09aa';c.shadowBlur=10;
  round(c,-12,12,24,5,2,'#c9a052','#4a3418',1);round(c,-2.5,17,5,12,2,'#5a3d1e');ellipse(c,0,31,4,4,'#c9a052','#4a3418',1);c.restore();
  ellipse(c,x-20,y+38,15,15,'#e2bc55','#554521',2.5);number(c,w.attack,x-20,y+39,21);
  c.beginPath();c.moveTo(x+8,y+25);c.lineTo(x+34,y+25);c.lineTo(x+34,y+40);c.quadraticCurveTo(x+33,y+51,x+21,y+56);c.quadraticCurveTo(x+9,y+51,x+8,y+40);c.closePath();c.fillStyle=grad(c,x+8,y+25,26,31,'#5d686e','#dfe6e8');c.fill();c.strokeStyle='#262e33';c.lineWidth=2.5;c.stroke();number(c,w.durability,x+21,y+39,19);}
-// Starre: hoarfrost over the plaque and a snowflake on top.
-// ASTRA: starre-reif – Raureif über einem Diener in Starre, 188 × 256
-function frost(c){c.save();const g=c.createRadialGradient(0,0,20,0,0,80);g.addColorStop(0,'#d6f1ff38');g.addColorStop(1,'#e9f8ffb0');round(c,-47,-64,94,128,7,g,'#eefaff',3);c.strokeStyle='#ffffffb0';c.lineWidth=1.4;
- for(const [x,y,a] of [[-40,-56,.6],[40,-56,2.5],[-40,50,-.6],[40,50,-2.5]]){c.beginPath();for(let i=0;i<3;i++){const r=10+i*4,an=a+(i-1)*.45;c.moveTo(x,y);c.lineTo(x+Math.cos(an)*r,y+Math.sin(an)*r);}c.stroke();}
- ellipse(c,-31,-46,13,13,'#1d3a52d0','#eaf8ff',1.5);c.font='19px Body,serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#eaf8ff';c.fillText('❄',-31,-45);c.restore();}
-// ASTRA: schildwall-rahmen – Schildrahmen mit Wappen für Diener mit Schildwall, 240 × 330
-function tauntFrame(c){
- c.beginPath();c.moveTo(-60,-73);c.lineTo(-34,-73);c.lineTo(-25,-79);c.lineTo(25,-79);c.lineTo(34,-73);c.lineTo(60,-73);c.lineTo(60,47);c.quadraticCurveTo(57,65,0,83);c.quadraticCurveTo(-57,65,-60,47);c.closePath();
- c.strokeStyle='#352a20';c.lineWidth=12;c.stroke();c.strokeStyle=grad(c,-60,-78,120,160,'#755134','#e5c48b');c.lineWidth=8;c.stroke();
- for(const xx of [-59,59])for(const yy of [-65,30])ellipse(c,xx,yy,2.5,2.5,'#ffdf9d','#60442d',1);
-}
 function tauntCrest(c){
  c.save();c.shadowColor='#20160dcc';c.shadowBlur=4;c.shadowOffsetY=2;
  c.beginPath();c.moveTo(-18,-83);c.lineTo(18,-83);c.lineTo(17,-64);c.quadraticCurveTo(14,-52,0,-46);c.quadraticCurveTo(-14,-52,-17,-64);c.closePath();
@@ -468,6 +462,7 @@ R.units={};
 function minion(c,s,p,u,x,y,selected,targets,t){
  const card=D.byId[u.id],ready=p===s.active&&E.canAttack(u)&&s.phase==='play',aim=targets.includes(u.uid),ms=L.minionScale;
  const sp=plaqueSprite(u,card,ready,selected,aim);c.save();c.translate(x,y);c.scale(ms,ms);R.blit(c,sp);c.restore();
+ if(u.shield)window.CHF.aura(c,x,y,t,ms);
  R.positions[u.uid]={x,y};R.units[u.uid]={u,card,x,y,p,sp,seen:t};
  hit(u.uid,x-57*ms,y-72*ms,114*ms,146*ms,{kind:'target',idCard:u.id});
  return ready;
@@ -476,7 +471,9 @@ function minion(c,s,p,u,x,y,selected,targets,t){
 function plaque(c,u,card,ready,selected,aim){
  c.save();c.shadowColor='#301b12aa';c.shadowBlur=13;
  ellipse(c,0,69,47,8/L.minionScale,'#38271939');c.restore();
- const legend=card.rarity==='legendary',building=!!u.building;
+ const legend=card.rarity==='legendary',building=!!u.building,K=window.CHF;
+ // AP 3.6: Schildwall as a wooden and a bronze shield behind the plaque, Vermächtnis as an urn below it.
+ if(u.taunt)K.shieldWall(c);if(card.death&&!u.silenced&&!building)K.urn(c);
  if(ready||selected){c.shadowColor=selected?'#ffda67':'#76ff4d';c.shadowBlur=20;}
  round(c,-51,-68,102,136,9,grad(c,-51,-68,102,136,'#292824',building?'#a9a397':legend?'#b38c4e':'#79654e'),'#28231f',3);
  c.shadowBlur=0;
@@ -484,15 +481,16 @@ function plaque(c,u,card,ready,selected,aim){
  round(c,-44,-61,88,119,5,'#25221d','#1a1816',2);
  c.save();c.beginPath();c.roundRect(-43,-60,86,116,4);c.clip();
  R.tile(c,card.art,card.cell,-56,-60,112,116,card);c.restore();
- if(u.stealth){round(c,-43,-60,86,116,4,'#0c120ec0');c.save();c.globalAlpha=.5;for(const [xx,yy,r] of [[-26,-30,22],[24,-8,26],[-10,30,24]]){ellipse(c,xx,yy,r,r*.55,'#1f2b1d');}c.restore();}
+ if(u.stealth)K.stealth(c);
  if(u.silenced)round(c,-43,-60,86,116,4,'#a8a29a66');
  // Raised corner rivets and a dark inner bevel keep the artwork dominant.
  for(const xx of [-47,47])for(const yy of [-64,64])ellipse(c,xx,yy,1.8,1.8,'#dac499');
  round(c,-43,-60,86,116,4,null,'#201b18aa',2);
- if(u.taunt)tauntFrame(c);
  if(card.rarity!=='basic'&&card.rarity!=='token')gem(c,0,61,legend?8:6,rarityColor[card.rarity]);
- if(u.shield){c.shadowColor='#ffdb73';c.shadowBlur=12;round(c,-56,-73,112,146,12,null,'#fff3b3',3);c.shadowBlur=0;round(c,-56,-73,112,146,12,'#fff19a24');}
- if(u.frozen)frost(c);
+ // Göttliche Gunst: a ring of light around the plaque; two lights run round it in every picture (CHF.aura).
+ if(u.shield)K.ring(c);
+ if(u.frozen)K.frost(c);
+ if(u.poison)K.vial(c);
  if(u.taunt)tauntCrest(c);
  if(building){// Bauwerk: no attack, durability on a stone tower badge.
   round(c,-24,41,48,34,8,grad(c,-24,41,48,34,'#6f6a62','#cfc8ba'),'#3a3631',2.5);txt(c,'♜',-11,58,17,'#3a3631');number(c,u.health,9,59,24);}
@@ -502,7 +500,8 @@ function plaque(c,u,card,ready,selected,aim){
  if(!u.ready&&u.attacks===0&&!building)txt(c,'z',34,-50,22,'#346f29');
  // Keyword marks between the stats: Vermächtnis, effect at turn end, Vorstoß, Doppelschlag, Arkaner Fokus.
  // 1.8.0: ◐ Tarnung, ♥ Plünderung, ⚗ Tödliches Gift, ⊘ Bannung (the card's own marks are gone).
- const own=!u.silenced;const marks=[own&&card.death&&['☠','#e6d6b3'],own&&(card.passive||card.start||card.end||card.onHeal||card.allyHeal)&&['✦','#d8c9fa'],u.rush&&['➤','#ffd27a'],u.double&&['⚔','#ffe3b0'],own&&card.focus&&['✧'+card.focus,'#a9dcff'],u.stealth&&['◐','#b9d3a8'],u.plunder&&['♥','#ff8f7a'],u.poison&&['⚗','#9cf07a'],u.silenced&&['⊘','#d5d0c8']].filter(Boolean);
+ // 1.20.0 (AP 3.6): the urn, the phial and the undergrowth replace ☠, ⚗ and ◐.
+ const own=!u.silenced;const marks=[own&&(card.passive||card.start||card.end||card.onHeal||card.allyHeal)&&['✦','#d8c9fa'],u.rush&&['➤','#ffd27a'],u.double&&['⚔','#ffe3b0'],own&&card.focus&&['✧'+card.focus,'#a9dcff'],u.plunder&&['♥','#ff8f7a'],u.silenced&&['⊘','#d5d0c8']].filter(Boolean);
  if(!building&&marks.length){const w=marks.reduce((n,[g])=>n+(g.length>1?24:17),6);round(c,-w/2,22,w,22,10,'#1d1712d9','#c9a96a',1.2);let xx=-w/2+3;
   for(const [g,col] of marks){const gw=g.length>1?24:17;txt(c,g,xx+gw/2,33,g.length>1?13:15,col);xx+=gw;}}
  if(ready&&!selected)round(c,-55,-72,110,144,11,null,'#8dff6a',2.5);
@@ -581,7 +580,7 @@ const pumpSprite=()=>R.sprite('pump',-30,-30,60,60,g=>{const gr=g.createRadialGr
 // Shards of a broken plaque: triangles from an off-centre point to the outline, each with its own push and spin.
 const SHARDS=(()=>{const o=[-8,-14],rim=[[-60,-82],[-14,-82],[26,-82],[60,-82],[60,-28],[60,26],[60,84],[16,84],[-28,84],[-60,84],[-60,24],[-60,-30]],out=[];
  rim.forEach((a,i)=>{const b=rim[(i+1)%rim.length],cx=(o[0]+a[0]+b[0])/3,cy=(o[1]+a[1]+b[1])/3,len=Math.hypot(cx,cy)||1,r=(i*37%11)/11;
-  out.push({pts:[o,a,b],cx,cy,vx:cx/len*(70+r*60),vy:cy/len*(50+r*40)-90,spin:(r-.5)*4});});return out;})();
+  out.push({pts:[o,a,b],cx,cy,vx:cx/len*(55+r*45),vy:cy/len*(40+r*30)-70,spin:(r-.5)*3.2});});return out;})();
 // Each shard is the plaque's last picture (R.units) under a triangular clip – nothing new has to be painted when a unit dies.
 function shatter(c,f,t){const e=(t-f.start)/1000,q=(t-f.start)/f.life,k=L.minionScale;
  c.save();c.globalAlpha=q<.35?1:Math.max(0,1-(q-.35)/.65);
@@ -610,6 +609,7 @@ function effects(c,t,floor){
   if(f.type==='cracks'){const s=(.7+.6*f.weight)*Math.min(1,.4+(t-f.start)/150);c.save();c.globalAlpha=q<.65?1:1-(q-.65)/.35;c.translate(f.x,f.y);c.scale(s,s);R.blit(c,crackSprite(f.seed%3));c.restore();}
   else if(f.type==='dust')dust(c,f,t);
   else if(f.type==='shatter')shatter(c,f,t);
+  else if(window.CHF.paint[f.type])window.CHF.paint[f.type](c,f,t);
   else if(f.type==='pump'){const pos=R.positions[f.target];if(!pos)continue;const hero=/^h[01]$/.test(f.target),k=hero?L.heroScale(+f.target[1]):L.minionScale,
     beat=q<.45?Math.sin(q/.45*Math.PI):.6*Math.sin((q-.45)/.55*Math.PI);if(beat<=0)continue;
    c.save();c.globalAlpha=.8*beat;c.translate(pos.x+(hero?50:36.5)*k,pos.y+(hero?58:59)*k);c.scale(1+.5*beat,1+.5*beat);R.blit(c,pumpSprite());c.restore();}
@@ -617,7 +617,7 @@ function effects(c,t,floor){
    c.save();c.globalAlpha=Math.pow(1-q,.7)*.9;c.translate(f.x,f.y-6);const ik=.7+.45*T.ease.outCubic(Math.min(1,e/220));c.scale(ik,ik);R.blit(c,inkSprite(f.seed%3));c.restore();
    c.save();c.globalAlpha=q<.6?1:1-(q-.6)/.4;c.translate(f.x,f.y-q*34);c.scale(s,s);R.blit(c,redNumber('−'+f.n));c.restore();}
   else if(f.type==='heal'){c.save();c.globalAlpha=1-q;number(c,'+'+f.n,f.x,f.y-q*60,40);c.restore();}
-  else if(['death','buff','shield','freeze','steal'].includes(f.type)){for(let i=0;i<14;i++){const ang=i*2.4,r=q*(f.type==='death'?110:65);c.globalAlpha=1-q;ellipse(c,f.x+Math.cos(ang)*r,f.y+Math.sin(ang)*r,4*(1-q)+1,4*(1-q)+1,f.type==='death'?'#d9b986':f.type==='freeze'?'#e8f8ff':f.type==='steal'?'#f0c463':'#a2e6ee');}c.globalAlpha=1;}
+  else if(['death','buff','steal'].includes(f.type)){for(let i=0;i<14;i++){const ang=i*2.4,r=q*(f.type==='death'?110:65);c.globalAlpha=1-q;ellipse(c,f.x+Math.cos(ang)*r,f.y+Math.sin(ang)*r,4*(1-q)+1,4*(1-q)+1,f.type==='death'?'#d9b986':f.type==='steal'?'#f0c463':'#a2e6ee');}c.globalAlpha=1;}
   else if(f.type==='impact'){c.save();c.globalAlpha=1-q;c.globalCompositeOperation='screen';ellipse(c,f.x,f.y,18+q*54,12+q*37,null,'#ffe7b0',4*(1-q)+1);for(let i=0;i<9;i++){const an=i*2.399+f.x,rad=12+q*86;c.strokeStyle=i%2?'#fff5d7':'#ffb449';c.lineWidth=3*(1-q)+.5;c.beginPath();c.moveTo(f.x+Math.cos(an)*rad*.55,f.y+Math.sin(an)*rad*.55);c.lineTo(f.x+Math.cos(an)*rad,f.y+Math.sin(an)*rad);c.stroke();}c.restore();}}}
 // ---------- The picture ----------
 // t is the match clock (anim.js): tempo, hit stop. handInfo comes from the view model (Match.hand): cost, playable, boost.
@@ -646,7 +646,7 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  dial(c,0,a,t);dial(c,1,b,t);strip(c,log,t);
  hand(c,s,view,handInfo,t,gold);
  const ownHero=CHM.pose('h0',{x:L.center,y:L.heroY[0]},t);R.positions.h0=ownHero;R.positions.power0=L.powerPosition(0,ownHero.x,ownHero.y);
- const rivalHero=CHM.pose('h1',{x:L.center,y:L.heroY[1]},t);portrait(c,s,1,rivalHero.x,rivalHero.y,t);
+ const rivalHero=CHM.pose('h1',{x:L.center,y:L.heroY[1]},t),K=window.CHF;if(!K.hidden(1))portrait(c,s,1,rivalHero.x,rivalHero.y,t);
  for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,'#f5473b',4);}
  // The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
  if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
@@ -657,26 +657,33 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
   if(d.cardId)dragged(c,d,t,gold);
   if(needsArrow){const start=d.cardId?{x:d.x,y:d.y-82}:R.positions[view.selected.uid]||R.positions.power0,end=d.target?R.positions[d.target]:{x:d.pointerX,y:d.pointerY};if(start&&end)route(c,start,end,!!d.target,t);}}
  // Own portrait, frame, armor, health and power always stay above card flights/drags.
- portrait(c,s,0,ownHero.x,ownHero.y,t);
+ if(!K.hidden(0))portrait(c,s,0,ownHero.x,ownHero.y,t);
  if(targets.includes('h0'))ellipse(c,ownHero.x,ownHero.y,74*L.heroScale(0),86*L.heroScale(0),null,'#f5473b',4);
  if(view.drag?.target==='h0')pulse(c,'h0',t);
  effects(c,t,false);
  turnPlate(c,s,t);
+ // AP 3.8: the opening (heroes, chronicler, coin) and the close (relief, banner) lie over everything.
+ K.draw(c,s,t);
  c.restore();
 };
+// Drawing helpers for the keyword effects and the opening and close (fx.js).
+R.paint={round,ellipse,grad,txt,number,sparkle,powerIcon};
 const hash=s=>String(s).split('').reduce((n,ch)=>n*31+ch.charCodeAt(0)>>>0,7);
 R.events=(events,settings)=>{const t=T.clock.now(),played=new Set(),fx=settings.particles!==false;
  for(const ev of events){const pos=R.positions[ev.target]||R.positions['h'+(ev.p||0)]||{x:800,y:400};
+  // Keyword effects of this event (AP 3.6): Göttliche Gunst shatters, Starre, Tödliches Gift, the urn of a Vermächtnis.
+  const own=window.CHF.event(ev,pos,t,fx);
   if(ev.type==='death'){const u=R.units[ev.target];
-   if(fx){if(u)R.fx.push({type:'shatter',sp:u.sp,x:u.x,y:u.y,start:t,life:560});else R.fx.push({type:'death',x:pos.x,y:pos.y,start:t,life:560});R.fx.push({type:'dust',x:pos.x,y:pos.y+40,weight:.05,start:t,life:520});}
-   // The fall after the break: a building crashes down, a unit's shards scrape over the table.
-   R.fx.push({type:'sound',sound:ev.building?'slam':'scrape',x:pos.x,gain:.3,start:t+200,life:400});}
+   // Feedback 1.19.0 („immer noch etwas viel“): shorter, closer shards, no dust; only a building still crashes down.
+   if(fx){if(u)R.fx.push({type:'shatter',sp:u.sp,x:u.x,y:u.y,start:t,life:460});else R.fx.push({type:'death',x:pos.x,y:pos.y,start:t,life:460});if(ev.building)R.fx.push({type:'dust',x:pos.x,y:pos.y+40,weight:.05,start:t,life:520});}
+   if(ev.building)R.fx.push({type:'sound',sound:'slam',x:pos.x,gain:.3,start:t+200,life:400});}
   if(fx){if(ev.type==='damage'){R.fx.push({type:'damage',n:ev.n,x:pos.x,y:pos.y-18,seed:hash(ev.target),start:t,life:1050});R.fx.push({type:'pump',target:ev.target,start:t,life:560});}
    else if(ev.type==='heal')R.fx.push({type:'heal',n:ev.n,x:pos.x,y:pos.y,start:t,life:750});
-   else if(['buff','shield','freeze','steal'].includes(ev.type))R.fx.push({...ev,x:pos.x,y:pos.y,start:t,life:750});
+   else if(['buff','steal'].includes(ev.type))R.fx.push({...ev,x:pos.x,y:pos.y,start:t,life:750});
    if(ev.type==='attack'||ev.type==='damage')R.fx.push({type:'impact',x:pos.x,y:pos.y,start:t,life:280});}
   // A unit's own blow (AP 3.5): blades, hooves or a lance; a played minion's thud comes from the landing (motion.js).
-  const sound={attack:R.hitSound(R.units[ev.source]?.card),damage:'hit',heal:'heal',death:ev.building?'slam':'destroy',shield:'armor',power:'power',play:ev.spell?'fire':null,draw:'draw',weapon:'sword',turn:'chime',armor:'armor',freeze:'channel',steal:'power',discover:'draw',echo:'fire',choice:'pack'}[ev.type];
-  if(sound&&!played.has(sound)){CHA.play(sound,{x:pos.x,gain:ev.type==='damage'&&events.some(e=>e.type==='attack')?.55:1});played.add(sound);}}
+  const sound=own?null:{attack:R.hitSound(R.units[ev.source]?.card),damage:'hit',heal:'heal',death:ev.building?'slam':'destroy',power:'power',play:ev.spell?'fire':null,draw:'draw',weapon:'sword',turn:'chime',armor:'armor',steal:'power',discover:'draw',echo:'fire',choice:'pack'}[ev.type];
+  // Feedback 1.19.0: the clockwork at a change of turn is softer for the rival's turn; a unit's death is quieter.
+  if(sound&&!played.has(sound)){CHA.play(sound,{x:pos.x,gain:ev.type==='damage'&&events.some(e=>e.type==='attack')?.55:ev.type==='turn'&&ev.p===1?.6:ev.type==='death'&&!ev.building?.7:1});played.add(sound);}}
 };
 })();

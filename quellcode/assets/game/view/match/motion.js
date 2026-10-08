@@ -32,7 +32,7 @@ M.begin=(before,after,action,origin,impact,done)=>{
  if(type==='power')CHA.play('channel',{x:939,gain:.4});
  return duration;
 };
-M.busy=()=>!!M.transition;
+M.busy=()=>!!M.transition||window.CHF.busy();
 M.remaining=()=>M.transition?Math.max(0,M.transition.duration-(now()-M.transition.at)):0;
 M.cancel=(clearReturns=true)=>{if(M.transition&&!M.transition.hit){M.transition.hit=true;/* State is already saved; cancel visual effects when leaving. */}M.transition=null;M.draws=[];M.burns=[];M.drains=[];if(clearReturns)M.returns=[];};
 // The moment of impact: hit stop and shake by weight, dust and cracks where a card lands (AP 3.3), and what the action
@@ -43,6 +43,8 @@ function impact(x,t){const {action,card,weight,after,before}=x;
   CHR.fx.push({type:'dust',x:x.to.x,y:x.to.y+58,weight,start:t,life:900});if(weight>=.3)CHR.fx.push({type:'cracks',x:x.to.x,y:x.to.y+40,weight,seed:x.id,start:t,life:1700});}
  if(action.type==='attack'){const n=Math.max(0,...after.events.filter(e=>e.type==='damage'&&e.target===action.target).map(e=>e.n));
   T.clock.stop(50+Math.min(30,n*6));T.shake.add(.3+Math.min(.35,n*.05));}
+ // AP 3.6: a spell bursts in the colours of its element, a hero power in its own effect, where they land.
+ if(card?.type==='spell'||action.type==='power')window.CHF.cast(x,t);
  for(const p of [0,1]){const known=new Set(before.players[p].hand.map(h=>h.uid));
   after.players[p].hand.forEach((h,slot)=>{if(!known.has(h.uid))M.draws.push({uid:h.uid,id:h.id,p,slot,at:t+M.draws.filter(f=>f.p===p&&f.at>=t).length*110,duration:560});});
   if(after.players[p].fatigue>(before.players[p].fatigue||0))M.drains.push({p,n:after.players[p].fatigue,at:t,duration:1150});}
@@ -78,6 +80,10 @@ M.insertion=()=>{const x=M.transition;return x&&!x.hit&&x.card?.type==='minion'&
 M.hiddenHand=uid=>M.returns.some(f=>f.uid===uid)||M.draws.some(f=>f.uid===uid)||(M.transition&&!M.transition.hit&&M.transition.action.uid===uid&&M.transition.card);
 // Sealed orders still in flight from the rival's deck are not yet in his row.
 M.pendingOrders=()=>M.draws.filter(f=>f.p===1).length;
+// AP 3.8: after the starting hand the new cards fly from the pile into the hand; the Gunst der Stunde of the second
+// player comes face up from the middle of the table, where the coin of the Feldzug-Initiative fell.
+M.deal=(before,after)=>{const t=now();for(const p of [0,1]){const known=new Set(before.players[p].hand.map(h=>h.uid));let n=0;
+ after.players[p].hand.forEach((h,slot)=>{if(known.has(h.uid))return;const coin=h.id==='coin';M.draws.push({uid:h.uid,id:h.id,p,slot,at:t+(coin?260:n++*110),duration:coin?700:560,...(coin&&p===0?{from:{x:800,y:400}}:{})});});}};
 M.rebound=(drag,s)=>{M.returns=M.returns.filter(f=>f.uid!==drag.uid);M.returns.push({uid:drag.uid,id:drag.cardId,from:{x:drag.x,y:drag.y,w:drag.w||L.dragWidth,angle:drag.angle||0},at:now(),duration:290});CHA.play('return',{x:drag.x,gain:.45});};
 // A card in the air: its cast shadow (pre-rendered sprite, AP 2.4) falls further away the higher it is (lift 0…1). It
 // shows its back (o.back, the equipped card back) or face; o.sx < 1 turns it about its upright axis, o.gold gilds it.
@@ -104,13 +110,14 @@ M.overlay=(c,s,t,gold)=>{
   else M.floatCard(c,x.card.id,mix(above.x,to.x,ph.q),mix(above.y,to.y,ph.q),mix(liftW,70,ph.q),0,1-ph.q*.85,{lift:1-ph.q,gold:g});}
  // The ether orb of a power or a spell on its way to the target.
  const orb=x&&!x.hit&&(x.action.type==='power'||x.card?.type==='spell');
- if(orb&&(x.action.type==='power'||x.line.at(t-x.at).name==='cast')){const q=x.card?x.line.at(t-x.at).q:clamp((t-x.at)/x.hitAt),from=x.card?{x:x.to.x,y:x.to.y-110}:M.position(x.before,'power'+x.p),to=x.to;c.save();c.globalCompositeOperation='screen';const ox=mix(from.x,to.x,q),oy=mix(from.y,to.y,q)-Math.sin(q*Math.PI)*65;const gr=c.createRadialGradient(ox,oy,0,ox,oy,32);gr.addColorStop(0,'#fff8d6');gr.addColorStop(.25,'#70d6ff');gr.addColorStop(1,'#55aaff00');c.fillStyle=gr;c.beginPath();c.arc(ox,oy,32,0,Math.PI*2);c.fill();c.restore();}
+ // AP 3.6: its colours come from the element of the spell or the power of the hero, the path from the power (fx.js).
+ if(orb&&(x.action.type==='power'||x.line.at(t-x.at).name==='cast')){const q=x.card?x.line.at(t-x.at).q:clamp((t-x.at)/x.hitAt),from=x.card?{x:x.to.x,y:x.to.y-110}:M.position(x.before,'power'+x.p);window.CHF.orb(c,x,q,from,x.to);}
  for(const f of M.returns){const q=ease.outCubic(clamp((t-f.at)/f.duration)),to=M.handPose(s,f.uid);M.floatCard(c,f.id,mix(f.from.x,to.x,q),mix(f.from.y,to.y,q),mix(f.from.w,L.handWidth,q),mix(f.from.angle,to.angle,q),1,{lift:1-q,gold});}
  // AP 3.4: a drawn card leaves the parchment pile face down, turns over at the top of its arc and settles into the hand;
  // the rival's flies into his row of sealed orders and stays hidden.
  for(const f of M.draws){const e=t-f.at;if(e<0)continue;const q=clamp(e/f.duration),deck=M.deckPosition(f.p);
-  if(f.p===0){const to=M.handPose(s,f.uid),peak={x:1262,y:452},a=ease.outCubic(clamp(q/.6)),b=ease.inOutCubic(clamp((q-.6)/.4)),turn=clamp((q-.24)/.36);
-   const px=q<.6?mix(deck.x,peak.x,a):mix(peak.x,to.x,b),py=q<.6?mix(deck.y,peak.y,a)-Math.sin(a*Math.PI)*30:mix(peak.y,to.y,b);
+  if(f.p===0){const to=M.handPose(s,f.uid),peak=f.from?{x:mix(f.from.x,to.x,.4),y:f.from.y-60}:{x:1262,y:452},a=ease.outCubic(clamp(q/.6)),b=ease.inOutCubic(clamp((q-.6)/.4)),turn=f.from?1:clamp((q-.24)/.36);
+   const start=f.from||deck,px=q<.6?mix(start.x,peak.x,a):mix(peak.x,to.x,b),py=q<.6?mix(start.y,peak.y,a)-Math.sin(a*Math.PI)*30:mix(peak.y,to.y,b);
    M.floatCard(c,f.id,px,py,q<.6?mix(60,196,a):mix(196,L.handWidth,b),q<.6?mix(.35,-.04,a):mix(-.04,to.angle,b),1,{back:turn<.5,sx:Math.abs(Math.cos(turn*Math.PI)),lift:q<.6?a:1-b,gold});}
   else{const to=M.orderPosition(f.slot),k=ease.inOutCubic(q);M.floatCard(c,f.id,mix(deck.x,to.x+4,k),mix(deck.y,to.y+40,k)-Math.sin(q*Math.PI)*70,mix(60,48,k),mix(-.3,0,k),1-ease.inQuad(clamp((q-.8)/.2))*.6,{back:true,lift:Math.sin(q*Math.PI)});}}
  // A card that does not fit into a full hand rises from the pile, shows itself and burns to ash from below.

@@ -122,6 +122,9 @@ async function basar(page,cmpPage,cdp){
    await page.locator('.mulligan-card').first().click();await settle(page,50);
    const toggled=await page.evaluate(()=>({markiert:document.querySelectorAll('.mulligan-card.replace').length,neueBilder:[...document.querySelectorAll('#overlay img')].filter(i=>!i.__vorher).length}));
    check('Starthand: Auswahl ohne neue Bilder (AP 2.3)',toggled.markiert===1&&toggled.neueBilder===0,{karten:mull,...toggled});
+   // AP 3.8: Startbefehle als Schriftrollen (zwei Stäbe je Karte) neben dem Deck; bei reduzierter Bewegung ohne Intro.
+   const rollen=await page.evaluate(()=>({staebe:document.querySelectorAll('.mulligan-card .rod').length,deck:!!document.querySelector('.mulligan-deck')}));
+   check('Starthand: Schriftrollen und Deck (AP 3.8)',rollen.staebe===2*mull&&rollen.deck,rollen);
    await shot(page,cmpPage,'09-starthand');
    await page.locator('.mulligan-card').first().click();
    await page.locator('#overlay button',{hasText:'Beginnen'}).click();
@@ -131,6 +134,8 @@ async function basar(page,cmpPage,cdp){
    await page.locator('#overlay button',{hasText:'Aufgeben'}).click();await page.waitForSelector('#overlay .modal');
    await page.locator('#overlay button',{hasText:'Aufgeben'}).click();await page.waitForSelector('#overlay .result');await settle(page,200);
    check('Aufgeben endet als Niederlage',await page.evaluate(()=>App.profile.game.phase==='over'&&App.profile.game.winner===1));
+   const lohn=await page.evaluate(()=>({banner:document.querySelector('.result-banner')?.textContent,balken:document.querySelectorAll('.reward-bar').length}));
+   check('Ergebnis: Banner und Fortschrittsbalken (AP 3.8)',lohn.banner==='NIEDERLAGE'&&lohn.balken>=4,lohn);
    await shot(page,cmpPage,'12-ergebnis');
    await page.locator('#overlay button',{hasText:'Zum Hauptmenü'}).click();await waitScreen(page,'menu');
    check('Zurück im Hauptmenü',await screen(page)==='menu');

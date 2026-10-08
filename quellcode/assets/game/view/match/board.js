@@ -8,7 +8,13 @@ window.AEMatchView=function(canvas,vm,ui){
  const ctx=canvas.getContext('2d');
  // What the view model may ask of the board (ctx.board).
  const board={busy:()=>M.busy(),begin:(...args)=>M.begin(...args),rebound:(d,s)=>M.rebound(d,s),
-  cancel:()=>{M.cancel();R.fx=[];},events:events=>R.events(events,vm.profile.settings),effect:fx=>R.fx.push({...fx,start:T.clock.now()})};
+  cancel:()=>{M.cancel();R.fx=[];CHF.cancel();},events:events=>R.events(events,vm.profile.settings),effect:fx=>R.fx.push({...fx,start:T.clock.now()}),
+  // AP 3.8: opening (heroes, chronicler, coin), the rolled-back starting orders, the new cards, the close. done follows
+  // at once under reduced motion.
+  present:(kind,info,done=()=>{})=>{if(kind==='deal'){M.deal(info.before,info.after);done();}
+   else if(kind==='mulligan'){if(window.AEP?.reducedMotion?.())done();else setTimeout(done,ROLL/(vm.profile.settings.speed||1));}
+   else CHF.present(kind,info,done);}};
+ const ROLL=720;
 
  let down=null,holdTimer=null,held=false;
  const coord=ev=>{const r=canvas.getBoundingClientRect();return {x:(ev.clientX-r.left)/r.width*1600,y:(ev.clientY-r.top)/r.height*800};};
@@ -18,7 +24,7 @@ window.AEMatchView=function(canvas,vm,ui){
  function release(id){if(id!=null&&canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);}
  function cancel(){clearTimeout(holdTimer);vm.cancelDrag();vm.release();const id=down?.id;down=null;held=false;vm.touching=false;release(id);}
 
- canvas.addEventListener('pointerdown',ev=>{if(ui.screen()!=='game'||ui.dialogOpen()||down||M.busy())return;ui.unlockAudio();
+ canvas.addEventListener('pointerdown',ev=>{if(ui.screen()!=='game'||ui.dialogOpen()||down)return;ui.unlockAudio();if(CHF.busy()){CHF.skip();return;}if(M.busy())return;
   const p=coord(ev),hit=R.hit(p.x,p.y);down={...p,hit,id:ev.pointerId,pose:hit?.kind==='hand'?{...R.positions[hit.id]}:null};
   held=false;vm.touching=true;canvas.setPointerCapture(ev.pointerId);vm.press(hit);
   holdTimer=setTimeout(()=>{if(!down)return;held=true;vm.longPress(hit);},500);});

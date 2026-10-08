@@ -1,8 +1,10 @@
 // Messlauf für den Match-Renderer (AP 2.4) im Handyformat (915 × 412, Pixeldichte 2,6).
-// Baut ein volles Match auf – 7 Diener je Seite (mit Schildwall, Göttlicher Gunst, Starre, Tarnung), 10 Handkarten, die
-// alle spielbar leuchten – und misst je 3 s ohne und mit 4× gedrosselter CPU:
-//   ruhe      – nur die Bildschleife (atmende Diener, leuchtende Karten)
-//   gefecht   – dazu alle 250 ms Treffer, Tod und Heilung mit Partikeln (wie ein Schlagabtausch)
+// Baut ein volles Match auf – 7 Diener je Seite (seit 1.20.0 mit allen Schlüsselwörtern aus AP 3.6: Schildwall, Göttliche
+// Gunst, Starre, Tarnung, Tödliches Gift, Vermächtnis), 10 Handkarten, die alle spielbar leuchten – und misst je 3 s ohne
+// und mit 4× gedrosselter CPU:
+//   ruhe      – nur die Bildschleife (atmende Diener, leuchtende Karten, schimmernde Gunst)
+//   gefecht   – dazu alle 250 ms Treffer, Tod und Heilung mit Partikeln, Gunst zerspringt, Starre, Gift und ein
+//               Zauber-Ausbruch je Element (wie ein Schlagabtausch)
 // Gemessen werden die Zeit, die R.draw je Bild braucht (Frame-Zeit), die Abstände der Bilder und wie viele Bilder die
 // Schleife wirklich zeichnet. Werte aus der Emulation (Desktop-Chromium ohne GPU) – auf dem Gerät mit dem FPS-Overlay
 // gegenprüfen.
@@ -22,7 +24,7 @@ const profile=JSON.stringify({...P.fresh(),seed:424242,helpSeen:true});
 function fill(){const s=App.profile.game,E=CHE;
  const mine=['neutral_10','neutral_4','leonidas_10','neutral_9','neutral_6','neutral_7','neutral_5'],theirs=['neutral_0','neutral_3','neutral_8','neutral_45','neutral_43','neutral_2','neutral_1'];
  for(const [p,ids] of [[0,mine],[1,theirs]]){const a=s.players[p];a.board=[];for(const id of ids)E.summon(s,p,id);
-  a.board.forEach((u,i)=>{u.ready=true;u.attacks=0;u.fresh=false;if(i===1)u.shield=true;if(p===1&&i===2)u.frozen=true;});}
+  a.board.forEach((u,i)=>{u.ready=true;u.attacks=0;u.fresh=false;if(i===1)u.shield=true;if(p===1&&i===2)u.frozen=true;if(i===3)u.taunt=true;if(i===4)u.stealth=true;if(i===5)u.poison=true;});}
  const a=s.players[0],hand=['neutral_11','neutral_12','neutral_13','neutral_14','neutral_15','neutral_16','neutral_17','neutral_18','neutral_19','neutral_20'];
  a.hand=hand.map(id=>({id,uid:'c'+s.nextId++}));a.mana=a.maxMana=10;s.players[1].hand=s.players[1].hand.slice(0,5);s.events=[];}
 
@@ -32,7 +34,8 @@ async function measure(page,fight){
   const s=App.profile.game,ids=[...s.players[0].board,...s.players[1].board].map(u=>u.uid),end=last+3000;
   const loop=now=>{gaps.push(now-last);last=now;
    if(fight&&now>fx){fx=now+250;const t=ids[Math.floor(Math.random()*ids.length)],u=ids[Math.floor(Math.random()*ids.length)];
-    R.events([{type:'attack',target:t},{type:'damage',target:t,n:3},{type:'death',target:u},{type:'heal',target:'h0',n:2}],{particles:true});}
+    R.events([{type:'attack',target:t},{type:'damage',target:t,n:3},{type:'death',target:u},{type:'heal',target:'h0',n:2},{type:'shield',target:t},{type:'freeze',target:u},{type:'poison',target:t}],{particles:true});
+    const els=['fire','frost','light','gold','earth','arcane','shadow','nature'],pos=R.positions[t]||{x:800,y:400};R.fx.push({type:'burst',element:els[Math.floor(fx/250)%8],x:pos.x,y:pos.y,seed:Math.floor(fx)%97,start:CHT.clock.now(),life:900,n:11,size:1});}
    if(now<end)requestAnimationFrame(loop);else{R.draw=draw;const q=(d,k)=>{d=[...d].sort((a,b)=>a-b);return +d[Math.min(d.length-1,Math.floor(d.length*k))].toFixed(2);};
     const mean=d=>+(d.reduce((a,b)=>a+b,0)/d.length).toFixed(2);
     res({bilder:gaps.length,gezeichnet:times.length,frame_mittel_ms:mean(times),frame_p50_ms:q(times,.5),frame_p95_ms:q(times,.95),frame_max_ms:+Math.max(...times).toFixed(1),

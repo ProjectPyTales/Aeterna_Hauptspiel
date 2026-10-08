@@ -5,7 +5,10 @@
  *   {selected, inspect, targets, hint, drag, insertIndex, handIndex, press}
  * and hand(state) says per hand card what it costs, whether it is playable and whether a condition is met (AP 3.2).
  * Geometry (where the finger is: hand, drop zone, slot) comes from view/match/input.js; the board
- * presenter ctx.board animates (busy, begin, rebound, events, effect, cancel). */
+ * presenter ctx.board animates (busy, begin, rebound, events, effect, cancel, present). Since 1.20.0 (AP 3.8) a match
+ * opens with the heroes, the chronicler and the coin of the Feldzug-Initiative (opening), the replaced starting orders roll
+ * back into the deck (rolling) and a match closes with the broken relief and the banner before the result with its
+ * reward bars (finale, rewardBars). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
 const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP;
@@ -27,15 +30,33 @@ class Match extends Screen{
  get game(){return this.profile.game;}
  reset(){this.mull=new Set();this.view=idle();}
  enter(){this.view=idle();const s=this.game;if(!s)return;
-  if(s.phase==='mulligan')this.ui.dialog('mulligan',this);else if(s.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();}
- leave(){clearTimeout(this.aiTimer);this.cancelDrag();}
+  if(s.phase==='mulligan'){if(this.ui.busy())this.waiting=true;else this.open();}else if(s.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();}
+ // The board presents (ctx.board.present: opening, mulligan, deal, finale) and calls done when it is over – at once
+ // under reduced motion, and a board without the presenter (tests) goes straight on.
+ present(kind,info,done=()=>{}){const b=this.board;if(b.present)b.present(kind,info,done);else done();}
+ // The shell's transition (slabs, ring) is over: an opening that waited for it starts now, else the AI goes on.
+ arrived(){if(this.waiting){this.waiting=false;if(this.game?.phase==='mulligan')this.open();}else this.scheduleAI();}
+ // AP 3.8: the heroes face each other, the chronicler announces the battle, the coin decides who begins – once per game;
+ // then the starting hand.
+ open(){const s=this.game;if(this.opened===s){this.ui.dialog('mulligan',this);return;}this.opened=s;
+  this.present('opening',this.opening(s),()=>{if(this.ui.screen()==='game'&&this.game===s&&s.phase==='mulligan'&&!this.ui.dialogOpen())this.ui.dialog('mulligan',this);});}
+ // Names, epochs and the chronicler's line; first is the side the coin chose (the engine decided it at creation).
+ opening(s=this.game){const names=[0,1].map(p=>p===1&&s.mission!=null?D.missions[s.mission].boss:D.heroById[s.players[p].hero].name),m=s.mission!=null?D.missions[s.mission]:null;
+  const eras=[0,1].map(p=>p===1&&m?'Mission '+(s.mission+1):D.heroById[s.players[p].hero].era);
+  const line=m?'Mission '+(s.mission+1)+' · '+m.title+': '+names[0]+' stellt sich '+names[1]+'.':names[0]+' trifft auf '+names[1]+' – die Chronik schlägt eine neue Seite auf.';
+  return {names,eras,line,first:s.active,firstName:names[s.active]};}
+ leave(){clearTimeout(this.aiTimer);this.cancelDrag();this.waiting=false;this.present('stop');}
  // The shell opened or closed a dialog: hold the AI while one is open.
  dialogChanged(open){if(open){this.cancelDrag();this.release();clearTimeout(this.aiTimer);}else this.scheduleAI();}
 
  // ---------- Starting hand ----------
- get mulligan(){const s=this.game;return {first:s.active===0,hand:s.players[0].hand.map(c=>({uid:c.uid,card:D.byId[c.id],replace:this.mull.has(c.uid)})),count:this.mull.size};}
- toggleMull(uid){if(this.mull.has(uid))this.mull.delete(uid);else this.mull.add(uid);this.notify();}
- acceptHand(){const p=this.profile;E.mulligan(this.game,[...this.mull]);this.commit();this.ui.close();this.board.events(this.game.events);
+ // The starting orders as scrolls (AP 3.8): rolling – the replaced ones roll up and back into the deck.
+ get mulligan(){const s=this.game;return {first:s.active===0,hand:s.players[0].hand.map(c=>({uid:c.uid,card:D.byId[c.id],replace:this.mull.has(c.uid)})),count:this.mull.size,rolling:!!this.rolling,deck:s.players[0].deck.length};}
+ toggleMull(uid){if(this.rolling)return;if(this.mull.has(uid))this.mull.delete(uid);else this.mull.add(uid);this.notify();}
+ acceptHand(){if(this.rolling)return;const s=this.game,go=()=>{this.rolling=false;this.keepHand(s);};
+  if(this.mull.size){this.rolling=true;this.ui.play('parchment',{gain:.7});this.notify();this.present('mulligan',{n:this.mull.size},go);}else go();}
+ keepHand(s){const p=this.profile;if(this.game!==s||s.phase!=='mulligan')return;const before=E.clone(s);E.mulligan(s,[...this.mull]);this.commit();this.ui.close();
+  this.present('deal',{before,after:s});this.board.events(s.events);
   if(!p.helpSeen){p.helpSeen=true;this.commit();this.ui.toast('Karten mit dem Finger ziehen, in der Hand sortieren oder auf dem Feld ablegen. Lange drücken zeigt Details.');}
   this.scheduleAI();}
  // Back key on the starting hand leaves the game (it stays saved).
@@ -46,7 +67,7 @@ class Match extends Screen{
   const before=E.clone(s),result=E.apply(s,act);
   if(!result.ok){this.ui.toast(result.error);return false;}
   chronicle()?.record(p,before);
-  if(before.active===0){if(act.type==='play')p.stats.played++;if(act.type==='attack')p.stats.attacks++;}
+  if(before.active===0){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}}
   this.view=idle();if(s.phase==='over')P.reward(p,s);this.commit();
   this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);if(before.active===0)this.ui.haptic(act.type==='attack'?1:0);},
    ()=>{if(s.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();});
@@ -133,12 +154,27 @@ class Match extends Screen{
 
  // ---------- Dialogs around the game ----------
  inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:D.eraOf(c)}));}
+ // What this game added to the stats while this view model ran (for the reward bars).
+ tallied(s=this.game){if(this.tallyFor!==s){this.tallyFor=s;this.tally={played:0,attacks:0};}return this.tally;}
+ // AP 3.8: the close first – the loser's relief breaks, the banner unrolls with war horns –, then the result.
  showResult(){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over')return;
   if(!s.rewarded){P.reward(this.profile,s);this.commit();}
-  this.ui.play(s.winner===0?'victory':'defeat');
+  if(this.closing===s){this.result();return;}this.closing=s;
+  this.present('finale',{winner:s.winner},()=>this.result(true));}
+ // After the close the war horns have sounded; without it (reduced motion, a resumed game) the fanfare plays here.
+ result(staged=false){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over'||this.ui.dialogOpen())return;
+  if(!staged)this.ui.play(s.winner===0?'victory':'defeat');
   const to=s.mode==='campaign'?'campaign':'menu';
-  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,reward:s.reward||{gold:0,packs:0},
+  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
    buttons:[{label:to==='campaign'?'Zur Kampagne':'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
+ // Rewards with progress bars (AP 3.8): the gold won, every open quest from its value before this game to now (a reached
+ // goal can be claimed in the menu), and in the campaign the missions completed. {key, label, from, to, goal, note}
+ rewardBars(s=this.game){const p=this.profile,st=p.stats,n=this.tallyFor===s?this.tally:{played:0,attacks:0},win=s.winner===0,r=s.reward||{gold:0,packs:0};
+  const gained={wins:win?1:0,played:n.played,attacks:n.attacks},bars=[{key:'gold',label:'Gold',from:0,to:r.gold,goal:Math.max(40,r.gold),note:'◉ '+p.gold}];
+  for(const q of P.quests){if(p.claimed.includes(q.id))continue;const to=Math.min(q.goal,st[q.stat]||0),from=Math.min(to,Math.max(0,(st[q.stat]||0)-gained[q.stat]));
+   bars.push({key:q.id,label:q.text,from,to,goal:q.goal,note:to>=q.goal?'Belohnung bereit: '+q.gold+' Gold':q.gold+' Gold'});}
+  if(s.mode==='campaign'){const done=p.campaign.length;bars.push({key:'campaign',label:'Kampagne',from:done-(r.first?1:0),to:done,goal:D.missions.length,note:r.first?'Mission erstmals vollendet':''});}
+  return bars;}
  pause(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,
   buttons:[{label:'Fortsetzen',style:'gold'},{label:'Einstellungen',run:()=>this.ctx.dialogs.settings()},{label:'Zum Hauptmenü',keep:true,run:()=>this.ui.go('menu')},{label:'Aufgeben',style:'danger',run:()=>this.confirmSurrender()}]}));}
  grave(p){const a=this.game.players[p];this.ui.dialog('grave',Object.assign(new Dialog(this.ctx,{mine:p===0,cards:a.grave.map(id=>D.byId[id])}),{inspect:id=>this.inspect(id)}));}
@@ -156,7 +192,7 @@ class Match extends Screen{
  chronicle(){this.ui.dialog('chronicle',new Dialog(this.ctx,{entries:chronicle()?.entries(this.game,this.profile.matchChronicle)||[]}));}
  confirmSurrender(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Wirklich aufgeben?',close:false,text:'Die Partie endet als Niederlage. Für das Aufgeben erhältst Du kein Gold.',
   buttons:[{label:'Weiterspielen'},{label:'Aufgeben',style:'danger',keep:true,run:()=>this.surrender()}]}));}
- surrender(){const s=this.game;s.phase='over';s.winner=1;P.reward(this.profile,s,true);this.commit();this.showResult();}
+ surrender(){const s=this.game;s.phase='over';s.winner=1;P.reward(this.profile,s,true);this.commit();this.ui.close();this.showResult();}
 
  // ---------- App lifecycle and back key ----------
  pauseApp(){this.cancelDrag();this.board.cancel();clearTimeout(this.aiTimer);}

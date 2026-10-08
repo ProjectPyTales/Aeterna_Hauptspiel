@@ -1,7 +1,28 @@
-# Aeterna 1.19.0 – Bauen & Prüfen
+# Aeterna 1.20.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.20.0 (AP 3.6 Schlüsselwort-Effekte, AP 3.8 Anfang und Ende des Matches, Rückmeldung zu 1.19.0)
+
+- **Effekte** `view/match/fx.js` (`CHF`, nach `motion.js` geladen, nutzt `R.paint` und `R.medal` aus `render.js`): Bilder auf der
+  Plakette `shieldWall`, `frost`, `stealth`, `vial`, `urn`, `ring` (im Plaketten-Sprite), umlaufender Schimmer `aura` (je Bild);
+  Ereignisse `CHF.event(ev,pos,t,fx)` aus `R.events` (Gunst `gunst`, Starre `frostburst`, Gift `poison`, Urne `urn`; gibt `true`
+  zurück, wenn es den Klang übernimmt); Elemente `CHF.element(card)`, `ELEMENTS`, Fähigkeiten `POWERS`/`power(hero)` (Element,
+  Bahn, Farbe), Orb `CHF.orb` (aus `M.overlay`), Ausbruch `CHF.cast(x,t)` (aus `impact`), Zeichenfunktionen `CHF.paint` (aus `effects`).
+- **Inszenierung**: `CHF.present(kind,info,done)` für `opening` (Helden, Chronist, Münzwurf) und `finale` (Relief bricht, Banner,
+  Hörner); `busy`, `skip` (Tippen), `cancel` (ruft `done`), `stop` (ohne `done`), `hidden(p)`, `draw` (zuletzt in `R.draw`). Bei
+  reduzierter Bewegung ruft `present` sofort `done`. `board.present` in `board.js` leitet weiter und kennt dazu `mulligan`
+  (wartet `ROLL` ms) und `deal` (`M.deal(before,after)`: neue Karten aus dem Stapel, die Gunst der Stunde aus der Tischmitte).
+- **ViewModel** (`viewmodel/match.js`): `present`, `open`/`opening(s)` (einmal je Partie, wartet über `waiting`/`arrived()` auf den
+  Übergang der Shell), `acceptHand` → `rolling` → `keepHand`, `showResult` → `finale` → `result(staged)` mit `rewardBars(s)`
+  (Gold, offene Aufgaben ab dem Stand vor der Partie über `tallied`, Kampagne). `app.js`: `release()` ruft `arrived()`.
+- **Views**: Starthand als Schriftrollen (`view/dialogs.js`, CSS in `screens.css`), Ergebnis mit Banner und Balken; Kartenbuch:
+  `view.leaf` ({front, back, under}) und Blatt mit zwei Seiten (`leaf-face`), `visibility` statt `opacity` in den Keyframes.
+- **Klänge**: `schluessel_klang.py` (numpy, ffmpeg) erzeugt `clink`, `chains`, `poison`, `toss`, `horn` (je zwei Varianten, CC0);
+  `oberflaeche_klang.py` mit leiserer Uhrwerk-Glocke. Pegel in `CHA.levels`, Messwerte in `tests/schluessel.test.js`.
+- **Messung** `matchmessung.js`: Brett mit allen Schlüsselwörtern, Gefecht mit Gunst, Starre, Gift und einem Zauber-Ausbruch je
+  250 ms. Klickpfad: Schriftrollen und Ergebnis-Balken, neue Referenzbilder 09 und 12. Version 1.20.0 / versionCode 23.
 
 ## Neu in 1.19.0 (AP 1.4 Basar, AP 1.6 Sammlung, AP 1.7 Heldenwahl und Kampagnenkarte, Rückmeldung zu 1.18.0)
 
