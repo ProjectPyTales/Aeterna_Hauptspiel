@@ -58,6 +58,6 @@ M.overlay=(c,s,now)=>{
  if((t?.action.type==='power'||t?.card?.type==='spell')&&!t.hit){const q=clamp((now-t.at)/t.hitAt),from=t.card?t.from:M.position(t.before,'power'+t.p),to=t.to;c.save();c.globalCompositeOperation='screen';const x=mix(from.x,to.x,q),y=mix(from.y,to.y,q)-Math.sin(q*Math.PI)*65;const g=c.createRadialGradient(x,y,0,x,y,32);g.addColorStop(0,'#fff8d6');g.addColorStop(.25,'#70d6ff');g.addColorStop(1,'#55aaff00');c.fillStyle=g;c.beginPath();c.arc(x,y,32,0,Math.PI*2);c.fill();c.restore();}
  for(const f of M.returns){const q=ease((now-f.at)/f.duration),to=M.handPose(s,f.uid);M.floatCard(c,f.id,mix(f.from.x,to.x,q),mix(f.from.y,to.y,q),mix(f.from.w,L.handWidth,q),mix(f.from.angle,to.angle,q));}
  for(const f of M.draws){const q=clamp((now-f.at)/f.duration);if(q<=0)continue;const to=M.handPose(s,f.uid);M.floatCard(c,f.id,mix(1380,to.x,ease(q)),mix(644,to.y,ease(q))-Math.sin(q*Math.PI)*120,mix(62,L.handWidth,q),mix(.2,to.angle,q));}
- if(t?.action.type==='end'){const e=now-t.at;if(e>170&&e<630){const a=Math.min(1,(e-170)/100,(630-e)/110);c.save();c.globalAlpha=a;c.translate(800,351);c.scale(.93+.07*a,.93+.07*a);c.fillStyle='#1e2429e8';c.strokeStyle='#caaa67';c.lineWidth=2;c.beginPath();c.roundRect(-260,-32,520,64,16);c.fill();c.stroke();c.font='26px Title';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#f8dca0';c.fillText(t.after.active===0?'DEIN ZUG':'GEGNERISCHER ZUG',0,1);c.restore();}}
+ // „Dein Zug“ is the dropping tablet in render.js (turnPlate, AP 3.7).
 };
 })();

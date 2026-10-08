@@ -58,7 +58,7 @@ window.AEMatchView=function(canvas,vm,ui){
  // (gaps of 11 and 22 ms in turn); now the loop follows the display.
  const frame=now=>{const s=vm.game;
   if(ui.screen()==='game'&&s){if(!fitted)fit();ctx.setTransform(R.scale,0,0,R.scale,0,0);
-   const dev=vm.profile.settings.fps,t0=dev?performance.now():0;R.draw(ctx,M.frame(s,now),vm.view,now);
+   const dev=vm.profile.settings.fps,t0=dev?performance.now():0;const shown=M.frame(s,now);R.draw(ctx,shown,vm.view,now,vm.strip(shown));
    if(dev){stats.push({at:now,ms:performance.now()-t0});overlay(now);}else stats.length=0;
    A.intensity(s.players.some(p=>p.health<=12)?.8:0);}
   requestAnimationFrame(frame);};
