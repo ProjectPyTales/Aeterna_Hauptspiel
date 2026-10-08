@@ -21,6 +21,11 @@ test('AP 3.6: Schildwall, Starre, Tarnung, Gift und Vermächtnis haben eigene Bi
  for(const k of ['schildwall','starre-ketten','tarnung-unterholz','giftphiole','vermaechtnis-urne','gunst-aurenkreis','eiskristall','giftblasen','urnengeist'])assert.match(fx,new RegExp('// ASTRA: '+k+' – '),k);
 });
 
+test('fx.js wird überall geladen, wo render.js läuft (Spiel und Renderer-Labor), und zwar nach motion.js',()=>{
+ for(const page of ['index.html','labor/renderer.html']){const html=read(page),r=html.indexOf('view/match/render.js'),m=html.indexOf('view/match/motion.js'),f=html.indexOf('view/match/fx.js');
+  assert.ok(r>=0&&f>m&&m>r,page);}
+});
+
 test('AP 3.6: Gunst zerspringt klirrend, Starre mit Ketten, Gift blubbert, die Urne entlässt ihr Vermächtnis',()=>{
  const card=D.cards.find(c=>c.type==='minion'&&c.death&&!c.building);sounds.length=0;R.fx=[];
  R.units={a:{u:{shield:true},card:D.byId.neutral_0,sp:{},x:400,y:300,p:1,seen:0},b:{u:{},card,sp:{},x:600,y:300,p:1,seen:0},c:{u:{silenced:true},card,sp:{},x:700,y:300,p:1,seen:0}};
