@@ -2,7 +2,10 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.15.0** (die 132 Karten der elf Lehrplan-Helden heißen jetzt nach deren Lebenswelt –
+Aktueller Stand im Code: **Version 1.16.0** (neues Spielbrett nach AP 1.8 Teil 1: Feldherrentisch mit eingeritzter
+Karte, eine Epochenhälfte je Held mit Farbe, Zeichen und Name, bronzene Mittelnaht, Helden als geprägte Münzen,
+Heldenfähigkeit als Siegel, das sich nach Benutzung umdreht, Mana als Amulette unten rechts, „Zug beenden“ als
+Chronometer – alles als Astra-Platzhalter; die vier alten Schlachtfelder sind durch Platzhalter-Tische ersetzt); davor 1.15.0 (die 132 Karten der elf Lehrplan-Helden heißen jetzt nach deren Lebenswelt –
 Novizinnen auf dem Rupertsberg, Grenzsteine in der Mark Meißen, Schanzkörbe vor Lille, Varusschlacht und Venusfahrt –,
 neutrale Karten ohne Fantasy-Namen, Bildideen für Astra); davor 1.14.0 mit elf neuen Helden nach dem Lehrplan – Widukind,
 Hildegard von Bingen, Vercingetorix, Thusnelda, Theophanu, Böttger und andere – mit Chronikseiten und Missionen, sechs
@@ -62,7 +65,7 @@ Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
-installieren sich neue Versionen direkt als Update (z. B. 1.14.0 → 1.15.0: einfach die neue APK installieren – die neue
+installieren sich neue Versionen direkt als Update (z. B. 1.15.0 → 1.16.0: einfach die neue APK installieren – die neue
 Hülle hat dieselbe Paket-ID, denselben Schlüssel und liest denselben Spielstand; Sammlung, Decks und eine laufende Partie
 bleiben).
 
@@ -91,12 +94,12 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `model/lore.js` | Model | Chronik der Helden (AP 5.9, 22 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`); seit 1.14.0 die Tabelle `curriculum` mit Klassenstufe und Lernbereich je Held (AP L.1) |
 | `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs (auch mehrere auf einmal, `openPacks`), Codes (`codes`, `redeem`), Aufgaben, Import-Prüfung (`CHP`) |
-| `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`) |
+| `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`); seit 1.16.0 sind Schlachtfelder die Tische unter den Epochenhälften, Tische ohne `image` Platzhalter mit CSS-Farbfilter `tint`, alte Felder werden über `refund` erstattet |
 | `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
 | `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` – **ohne DOM, in Node testbar** |
 | `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
 | `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`) |
-| `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`), `motion.js` (`CHM`), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel, Bildraten-Anzeige) |
+| `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Epochenhälften `half`, Heldenmünze `coinArt`, Siegel `seal`, Amulette `amulets`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`), `motion.js` (`CHM`), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel, Bildraten-Anzeige) |
 | `view/css/` | View | `style.css`, `packs.css`, `stone.css`, `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css` |
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`) |
 | `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
@@ -170,7 +173,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett und Schlachtfelder (AP 1.8), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
   Der Job „apk“ baut seit 1.12.0 mit Gradle (`android/`) und prüft Paket-ID, Version und Zertifikat. Lokal fehlt in den
@@ -319,9 +322,9 @@ Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Or
 
 | Bereich | Ziel | Stand 1.12.0 (gemessen; Menü- und Bildwerte aus 1.9.0, das Hauptmenü ist unverändert) |
 |---|---|---|
-| Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben, Blitz und Seitenränder nach deiner Rückmeldung zu 1.6.0 überarbeitet, Stern nach deiner Rückmeldung zu 1.8.0 leiser); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken |
-| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | **✓ OnePlus 15: stabil rund 120 fps** in mehreren Partien (Rückmeldung zu 1.13.0, Overlay des Geräts: 121 fps). Match mit 7 gegen 7 und voller Hand (AP 2.4, Emulation): Zeichenzeit 0,6 ms (95 %: 0,9 ms), 60 fps ohne Drossel bei 2144 × 1072; CPU 4×: 3,5 ms (1.12.0: 1,9 / 10,6 ms, ≈ 30 fps)¹ – auf dem Gerät mit dem Overlay prüfen. Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0 von 181 Bildern > 20 ms, auch bei 4× gedrosselter CPU (1.8.0: 0–4; weniger Glitzer am Stern)¹ |
-| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung | Hauptmenü: 6 ms, mit 4× gedrosselter CPU 23 ms¹; Kauf im Basar ohne Ruckler (längstes Bild 16 ms bei 4× CPU) |
+| Gestaltung | Jeder Bildschirm besteht aus gemalten Assets nach der Stil-Bibel; Freigabe durch dich vor dem Einbau | Hauptmenü und Ladebildschirm ✓ (freigegeben, Blitz und Seitenränder nach deiner Rückmeldung zu 1.6.0 überarbeitet, Stern nach deiner Rückmeldung zu 1.8.0 leiser); übrige Bildschirme noch alt, Bausteine warten auf gemalte Grafiken. *1.16.0:* Spielbrett und HUD nach AP 1.8 Teil 1 als gekennzeichnete Astra-Platzhalter (Tisch, Hälften, Münzen, Siegel, Amulette, Chronometer) |
+| Bildrate im Match | stabil 60 fps (95 % der Frames < 16,7 ms) auf einem Mittelklasse-Handy, z. B. Galaxy A54 | **1.16.0, neues Brett (AP 1.8):** Zeichenzeit 0,58 ms in Ruhe und 0,73 ms im Gefecht (95 %: 0,8 / 1,0 ms), CPU 4×: 2,7 / 3,1 ms – auf demselben Rechner wie 1.15.0 mit 0,57 / 0,67 ms bzw. 2,9 / 3,3 ms, also **kein Mehraufwand**: Tisch, Karte, Hälften und Naht sind ein statisches Bild, Münzen, Siegel und Amulette Sprites je Zustand¹. Auf dem OnePlus 15 bitte mit dem Overlay gegenprüfen. **✓ OnePlus 15: stabil rund 120 fps** in mehreren Partien (Rückmeldung zu 1.13.0, Overlay des Geräts: 121 fps). Match mit 7 gegen 7 und voller Hand (AP 2.4, Emulation): Zeichenzeit 0,6 ms (95 %: 0,9 ms), 60 fps ohne Drossel bei 2144 × 1072; CPU 4×: 3,5 ms (1.12.0: 1,9 / 10,6 ms, ≈ 30 fps)¹ – auf dem Gerät mit dem Overlay prüfen. Hauptmenü mit Partikeln im Ruhezustand: 95 % ≤ 16,8 ms, 0 von 181 Bildern > 20 ms, auch bei 4× gedrosselter CPU (1.8.0: 0–4; weniger Glitzer am Stern)¹ |
+| Touch-Reaktion | sichtbare Reaktion < 50 ms nach Berührung; Touch-Ziele ≥ 48 dp | Hauptmenü: 6 ms, mit 4× gedrosselter CPU 23 ms¹; Kauf im Basar ohne Ruckler (längstes Bild 16 ms bei 4× CPU). *1.16.0:* alle Touch-Ziele im Match ≥ 84 Bühneneinheiten = 48 dp im Handyformat (vorher Pause und Hilfe 34 × 32, „Zug beenden“ 98 × 37 CSS-Pixel; jetzt Chronometer 76 × 106) |
 | Menüwechsel | ≤ 600 ms, unterbrechbar | vom Hauptmenü: 561 ms (4× CPU: 584 ms), neuer Bildschirm ab 401 ms; zurück ins Menü 328 ms (4× CPU: 362 ms)¹ – nicht unterbrechbar (1.8.0: 525–549 ms) |
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
@@ -476,7 +479,9 @@ Bis dahin entstehen weiter Platzhalter – einheitlich gekennzeichnet, damit Ast
   „Im Code gezeichnet“ in `MOTIVE.md`. *✓ 26 Kennungen: Kartenrahmen, Diener-Plakette, Heldenfassung,
   Fähigkeitssymbole, Manasäule, Edelstein, Lebensherz, Schildwall-Rahmen, Starre-Reif, Knopf im Match, Gegnerhand,
   Stufenpyramide, acht Kartenrücken, Steinplatten, Steinknopf, Panel, Reiter, Kartenpaket, Währungssymbole – je mit
-  Prompt und Ablageort `ungenutzte_assets/astra/<kennung>.png`. Der Rahmen der Legendären ist schon gemalt
+  Prompt und Ablageort `ungenutzte_assets/astra/<kennung>.png`. *1.16.0 (AP 1.8): 33 Kennungen – neu `feldherrentisch`, `epochenhaelfte`,
+  `bronzenaht`, `heldenmuenze` (statt `heldenfassung`), `herrschersiegel`, `phalanxschild`, `waffenablage`, `mana-amulett`
+  (statt `manasaeule`), `chronometer`; dazu ein Abschnitt „Schlachtfelder ohne Bild“ mit den vier Platzhalter-Tischen.* Der Rahmen der Legendären ist schon gemalt
   (`legendary-frame`). Bewusst ohne Kennung: Partikel, Glühen und Zielpfeil (bleiben Code bzw. kommen in die
   PixiJS-Ebene), der Platzhalter-Generator selbst (er steht für die Motive der Liste) und das gemalte Hauptmenü.*
 - [x] Platzhalter-Bilder, die doch als Datei nötig sind, heißen `platzhalter-<kennung>.webp`. *Bisher keins nötig.*
@@ -730,22 +735,69 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
 - [ ] Heldenwahl als Galerie mit großem Porträt, Fähigkeit, Epoche und Lieblingskarten.
 - [ ] Kampagne als gemalte Weltkarte mit Stationen von Sparta bis Japan; Belagerungsmissionen markiert.
 
-**AP 1.8 – Spielbrett und HUD neu (L)**
-- [ ] **Feldherrentisch** aus antikem Stein und poliertem Holz mit eingeritzter Weltkarte.
-- [ ] **Zwei thematische Hälften:** Jeder Held bringt seine Epochen-Spielfeldhälfte mit (unten Spieler, oben
+**AP 1.8 – Spielbrett und HUD neu (L)** – *Teil 1 ✓ in 1.16.0 (als Astra-Platzhalter), Teil 2 offen*
+- [x] **Feldherrentisch** aus antikem Stein und poliertem Holz mit eingeritzter Weltkarte. *1.16.0: Der gemalte Standardtisch
+  (Sandstein, Holzrahmen) bleibt die Grundfläche; darüber ist eine Karte in den Stein geritzt – Kompassrose auf der Naht,
+  32 Loxodromen, Gradnetz, je dunkle Rille mit heller Unterkante (`chart`, `ASTRA: feldherrentisch`).*
+- [x] **Zwei thematische Hälften:** Jeder Held bringt seine Epochen-Spielfeldhälfte mit (unten Spieler, oben
   Gegner), verbunden durch eine Bronze-Mittelnaht. Verhältnis zu den Schlachtfeld-Skins aus dem Basar klären.
-- [ ] **Helden** als gemeißelte Münzen/Gemmen oben (KI) und unten (Spieler); **Rüstung** als Phalanx-Schild über
+  *1.16.0: Jede Hälfte trägt Farbe, eingelegtes Band, großes Zeichen und Namen des Zeitalters ihres Helden (`CHD.ages`,
+  `half`, `ASTRA: epochenhaelfte`) – links, wo seit dem Wegfall der Mana-Säule kein Diener steht; Bronzenaht mit
+  Kompass-Medaillon (`seam`, `ASTRA: bronzenaht`). Geklärt (Entscheidung 3): Das Schlachtfeld aus dem Basar ist der
+  Tisch, die Hälften liegen immer darüber.*
+- [x] **Helden** als gemeißelte Münzen/Gemmen oben (KI) und unten (Spieler); **Rüstung** als Phalanx-Schild über
   dem Leben; **Waffe** links neben dem Helden mit Wucht (Angriff) und Schmiedequalität (Haltbarkeit).
-- [ ] **Heldenfähigkeit** als geprägtes Herrschersiegel rechts neben dem Porträt: nach Benutzung **dreht es sich um**
-  (graue Rückseite) und rastet ein; zu Beginn des nächsten Zuges dreht es sich zurück.
-- [ ] **Ressourcen unten rechts** als 1–10 Äther-Runen bzw. Sonnen-Amulette (ersetzt die Mana-Säule links).
+  *1.16.0: Bronzemünze mit Rändelung, Name als Umschrift und rundem Porträt (`coinArt`, `ASTRA: heldenmuenze`),
+  Rüstung als Aspis über dem Lebensherz (`ASTRA: phalanxschild`), Waffenablage mit Klinge, Wucht im Goldkreis und
+  Schmiedequalität im Stahlschild (`ASTRA: waffenablage`).*
+- [x] **Heldenfähigkeit** als geprägtes Herrschersiegel rechts neben dem Porträt: nach Benutzung **dreht es sich um**
+  (graue Rückseite) und rastet ein; zu Beginn des nächsten Zuges dreht es sich zurück. *1.16.0: gezacktes Siegel in
+  Heldenfarbe mit Symbol und Kosten, Rückseite grau mit dem Zeichen des Helden; Drehung 0,44 s um die senkrechte Achse
+  mit Anheben, danach ein kurzes Einrasten; bei reduzierter Bewegung ohne Animation (`seal`, `ASTRA: herrschersiegel`).*
+- [x] **Ressourcen unten rechts** als 1–10 Äther-Runen bzw. Sonnen-Amulette (ersetzt die Mana-Säule links).
+  *1.16.0 (Entscheidung 5: Mana-Amulette, wie in Deinem Prompt): zehn Bronze-Amulette mit Sonnenzeichen in einer Reihe
+  rechts neben dem Siegel – voll (leuchtend blau), verbraucht (dunkel), gesperrt durch Belastung (rot mit Kreuz), noch
+  nicht verfügbar (nur Ring); davor „5/8“, darunter Belastung und Folgezug. Der Gegner hat eine kleinere Reihe oben
+  rechts statt der Textzeile (`amulets`, `ASTRA: mana-amulett`). Die Mana-Säule links entfällt – Platz für die
+  Chronik-Leiste.*
 - [ ] **Chronik-Leiste am linken Rand:** Pergament-Abschnitte mit allen gespielten Karten, Zaubern und Verlusten.
 - [ ] **Deck unten rechts** als Pergamentrollen-Stapel, der sichtbar dünner wird; **KI-Hand** oben als versiegelte Befehle.
-- [ ] **Zug beenden** als bronzenes Chronometer bzw. Sanduhr, das beim Tippen umspringt, auf Messing schlägt und gongt.
+- [x] **Zug beenden** als bronzenes Chronometer bzw. Sanduhr, das beim Tippen umspringt, auf Messing schlägt und gongt.
+  *1.16.0: Taschenuhr mit Bügel, Zifferblatt und Schild „ZUG BEENDEN“/„GEGNERZUG“, darunter die Zugzahl; der Zeiger
+  steht in Deinem Zug oben und schwingt beim Tippen mit Überschwingen und kleinem Sprung nach unten (und im nächsten Zug
+  zurück), das Zugereignis schlägt den Gong; im Gegnerzug ist das Zifferblatt grau (`chronometer`, `ASTRA: chronometer`).*
 - [ ] **Vier Eck-Dioramen** je Epoche, antippbar (Räuchergefäß brennt, Astrolabium dreht sich, Säule bröckelt, Katapult schießt).
 - [ ] **Hinterhalte** als versiegelte Wachsrollen über dem Helden; **Erschöpfung** als Stundenglas.
 - [ ] Höchstens 7 Plätze je Seite, Formationen rücken bei Verlusten sofort mittig zusammen (vorhanden, Animation verbessern).
 - Abnahme: Mockup zuerst als Bild freigeben, dann einbauen; alle Touch-Ziele mindestens 48 dp.
+  *Teil 1: statt Mockup gleich als Platzhalter eingebaut (Wunsch aus Sitzung 12: „Platzhalter, damit Astra nur noch Bilder
+  liefert“) – die Freigabe ist Dein Test auf dem OnePlus 15. Touch-Ziele ✓: Im Match ist jede Fläche mindestens
+  84 × 84 Bühneneinheiten groß (48 dp im Handyformat), auch wo das Bild kleiner ist (Pause, Hilfe, Chronik, Deck,
+  Friedhof); Hilfe rückt dafür 16 Einheiten nach rechts. Geprüft in `werkzeuge/tests/spielbrett.test.js` (Geometrie:
+  Amulette zwischen Siegel und Deck und über der Hand, Siegel und Waffe im freien Gang zwischen den Handfächern,
+  Chronometer zwischen den Decks; Touch-Ziele; Drehen und Schwingen mit reduzierter Bewegung).*
+  *Messung (`node werkzeuge/matchmessung.js`, Handyformat, 7 gegen 7, volle Hand, alt und neu nacheinander auf demselben
+  Rechner):*
+
+  | Match, 7 gegen 7, volle Hand | 1.15.0 | 1.16.0 (neues Brett) |
+  |---|---|---|
+  | Zeichenzeit Ruhe / Gefecht (Mittel) | 0,57 / 0,67 ms | **0,58 / 0,73 ms** |
+  | dasselbe, 95 % der Bilder | 0,8 / 1,0 ms | **0,8 / 1,0 ms** |
+  | CPU 4×: Zeichenzeit Ruhe / Gefecht | 2,9 / 3,3 ms | **2,7 / 3,1 ms** |
+  | CPU 4×: 95 % der Bilder | 6,0 / 5,8 ms | **4,2 / 4,5 ms** |
+
+  *Klickpfad: neue Referenzbilder für Basar (Schlachtfelder, Kauf, nach Kauf) und Match, Pause, Ergebnis; zwei Läufe
+  hintereinander: Match 0,1 % abweichende Pixel.*
+
+**Rückmeldung zu 1.15.0 – Schlachtfelder** – *✓ in 1.16.0*
+- [x] „Alle Schlachtfelder außer Standard sehen ehrlich gesagt schlecht aus und sollen rausfliegen, vielleicht erstmal
+  Platzhalter dafür bauen?“ *Griechischer Marmor, Pharaonen-Gruft, Wikinger-Basalt und Zen-Schiefer sind entfernt
+  (Bilder und Originale, APK −0,55 MB); wer eins gekauft hat, bekommt **100 Gold je Feld einmal zurück** (`CHK.refund`,
+  wie bei den Marmor-Skins), ein ausgerüstetes altes Feld wird zu Standard. An ihre Stelle treten vier
+  **Platzhalter-Tische nach dem Lehrplan** zu je 100 Gold: Marmortisch von Athen, Porphyr des Kapitols, Pult des
+  Skriptoriums, Meißner Porzellan. Bis Astra die Bilder liefert, zeichnet das Spiel den Standardtisch mit einem
+  Farbfilter (im Basar mit dem Hinweis „Platzhalter · Bild folgt“); `MOTIVE.md` nennt sie mit Größe und Prompt im neuen
+  Abschnitt „Schlachtfelder ohne Bild“. Der Rest von 1.15.0 ist laut Deinem Test in Ordnung.*
 
 ### Phase 2 – Technisches Fundament (L)
 
@@ -942,7 +994,7 @@ Alle Animationen werden aus den Engine-Ereignissen (`events`) abgeleitet; Regeln
 
 **AP 3.7 – Zugwechsel und Ressourcen (S)**
 - [ ] „Dein Zug“-Tafel fällt herunter und rastet ein; Äther-Runen füllen sich nacheinander mit Glanz und Klang.
-- [ ] Heldenfähigkeits-Siegel dreht sich nach Benutzung um (siehe AP 1.8).
+- [x] Heldenfähigkeits-Siegel dreht sich nach Benutzung um (siehe AP 1.8). *✓ in 1.16.0*
 - [ ] Kein Zugtimer im normalen Spiel; nur Belagerungsmissionen zeigen eine glühende Lunte als Countdown.
 
 **AP 3.8 – Match-Anfang und -Ende (S)**
@@ -1625,8 +1677,8 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Bestehende Karteneffekte überarbeiten | AP 5.11 (Dopplungen Herodot/Anna und Thermen/Aquädukt entzerrt in 1.10.0) |
 | Platzhalter statt fehlender Grafiken | AP 5.12 – ✓ in 1.8.0 |
 | Heldenbalance | AP 5.1, AP 5.2 – ✓ in 1.6.0 |
-| Heldenfähigkeit dreht sich nach Benutzung um | AP 1.8, AP 3.7 |
-| Zwei thematische Spielfeldhälften je Epoche | AP 1.2, AP 1.8 |
+| Heldenfähigkeit dreht sich nach Benutzung um | AP 1.8, AP 3.7 – ✓ in 1.16.0 |
+| Zwei thematische Spielfeldhälften je Epoche | AP 1.2, AP 1.8 – ✓ in 1.16.0 als Platzhalter (Farbe, Zeichen, Name je Zeitalter) |
 | Gewicht und Wucht beim Ausspielen, Staub und Risse | AP 3.3 |
 | Drei Klangspuren je Diener | AP 4.1 |
 | Status-Leuchten (grün, gelb, roter Zielpfeil, pumpende Lebenspunkte) | AP 3.2, AP 3.5 |
@@ -1635,14 +1687,15 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Karte wird auf dem Feld zur ovalen Truppensiegel-Plakette | AP 1.2, AP 3.3 |
 | Angriffe mit Rückzug, Aufprall und Einheiten-Treffersounds | AP 3.5, AP 4.1 |
 | Schadenszahlen mit Tintenspritzern, Tod als Gesteinssplitter | AP 3.5 |
-| Chronometer bzw. Sanduhr als „Zug beenden“ mit Gong | AP 1.8 |
+| Chronometer bzw. Sanduhr als „Zug beenden“ mit Gong | AP 1.8 – ✓ in 1.16.0 |
 | Kein Timer, Lunte nur in Belagerungsmissionen | AP 3.7, AP 6.4 |
 | Eck-Dioramen | AP 1.2, AP 1.8, AP 3.9 |
 | Reaktive KI-Dialoge | AP 4.3 |
 | Chronist der Zeiten (Erzähler) | AP 4.2 |
 | Sieg mit zerbrechendem Relief, Banner „TRIUMPH“, Kriegshörnern | AP 3.8 |
-| Feldherrentisch, Heldenmünzen, Phalanx-Schild, Herrschersiegel, Waffenablage | AP 1.8 |
-| Äther-Runen unten rechts, versiegelte KI-Befehle, Chronik-Leiste, Pergament-Deck, Stundenglas | AP 1.8, AP 3.4 |
+| Feldherrentisch, Heldenmünzen, Phalanx-Schild, Herrschersiegel, Waffenablage | AP 1.8 – ✓ in 1.16.0 (Astra-Platzhalter) |
+| Äther-Runen unten rechts, versiegelte KI-Befehle, Chronik-Leiste, Pergament-Deck, Stundenglas | AP 1.8, AP 3.4 – Mana-Amulette unten rechts ✓ in 1.16.0, der Rest in AP 1.8 Teil 2 |
+| Schlachtfelder außer Standard entfernen, Platzhalter bauen (Rückmeldung zu 1.15.0) | ✓ in 1.16.0 – 100 Gold zurück, vier Platzhalter-Tische (Athen, Kapitol, Skriptorium, Porzellan) |
 | Münzwurf, Startkarten-Tausch, „Gunst der Stunde“, Mana bis 10, Handlimit, gleichzeitiger Schaden, Aufmarsch-Verzögerung, freie Zielwahl, KI-Zug ohne Unterbrechung | vorhanden; Inszenierung in AP 3.4, AP 3.8; Umbenennung ✓ (1.7.0) |
 | Taktische Hinterhalte | AP 5.6, AP 1.8 |
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 |
@@ -1659,12 +1712,15 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 
 1. ~~**Vierte Menüplatte** (AP 1.3)~~ – *mit deinem erfolgreichen Test zu AP 1.3 angenommen:* „Partie fortsetzen“
    bei laufender Partie, sonst „Herausforderung“ als Tagesduell. Rätsel und Zeitanomalie können sie später erweitern.
-2. **Heldenfähigkeit „umdrehen“** (AP 1.8): Ich habe es so verstanden, dass sich das Fähigkeits-Siegel wie in
-   Hearthstone umdreht. Falls du meinst, dass sich das ganze Spielfeld dreht, bitte korrigieren.
-3. **Spielfeldhälften vs. Schlachtfeld-Skins** (AP 1.8): Ersetzt ein gekaufter Skin die eigene Epochenhälfte, oder
-   werden die Skins zu Mittelnähten/Rahmen?
+2. ~~**Heldenfähigkeit „umdrehen“** (AP 1.8)~~ – *umgesetzt in 1.16.0 wie verstanden:* Das Siegel dreht sich nach
+   Benutzung auf seine graue Rückseite und zu Beginn Deines nächsten Zuges zurück. Falls Du das ganze Spielfeld meintest,
+   bitte korrigieren.
+3. ~~**Spielfeldhälften vs. Schlachtfeld-Skins** (AP 1.8)~~ – *entschieden mit Deiner Rückmeldung zu 1.15.0:* Das
+   Schlachtfeld aus dem Basar ist der Tisch (Oberfläche und Rahmen), die Epochenhälften beider Helden liegen immer
+   darüber. Die alten Felder sind entfallen (100 Gold zurück), vier Platzhalter-Tische nach dem Lehrplan warten auf Astra.
 4. ~~**Schlüsselwörter umbenennen** (AP 5.4)~~ – *entschieden: alle sechs auf einmal*, umgesetzt in 1.7.0.
-5. **Ressourcen** (AP 1.8): Äther-Runen oder Sonnen-Amulette?
+5. ~~**Ressourcen** (AP 1.8)~~ – *entschieden (Dein Prompt zu Sitzung 13: „Mana-Amulette“):* zehn Bronze-Amulette mit
+   Sonnenzeichen, umgesetzt in 1.16.0.
 6. ~~**Bauwerke** (AP 5.5)~~ – *entschieden (Sitzung 5):* Sie belegen einen der 7 Plätze.
 7. **Stimmen** (AP 4.1): Quelle und Budget (eigene Aufnahmen, Sprecher, KI-Sprachausgabe)?
 8. ~~**Legendäre** (AP 5.3)~~ – *entschieden: alle Vorschläge übernehmen, auf einmal*; umgesetzt in 1.7.0, Werte nach
@@ -1708,8 +1764,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 10 ✓ | AP 2.4, AP 2.5, AP 5.11 Teil 2, AP L.3 | erledigt in 1.13.0 – Match ohne Drossel mit Pixeldichte und Sprites (Zeichenzeit −69 %), Renderer-Labor mit PixiJS, „nur Werte“-Karten und Balance-Feinschliff, Deine Musik für Menü und Duell |
 | 11 ✓ | AP L.1, AP L.4, AP L.2 (Zeitalterkarten), Rückmeldung 1.13.0 | erledigt in 1.14.0 – elf Lehrplan-Helden mit Chronik und Mission, sechs Zeitalter nach den Epochen des Lehrplans, 14 Zeitalterkarten neu benannt, 26 Astra-Kennungen |
 | 12 ✓ | AP L.2 (Heldenkarten, neutrale Karten) | erledigt in 1.15.0 – 129 Karten der elf Lehrplan-Helden und 10 neutrale Karten neu benannt, Spielsteine Novizin, Grenzsteine, Schanzkorb, 124 neue Bildideen für Astra |
-| 13 | AP 1.8 Teil 1, Rückmeldung 1.15.0 | Feldherrentisch, Helden-Münzen, Siegel, Mana-Amulette, Epochen-Hälften – als Astra-Platzhalter |
-| 14–15 | AP 1.8 Teil 2, AP 1.5, AP 3.1–3.5 | Chronik-Leiste und Dioramen, neue Karten, Gewicht und Wucht (Effekte in der PixiJS-Ebene, AP 2.5) |
+| 13 ✓ | AP 1.8 Teil 1, Rückmeldung 1.15.0 | erledigt in 1.16.0 – Feldherrentisch mit Karte, Epochenhälften, Heldenmünzen, Siegel zum Umdrehen, Mana-Amulette, Chronometer als Astra-Platzhalter; alte Schlachtfelder durch Platzhalter-Tische ersetzt |
+| 14 | AP 1.8 Teil 2, AP 3.7, Rückmeldung 1.16.0 | Chronik-Leiste links, Pergament-Deck, versiegelte KI-Hand, Stundenglas, „Dein Zug“-Tafel und Amulette, die sich füllen |
+| 15 | AP 1.5, AP 3.1–3.5 | neue Karten, Gewicht und Wucht (Effekte in der PixiJS-Ebene, AP 2.5) |
 | 16 | AP 1.4, AP 1.6, AP 1.7 | Basar, Sammlung, Heldenwahl im neuen Stil |
 | 17–18 | AP 3.6–3.9, Phase 4 | Effekte, Stimmen, Chronist, Klang, Haptik aus einem Guss |
 | 19+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
@@ -1721,53 +1778,54 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 12 (Version 1.15.0):** AP L.2 – **Karten der elf Lehrplan-Helden** aus ihrer Lebenswelt: 129 von
-132 Karten neu benannt und betextet (Wirkungen, Kosten und IDs unverändert, per Feldvergleich geprüft), neue Legendäre
-von Abbi bis Ludwig XIV., Spielsteine Novizin, Grenzsteine, Schanzkorb, Füsilier, Sippenbruder und Habicht; 8 alte
-Kartenbilder bleiben, 52 werden Platzhalter, alle 124 Platzhalter der elf mit neuer Bildidee in `MOTIVE.md`; zehn
-neutrale Karten ohne Fantasy-Namen (Wilderin, Nachtwächter, Trojanisches Pferd, Burgbesatzung …); Test „Kartentexte
-nennen nur Helden, die es gibt“. Voller Balance-Lauf: Startdecks Zahl für Zahl wie in 1.14.0, Zufallsdecks bis auf eine Paarung
-(Dandolo gegen Hildegard 49 → 48 %) gleich. Davor: Sitzung 11 (1.14.0) AP L.1, L.4, L.2 Zeitalterkarten; Sitzung 10
-(1.13.0) AP 2.4, 2.5, 5.11 Teil 2, L.3; Sitzung 9 (1.12.0) AP 2.1, 2.2, 0.2; Sitzung 8 (1.11.0) AP 5.10 Welle 2;
-Sitzung 7 (1.10.0) AP 5.11 Kartenwelle 1, AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0)
-AP 5.12, 5.9, 5.4 Teil 2; Sitzung 4 (1.7.0) AP 5.4 Teil 1, 5.3, 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, 5.2; Sitzung 2
-(1.5.0) AP 2.3, 0.1, 2.6; Sitzung 1 (1.4.0) AP 0.3, 1.1, 1.3.
+**Erledigt in Sitzung 13 (Version 1.16.0):** AP 1.8 Teil 1 – **neues Spielbrett als Astra-Platzhalter:** Feldherrentisch
+mit eingeritzter Karte, je Held eine Epochenhälfte (Farbe, Band, Zeichen, Name) mit bronzener Mittelnaht, Helden als
+geprägte Münzen mit Umschrift, Rüstung als Aspis, Waffenablage, Heldenfähigkeit als Siegel, das sich nach Benutzung
+umdreht und im nächsten Zug zurück, Mana als zehn Amulette unten rechts (die Säule links entfällt), „Zug beenden“ als
+Chronometer mit schwingendem Zeiger; neun neue Astra-Kennungen (33 statt 26), alle Touch-Ziele im Match ≥ 48 dp,
+Zeichenzeit unverändert (0,58 statt 0,57 ms). **Rückmeldung zu 1.15.0:** die vier alten Schlachtfelder entfernt
+(100 Gold zurück), vier Platzhalter-Tische nach dem Lehrplan im Basar. Entscheidungen 2, 3 und 5 umgesetzt. Davor:
+Sitzung 12 (1.15.0) AP L.2; Sitzung 11 (1.14.0) AP L.1, L.4, L.2 Zeitalterkarten; Sitzung 10 (1.13.0) AP 2.4, 2.5,
+5.11 Teil 2, L.3; Sitzung 9 (1.12.0) AP 2.1, 2.2, 0.2; Sitzung 8 (1.11.0) AP 5.10 Welle 2; Sitzung 7 (1.10.0) AP 5.11
+Kartenwelle 1, AP 5.5, AP 5.8 Teil 2; Sitzung 6 (1.9.0) AP 5.10 Welle 1; Sitzung 5 (1.8.0) AP 5.12, 5.9, 5.4 Teil 2;
+Sitzung 4 (1.7.0) AP 5.4 Teil 1, 5.3, 5.8 Teil 1; Sitzung 3 (1.6.0) AP 5.1, 5.2; Sitzung 2 (1.5.0) AP 2.3, 0.1, 2.6;
+Sitzung 1 (1.4.0) AP 0.3, 1.1, 1.3.
 
 **Vorher bitte von dir auf dem OnePlus 15 (10 Minuten):**
-1. `Aeterna-1.15.0-Test-APK` aus Actions als Update installieren (vorher zur Sicherheit Spielstand exportieren).
-2. **Sammlung:** Filter auf zwei, drei neue Helden (z. B. Hildegard, Wiprecht, Vauban) – lesen sich die Namen gut, passen
-   lange Namen wie „Commius, Führer des Entsatzheers“ in den Kartenrahmen? Wo ein Name nicht stimmt oder holpert:
-   Karten-ID oder Name nennen, ich ändere ihn.
-3. **Ein Match mit Hildegard** (Heldenfähigkeit ruft Novizinnen, Jutta stärkt sie) **oder Wiprecht** (Grenzsteine).
-4. Noch offen aus 1.14.0: Heldenwahl mit Chronik, eine Mission eines neuen Helden, Rückerstattung der Marmor-Skins.
-5. **Renderer-Labor:** Über das Spiel → Renderer-Labor → **Messreihe** (≈ 20 s), Foto der sechs Zeilen – entscheidet
-   Entscheidung 18 und damit, wie Sitzung 13 die Effekte baut. Dazu weiter offen: Entscheidungen 2, 3, 5 und 7.
+1. `Aeterna-1.16.0-Test-APK` aus Actions als Update installieren (vorher zur Sicherheit Spielstand exportieren). Hattest
+   Du ein altes Schlachtfeld gekauft: Gold sollte um 100 je Feld steigen, das Spiel startet auf „Standard“.
+2. **Ein Match:** Liest sich das Brett? Münzen, Siegel (nach Benutzung dreht es sich um, im nächsten Zug zurück),
+   Amulette unten rechts, Chronometer (tippen: Zeiger schwingt, Gong). Sind Epochenzeichen und -namen links zu laut oder
+   zu leise? Lässt sich alles gut treffen (Pause, Hilfe, Chronik, Chronometer)? Bildrate mit dem Overlay (≈ 120 fps?).
+3. **Basar → Schlachtfelder:** Einen Platzhalter-Tisch ausrüsten – trägt der Farbfilter bis Astra, oder lieber nur
+   Standard im Verkauf lassen, bis die Bilder da sind?
+4. Weiter offen: Messreihe im Renderer-Labor (Entscheidung 18), Entscheidung 7 (Stimmen).
 
-**Sitzung 13 – AP 1.8: Spielbrett und HUD neu, Teil 1 (Feldherrentisch)**
+**Sitzung 14 – AP 1.8 Teil 2 und AP 3.7: Chronik-Leiste, Deck, KI-Hand, Zugwechsel**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.15.0 | Kartennamen, Match mit Hildegard oder Wiprecht, Messreihe des Labors | Namen und Gerätewerte zuerst |
-| AP 1.8 Teil 1 | Feldherrentisch als Grundfläche, Helden als Münzen oben und unten, Rüstung als Schild, Heldenfähigkeit als Siegel, das sich nach Benutzung umdreht, Mana als 1–10 Amulette unten rechts, „Zug beenden“ als Chronometer – alles als gekennzeichnete Platzhalter (`ASTRA: …`) im Stil der Stilbibel | die Lehrplan-Inhalte stehen; als Nächstes das Herzstück der Optik, mit Platzhaltern, damit Astra in ein paar Wochen nur noch Bilder liefert |
-| AP 1.8 Hälften | Epochen-Spielfeldhälfte je Held (sechs Zeitalter, Farbe und Zeichen aus `CHD.ages`), Verhältnis zu den Schlachtfeld-Skins aus dem Basar klären | macht die Zeitalter im Match sichtbar |
-| Messung | Zeichenzeit und Bildrate wie in 1.13.0 (`matchmessung.js`), Referenzbilder des Klickpfads neu | das neue Brett darf die 120 fps nicht kosten |
+| Rückmeldung 1.16.0 | Lesbarkeit des Bretts, Lautstärke der Epochenhälften, Platzhalter-Tische, Messreihe des Labors | Gerätewerte und Geschmack zuerst |
+| AP 1.8 Teil 2 | **Chronik-Leiste am linken Rand** (frei seit dem Wegfall der Mana-Säule): Pergament-Abschnitte mit gespielten Karten, Zaubern und Verlusten aus dem Spielverlauf (ViewModel aus `viewmodel/chronicle.js`), antippbar für die Karte; **Deck** als Pergamentrollen-Stapel, der dünner wird; **KI-Hand** als versiegelte Befehle; **Erschöpfung** als Stundenglas – wieder als `ASTRA:`-Platzhalter | das Brett wird vollständig; die Chronik-Leiste macht den Zug des Gegners nachvollziehbar |
+| AP 3.7 | „Dein Zug“-Tafel fällt herunter und rastet ein, Amulette füllen sich nacheinander mit Glanz und Klang | baut direkt auf den Amuletten und dem Chronometer auf |
+| Messung | Zeichenzeit wie in 1.16.0 (`matchmessung.js`), Klickpfad mit Referenzbildern | die Leiste darf die 120 fps nicht kosten |
 
-Risiko: AP 1.8 ist groß (L) und betrifft Renderer, View und alle Referenzbilder. Lieber zwei saubere Teile (Brett und
-HUD in Sitzung 13, Chronik-Leiste, Dioramen und Hinterhalte später) als ein halbes Brett. Regeln ändern sich nicht.
-Im Blick aus der Balance: Theophanu bleibt mit Zufallsdecks bei 54,4 %, Dandolo bei 47,0 % (knapp unter dem Ziel), Vercingetorix mit
-Startdecks bei 46,5 % – ein kleiner Balance-Feinschliff (AP 5.11) passt in eine spätere Sitzung mit vollem Lauf.
+Risiko: Die Chronik-Leiste ist neue Oberfläche mit eigenem ViewModel (Spielverlauf als Daten, Test in
+`viewmodel.test.js`); Dioramen und Hinterhalte (AP 5.6) bleiben für später. Regeln ändern sich nicht. Im Blick aus der
+Balance: Theophanu mit Zufallsdecks 54,4 %, Dandolo 47,0 %, Vercingetorix mit Startdecks 46,5 % – ein kleiner
+Feinschliff (AP 5.11) mit vollem Lauf passt in eine spätere Sitzung.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 1.8 Teil 1 (Feldherrentisch, Helden-Münzen,
-> Siegel der Heldenfähigkeit, Mana-Amulette, Chronometer, Epochen-Hälften)** ab und übernimm mein Feedback zu Version
-> 1.15.0: *(hier Feedback, Namenswünsche und Messreihe des Labors einfügen)*. Halte dich an die „Regeln für jede Sitzung“
-> und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die zwingend notwendigen Tests
-> und den Klickpfad laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere
-> Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende
-> einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
-> Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 1.8 Teil 2 (Chronik-Leiste, Pergament-Deck,
+> versiegelte KI-Hand, Stundenglas) und AP 3.7 (Zugwechsel, Amulette füllen sich)** ab und übernimm mein Feedback zu
+> Version 1.16.0: *(hier Feedback zum neuen Brett, zu den Platzhalter-Tischen und die Messreihe des Labors einfügen)*.
+> Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im
+> Handyformat, lass die zwingend notwendigen Tests und den Klickpfad laufen und sorge für eine grüne CI. (Spare im
+> Zweifel Tokens bei der Prüfphase und delegiere Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der
+> README ab und trage Messwerte ein. Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder
+> einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: xhigh.** Das neue Spielbrett greift in Renderer, View, Messung und alle
-Referenzbilder ein – dort lohnt die gründlichere Prüfung; *high* reicht, wenn Du Sitzung 13 auf das Brett ohne
-Epochen-Hälften beschränkst.
+**Empfohlener Effort für den nächsten Prompt: high.** Teil 2 ist kleiner als das Brett aus Sitzung 13 (eine Leiste,
+drei Platzhalter, zwei Animationen) und baut auf der neuen Geometrie auf; *xhigh* lohnt nur, wenn Du die Eck-Dioramen
+oder Hinterhalte (AP 5.6, Regeländerung mit Balance-Lauf) dazunimmst.

@@ -36,13 +36,13 @@ test('Store: Sicherung des vorigen Stands, Rückfall auf die Sicherung, Meldung 
 test('Basar (AP 0.1): Kauf über Rückfrage zieht Gold genau einmal ab, Reiter bleibt',()=>{
  const {ctx,log}=setup(),shop=new Shop(ctx);let renders=0;shop.subscribe(()=>renders++);
  shop.enter('boards');assert.equal(shop.state.tab,'boards');
- shop.buy('boards','viking');assert.equal(log.open.kind,'message');assert.equal(ctx.store.profile.gold,300,'erst nach Bestätigung');
+ shop.buy('boards','athen');assert.equal(log.open.kind,'message');assert.equal(ctx.store.profile.gold,300,'erst nach Bestätigung');
  choose(log,'Für 100 Gold kaufen');
- assert.equal(ctx.store.profile.gold,200);assert.ok(K.owns(ctx.store.profile,'boards','viking'));
+ assert.equal(ctx.store.profile.gold,200);assert.ok(K.owns(ctx.store.profile,'boards','athen'));
  assert.equal(shop.state.tab,'boards','Reiter bleibt nach dem Kauf');assert.ok(renders>0,'Ansicht wird aktualisiert statt neu aufgebaut');
- shop.buy('boards','viking');assert.equal(log.toasts.at(-1),'Bereits freigeschaltet.');assert.equal(ctx.store.profile.gold,200);
- shop.equip('boards','viking');assert.equal(ctx.store.profile.cosmetics.equipped.board,'viking');
- const tile=shop.items('boards').find(e=>e.item.id==='viking');assert.ok(tile.owned&&tile.equipped);
+ shop.buy('boards','athen');assert.equal(log.toasts.at(-1),'Bereits freigeschaltet.');assert.equal(ctx.store.profile.gold,200);
+ shop.equip('boards','athen');assert.equal(ctx.store.profile.cosmetics.equipped.board,'athen');
+ const tile=shop.items('boards').find(e=>e.item.id==='athen');assert.ok(tile.owned&&tile.equipped);
  shop.state.tab='skins';ctx.store.profile.gold=10;shop.buy('skins','leonidas-marmor');assert.match(log.toasts.at(-1),/es fehlen noch 290/);
 });
 

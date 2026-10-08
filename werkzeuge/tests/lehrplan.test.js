@@ -64,7 +64,7 @@ test('Astra (AP L.4): Code und MOTIVE.md nennen dieselben Kennungen, jede mit Gr
  const md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8'),section=md.slice(md.indexOf('## Im Code gezeichnet'));
  const listed=[...section.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m=>m[1]);
  assert.deepEqual(listed.sort(),[...code].sort(),'MOTIVE.md veraltet – node werkzeuge/motive.js ausführen');
- for(const id of ['kartenrahmen','diener-plakette','manasaeule','faehigkeitssymbole','steinknopf','stufenpyramide'])assert.ok(code.includes(id),id);
+ for(const id of ['kartenrahmen','diener-plakette','faehigkeitssymbole','steinknopf','stufenpyramide','feldherrentisch','epochenhaelfte','heldenmuenze','herrschersiegel','mana-amulett','chronometer'])assert.ok(code.includes(id),id);
 });
 
 // AP L.2 (1.15.0): Karten der elf Lehrplan-Helden und neutrale Karten aus Lebenswelten statt Fantasy.
