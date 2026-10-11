@@ -45,7 +45,7 @@ test('AP 1.4 Basar: Kauf wird inszeniert – Münzen, Siegel, Belohnung als Folg
 
 test('AP 1.4 Basar: Ansicht mit Podest, drehendem Rücken, Münze, Miniatur-Tisch und Kauf-Effekt; Klänge vorhanden',()=>{
  const view=read('view/shop.js'),css=read('view/css/stone.css');
- for(const k of ['praesentationspodest','heldenmuenze-basar','miniatur-spielfeld'])assert.match(view,new RegExp('// ASTRA: '+k+' – '),k);
+ for(const k of ['praesentationspodest','heldenmuenze-basar','miniatur-spielfeld'])assert.match(view,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
  assert.match(css,/\/\* ASTRA: goldglanz-basar – /);
  assert.match(view,/class="spin-card"[^]*class="face reverse"/,'Kartenrücken mit Rückseite, die sich dreht');
  assert.match(css,/@keyframes card-spin\{0%\{transform:rotateY\(-16deg\)\}[^}]*\}[^]*100%\{transform:rotateY\(344deg\)\}\}/,'nahtlose Schleife');
@@ -88,7 +88,7 @@ test('AP 1.6 Deckbau: Manakurve in drei Phasen mit Hinweis, Karte fliegt ins Dec
  const view=read('view/collection.js'),css=read('view/css/screens.css');
  assert.match(view,/data-key="page-\$\{v\.page\}"/,'neue Seite = neuer Knoten (Animation), Filter auf derselben Seite nicht');
  assert.match(view,/data-key="fly-\$\{f\.n\}"/);assert.match(css,/\.bar\{[^}]*transition:height/,'der Balken wächst sichtbar');
- for(const k of ['filterknopf','kartenbuch','manakurve'])assert.match(view,new RegExp('// ASTRA: '+k+' – '),k);
+ for(const k of ['filterknopf','kartenbuch','manakurve'])assert.match(view,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
 });
 
 test('AP 1.7 Heldenwahl: Galerie nach Zeitalter, großes Porträt mit Fähigkeit, Epoche, Lehrplan und Lieblingskarten',()=>{
@@ -101,7 +101,7 @@ test('AP 1.7 Heldenwahl: Galerie nach Zeitalter, großes Porträt mit Fähigkeit
  s.inspect(v.favorites[0].id);assert.equal(log.open.kind,'zoom');assert.equal(log.open.vm.state.card.id,v.favorites[0].id);
  ctx.session.mode='random';s.chooseHero('perikles');assert.equal(ctx.session.hero,'hypatia','Kolosseum: Held kommt aus dem Los');
  ctx.session.mode='daily';s.chooseHero('perikles');assert.equal(ctx.session.hero,'hypatia');v=s.view;assert.equal(v.selected,v.day.hero);
- for(const k of ['heldengalerie'])assert.match(read('view/setup.js'),new RegExp('// ASTRA: '+k+' – '));
+ for(const k of ['heldengalerie'])assert.match(read('view/setup.js'),new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '));
 });
 
 test('AP 1.7 Kampagnenkarte: 22 Stationen auf der Karte, keine überdeckt eine andere, Belagerungen markiert',()=>{
@@ -119,7 +119,7 @@ test('AP 1.7 Kampagnenkarte: 22 Stationen auf der Karte, keine überdeckt eine a
  assert.equal(c.route.length,21,'die Marschroute verbindet die Stationen in Europa');
  const svg=read('assets/art/weltkarte.svg');assert.match(svg,/Natural Earth/);assert.ok(svg.length<120*1024,'Karte klein: '+svg.length);
  assert.match(svg,new RegExp(`viewBox="0 0 ${MAP.w} ${MAP.h}"`),'gleiche Projektion wie die Stationen');
- const view=read('view/campaign.js');for(const k of ['weltkarte','missionssiegel'])assert.match(view,new RegExp('// ASTRA: '+k+' – '),k);
+ const view=read('view/campaign.js');for(const k of ['weltkarte','missionssiegel'])assert.match(view,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
  assert.match(read('view/dialogs.js'),/Natural Earth \(gemeinfrei\)/,'Quelle in den Credits');
 });
 

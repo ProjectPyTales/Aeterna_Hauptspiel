@@ -1,7 +1,20 @@
-# Aeterna 1.21.0 – Bauen & Prüfen
+# Aeterna 1.22.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.22.0 (AP A.2 Astra-Oberfläche, Entscheidung 19)
+
+- **`astra_bilder.py`** schreibt zusätzlich `assets/ui/<name>.webp` (Liste `UI`: Kartenrücken, Kartenrahmen, Chronikleiste in drei
+  Stücken, Stundenglas, Befehle, Waffenablage, Schildwall, Phiole, Urne, Paket, Podest, Kartenbuch, Startbefehle, Steinplatten),
+  die Währungen als SVG, Hintergründe nach `assets/art/` (`menu`, `bg-*`, `hall-aeterna`) und in `model/bilder.js` die Felder `ui`
+  (Name → Maße) und `windows` (Bildfenster der Rahmen aus Astras Clipmasken, auf 200 × 282). `BLOCKED` ist leer (Entscheidung 19).
+- **Laden:** `CHS.loadUI()` (`view/stone.js`) lädt alle `CHB.ui`-Bilder neben `H.preload`; `CHS.ui[name]` ist das Bild.
+  `R.pic(c,name,cx,cy,w,h)` zeichnet eines eingepasst und meldet, ob es da war – jede Zeichenfunktion behält ihre Zeichnung als
+  Ersatz. `R.card` → `paintedCard` (Lagen je Rahmen in `PAINTED`), `CHS.paintBack`, `stripArt` (3-Slice), `hourglassArt`,
+  `orderArt`, `weaponRack`, `CHF.shieldWall`/`vial`/`urn`; DOM-Bilder in `view/css/astra.css` (zuletzt geladen).
+- **Android:** `res/drawable/ic_launcher_*.xml`, `splash_icon.xml`, `splash_window.xml` aus Teil 3 (Vektor).
+- Test `tests/astra.test.js` um die Oberfläche erweitert; Klickpfad-Referenzbilder neu. Version 1.22.0 / versionCode 25.
 
 ## Neu in 1.21.0 (AP A.1 Astra-Bilder)
 

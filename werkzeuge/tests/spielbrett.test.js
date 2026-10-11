@@ -58,7 +58,7 @@ test('Siegel dreht sich um, Chronometer schwingt – beides ohne Animation bei r
 });
 
 test('Pergament-Deck, Stundenglas, versiegelte Befehle und Zugtafel sind gekennzeichnete Platzhalter',()=>{
- for(const k of ['aetheruhr','zugtafel','pergamentstapel','stundenglas','versiegelte-befehle','chronikleiste','chronik-eintrag'])assert.match(render,new RegExp('// ASTRA: '+k+' – '),k);
+ for(const k of ['aetheruhr','zugtafel','pergamentstapel','stundenglas','versiegelte-befehle','chronikleiste','chronik-eintrag'])assert.match(render,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
  assert.match(render,/function deck\([^]*?Math\.min\(6,Math\.ceil\(pp\.deck\.length\/5\)\)[^]*?pp\.fatigue\+1/,'Stapel wird dünner, leeres Deck zeigt den nächsten Schaden');
  assert.match(render,/function turnPlate\([^]*?motion\(\)/,'Zugtafel nur mit Bewegung');
  assert.doesNotMatch(read('view/match/motion.js'),/GEGNERISCHER ZUG/,'alte Einblendung entfällt');

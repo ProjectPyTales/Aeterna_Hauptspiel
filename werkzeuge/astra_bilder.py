@@ -24,6 +24,7 @@ import csv
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -58,12 +59,45 @@ BAIBARS = {
 REVISION = {
     'fabius_0': 'Veles trägt zu schwere Rüstung: schlichte Tunika, kleiner leichter Rundschild, Wurfspeere, kein Kettenhemd.',
 }
-# Nicht neu erzeugen, bis die Zuordnung der geretteten Alexandria-Bilder geklärt ist (Briefing, Abschnitt 9).
-BLOCKED = {'hypatia_0', 'hypatia_2'}
+# Nicht neu erzeugen, bis eine Zuordnung geklärt ist. Entscheidung 19 (11. 10. 2026): Die geretteten Alexandria-Bilder
+# bleiben hypatia_5 und hypatia_8, hypatia_0 und hypatia_2 werden neu bestellt – nichts mehr gesperrt.
+BLOCKED = set()
 # Teil 4 kam beschädigt an: laut Manifest erzeugt, Datei fehlt (Briefing, Abschnitt 8).
 LOST_T4 = {'perikles_7', 'perikles_8', 'perikles_9', 'pioneer', 'citizen', 'parthenos'}
 # Schlachtfeld-Tische (Feld image in model/cosmetics.js).
 BOARDS = ['board', 'board-athen', 'board-kapitol', 'board-skriptorium', 'board-porzellan']
+# Gemalte Oberfläche (AP A.2): Name → (Quelle, Breite in px). Das Spiel zeichnet diese Bilder statt der Zeichenfunktion
+# mit der Kennung ASTRA: <name>; fehlt ein Bild, bleibt die Zeichnung. Ziel: quellcode/assets/game/assets/ui/<name>.webp.
+T1, T3 = 'Teil1/assets', 'Teil3/assets'
+BACKS = ['chroniken', 'tempel', 'sparta', 'pharao', 'runen', 'sterne', 'lilien', 'zen']
+UI = {
+    **{f'kartenruecken-{b}': (f'{T1}/cardbacks/kartenruecken-{b}.webp', 400) for b in BACKS},
+    **{f'kartenrahmen-{t}-{v}': (f'{T1}/ui-art/kartenrahmen-{t}-{v}.png', 600)
+       for t in ['minion', 'spell', 'building'] for v in ['normal', 'gold']},
+    **{f'chronikleiste-{p}': (f'{T3}/ui-art/chronikleiste-{p}.png', 280) for p in ['oben', 'mitte', 'unten']},
+    'stundenglas': (f'{T1}/ui-art/stundenglas.png', 280),
+    'versiegelte-befehle': (f'{T1}/ui-art/versiegelte-befehle.png', 160),
+    'waffenablage': (f'{T1}/ui-art/waffenablage.png', 320),
+    'schildwall': (f'{T1}/ui-art/schildwall.png', 480),
+    'giftphiole': (f'{T1}/ui-art/giftphiole.png', 128),
+    'vermaechtnis-urne': (f'{T1}/ui-art/vermaechtnis-urne.png', 144),
+    'kartenpaket': (f'{T1}/ui-art/kartenpaket.png', 680),
+    'praesentationspodest': (f'{T1}/ui-art/praesentationspodest.png', 1000),
+    'kartenbuch': (f'{T1}/ui-art/kartenbuch.png', 1539),
+    'startbefehle': (f'{T1}/ui-art/startbefehle.png', 480),
+    'steinplatten-links': (f'{T1}/ui-art/steinplatten-links.png', 1000),
+    'steinplatten-rechts': (f'{T1}/ui-art/steinplatten-rechts.png', 1000),
+}
+# Vektorbilder, die unverändert nach assets/ui/ kommen (heute nur die Währungen; die übrigen flachen Vektoren aus Teil 1
+# sind schlichter als die Zeichnungen im Spiel und bleiben ungenutzt, siehe README AP A.2).
+SVG = {'waehrung-gold': f'{T1}/ui/waehrung-gold.svg', 'waehrung-staub': f'{T1}/ui/waehrung-staub.svg',
+       'waehrung-pakete': f'{T1}/ui/waehrung-pakete.svg'}
+# Gemalte Hintergründe nach assets/art/: Name → (Quelle, Qualität). Das Hauptmenü ist Astras Neufassung des Konzeptbilds in
+# derselben Geometrie (2602 × 1084, deckungsgleich überblendet) – die Trefferflächen in view/hall.js bleiben gültig.
+BACKGROUNDS = {'menu': (f'{T1}/backgrounds/menu.webp', 80), 'bg-basar': (f'{T1}/backgrounds/basar.webp', 80),
+               'bg-sammlung': (f'{T1}/backgrounds/sammlung.webp', 80), 'bg-pakete': (f'{T1}/backgrounds/pakete.webp', 80),
+               'bg-heldengalerie': (f'{T1}/backgrounds/heldengalerie.webp', 80),
+               'hall-aeterna': ('Teil1/game-assets/art/hall-aeterna.webp', 90)}
 # Alte Atlanten aus werkzeuge/bilder_webp.py, die nur Kartenbilder enthalten: fallen weg, wenn keine Karte mehr zeigt.
 OLD_CARD_ATLASES = ['leonidas', 'hypatia', 'imhotep', 'dandolo', 'khan', 'boudicca', 'nostradamus', 'jeanne',
                     'ragnar', 'musashi', 'neutral0', 'neutral1', 'neutral2', 'neutral3']
@@ -110,13 +144,40 @@ def atlas(name, paths, size):
     sheet.save(os.path.join(ART, name + '.webp'), 'WEBP', quality=QUALITY, method=6)
 
 
-def write_map(cards, heroes):
-    rows = lambda d: ',\n'.join(f'  {k}:{json.dumps(v)}' for k, v in d.items())
+def ui_images():
+    """Schreibt die Oberflächenbilder und liefert Name → [Breite, Höhe] sowie die Bildfenster der Kartenrahmen."""
+    out = os.path.join(GAME, 'assets/ui')
+    os.makedirs(out, exist_ok=True)
+    sizes = {}
+    for name, (src, width) in UI.items():
+        im = Image.open(os.path.join(NEU, src))
+        im.load()
+        im = im.convert('RGBA' if 'A' in im.getbands() else 'RGB')
+        h = round(im.height * width / im.width)
+        im.resize((width, h), Image.LANCZOS).save(os.path.join(out, name + '.webp'), 'WEBP', quality=88, method=6)
+        sizes[name] = [width, h]
+    for name, src in SVG.items():
+        shutil.copyfile(os.path.join(NEU, src), os.path.join(out, name + '.svg'))
+    # Bildfenster je Rahmen aus Astras Clipmasken (Teil 3), umgerechnet auf die Karte von 200 × 282.
+    windows = {}
+    for a in json.load(open(os.path.join(NEU, 'Teil3/ASSET_MANIFEST.json'), encoding='utf-8'))['assets']:
+        if a.get('aperture_bbox'):
+            (w, h), (x0, y0, x1, y1) = a['size'], a['aperture_bbox']
+            key = a['id'].replace('kartenrahmen-', '').replace('-clip', '')
+            windows[key] = [round(x0 * 200 / w, 1), round(y0 * 282 / h, 1), round(x1 * 200 / w, 1), round(y1 * 282 / h, 1)]
+    for name, (src, quality) in BACKGROUNDS.items():
+        Image.open(os.path.join(NEU, src)).convert('RGB').save(os.path.join(ART, name + '.webp'), 'WEBP', quality=quality, method=6)
+    return sizes, windows
+
+
+def write_map(cards, heroes, ui, windows):
+    rows = lambda d: ',\n'.join(f'  {json.dumps(k) if "-" in k else k}:{json.dumps(v)}' for k, v in d.items())
     text = ('// Erzeugt von werkzeuge/astra_bilder.py aus ungenutzte_assets/neue_astra_assets/ – nicht von Hand ändern.\n'
             '// Gemalte Astra-Bilder (AP A.1): Karte oder Spielstein → [Atlas, Feld], Held → [Atlas, Feld].\n'
-            '// data.js legt das über die Karten und Helden.\n'
+            '// data.js legt das über die Karten und Helden. Oberfläche (AP A.2): ui = Bild → [Breite, Höhe] in assets/ui/,\n'
+            '// windows = Bildfenster der Kartenrahmen [links, oben, rechts, unten] auf der Karte von 200 × 282.\n'
             "(function(root){'use strict';\nconst api={cards:{\n" + rows(cards) + '\n},heroes:{\n' + rows(heroes) +
-            "\n}};\nif(typeof module!=='undefined')module.exports=api;else root.CHB=api;\n"
+            '\n},ui:{\n' + rows(ui) + '\n},windows:{\n' + rows(windows) + "\n}};\nif(typeof module!=='undefined')module.exports=api;else root.CHB=api;\n"
             "})(typeof globalThis!=='undefined'?globalThis:this);\n")
     open(os.path.join(GAME, 'model/bilder.js'), 'w', encoding='utf-8').write(text)
 
@@ -127,7 +188,8 @@ def briefing():
     for line in open(os.path.join(NEU, 'PRODUKTIONSBRIEFING.md'), encoding='utf-8'):
         line = line.rstrip('\n')
         if line.startswith('## '):
-            group, context = {'6': 'Spielsteine', '8': 'Aus Teil 4 wiederbeschaffen'}.get(line[3], line[3:]), ''
+            group, context = {'6': 'Spielsteine', '8': 'Aus Teil 4 wiederbeschaffen',
+                              '9': 'Alexandria · Spätantike (Entscheidung 19: neu bestellen)'}.get(line[3], line[3:]), ''
         elif line.startswith('### '):
             group, context = line[4:], ''
         elif line.startswith('**Stil-/Epochenkontext:**'):
@@ -139,7 +201,8 @@ def briefing():
             cells = [c.strip() for c in line.strip('|').split('|')]
             name = cells[0].split('–', 1)[-1].strip().strip('`') if '`' in cells[0] else cells[0]
             group_name = re.sub(r'\s*·\s*\d+ Motive.*$', '', group)
-            rows.setdefault(m.group(2), (group_name, context, name, cells[-1], len(rows)))
+            motif = cells[2] if group.startswith('Alexandria') else cells[-1]  # Abschnitt 9: Motiv, dann Sperrgrund
+            rows.setdefault(m.group(2), (group_name, context, name, motif, len(rows)))
     return rows
 
 
@@ -183,7 +246,7 @@ def main():
         im = Image.open(os.path.join(NEU, f'Teil1/assets/backgrounds/{name}.webp')).convert('RGB')
         im.save(os.path.join(ART, name + '.webp'), 'WEBP', quality=QUALITY, method=6)
         im.resize((480, 240), Image.LANCZOS).save(os.path.join(ART, name + '-preview.webp'), 'WEBP', quality=80, method=6)
-    write_map(card_map, hero_map)
+    write_map(card_map, hero_map, *ui_images())
 
     # Was zeigt das Spiel jetzt? Alte Kartenatlanten ohne Karte entfallen.
     now = game()
@@ -273,11 +336,9 @@ def auftrag(data, status, motifs, done, atlases):
             'Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.')
     section(f'## 6. Spielsteine: {len(tokens)}', tokens,
             'Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige Szene, kein Freisteller.')
-    out += ['## 7. Gesperrt – erst klären, nicht erzeugen', '']
-    for i in sorted(BLOCKED):
-        out.append(f'- `{i}` {names[i]}: ' + motifs.get(i, ('', '', '', '', 0))[3])
-    out += ['', 'Die geretteten Bilder „Papyrusstudium“ und „Astronom“ sind vorläufig `hypatia_5` und `hypatia_8` '
-            'zugeordnet. Entscheidung offen (README, Offene Entscheidungen).', '']
+    if BLOCKED:
+        out += ['## 7. Gesperrt – erst klären, nicht erzeugen', '']
+        out += [f'- `{i}` {names[i]}: ' + motifs.get(i, ('', '', '', '', 0))[3] for i in sorted(BLOCKED)] + ['']
     open(os.path.join(ROOT, 'ungenutzte_assets/ASTRA_AUFTRAG.md'), 'w', encoding='utf-8').write('\n'.join(out))
 
 

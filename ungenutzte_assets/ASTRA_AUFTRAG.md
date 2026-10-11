@@ -10,9 +10,9 @@
 |---|---:|---:|---:|
 | Eingebaut (im Spiel) | 163 | 3 | **166** |
 | Eingebaut, Korrektur nötig | 1 | 0 | **1** |
-| Neu erzeugen | 181 | 21 | **202** |
+| Neu erzeugen | 183 | 21 | **204** |
 | Teil 4 beschädigt – Original suchen, sonst neu | 3 | 3 | **6** |
-| Gesperrt – Zuordnung klären | 2 | 0 | **2** |
+| Gesperrt – Zuordnung klären | 0 | 0 | **0** |
 | **Gesamt** | **350** | **27** | **377** |
 
 Im Spiel: 167 Karten und Spielsteine in 14 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
@@ -117,7 +117,7 @@ Die technischen IDs bleiben wegen bestehender Spielstände erhalten. Der aktuell
 | `totem_*` | Grenzsteine | Fantasy-Totempfähle |
 
 
-## 5. Kartenillustrationen: 185
+## 5. Kartenillustrationen: 187
 
 Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
@@ -431,6 +431,13 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 | `perikles_8` | Odeion | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Odeion als athenischer Musik- und Versammlungsbau im Kontext des Perikles; Baukörper und Nutzung erkennbar. Kleine Musiker als Maßstab; keine moderne Bühne. Profil K1. |
 | `perikles_9` | Phidias, Meister der Akropolis | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Phidias arbeitet in einer Werkstatt an einer großen Athena-Statue. Bildhauer und Werkzeug im Fokus; vom fertigen Kultbild des Tokens unterscheiden. Klassisches Athen, Profil K1. |
 
+### Alexandria · Spätantike (Entscheidung 19: neu bestellen)
+
+| ID | Name | Status | Konkretes Motiv und Komposition |
+|---|---|---|---|
+| `hypatia_0` | Bibliothekslehrling | neu | Junger erwachsener männlicher Schüler mit Papyrus in einem bescheidenen alexandrinischen Gelehrtenraum um 400 n. Chr.; Tunika/Himation, keine monumentale intakte ptolemäische Bibliothek. |
+| `hypatia_2` | Sternenkundiger | neu | Älterer Astronom mit einfachem Visierinstrument unter Sternen in spätrömisch-alexandrinischem Kontext; kein Fernrohr und kein Hypatia-Porträt. |
+
 ## 6. Spielsteine: 24
 
 Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige Szene, kein Freisteller.
@@ -469,10 +476,3 @@ Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige S
 | `pioneer` | Pionier | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Römischer Pionier der späten Republik/frühen Kaiserzeit mit Werkzeug und einfacher Soldatenausrüstung beim Bauen; Einzelperson, warmer Stein und Ziegelrot, Profil T1. |
 | `citizen` | Bürger | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Ein athenischer Bürger in schlichtem Chiton/Himation vor ruhiger Stadtkulisse; klare menschliche Halbfigur statt Feldherr. Klassisches Athen, Profil T1. |
 | `parthenos` | Athena Parthenos | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Vollendete Athena-Parthenos-Kultstatue im Tempelraum; Elfenbein-/Goldwirkung sparsam, Statue statt lebender Göttin, keine Werkstattaktion. Klassisches Athen, Profil T1. |
-
-## 7. Gesperrt – erst klären, nicht erzeugen
-
-- `hypatia_0` Bibliothekslehrling: Überschneidung mit dem geretteten Papyrusstudium, derzeit `hypatia_5` / Lehrsatz zugeordnet.
-- `hypatia_2` Sternenkundiger: Überschneidung mit dem geretteten Astronomenmotiv, derzeit `hypatia_8` / Sternenorakel zugeordnet.
-
-Die geretteten Bilder „Papyrusstudium“ und „Astronom“ sind vorläufig `hypatia_5` und `hypatia_8` zugeordnet. Entscheidung offen (README, Offene Entscheidungen).

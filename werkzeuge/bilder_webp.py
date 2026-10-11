@@ -34,7 +34,7 @@ SPECIAL = {
     'temple': (80, 1),              # Basar-Hintergrund unter dunkler Lasur
 }
 # Von werkzeuge/astra_bilder.py ersetzt (AP A.1).
-ASTRA = {'board', 'board-preview', 'heroes', 'heroes-marble'}
+ASTRA = {'board', 'board-preview', 'heroes', 'heroes-marble', 'menu', 'temple', 'hall-aeterna'}
 CARD_ATLASES = {'leonidas', 'hypatia', 'imhotep', 'dandolo', 'khan', 'boudicca', 'nostradamus', 'jeanne', 'ragnar',
                 'musashi', 'neutral0', 'neutral1', 'neutral2', 'neutral3'}
 
