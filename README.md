@@ -75,11 +75,13 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
 ## APK herunterladen
 
 Jeder Push baut automatisch eine signierte Test-APK (`.github/workflows/apk.yml`, seit 1.12.0 mit Gradle aus `android/`).
+Seit Oktober 2026 liegt sie nicht mehr unter „Artifacts“ (der Actions-Speicher von 0,5 GB war voll), sondern im Release:
 
-1. Im Repo auf **Actions** gehen und den obersten grünen Lauf **„Test-APK bauen“** auf `main` öffnen.
-2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen. (Das Artefakt „Sichtpruefung“ daneben
-   enthält die Screenshots des Klickpfads.)
-3. Die ZIP-Datei entpacken – darin liegt die APK.
+1. Im Repo rechts unter **Releases** auf **„Aeterna <Version> – Test-APK“** tippen (oder `…/releases/tag/test-apk`).
+2. Unter **Assets** auf `Aeterna-<Version>-Test.apk` tippen – die APK direkt, ohne ZIP.
+
+Jeder Lauf auf `main` ersetzt diese eine APK; Zweige bauen und prüfen nur. Die Screenshots der Sichtprüfung gibt es nur noch,
+wenn sie fehlschlägt (Artefakt „Sichtpruefung“ am Lauf, 3 Tage).
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
@@ -193,7 +195,10 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
   Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
-- **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus Actions – keine gebauten APKs/ZIPs ins Repo.
+- **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
+  Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
+  `continue-on-error`, damit ein voller Speicher die CI nie rot macht. Zurück zu einer alten Version: `main` auf den alten Stand
+  zurücksetzen (Revert) – die CI baut genau diese APK neu, mit derselben Signatur.
   Der Job „apk“ baut seit 1.12.0 mit Gradle (`android/`) und prüft Paket-ID, Version und Zertifikat. Lokal fehlt in den
   Claude-Code-Sitzungen das Android-SDK (`dl.google.com` gesperrt): Kotlin-Änderungen dort gegen die Android-API aus
   `org.robolectric:android-all` (Maven Central) vorkompilieren, gebaut wird in der CI.
@@ -2109,7 +2114,8 @@ AP 3.1–3.5; Sitzung 14 (1.17.0) AP 1.8 Teil 2, AP 3.7; Sitzung 13 (1.16.0) AP 
 (1.4.0–1.11.0) Stil, Hauptmenü, MVVM, Balance, Schlüsselwörter, Legendäre, 22 Helden und 350 Karten.
 
 **Vorher bitte von dir auf dem OnePlus 15 (10–15 Minuten):**
-1. `Aeterna-1.20.0-Test-APK` aus Actions als Update installieren.
+1. `Aeterna-1.20.0-Test.apk` aus dem Release „Test-APK“ (rechts unter Releases) als Update installieren – es entsteht beim
+   ersten Lauf auf `main` nach dieser Umstellung.
 2. **Rückmeldung 1.19.0:** Zug beenden – Uhrwerk jetzt angenehm? Ein Diener stirbt – passt es jetzt? Sammlung blättern (‹ ›):
    Sind die Karten auf dem Blatt zu sehen, und blättert es flüssig?
 3. **Intro und Münzwurf** (Duell beginnen): 3,2 s – zu lang? Ein Tippen überspringt. Ist zu lesen, wer beginnt?
