@@ -337,13 +337,12 @@ Die vollständige Übersicht der Spielmodule (MVVM) steht in der README unter �
 
 Bei jedem Push baut der Workflow `.github/workflows/apk.yml` die APK mit Gradle: Tests laufen, `./gradlew assembleRelease`
 baut und signiert, `aapt2` prüft Paket-ID und Version, `apksigner` das Zertifikat (SHA-256 `8d4ab16f…e509`). Parallel spielt
-der Job „sichtpruefung“ den Klickpfad im Handyformat und vergleicht ihn mit den Referenzbildern (Artefakt „Sichtpruefung“).
+der Job „sichtpruefung“ den Klickpfad im Handyformat und vergleicht ihn mit den Referenzbildern (Artefakt „Sichtpruefung“ nur
+bei Fehlern, 3 Tage).
 
-1. Im Repo auf **Actions** gehen und den obersten grünen Lauf „Test-APK bauen“ öffnen.
-2. Unten unter **Artifacts** auf `Aeterna-<Version>-Test-APK` tippen.
-3. Die heruntergeladene ZIP-Datei entpacken – darin liegt die APK.
-
-Artefakte bleiben 30 Tage erhalten. Über „Run workflow“ lässt sich jederzeit ein neuer Build starten.
+Auf `main` ersetzt der Lauf die Datei im Release **„Test-APK“** (Tag `test-apk`, `gh release create`) und löscht Artefakte, die
+älter als einen Tag sind – Release-Dateien belegen keinen Actions-Speicher (Free: 0,5 GB). Download: rechts unter **Releases**,
+unter Assets `Aeterna-<Version>-Test.apk`. Über „Run workflow“ lässt sich jederzeit ein neuer Build starten.
 
 ## Lokal bauen
 
