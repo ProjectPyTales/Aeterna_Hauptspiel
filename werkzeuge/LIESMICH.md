@@ -1,7 +1,20 @@
-# Aeterna 1.20.0 – Bauen & Prüfen
+# Aeterna 1.21.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.21.0 (AP A.1 Astra-Bilder)
+
+- **`astra_bilder.py`** (Pillow, Node): sammelt alle Astra-Lieferungen aus `ungenutzte_assets/neue_astra_assets/` je ID (Ordner in
+  `FOLDERS`, gerettete Bilder über Astras Zuordnung, Mamlukenbilder in `BAIBARS`), schreibt Kartenatlanten
+  `assets/art/astra-karten-NN.webp` (4 × 3 à 362 px), Helden `heroes`/`heroes2` (à 384 px), `heroes-marble`, fünf Tische mit Vorschau,
+  `model/bilder.js` (`CHB`: ID → Atlas, Feld), `ungenutzte_assets/ASTRA_STAND.csv` und `ASTRA_AUFTRAG.md`; löscht alte
+  Kartenatlanten ohne Karte. Danach `node werkzeuge/motive.js`. `bilder_webp.py` liest jetzt `archiviert/art-original/` und
+  überspringt, was Astra ersetzt hat.
+- **Spiel:** `index.html` und `labor/renderer.html` laden `model/bilder.js` vor `data.js`; `data.js` legt die Zuordnung über Karten,
+  Spielsteine und Helden. `render.js`: Heldenbild immer aus `hero.art`/`hero.cell` (`R.heroStyle`, `medal`, Intro), `R.atlases()`
+  lädt die Heldenatlanten der Helden. `cosmetics.js`: Tische mit `image` statt `tint`.
+- Test `tests/astra.test.js`; Klickpfad-Referenzbilder 03–13 neu. Version 1.21.0 / versionCode 24.
 
 ## Neu in 1.20.0 (AP 3.6 Schlüsselwort-Effekte, AP 3.8 Anfang und Ende des Matches, Rückmeldung zu 1.19.0)
 

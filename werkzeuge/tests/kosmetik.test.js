@@ -74,8 +74,9 @@ test('Katalog: 8 Rücken, 4 Skins, 5 Schlachtfelder, Preise laut Vorgabe',()=>{
  assert.equal(K.catalog.skins.length,4);
  assert.deepEqual(K.catalog.boards.map(b=>[b.id,b.name,b.price]),[['standard','Standard',0],['athen','Marmortisch von Athen',100],['kapitol','Porphyr des Kapitols',100],['skriptorium','Pult des Skriptoriums',100],['porzellan','Meißner Porzellan',100]]);
  const D=require(path.join(game,'model/data.js'));
- // Skins gibt es für Helden mit gemaltem Porträt; die neuen (AP 5.10, AP L.1) bekommen sie mit ihrem Astra-Porträt.
- assert.deepEqual(K.catalog.skins.map(s=>s.hero),D.heroes.filter(h=>h.art).map(h=>h.id));
+ // Marmor-Skins gibt es für die vier Helden der ersten Stunde; sie liegen in heroes-marble im Feld ihres Porträts.
+ assert.deepEqual(K.catalog.skins.map(s=>s.hero),['leonidas','hypatia','imhotep','dandolo']);
+ assert.ok(K.catalog.skins.every(s=>D.heroById[s.hero].art==='heroes'));
 });
 
 // Rückmeldung zu 1.15.0: Die vier gemalten Schlachtfelder von 1.4.0 entfallen, an ihrer Stelle stehen Platzhalter-Tische.
@@ -90,13 +91,13 @@ test('Schlachtfelder (Rückmeldung 1.15.0): alte Felder entfallen, 100 Gold je F
  for(const id of ['ancient','egypt','viking','japan'])assert.ok(!fs.existsSync(path.join(art,'board-'+id+'.webp')),'Bild entfernt: '+id);
 });
 
-test('Platzhalter-Tische (AP L.4): ohne Bild, mit Farbfilter, in MOTIVE.md gelistet; Bilder vorhandener Tische liegen bereit',()=>{
+test('Tische (AP L.4, AP A.1): alle mit Astra-Bild und Vorschau; ein Tisch ohne Bild hätte Farbfilter und stünde in MOTIVE.md',()=>{
  const fs=require('node:fs'),md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8');
  for(const b of K.catalog.boards){
   if(b.image){for(const f of [b.image,b.image+'-preview'])assert.ok(fs.existsSync(path.join(game,'assets/art',f+'.webp')),f);continue;}
   assert.match(b.tint,/^([a-z-]+\([-\d.]+(deg)?\) ?)+$/,'CSS-Filter für '+b.id);
   assert.ok(md.includes('| `'+b.id+'` | '+b.name+' |'),'MOTIVE.md nennt '+b.id);}
- assert.equal(K.catalog.boards.filter(b=>!b.image).length,4);
+ assert.equal(K.catalog.boards.filter(b=>!b.image).length,0,'seit 1.21.0 alle gemalt');
 });
 
 test('Goldene Karten (AP 1.5): Kartenrahmen als Kosmetik, alte Spielstände bekommen das Tempeltor',()=>{

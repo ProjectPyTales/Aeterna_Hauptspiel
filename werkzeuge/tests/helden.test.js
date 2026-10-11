@@ -4,6 +4,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),path=requir
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
 const D=need('model/data.js'),E=need('model/engine.js'),P=need('model/profile.js'),L=need('model/lore.js');
+const B=require(path.join(game,'model/bilder.js'));
 const NEW=['perikles','agrippa','amanirenas','anna','nezahualcoyotl','masako'];
 
 function ready(hero='perikles',foe='khan'){
@@ -105,7 +106,7 @@ test('Welle 1: sechs Helden mit je 10 Karten, Chronik, Startdeck, Mission und Ze
  assert.equal(D.heroes.length,22,'16 bis 1.10.0, Welle 2: sechs weitere');
  for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id&&+c.id.split('_')[1]<10);
   assert.equal(set.length,10,id);assert.deepEqual(set.map(c=>c.rarity),['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'],id);
-  assert.ok(set.every(c=>D.missingArt(c)),id+': Platzhalter bis zu den Motiven');assert.ok(!h.art,'Monogramm statt Porträt');
+  assert.ok(set.every(c=>D.missingArt(c)||B.cards[c.id]),id+': Platzhalter bis zu den Astra-Motiven');assert.deepEqual([h.art,h.cell],B.heroes[id],'Astra-Porträt (AP A.1)');
   assert.ok(L.of(id),id+' hat eine Chronikseite');assert.ok(D.missions.some(m=>m.hero===id&&m.effects),id+' hat eine Mission');
   assert.equal(P.validateDeck(P.fresh(),id,E.starter(id)),null,id+': Startdeck gültig');
   const legend=set[9];assert.ok(legend.cost>=4&&legend.cost<=8,legend.name);}

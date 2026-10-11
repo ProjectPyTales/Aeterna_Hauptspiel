@@ -3,7 +3,7 @@ require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
-const D=need('model/data.js'),E=need('model/engine.js'),P=need('model/profile.js');
+const B=need('model/bilder.js'),D=need('model/data.js'),E=need('model/engine.js'),P=need('model/profile.js');
 const AGES=['griechen','mittelalter','ostasien'];
 
 function ready(hero='leonidas',foe='khan'){
@@ -22,7 +22,7 @@ test('Welle 1: 56 neue Karten mit festen IDs hinten, zwei je Held, sieben je Zei
  for(const h of D.heroes.slice(0,16))assert.equal(wave.filter(c=>c.hero===h.id).length,2,h.id);
  for(const a of AGES){const set=wave.filter(c=>c.age===a);assert.equal(set.length,7,a);assert.ok(set.every(c=>c.hero===a&&c.id.startsWith(a+'_')),a);}
  assert.deepEqual(wave.filter(c=>c.hero==='neutral').map(c=>c.name),['Kolosseum','Hängende Gärten','Pyramiden von Gizeh']);
- assert.ok(wave.every(c=>D.missingArt(c)&&['common','rare','epic'].includes(c.rarity)),'Platzhalter, keine Basis- oder Legendären');
+ assert.ok(wave.every(c=>(D.missingArt(c)||B.cards[c.id])&&['common','rare','epic'].includes(c.rarity)),'Platzhalter oder Astra-Motiv, keine Basis- oder Legendären');
  assert.equal(wave.filter(c=>c.building).length,12,'zwölf neue Bauwerke');
  // Bisherige IDs bleiben an ihrer Stelle (Spielstände).
  assert.equal(D.cards[0].id,'leonidas_0');assert.equal(D.cards[212].id,'masako_9');

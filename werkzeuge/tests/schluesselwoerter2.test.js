@@ -89,7 +89,8 @@ test('KI: bewertet die neuen Schlüsselwörter und spielt Bannung gegen einen st
 
 test('Platzhalter (AP 5.12): Karten ohne Motiv sind gekennzeichnet, ein Deck nur daraus ist spielbar',()=>{
  const missing=D.cards.filter(D.missingArt);assert.ok(missing.length>=13);assert.ok(D.missingArt(D.byId.pyramid));
- for(const h of D.heroes.slice(0,10))assert.equal(h.art,D.replaced.includes(h.id)?undefined:'heroes',h.id+': Porträt nur für Helden, die geblieben sind');
+ // Seit 1.21.0 (AP A.1) hat jeder Held sein Astra-Porträt.
+ for(const h of D.heroes)assert.ok(h.art&&!D.missingArt(h),h.id+': Porträt');
  const pool=missing.filter(c=>c.hero==='neutral'||c.hero==='ragnar');const deck=[];for(let i=0;deck.length<30;i++)deck.push(pool[i%pool.length].id);
  let over=0;for(let seed=1;seed<=6;seed++){const s=E.create({hero:'ragnar',foe:'khan',deck,seed,first:seed%2});E.mulligan(s,[]);
   for(let n=0;n<600&&s.phase!=='over';n++){const r=E.apply(s,E.ai(s));assert.ok(r.ok);}if(s.phase==='over')over++;}

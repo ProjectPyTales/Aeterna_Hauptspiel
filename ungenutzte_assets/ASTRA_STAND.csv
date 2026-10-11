@@ -1,0 +1,378 @@
+id;name;gruppe;status;quelle
+leonidas_0;Spartanischer Rekrut;Sparta;eingebaut;Teil2/assets/cards/leonidas_0.png
+leonidas_1;Wächter der Thermopylen;Sparta;eingebaut;Teil2/assets/cards/leonidas_1.png
+leonidas_2;Bronzener Wall;Sparta;eingebaut;Teil2/assets/cards/leonidas_2.png
+leonidas_3;Hoplitenhauptmann;Sparta;eingebaut;Teil1/assets/cards/leonidas_3.webp
+leonidas_4;Speerträger;Sparta;eingebaut;Teil1/assets/cards/leonidas_4.webp
+leonidas_5;Schildstoß;Sparta;eingebaut;Teil1/assets/cards/leonidas_5.webp
+leonidas_6;Phalanxveteran;Sparta;eingebaut;Teil1/assets/cards/leonidas_6.webp
+leonidas_7;Spartas Erbe;Sparta;eingebaut;Teil2/assets/cards/leonidas_7.png
+leonidas_8;Dienekes;Sparta;eingebaut;Teil2/assets/cards/leonidas_8.png
+leonidas_9;Gorgo, Stimme Spartas;Sparta;eingebaut;Teil1/assets/cards/leonidas_9.webp
+hypatia_0;Bibliothekslehrling;Alexandria;gesperrt;
+hypatia_1;Himmelsstrahl;Alexandria;eingebaut;Teil2/assets/cards/hypatia_1.png
+hypatia_2;Sternenkundiger;Alexandria;gesperrt;
+hypatia_3;Sternenregen;Alexandria;eingebaut;Teil2/assets/cards/hypatia_3.png
+hypatia_4;Astrolabienwächter;Alexandria;eingebaut;Teil2/assets/cards/hypatia_4.png
+hypatia_5;Lehrsatz;Alexandria;eingebaut;gerettet/Papyrusstudium in Alexandrien.png
+hypatia_6;Museionshüterin;Alexandria;eingebaut;gerettet/Bewahrerin des alexandrinischen Wissens.png
+hypatia_7;Sonnenfokus;Alexandria;eingebaut;gerettet/Bronzespiegel bündelt Sonnenlicht.png
+hypatia_8;Sternenorakel;Alexandria;eingebaut;gerettet/Astronom unter Alexandrias Sternenhimmel.png
+hypatia_9;Theon von Alexandria;Alexandria;eingebaut;Teil1/assets/cards/hypatia_9.webp
+imhotep_0;Nilschülerin;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_0.png
+imhotep_1;Heilender Balsam;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_1.png
+imhotep_2;Pyramidenwächter;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_2.png
+imhotep_3;Tempelärztin;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_3.png
+imhotep_4;Sonnensegen;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_4.png
+imhotep_5;Balsamierer;Ägypten;eingebaut;gerettet/Leinen und Salbgefäße im altägyptischen Einbalsamierungsraum.png
+imhotep_6;Nilschwemme;Ägypten;eingebaut;gerettet/Jährliche Flut bei Saqqara.png
+imhotep_7;Goldener Skarabäus;Ägypten;eingebaut;Teil2/assets/cards/imhotep_7.png
+imhotep_8;Urteil der Sonne;Ägypten;eingebaut;gerettet/Altägyptisches Gericht unter der Sonne.png
+imhotep_9;Djoser, der Erbauer;Ägypten;eingebaut;gerettet/Djoser und die Stufenpyramide.png
+dandolo_0;Lagunenbote;Venedig;eingebaut;gerettet/Venezianischer Bote im Ruderboo.png
+dandolo_1;Arsenalarbeiter;Venedig;eingebaut;gerettet/Venezianischer Schiffbauer in der Werft.png
+dandolo_2;Präziser Stich;Venedig;eingebaut;gerettet/Dolch gegen Holzschild auf Schiffsplanken.png
+dandolo_3;Handelsgesandter;Venedig;eingebaut;gerettet/Venezianischer Gesandter mit Siegelbrief.png
+dandolo_4;Dogenklinge;Venedig;eingebaut;Teil1/assets/cards/dandolo_4.webp
+dandolo_5;Maskierte Wache;Venedig;eingebaut;Teil2/assets/cards/dandolo_5.png
+dandolo_6;Geheimer Vertrag;Venedig;eingebaut;Teil1/assets/cards/dandolo_6.webp
+dandolo_7;Admiral der Galeeren;Venedig;eingebaut;Teil2/assets/cards/dandolo_7.png
+dandolo_8;Arsenal von Venedig;Venedig;eingebaut;gerettet/Galeerenbau im venezianischen Arsenal.png
+dandolo_9;Marco Polo, der Weltenfahrer;Venedig;eingebaut;gerettet/Marco Polo auf der Seidenstraße.png
+khan_0;Späher aus Engern;Sachsen;eingebaut;gerettet/Späher im dunklen Buchenwald.png
+khan_1;Speerwerfer aus Westfalen;Sachsen;eingebaut;gerettet/Sächsischer Speerwerfer im Nebel.png
+khan_2;Pfeilschuss;Sachsen;offen;
+khan_3;Reiter der Edelinge;Sachsen;offen;
+khan_4;Falknerin;Sachsen;eingebaut;gerettet/Sächsische Falknerin mit Habicht.png
+khan_5;Sachsenaufstand;Sachsen;eingebaut;gerettet/Sächsische Speerträger vor dem brennenden Dorf.png
+khan_6;Schildträger aus Ostfalen;Sachsen;eingebaut;gerettet/Ostfälischer Schildträger mit Speer.png
+khan_7;Sturm auf die Eresburg;Sachsen;eingebaut;gerettet/Sachsen stürmen die brennende Burg.png
+khan_8;Gefolgschaft Widukinds;Sachsen;eingebaut;gerettet/Sächsischer Sturm aus dem Wald.png
+khan_9;Abbi, Gefährte Widukinds;Sachsen;eingebaut;gerettet/Sächsischer Edelmann am Weserufer.png
+boudicca_0;Hüterin des Hains;Arverner;eingebaut;gerettet/Wächterin des heiligen Eichenhains.png
+boudicca_1;Schild aus Eichenholz;Arverner;eingebaut;gerettet/Gallischer Eichenschild mit Eisenbuckel.png
+boudicca_2;Krieger der Arverner;Arverner;eingebaut;gerettet/Arvernerkrieger vor den Vulkanhügeln.png
+boudicca_3;Hieb mit dem Langschwert;Arverner;eingebaut;gerettet/Gallischer Krieger schwingt das Langschwert.png
+boudicca_4;Reiter der Arverner;Arverner;eingebaut;gerettet/Arvernischer Reiter im Speerangriff.png
+boudicca_5;Heilkundige mit der Mistel;Arverner;eingebaut;Teil1/assets/cards/boudicca_5.webp
+boudicca_6;Erhebung der Gallier;Arverner;eingebaut;gerettet/Speere und Schilde der Gallier.png
+boudicca_7;Verteidiger von Gergovia;Arverner;eingebaut;gerettet/Gallischer Schildwächter auf Gergovia.png
+boudicca_8;Letzter Ritt vor Alesia;Arverner;eingebaut;gerettet/Vercingetorix reitet aus Alesia.png
+boudicca_9;Commius, Führer des Entsatzheers;Arverner;eingebaut;Teil6/originale/boudicca_9.png
+nostradamus_0;Apothekerlehrling;Meißen;offen;
+nostradamus_1;Verpuffung im Laboratorium;Meißen;eingebaut;gerettet/Funkenflug zwischen Fläschchen im Labor.png
+nostradamus_2;Bergmann aus Aue;Meißen;eingebaut;gerettet/Sächsischer Bergmann mit Kaolinkorb.png
+nostradamus_3;Geheimes Rezeptbuch;Meißen;offen;
+nostradamus_4;Pestarzt;Meißen;eingebaut;gerettet/Sächsischer Arzt mit Kräutern.png
+nostradamus_5;Befehl des Kurfürsten;Meißen;eingebaut;gerettet/Versiegelter Befehl im Alchemielabor.png
+nostradamus_6;Schreiber der Manufaktur;Meißen;eingebaut;gerettet/Schreiber in der Meißner Porzellanmanufaktur.png
+nostradamus_7;Glut des Brennofens;Meißen;eingebaut;gerettet/Meißner Arbeiter am glühenden Brennofen.png
+nostradamus_8;Wache auf dem Königstein;Meißen;eingebaut;gerettet/Sächsische Wache am Königstein.png
+nostradamus_9;Tschirnhaus, Naturforscher;Meißen;eingebaut;gerettet/Tschirnhaus am großen Brennspiegel.png
+jeanne_0;Pförtnerin vom Rupertsberg;Rupertsberg;eingebaut;gerettet/Schlüsselhüterin am Rupertsberg.png
+jeanne_1;Grünkraft;Rupertsberg;eingebaut;gerettet/Leuchtende Kräuter in Hildegards Garten.png
+jeanne_2;Klostervogt;Rupertsberg;eingebaut;gerettet/Wächter am romanischen Klostertor.png
+jeanne_3;Einkleidung der Novizinnen;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_3.png
+jeanne_4;Pilger am Rhein;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_4.png
+jeanne_5;Segen der Äbtissin;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_5.png
+jeanne_6;Vorsängerin im Chor;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_6.png
+jeanne_7;Spiel der Tugenden;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_7.png
+jeanne_8;Ritter mit dem Schutzbrief;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_8.png
+jeanne_9;Jutta von Sponheim, Magistra;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_9.png
+ragnar_0;Siedler aus Franken;Mark Meißen;offen;
+ragnar_1;Fehde;Mark Meißen;offen;
+ragnar_2;Burgmann von Groitzsch;Mark Meißen;offen;
+ragnar_3;Lokator;Mark Meißen;offen;
+ragnar_4;Verhau;Mark Meißen;offen;
+ragnar_5;Panzerreiter;Mark Meißen;offen;
+ragnar_6;Rodung;Mark Meißen;offen;
+ragnar_7;Grenzwächter der Mark;Mark Meißen;offen;
+ragnar_8;Heerfahrt nach Italien;Mark Meißen;offen;
+ragnar_9;Judith von Böhmen;Mark Meißen;offen;
+musashi_0;Edelknabe;Steiermark;offen;
+musashi_1;Lanzenstoß;Steiermark;offen;
+musashi_2;Fahrender Ritter;Steiermark;offen;
+musashi_3;Minnebrief;Steiermark;offen;
+musashi_4;Minneritter;Steiermark;offen;
+musashi_5;Mit eingelegter Lanze;Steiermark;offen;
+musashi_6;Kämpe im Buhurt;Steiermark;offen;
+musashi_7;Venusfahrt;Steiermark;offen;
+musashi_8;Landrichter der Steiermark;Steiermark;offen;
+musashi_9;Friedrich der Streitbare;Steiermark;offen;
+neutral_0;Dorfwache;Neutral;offen;
+neutral_1;Wandernder Händler;Neutral;offen;
+neutral_2;Steinschleuderer;Neutral;offen;
+neutral_3;Wilderin;Neutral;offen;
+neutral_4;Torwache der Burg;Neutral;offen;
+neutral_5;Kavallerist;Neutral;offen;
+neutral_6;Feldheilerin;Neutral;offen;
+neutral_7;Archivarin;Neutral;offen;
+neutral_8;Wachhund;Neutral;offen;
+neutral_9;Veteran;Neutral;offen;
+neutral_10;Belagerungsturm;Neutral;offen;
+neutral_11;Schmied;Neutral;offen;
+neutral_12;Wüstenspäherin;Neutral;offen;
+neutral_13;Gebirgswache;Neutral;offen;
+neutral_14;Verwegener Bote;Neutral;offen;
+neutral_15;Nachtwächter;Neutral;offen;
+neutral_16;Versorgung;Neutral;offen;
+neutral_17;Heilkräuter;Neutral;offen;
+neutral_18;Wurfmesser;Neutral;offen;
+neutral_19;Kriegselefant;Neutral;offen;
+neutral_20;Ordensritter;Neutral;offen;
+neutral_21;Söldnerhauptmann;Neutral;offen;
+neutral_22;Adler der Berge;Neutral;offen;
+neutral_23;Grabwächter;Neutral;offen;
+neutral_24;Sammelruf;Neutral;offen;
+neutral_25;Feldration;Neutral;offen;
+neutral_26;Bogenmeisterin;Neutral;offen;
+neutral_27;Prätorianer;Neutral;offen;
+neutral_28;Silberner Bannerträger;Neutral;offen;
+neutral_29;Flammenkrug;Neutral;offen;
+neutral_30;Löwin der Arena;Neutral;offen;
+neutral_31;Seidenkarawanenführer;Neutral;offen;
+neutral_32;Schlachtruf;Neutral;offen;
+neutral_33;Trojanisches Pferd;Neutral;offen;
+neutral_34;Brander;Neutral;offen;
+neutral_35;Vergessene Weisheit;Neutral;offen;
+neutral_36;Burgbesatzung;Neutral;offen;
+neutral_37;Donnernde Legion;Neutral;offen;
+neutral_38;Herodot, Vater der Geschichte;Neutral;offen;
+neutral_39;Zenobia, Rebellin von Palmyra;Neutral;offen;
+dandolo_10;Agent des Zehnerrats;Venedig;eingebaut;Teil2/assets/cards/dandolo_10.png
+khan_10;Plünderer am Rhein;Sachsen;offen;
+imhotep_10;Kobra des Nils;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_10.png
+boudicca_10;Zwanzig Städte in Flammen;Arverner;eingebaut;Teil6/originale/boudicca_10.png
+nostradamus_10;Eid der Arkanisten;Meißen;offen;
+ragnar_10;Böhmischer Söldner;Mark Meißen;offen;
+ragnar_11;Brandschatzung;Mark Meißen;offen;
+musashi_10;Heimlicher Bote;Steiermark;offen;
+neutral_42;Freibeuterin;Neutral;offen;
+neutral_43;Späherin im Unterholz;Neutral;offen;
+neutral_44;Wandermönch;Neutral;offen;
+neutral_45;Giftmischerin;Neutral;offen;
+neutral_46;Condottiere;Neutral;offen;
+perikles_0;Ruderer der Triere;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_0.png
+perikles_1;Lange Mauern;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_1.png
+perikles_2;Rede auf die Gefallenen;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_2.png
+perikles_3;Strategos;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_3.png
+perikles_4;Pnyx;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_4.png
+perikles_5;Scherbengericht;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_5.png
+perikles_6;Triere von Salamis;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_6.png
+perikles_7;Pest von Athen;Athen;wiederbeschaffen;
+perikles_8;Odeion;Athen;wiederbeschaffen;
+perikles_9;Phidias, Meister der Akropolis;Athen;wiederbeschaffen;
+agrippa_0;Pilumwerfer;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_0.png
+agrippa_1;Legionär der Zehnten;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_1.png
+agrippa_2;Castra;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_2.png
+agrippa_3;Testudo;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_3.png
+agrippa_4;Ballista;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_4.png
+agrippa_5;Liburnen bei Actium;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_5.png
+agrippa_6;Primus Pilus;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_6.png
+agrippa_7;Thermen des Agrippa;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_7.png
+agrippa_8;Pantheon;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_8.png
+agrippa_9;Vitruv, Baumeister Roms;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_9.png
+amanirenas_0;Bogenschütze aus Elkab;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_0.png
+amanirenas_1;Krieger der Nilflotte;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_1.png
+amanirenas_2;Pfeilregen vor Auaris;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_2.png
+amanirenas_3;Speerträger aus Theben;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_3.png
+amanirenas_4;Priester der Selket;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_4.png
+amanirenas_5;Medjai-Kundschafter;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_5.png
+amanirenas_6;Erbeuteter Streitwagen;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_6.png
+amanirenas_7;Überfall auf Nefrusi;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_7.png
+amanirenas_8;Ahmose, Befreier Ägyptens;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_8.png
+amanirenas_9;Zeremonialaxt des Ahmose;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_9.png
+anna_0;Kopistin der Chronik;Byzanz;offen;
+anna_1;Pantokrator-Spital;Byzanz;offen;
+anna_2;Warägergardist;Byzanz;offen;
+anna_3;Hofärztin;Byzanz;offen;
+anna_4;Griechisches Feuer;Byzanz;offen;
+anna_5;Bibliothekar von Konstantinopel;Byzanz;offen;
+anna_6;Kataphrakt;Byzanz;offen;
+anna_7;Chrysobull;Byzanz;offen;
+anna_8;Nikephoros Bryennios;Byzanz;offen;
+anna_9;Alexios I. Komnenos;Byzanz;offen;
+nezahualcoyotl_0;Gärtner von Tetzcotzinco;Texcoco;offen;
+nezahualcoyotl_1;Adlerkrieger;Texcoco;offen;
+nezahualcoyotl_2;Blumenkrieg;Texcoco;offen;
+nezahualcoyotl_3;Jaguarkrieger;Texcoco;offen;
+nezahualcoyotl_4;Aquädukt von Chapultepec;Texcoco;offen;
+nezahualcoyotl_5;Gesetze von Texcoco;Texcoco;offen;
+nezahualcoyotl_6;Quetzal-Hauptmann;Texcoco;offen;
+nezahualcoyotl_7;Damm von Nezahualcóyotl;Texcoco;offen;
+nezahualcoyotl_8;Itzcoatl, Herr von Tenochtitlan;Texcoco;offen;
+nezahualcoyotl_9;Nezahualpilli, Sohn des Dichters;Texcoco;offen;
+masako_0;Lehnsmann;Ottonen;offen;
+masako_1;Bogenschütze der Pfalz;Ottonen;offen;
+masako_2;Treueschwur;Ottonen;offen;
+masako_3;Stiftsdame aus Quedlinburg;Ottonen;offen;
+masako_4;Späher an der Elbe;Ottonen;offen;
+masako_5;Heerbann;Ottonen;offen;
+masako_6;St. Pantaleon in Köln;Ottonen;offen;
+masako_7;Haft in Utrecht;Ottonen;offen;
+masako_8;Willigis, Erzbischof von Mainz;Ottonen;offen;
+masako_9;Otto II., Kaiser;Ottonen;offen;
+leonidas_10;Spartiat der Dreihundert;Sparta;eingebaut;Teil2/assets/cards/leonidas_10.png
+leonidas_11;Engpass der Thermopylen;Sparta;eingebaut;Teil2/assets/cards/leonidas_11.png
+hypatia_10;Astronomin des Museions;Alexandria;eingebaut;Teil2/assets/cards/hypatia_10.png
+hypatia_11;Kommentar zu Diophant;Alexandria;eingebaut;Teil2/assets/cards/hypatia_11.png
+imhotep_11;Priesterin der Sachmet;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_11.png
+imhotep_12;Ka-Statue;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_12.png
+dandolo_11;Galeerenschmied;Venedig;eingebaut;Teil2/assets/cards/dandolo_11.png
+dandolo_12;Plünderung Konstantinopels;Venedig;eingebaut;Teil2/assets/cards/dandolo_12.png
+khan_11;Heerlager an der Weser;Sachsen;offen;
+khan_12;Versammlung in Marklo;Sachsen;offen;
+boudicca_11;Barde der Arverner;Arverner;eingebaut;Teil6/originale/boudicca_11.png
+boudicca_12;Gallische Reiterei;Arverner;eingebaut;Teil6/originale/boudicca_12.png
+nostradamus_11;Laborbuch;Meißen;offen;
+nostradamus_12;Weißes Gold;Meißen;offen;
+jeanne_10;Adlige Stifterin;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_10.png
+jeanne_11;Weihe der Klosterkirche;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_11.png
+ragnar_12;Feldmesser;Mark Meißen;offen;
+ragnar_13;Beuterecht;Mark Meißen;offen;
+musashi_11;Ritter aus Murau;Steiermark;offen;
+musashi_12;Frische Lanze;Steiermark;offen;
+perikles_10;Steinmetz vom Pentelikon;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_10.png
+perikles_11;Schatz des Seebunds;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_11.png
+agrippa_10;Aquilifer;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_10.png
+agrippa_11;Harpax;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_11.png
+amanirenas_10;Pfeilmacher aus Edfu;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_10.png
+amanirenas_11;Gift der Hornviper;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_11.png
+anna_10;Spitalarzt des Pantokrator;Byzanz;offen;
+anna_11;Chronist am Kaiserhof;Byzanz;offen;
+nezahualcoyotl_10;Dichter von Texcoco;Texcoco;offen;
+nezahualcoyotl_11;Chinampa;Texcoco;offen;
+masako_10;Kanzler der Kaiserin;Ottonen;offen;
+masako_11;Siegel der Kaiserin;Ottonen;offen;
+griechen_0;Olympionike;Griechenland und Hellenismus;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/griechen_0.png
+griechen_1;Rhapsode;Griechenland und Hellenismus;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/griechen_1.png
+griechen_2;Marathonläufer;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_2.png
+griechen_3;Orakel von Delphi;Griechenland und Hellenismus;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/griechen_3.png
+griechen_4;Leuchtturm von Pharos;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_4.png
+griechen_5;Akropolis;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_5.png
+griechen_6;Bibliothek von Alexandria;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_6.png
+mittelalter_0;Knappe;Mittelalter im Reich;offen;
+mittelalter_1;Armbrustschütze;Mittelalter im Reich;offen;
+mittelalter_2;Mönch von Cluny;Mittelalter im Reich;offen;
+mittelalter_3;Hansekogge;Mittelalter im Reich;offen;
+mittelalter_4;Turnierritter;Mittelalter im Reich;offen;
+mittelalter_5;Burgfried;Mittelalter im Reich;offen;
+mittelalter_6;Tribok;Mittelalter im Reich;offen;
+ostasien_0;Landsknecht;Frühe Neuzeit;offen;
+ostasien_1;Buchdrucker aus Mainz;Frühe Neuzeit;offen;
+ostasien_2;Leipziger Kaffeehaus;Frühe Neuzeit;offen;
+ostasien_3;Kartaunen-Salve;Frühe Neuzeit;offen;
+ostasien_4;Kriegsgaleone;Frühe Neuzeit;offen;
+ostasien_5;Stehendes Heer;Frühe Neuzeit;offen;
+ostasien_6;Sternschanze;Frühe Neuzeit;offen;
+neutral_47;Kolosseum;Neutral;offen;
+neutral_48;Hängende Gärten;Neutral;offen;
+neutral_49;Pyramiden von Gizeh;Neutral;offen;
+epaminondas_0;Thebanischer Plänkler;Theben;eingebaut;Teil6/originale/epaminondas_0.png
+epaminondas_1;Böotischer Hoplit;Theben;eingebaut;Teil6/originale/epaminondas_1.png
+epaminondas_2;Fünfzig Schilde tief;Theben;eingebaut;Teil6/originale/epaminondas_2.png
+epaminondas_3;Böotarch;Theben;eingebaut;Teil6/originale/epaminondas_3.png
+epaminondas_4;Kämpfer der Heiligen Schar;Theben;eingebaut;Teil6/originale/epaminondas_4.png
+epaminondas_5;Schlacht bei Leuktra;Theben;eingebaut;Teil6/originale/epaminondas_5.png
+epaminondas_6;Befreiung Messeniens;Theben;eingebaut;Teil6/originale/epaminondas_6.png
+epaminondas_7;Thebanischer Phalangit;Theben;eingebaut;Teil6/originale/epaminondas_7.png
+epaminondas_8;Megalopolis;Theben;eingebaut;Teil6/originale/epaminondas_8.png
+epaminondas_9;Pelopidas, Führer der Heiligen Schar;Theben;eingebaut;Teil6/originale/epaminondas_9.png
+fabius_0;Veles;Römische Republik;Revision;Teil6/originale/fabius_0.png
+fabius_1;Triarier;Römische Republik;eingebaut;Teil6/originale/fabius_1.png
+fabius_2;Hinhalten;Römische Republik;eingebaut;Teil6/originale/fabius_2.png
+fabius_3;Konsul der Republik;Römische Republik;eingebaut;Teil6/originale/fabius_3.png
+fabius_4;Verbrannte Erde;Römische Republik;eingebaut;Teil6/originale/fabius_4.png
+fabius_5;Späher am Volturnus;Römische Republik;eingebaut;Teil6/originale/fabius_5.png
+fabius_6;Minucius, der Reiteroberst;Römische Republik;eingebaut;Teil6/originale/fabius_6.png
+fabius_7;Rückeroberung von Tarent;Römische Republik;eingebaut;Teil6/originale/fabius_7.png
+fabius_8;Lager auf den Höhen;Römische Republik;eingebaut;Teil6/originale/fabius_8.png
+fabius_9;Marcellus, Schwert Roms;Römische Republik;offen;
+mandukhai_0;Botin der Cherusker;Cherusker;eingebaut;Teil6/originale/mandukhai_0.png
+mandukhai_1;Hüterin des Herdfeuers;Cherusker;offen;
+mandukhai_2;Ruf zum Thing;Cherusker;offen;
+mandukhai_3;Krieger im Keil;Cherusker;offen;
+mandukhai_4;Varusschlacht;Cherusker;offen;
+mandukhai_5;Krieger der Sippe;Cherusker;offen;
+mandukhai_6;Heiliger Hain;Cherusker;offen;
+mandukhai_7;Seitenwechsel;Cherusker;offen;
+mandukhai_8;Arminius, Fürst der Cherusker;Cherusker;offen;
+mandukhai_9;Bund der Stämme;Cherusker;offen;
+baibars_0;Mamlukenrekrut;Mamluken;eingebaut;gerettet_2te/bf9709a5-8713-4dd0-8aa7-6ac966b22275.png
+baibars_1;Barid-Kurier;Mamluken;eingebaut;gerettet_2te/4137f04e-bc14-49b4-8b74-0480c39de1bd.png
+baibars_2;Ain Dschalut;Mamluken;eingebaut;gerettet_2te/efd83f43-4ebc-4b02-b4be-264e376f0dab.png
+baibars_3;Bogenreiter der Bahriya;Mamluken;eingebaut;gerettet_2te/e1f5377d-d9d2-46b4-9425-24caff1cada0.png
+baibars_4;Manjaniq-Meister;Mamluken;eingebaut;gerettet_2te/1c6b6825-0953-4078-b12a-2ed1b9d01797.png
+baibars_5;Vorgetäuschte Flucht;Mamluken;offen;
+baibars_6;Qutuz, Sultan von Ägypten;Mamluken;offen;
+baibars_7;Sturm auf Antiochia;Mamluken;offen;
+baibars_8;Zitadelle von Kairo;Mamluken;offen;
+baibars_9;Qalawun, Emir der Bahriya;Mamluken;offen;
+zizka_0;Schanzarbeiter;Frankreich;offen;
+zizka_1;Grenadier;Frankreich;offen;
+zizka_2;Salve von der Bastion;Frankreich;offen;
+zizka_3;Ingenieur des Königs;Frankreich;offen;
+zizka_4;Festungsgeschütz;Frankreich;offen;
+zizka_5;Faschinen;Frankreich;offen;
+zizka_6;Minengang;Frankreich;offen;
+zizka_7;Zitadelle von Lille;Frankreich;offen;
+zizka_8;Louvois, Kriegsminister;Frankreich;offen;
+zizka_9;Ludwig XIV., der Sonnenkönig;Frankreich;offen;
+fuhao_0;Speerwerfer vom Mont Lassois;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_0.png
+fuhao_1;Prunkdolch;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_1.png
+fuhao_2;Reiter an der Seine;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_2.png
+fuhao_3;Seherin;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_3.png
+fuhao_4;Aufgebot des Fürstensitzes;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_4.png
+fuhao_5;Trankopfer;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_5.png
+fuhao_6;Gelage am Krater;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_6.png
+fuhao_7;Schleuderer am Wall;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_7.png
+fuhao_8;Halle auf dem Mont Lassois;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_8.png
+fuhao_9;Gesandter aus Massalia;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_9.png
+rom_0;Gladiator;Rom und Germanien;offen;
+rom_1;Senator der Kurie;Rom und Germanien;offen;
+rom_2;Centurio;Rom und Germanien;offen;
+rom_3;Triumphzug;Rom und Germanien;offen;
+rom_4;Via Appia;Rom und Germanien;offen;
+rom_5;Vestalin am ewigen Feuer;Rom und Germanien;offen;
+rom_6;Pax Romana;Rom und Germanien;offen;
+steppe_0;Wagenbauer;Frühzeit und Ägypten;offen;
+steppe_1;Schreiber im Lebenshaus;Frühzeit und Ägypten;offen;
+steppe_2;Schuss vom Streitwagen;Frühzeit und Ägypten;offen;
+steppe_3;Wache der Medjai;Frühzeit und Ägypten;offen;
+steppe_4;Angriff der Streitwagen;Frühzeit und Ägypten;offen;
+steppe_5;Bernsteinstraße;Frühzeit und Ägypten;offen;
+steppe_6;Festung Buhen;Frühzeit und Ägypten;offen;
+byzanz_0;Akrit der Grenzmark;Kreuzzüge;offen;
+byzanz_1;Gelehrter im Haus der Weisheit;Kreuzzüge;offen;
+byzanz_2;Tribut in Goldbyzantinern;Kreuzzüge;offen;
+byzanz_3;Arzt des Bimaristan;Kreuzzüge;offen;
+byzanz_4;Theodosianische Mauern;Kreuzzüge;offen;
+byzanz_5;Hagia Sophia;Kreuzzüge;offen;
+byzanz_6;Ibn an-Nafis, Arzt von Kairo;Kreuzzüge;offen;
+recruit;Rekrut;Spielstein;offen;
+novice;Novizin;Spielstein;eingebaut;Teil2/assets/tokens/novice.png
+warrior;Krieger;Spielstein;offen;
+eagle;Habicht;Spielstein;offen;
+stoneguard;Pyramidenwächter;Spielstein;offen;
+totem_heal;Grenzstein des Klosters;Spielstein;eingebaut;Teil2/assets/tokens/totem_heal.png
+totem_fire;Grenzstein der Mark;Spielstein;offen;
+totem_guard;Grenzstein der Burg;Spielstein;offen;
+totem_strength;Grenzstein des Dorfes;Spielstein;offen;
+coin;Gunst der Stunde;Spielstein;offen;
+hoplite;Hoplit;Spielstein;eingebaut;Teil2/assets/tokens/hoplite.png
+citizen;Bürger;Spielstein;wiederbeschaffen;
+pioneer;Pionier;Spielstein;wiederbeschaffen;
+rider;Reiter;Spielstein;offen;
+chariot;Streitwagen;Spielstein;offen;
+terracotta;Musketier;Spielstein;offen;
+tribesman;Stammeskrieger;Spielstein;offen;
+wagon;Schanzkorb;Spielstein;offen;
+taborite;Füsilier;Spielstein;offen;
+mamluk;Mamlukenreiter;Spielstein;offen;
+immortal;Medjai-Krieger;Spielstein;offen;
+messenian;Freier Messenier;Spielstein;offen;
+companion;Gefährte der Heiligen Schar;Spielstein;offen;
+twin;Sippenbruder;Spielstein;offen;
+elephant;Kriegselefant;Spielstein;offen;
+parthenos;Athena Parthenos;Spielstein;wiederbeschaffen;
+pyramid;Stufenpyramide;Spielstein;offen;

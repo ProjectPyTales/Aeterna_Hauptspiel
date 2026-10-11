@@ -239,6 +239,11 @@ const ART={hoplite:['leonidas',10],pyramid:['@pyramid',0],eagle:[null,0],stonegu
  tribesman:[null,0],wagon:[null,0],taborite:[null,0],mamluk:[null,0],immortal:[null,0],messenian:[null,0],companion:[null,0],twin:[null,0],elephant:[null,0],
  novice:[null,0],totem_heal:[null,0],totem_fire:[null,0],totem_guard:[null,0],totem_strength:[null,0]};
 for(const [id,c] of Object.entries(tokens)){c.id=id;c.hero='neutral';c.rarity='token';const [art,cell]=ART[id]||['jeanne',id==='coin'?11:10];c.art=art;c.cell=cell;}
+// Gemalte Astra-Bilder (AP A.1): werkzeuge/astra_bilder.py schreibt model/bilder.js (Karte, Spielstein, Held → Atlas
+// und Feld). Sie gehen alten Atlasfeldern und Platzhaltern vor; was Astra noch nicht geliefert hat, bleibt wie bisher.
+const B=(()=>{if(typeof module==='undefined')return root.CHB||{};try{return require('./bilder.js');}catch(e){return {};}})();
+for(const c of [...cards,...Object.values(tokens)]){const a=B.cards&&B.cards[c.id];if(a){c.art=a[0];c.cell=a[1];}}
+for(const h of heroes){const a=B.heroes&&B.heroes[h.id];if(a){h.art=a[0];h.cell=a[1];}}
 const byId=Object.fromEntries([...cards,...Object.values(tokens)].map(c=>[c.id,c]));
 const missions=[
 ['Thermopylen','Xerxes’ Vorhut','leonidas','Die Pässe halten',28,'armor','Der Boss erhält zu Beginn seines Zuges 2 Rüstung.'],

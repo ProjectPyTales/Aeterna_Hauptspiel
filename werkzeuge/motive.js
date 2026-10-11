@@ -357,8 +357,10 @@ einen gestalteten Platzhalter (Epochenfarbe, Symbol, „Motiv folgt“; AP 5.12)
 **Stand:** ${cards.length} Karten ohne Motiv, ${heroes.length} Helden ohne Porträt, ${tables.length} Schlachtfelder ohne Bild, ${drawn.length} im Code gezeichnete Grafiken.
 Die Karten der elf Lehrplan-Helden tragen seit 1.15.0 (AP L.2) Namen und Bildideen aus deren Lebenswelt.
 
-Ablauf wie in AP 1.2: Konzeptbild als Stilreferenz anhängen, in doppelter Zielgröße erzeugen, Ablage in
-\`ungenutzte_assets/karten/<id>.png\`; die nächste Sitzung schneidet zu und baut die Bilder in die Atlanten ein.
+**Für Astra gilt seit 1.21.0 (AP A.1) \`ungenutzte_assets/ASTRA_AUFTRAG.md\`:** Dort stehen alle Karten, die noch kein
+Astra-Bild haben – auch die, die hier fehlen, weil sie noch ein altes Bild zeigen –, mit Motivbeschreibung. Lieferungen
+kommen nach \`ungenutzte_assets/neue_astra_assets/\`, \`python3 werkzeuge/astra_bilder.py\` baut sie ein. Diese Liste
+zeigt nur, wo das Spiel heute einen Platzhalter zeichnet.
 
 | ID | Name | Held | Typ | Größe (px) | Prompt |
 |---|---|---|---|---|---|

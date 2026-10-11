@@ -3,7 +3,7 @@ require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
-const D=need('model/data.js'),E=need('model/engine.js'),P=need('model/profile.js'),L=need('model/lore.js');
+const B=need('model/bilder.js'),D=need('model/data.js'),E=need('model/engine.js'),P=need('model/profile.js'),L=need('model/lore.js');
 const NEW={khan:'Widukind',boudicca:'Vercingetorix',nostradamus:'Johann Friedrich Böttger',jeanne:'Hildegard von Bingen',ragnar:'Wiprecht von Groitzsch',
  musashi:'Ulrich von Liechtenstein',amanirenas:'Ahhotep I.',masako:'Theophanu',mandukhai:'Thusnelda',zizka:'Vauban',fuhao:'Fürstin von Vix'};
 // Namen der ersetzten Personen und ihrer Welt – sie dürfen an Helden, Chronik und Missionen nicht mehr stehen
@@ -13,7 +13,7 @@ const OLD=/Dschingis|Boudicca|Nostradamus|Jeanne|Ragnar|Lodbrok|Musashi|Amaniren
 test('Lehrplan: jeder Held hat Klassenstufe 5–7 und Lernbereich, die elf neuen Personen erben die IDs',()=>{
  assert.deepEqual(Object.keys(L.curriculum).sort(),D.heroes.map(h=>h.id).sort());
  for(const h of D.heroes){const s=L.school(h.id);assert.ok(s.grade>=5&&s.grade<=7,h.id);assert.ok(s.topic.length>5,h.id);}
- for(const [id,name] of Object.entries(NEW)){const h=D.heroById[id];assert.equal(h.name,name);assert.ok(!h.art,id+': Monogramm bis zum Astra-Porträt');
+ for(const [id,name] of Object.entries(NEW)){const h=D.heroById[id];assert.equal(h.name,name);assert.deepEqual([h.art,h.cell],B.heroes[id],id+': Astra-Porträt (AP A.1)');
   assert.deepEqual(D.replaced.includes(id),true);assert.equal(P.validateDeck(P.fresh(),id,E.starter(id)),null,id);}
  assert.equal(D.replaced.length,11);
  for(const h of D.heroes){const l=L.of(h.id),m=D.missions.find(m=>m.hero===h.id);
@@ -85,7 +85,8 @@ test('Heldenkarten (AP L.2): 132 Karten der elf Lehrplan-Helden aus ihrer Lebens
   ['Abbi, Gefährte Widukinds','Commius, Führer des Entsatzheers','Tschirnhaus, Naturforscher','Jutta von Sponheim, Magistra','Judith von Böhmen',
    'Friedrich der Streitbare','Zeremonialaxt des Ahmose','Otto II., Kaiser','Bund der Stämme','Ludwig XIV., der Sonnenkönig','Gesandter aus Massalia']);
  // Bilder: Nur Motive, die zur neuen Person passen, bleiben; die übrigen sind Platzhalter mit Bildidee in MOTIVE.md.
- assert.deepEqual(set.filter(c=>!D.missingArt(c)).map(c=>c.id),['khan_2','boudicca_0','boudicca_1','boudicca_5','boudicca_6','nostradamus_0','nostradamus_3','nostradamus_4']);
+ // Seit 1.21.0 (AP A.1) malt Astra auch diese neu; drei alte Motive sind noch übrig.
+ assert.deepEqual(set.filter(c=>!D.missingArt(c)&&!B.cards[c.id]).map(c=>c.id),['khan_2','nostradamus_0','nostradamus_3']);
  const md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8');
  for(const c of set.filter(D.missingArt)){const row=md.split('\n').find(r=>r.startsWith('| `'+c.id+'` |'));
   assert.ok(row&&row.includes('| '+c.name+' |'),c.id+': MOTIVE.md veraltet');
