@@ -142,7 +142,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`), Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
 | `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
-| `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
+| `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 48 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
 ### Architektur: wohin neuer Code gehört (MVVM)
 
@@ -620,8 +620,12 @@ fehlt (`CHS.ui`, `R.pic`), und trägt statt `ASTRA:` den Vermerk `Astra-Bild (AP
 - [ ] **Flache Vektorgrafiken:** bewusst *nicht* eingebaut – Äther-Uhr, Chronometer, Edelsteine, Werte-Symbole, Siegel, Knöpfe,
   Steinknöpfe, Panels, Reiter, Filterknöpfe, Staub, Risse, Tinte, Marschroute, Banner und Fähigkeitssymbole sind einfache
   Flächen mit Verlauf und damit schlichter als die heutigen Zeichnungen. Sie bleiben in `neue_astra_assets/Teil1/assets/ui/`.
-  Wenn Du einzelne davon trotzdem sehen willst, sag welche; sonst bestelle ich sie bei Astra als **gemalte** Bilder (48 Kennungen in
-  `MOTIVE.md`, Abschnitt „Im Code gezeichnet“).
+  *Rückmeldung vom 11. 10.: gemalt bestellen* → **Auftrag `ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md`**: alle 48 noch
+  gezeichneten Kennungen in fünf Paketen (Spielbrett, Karten und Werte, Effekte, Inszenierung, Menüs) mit Dateinamen,
+  Größen, Varianten und freien Flächen für die Zahlen des Spiels; Test `astra.test.js` hält ihn mit `MOTIVE.md` gleich.
+- [x] **Rückmeldung zu 1.21.0:** Großansicht einer Karte – das Motiv füllt jetzt seinen Rahmen (eine ältere CSS-Regel hielt es
+  auf 300 px); Heldenmünzen zeigen Astras Porträts quadratisch und mit der Oberkante am Rand, Helmbusch und Stirn sind nicht
+  mehr abgeschnitten.
 - Abnahme: Klickpfad mit neuen Referenzbildern, Test `astra.test.js` (jedes Oberflächenbild liegt bereit, Rahmen haben ein
   Bildfenster), `MOTIVE.md` ohne die ersetzten Kennungen (70 → 48). *✓* Auf dem Handy ansehen: Karten, Rücken, Match, Menü, Icon.
 
@@ -2236,8 +2240,8 @@ umgesetzt. Davor: Sitzung 17 (1.20.0) AP 3.6, 3.8; Sitzung 16 (1.19.0) AP 1.4, 1
    Phiole, Urne – passt alles? Bleibt es flüssig (Bildraten-Anzeige)?
 4. **Menüs:** Hauptmenü, Basar (Podest, Kartenrücken, Paket), Sammlung (Kartenbuch), Starthand (Schriftrollen),
    Bildschirmwechsel (Steintür), Hintergründe – zu hell oder zu dunkel?
-5. **Astra:** nächste Pakete aus `ASTRA_AUFTRAG.md` bestellen (jetzt 212 Motive, `hypatia_0` und `hypatia_2` dabei); wenn Du die
-   flachen Vektorgrafiken gemalt haben willst, sag Bescheid – dann schreibe ich dafür einen eigenen Auftrag.
+5. **Astra:** nächste Pakete aus `ASTRA_AUFTRAG.md` bestellen (jetzt 212 Motive, `hypatia_0` und `hypatia_2` dabei) und die
+   gemalte Oberfläche aus `ASTRA_AUFTRAG_OBERFLAECHE.md` (fünf Pakete; Paket 4 mit den Fähigkeitssymbolen erst nach AP L.5).
 
 **Sitzung 19 – Feinschliff der neuen Optik und AP L.5**
 

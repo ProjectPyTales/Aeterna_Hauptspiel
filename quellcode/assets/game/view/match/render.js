@@ -280,7 +280,9 @@ function medal(c,hero,skin){const r=L.coin,idx=hero.cell;
  // The portrait is a little smaller than before 1.18.0, so the legend has its own band between portrait and rim and is
  // drawn last – the portrait disc used to cover the inner half of the letters (feedback on 1.17.0).
  ellipse(c,0,0,53,53,'#2a1f14','#f3d9a0',2.5);
- c.save();c.beginPath();c.arc(0,0,51,0,Math.PI*2);c.clip();R.tile(c,skin,idx,-61,-68,122,130,hero);
+ // Astra's portraits (AP A.1) are square with the head high up: drawn square and with the top edge at the rim, so the
+ // circle no longer cuts helmet crests and foreheads (feedback on 1.21.0).
+ c.save();c.beginPath();c.arc(0,0,51,0,Math.PI*2);c.clip();R.tile(c,skin,idx,-54,-53,108,108,hero);
  const relief=c.createLinearGradient(-47,-52,47,52);relief.addColorStop(0,'#fff1b822');relief.addColorStop(.45,'#00000000');relief.addColorStop(1,'#160b0a66');c.fillStyle=relief;c.fillRect(-52,-52,104,104);c.restore();
  ellipse(c,0,0,51,51,null,'#3a2810',2);
  legend(c,hero.name.toUpperCase(),r-13.5);c.restore();}

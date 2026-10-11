@@ -57,3 +57,10 @@ test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ei
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/MOTIVE.md'),'utf8');
  for(const k of ['kartenrahmen','kartenruecken-chroniken','chronikleiste','stundenglas','waffenablage','kartenbuch','waehrung'])assert.ok(!md.includes('`'+k+'`'),k);
 });
+
+test('Auftrag Oberfläche: jede noch gezeichnete Kennung aus MOTIVE.md hat eine Zeile in ASTRA_AUFTRAG_OBERFLAECHE.md',()=>{
+ const md=fs.readFileSync(path.join(root,'ungenutzte_assets/MOTIVE.md'),'utf8'),section=md.slice(md.indexOf('## Im Code gezeichnet'));
+ const ids=[...section.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m=>m[1]),order=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8');
+ assert.ok(ids.length>=40);
+ for(const id of ids)assert.ok(order.includes('| `'+id+'` |')||order.includes('`'+id+'`'),id);
+});

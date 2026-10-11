@@ -34,3 +34,6 @@
 .cur.gold{background-image:url('../../assets/ui/waehrung-gold.svg')}
 .cur.dust{background-image:url('../../assets/ui/waehrung-staub.svg')}
 .cur.packs{background-image:url('../../assets/ui/waehrung-pakete.svg')}
+
+/* Large view of a card (feedback on 1.21.0): the motif fills its frame – the older rule .card-detail img (300 px) no longer wins. */
+.zoom-detail .zoom-art img{width:100%}
