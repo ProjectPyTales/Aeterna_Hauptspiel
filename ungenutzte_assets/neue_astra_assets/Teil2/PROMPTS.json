@@ -1,0 +1,452 @@
+[
+  {
+    "id": "leonidas_0",
+    "category": "cards",
+    "name": "Spartanischer Rekrut",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Spartanischer Rekrut.\nPRIMARY SUBJECT — this is what MUST be depicted: A youthful adult Spartan recruit in simple linen body armor, gripping a spear and plain round bronze aspis; he is not King Leonidas.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/leonidas_0.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "leonidas_1",
+    "category": "cards",
+    "name": "Wächter der Thermopylen",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Wächter der Thermopylen.\nPRIMARY SUBJECT — this is what MUST be depicted: An adult Spartan sentry standing at the narrow coastal pass of Thermopylae, spear upright and bronze shield forward, ancient shoreline close to the cliffs.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/leonidas_1.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "leonidas_2",
+    "category": "cards",
+    "name": "Bronzener Wall",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Bronzener Wall.\nPRIMARY SUBJECT — this is what MUST be depicted: Close view of a continuous overlapping wall of bronze Greek aspis shields held by a compact hoplite formation. The shields, not a hero face, dominate the image.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/leonidas_2.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "leonidas_7",
+    "category": "cards",
+    "name": "Spartas Erbe",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Spartas Erbe.\nPRIMARY SUBJECT — this is what MUST be depicted: Three generations of Spartan soldiers passing a plain bronze shield between them in a restrained ceremonial moment, no central king portrait.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/leonidas_7.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "leonidas_8",
+    "category": "cards",
+    "name": "Dienekes",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Dienekes.\nPRIMARY SUBJECT — this is what MUST be depicted: Dienekes, a mature male Spartan hoplite at Thermopylae, calm expression, worn bronze helmet and red wool cloak, a distinct reconstructed face rather than repeating Leonidas.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/leonidas_8.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "leonidas_10",
+    "category": "cards",
+    "name": "Spartiat der Dreihundert",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Spartiat der Dreihundert.\nPRIMARY SUBJECT — this is what MUST be depicted: one of the three hundred Spartans, bloodied but unbroken, bronze shield raised in the pass of Thermopylae. Epoch: Griechische Antike, Sparta und die Thermopylen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/leonidas_10.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "leonidas_11",
+    "category": "cards",
+    "name": "Engpass der Thermopylen",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Engpass der Thermopylen.\nPRIMARY SUBJECT — this is what MUST be depicted: the narrow pass of Thermopylae between cliffs and sea, a wall of Spartan shields holding back a vast army. Epoch: Griechische Antike, Sparta und die Thermopylen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/leonidas_11.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "hoplite",
+    "category": "tokens",
+    "name": "Hoplit",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Hoplit.\nPRIMARY SUBJECT — this is what MUST be depicted: Hoplit\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/tokens/hoplite.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "hypatia_1",
+    "category": "cards",
+    "name": "Himmelsstrahl",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Himmelsstrahl.\nPRIMARY SUBJECT — this is what MUST be depicted: A single brilliant shaft of sunlight crossing a late Roman Alexandrian roof observatory and touching a bronze astronomical instrument. Scientific allegory; no human portrait.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/hypatia_1.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "hypatia_3",
+    "category": "cards",
+    "name": "Sternenregen",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Sternenregen.\nPRIMARY SUBJECT — this is what MUST be depicted: Meteor streaks above the ancient Alexandrian harbor at night, restrained natural sky phenomenon, no glowing wizard or falling bombs.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.\nWhere this prompt mentions glowing equations, show only abstract geometric strokes without readable letters or numerals. For night scenes use warm lamp light from upper right, retaining a genuinely dark blue night sky.",
+    "file": "assets/cards/hypatia_3.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "hypatia_4",
+    "category": "cards",
+    "name": "Astrolabienwächter",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Astrolabienwächter.\nPRIMARY SUBJECT — this is what MUST be depicted: An adult male custodian carefully carrying a small bronze astronomical instrument through an Alexandrian colonnade; no weapon or fantasy sentinel.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.\nWhere this prompt mentions glowing equations, show only abstract geometric strokes without readable letters or numerals. For night scenes use warm lamp light from upper right, retaining a genuinely dark blue night sky.",
+    "file": "assets/cards/hypatia_4.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "hypatia_10",
+    "category": "cards",
+    "name": "Astronomin des Museions",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Astronomin des Museions.\nPRIMARY SUBJECT — this is what MUST be depicted: a woman astronomer of the Museion of Alexandria measuring stars with an armillary sphere at night. Epoch: Spätantike, Alexandria.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.\nWhere this prompt mentions glowing equations, show only abstract geometric strokes without readable letters or numerals. For night scenes use warm lamp light from upper right, retaining a genuinely dark blue night sky.",
+    "file": "assets/cards/hypatia_10.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "hypatia_11",
+    "category": "cards",
+    "name": "Kommentar zu Diophant",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Kommentar zu Diophant.\nPRIMARY SUBJECT — this is what MUST be depicted: a scroll of Diophantus’ Arithmetica with Hypatia’s commentary, glowing equations above a lamp. Epoch: Spätantike, Alexandria.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.\nWhere this prompt mentions glowing equations, show only abstract geometric strokes without readable letters or numerals. For night scenes use warm lamp light from upper right, retaining a genuinely dark blue night sky.",
+    "file": "assets/cards/hypatia_11.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_3",
+    "category": "cards",
+    "name": "Einkleidung der Novizinnen",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Einkleidung der Novizinnen.\nPRIMARY SUBJECT — this is what MUST be depicted: young novices receiving the Benedictine habit and veil from the abbess in a Romanesque church. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_3.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_4",
+    "category": "cards",
+    "name": "Pilger am Rhein",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Pilger am Rhein.\nPRIMARY SUBJECT — this is what MUST be depicted: pilgrims with staffs and scallop shells walking along the Rhine toward the Rupertsberg convent. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_4.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_5",
+    "category": "cards",
+    "name": "Segen der Äbtissin",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Segen der Äbtissin.\nPRIMARY SUBJECT — this is what MUST be depicted: abbess Hildegard raising her hand in blessing over a kneeling nun, warm light from a Romanesque window. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_5.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_6",
+    "category": "cards",
+    "name": "Vorsängerin im Chor",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Vorsängerin im Chor.\nPRIMARY SUBJECT — this is what MUST be depicted: a nun leading the convent choir, neumes of Hildegard’s chants on a parchment lectern. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_6.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_7",
+    "category": "cards",
+    "name": "Spiel der Tugenden",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Spiel der Tugenden.\nPRIMARY SUBJECT — this is what MUST be depicted: nuns performing Hildegard’s play Ordo Virtutum, the Virtues in white robes driving away the Devil. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_7.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_8",
+    "category": "cards",
+    "name": "Ritter mit dem Schutzbrief",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Ritter mit dem Schutzbrief.\nPRIMARY SUBJECT — this is what MUST be depicted: a knight bringing Emperor Frederick Barbarossa’s letter of protection with a wax seal to the convent, 1163. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_8.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_9",
+    "category": "cards",
+    "name": "Jutta von Sponheim, Magistra",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Jutta von Sponheim, Magistra.\nPRIMARY SUBJECT — this is what MUST be depicted: Jutta of Sponheim, magistra, teaching a young girl to read the psalter in a small cell at Disibodenberg. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_9.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_10",
+    "category": "cards",
+    "name": "Adlige Stifterin",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Adlige Stifterin.\nPRIMARY SUBJECT — this is what MUST be depicted: a noble lady bringing her daughter and a land deed as a gift to the convent. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_10.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "jeanne_11",
+    "category": "cards",
+    "name": "Weihe der Klosterkirche",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Weihe der Klosterkirche.\nPRIMARY SUBJECT — this is what MUST be depicted: the consecration of the Romanesque convent church on the Rupertsberg, a bishop, candles, singing nuns. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/jeanne_11.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "novice",
+    "category": "tokens",
+    "name": "Novizin",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Novizin.\nPRIMARY SUBJECT — this is what MUST be depicted: a young Benedictine novice with white veil and folded hands. Epoch: neutral, any historical epoch.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/tokens/novice.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "dandolo_5",
+    "category": "cards",
+    "name": "Maskierte Wache",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Maskierte Wache.\nPRIMARY SUBJECT — this is what MUST be depicted: A medieval Venetian night watchman with face partly hidden by a simple wool hood, mail collar, plain spear and small lantern; no eighteenth-century carnival mask.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\n PERIOD CONTEXT: Venice circa 1200, medieval wool and linen, mail, practical iron and wood. Background only close wooden ship structures and sea or a wood-beamed medieval Arsenal interior as appropriate. No skyline, large domed building, minaret, tall tower, Renaissance palace, modern gondola, carnival mask, gunpowder weapon or magic. For the explicit 1204 plunder scene, show captured bronze treasures and stone interiors without any skyline. The exact PRIMARY SUBJECT has priority over its owner faction. No doge portrait unless the card explicitly names him.",
+    "file": "assets/cards/dandolo_5.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "dandolo_7",
+    "category": "cards",
+    "name": "Admiral der Galeeren",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Admiral der Galeeren.\nPRIMARY SUBJECT — this is what MUST be depicted: A mature Venetian naval commander on the wood deck of a thirteenth-century oared galley pointing toward a fleet, practical mail shirt and red cloak, not a doge in court robes.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\n PERIOD CONTEXT: Venice circa 1200, medieval wool and linen, mail, practical iron and wood. Background only close wooden ship structures and sea or a wood-beamed medieval Arsenal interior as appropriate. No skyline, large domed building, minaret, tall tower, Renaissance palace, modern gondola, carnival mask, gunpowder weapon or magic. For the explicit 1204 plunder scene, show captured bronze treasures and stone interiors without any skyline. The exact PRIMARY SUBJECT has priority over its owner faction. No doge portrait unless the card explicitly names him.",
+    "file": "assets/cards/dandolo_7.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "dandolo_10",
+    "category": "cards",
+    "name": "Agent des Zehnerrats",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Agent des Zehnerrats.\nPRIMARY SUBJECT — this is what MUST be depicted: a masked Venetian spy of the Council of Ten in a dark cloak, half hidden in a canal alley at night, dagger glinting. Epoch: Hochmittelalter, Venedig und Konstantinopel.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\n PERIOD CONTEXT: Venice circa 1200, medieval wool and linen, mail, practical iron and wood. Background only close wooden ship structures and sea or a wood-beamed medieval Arsenal interior as appropriate. No skyline, large domed building, minaret, tall tower, Renaissance palace, modern gondola, carnival mask, gunpowder weapon or magic. For the explicit 1204 plunder scene, show captured bronze treasures and stone interiors without any skyline. The exact PRIMARY SUBJECT has priority over its owner faction. No doge portrait unless the card explicitly names him.\nResolve period mismatch by setting this Council of Ten agent in Venice circa 1320, simple dark wool hood and cloth face covering, NOT carnival mask. Close canal alley and wood dock only.",
+    "file": "assets/cards/dandolo_10.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "dandolo_11",
+    "category": "cards",
+    "name": "Galeerenschmied",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Galeerenschmied.\nPRIMARY SUBJECT — this is what MUST be depicted: a Venetian shipwright forging a blade in the Arsenal of Venice, galleys under construction behind. Epoch: Hochmittelalter, Venedig und Konstantinopel.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\n PERIOD CONTEXT: Venice circa 1200, medieval wool and linen, mail, practical iron and wood. Background only close wooden ship structures and sea or a wood-beamed medieval Arsenal interior as appropriate. No skyline, large domed building, minaret, tall tower, Renaissance palace, modern gondola, carnival mask, gunpowder weapon or magic. For the explicit 1204 plunder scene, show captured bronze treasures and stone interiors without any skyline. The exact PRIMARY SUBJECT has priority over its owner faction. No doge portrait unless the card explicitly names him.\nFocus on blacksmith hammering a red-hot iron BLADE ON AN ANVIL, close furnace interior; NOT a carpenter planing wood or a wide shipyard construction view.",
+    "file": "assets/cards/dandolo_11.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "dandolo_12",
+    "category": "cards",
+    "name": "Plünderung Konstantinopels",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Plünderung Konstantinopels.\nPRIMARY SUBJECT — this is what MUST be depicted: Venetian crusaders carrying the bronze horses and treasures out of Constantinople in 1204. Epoch: Hochmittelalter, Venedig und Konstantinopel.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\n PERIOD CONTEXT: Venice circa 1200, medieval wool and linen, mail, practical iron and wood. Background only close wooden ship structures and sea or a wood-beamed medieval Arsenal interior as appropriate. No skyline, large domed building, minaret, tall tower, Renaissance palace, modern gondola, carnival mask, gunpowder weapon or magic. For the explicit 1204 plunder scene, show captured bronze treasures and stone interiors without any skyline. The exact PRIMARY SUBJECT has priority over its owner faction. No doge portrait unless the card explicitly names him.",
+    "file": "assets/cards/dandolo_12.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "imhotep_7",
+    "category": "cards",
+    "name": "Goldener Skarabäus",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Goldener Skarabäus.\nPRIMARY SUBJECT — this is what MUST be depicted: A small realistically shaped gold scarab amulet on pale linen with blue faience beads; jewelry still life, not a giant living insect or human portrait.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Egypt, Third Dynasty circa 2650 BCE. Old Kingdom linen kilts, copper tools, papyrus and stone architecture at Saqqara. No horses, war chariots, iron, New Kingdom battle dress or glass laboratory equipment. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/imhotep_7.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "totem_heal",
+    "category": "tokens",
+    "name": "Grenzstein des Klosters",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Grenzstein des Klosters.\nPRIMARY SUBJECT — this is what MUST be depicted: a weathered boundary stone carved with a crozier, marking monastery land, herbs growing around it. Epoch: neutral, any historical epoch.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Wiprecht von Groitzsch and Mark Meissen circa 1100 CE. Mail hauberk, nasal helmet, kite shield, wool tunics, timber and Romanesque buildings. No Viking fantasy, no later plate armor. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/tokens/totem_heal.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  }
+]

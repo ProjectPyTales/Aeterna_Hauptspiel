@@ -1,0 +1,55 @@
+{
+  "release": "Teil 04",
+  "result": "passed_limited_technical_checks",
+  "originals": 30,
+  "cards": 27,
+  "tokens": 3,
+  "decoded_pngs": 30,
+  "decoded_atlases": 3,
+  "unique_asset_ids": true,
+  "unique_image_hashes": true,
+  "selected_ids_were_open": true,
+  "intersection_with_prior_locked_ids": [],
+  "exact_hash_duplicates_against_previous_image_files": 0,
+  "prior_image_files_hashed": 80,
+  "preserved_blocker_files": [
+    "GERETTETE_ASSETS_ZUORDNUNG.json",
+    "GERETTETE_ASSETS_ZUORDNUNG.csv",
+    "GESPERRTE_ZUORDNUNGSPRUEFUNG.json"
+  ],
+  "prior_lock_entries_unchanged": true,
+  "regular_remaining": 265,
+  "blocked_remaining": 2,
+  "total_remaining": 267,
+  "atlas_grid": [
+    4,
+    3
+  ],
+  "atlas_cell": [
+    724,
+    724
+  ],
+  "unused_last_atlas_cells": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "image_generation_calls": 30,
+  "versions_per_motif": 1,
+  "game_modified": false,
+  "github_modified": false,
+  "limits": [
+    "Keine semantische Dublettengarantie durch SHA-256 allein; Motivauswahl erfolgte anhand der gelieferten Auftrags- und Sperrlisten.",
+    "Keine vollständige historische oder anatomische Prüfung",
+    "Keine Laufzeitprüfung im Spiel"
+  ],
+  "source_archive_sha256": {
+    "gerettet.zip": "b969df393ea7d14e9a51f2ae23b752e8b12886f6b7d7032a173765083f6b7be0",
+    "Chronicle_of_Heroes-main.zip": "9bf15ef2bd1b7e65430588c1ef7396cc23d80947ebdcb3eda0c54d6a7bdf9214",
+    "Chronicle_of_Heroes_Assets_Teil_02.zip": "4319db1d777f0811019e3203a246513d1e0ddee1c1828c2de80af2770ecaeee6",
+    "Chronicle_of_Heroes_Assets_Teil_01.zip": "300ddaf63469ab5da46df6ff4ce729ef5f1bee4841ddf57370d20a903f39cd4f"
+  }
+}

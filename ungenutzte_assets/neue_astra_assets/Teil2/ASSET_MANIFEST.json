@@ -1,0 +1,696 @@
+{
+  "release": "Teil 02 / Zwischenstand 01",
+  "count": 30,
+  "assets": [
+    {
+      "id": "leonidas_0",
+      "name": "Spartanischer Rekrut",
+      "category": "cards",
+      "file": "assets/cards/leonidas_0.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "eb6ae52e08cefd65b16be0182327a475f4416b9518f0c853d6e072881ff5c815",
+      "art": "r02-b01-01",
+      "cell": 0,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/leonidas_0.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "leonidas_1",
+      "name": "Wächter der Thermopylen",
+      "category": "cards",
+      "file": "assets/cards/leonidas_1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "cada668521eaa3c3a099b1d56f6ae82d50cb3bc5bad8885fb52873f65950f06f",
+      "art": "r02-b01-01",
+      "cell": 1,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/leonidas_1.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "leonidas_2",
+      "name": "Bronzener Wall",
+      "category": "cards",
+      "file": "assets/cards/leonidas_2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "f09a9dafaf4fae91a0151caf445e6d31b9e93ef0b9980f8c106adf5fa86ef06e",
+      "art": "r02-b01-01",
+      "cell": 2,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/leonidas_2.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "leonidas_7",
+      "name": "Spartas Erbe",
+      "category": "cards",
+      "file": "assets/cards/leonidas_7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "772798c70fb648edf75824d158e2c69fb663463f1912e27c9a6209c1e0297a44",
+      "art": "r02-b01-01",
+      "cell": 3,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/leonidas_7.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "leonidas_8",
+      "name": "Dienekes",
+      "category": "cards",
+      "file": "assets/cards/leonidas_8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "66a798a2d3866501b4691aac723c36e9f235dbaad95dba75d4cd1140cec3897b",
+      "art": "r02-b01-01",
+      "cell": 4,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/leonidas_8.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "leonidas_10",
+      "name": "Spartiat der Dreihundert",
+      "category": "cards",
+      "file": "assets/cards/leonidas_10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "18658a2c7b4c0fa8740e72c8f3521c5139788928ccd85f388eaea56239c7981a",
+      "art": "r02-b01-01",
+      "cell": 5,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/leonidas_10.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "leonidas_11",
+      "name": "Engpass der Thermopylen",
+      "category": "cards",
+      "file": "assets/cards/leonidas_11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "c614cbe8290ed20346c2880107fa83b725720f875f572f4dca4da882adf403f8",
+      "art": "r02-b01-01",
+      "cell": 6,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/leonidas_11.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "hoplite",
+      "name": "Hoplit",
+      "category": "tokens",
+      "file": "assets/tokens/hoplite.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "9608a27e4e8c84c68505ebfc6758c8e1dd4aa49e3d9913db47cd98b5da752d13",
+      "art": "r02-b01-01",
+      "cell": 7,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/tokens/hoplite.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "hypatia_1",
+      "name": "Himmelsstrahl",
+      "category": "cards",
+      "file": "assets/cards/hypatia_1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "3530f51953df968617cc04c6f86641018911d7d02006177efeb18dd156ac213e",
+      "art": "r02-b01-01",
+      "cell": 8,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/hypatia_1.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "hypatia_3",
+      "name": "Sternenregen",
+      "category": "cards",
+      "file": "assets/cards/hypatia_3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "5f0ad0f14b2c67ef11f1c6aefe2e4c65099a908b1235421f8bc4657c12653c09",
+      "art": "r02-b01-01",
+      "cell": 9,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/hypatia_3.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "hypatia_4",
+      "name": "Astrolabienwächter",
+      "category": "cards",
+      "file": "assets/cards/hypatia_4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "d93a714e42e59ce79be38cad02e84e7cb2ce22a2095455259c9fc2541e5fc224",
+      "art": "r02-b01-01",
+      "cell": 10,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/hypatia_4.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "hypatia_10",
+      "name": "Astronomin des Museions",
+      "category": "cards",
+      "file": "assets/cards/hypatia_10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "74ac2831a9e53ddf064dc44956ae220953f72deee9d9f962e2e6ad5aa9f8f05f",
+      "art": "r02-b01-01",
+      "cell": 11,
+      "atlas_file": "game-assets/art/r02-b01-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/hypatia_10.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "hypatia_11",
+      "name": "Kommentar zu Diophant",
+      "category": "cards",
+      "file": "assets/cards/hypatia_11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "70e69c270664498799bc178ce176a327aa31398dd26de01cf8bfa56db9ba82dc",
+      "art": "r02-b01-02",
+      "cell": 0,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/hypatia_11.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_3",
+      "name": "Einkleidung der Novizinnen",
+      "category": "cards",
+      "file": "assets/cards/jeanne_3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "9a16d12d9eb97d4b67e33187d38efb2707c039b96fafac13344390b0f5f3d911",
+      "art": "r02-b01-02",
+      "cell": 1,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_3.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_4",
+      "name": "Pilger am Rhein",
+      "category": "cards",
+      "file": "assets/cards/jeanne_4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "f4b0c6598579b288f5a42c59cbd411507db393eb5b87edced571c264526096b4",
+      "art": "r02-b01-02",
+      "cell": 2,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_4.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_5",
+      "name": "Segen der Äbtissin",
+      "category": "cards",
+      "file": "assets/cards/jeanne_5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "80c12dfb5da4c56343907646e43687837aefa7194c794198020b13bff811973a",
+      "art": "r02-b01-02",
+      "cell": 3,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_5.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_6",
+      "name": "Vorsängerin im Chor",
+      "category": "cards",
+      "file": "assets/cards/jeanne_6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "223b43cc057a17ac0a0c49d1a326b614fd915394f6eddd457703246cd47a4a39",
+      "art": "r02-b01-02",
+      "cell": 4,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_6.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_7",
+      "name": "Spiel der Tugenden",
+      "category": "cards",
+      "file": "assets/cards/jeanne_7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "34f2bc5054537cf6aa865949175f91cd69c7a415f4322d34bfb38b831122ab03",
+      "art": "r02-b01-02",
+      "cell": 5,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_7.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_8",
+      "name": "Ritter mit dem Schutzbrief",
+      "category": "cards",
+      "file": "assets/cards/jeanne_8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "8fde12723d2a2d4d8f8de64bd577d8473c5e058c733d2cb0f8c1aac53c3dfb7a",
+      "art": "r02-b01-02",
+      "cell": 6,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_8.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_9",
+      "name": "Jutta von Sponheim, Magistra",
+      "category": "cards",
+      "file": "assets/cards/jeanne_9.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "4f7be2506dd3cd6b862dce62d696466ceecea326914873fec72473cd26b0696b",
+      "art": "r02-b01-02",
+      "cell": 7,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_9.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_10",
+      "name": "Adlige Stifterin",
+      "category": "cards",
+      "file": "assets/cards/jeanne_10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "092627ca24060e0493d919b476684654e33af21bb5a3d05e6b88c8336069bb4b",
+      "art": "r02-b01-02",
+      "cell": 8,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_10.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "jeanne_11",
+      "name": "Weihe der Klosterkirche",
+      "category": "cards",
+      "file": "assets/cards/jeanne_11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "c9c7f82096e3106a63940be9ba31fe768b1e6140b48c394b288929a05ee8247a",
+      "art": "r02-b01-02",
+      "cell": 9,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/jeanne_11.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "novice",
+      "name": "Novizin",
+      "category": "tokens",
+      "file": "assets/tokens/novice.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "f9684110e3c259de37a8917994d1861aee1135acb5e5e19e02b6f220a1e28b59",
+      "art": "r02-b01-02",
+      "cell": 10,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/tokens/novice.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "dandolo_5",
+      "name": "Maskierte Wache",
+      "category": "cards",
+      "file": "assets/cards/dandolo_5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "4b4afcfdf55cd543807bba154383339be6d1a05a624ff7aa0ef0f634e8871240",
+      "art": "r02-b01-02",
+      "cell": 11,
+      "atlas_file": "game-assets/art/r02-b01-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/dandolo_5.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "dandolo_7",
+      "name": "Admiral der Galeeren",
+      "category": "cards",
+      "file": "assets/cards/dandolo_7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "4152c3cb99b1ff77cdbf6184832c585df29484cf5886d466fb149a245f32f32a",
+      "art": "r02-b01-03",
+      "cell": 0,
+      "atlas_file": "game-assets/art/r02-b01-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/dandolo_7.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "dandolo_10",
+      "name": "Agent des Zehnerrats",
+      "category": "cards",
+      "file": "assets/cards/dandolo_10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "1eefd9291b58be8c7e3360d321b3920bde038dde12fb0074ee74edb191c92ed6",
+      "art": "r02-b01-03",
+      "cell": 1,
+      "atlas_file": "game-assets/art/r02-b01-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/dandolo_10.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "dandolo_11",
+      "name": "Galeerenschmied",
+      "category": "cards",
+      "file": "assets/cards/dandolo_11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "7292ea66ec70f17348e293eedf732a0949a2b6ddd11aba0484e4af529cb05ad3",
+      "art": "r02-b01-03",
+      "cell": 2,
+      "atlas_file": "game-assets/art/r02-b01-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/dandolo_11.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "dandolo_12",
+      "name": "Plünderung Konstantinopels",
+      "category": "cards",
+      "file": "assets/cards/dandolo_12.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "90d999ea6e951d9177bfda8b73b4c980cc01d5d336f6c7022151a5a973b5180f",
+      "art": "r02-b01-03",
+      "cell": 3,
+      "atlas_file": "game-assets/art/r02-b01-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/dandolo_12.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "imhotep_7",
+      "name": "Goldener Skarabäus",
+      "category": "cards",
+      "file": "assets/cards/imhotep_7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "37e56a6c73cb594a4064bb04890f3d2777f26d92a473a0f88a18e6af91540043",
+      "art": "r02-b01-03",
+      "cell": 4,
+      "atlas_file": "game-assets/art/r02-b01-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/imhotep_7.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    },
+    {
+      "id": "totem_heal",
+      "name": "Grenzstein des Klosters",
+      "category": "tokens",
+      "file": "assets/tokens/totem_heal.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "a473b8c340e961a97174a9c24fafe4224a60b1be90ff5c7c9e2c1b54998c38a9",
+      "art": "r02-b01-03",
+      "cell": 5,
+      "atlas_file": "game-assets/art/r02-b01-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r02-b01-03.webp",
+      "single_target": "quellcode/assets/game/assets/tokens/totem_heal.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen"
+    }
+  ]
+}

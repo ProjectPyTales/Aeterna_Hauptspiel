@@ -1,0 +1,24 @@
+{
+  "new_assets": 30,
+  "new_cards": 27,
+  "new_tokens": 3,
+  "rescued_files": 41,
+  "remaining": 297,
+  "ready_to_generate": 295,
+  "blocked": 2,
+  "checks": [
+    "Alle 30 PNGs vollständig dekodiert",
+    "30 eindeutige IDs; keine Überschneidung mit 41 Arbeitszuordnungen der Rettung",
+    "Atlas-Zellen und Zielpfade aus Manifest erzeugt",
+    "Datei-Prüfsummen erfasst"
+  ],
+  "not_checked": [
+    "Vollständige historische und anatomische Prüfung",
+    "Laufzeitintegration im Spiel",
+    "Ursprüngliche IDs geretteter Dateien mangels Originalmanifest"
+  ],
+  "excluded_generated_ids": [
+    "hypatia_0",
+    "hypatia_2"
+  ]
+}

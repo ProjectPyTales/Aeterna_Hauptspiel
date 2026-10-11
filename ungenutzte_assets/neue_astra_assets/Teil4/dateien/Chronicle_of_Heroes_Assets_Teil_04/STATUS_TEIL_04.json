@@ -1,0 +1,18 @@
+{
+  "release": "Teil 04",
+  "new_motifs": 30,
+  "new_cards": 27,
+  "new_tokens": 3,
+  "total_delivered_cards": 104,
+  "total_delivered_tokens": 6,
+  "remaining_cards": 246,
+  "remaining_tokens": 21,
+  "regular_open_jobs": 265,
+  "blocked_ids": [
+    "hypatia_0",
+    "hypatia_2"
+  ],
+  "rescued_images": 41,
+  "rescued_archive_required": true,
+  "ui_release": "Teil 03"
+}

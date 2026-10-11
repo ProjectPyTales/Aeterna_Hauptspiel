@@ -1,0 +1,268 @@
+ID,Name,Bereich,Datei,Zielpfad,Breite,Hoehe,Transparenz,PNG_Alternative,Gruppe
+basar,basar,backgrounds,assets/backgrounds/basar.webp,quellcode/assets/game/assets/backgrounds/basar.webp,1774,887,False,,
+board,Standard,backgrounds,assets/backgrounds/board.webp,quellcode/assets/game/assets/backgrounds/board.webp,1774,887,False,,
+board-athen,Marmortisch von Athen,backgrounds,assets/backgrounds/board-athen.webp,quellcode/assets/game/assets/backgrounds/board-athen.webp,1774,887,False,,
+board-kapitol,Porphyr des Kapitols,backgrounds,assets/backgrounds/board-kapitol.webp,quellcode/assets/game/assets/backgrounds/board-kapitol.webp,1774,887,False,,
+board-porzellan,Meißner Porzellan,backgrounds,assets/backgrounds/board-porzellan.webp,quellcode/assets/game/assets/backgrounds/board-porzellan.webp,1774,887,False,,
+board-skriptorium,Pult des Skriptoriums,backgrounds,assets/backgrounds/board-skriptorium.webp,quellcode/assets/game/assets/backgrounds/board-skriptorium.webp,1774,887,False,,
+hall-aeterna,Hauptmenü,backgrounds,assets/backgrounds/hall-aeterna.webp,quellcode/assets/game/assets/backgrounds/hall-aeterna.webp,1942,809,False,,
+heldengalerie,heldengalerie,backgrounds,assets/backgrounds/heldengalerie.webp,quellcode/assets/game/assets/backgrounds/heldengalerie.webp,1774,887,False,,
+menu,menu,backgrounds,assets/backgrounds/menu.webp,quellcode/assets/game/assets/backgrounds/menu.webp,1774,887,False,,
+pakete,pakete,backgrounds,assets/backgrounds/pakete.webp,quellcode/assets/game/assets/backgrounds/pakete.webp,1774,887,False,,
+sammlung,sammlung,backgrounds,assets/backgrounds/sammlung.webp,quellcode/assets/game/assets/backgrounds/sammlung.webp,1774,887,False,,
+temple,temple,backgrounds,assets/backgrounds/temple.webp,quellcode/assets/game/assets/backgrounds/temple.webp,1774,887,False,,
+kartenruecken-chroniken,Aeterna-Siegel,cardbacks,assets/cardbacks/kartenruecken-chroniken.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-chroniken.webp,1056,1490,False,,
+kartenruecken-lilien,Lilienbanner,cardbacks,assets/cardbacks/kartenruecken-lilien.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-lilien.webp,1056,1489,False,,
+kartenruecken-pharao,Pharaonengold,cardbacks,assets/cardbacks/kartenruecken-pharao.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-pharao.webp,1056,1490,False,,
+kartenruecken-runen,Wikinger-Runen,cardbacks,assets/cardbacks/kartenruecken-runen.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-runen.webp,1055,1490,False,,
+kartenruecken-sparta,Spartas Bronzeschild,cardbacks,assets/cardbacks/kartenruecken-sparta.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-sparta.webp,1056,1489,False,,
+kartenruecken-sterne,Sternenkarte,cardbacks,assets/cardbacks/kartenruecken-sterne.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-sterne.webp,1056,1489,False,,
+kartenruecken-tempel,Tempelstein,cardbacks,assets/cardbacks/kartenruecken-tempel.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-tempel.webp,1056,1489,False,,
+kartenruecken-zen,Tusche & Kirschblüte,cardbacks,assets/cardbacks/kartenruecken-zen.webp,quellcode/assets/game/assets/cardbacks/kartenruecken-zen.webp,1056,1489,False,,
+boudicca_5,Heilkundige mit der Mistel,cards,assets/cards/boudicca_5.webp,quellcode/assets/game/assets/cards/boudicca_5.webp,1254,1254,False,,
+dandolo_4,Dogenklinge,cards,assets/cards/dandolo_4.webp,quellcode/assets/game/assets/cards/dandolo_4.webp,1254,1254,False,,
+dandolo_6,Geheimer Vertrag,cards,assets/cards/dandolo_6.webp,quellcode/assets/game/assets/cards/dandolo_6.webp,1254,1254,False,,
+hypatia_9,Theon von Alexandria,cards,assets/cards/hypatia_9.webp,quellcode/assets/game/assets/cards/hypatia_9.webp,1254,1254,False,,
+leonidas_3,Hoplitenhauptmann,cards,assets/cards/leonidas_3.webp,quellcode/assets/game/assets/cards/leonidas_3.webp,1254,1254,False,,
+leonidas_4,Speerträger,cards,assets/cards/leonidas_4.webp,quellcode/assets/game/assets/cards/leonidas_4.webp,1254,1254,False,,
+leonidas_5,Schildstoß,cards,assets/cards/leonidas_5.webp,quellcode/assets/game/assets/cards/leonidas_5.webp,1254,1254,False,,
+leonidas_6,Phalanxveteran,cards,assets/cards/leonidas_6.webp,quellcode/assets/game/assets/cards/leonidas_6.webp,1254,1254,False,,
+leonidas_9,"Gorgo, Stimme Spartas",cards,assets/cards/leonidas_9.webp,quellcode/assets/game/assets/cards/leonidas_9.webp,1254,1254,False,,
+agrippa,Marcus Agrippa,heroes,assets/heroes/agrippa.webp,quellcode/assets/game/assets/heroes/agrippa.webp,1254,1254,False,,
+amanirenas,Ahhotep I.,heroes,assets/heroes/amanirenas.webp,quellcode/assets/game/assets/heroes/amanirenas.webp,1254,1254,False,,
+anna,Anna Komnene,heroes,assets/heroes/anna.webp,quellcode/assets/game/assets/heroes/anna.webp,1254,1254,False,,
+baibars,Baibars,heroes,assets/heroes/baibars.webp,quellcode/assets/game/assets/heroes/baibars.webp,1254,1254,False,,
+boudicca,Vercingetorix,heroes,assets/heroes/boudicca.webp,quellcode/assets/game/assets/heroes/boudicca.webp,1254,1254,False,,
+dandolo,Enrico Dandolo,heroes,assets/heroes/dandolo.webp,quellcode/assets/game/assets/heroes/dandolo.webp,1254,1254,False,,
+epaminondas,Epaminondas,heroes,assets/heroes/epaminondas.webp,quellcode/assets/game/assets/heroes/epaminondas.webp,1254,1254,False,,
+fabius,Fabius Maximus,heroes,assets/heroes/fabius.webp,quellcode/assets/game/assets/heroes/fabius.webp,1254,1254,False,,
+fuhao,Fürstin von Vix,heroes,assets/heroes/fuhao.webp,quellcode/assets/game/assets/heroes/fuhao.webp,1254,1254,False,,
+hypatia,Hypatia,heroes,assets/heroes/hypatia.webp,quellcode/assets/game/assets/heroes/hypatia.webp,1254,1254,False,,
+imhotep,Imhotep,heroes,assets/heroes/imhotep.webp,quellcode/assets/game/assets/heroes/imhotep.webp,1254,1254,False,,
+jeanne,Hildegard von Bingen,heroes,assets/heroes/jeanne.webp,quellcode/assets/game/assets/heroes/jeanne.webp,1254,1254,False,,
+khan,Widukind,heroes,assets/heroes/khan.webp,quellcode/assets/game/assets/heroes/khan.webp,1254,1254,False,,
+leonidas,Leonidas I.,heroes,assets/heroes/leonidas.webp,quellcode/assets/game/assets/heroes/leonidas.webp,1254,1254,False,,
+mandukhai,Thusnelda,heroes,assets/heroes/mandukhai.webp,quellcode/assets/game/assets/heroes/mandukhai.webp,1254,1254,False,,
+masako,Theophanu,heroes,assets/heroes/masako.webp,quellcode/assets/game/assets/heroes/masako.webp,1254,1254,False,,
+musashi,Ulrich von Liechtenstein,heroes,assets/heroes/musashi.webp,quellcode/assets/game/assets/heroes/musashi.webp,1254,1254,False,,
+nezahualcoyotl,Nezahualcóyotl,heroes,assets/heroes/nezahualcoyotl.webp,quellcode/assets/game/assets/heroes/nezahualcoyotl.webp,1254,1254,False,,
+nostradamus,Johann Friedrich Böttger,heroes,assets/heroes/nostradamus.webp,quellcode/assets/game/assets/heroes/nostradamus.webp,1254,1254,False,,
+perikles,Perikles,heroes,assets/heroes/perikles.webp,quellcode/assets/game/assets/heroes/perikles.webp,1254,1254,False,,
+ragnar,Wiprecht von Groitzsch,heroes,assets/heroes/ragnar.webp,quellcode/assets/game/assets/heroes/ragnar.webp,1254,1254,False,,
+zizka,Vauban,heroes,assets/heroes/zizka.webp,quellcode/assets/game/assets/heroes/zizka.webp,1254,1254,False,,
+dandolo-marmor,Enrico Dandolo – Marmorhallen,skins,assets/skins/dandolo-marmor.webp,quellcode/assets/game/assets/skins/dandolo-marmor.webp,1254,1254,False,,
+hypatia-marmor,Hypatia – Marmorhallen,skins,assets/skins/hypatia-marmor.webp,quellcode/assets/game/assets/skins/hypatia-marmor.webp,1254,1254,False,,
+imhotep-marmor,Imhotep – Marmorhallen,skins,assets/skins/imhotep-marmor.webp,quellcode/assets/game/assets/skins/imhotep-marmor.webp,1254,1254,False,,
+leonidas-marmor,Leonidas I. – Marmorhallen,skins,assets/skins/leonidas-marmor.webp,quellcode/assets/game/assets/skins/leonidas-marmor.webp,1254,1254,False,,
+chronikleiste,chronikleiste,ui-art,assets/ui-art/chronikleiste.png,quellcode/assets/game/assets/ui-art/chronikleiste.png,822,1913,True,,
+giftphiole,giftphiole,ui-art,assets/ui-art/giftphiole.png,quellcode/assets/game/assets/ui-art/giftphiole.png,1024,1536,True,,
+kartenbuch,kartenbuch,ui-art,assets/ui-art/kartenbuch.png,quellcode/assets/game/assets/ui-art/kartenbuch.png,1539,1022,True,,
+kartenpaket,kartenpaket,ui-art,assets/ui-art/kartenpaket.png,quellcode/assets/game/assets/ui-art/kartenpaket.png,1080,1457,True,,
+kartenrahmen-building-gold,Kartenrahmen building gold,ui-art,assets/ui-art/kartenrahmen-building-gold.png,quellcode/assets/game/assets/ui-art/kartenrahmen-building-gold.png,1056,1490,True,,
+kartenrahmen-building-normal,Kartenrahmen building normal,ui-art,assets/ui-art/kartenrahmen-building-normal.png,quellcode/assets/game/assets/ui-art/kartenrahmen-building-normal.png,1056,1490,True,,
+kartenrahmen-minion-gold,Kartenrahmen minion gold,ui-art,assets/ui-art/kartenrahmen-minion-gold.png,quellcode/assets/game/assets/ui-art/kartenrahmen-minion-gold.png,1055,1490,True,,
+kartenrahmen-minion-normal,Kartenrahmen minion normal,ui-art,assets/ui-art/kartenrahmen-minion-normal.png,quellcode/assets/game/assets/ui-art/kartenrahmen-minion-normal.png,1056,1490,True,,
+kartenrahmen-spell-gold,Kartenrahmen spell gold,ui-art,assets/ui-art/kartenrahmen-spell-gold.png,quellcode/assets/game/assets/ui-art/kartenrahmen-spell-gold.png,1056,1490,True,,
+kartenrahmen-spell-normal,Kartenrahmen spell normal,ui-art,assets/ui-art/kartenrahmen-spell-normal.png,quellcode/assets/game/assets/ui-art/kartenrahmen-spell-normal.png,1056,1489,True,,
+praesentationspodest,praesentationspodest,ui-art,assets/ui-art/praesentationspodest.png,quellcode/assets/game/assets/ui-art/praesentationspodest.png,1448,1086,True,,
+schildwall,schildwall,ui-art,assets/ui-art/schildwall.png,quellcode/assets/game/assets/ui-art/schildwall.png,1374,1145,True,,
+startbefehle,startbefehle,ui-art,assets/ui-art/startbefehle.png,quellcode/assets/game/assets/ui-art/startbefehle.png,953,1651,True,,
+steinplatten-links,steinplatten-links,ui-art,assets/ui-art/steinplatten-links.png,quellcode/assets/game/assets/ui-art/steinplatten-links.png,1244,1264,True,,
+steinplatten-rechts,steinplatten-rechts,ui-art,assets/ui-art/steinplatten-rechts.png,quellcode/assets/game/assets/ui-art/steinplatten-rechts.png,1245,1263,True,,
+stundenglas,stundenglas,ui-art,assets/ui-art/stundenglas.png,quellcode/assets/game/assets/ui-art/stundenglas.png,1049,1499,True,,
+vermaechtnis-urne,vermaechtnis-urne,ui-art,assets/ui-art/vermaechtnis-urne.png,quellcode/assets/game/assets/ui-art/vermaechtnis-urne.png,1086,1448,True,,
+versiegelte-befehle,versiegelte-befehle,ui-art,assets/ui-art/versiegelte-befehle.png,quellcode/assets/game/assets/ui-art/versiegelte-befehle.png,887,1774,True,,
+waffenablage,waffenablage,ui-art,assets/ui-art/waffenablage.png,quellcode/assets/game/assets/ui-art/waffenablage.png,1095,1437,True,,
+faehigkeitssymbole-leonidas,faehigkeitssymbole-leonidas,ui,assets/ui/faehigkeitssymbole-leonidas.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-leonidas.svg,192,192,True,assets/ui/faehigkeitssymbole-leonidas.png,faehigkeitssymbole
+faehigkeits-effekt-leonidas,faehigkeits-effekt-leonidas,ui,assets/ui/faehigkeits-effekt-leonidas.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-leonidas.svg,320,320,True,assets/ui/faehigkeits-effekt-leonidas.png,faehigkeits-effekt
+faehigkeitssymbole-hypatia,faehigkeitssymbole-hypatia,ui,assets/ui/faehigkeitssymbole-hypatia.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-hypatia.svg,192,192,True,assets/ui/faehigkeitssymbole-hypatia.png,faehigkeitssymbole
+faehigkeits-effekt-hypatia,faehigkeits-effekt-hypatia,ui,assets/ui/faehigkeits-effekt-hypatia.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-hypatia.svg,320,320,True,assets/ui/faehigkeits-effekt-hypatia.png,faehigkeits-effekt
+faehigkeitssymbole-imhotep,faehigkeitssymbole-imhotep,ui,assets/ui/faehigkeitssymbole-imhotep.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-imhotep.svg,192,192,True,assets/ui/faehigkeitssymbole-imhotep.png,faehigkeitssymbole
+faehigkeits-effekt-imhotep,faehigkeits-effekt-imhotep,ui,assets/ui/faehigkeits-effekt-imhotep.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-imhotep.svg,320,320,True,assets/ui/faehigkeits-effekt-imhotep.png,faehigkeits-effekt
+faehigkeitssymbole-dandolo,faehigkeitssymbole-dandolo,ui,assets/ui/faehigkeitssymbole-dandolo.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-dandolo.svg,192,192,True,assets/ui/faehigkeitssymbole-dandolo.png,faehigkeitssymbole
+faehigkeits-effekt-dandolo,faehigkeits-effekt-dandolo,ui,assets/ui/faehigkeits-effekt-dandolo.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-dandolo.svg,320,320,True,assets/ui/faehigkeits-effekt-dandolo.png,faehigkeits-effekt
+faehigkeitssymbole-khan,faehigkeitssymbole-khan,ui,assets/ui/faehigkeitssymbole-khan.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-khan.svg,192,192,True,assets/ui/faehigkeitssymbole-khan.png,faehigkeitssymbole
+faehigkeits-effekt-khan,faehigkeits-effekt-khan,ui,assets/ui/faehigkeits-effekt-khan.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-khan.svg,320,320,True,assets/ui/faehigkeits-effekt-khan.png,faehigkeits-effekt
+faehigkeitssymbole-boudicca,faehigkeitssymbole-boudicca,ui,assets/ui/faehigkeitssymbole-boudicca.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-boudicca.svg,192,192,True,assets/ui/faehigkeitssymbole-boudicca.png,faehigkeitssymbole
+faehigkeits-effekt-boudicca,faehigkeits-effekt-boudicca,ui,assets/ui/faehigkeits-effekt-boudicca.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-boudicca.svg,320,320,True,assets/ui/faehigkeits-effekt-boudicca.png,faehigkeits-effekt
+faehigkeitssymbole-nostradamus,faehigkeitssymbole-nostradamus,ui,assets/ui/faehigkeitssymbole-nostradamus.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-nostradamus.svg,192,192,True,assets/ui/faehigkeitssymbole-nostradamus.png,faehigkeitssymbole
+faehigkeits-effekt-nostradamus,faehigkeits-effekt-nostradamus,ui,assets/ui/faehigkeits-effekt-nostradamus.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-nostradamus.svg,320,320,True,assets/ui/faehigkeits-effekt-nostradamus.png,faehigkeits-effekt
+faehigkeitssymbole-jeanne,faehigkeitssymbole-jeanne,ui,assets/ui/faehigkeitssymbole-jeanne.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-jeanne.svg,192,192,True,assets/ui/faehigkeitssymbole-jeanne.png,faehigkeitssymbole
+faehigkeits-effekt-jeanne,faehigkeits-effekt-jeanne,ui,assets/ui/faehigkeits-effekt-jeanne.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-jeanne.svg,320,320,True,assets/ui/faehigkeits-effekt-jeanne.png,faehigkeits-effekt
+faehigkeitssymbole-ragnar,faehigkeitssymbole-ragnar,ui,assets/ui/faehigkeitssymbole-ragnar.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-ragnar.svg,192,192,True,assets/ui/faehigkeitssymbole-ragnar.png,faehigkeitssymbole
+faehigkeits-effekt-ragnar,faehigkeits-effekt-ragnar,ui,assets/ui/faehigkeits-effekt-ragnar.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-ragnar.svg,320,320,True,assets/ui/faehigkeits-effekt-ragnar.png,faehigkeits-effekt
+faehigkeitssymbole-musashi,faehigkeitssymbole-musashi,ui,assets/ui/faehigkeitssymbole-musashi.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-musashi.svg,192,192,True,assets/ui/faehigkeitssymbole-musashi.png,faehigkeitssymbole
+faehigkeits-effekt-musashi,faehigkeits-effekt-musashi,ui,assets/ui/faehigkeits-effekt-musashi.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-musashi.svg,320,320,True,assets/ui/faehigkeits-effekt-musashi.png,faehigkeits-effekt
+faehigkeitssymbole-perikles,faehigkeitssymbole-perikles,ui,assets/ui/faehigkeitssymbole-perikles.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-perikles.svg,192,192,True,assets/ui/faehigkeitssymbole-perikles.png,faehigkeitssymbole
+faehigkeits-effekt-perikles,faehigkeits-effekt-perikles,ui,assets/ui/faehigkeits-effekt-perikles.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-perikles.svg,320,320,True,assets/ui/faehigkeits-effekt-perikles.png,faehigkeits-effekt
+faehigkeitssymbole-agrippa,faehigkeitssymbole-agrippa,ui,assets/ui/faehigkeitssymbole-agrippa.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-agrippa.svg,192,192,True,assets/ui/faehigkeitssymbole-agrippa.png,faehigkeitssymbole
+faehigkeits-effekt-agrippa,faehigkeits-effekt-agrippa,ui,assets/ui/faehigkeits-effekt-agrippa.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-agrippa.svg,320,320,True,assets/ui/faehigkeits-effekt-agrippa.png,faehigkeits-effekt
+faehigkeitssymbole-amanirenas,faehigkeitssymbole-amanirenas,ui,assets/ui/faehigkeitssymbole-amanirenas.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-amanirenas.svg,192,192,True,assets/ui/faehigkeitssymbole-amanirenas.png,faehigkeitssymbole
+faehigkeits-effekt-amanirenas,faehigkeits-effekt-amanirenas,ui,assets/ui/faehigkeits-effekt-amanirenas.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-amanirenas.svg,320,320,True,assets/ui/faehigkeits-effekt-amanirenas.png,faehigkeits-effekt
+faehigkeitssymbole-anna,faehigkeitssymbole-anna,ui,assets/ui/faehigkeitssymbole-anna.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-anna.svg,192,192,True,assets/ui/faehigkeitssymbole-anna.png,faehigkeitssymbole
+faehigkeits-effekt-anna,faehigkeits-effekt-anna,ui,assets/ui/faehigkeits-effekt-anna.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-anna.svg,320,320,True,assets/ui/faehigkeits-effekt-anna.png,faehigkeits-effekt
+faehigkeitssymbole-nezahualcoyotl,faehigkeitssymbole-nezahualcoyotl,ui,assets/ui/faehigkeitssymbole-nezahualcoyotl.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-nezahualcoyotl.svg,192,192,True,assets/ui/faehigkeitssymbole-nezahualcoyotl.png,faehigkeitssymbole
+faehigkeits-effekt-nezahualcoyotl,faehigkeits-effekt-nezahualcoyotl,ui,assets/ui/faehigkeits-effekt-nezahualcoyotl.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-nezahualcoyotl.svg,320,320,True,assets/ui/faehigkeits-effekt-nezahualcoyotl.png,faehigkeits-effekt
+faehigkeitssymbole-masako,faehigkeitssymbole-masako,ui,assets/ui/faehigkeitssymbole-masako.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-masako.svg,192,192,True,assets/ui/faehigkeitssymbole-masako.png,faehigkeitssymbole
+faehigkeits-effekt-masako,faehigkeits-effekt-masako,ui,assets/ui/faehigkeits-effekt-masako.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-masako.svg,320,320,True,assets/ui/faehigkeits-effekt-masako.png,faehigkeits-effekt
+faehigkeitssymbole-epaminondas,faehigkeitssymbole-epaminondas,ui,assets/ui/faehigkeitssymbole-epaminondas.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-epaminondas.svg,192,192,True,assets/ui/faehigkeitssymbole-epaminondas.png,faehigkeitssymbole
+faehigkeits-effekt-epaminondas,faehigkeits-effekt-epaminondas,ui,assets/ui/faehigkeits-effekt-epaminondas.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-epaminondas.svg,320,320,True,assets/ui/faehigkeits-effekt-epaminondas.png,faehigkeits-effekt
+faehigkeitssymbole-fabius,faehigkeitssymbole-fabius,ui,assets/ui/faehigkeitssymbole-fabius.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-fabius.svg,192,192,True,assets/ui/faehigkeitssymbole-fabius.png,faehigkeitssymbole
+faehigkeits-effekt-fabius,faehigkeits-effekt-fabius,ui,assets/ui/faehigkeits-effekt-fabius.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-fabius.svg,320,320,True,assets/ui/faehigkeits-effekt-fabius.png,faehigkeits-effekt
+faehigkeitssymbole-mandukhai,faehigkeitssymbole-mandukhai,ui,assets/ui/faehigkeitssymbole-mandukhai.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-mandukhai.svg,192,192,True,assets/ui/faehigkeitssymbole-mandukhai.png,faehigkeitssymbole
+faehigkeits-effekt-mandukhai,faehigkeits-effekt-mandukhai,ui,assets/ui/faehigkeits-effekt-mandukhai.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-mandukhai.svg,320,320,True,assets/ui/faehigkeits-effekt-mandukhai.png,faehigkeits-effekt
+faehigkeitssymbole-baibars,faehigkeitssymbole-baibars,ui,assets/ui/faehigkeitssymbole-baibars.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-baibars.svg,192,192,True,assets/ui/faehigkeitssymbole-baibars.png,faehigkeitssymbole
+faehigkeits-effekt-baibars,faehigkeits-effekt-baibars,ui,assets/ui/faehigkeits-effekt-baibars.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-baibars.svg,320,320,True,assets/ui/faehigkeits-effekt-baibars.png,faehigkeits-effekt
+faehigkeitssymbole-zizka,faehigkeitssymbole-zizka,ui,assets/ui/faehigkeitssymbole-zizka.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-zizka.svg,192,192,True,assets/ui/faehigkeitssymbole-zizka.png,faehigkeitssymbole
+faehigkeits-effekt-zizka,faehigkeits-effekt-zizka,ui,assets/ui/faehigkeits-effekt-zizka.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-zizka.svg,320,320,True,assets/ui/faehigkeits-effekt-zizka.png,faehigkeits-effekt
+faehigkeitssymbole-fuhao,faehigkeitssymbole-fuhao,ui,assets/ui/faehigkeitssymbole-fuhao.svg,quellcode/assets/game/assets/ui/faehigkeitssymbole-fuhao.svg,192,192,True,assets/ui/faehigkeitssymbole-fuhao.png,faehigkeitssymbole
+faehigkeits-effekt-fuhao,faehigkeits-effekt-fuhao,ui,assets/ui/faehigkeits-effekt-fuhao.svg,quellcode/assets/game/assets/ui/faehigkeits-effekt-fuhao.svg,320,320,True,assets/ui/faehigkeits-effekt-fuhao.png,faehigkeits-effekt
+heldenmuenze,heldenmuenze,ui,assets/ui/heldenmuenze.svg,quellcode/assets/game/assets/ui/heldenmuenze.svg,400,400,True,assets/ui/heldenmuenze.png,heldenmuenze
+heldengalerie,heldengalerie,ui,assets/ui/heldengalerie.svg,quellcode/assets/game/assets/ui/heldengalerie.svg,512,512,True,assets/ui/heldengalerie.png,heldengalerie
+heldenmuenze-basar,heldenmuenze-basar,ui,assets/ui/heldenmuenze-basar.svg,quellcode/assets/game/assets/ui/heldenmuenze-basar.svg,640,640,True,assets/ui/heldenmuenze-basar.png,heldenmuenze-basar
+muenze-initiative,muenze-initiative,ui,assets/ui/muenze-initiative.svg,quellcode/assets/game/assets/ui/muenze-initiative.svg,400,400,True,assets/ui/muenze-initiative.png,muenze-initiative
+edelstein-lapis,edelstein-lapis,ui,assets/ui/edelstein-lapis.svg,quellcode/assets/game/assets/ui/edelstein-lapis.svg,192,192,True,assets/ui/edelstein-lapis.png,edelstein
+edelstein-olive,edelstein-olive,ui,assets/ui/edelstein-olive.svg,quellcode/assets/game/assets/ui/edelstein-olive.svg,192,192,True,assets/ui/edelstein-olive.png,edelstein
+edelstein-red,edelstein-red,ui,assets/ui/edelstein-red.svg,quellcode/assets/game/assets/ui/edelstein-red.svg,192,192,True,assets/ui/edelstein-red.png,edelstein
+edelstein-gold,edelstein-gold,ui,assets/ui/edelstein-gold.svg,quellcode/assets/game/assets/ui/edelstein-gold.svg,192,192,True,assets/ui/edelstein-gold.png,edelstein
+edelstein-silver,edelstein-silver,ui,assets/ui/edelstein-silver.svg,quellcode/assets/game/assets/ui/edelstein-silver.svg,192,192,True,assets/ui/edelstein-silver.png,edelstein
+edelstein-obsidian,edelstein-obsidian,ui,assets/ui/edelstein-obsidian.svg,quellcode/assets/game/assets/ui/edelstein-obsidian.svg,192,192,True,assets/ui/edelstein-obsidian.png,edelstein
+werte-kristall-blau,werte-kristall-blau,ui,assets/ui/werte-kristall-blau.svg,quellcode/assets/game/assets/ui/werte-kristall-blau.svg,320,320,True,assets/ui/werte-kristall-blau.png,werte-kristall
+werte-kristall-gruen,werte-kristall-gruen,ui,assets/ui/werte-kristall-gruen.svg,quellcode/assets/game/assets/ui/werte-kristall-gruen.svg,320,320,True,assets/ui/werte-kristall-gruen.png,werte-kristall
+werte-kristall-rot,werte-kristall-rot,ui,assets/ui/werte-kristall-rot.svg,quellcode/assets/game/assets/ui/werte-kristall-rot.svg,320,320,True,assets/ui/werte-kristall-rot.png,werte-kristall
+werte-klingen,werte-klingen,ui,assets/ui/werte-klingen.svg,quellcode/assets/game/assets/ui/werte-klingen.svg,320,320,True,assets/ui/werte-klingen.png,werte-klingen
+werte-schild,werte-schild,ui,assets/ui/werte-schild.svg,quellcode/assets/game/assets/ui/werte-schild.svg,320,320,True,assets/ui/werte-schild.png,werte-schild
+werte-turm,werte-turm,ui,assets/ui/werte-turm.svg,quellcode/assets/game/assets/ui/werte-turm.svg,320,320,True,assets/ui/werte-turm.png,werte-turm
+lebensherz,lebensherz,ui,assets/ui/lebensherz.svg,quellcode/assets/game/assets/ui/lebensherz.svg,192,192,True,assets/ui/lebensherz.png,lebensherz
+phalanxschild,phalanxschild,ui,assets/ui/phalanxschild.svg,quellcode/assets/game/assets/ui/phalanxschild.svg,224,224,True,assets/ui/phalanxschild.png,phalanxschild
+archivsiegel-common,archivsiegel-common,ui,assets/ui/archivsiegel-common.svg,quellcode/assets/game/assets/ui/archivsiegel-common.svg,320,320,True,assets/ui/archivsiegel-common.png,archivsiegel
+archivsiegel-rare,archivsiegel-rare,ui,assets/ui/archivsiegel-rare.svg,quellcode/assets/game/assets/ui/archivsiegel-rare.svg,320,320,True,assets/ui/archivsiegel-rare.png,archivsiegel
+archivsiegel-epic,archivsiegel-epic,ui,assets/ui/archivsiegel-epic.svg,quellcode/assets/game/assets/ui/archivsiegel-epic.svg,320,320,True,assets/ui/archivsiegel-epic.png,archivsiegel
+archivsiegel-legendary,archivsiegel-legendary,ui,assets/ui/archivsiegel-legendary.svg,quellcode/assets/game/assets/ui/archivsiegel-legendary.svg,320,320,True,assets/ui/archivsiegel-legendary.png,archivsiegel
+missionssiegel-offen,missionssiegel-offen,ui,assets/ui/missionssiegel-offen.svg,quellcode/assets/game/assets/ui/missionssiegel-offen.svg,256,256,True,assets/ui/missionssiegel-offen.png,missionssiegel
+missionssiegel-offen-belagerung,missionssiegel-offen-belagerung,ui,assets/ui/missionssiegel-offen-belagerung.svg,quellcode/assets/game/assets/ui/missionssiegel-offen-belagerung.svg,256,256,True,assets/ui/missionssiegel-offen-belagerung.png,missionssiegel
+missionssiegel-vollendet,missionssiegel-vollendet,ui,assets/ui/missionssiegel-vollendet.svg,quellcode/assets/game/assets/ui/missionssiegel-vollendet.svg,256,256,True,assets/ui/missionssiegel-vollendet.png,missionssiegel
+missionssiegel-vollendet-belagerung,missionssiegel-vollendet-belagerung,ui,assets/ui/missionssiegel-vollendet-belagerung.svg,quellcode/assets/game/assets/ui/missionssiegel-vollendet-belagerung.svg,256,256,True,assets/ui/missionssiegel-vollendet-belagerung.png,missionssiegel
+missionssiegel-versiegelt,missionssiegel-versiegelt,ui,assets/ui/missionssiegel-versiegelt.svg,quellcode/assets/game/assets/ui/missionssiegel-versiegelt.svg,256,256,True,assets/ui/missionssiegel-versiegelt.png,missionssiegel
+missionssiegel-versiegelt-belagerung,missionssiegel-versiegelt-belagerung,ui,assets/ui/missionssiegel-versiegelt-belagerung.svg,quellcode/assets/game/assets/ui/missionssiegel-versiegelt-belagerung.svg,256,256,True,assets/ui/missionssiegel-versiegelt-belagerung.png,missionssiegel
+waehrung-gold,waehrung-gold,ui,assets/ui/waehrung-gold.svg,quellcode/assets/game/assets/ui/waehrung-gold.svg,128,128,True,assets/ui/waehrung-gold.png,waehrung
+waehrung-staub,waehrung-staub,ui,assets/ui/waehrung-staub.svg,quellcode/assets/game/assets/ui/waehrung-staub.svg,128,128,True,assets/ui/waehrung-staub.png,waehrung
+waehrung-pakete,waehrung-pakete,ui,assets/ui/waehrung-pakete.svg,quellcode/assets/game/assets/ui/waehrung-pakete.svg,128,128,True,assets/ui/waehrung-pakete.png,waehrung
+herrschersiegel-bereit,herrschersiegel-bereit,ui,assets/ui/herrschersiegel-bereit.svg,quellcode/assets/game/assets/ui/herrschersiegel-bereit.svg,496,496,True,assets/ui/herrschersiegel-bereit.png,herrschersiegel
+herrschersiegel-ruhend,herrschersiegel-ruhend,ui,assets/ui/herrschersiegel-ruhend.svg,quellcode/assets/game/assets/ui/herrschersiegel-ruhend.svg,496,496,True,assets/ui/herrschersiegel-ruhend.png,herrschersiegel
+herrschersiegel-verbraucht,herrschersiegel-verbraucht,ui,assets/ui/herrschersiegel-verbraucht.svg,quellcode/assets/game/assets/ui/herrschersiegel-verbraucht.svg,496,496,True,assets/ui/herrschersiegel-verbraucht.png,herrschersiegel
+steinknopf-stein-normal,steinknopf-stein-normal,ui,assets/ui/steinknopf-stein-normal.svg,quellcode/assets/game/assets/ui/steinknopf-stein-normal.svg,720,216,True,assets/ui/steinknopf-stein-normal.png,steinknopf
+steinknopf-stein-hover,steinknopf-stein-hover,ui,assets/ui/steinknopf-stein-hover.svg,quellcode/assets/game/assets/ui/steinknopf-stein-hover.svg,720,216,True,assets/ui/steinknopf-stein-hover.png,steinknopf
+steinknopf-stein-pressed,steinknopf-stein-pressed,ui,assets/ui/steinknopf-stein-pressed.svg,quellcode/assets/game/assets/ui/steinknopf-stein-pressed.svg,720,216,True,assets/ui/steinknopf-stein-pressed.png,steinknopf
+steinknopf-stein-disabled,steinknopf-stein-disabled,ui,assets/ui/steinknopf-stein-disabled.svg,quellcode/assets/game/assets/ui/steinknopf-stein-disabled.svg,720,216,True,assets/ui/steinknopf-stein-disabled.png,steinknopf
+steinknopf-gold-normal,steinknopf-gold-normal,ui,assets/ui/steinknopf-gold-normal.svg,quellcode/assets/game/assets/ui/steinknopf-gold-normal.svg,720,216,True,assets/ui/steinknopf-gold-normal.png,steinknopf
+steinknopf-gold-hover,steinknopf-gold-hover,ui,assets/ui/steinknopf-gold-hover.svg,quellcode/assets/game/assets/ui/steinknopf-gold-hover.svg,720,216,True,assets/ui/steinknopf-gold-hover.png,steinknopf
+steinknopf-gold-pressed,steinknopf-gold-pressed,ui,assets/ui/steinknopf-gold-pressed.svg,quellcode/assets/game/assets/ui/steinknopf-gold-pressed.svg,720,216,True,assets/ui/steinknopf-gold-pressed.png,steinknopf
+steinknopf-gold-disabled,steinknopf-gold-disabled,ui,assets/ui/steinknopf-gold-disabled.svg,quellcode/assets/game/assets/ui/steinknopf-gold-disabled.svg,720,216,True,assets/ui/steinknopf-gold-disabled.png,steinknopf
+steinknopf-tuerkis-normal,steinknopf-tuerkis-normal,ui,assets/ui/steinknopf-tuerkis-normal.svg,quellcode/assets/game/assets/ui/steinknopf-tuerkis-normal.svg,720,216,True,assets/ui/steinknopf-tuerkis-normal.png,steinknopf
+steinknopf-tuerkis-hover,steinknopf-tuerkis-hover,ui,assets/ui/steinknopf-tuerkis-hover.svg,quellcode/assets/game/assets/ui/steinknopf-tuerkis-hover.svg,720,216,True,assets/ui/steinknopf-tuerkis-hover.png,steinknopf
+steinknopf-tuerkis-pressed,steinknopf-tuerkis-pressed,ui,assets/ui/steinknopf-tuerkis-pressed.svg,quellcode/assets/game/assets/ui/steinknopf-tuerkis-pressed.svg,720,216,True,assets/ui/steinknopf-tuerkis-pressed.png,steinknopf
+steinknopf-tuerkis-disabled,steinknopf-tuerkis-disabled,ui,assets/ui/steinknopf-tuerkis-disabled.svg,quellcode/assets/game/assets/ui/steinknopf-tuerkis-disabled.svg,720,216,True,assets/ui/steinknopf-tuerkis-disabled.png,steinknopf
+steinknopf-gefahr-normal,steinknopf-gefahr-normal,ui,assets/ui/steinknopf-gefahr-normal.svg,quellcode/assets/game/assets/ui/steinknopf-gefahr-normal.svg,720,216,True,assets/ui/steinknopf-gefahr-normal.png,steinknopf
+steinknopf-gefahr-hover,steinknopf-gefahr-hover,ui,assets/ui/steinknopf-gefahr-hover.svg,quellcode/assets/game/assets/ui/steinknopf-gefahr-hover.svg,720,216,True,assets/ui/steinknopf-gefahr-hover.png,steinknopf
+steinknopf-gefahr-pressed,steinknopf-gefahr-pressed,ui,assets/ui/steinknopf-gefahr-pressed.svg,quellcode/assets/game/assets/ui/steinknopf-gefahr-pressed.svg,720,216,True,assets/ui/steinknopf-gefahr-pressed.png,steinknopf
+steinknopf-gefahr-disabled,steinknopf-gefahr-disabled,ui,assets/ui/steinknopf-gefahr-disabled.svg,quellcode/assets/game/assets/ui/steinknopf-gefahr-disabled.svg,720,216,True,assets/ui/steinknopf-gefahr-disabled.png,steinknopf
+reiter-ruhend,reiter-ruhend,ui,assets/ui/reiter-ruhend.svg,quellcode/assets/game/assets/ui/reiter-ruhend.svg,1080,224,True,assets/ui/reiter-ruhend.png,reiter
+reiter-aktiv,reiter-aktiv,ui,assets/ui/reiter-aktiv.svg,quellcode/assets/game/assets/ui/reiter-aktiv.svg,1080,224,True,assets/ui/reiter-aktiv.png,reiter
+panel-hell,panel-hell,ui,assets/ui/panel-hell.svg,quellcode/assets/game/assets/ui/panel-hell.svg,1024,1024,True,assets/ui/panel-hell.png,panel
+panel-dunkel,panel-dunkel,ui,assets/ui/panel-dunkel.svg,quellcode/assets/game/assets/ui/panel-dunkel.svg,1024,1024,True,assets/ui/panel-dunkel.png,panel
+filterknopf-mana-normal,filterknopf-mana-normal,ui,assets/ui/filterknopf-mana-normal.svg,quellcode/assets/game/assets/ui/filterknopf-mana-normal.svg,192,192,True,assets/ui/filterknopf-mana-normal.png,filterknopf
+filterknopf-mana-aktiv,filterknopf-mana-aktiv,ui,assets/ui/filterknopf-mana-aktiv.svg,quellcode/assets/game/assets/ui/filterknopf-mana-aktiv.svg,192,192,True,assets/ui/filterknopf-mana-aktiv.png,filterknopf
+filterknopf-common-normal,filterknopf-common-normal,ui,assets/ui/filterknopf-common-normal.svg,quellcode/assets/game/assets/ui/filterknopf-common-normal.svg,192,192,True,assets/ui/filterknopf-common-normal.png,filterknopf
+filterknopf-common-aktiv,filterknopf-common-aktiv,ui,assets/ui/filterknopf-common-aktiv.svg,quellcode/assets/game/assets/ui/filterknopf-common-aktiv.svg,192,192,True,assets/ui/filterknopf-common-aktiv.png,filterknopf
+filterknopf-rare-normal,filterknopf-rare-normal,ui,assets/ui/filterknopf-rare-normal.svg,quellcode/assets/game/assets/ui/filterknopf-rare-normal.svg,192,192,True,assets/ui/filterknopf-rare-normal.png,filterknopf
+filterknopf-rare-aktiv,filterknopf-rare-aktiv,ui,assets/ui/filterknopf-rare-aktiv.svg,quellcode/assets/game/assets/ui/filterknopf-rare-aktiv.svg,192,192,True,assets/ui/filterknopf-rare-aktiv.png,filterknopf
+filterknopf-epic-normal,filterknopf-epic-normal,ui,assets/ui/filterknopf-epic-normal.svg,quellcode/assets/game/assets/ui/filterknopf-epic-normal.svg,192,192,True,assets/ui/filterknopf-epic-normal.png,filterknopf
+filterknopf-epic-aktiv,filterknopf-epic-aktiv,ui,assets/ui/filterknopf-epic-aktiv.svg,quellcode/assets/game/assets/ui/filterknopf-epic-aktiv.svg,192,192,True,assets/ui/filterknopf-epic-aktiv.png,filterknopf
+filterknopf-legendary-normal,filterknopf-legendary-normal,ui,assets/ui/filterknopf-legendary-normal.svg,quellcode/assets/game/assets/ui/filterknopf-legendary-normal.svg,192,192,True,assets/ui/filterknopf-legendary-normal.png,filterknopf
+filterknopf-legendary-aktiv,filterknopf-legendary-aktiv,ui,assets/ui/filterknopf-legendary-aktiv.svg,quellcode/assets/game/assets/ui/filterknopf-legendary-aktiv.svg,192,192,True,assets/ui/filterknopf-legendary-aktiv.png,filterknopf
+manakurve-frueh,manakurve-frueh,ui,assets/ui/manakurve-frueh.svg,quellcode/assets/game/assets/ui/manakurve-frueh.svg,160,440,True,assets/ui/manakurve-frueh.png,manakurve
+manakurve-mittel,manakurve-mittel,ui,assets/ui/manakurve-mittel.svg,quellcode/assets/game/assets/ui/manakurve-mittel.svg,160,440,True,assets/ui/manakurve-mittel.png,manakurve
+manakurve-spaet,manakurve-spaet,ui,assets/ui/manakurve-spaet.svg,quellcode/assets/game/assets/ui/manakurve-spaet.svg,160,440,True,assets/ui/manakurve-spaet.png,manakurve
+knopf-match-zug-aktiv,knopf-match-zug-aktiv,ui,assets/ui/knopf-match-zug-aktiv.svg,quellcode/assets/game/assets/ui/knopf-match-zug-aktiv.svg,688,256,True,assets/ui/knopf-match-zug-aktiv.png,knopf-match
+knopf-match-chronik-aktiv,knopf-match-chronik-aktiv,ui,assets/ui/knopf-match-chronik-aktiv.svg,quellcode/assets/game/assets/ui/knopf-match-chronik-aktiv.svg,688,256,True,assets/ui/knopf-match-chronik-aktiv.png,knopf-match
+knopf-match-pause-aktiv,knopf-match-pause-aktiv,ui,assets/ui/knopf-match-pause-aktiv.svg,quellcode/assets/game/assets/ui/knopf-match-pause-aktiv.svg,688,256,True,assets/ui/knopf-match-pause-aktiv.png,knopf-match
+knopf-match-hilfe-aktiv,knopf-match-hilfe-aktiv,ui,assets/ui/knopf-match-hilfe-aktiv.svg,quellcode/assets/game/assets/ui/knopf-match-hilfe-aktiv.svg,688,256,True,assets/ui/knopf-match-hilfe-aktiv.png,knopf-match
+knopf-match-zug-ruhend,knopf-match-zug-ruhend,ui,assets/ui/knopf-match-zug-ruhend.svg,quellcode/assets/game/assets/ui/knopf-match-zug-ruhend.svg,688,256,True,assets/ui/knopf-match-zug-ruhend.png,knopf-match
+knopf-match-chronik-ruhend,knopf-match-chronik-ruhend,ui,assets/ui/knopf-match-chronik-ruhend.svg,quellcode/assets/game/assets/ui/knopf-match-chronik-ruhend.svg,688,256,True,assets/ui/knopf-match-chronik-ruhend.png,knopf-match
+knopf-match-pause-ruhend,knopf-match-pause-ruhend,ui,assets/ui/knopf-match-pause-ruhend.svg,quellcode/assets/game/assets/ui/knopf-match-pause-ruhend.svg,688,256,True,assets/ui/knopf-match-pause-ruhend.png,knopf-match
+knopf-match-hilfe-ruhend,knopf-match-hilfe-ruhend,ui,assets/ui/knopf-match-hilfe-ruhend.svg,quellcode/assets/game/assets/ui/knopf-match-hilfe-ruhend.svg,688,256,True,assets/ui/knopf-match-hilfe-ruhend.png,knopf-match
+aetheruhr-00,aetheruhr-00,ui,assets/ui/aetheruhr-00.svg,quellcode/assets/game/assets/ui/aetheruhr-00.svg,512,512,True,assets/ui/aetheruhr-00.png,aetheruhr
+aetheruhr-01,aetheruhr-01,ui,assets/ui/aetheruhr-01.svg,quellcode/assets/game/assets/ui/aetheruhr-01.svg,512,512,True,assets/ui/aetheruhr-01.png,aetheruhr
+aetheruhr-02,aetheruhr-02,ui,assets/ui/aetheruhr-02.svg,quellcode/assets/game/assets/ui/aetheruhr-02.svg,512,512,True,assets/ui/aetheruhr-02.png,aetheruhr
+aetheruhr-03,aetheruhr-03,ui,assets/ui/aetheruhr-03.svg,quellcode/assets/game/assets/ui/aetheruhr-03.svg,512,512,True,assets/ui/aetheruhr-03.png,aetheruhr
+aetheruhr-04,aetheruhr-04,ui,assets/ui/aetheruhr-04.svg,quellcode/assets/game/assets/ui/aetheruhr-04.svg,512,512,True,assets/ui/aetheruhr-04.png,aetheruhr
+aetheruhr-05,aetheruhr-05,ui,assets/ui/aetheruhr-05.svg,quellcode/assets/game/assets/ui/aetheruhr-05.svg,512,512,True,assets/ui/aetheruhr-05.png,aetheruhr
+aetheruhr-06,aetheruhr-06,ui,assets/ui/aetheruhr-06.svg,quellcode/assets/game/assets/ui/aetheruhr-06.svg,512,512,True,assets/ui/aetheruhr-06.png,aetheruhr
+aetheruhr-07,aetheruhr-07,ui,assets/ui/aetheruhr-07.svg,quellcode/assets/game/assets/ui/aetheruhr-07.svg,512,512,True,assets/ui/aetheruhr-07.png,aetheruhr
+aetheruhr-08,aetheruhr-08,ui,assets/ui/aetheruhr-08.svg,quellcode/assets/game/assets/ui/aetheruhr-08.svg,512,512,True,assets/ui/aetheruhr-08.png,aetheruhr
+aetheruhr-09,aetheruhr-09,ui,assets/ui/aetheruhr-09.svg,quellcode/assets/game/assets/ui/aetheruhr-09.svg,512,512,True,assets/ui/aetheruhr-09.png,aetheruhr
+aetheruhr-10,aetheruhr-10,ui,assets/ui/aetheruhr-10.svg,quellcode/assets/game/assets/ui/aetheruhr-10.svg,512,512,True,assets/ui/aetheruhr-10.png,aetheruhr
+aetherkristall-voll,aetherkristall-voll,ui,assets/ui/aetherkristall-voll.svg,quellcode/assets/game/assets/ui/aetherkristall-voll.svg,96,96,True,assets/ui/aetherkristall-voll.png,aetheruhr
+aetherkristall-verbraucht,aetherkristall-verbraucht,ui,assets/ui/aetherkristall-verbraucht.svg,quellcode/assets/game/assets/ui/aetherkristall-verbraucht.svg,96,96,True,assets/ui/aetherkristall-verbraucht.png,aetheruhr
+aetherkristall-gesperrt,aetherkristall-gesperrt,ui,assets/ui/aetherkristall-gesperrt.svg,quellcode/assets/game/assets/ui/aetherkristall-gesperrt.svg,96,96,True,assets/ui/aetherkristall-gesperrt.png,aetheruhr
+aetherkristall-fehlt,aetherkristall-fehlt,ui,assets/ui/aetherkristall-fehlt.svg,quellcode/assets/game/assets/ui/aetherkristall-fehlt.svg,96,96,True,assets/ui/aetherkristall-fehlt.png,aetheruhr
+pergamentstapel-1,pergamentstapel-1,ui,assets/ui/pergamentstapel-1.svg,quellcode/assets/game/assets/ui/pergamentstapel-1.svg,320,400,True,assets/ui/pergamentstapel-1.png,pergamentstapel
+pergamentstapel-2,pergamentstapel-2,ui,assets/ui/pergamentstapel-2.svg,quellcode/assets/game/assets/ui/pergamentstapel-2.svg,320,400,True,assets/ui/pergamentstapel-2.png,pergamentstapel
+pergamentstapel-3,pergamentstapel-3,ui,assets/ui/pergamentstapel-3.svg,quellcode/assets/game/assets/ui/pergamentstapel-3.svg,320,400,True,assets/ui/pergamentstapel-3.png,pergamentstapel
+pergamentstapel-4,pergamentstapel-4,ui,assets/ui/pergamentstapel-4.svg,quellcode/assets/game/assets/ui/pergamentstapel-4.svg,320,400,True,assets/ui/pergamentstapel-4.png,pergamentstapel
+pergamentstapel-5,pergamentstapel-5,ui,assets/ui/pergamentstapel-5.svg,quellcode/assets/game/assets/ui/pergamentstapel-5.svg,320,400,True,assets/ui/pergamentstapel-5.png,pergamentstapel
+pergamentstapel-6,pergamentstapel-6,ui,assets/ui/pergamentstapel-6.svg,quellcode/assets/game/assets/ui/pergamentstapel-6.svg,320,400,True,assets/ui/pergamentstapel-6.png,pergamentstapel
+diener-plakette-minion,diener-plakette-minion,ui,assets/ui/diener-plakette-minion.svg,quellcode/assets/game/assets/ui/diener-plakette-minion.svg,408,544,True,assets/ui/diener-plakette-minion.png,diener-plakette
+diener-plakette-spell,diener-plakette-spell,ui,assets/ui/diener-plakette-spell.svg,quellcode/assets/game/assets/ui/diener-plakette-spell.svg,408,544,True,assets/ui/diener-plakette-spell.png,diener-plakette
+diener-plakette-building,diener-plakette-building,ui,assets/ui/diener-plakette-building.svg,quellcode/assets/game/assets/ui/diener-plakette-building.svg,408,544,True,assets/ui/diener-plakette-building.png,diener-plakette
+chronik-eintrag-spieler,chronik-eintrag-spieler,ui,assets/ui/chronik-eintrag-spieler.svg,quellcode/assets/game/assets/ui/chronik-eintrag-spieler.svg,232,232,True,assets/ui/chronik-eintrag-spieler.png,chronik-eintrag
+chronik-eintrag-gegner,chronik-eintrag-gegner,ui,assets/ui/chronik-eintrag-gegner.svg,quellcode/assets/game/assets/ui/chronik-eintrag-gegner.svg,232,232,True,assets/ui/chronik-eintrag-gegner.png,chronik-eintrag
+chronometer-aktiv,chronometer-aktiv,ui,assets/ui/chronometer-aktiv.svg,quellcode/assets/game/assets/ui/chronometer-aktiv.svg,512,672,True,assets/ui/chronometer-aktiv.png,chronometer
+chronometer-gegnerzug,chronometer-gegnerzug,ui,assets/ui/chronometer-gegnerzug.svg,quellcode/assets/game/assets/ui/chronometer-gegnerzug.svg,512,672,True,assets/ui/chronometer-gegnerzug.png,chronometer
+chronometer-zeiger,chronometer-zeiger,ui,assets/ui/chronometer-zeiger.svg,quellcode/assets/game/assets/ui/chronometer-zeiger.svg,256,256,True,assets/ui/chronometer-zeiger.png,chronometer
+chronik-banner,chronik-banner,ui,assets/ui/chronik-banner.svg,quellcode/assets/game/assets/ui/chronik-banner.svg,2800,320,True,assets/ui/chronik-banner.png,chronik-banner
+zugtafel-spieler,zugtafel-spieler,ui,assets/ui/zugtafel-spieler.svg,quellcode/assets/game/assets/ui/zugtafel-spieler.svg,1920,400,True,assets/ui/zugtafel-spieler.png,zugtafel
+zugtafel-gegner,zugtafel-gegner,ui,assets/ui/zugtafel-gegner.svg,quellcode/assets/game/assets/ui/zugtafel-gegner.svg,1920,400,True,assets/ui/zugtafel-gegner.png,zugtafel
+ergebnis-banner-triumph,ergebnis-banner-triumph,ui,assets/ui/ergebnis-banner-triumph.svg,quellcode/assets/game/assets/ui/ergebnis-banner-triumph.svg,1800,480,True,assets/ui/ergebnis-banner-triumph.png,ergebnis-banner
+triumph-banner-triumph,triumph-banner-triumph,ui,assets/ui/triumph-banner-triumph.svg,quellcode/assets/game/assets/ui/triumph-banner-triumph.svg,1800,1040,True,assets/ui/triumph-banner-triumph.png,triumph-banner
+ergebnis-banner-niederlage,ergebnis-banner-niederlage,ui,assets/ui/ergebnis-banner-niederlage.svg,quellcode/assets/game/assets/ui/ergebnis-banner-niederlage.svg,1800,480,True,assets/ui/ergebnis-banner-niederlage.png,ergebnis-banner
+triumph-banner-niederlage,triumph-banner-niederlage,ui,assets/ui/triumph-banner-niederlage.svg,quellcode/assets/game/assets/ui/triumph-banner-niederlage.svg,1800,1040,True,assets/ui/triumph-banner-niederlage.png,triumph-banner
+ergebnis-banner-unentschieden,ergebnis-banner-unentschieden,ui,assets/ui/ergebnis-banner-unentschieden.svg,quellcode/assets/game/assets/ui/ergebnis-banner-unentschieden.svg,1800,480,True,assets/ui/ergebnis-banner-unentschieden.png,ergebnis-banner
+triumph-banner-unentschieden,triumph-banner-unentschieden,ui,assets/ui/triumph-banner-unentschieden.svg,quellcode/assets/game/assets/ui/triumph-banner-unentschieden.svg,1800,1040,True,assets/ui/triumph-banner-unentschieden.png,triumph-banner
+lorbeerkranz,lorbeerkranz,ui,assets/ui/lorbeerkranz.svg,quellcode/assets/game/assets/ui/lorbeerkranz.svg,900,500,True,assets/ui/lorbeerkranz.png,lorbeerkranz
+goldglanz,goldglanz,ui,assets/ui/goldglanz.svg,quellcode/assets/game/assets/ui/goldglanz.svg,160,800,True,assets/ui/goldglanz.png,goldglanz
+goldglanz-basar,goldglanz-basar,ui,assets/ui/goldglanz-basar.svg,quellcode/assets/game/assets/ui/goldglanz-basar.svg,160,800,True,assets/ui/goldglanz-basar.png,goldglanz-basar
+marschroute-winkel,marschroute-winkel,ui,assets/ui/marschroute-winkel.svg,quellcode/assets/game/assets/ui/marschroute-winkel.svg,128,128,True,assets/ui/marschroute-winkel.png,marschroute
+marschroute-spitze,marschroute-spitze,ui,assets/ui/marschroute-spitze.svg,quellcode/assets/game/assets/ui/marschroute-spitze.svg,128,128,True,assets/ui/marschroute-spitze.png,marschroute
+marschroute-punkt,marschroute-punkt,ui,assets/ui/marschroute-punkt.svg,quellcode/assets/game/assets/ui/marschroute-punkt.svg,128,128,True,assets/ui/marschroute-punkt.png,marschroute
+tintenspritzer-1,tintenspritzer-1,ui,assets/ui/tintenspritzer-1.svg,quellcode/assets/game/assets/ui/tintenspritzer-1.svg,440,440,True,assets/ui/tintenspritzer-1.png,tintenspritzer
+steinrisse-1,steinrisse-1,ui,assets/ui/steinrisse-1.svg,quellcode/assets/game/assets/ui/steinrisse-1.svg,880,480,True,assets/ui/steinrisse-1.png,steinrisse
+tintenspritzer-2,tintenspritzer-2,ui,assets/ui/tintenspritzer-2.svg,quellcode/assets/game/assets/ui/tintenspritzer-2.svg,440,440,True,assets/ui/tintenspritzer-2.png,tintenspritzer
+steinrisse-2,steinrisse-2,ui,assets/ui/steinrisse-2.svg,quellcode/assets/game/assets/ui/steinrisse-2.svg,880,480,True,assets/ui/steinrisse-2.png,steinrisse
+tintenspritzer-3,tintenspritzer-3,ui,assets/ui/tintenspritzer-3.svg,quellcode/assets/game/assets/ui/tintenspritzer-3.svg,440,440,True,assets/ui/tintenspritzer-3.png,tintenspritzer
+steinrisse-3,steinrisse-3,ui,assets/ui/steinrisse-3.svg,quellcode/assets/game/assets/ui/steinrisse-3.svg,880,480,True,assets/ui/steinrisse-3.png,steinrisse
+eiskristall,eiskristall,ui,assets/ui/eiskristall.svg,quellcode/assets/game/assets/ui/eiskristall.svg,64,192,True,assets/ui/eiskristall.png,eiskristall
+giftblasen,giftblasen,ui,assets/ui/giftblasen.svg,quellcode/assets/game/assets/ui/giftblasen.svg,64,64,True,assets/ui/giftblasen.png,giftblasen
+urnengeist,urnengeist,ui,assets/ui/urnengeist.svg,quellcode/assets/game/assets/ui/urnengeist.svg,128,128,True,assets/ui/urnengeist.png,urnengeist
+gunst-aurenkreis,gunst-aurenkreis,ui,assets/ui/gunst-aurenkreis.svg,quellcode/assets/game/assets/ui/gunst-aurenkreis.svg,600,720,True,assets/ui/gunst-aurenkreis.png,gunst-aurenkreis
+starre-ketten,starre-ketten,ui,assets/ui/starre-ketten.svg,quellcode/assets/game/assets/ui/starre-ketten.svg,376,512,True,assets/ui/starre-ketten.png,starre-ketten
+tarnung-unterholz,tarnung-unterholz,ui,assets/ui/tarnung-unterholz.svg,quellcode/assets/game/assets/ui/tarnung-unterholz.svg,376,512,True,assets/ui/tarnung-unterholz.png,tarnung-unterholz
+staubwolke-00,staubwolke-00,ui,assets/ui/staubwolke-00.svg,quellcode/assets/game/assets/ui/staubwolke-00.svg,256,256,True,assets/ui/staubwolke-00.png,staubwolke
+staubwolke-01,staubwolke-01,ui,assets/ui/staubwolke-01.svg,quellcode/assets/game/assets/ui/staubwolke-01.svg,256,256,True,assets/ui/staubwolke-01.png,staubwolke
+staubwolke-02,staubwolke-02,ui,assets/ui/staubwolke-02.svg,quellcode/assets/game/assets/ui/staubwolke-02.svg,256,256,True,assets/ui/staubwolke-02.png,staubwolke
+staubwolke-03,staubwolke-03,ui,assets/ui/staubwolke-03.svg,quellcode/assets/game/assets/ui/staubwolke-03.svg,256,256,True,assets/ui/staubwolke-03.png,staubwolke
+staubwolke-04,staubwolke-04,ui,assets/ui/staubwolke-04.svg,quellcode/assets/game/assets/ui/staubwolke-04.svg,256,256,True,assets/ui/staubwolke-04.png,staubwolke
+staubwolke-05,staubwolke-05,ui,assets/ui/staubwolke-05.svg,quellcode/assets/game/assets/ui/staubwolke-05.svg,256,256,True,assets/ui/staubwolke-05.png,staubwolke
+staubwolke-06,staubwolke-06,ui,assets/ui/staubwolke-06.svg,quellcode/assets/game/assets/ui/staubwolke-06.svg,256,256,True,assets/ui/staubwolke-06.png,staubwolke
+staubwolke-07,staubwolke-07,ui,assets/ui/staubwolke-07.svg,quellcode/assets/game/assets/ui/staubwolke-07.svg,256,256,True,assets/ui/staubwolke-07.png,staubwolke
+miniatur-spielfeld,miniatur-spielfeld,ui,assets/ui/miniatur-spielfeld.svg,quellcode/assets/game/assets/ui/miniatur-spielfeld.svg,1000,700,True,assets/ui/miniatur-spielfeld.png,miniatur-spielfeld
+menue-medaillon-aufgaben,menue-medaillon-aufgaben,ui,assets/ui/menue-medaillon-aufgaben.svg,quellcode/assets/game/assets/ui/menue-medaillon-aufgaben.svg,256,256,True,assets/ui/menue-medaillon-aufgaben.png,menue-medaillons
+menue-medaillon-basar,menue-medaillon-basar,ui,assets/ui/menue-medaillon-basar.svg,quellcode/assets/game/assets/ui/menue-medaillon-basar.svg,256,256,True,assets/ui/menue-medaillon-basar.png,menue-medaillons
+menue-medaillon-sammlung,menue-medaillon-sammlung,ui,assets/ui/menue-medaillon-sammlung.svg,quellcode/assets/game/assets/ui/menue-medaillon-sammlung.svg,256,256,True,assets/ui/menue-medaillon-sammlung.png,menue-medaillons
+menue-medaillon-pakete,menue-medaillon-pakete,ui,assets/ui/menue-medaillon-pakete.svg,quellcode/assets/game/assets/ui/menue-medaillon-pakete.svg,256,256,True,assets/ui/menue-medaillon-pakete.png,menue-medaillons
+menue-medaillon-einstellungen,menue-medaillon-einstellungen,ui,assets/ui/menue-medaillon-einstellungen.svg,quellcode/assets/game/assets/ui/menue-medaillon-einstellungen.svg,256,256,True,assets/ui/menue-medaillon-einstellungen.png,menue-medaillons
+app-icon,app-icon,ui,assets/ui/app-icon.svg,quellcode/assets/game/assets/ui/app-icon.svg,1024,1024,True,assets/ui/app-icon.png,android-icon
+app-icon-foreground,app-icon-foreground,ui,assets/ui/app-icon-foreground.svg,quellcode/assets/game/assets/ui/app-icon-foreground.svg,1024,1024,True,assets/ui/app-icon-foreground.png,android-icon
+splash-icon,splash-icon,ui,assets/ui/splash-icon.svg,quellcode/assets/game/assets/ui/splash-icon.svg,512,512,True,assets/ui/splash-icon.png,android-splash
+weltkarte,weltkarte,backgrounds,assets/backgrounds/weltkarte.svg,quellcode/assets/game/assets/art/weltkarte.svg,2160,1280,,,

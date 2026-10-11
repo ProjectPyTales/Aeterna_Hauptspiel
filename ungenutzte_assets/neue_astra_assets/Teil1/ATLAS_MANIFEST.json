@@ -1,0 +1,229 @@
+[
+  {
+    "file": "game-assets/art/r01-heroes.webp",
+    "target": "quellcode/assets/game/assets/art/r01-heroes.webp",
+    "width": 2896,
+    "height": 2172,
+    "cells": [
+      {
+        "id": "leonidas",
+        "cell": 0,
+        "file": "assets/heroes/leonidas.webp"
+      },
+      {
+        "id": "hypatia",
+        "cell": 1,
+        "file": "assets/heroes/hypatia.webp"
+      },
+      {
+        "id": "imhotep",
+        "cell": 2,
+        "file": "assets/heroes/imhotep.webp"
+      },
+      {
+        "id": "dandolo",
+        "cell": 3,
+        "file": "assets/heroes/dandolo.webp"
+      },
+      {
+        "id": "khan",
+        "cell": 4,
+        "file": "assets/heroes/khan.webp"
+      },
+      {
+        "id": "boudicca",
+        "cell": 5,
+        "file": "assets/heroes/boudicca.webp"
+      },
+      {
+        "id": "nostradamus",
+        "cell": 6,
+        "file": "assets/heroes/nostradamus.webp"
+      },
+      {
+        "id": "jeanne",
+        "cell": 7,
+        "file": "assets/heroes/jeanne.webp"
+      },
+      {
+        "id": "ragnar",
+        "cell": 8,
+        "file": "assets/heroes/ragnar.webp"
+      },
+      {
+        "id": "musashi",
+        "cell": 9,
+        "file": "assets/heroes/musashi.webp"
+      },
+      {
+        "id": "perikles",
+        "cell": 10,
+        "file": "assets/heroes/perikles.webp"
+      },
+      {
+        "id": "agrippa",
+        "cell": 11,
+        "file": "assets/heroes/agrippa.webp"
+      }
+    ],
+    "reserved_empty_cells": []
+  },
+  {
+    "file": "game-assets/art/r01-heroes-2.webp",
+    "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp",
+    "width": 2896,
+    "height": 2172,
+    "cells": [
+      {
+        "id": "amanirenas",
+        "cell": 0,
+        "file": "assets/heroes/amanirenas.webp"
+      },
+      {
+        "id": "anna",
+        "cell": 1,
+        "file": "assets/heroes/anna.webp"
+      },
+      {
+        "id": "nezahualcoyotl",
+        "cell": 2,
+        "file": "assets/heroes/nezahualcoyotl.webp"
+      },
+      {
+        "id": "masako",
+        "cell": 3,
+        "file": "assets/heroes/masako.webp"
+      },
+      {
+        "id": "epaminondas",
+        "cell": 4,
+        "file": "assets/heroes/epaminondas.webp"
+      },
+      {
+        "id": "fabius",
+        "cell": 5,
+        "file": "assets/heroes/fabius.webp"
+      },
+      {
+        "id": "mandukhai",
+        "cell": 6,
+        "file": "assets/heroes/mandukhai.webp"
+      },
+      {
+        "id": "baibars",
+        "cell": 7,
+        "file": "assets/heroes/baibars.webp"
+      },
+      {
+        "id": "zizka",
+        "cell": 8,
+        "file": "assets/heroes/zizka.webp"
+      },
+      {
+        "id": "fuhao",
+        "cell": 9,
+        "file": "assets/heroes/fuhao.webp"
+      }
+    ],
+    "reserved_empty_cells": [
+      10,
+      11
+    ]
+  },
+  {
+    "file": "game-assets/art/r01-cards-01.webp",
+    "target": "quellcode/assets/game/assets/art/r01-cards-01.webp",
+    "width": 2896,
+    "height": 2172,
+    "cells": [
+      {
+        "id": "leonidas_3",
+        "cell": 0,
+        "file": "assets/cards/leonidas_3.webp"
+      },
+      {
+        "id": "leonidas_4",
+        "cell": 1,
+        "file": "assets/cards/leonidas_4.webp"
+      },
+      {
+        "id": "leonidas_5",
+        "cell": 2,
+        "file": "assets/cards/leonidas_5.webp"
+      },
+      {
+        "id": "leonidas_6",
+        "cell": 3,
+        "file": "assets/cards/leonidas_6.webp"
+      },
+      {
+        "id": "leonidas_9",
+        "cell": 4,
+        "file": "assets/cards/leonidas_9.webp"
+      },
+      {
+        "id": "hypatia_9",
+        "cell": 5,
+        "file": "assets/cards/hypatia_9.webp"
+      },
+      {
+        "id": "dandolo_4",
+        "cell": 6,
+        "file": "assets/cards/dandolo_4.webp"
+      },
+      {
+        "id": "dandolo_6",
+        "cell": 7,
+        "file": "assets/cards/dandolo_6.webp"
+      },
+      {
+        "id": "boudicca_5",
+        "cell": 8,
+        "file": "assets/cards/boudicca_5.webp"
+      }
+    ],
+    "reserved_empty_cells": [
+      9,
+      10,
+      11
+    ]
+  },
+  {
+    "file": "game-assets/art/r01-heroes-marble.webp",
+    "target": "quellcode/assets/game/assets/art/r01-heroes-marble.webp",
+    "width": 2896,
+    "height": 2172,
+    "cells": [
+      {
+        "id": "leonidas-marmor",
+        "cell": 0,
+        "file": "assets/skins/leonidas-marmor.webp"
+      },
+      {
+        "id": "hypatia-marmor",
+        "cell": 1,
+        "file": "assets/skins/hypatia-marmor.webp"
+      },
+      {
+        "id": "imhotep-marmor",
+        "cell": 2,
+        "file": "assets/skins/imhotep-marmor.webp"
+      },
+      {
+        "id": "dandolo-marmor",
+        "cell": 3,
+        "file": "assets/skins/dandolo-marmor.webp"
+      }
+    ],
+    "reserved_empty_cells": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  }
+]

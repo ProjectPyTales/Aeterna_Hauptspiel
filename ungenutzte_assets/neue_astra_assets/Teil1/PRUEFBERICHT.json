@@ -1,0 +1,21 @@
+{
+  "release": "Teil 01",
+  "validation": "passed",
+  "logical_assets": 267,
+  "paintings": 74,
+  "raster_files_decoded": 284,
+  "ui_svg_png_pairs": 192,
+  "atlases": 4,
+  "hero_ids": 22,
+  "card_ids": 9,
+  "skin_ids": 4,
+  "token_ids": 0,
+  "board_ids": 5,
+  "missing_card_ids": 341,
+  "missing_token_ids": 27,
+  "all_referenced_files_present": true,
+  "checksums_verified": true,
+  "transparent_painted_layers_checked": 19,
+  "runtime_integration_tested": false,
+  "note": "File integrity and mapping validated. This does not certify every historical detail or subsequent in-game integration."
+}

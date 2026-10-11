@@ -1,0 +1,1 @@
+an claude: alle hier liegenden Assets sind gerettete Bilder aus einem abgebrochenen ChatGPT Chat und sollen verwendet werden, chatgpt hat leider auch Dopplungen beispielsweise zum Thema Alexandria angefertigt, diese Dopplungen kannst du ignorieren nimm im fall von Dopplungen primär die bilder hier 

@@ -1,0 +1,266 @@
+﻿id,category,name,file,status
+imhotep_0,cards,Nilschülerin,assets/cards/imhotep_0.png,pending
+imhotep_1,cards,Heilender Balsam,assets/cards/imhotep_1.png,pending
+imhotep_2,cards,Pyramidenwächter,assets/cards/imhotep_2.png,pending
+imhotep_3,cards,Tempelärztin,assets/cards/imhotep_3.png,pending
+imhotep_4,cards,Sonnensegen,assets/cards/imhotep_4.png,pending
+khan_2,cards,Pfeilschuss,assets/cards/khan_2.png,pending
+khan_3,cards,Reiter der Edelinge,assets/cards/khan_3.png,pending
+boudicca_9,cards,"Commius, Führer des Entsatzheers",assets/cards/boudicca_9.png,pending
+nostradamus_0,cards,Apothekerlehrling,assets/cards/nostradamus_0.png,pending
+nostradamus_3,cards,Geheimes Rezeptbuch,assets/cards/nostradamus_3.png,pending
+ragnar_0,cards,Siedler aus Franken,assets/cards/ragnar_0.png,pending
+ragnar_1,cards,Fehde,assets/cards/ragnar_1.png,pending
+ragnar_2,cards,Burgmann von Groitzsch,assets/cards/ragnar_2.png,pending
+ragnar_3,cards,Lokator,assets/cards/ragnar_3.png,pending
+ragnar_4,cards,Verhau,assets/cards/ragnar_4.png,pending
+ragnar_5,cards,Panzerreiter,assets/cards/ragnar_5.png,pending
+ragnar_6,cards,Rodung,assets/cards/ragnar_6.png,pending
+ragnar_7,cards,Grenzwächter der Mark,assets/cards/ragnar_7.png,pending
+ragnar_8,cards,Heerfahrt nach Italien,assets/cards/ragnar_8.png,pending
+ragnar_9,cards,Judith von Böhmen,assets/cards/ragnar_9.png,pending
+musashi_0,cards,Edelknabe,assets/cards/musashi_0.png,pending
+musashi_1,cards,Lanzenstoß,assets/cards/musashi_1.png,pending
+musashi_2,cards,Fahrender Ritter,assets/cards/musashi_2.png,pending
+musashi_3,cards,Minnebrief,assets/cards/musashi_3.png,pending
+musashi_4,cards,Minneritter,assets/cards/musashi_4.png,pending
+musashi_5,cards,Mit eingelegter Lanze,assets/cards/musashi_5.png,pending
+musashi_6,cards,Kämpe im Buhurt,assets/cards/musashi_6.png,pending
+musashi_7,cards,Venusfahrt,assets/cards/musashi_7.png,pending
+musashi_8,cards,Landrichter der Steiermark,assets/cards/musashi_8.png,pending
+musashi_9,cards,Friedrich der Streitbare,assets/cards/musashi_9.png,pending
+neutral_0,cards,Dorfwache,assets/cards/neutral_0.png,pending
+neutral_1,cards,Wandernder Händler,assets/cards/neutral_1.png,pending
+neutral_2,cards,Steinschleuderer,assets/cards/neutral_2.png,pending
+neutral_3,cards,Wilderin,assets/cards/neutral_3.png,pending
+neutral_4,cards,Torwache der Burg,assets/cards/neutral_4.png,pending
+neutral_5,cards,Kavallerist,assets/cards/neutral_5.png,pending
+neutral_6,cards,Feldheilerin,assets/cards/neutral_6.png,pending
+neutral_7,cards,Archivarin,assets/cards/neutral_7.png,pending
+neutral_8,cards,Wachhund,assets/cards/neutral_8.png,pending
+neutral_9,cards,Veteran,assets/cards/neutral_9.png,pending
+neutral_10,cards,Belagerungsturm,assets/cards/neutral_10.png,pending
+neutral_11,cards,Schmied,assets/cards/neutral_11.png,pending
+neutral_12,cards,Wüstenspäherin,assets/cards/neutral_12.png,pending
+neutral_13,cards,Gebirgswache,assets/cards/neutral_13.png,pending
+neutral_14,cards,Verwegener Bote,assets/cards/neutral_14.png,pending
+neutral_15,cards,Nachtwächter,assets/cards/neutral_15.png,pending
+neutral_16,cards,Versorgung,assets/cards/neutral_16.png,pending
+neutral_17,cards,Heilkräuter,assets/cards/neutral_17.png,pending
+neutral_18,cards,Wurfmesser,assets/cards/neutral_18.png,pending
+neutral_19,cards,Kriegselefant,assets/cards/neutral_19.png,pending
+neutral_20,cards,Ordensritter,assets/cards/neutral_20.png,pending
+neutral_21,cards,Söldnerhauptmann,assets/cards/neutral_21.png,pending
+neutral_22,cards,Adler der Berge,assets/cards/neutral_22.png,pending
+neutral_23,cards,Grabwächter,assets/cards/neutral_23.png,pending
+neutral_24,cards,Sammelruf,assets/cards/neutral_24.png,pending
+neutral_25,cards,Feldration,assets/cards/neutral_25.png,pending
+neutral_26,cards,Bogenmeisterin,assets/cards/neutral_26.png,pending
+neutral_27,cards,Prätorianer,assets/cards/neutral_27.png,pending
+neutral_28,cards,Silberner Bannerträger,assets/cards/neutral_28.png,pending
+neutral_29,cards,Flammenkrug,assets/cards/neutral_29.png,pending
+neutral_30,cards,Löwin der Arena,assets/cards/neutral_30.png,pending
+neutral_31,cards,Seidenkarawanenführer,assets/cards/neutral_31.png,pending
+neutral_32,cards,Schlachtruf,assets/cards/neutral_32.png,pending
+neutral_33,cards,Trojanisches Pferd,assets/cards/neutral_33.png,pending
+neutral_34,cards,Brander,assets/cards/neutral_34.png,pending
+neutral_35,cards,Vergessene Weisheit,assets/cards/neutral_35.png,pending
+neutral_36,cards,Burgbesatzung,assets/cards/neutral_36.png,pending
+neutral_37,cards,Donnernde Legion,assets/cards/neutral_37.png,pending
+neutral_38,cards,"Herodot, Vater der Geschichte",assets/cards/neutral_38.png,pending
+neutral_39,cards,"Zenobia, Rebellin von Palmyra",assets/cards/neutral_39.png,pending
+khan_10,cards,Plünderer am Rhein,assets/cards/khan_10.png,pending
+imhotep_10,cards,Kobra des Nils,assets/cards/imhotep_10.png,pending
+boudicca_10,cards,Zwanzig Städte in Flammen,assets/cards/boudicca_10.png,pending
+nostradamus_10,cards,Eid der Arkanisten,assets/cards/nostradamus_10.png,pending
+ragnar_10,cards,Böhmischer Söldner,assets/cards/ragnar_10.png,pending
+ragnar_11,cards,Brandschatzung,assets/cards/ragnar_11.png,pending
+musashi_10,cards,Heimlicher Bote,assets/cards/musashi_10.png,pending
+neutral_42,cards,Freibeuterin,assets/cards/neutral_42.png,pending
+neutral_43,cards,Späherin im Unterholz,assets/cards/neutral_43.png,pending
+neutral_44,cards,Wandermönch,assets/cards/neutral_44.png,pending
+neutral_45,cards,Giftmischerin,assets/cards/neutral_45.png,pending
+neutral_46,cards,Condottiere,assets/cards/neutral_46.png,pending
+amanirenas_0,cards,Bogenschütze aus Elkab,assets/cards/amanirenas_0.png,pending
+amanirenas_1,cards,Krieger der Nilflotte,assets/cards/amanirenas_1.png,pending
+amanirenas_2,cards,Pfeilregen vor Auaris,assets/cards/amanirenas_2.png,pending
+amanirenas_3,cards,Speerträger aus Theben,assets/cards/amanirenas_3.png,pending
+amanirenas_4,cards,Priester der Selket,assets/cards/amanirenas_4.png,pending
+amanirenas_5,cards,Medjai-Kundschafter,assets/cards/amanirenas_5.png,pending
+amanirenas_6,cards,Erbeuteter Streitwagen,assets/cards/amanirenas_6.png,pending
+amanirenas_7,cards,Überfall auf Nefrusi,assets/cards/amanirenas_7.png,pending
+amanirenas_8,cards,"Ahmose, Befreier Ägyptens",assets/cards/amanirenas_8.png,pending
+amanirenas_9,cards,Zeremonialaxt des Ahmose,assets/cards/amanirenas_9.png,pending
+anna_0,cards,Kopistin der Chronik,assets/cards/anna_0.png,pending
+anna_1,cards,Pantokrator-Spital,assets/cards/anna_1.png,pending
+anna_2,cards,Warägergardist,assets/cards/anna_2.png,pending
+anna_3,cards,Hofärztin,assets/cards/anna_3.png,pending
+anna_4,cards,Griechisches Feuer,assets/cards/anna_4.png,pending
+anna_5,cards,Bibliothekar von Konstantinopel,assets/cards/anna_5.png,pending
+anna_6,cards,Kataphrakt,assets/cards/anna_6.png,pending
+anna_7,cards,Chrysobull,assets/cards/anna_7.png,pending
+anna_8,cards,Nikephoros Bryennios,assets/cards/anna_8.png,pending
+anna_9,cards,Alexios I. Komnenos,assets/cards/anna_9.png,pending
+nezahualcoyotl_0,cards,Gärtner von Tetzcotzinco,assets/cards/nezahualcoyotl_0.png,pending
+nezahualcoyotl_1,cards,Adlerkrieger,assets/cards/nezahualcoyotl_1.png,pending
+nezahualcoyotl_2,cards,Blumenkrieg,assets/cards/nezahualcoyotl_2.png,pending
+nezahualcoyotl_3,cards,Jaguarkrieger,assets/cards/nezahualcoyotl_3.png,pending
+nezahualcoyotl_4,cards,Aquädukt von Chapultepec,assets/cards/nezahualcoyotl_4.png,pending
+nezahualcoyotl_5,cards,Gesetze von Texcoco,assets/cards/nezahualcoyotl_5.png,pending
+nezahualcoyotl_6,cards,Quetzal-Hauptmann,assets/cards/nezahualcoyotl_6.png,pending
+nezahualcoyotl_7,cards,Damm von Nezahualcóyotl,assets/cards/nezahualcoyotl_7.png,pending
+nezahualcoyotl_8,cards,"Itzcoatl, Herr von Tenochtitlan",assets/cards/nezahualcoyotl_8.png,pending
+nezahualcoyotl_9,cards,"Nezahualpilli, Sohn des Dichters",assets/cards/nezahualcoyotl_9.png,pending
+masako_0,cards,Lehnsmann,assets/cards/masako_0.png,pending
+masako_1,cards,Bogenschütze der Pfalz,assets/cards/masako_1.png,pending
+masako_2,cards,Treueschwur,assets/cards/masako_2.png,pending
+masako_3,cards,Stiftsdame aus Quedlinburg,assets/cards/masako_3.png,pending
+masako_4,cards,Späher an der Elbe,assets/cards/masako_4.png,pending
+masako_5,cards,Heerbann,assets/cards/masako_5.png,pending
+masako_6,cards,St. Pantaleon in Köln,assets/cards/masako_6.png,pending
+masako_7,cards,Haft in Utrecht,assets/cards/masako_7.png,pending
+masako_8,cards,"Willigis, Erzbischof von Mainz",assets/cards/masako_8.png,pending
+masako_9,cards,"Otto II., Kaiser",assets/cards/masako_9.png,pending
+imhotep_11,cards,Priesterin der Sachmet,assets/cards/imhotep_11.png,pending
+imhotep_12,cards,Ka-Statue,assets/cards/imhotep_12.png,pending
+khan_11,cards,Heerlager an der Weser,assets/cards/khan_11.png,pending
+khan_12,cards,Versammlung in Marklo,assets/cards/khan_12.png,pending
+boudicca_11,cards,Barde der Arverner,assets/cards/boudicca_11.png,pending
+boudicca_12,cards,Gallische Reiterei,assets/cards/boudicca_12.png,pending
+nostradamus_11,cards,Laborbuch,assets/cards/nostradamus_11.png,pending
+nostradamus_12,cards,Weißes Gold,assets/cards/nostradamus_12.png,pending
+ragnar_12,cards,Feldmesser,assets/cards/ragnar_12.png,pending
+ragnar_13,cards,Beuterecht,assets/cards/ragnar_13.png,pending
+musashi_11,cards,Ritter aus Murau,assets/cards/musashi_11.png,pending
+musashi_12,cards,Frische Lanze,assets/cards/musashi_12.png,pending
+amanirenas_10,cards,Pfeilmacher aus Edfu,assets/cards/amanirenas_10.png,pending
+amanirenas_11,cards,Gift der Hornviper,assets/cards/amanirenas_11.png,pending
+anna_10,cards,Spitalarzt des Pantokrator,assets/cards/anna_10.png,pending
+anna_11,cards,Chronist am Kaiserhof,assets/cards/anna_11.png,pending
+nezahualcoyotl_10,cards,Dichter von Texcoco,assets/cards/nezahualcoyotl_10.png,pending
+nezahualcoyotl_11,cards,Chinampa,assets/cards/nezahualcoyotl_11.png,pending
+masako_10,cards,Kanzler der Kaiserin,assets/cards/masako_10.png,pending
+masako_11,cards,Siegel der Kaiserin,assets/cards/masako_11.png,pending
+griechen_2,cards,Marathonläufer,assets/cards/griechen_2.png,pending
+griechen_4,cards,Leuchtturm von Pharos,assets/cards/griechen_4.png,pending
+griechen_5,cards,Akropolis,assets/cards/griechen_5.png,pending
+griechen_6,cards,Bibliothek von Alexandria,assets/cards/griechen_6.png,pending
+mittelalter_0,cards,Knappe,assets/cards/mittelalter_0.png,pending
+mittelalter_1,cards,Armbrustschütze,assets/cards/mittelalter_1.png,pending
+mittelalter_2,cards,Mönch von Cluny,assets/cards/mittelalter_2.png,pending
+mittelalter_3,cards,Hansekogge,assets/cards/mittelalter_3.png,pending
+mittelalter_4,cards,Turnierritter,assets/cards/mittelalter_4.png,pending
+mittelalter_5,cards,Burgfried,assets/cards/mittelalter_5.png,pending
+mittelalter_6,cards,Tribok,assets/cards/mittelalter_6.png,pending
+ostasien_0,cards,Landsknecht,assets/cards/ostasien_0.png,pending
+ostasien_1,cards,Buchdrucker aus Mainz,assets/cards/ostasien_1.png,pending
+ostasien_2,cards,Leipziger Kaffeehaus,assets/cards/ostasien_2.png,pending
+ostasien_3,cards,Kartaunen-Salve,assets/cards/ostasien_3.png,pending
+ostasien_4,cards,Kriegsgaleone,assets/cards/ostasien_4.png,pending
+ostasien_5,cards,Stehendes Heer,assets/cards/ostasien_5.png,pending
+ostasien_6,cards,Sternschanze,assets/cards/ostasien_6.png,pending
+neutral_47,cards,Kolosseum,assets/cards/neutral_47.png,pending
+neutral_48,cards,Hängende Gärten,assets/cards/neutral_48.png,pending
+neutral_49,cards,Pyramiden von Gizeh,assets/cards/neutral_49.png,pending
+epaminondas_0,cards,Thebanischer Plänkler,assets/cards/epaminondas_0.png,pending
+epaminondas_1,cards,Böotischer Hoplit,assets/cards/epaminondas_1.png,pending
+epaminondas_2,cards,Fünfzig Schilde tief,assets/cards/epaminondas_2.png,pending
+epaminondas_3,cards,Böotarch,assets/cards/epaminondas_3.png,pending
+epaminondas_4,cards,Kämpfer der Heiligen Schar,assets/cards/epaminondas_4.png,pending
+epaminondas_5,cards,Schlacht bei Leuktra,assets/cards/epaminondas_5.png,pending
+epaminondas_6,cards,Befreiung Messeniens,assets/cards/epaminondas_6.png,pending
+epaminondas_7,cards,Thebanischer Phalangit,assets/cards/epaminondas_7.png,pending
+epaminondas_8,cards,Megalopolis,assets/cards/epaminondas_8.png,pending
+epaminondas_9,cards,"Pelopidas, Führer der Heiligen Schar",assets/cards/epaminondas_9.png,pending
+fabius_0,cards,Veles,assets/cards/fabius_0.png,pending
+fabius_1,cards,Triarier,assets/cards/fabius_1.png,pending
+fabius_2,cards,Hinhalten,assets/cards/fabius_2.png,pending
+fabius_3,cards,Konsul der Republik,assets/cards/fabius_3.png,pending
+fabius_4,cards,Verbrannte Erde,assets/cards/fabius_4.png,pending
+fabius_5,cards,Späher am Volturnus,assets/cards/fabius_5.png,pending
+fabius_6,cards,"Minucius, der Reiteroberst",assets/cards/fabius_6.png,pending
+fabius_7,cards,Rückeroberung von Tarent,assets/cards/fabius_7.png,pending
+fabius_8,cards,Lager auf den Höhen,assets/cards/fabius_8.png,pending
+fabius_9,cards,"Marcellus, Schwert Roms",assets/cards/fabius_9.png,pending
+mandukhai_0,cards,Botin der Cherusker,assets/cards/mandukhai_0.png,pending
+mandukhai_1,cards,Hüterin des Herdfeuers,assets/cards/mandukhai_1.png,pending
+mandukhai_2,cards,Ruf zum Thing,assets/cards/mandukhai_2.png,pending
+mandukhai_3,cards,Krieger im Keil,assets/cards/mandukhai_3.png,pending
+mandukhai_4,cards,Varusschlacht,assets/cards/mandukhai_4.png,pending
+mandukhai_5,cards,Krieger der Sippe,assets/cards/mandukhai_5.png,pending
+mandukhai_6,cards,Heiliger Hain,assets/cards/mandukhai_6.png,pending
+mandukhai_7,cards,Seitenwechsel,assets/cards/mandukhai_7.png,pending
+mandukhai_8,cards,"Arminius, Fürst der Cherusker",assets/cards/mandukhai_8.png,pending
+mandukhai_9,cards,Bund der Stämme,assets/cards/mandukhai_9.png,pending
+baibars_0,cards,Mamlukenrekrut,assets/cards/baibars_0.png,pending
+baibars_1,cards,Barid-Kurier,assets/cards/baibars_1.png,pending
+baibars_2,cards,Ain Dschalut,assets/cards/baibars_2.png,pending
+baibars_3,cards,Bogenreiter der Bahriya,assets/cards/baibars_3.png,pending
+baibars_4,cards,Manjaniq-Meister,assets/cards/baibars_4.png,pending
+baibars_5,cards,Vorgetäuschte Flucht,assets/cards/baibars_5.png,pending
+baibars_6,cards,"Qutuz, Sultan von Ägypten",assets/cards/baibars_6.png,pending
+baibars_7,cards,Sturm auf Antiochia,assets/cards/baibars_7.png,pending
+baibars_8,cards,Zitadelle von Kairo,assets/cards/baibars_8.png,pending
+baibars_9,cards,"Qalawun, Emir der Bahriya",assets/cards/baibars_9.png,pending
+zizka_0,cards,Schanzarbeiter,assets/cards/zizka_0.png,pending
+zizka_1,cards,Grenadier,assets/cards/zizka_1.png,pending
+zizka_2,cards,Salve von der Bastion,assets/cards/zizka_2.png,pending
+zizka_3,cards,Ingenieur des Königs,assets/cards/zizka_3.png,pending
+zizka_4,cards,Festungsgeschütz,assets/cards/zizka_4.png,pending
+zizka_5,cards,Faschinen,assets/cards/zizka_5.png,pending
+zizka_6,cards,Minengang,assets/cards/zizka_6.png,pending
+zizka_7,cards,Zitadelle von Lille,assets/cards/zizka_7.png,pending
+zizka_8,cards,"Louvois, Kriegsminister",assets/cards/zizka_8.png,pending
+zizka_9,cards,"Ludwig XIV., der Sonnenkönig",assets/cards/zizka_9.png,pending
+fuhao_0,cards,Speerwerfer vom Mont Lassois,assets/cards/fuhao_0.png,pending
+fuhao_1,cards,Prunkdolch,assets/cards/fuhao_1.png,pending
+fuhao_2,cards,Reiter an der Seine,assets/cards/fuhao_2.png,pending
+fuhao_3,cards,Seherin,assets/cards/fuhao_3.png,pending
+fuhao_4,cards,Aufgebot des Fürstensitzes,assets/cards/fuhao_4.png,pending
+fuhao_5,cards,Trankopfer,assets/cards/fuhao_5.png,pending
+fuhao_6,cards,Gelage am Krater,assets/cards/fuhao_6.png,pending
+fuhao_7,cards,Schleuderer am Wall,assets/cards/fuhao_7.png,pending
+fuhao_8,cards,Halle auf dem Mont Lassois,assets/cards/fuhao_8.png,pending
+fuhao_9,cards,Gesandter aus Massalia,assets/cards/fuhao_9.png,pending
+rom_0,cards,Gladiator,assets/cards/rom_0.png,pending
+rom_1,cards,Senator der Kurie,assets/cards/rom_1.png,pending
+rom_2,cards,Centurio,assets/cards/rom_2.png,pending
+rom_3,cards,Triumphzug,assets/cards/rom_3.png,pending
+rom_4,cards,Via Appia,assets/cards/rom_4.png,pending
+rom_5,cards,Vestalin am ewigen Feuer,assets/cards/rom_5.png,pending
+rom_6,cards,Pax Romana,assets/cards/rom_6.png,pending
+steppe_0,cards,Wagenbauer,assets/cards/steppe_0.png,pending
+steppe_1,cards,Schreiber im Lebenshaus,assets/cards/steppe_1.png,pending
+steppe_2,cards,Schuss vom Streitwagen,assets/cards/steppe_2.png,pending
+steppe_3,cards,Wache der Medjai,assets/cards/steppe_3.png,pending
+steppe_4,cards,Angriff der Streitwagen,assets/cards/steppe_4.png,pending
+steppe_5,cards,Bernsteinstraße,assets/cards/steppe_5.png,pending
+steppe_6,cards,Festung Buhen,assets/cards/steppe_6.png,pending
+byzanz_0,cards,Akrit der Grenzmark,assets/cards/byzanz_0.png,pending
+byzanz_1,cards,Gelehrter im Haus der Weisheit,assets/cards/byzanz_1.png,pending
+byzanz_2,cards,Tribut in Goldbyzantinern,assets/cards/byzanz_2.png,pending
+byzanz_3,cards,Arzt des Bimaristan,assets/cards/byzanz_3.png,pending
+byzanz_4,cards,Theodosianische Mauern,assets/cards/byzanz_4.png,pending
+byzanz_5,cards,Hagia Sophia,assets/cards/byzanz_5.png,pending
+byzanz_6,cards,"Ibn an-Nafis, Arzt von Kairo",assets/cards/byzanz_6.png,pending
+recruit,tokens,Rekrut,assets/tokens/recruit.png,pending
+warrior,tokens,Krieger,assets/tokens/warrior.png,pending
+eagle,tokens,Habicht,assets/tokens/eagle.png,pending
+stoneguard,tokens,Pyramidenwächter,assets/tokens/stoneguard.png,pending
+totem_fire,tokens,Grenzstein der Mark,assets/tokens/totem_fire.png,pending
+totem_guard,tokens,Grenzstein der Burg,assets/tokens/totem_guard.png,pending
+totem_strength,tokens,Grenzstein des Dorfes,assets/tokens/totem_strength.png,pending
+coin,tokens,Gunst der Stunde,assets/tokens/coin.png,pending
+rider,tokens,Reiter,assets/tokens/rider.png,pending
+chariot,tokens,Streitwagen,assets/tokens/chariot.png,pending
+terracotta,tokens,Musketier,assets/tokens/terracotta.png,pending
+tribesman,tokens,Stammeskrieger,assets/tokens/tribesman.png,pending
+wagon,tokens,Schanzkorb,assets/tokens/wagon.png,pending
+taborite,tokens,Füsilier,assets/tokens/taborite.png,pending
+mamluk,tokens,Mamlukenreiter,assets/tokens/mamluk.png,pending
+immortal,tokens,Medjai-Krieger,assets/tokens/immortal.png,pending
+messenian,tokens,Freier Messenier,assets/tokens/messenian.png,pending
+companion,tokens,Gefährte der Heiligen Schar,assets/tokens/companion.png,pending
+twin,tokens,Sippenbruder,assets/tokens/twin.png,pending
+elephant,tokens,Kriegselefant,assets/tokens/elephant.png,pending
+pyramid,tokens,Stufenpyramide,assets/tokens/pyramid.png,pending

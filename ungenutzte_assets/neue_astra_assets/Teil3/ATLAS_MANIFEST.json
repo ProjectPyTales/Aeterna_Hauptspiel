@@ -1,0 +1,405 @@
+{
+  "release": "Teil 03",
+  "type": "UI rectangular sprites, NOT R.tile card atlases",
+  "atlases": [
+    {
+      "id": "r03-filter",
+      "file": "game-assets/ui/r03-filter.png",
+      "target": "quellcode/assets/game/assets/ui/r03-filter.png",
+      "size": [
+        1200,
+        1000
+      ],
+      "gutter": 4,
+      "format": "RGBA lossless",
+      "entries": [
+        {
+          "id": "filterknopf-mana-hover",
+          "rect": [
+            4,
+            4,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-mana-hover.png"
+        },
+        {
+          "id": "filterknopf-mana-pressed",
+          "rect": [
+            204,
+            4,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-mana-pressed.png"
+        },
+        {
+          "id": "filterknopf-mana-disabled",
+          "rect": [
+            404,
+            4,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-mana-disabled.png"
+        },
+        {
+          "id": "filterknopf-mana-fokus",
+          "rect": [
+            604,
+            4,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-mana-fokus.png"
+        },
+        {
+          "id": "filterknopf-basic-normal",
+          "rect": [
+            804,
+            4,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-basic-normal.png"
+        },
+        {
+          "id": "filterknopf-basic-aktiv",
+          "rect": [
+            1004,
+            4,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-basic-aktiv.png"
+        },
+        {
+          "id": "filterknopf-basic-hover",
+          "rect": [
+            4,
+            204,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-basic-hover.png"
+        },
+        {
+          "id": "filterknopf-basic-pressed",
+          "rect": [
+            204,
+            204,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-basic-pressed.png"
+        },
+        {
+          "id": "filterknopf-basic-disabled",
+          "rect": [
+            404,
+            204,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-basic-disabled.png"
+        },
+        {
+          "id": "filterknopf-basic-fokus",
+          "rect": [
+            604,
+            204,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-basic-fokus.png"
+        },
+        {
+          "id": "filterknopf-common-hover",
+          "rect": [
+            804,
+            204,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-common-hover.png"
+        },
+        {
+          "id": "filterknopf-common-pressed",
+          "rect": [
+            1004,
+            204,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-common-pressed.png"
+        },
+        {
+          "id": "filterknopf-common-disabled",
+          "rect": [
+            4,
+            404,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-common-disabled.png"
+        },
+        {
+          "id": "filterknopf-common-fokus",
+          "rect": [
+            204,
+            404,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-common-fokus.png"
+        },
+        {
+          "id": "filterknopf-rare-hover",
+          "rect": [
+            404,
+            404,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-rare-hover.png"
+        },
+        {
+          "id": "filterknopf-rare-pressed",
+          "rect": [
+            604,
+            404,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-rare-pressed.png"
+        },
+        {
+          "id": "filterknopf-rare-disabled",
+          "rect": [
+            804,
+            404,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-rare-disabled.png"
+        },
+        {
+          "id": "filterknopf-rare-fokus",
+          "rect": [
+            1004,
+            404,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-rare-fokus.png"
+        },
+        {
+          "id": "filterknopf-epic-hover",
+          "rect": [
+            4,
+            604,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-epic-hover.png"
+        },
+        {
+          "id": "filterknopf-epic-pressed",
+          "rect": [
+            204,
+            604,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-epic-pressed.png"
+        },
+        {
+          "id": "filterknopf-epic-disabled",
+          "rect": [
+            404,
+            604,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-epic-disabled.png"
+        },
+        {
+          "id": "filterknopf-epic-fokus",
+          "rect": [
+            604,
+            604,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-epic-fokus.png"
+        },
+        {
+          "id": "filterknopf-legendary-hover",
+          "rect": [
+            804,
+            604,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-legendary-hover.png"
+        },
+        {
+          "id": "filterknopf-legendary-pressed",
+          "rect": [
+            1004,
+            604,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-legendary-pressed.png"
+        },
+        {
+          "id": "filterknopf-legendary-disabled",
+          "rect": [
+            4,
+            804,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-legendary-disabled.png"
+        },
+        {
+          "id": "filterknopf-legendary-fokus",
+          "rect": [
+            204,
+            804,
+            192,
+            192
+          ],
+          "source": "assets/ui/filterknopf-legendary-fokus.png"
+        },
+        {
+          "id": "filter-auswahl-overlay",
+          "rect": [
+            404,
+            804,
+            192,
+            192
+          ],
+          "source": "assets/ui/filter-auswahl-overlay.png"
+        }
+      ]
+    },
+    {
+      "id": "r03-masken",
+      "file": "game-assets/ui/r03-masken.png",
+      "target": "quellcode/assets/game/assets/ui/r03-masken.png",
+      "size": [
+        3192,
+        2996
+      ],
+      "gutter": 4,
+      "format": "RGBA lossless",
+      "entries": [
+        {
+          "id": "kartenrahmen-building-gold-clip",
+          "rect": [
+            4,
+            4,
+            1056,
+            1490
+          ],
+          "source": "assets/masks/kartenrahmen-building-gold-clip.png"
+        },
+        {
+          "id": "kartenrahmen-building-normal-clip",
+          "rect": [
+            1068,
+            4,
+            1056,
+            1490
+          ],
+          "source": "assets/masks/kartenrahmen-building-normal-clip.png"
+        },
+        {
+          "id": "kartenrahmen-minion-gold-clip",
+          "rect": [
+            2132,
+            4,
+            1055,
+            1490
+          ],
+          "source": "assets/masks/kartenrahmen-minion-gold-clip.png"
+        },
+        {
+          "id": "kartenrahmen-minion-normal-clip",
+          "rect": [
+            4,
+            1502,
+            1056,
+            1490
+          ],
+          "source": "assets/masks/kartenrahmen-minion-normal-clip.png"
+        },
+        {
+          "id": "kartenrahmen-spell-gold-clip",
+          "rect": [
+            1068,
+            1502,
+            1056,
+            1490
+          ],
+          "source": "assets/masks/kartenrahmen-spell-gold-clip.png"
+        },
+        {
+          "id": "kartenrahmen-spell-normal-clip",
+          "rect": [
+            2132,
+            1502,
+            1056,
+            1489
+          ],
+          "source": "assets/masks/kartenrahmen-spell-normal-clip.png"
+        }
+      ]
+    },
+    {
+      "id": "r03-chronik",
+      "file": "game-assets/ui/r03-chronik.png",
+      "target": "quellcode/assets/game/assets/ui/r03-chronik.png",
+      "size": [
+        2490,
+        1388
+      ],
+      "gutter": 4,
+      "format": "RGBA lossless",
+      "entries": [
+        {
+          "id": "chronikleiste-oben",
+          "rect": [
+            4,
+            4,
+            822,
+            270
+          ],
+          "source": "assets/ui-art/chronikleiste-oben.png"
+        },
+        {
+          "id": "chronikleiste-mitte",
+          "rect": [
+            834,
+            4,
+            822,
+            1380
+          ],
+          "source": "assets/ui-art/chronikleiste-mitte.png"
+        },
+        {
+          "id": "chronikleiste-unten",
+          "rect": [
+            1664,
+            4,
+            822,
+            263
+          ],
+          "source": "assets/ui-art/chronikleiste-unten.png"
+        }
+      ]
+    }
+  ]
+}

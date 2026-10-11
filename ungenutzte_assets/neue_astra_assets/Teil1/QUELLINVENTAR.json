@@ -1,0 +1,7720 @@
+{
+  "input": "Chronicle_of_Heroes-main.zip",
+  "version": "Aeterna 1.20.0",
+  "heroes": [
+    {
+      "id": "leonidas",
+      "name": "Leonidas I.",
+      "era": "Sparta",
+      "color": "#9c3830",
+      "power": "Phalanx",
+      "powerText": "Erhaltet 1 Rüstung. Eure Diener erhalten +1 Leben.",
+      "cost": 2,
+      "icon": "Λ",
+      "age": "griechen",
+      "ability": {
+        "effects": [
+          {
+            "type": "armor",
+            "n": 1
+          },
+          {
+            "type": "buffAll",
+            "n": 0,
+            "health": 1
+          }
+        ],
+        "target": null
+      },
+      "ai": "defensive",
+      "art": "heroes",
+      "cell": 0
+    },
+    {
+      "id": "hypatia",
+      "name": "Hypatia",
+      "era": "Alexandria",
+      "color": "#336ea6",
+      "power": "Sternenfunke",
+      "powerText": "Verursacht 1 Schaden an einem zufälligen Feind.",
+      "cost": 2,
+      "icon": "✦",
+      "age": "griechen",
+      "ability": {
+        "effects": [
+          {
+            "type": "damage",
+            "n": 1
+          }
+        ],
+        "target": "random"
+      },
+      "ai": "combo",
+      "art": "heroes",
+      "cell": 1
+    },
+    {
+      "id": "imhotep",
+      "name": "Imhotep",
+      "era": "Ägypten",
+      "color": "#c19940",
+      "power": "Heilkunst",
+      "powerText": "Stellt bei einem Ziel 3 Leben wieder her.",
+      "cost": 2,
+      "icon": "☥",
+      "age": "steppe",
+      "ability": {
+        "effects": [
+          {
+            "type": "heal",
+            "n": 3
+          }
+        ],
+        "target": "any"
+      },
+      "ai": "defensive",
+      "art": "heroes",
+      "cell": 2
+    },
+    {
+      "id": "dandolo",
+      "name": "Enrico Dandolo",
+      "era": "Venedig",
+      "color": "#8d5065",
+      "power": "Rammsporn der Galeeren",
+      "powerText": "Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus.",
+      "cost": 2,
+      "icon": "†",
+      "age": "byzanz",
+      "ability": {
+        "effects": [
+          {
+            "type": "weapon",
+            "n": 1,
+            "durability": 2
+          }
+        ],
+        "target": null
+      },
+      "ai": "combo",
+      "art": "heroes",
+      "cell": 3
+    },
+    {
+      "id": "khan",
+      "name": "Widukind",
+      "era": "Sachsen",
+      "color": "#947142",
+      "power": "Überfall aus dem Wald",
+      "powerText": "Fügt dem feindlichen Helden 2 Schaden zu.",
+      "cost": 2,
+      "icon": "♘",
+      "age": "mittelalter",
+      "ability": {
+        "effects": [
+          {
+            "type": "face",
+            "n": 2
+          }
+        ],
+        "target": null
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "boudicca",
+      "name": "Vercingetorix",
+      "era": "Arverner",
+      "color": "#45835b",
+      "power": "Schild der Arverner",
+      "powerText": "+1 Angriff für diesen Zug und +2 Rüstung.",
+      "cost": 2,
+      "icon": "✹",
+      "age": "rom",
+      "ability": {
+        "effects": [
+          {
+            "type": "heroAttack",
+            "n": 1
+          },
+          {
+            "type": "armor",
+            "n": 2
+          }
+        ],
+        "target": null
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "nostradamus",
+      "name": "Johann Friedrich Böttger",
+      "era": "Meißen",
+      "color": "#69509c",
+      "power": "Arkanum",
+      "powerText": "Zieht 1 Karte. Euer Held erleidet 1 Schaden.",
+      "cost": 2,
+      "icon": "⚗",
+      "age": "ostasien",
+      "ability": {
+        "effects": [
+          {
+            "type": "draw",
+            "n": 1
+          },
+          {
+            "type": "selfDamage",
+            "n": 1
+          }
+        ],
+        "target": null
+      },
+      "ai": "combo"
+    },
+    {
+      "id": "jeanne",
+      "name": "Hildegard von Bingen",
+      "era": "Rupertsberg",
+      "color": "#b39853",
+      "power": "Klostergemeinschaft",
+      "powerText": "Ruft eine Novizin (1/1) herbei.",
+      "cost": 2,
+      "icon": "❦",
+      "age": "mittelalter",
+      "ability": {
+        "effects": [
+          {
+            "type": "summon",
+            "n": 1,
+            "token": "novice",
+            "bonusIf": "jeanne_9"
+          }
+        ],
+        "target": null
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "ragnar",
+      "name": "Wiprecht von Groitzsch",
+      "era": "Mark Meißen",
+      "color": "#397c89",
+      "power": "Grenzsteine setzen",
+      "powerText": "Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt.",
+      "cost": 2,
+      "icon": "⚒",
+      "age": "mittelalter",
+      "ability": {
+        "effects": [
+          {
+            "type": "summonNew",
+            "n": 1,
+            "tokens": [
+              "totem_heal",
+              "totem_fire",
+              "totem_guard",
+              "totem_strength"
+            ]
+          }
+        ],
+        "target": null
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "musashi",
+      "name": "Ulrich von Liechtenstein",
+      "era": "Steiermark",
+      "color": "#bd6571",
+      "power": "Tjost",
+      "powerText": "+1 Angriff für diesen Zug.",
+      "cost": 1,
+      "icon": "⚔",
+      "age": "mittelalter",
+      "ability": {
+        "effects": [
+          {
+            "type": "heroAttack",
+            "n": 1
+          }
+        ],
+        "target": null
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "perikles",
+      "name": "Perikles",
+      "era": "Athen",
+      "color": "#7d8a3c",
+      "power": "Bauherr der Akropolis",
+      "powerText": "Ruft einen Bürger (1/2). Euer schwächstes Bauwerk erhält +2 Haltbarkeit.",
+      "cost": 2,
+      "icon": "Π",
+      "age": "griechen",
+      "ability": {
+        "effects": [
+          {
+            "type": "summon",
+            "n": 1,
+            "token": "citizen"
+          },
+          {
+            "type": "fortify",
+            "n": 2,
+            "else": []
+          }
+        ],
+        "target": null
+      },
+      "ai": "defensive"
+    },
+    {
+      "id": "agrippa",
+      "name": "Marcus Agrippa",
+      "era": "Rom",
+      "color": "#a8552a",
+      "power": "Legionspioniere",
+      "powerText": "Ruft einen Pionier (1/3). Solange er lebt, kosten Eure Bauwerke 1 weniger.",
+      "cost": 2,
+      "icon": "A",
+      "age": "rom",
+      "ability": {
+        "effects": [
+          {
+            "type": "summon",
+            "n": 1,
+            "token": "pioneer"
+          }
+        ],
+        "target": null
+      },
+      "ai": "combo"
+    },
+    {
+      "id": "amanirenas",
+      "name": "Ahhotep I.",
+      "era": "Theben am Nil",
+      "color": "#2f8f7a",
+      "power": "Goldene Fliegen",
+      "powerText": "Verursacht 1 Schaden an einem zufälligen Feind. Stirbt dadurch ein Diener, der nicht beschworen wurde, zieht 1 Karte.",
+      "cost": 2,
+      "icon": "☉",
+      "age": "steppe",
+      "ability": {
+        "effects": [
+          {
+            "type": "damage",
+            "n": 1,
+            "onKill": [
+              {
+                "type": "draw",
+                "n": 1
+              }
+            ],
+            "noToken": true
+          }
+        ],
+        "target": "random"
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "anna",
+      "name": "Anna Komnene",
+      "era": "Byzanz",
+      "color": "#7b2d6a",
+      "power": "Alexiade",
+      "powerText": "Ergründet eine Karte, die in dieser Partie schon gespielt wurde.",
+      "cost": 2,
+      "icon": "☧",
+      "age": "byzanz",
+      "ability": {
+        "effects": [
+          {
+            "type": "discover",
+            "n": 1,
+            "pool": "played"
+          }
+        ],
+        "target": null
+      },
+      "ai": "combo"
+    },
+    {
+      "id": "nezahualcoyotl",
+      "name": "Nezahualcóyotl",
+      "era": "Texcoco",
+      "color": "#4f9a3a",
+      "power": "Blumenlied",
+      "powerText": "Stellt bei allen eigenen Charakteren 2 Leben wieder her.",
+      "cost": 2,
+      "icon": "❀",
+      "age": "ostasien",
+      "ability": {
+        "effects": [
+          {
+            "type": "healAll",
+            "n": 2
+          }
+        ],
+        "target": null
+      },
+      "ai": "defensive"
+    },
+    {
+      "id": "masako",
+      "name": "Theophanu",
+      "era": "Ottonen",
+      "color": "#3f4f8f",
+      "power": "Regentschaft",
+      "powerText": "Ein befreundeter Diener erhält +1 Leben und Schildwall.",
+      "cost": 2,
+      "icon": "♛",
+      "age": "mittelalter",
+      "ability": {
+        "effects": [
+          {
+            "type": "buff",
+            "n": 0,
+            "health": 1
+          },
+          {
+            "type": "grant",
+            "n": 1,
+            "key": "taunt"
+          }
+        ],
+        "target": "friendlyMinion"
+      },
+      "ai": "defensive"
+    },
+    {
+      "id": "epaminondas",
+      "name": "Epaminondas",
+      "era": "Theben",
+      "color": "#4e6fa8",
+      "power": "Schiefe Schlachtordnung",
+      "powerText": "Euer Diener ganz links erhält +1/+1.",
+      "cost": 2,
+      "icon": "Θ",
+      "age": "griechen",
+      "ability": {
+        "effects": [
+          {
+            "type": "buffLeft",
+            "n": 1,
+            "health": 1
+          }
+        ],
+        "target": null
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "fabius",
+      "name": "Fabius Maximus",
+      "era": "Römische Republik",
+      "color": "#7e3b4a",
+      "power": "Cunctator",
+      "powerText": "Verursacht 1 Schaden an einem feindlichen Diener und versetzt ihn in Starre.",
+      "cost": 3,
+      "icon": "F",
+      "age": "rom",
+      "ability": {
+        "effects": [
+          {
+            "type": "damage",
+            "n": 1
+          },
+          {
+            "type": "freeze",
+            "n": 1
+          }
+        ],
+        "target": "enemyMinion"
+      },
+      "ai": "defensive"
+    },
+    {
+      "id": "mandukhai",
+      "name": "Thusnelda",
+      "era": "Cherusker",
+      "color": "#c27c2e",
+      "power": "Stammesbündnis",
+      "powerText": "Habt Ihr 3 oder mehr Diener, erhalten alle +1 Leben. Sonst ruft Ihr einen Stammeskrieger (1/2).",
+      "cost": 2,
+      "icon": "☽",
+      "age": "rom",
+      "ability": {
+        "effects": [
+          {
+            "type": "ifMinions",
+            "n": 3,
+            "then": [
+              {
+                "type": "buffAll",
+                "n": 0,
+                "health": 1
+              }
+            ],
+            "else": [
+              {
+                "type": "summon",
+                "n": 1,
+                "token": "tribesman"
+              }
+            ]
+          }
+        ],
+        "target": null
+      },
+      "ai": "combo"
+    },
+    {
+      "id": "baibars",
+      "name": "Baibars",
+      "era": "Mamluken",
+      "color": "#b84a2a",
+      "power": "Mamlukenreiter",
+      "powerText": "Ein befreundeter Diener erhält +1 Angriff und Vorstoß.",
+      "cost": 2,
+      "icon": "♞",
+      "age": "byzanz",
+      "ability": {
+        "effects": [
+          {
+            "type": "buff",
+            "n": 1
+          },
+          {
+            "type": "grant",
+            "n": 1,
+            "key": "rush"
+          }
+        ],
+        "target": "friendlyMinion"
+      },
+      "ai": "aggressive"
+    },
+    {
+      "id": "zizka",
+      "name": "Vauban",
+      "era": "Frankreich",
+      "color": "#4f5d3a",
+      "power": "Festungsbau",
+      "powerText": "Ruft einen Schanzkorb (1/2, Schildwall).",
+      "cost": 2,
+      "icon": "✶",
+      "age": "ostasien",
+      "ability": {
+        "effects": [
+          {
+            "type": "summon",
+            "n": 1,
+            "token": "wagon"
+          }
+        ],
+        "target": null
+      },
+      "ai": "defensive"
+    },
+    {
+      "id": "fuhao",
+      "name": "Fürstin von Vix",
+      "era": "Hallstattzeit",
+      "color": "#8c7a2c",
+      "power": "Opfergabe",
+      "powerText": "Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand.",
+      "cost": 2,
+      "icon": "◎",
+      "age": "steppe",
+      "ability": {
+        "effects": [
+          {
+            "type": "discover",
+            "n": 1,
+            "pool": "deck"
+          }
+        ],
+        "target": null
+      },
+      "ai": "combo"
+    }
+  ],
+  "cards": [
+    {
+      "name": "Spartanischer Rekrut",
+      "cost": 1,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "",
+      "id": "leonidas_0",
+      "hero": "leonidas",
+      "rarity": "basic",
+      "art": "leonidas",
+      "cell": 0
+    },
+    {
+      "name": "Wächter der Thermopylen",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "leonidas_1",
+      "hero": "leonidas",
+      "rarity": "basic",
+      "art": "leonidas",
+      "cell": 1
+    },
+    {
+      "name": "Bronzener Wall",
+      "cost": 2,
+      "type": "spell",
+      "text": "Erhaltet 2 Rüstung. Eure Diener erhalten +2 Leben.",
+      "effects": [
+        {
+          "type": "armor",
+          "n": 2
+        },
+        {
+          "type": "buffAll",
+          "n": 0,
+          "health": 2
+        }
+      ],
+      "target": null,
+      "id": "leonidas_2",
+      "hero": "leonidas",
+      "rarity": "basic",
+      "art": "leonidas",
+      "cell": 2
+    },
+    {
+      "name": "Hoplitenhauptmann",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Erhaltet 2 Rüstung.",
+      "battle": [
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "id": "leonidas_3",
+      "hero": "leonidas",
+      "rarity": "basic",
+      "art": "leonidas",
+      "cell": 3
+    },
+    {
+      "name": "Speerträger",
+      "cost": 3,
+      "attack": 4,
+      "health": 2,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "leonidas_4",
+      "hero": "leonidas",
+      "rarity": "common",
+      "art": "leonidas",
+      "cell": 4
+    },
+    {
+      "name": "Schildstoß",
+      "cost": 3,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden an einem Diener und versetzt ihn in Starre.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        },
+        {
+          "type": "freeze",
+          "n": 1
+        }
+      ],
+      "target": "minion",
+      "id": "leonidas_5",
+      "hero": "leonidas",
+      "rarity": "common",
+      "art": "leonidas",
+      "cell": 5
+    },
+    {
+      "name": "Phalanxveteran",
+      "cost": 5,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Schildwall. Göttliche Gunst.",
+      "taunt": true,
+      "shield": true,
+      "id": "leonidas_6",
+      "hero": "leonidas",
+      "rarity": "rare",
+      "art": "leonidas",
+      "cell": 6
+    },
+    {
+      "name": "Spartas Erbe",
+      "cost": 4,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +1/+2.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 2
+        }
+      ],
+      "target": null,
+      "id": "leonidas_7",
+      "hero": "leonidas",
+      "rarity": "rare",
+      "art": "leonidas",
+      "cell": 7
+    },
+    {
+      "name": "Dienekes",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Vermächtnis: Erhaltet 6 Rüstung.",
+      "death": [
+        {
+          "type": "armor",
+          "n": 6
+        }
+      ],
+      "id": "leonidas_8",
+      "hero": "leonidas",
+      "rarity": "epic",
+      "art": "leonidas",
+      "cell": 8
+    },
+    {
+      "name": "Gorgo, Stimme Spartas",
+      "cost": 7,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Schildwall. Einmarsch: Ruft je feindlichem Diener einen Hopliten (1/2, Schildwall). Eure Diener mit Schildwall haben +1 Angriff.",
+      "taunt": true,
+      "aura": "gorgo",
+      "battle": [
+        {
+          "type": "summonPerEnemy",
+          "n": 1,
+          "token": "hoplite"
+        }
+      ],
+      "id": "leonidas_9",
+      "hero": "leonidas",
+      "rarity": "legendary",
+      "art": "leonidas",
+      "cell": 9
+    },
+    {
+      "name": "Bibliothekslehrling",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Stellt bei Eurem Helden 1 Leben wieder her.",
+      "battle": [
+        {
+          "type": "healHero",
+          "n": 1
+        }
+      ],
+      "id": "hypatia_0",
+      "hero": "hypatia",
+      "rarity": "basic",
+      "art": "hypatia",
+      "cell": 0
+    },
+    {
+      "name": "Himmelsstrahl",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        }
+      ],
+      "target": "any",
+      "id": "hypatia_1",
+      "hero": "hypatia",
+      "rarity": "basic",
+      "art": "hypatia",
+      "cell": 1
+    },
+    {
+      "name": "Sternenkundiger",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Zieht 1 Karte.",
+      "battle": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "hypatia_2",
+      "hero": "hypatia",
+      "rarity": "basic",
+      "art": "hypatia",
+      "cell": 2
+    },
+    {
+      "name": "Sternenregen",
+      "cost": 4,
+      "type": "spell",
+      "text": "Fügt allen feindlichen Dienern 2 Schaden zu.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "hypatia_3",
+      "hero": "hypatia",
+      "rarity": "basic",
+      "art": "hypatia",
+      "cell": 3
+    },
+    {
+      "name": "Astrolabienwächter",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Göttliche Gunst.",
+      "shield": true,
+      "id": "hypatia_4",
+      "hero": "hypatia",
+      "rarity": "common",
+      "art": "hypatia",
+      "cell": 4
+    },
+    {
+      "name": "Lehrsatz",
+      "cost": 2,
+      "type": "spell",
+      "text": "Ergründet einen Zauber. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "spell"
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "hypatia_5",
+      "hero": "hypatia",
+      "rarity": "common",
+      "art": "hypatia",
+      "cell": 5
+    },
+    {
+      "name": "Museionshüterin",
+      "cost": 5,
+      "attack": 4,
+      "health": 7,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "hypatia_6",
+      "hero": "hypatia",
+      "rarity": "rare",
+      "art": "hypatia",
+      "cell": 6
+    },
+    {
+      "name": "Sonnenfokus",
+      "cost": 6,
+      "type": "spell",
+      "text": "Verursacht 7 Schaden.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 7
+        }
+      ],
+      "target": "any",
+      "id": "hypatia_7",
+      "hero": "hypatia",
+      "rarity": "rare",
+      "art": "hypatia",
+      "cell": 7
+    },
+    {
+      "name": "Sternenorakel",
+      "cost": 5,
+      "attack": 4,
+      "health": 7,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Fügt dem feindlichen Helden 1 Schaden zu.",
+      "passive": "fire",
+      "id": "hypatia_8",
+      "hero": "hypatia",
+      "rarity": "epic",
+      "art": "hypatia",
+      "cell": 8
+    },
+    {
+      "name": "Theon von Alexandria",
+      "cost": 5,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Arkaner Fokus +1. Am Ende Eures Zuges: Wirkt Euren zuletzt gewirkten Zauber erneut (zufällige Ziele).",
+      "focus": 1,
+      "passive": "echo",
+      "id": "hypatia_9",
+      "hero": "hypatia",
+      "rarity": "legendary",
+      "art": "hypatia",
+      "cell": 9
+    },
+    {
+      "name": "Nilschülerin",
+      "cost": 1,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "",
+      "id": "imhotep_0",
+      "hero": "imhotep",
+      "rarity": "basic",
+      "art": "imhotep",
+      "cell": 0
+    },
+    {
+      "name": "Heilender Balsam",
+      "cost": 1,
+      "type": "spell",
+      "text": "Stellt bei einem Ziel 4 Leben wieder her. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "heal",
+          "n": 4
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": "any",
+      "id": "imhotep_1",
+      "hero": "imhotep",
+      "rarity": "basic",
+      "art": "imhotep",
+      "cell": 1
+    },
+    {
+      "name": "Pyramidenwächter",
+      "cost": 3,
+      "attack": 2,
+      "health": 5,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "imhotep_2",
+      "hero": "imhotep",
+      "rarity": "basic",
+      "art": "imhotep",
+      "cell": 2
+    },
+    {
+      "name": "Tempelärztin",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Stellt bei Eurem Helden 3 Leben wieder her.",
+      "battle": [
+        {
+          "type": "healHero",
+          "n": 3
+        }
+      ],
+      "id": "imhotep_3",
+      "hero": "imhotep",
+      "rarity": "basic",
+      "art": "imhotep",
+      "cell": 3
+    },
+    {
+      "name": "Sonnensegen",
+      "cost": 2,
+      "type": "spell",
+      "text": "Gebt einem befreundeten Diener +2/+2.",
+      "effects": [
+        {
+          "type": "buff",
+          "n": 2,
+          "health": 2
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "imhotep_4",
+      "hero": "imhotep",
+      "rarity": "common",
+      "art": "imhotep",
+      "cell": 4
+    },
+    {
+      "name": "Balsamierer",
+      "cost": 3,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Vermächtnis: Stellt bei Eurem Helden 3 Leben wieder her.",
+      "death": [
+        {
+          "type": "healHero",
+          "n": 3
+        }
+      ],
+      "id": "imhotep_5",
+      "hero": "imhotep",
+      "rarity": "common",
+      "art": "imhotep",
+      "cell": 5
+    },
+    {
+      "name": "Nilschwemme",
+      "cost": 3,
+      "type": "spell",
+      "text": "Stellt bei allen Verbündeten 4 Leben wieder her. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "healAll",
+          "n": 4
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "imhotep_6",
+      "hero": "imhotep",
+      "rarity": "rare",
+      "art": "imhotep",
+      "cell": 6
+    },
+    {
+      "name": "Goldener Skarabäus",
+      "cost": 5,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Göttliche Gunst. Schildwall.",
+      "shield": true,
+      "taunt": true,
+      "id": "imhotep_7",
+      "hero": "imhotep",
+      "rarity": "rare",
+      "art": "imhotep",
+      "cell": 7
+    },
+    {
+      "name": "Urteil der Sonne",
+      "cost": 5,
+      "type": "spell",
+      "text": "Verursacht 5 Schaden. Stellt bei Eurem Helden 5 Leben wieder her.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 5
+        },
+        {
+          "type": "healHero",
+          "n": 5
+        }
+      ],
+      "target": "enemy",
+      "id": "imhotep_8",
+      "hero": "imhotep",
+      "rarity": "epic",
+      "art": "imhotep",
+      "cell": 8
+    },
+    {
+      "name": "Djoser, der Erbauer",
+      "cost": 6,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Errichtet die Stufenpyramide (Bauwerk, 8 Haltbarkeit): Zu Beginn Eures Zuges erhält Euer schwächster Diener +2/+2.",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "pyramid"
+        }
+      ],
+      "id": "imhotep_9",
+      "hero": "imhotep",
+      "rarity": "legendary",
+      "art": "imhotep",
+      "cell": 9
+    },
+    {
+      "name": "Lagunenbote",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "type": "minion",
+      "text": "Vermächtnis: Zieht 1 Karte.",
+      "death": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "dandolo_0",
+      "hero": "dandolo",
+      "rarity": "basic",
+      "art": "dandolo",
+      "cell": 0
+    },
+    {
+      "name": "Arsenalarbeiter",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "",
+      "id": "dandolo_1",
+      "hero": "dandolo",
+      "rarity": "basic",
+      "art": "dandolo",
+      "cell": 1
+    },
+    {
+      "name": "Präziser Stich",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden an einem Diener.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        }
+      ],
+      "target": "minion",
+      "id": "dandolo_2",
+      "hero": "dandolo",
+      "rarity": "basic",
+      "art": "dandolo",
+      "cell": 2
+    },
+    {
+      "name": "Handelsgesandter",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Zieht 1 Karte.",
+      "battle": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "dandolo_3",
+      "hero": "dandolo",
+      "rarity": "basic",
+      "art": "dandolo",
+      "cell": 3
+    },
+    {
+      "name": "Dogenklinge",
+      "cost": 3,
+      "type": "spell",
+      "text": "Rüstet eine 3/2-Waffe aus.",
+      "effects": [
+        {
+          "type": "weapon",
+          "n": 3,
+          "durability": 2
+        }
+      ],
+      "target": null,
+      "id": "dandolo_4",
+      "hero": "dandolo",
+      "rarity": "common",
+      "art": "dandolo",
+      "cell": 4
+    },
+    {
+      "name": "Maskierte Wache",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "dandolo_5",
+      "hero": "dandolo",
+      "rarity": "common",
+      "art": "dandolo",
+      "cell": 5
+    },
+    {
+      "name": "Geheimer Vertrag",
+      "cost": 2,
+      "type": "spell",
+      "text": "Zieht 2 Karten. Erhaltet 2 Rüstung.",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 2
+        },
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "dandolo_6",
+      "hero": "dandolo",
+      "rarity": "rare",
+      "art": "dandolo",
+      "cell": 6
+    },
+    {
+      "name": "Admiral der Galeeren",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Ruft einen Rekruten (1/1).",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "recruit"
+        }
+      ],
+      "id": "dandolo_7",
+      "hero": "dandolo",
+      "rarity": "rare",
+      "art": "dandolo",
+      "cell": 7
+    },
+    {
+      "name": "Arsenal von Venedig",
+      "cost": 5,
+      "type": "spell",
+      "text": "Rüstet eine 4/2-Waffe aus. Erhaltet 4 Rüstung.",
+      "effects": [
+        {
+          "type": "weapon",
+          "n": 4,
+          "durability": 2
+        },
+        {
+          "type": "armor",
+          "n": 4
+        }
+      ],
+      "target": null,
+      "id": "dandolo_8",
+      "hero": "dandolo",
+      "rarity": "epic",
+      "art": "dandolo",
+      "cell": 8
+    },
+    {
+      "name": "Marco Polo, der Weltenfahrer",
+      "cost": 6,
+      "attack": 5,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet zweimal eine Karte eines anderen Helden. Sie kosten 1 weniger.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 2,
+          "pool": "foreign",
+          "mod": -1
+        }
+      ],
+      "id": "dandolo_9",
+      "hero": "dandolo",
+      "rarity": "legendary",
+      "art": "dandolo",
+      "cell": 9
+    },
+    {
+      "name": "Späher aus Engern",
+      "cost": 1,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "",
+      "id": "khan_0",
+      "hero": "khan",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Speerwerfer aus Westfalen",
+      "cost": 2,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Fügt dem feindlichen Helden 1 Schaden zu.",
+      "battle": [
+        {
+          "type": "face",
+          "n": 1
+        }
+      ],
+      "id": "khan_1",
+      "hero": "khan",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pfeilschuss",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        }
+      ],
+      "target": "any",
+      "id": "khan_2",
+      "hero": "khan",
+      "rarity": "basic",
+      "art": "khan",
+      "cell": 2
+    },
+    {
+      "name": "Reiter der Edelinge",
+      "cost": 4,
+      "attack": 5,
+      "health": 4,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "khan_3",
+      "hero": "khan",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Falknerin",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Vermächtnis: Ruft einen Habicht (2/1).",
+      "death": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "eagle"
+        }
+      ],
+      "id": "khan_4",
+      "hero": "khan",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Sachsenaufstand",
+      "cost": 3,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +2 Angriff.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "khan_5",
+      "hero": "khan",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schildträger aus Ostfalen",
+      "cost": 5,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "khan_6",
+      "hero": "khan",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Sturm auf die Eresburg",
+      "cost": 6,
+      "type": "spell",
+      "text": "Fügt allen Feinden 3 Schaden zu.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 3,
+          "heroes": true
+        }
+      ],
+      "target": null,
+      "id": "khan_7",
+      "hero": "khan",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gefolgschaft Widukinds",
+      "cost": 6,
+      "attack": 6,
+      "health": 4,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "khan_8",
+      "hero": "khan",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Abbi, Gefährte Widukinds",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "type": "minion",
+      "text": "Vorstoß. Greift ein anderer eigener Diener an, greift ein zufälliger weiterer eigener Diener dasselbe Ziel an.",
+      "rush": true,
+      "aura": "pincer",
+      "id": "khan_9",
+      "hero": "khan",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hüterin des Hains",
+      "cost": 1,
+      "attack": 1,
+      "health": 4,
+      "type": "minion",
+      "text": "",
+      "id": "boudicca_0",
+      "hero": "boudicca",
+      "rarity": "basic",
+      "art": "boudicca",
+      "cell": 0
+    },
+    {
+      "name": "Schild aus Eichenholz",
+      "cost": 2,
+      "type": "spell",
+      "text": "Erhaltet 4 Rüstung. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "armor",
+          "n": 4
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "boudicca_1",
+      "hero": "boudicca",
+      "rarity": "basic",
+      "art": "boudicca",
+      "cell": 1
+    },
+    {
+      "name": "Krieger der Arverner",
+      "cost": 3,
+      "attack": 4,
+      "health": 4,
+      "type": "minion",
+      "text": "",
+      "id": "boudicca_2",
+      "hero": "boudicca",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hieb mit dem Langschwert",
+      "cost": 3,
+      "type": "spell",
+      "text": "Verursacht 4 Schaden.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 4
+        }
+      ],
+      "target": "any",
+      "id": "boudicca_3",
+      "hero": "boudicca",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Reiter der Arverner",
+      "cost": 4,
+      "attack": 4,
+      "health": 3,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "boudicca_4",
+      "hero": "boudicca",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Heilkundige mit der Mistel",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Heilt Eure Diener um 1.",
+      "passive": "heal",
+      "id": "boudicca_5",
+      "hero": "boudicca",
+      "rarity": "common",
+      "art": "boudicca",
+      "cell": 5
+    },
+    {
+      "name": "Erhebung der Gallier",
+      "cost": 3,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +2/+1.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 2,
+          "health": 1
+        }
+      ],
+      "target": null,
+      "id": "boudicca_6",
+      "hero": "boudicca",
+      "rarity": "rare",
+      "art": "boudicca",
+      "cell": 6
+    },
+    {
+      "name": "Verteidiger von Gergovia",
+      "cost": 6,
+      "attack": 5,
+      "health": 8,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "boudicca_7",
+      "hero": "boudicca",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Letzter Ritt vor Alesia",
+      "cost": 5,
+      "type": "spell",
+      "text": "Euer Held erhält in diesem Zug +5 Angriff und 5 Rüstung.",
+      "effects": [
+        {
+          "type": "heroAttack",
+          "n": 5
+        },
+        {
+          "type": "armor",
+          "n": 5
+        }
+      ],
+      "target": null,
+      "id": "boudicca_8",
+      "hero": "boudicca",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Commius, Führer des Entsatzheers",
+      "cost": 8,
+      "attack": 5,
+      "health": 5,
+      "type": "minion",
+      "text": "Kostet 1 weniger je zwei eigene Diener, die in dieser Partie starben. Einmarsch: Holt den zuletzt gestorbenen eigenen Diener zurück.",
+      "costPerFallen": 2,
+      "battle": [
+        {
+          "type": "revive",
+          "n": 1
+        }
+      ],
+      "id": "boudicca_9",
+      "hero": "boudicca",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Apothekerlehrling",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Vermächtnis: Stellt bei Eurem Helden 3 Leben wieder her.",
+      "death": [
+        {
+          "type": "healHero",
+          "n": 3
+        }
+      ],
+      "id": "nostradamus_0",
+      "hero": "nostradamus",
+      "rarity": "basic",
+      "art": "nostradamus",
+      "cell": 0
+    },
+    {
+      "name": "Verpuffung im Laboratorium",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        }
+      ],
+      "target": "any",
+      "id": "nostradamus_1",
+      "hero": "nostradamus",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bergmann aus Aue",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "",
+      "id": "nostradamus_2",
+      "hero": "nostradamus",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Geheimes Rezeptbuch",
+      "cost": 4,
+      "type": "spell",
+      "text": "Zieht 3 Karten. Euer Held erleidet 2 Schaden.",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 3
+        },
+        {
+          "type": "selfDamage",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "nostradamus_3",
+      "hero": "nostradamus",
+      "rarity": "basic",
+      "art": "nostradamus",
+      "cell": 3
+    },
+    {
+      "name": "Pestarzt",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Fügt allen feindlichen Dienern 1 Schaden zu.",
+      "battle": [
+        {
+          "type": "aoe",
+          "n": 1
+        }
+      ],
+      "id": "nostradamus_4",
+      "hero": "nostradamus",
+      "rarity": "common",
+      "art": "nostradamus",
+      "cell": 4
+    },
+    {
+      "name": "Befehl des Kurfürsten",
+      "cost": 2,
+      "type": "spell",
+      "text": "Gebt einem befreundeten Diener +3/+3. Euer Held erleidet 2 Schaden.",
+      "effects": [
+        {
+          "type": "buff",
+          "n": 3,
+          "health": 3
+        },
+        {
+          "type": "selfDamage",
+          "n": 2
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "nostradamus_5",
+      "hero": "nostradamus",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schreiber der Manufaktur",
+      "cost": 5,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Vermächtnis: Zieht 2 Karten.",
+      "death": [
+        {
+          "type": "draw",
+          "n": 2
+        }
+      ],
+      "id": "nostradamus_6",
+      "hero": "nostradamus",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Glut des Brennofens",
+      "cost": 5,
+      "type": "spell",
+      "text": "Fügt allen Dienern 4 Schaden zu.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 4,
+          "both": true
+        }
+      ],
+      "target": null,
+      "id": "nostradamus_7",
+      "hero": "nostradamus",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Wache auf dem Königstein",
+      "cost": 6,
+      "attack": 6,
+      "health": 7,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "nostradamus_8",
+      "hero": "nostradamus",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Tschirnhaus, Naturforscher",
+      "cost": 5,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Zieht eine Karte, sie kostet 2 weniger. Euer Held erleidet 1 Schaden.",
+      "passive": "regent",
+      "id": "nostradamus_9",
+      "hero": "nostradamus",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pförtnerin vom Rupertsberg",
+      "cost": 1,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Göttliche Gunst.",
+      "shield": true,
+      "id": "jeanne_0",
+      "hero": "jeanne",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Grünkraft",
+      "cost": 2,
+      "type": "spell",
+      "text": "Gebt einem befreundeten Diener +2/+2.",
+      "effects": [
+        {
+          "type": "buff",
+          "n": 2,
+          "health": 2
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "jeanne_1",
+      "hero": "jeanne",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Klostervogt",
+      "cost": 3,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "jeanne_2",
+      "hero": "jeanne",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Einkleidung der Novizinnen",
+      "cost": 2,
+      "type": "spell",
+      "text": "Ruft drei Novizinnen (1/1).",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 3,
+          "token": "novice"
+        }
+      ],
+      "target": null,
+      "id": "jeanne_3",
+      "hero": "jeanne",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pilger am Rhein",
+      "cost": 4,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Göttliche Gunst.",
+      "shield": true,
+      "id": "jeanne_4",
+      "hero": "jeanne",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Segen der Äbtissin",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verleiht einem befreundeten Diener Göttliche Gunst. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "shield",
+          "n": 1
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "jeanne_5",
+      "hero": "jeanne",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Vorsängerin im Chor",
+      "cost": 5,
+      "attack": 4,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Eure anderen Diener erhalten +1/+1.",
+      "battle": [
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 1,
+          "excludeSelf": true
+        }
+      ],
+      "id": "jeanne_6",
+      "hero": "jeanne",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Spiel der Tugenden",
+      "cost": 6,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +2/+2.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 2,
+          "health": 2
+        }
+      ],
+      "target": null,
+      "id": "jeanne_7",
+      "hero": "jeanne",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ritter mit dem Schutzbrief",
+      "cost": 7,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Göttliche Gunst. Schildwall.",
+      "shield": true,
+      "taunt": true,
+      "id": "jeanne_8",
+      "hero": "jeanne",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Jutta von Sponheim, Magistra",
+      "cost": 7,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Göttliche Gunst. Eure Novizinnen haben +1/+1 und Göttliche Gunst. Eure Heldenfähigkeit ruft zwei Novizinnen.",
+      "shield": true,
+      "aura": "lahire",
+      "id": "jeanne_9",
+      "hero": "jeanne",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Siedler aus Franken",
+      "cost": 1,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "",
+      "id": "ragnar_0",
+      "hero": "ragnar",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Fehde",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        }
+      ],
+      "target": "any",
+      "id": "ragnar_1",
+      "hero": "ragnar",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Burgmann von Groitzsch",
+      "cost": 3,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "ragnar_2",
+      "hero": "ragnar",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Lokator",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Ruft einen Grenzstein des Klosters (0/2).",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "totem_heal"
+        }
+      ],
+      "id": "ragnar_3",
+      "hero": "ragnar",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Verhau",
+      "cost": 3,
+      "type": "spell",
+      "text": "Fügt allen feindlichen Dienern 1 Schaden zu und versetzt sie in Starre.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 1
+        },
+        {
+          "type": "freeze",
+          "n": 1,
+          "all": true
+        }
+      ],
+      "target": null,
+      "id": "ragnar_4",
+      "hero": "ragnar",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Panzerreiter",
+      "cost": 4,
+      "attack": 5,
+      "health": 3,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "ragnar_5",
+      "hero": "ragnar",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Rodung",
+      "cost": 3,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +1/+2.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 2
+        }
+      ],
+      "target": null,
+      "id": "ragnar_6",
+      "hero": "ragnar",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Grenzwächter der Mark",
+      "cost": 5,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Vermächtnis: Ruft einen Grenzstein der Mark (0/2).",
+      "death": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "totem_fire"
+        }
+      ],
+      "id": "ragnar_7",
+      "hero": "ragnar",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Heerfahrt nach Italien",
+      "cost": 5,
+      "type": "spell",
+      "text": "Verursacht 6 Schaden. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 6
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": "any",
+      "id": "ragnar_8",
+      "hero": "ragnar",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Judith von Böhmen",
+      "cost": 7,
+      "attack": 6,
+      "health": 7,
+      "type": "minion",
+      "text": "Schildwall. Einmarsch: Ruft jeden Grenzstein einmal. Eure Grenzsteine haben Schildwall und +1 Leben.",
+      "taunt": true,
+      "aura": "lagertha",
+      "battle": [
+        {
+          "type": "totems",
+          "n": 1
+        }
+      ],
+      "id": "ragnar_9",
+      "hero": "ragnar",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Edelknabe",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "",
+      "id": "musashi_0",
+      "hero": "musashi",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Lanzenstoß",
+      "cost": 1,
+      "type": "spell",
+      "text": "Verursacht 2 Schaden an einem Diener.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 2
+        }
+      ],
+      "target": "minion",
+      "id": "musashi_1",
+      "hero": "musashi",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Fahrender Ritter",
+      "cost": 3,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "",
+      "id": "musashi_2",
+      "hero": "musashi",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Minnebrief",
+      "cost": 2,
+      "type": "spell",
+      "text": "Zieht 2 Karten.",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "musashi_3",
+      "hero": "musashi",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Minneritter",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Göttliche Gunst.",
+      "shield": true,
+      "id": "musashi_4",
+      "hero": "musashi",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Mit eingelegter Lanze",
+      "cost": 3,
+      "type": "spell",
+      "text": "Euer Held erhält für diesen Zug +4 Angriff und 2 Rüstung.",
+      "effects": [
+        {
+          "type": "heroAttack",
+          "n": 4
+        },
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "musashi_5",
+      "hero": "musashi",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kämpe im Buhurt",
+      "cost": 4,
+      "attack": 4,
+      "health": 3,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "musashi_6",
+      "hero": "musashi",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Venusfahrt",
+      "cost": 5,
+      "type": "spell",
+      "text": "Gebt einem befreundeten Diener +3/+3 und Göttliche Gunst.",
+      "effects": [
+        {
+          "type": "buff",
+          "n": 3,
+          "health": 3
+        },
+        {
+          "type": "shield",
+          "n": 1
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "musashi_7",
+      "hero": "musashi",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Landrichter der Steiermark",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Göttliche Gunst. Vermächtnis: Zieht 1 Karte.",
+      "shield": true,
+      "death": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "musashi_8",
+      "hero": "musashi",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Friedrich der Streitbare",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Doppelschlag. Einmarsch: Duell – Friedrich und ein feindlicher Diener Eurer Wahl kämpfen, bis einer stirbt.",
+      "double": true,
+      "target": "enemyMinion",
+      "battle": [
+        {
+          "type": "duel",
+          "n": 1
+        }
+      ],
+      "id": "musashi_9",
+      "hero": "musashi",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Dorfwache",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "neutral_0",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 0
+    },
+    {
+      "name": "Wandernder Händler",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Vermächtnis: Erhaltet 2 Rüstung.",
+      "death": [
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "id": "neutral_1",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 1
+    },
+    {
+      "name": "Steinschleuderer",
+      "cost": 2,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "",
+      "id": "neutral_2",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 2
+    },
+    {
+      "name": "Wilderin",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Tarnung.",
+      "stealth": true,
+      "id": "neutral_3",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 3
+    },
+    {
+      "name": "Torwache der Burg",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "neutral_4",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 4
+    },
+    {
+      "name": "Kavallerist",
+      "cost": 4,
+      "attack": 4,
+      "health": 3,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "neutral_5",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 5
+    },
+    {
+      "name": "Feldheilerin",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Heilt Euren Helden um 3.",
+      "battle": [
+        {
+          "type": "healHero",
+          "n": 3
+        }
+      ],
+      "id": "neutral_6",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 6
+    },
+    {
+      "name": "Archivarin",
+      "cost": 4,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Zieht 1 Karte.",
+      "battle": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "neutral_7",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 7
+    },
+    {
+      "name": "Wachhund",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "neutral_8",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 8
+    },
+    {
+      "name": "Veteran",
+      "cost": 5,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "",
+      "id": "neutral_9",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral0",
+      "cell": 9
+    },
+    {
+      "name": "Belagerungsturm",
+      "cost": 6,
+      "attack": 5,
+      "health": 7,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "neutral_10",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 0
+    },
+    {
+      "name": "Schmied",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Erhaltet 2 Rüstung.",
+      "battle": [
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "id": "neutral_11",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 1
+    },
+    {
+      "name": "Wüstenspäherin",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "",
+      "id": "neutral_12",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 2
+    },
+    {
+      "name": "Gebirgswache",
+      "cost": 5,
+      "attack": 4,
+      "health": 7,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "neutral_13",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 3
+    },
+    {
+      "name": "Verwegener Bote",
+      "cost": 3,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "neutral_14",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 4
+    },
+    {
+      "name": "Nachtwächter",
+      "cost": 2,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Vermächtnis: Zieht 1 Karte.",
+      "death": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "neutral_15",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 5
+    },
+    {
+      "name": "Versorgung",
+      "cost": 2,
+      "type": "spell",
+      "text": "Zieht 2 Karten.",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "neutral_16",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 6
+    },
+    {
+      "name": "Heilkräuter",
+      "cost": 1,
+      "type": "spell",
+      "text": "Heilt ein Ziel um 4.",
+      "effects": [
+        {
+          "type": "heal",
+          "n": 4
+        }
+      ],
+      "target": "any",
+      "id": "neutral_17",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 7
+    },
+    {
+      "name": "Wurfmesser",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 2 Schaden.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 2
+        }
+      ],
+      "target": "any",
+      "id": "neutral_18",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 8
+    },
+    {
+      "name": "Kriegselefant",
+      "cost": 7,
+      "attack": 7,
+      "health": 8,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "neutral_19",
+      "hero": "neutral",
+      "rarity": "basic",
+      "art": "neutral1",
+      "cell": 9
+    },
+    {
+      "name": "Ordensritter",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Göttliche Gunst.",
+      "shield": true,
+      "id": "neutral_20",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": "neutral2",
+      "cell": 0
+    },
+    {
+      "name": "Söldnerhauptmann",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Erhaltet 2 Rüstung.",
+      "battle": [
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "id": "neutral_21",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": "neutral2",
+      "cell": 1
+    },
+    {
+      "name": "Adler der Berge",
+      "cost": 2,
+      "attack": 3,
+      "health": 1,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "neutral_22",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": "neutral2",
+      "cell": 2
+    },
+    {
+      "name": "Grabwächter",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Vermächtnis: Ruft einen Krieger (2/2).",
+      "death": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "warrior"
+        }
+      ],
+      "id": "neutral_23",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": "neutral2",
+      "cell": 3
+    },
+    {
+      "name": "Sammelruf",
+      "cost": 3,
+      "type": "spell",
+      "text": "Ruft zwei Krieger (2/2).",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 2,
+          "token": "warrior"
+        }
+      ],
+      "target": null,
+      "id": "neutral_24",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": "neutral2",
+      "cell": 4
+    },
+    {
+      "name": "Feldration",
+      "cost": 2,
+      "type": "spell",
+      "text": "Heilt alle Verbündeten um 2.",
+      "effects": [
+        {
+          "type": "healAll",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "neutral_25",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": "neutral2",
+      "cell": 5
+    },
+    {
+      "name": "Bogenmeisterin",
+      "cost": 4,
+      "attack": 4,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Fügt dem feindlichen Helden 2 Schaden zu.",
+      "battle": [
+        {
+          "type": "face",
+          "n": 2
+        }
+      ],
+      "id": "neutral_26",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": "neutral2",
+      "cell": 6
+    },
+    {
+      "name": "Prätorianer",
+      "cost": 5,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "neutral_27",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Silberner Bannerträger",
+      "cost": 4,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Eure anderen Diener erhalten +1/+1.",
+      "battle": [
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 1,
+          "excludeSelf": true
+        }
+      ],
+      "id": "neutral_28",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": "neutral2",
+      "cell": 8
+    },
+    {
+      "name": "Flammenkrug",
+      "cost": 4,
+      "type": "spell",
+      "text": "Fügt allen feindlichen Dienern 2 Schaden zu.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "neutral_29",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": "neutral2",
+      "cell": 9
+    },
+    {
+      "name": "Löwin der Arena",
+      "cost": 5,
+      "attack": 5,
+      "health": 4,
+      "type": "minion",
+      "text": "Göttliche Gunst.",
+      "shield": true,
+      "id": "neutral_30",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": "neutral3",
+      "cell": 0
+    },
+    {
+      "name": "Seidenkarawanenführer",
+      "cost": 5,
+      "attack": 4,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Zieht 2 Karten.",
+      "battle": [
+        {
+          "type": "draw",
+          "n": 2
+        }
+      ],
+      "id": "neutral_31",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": "neutral3",
+      "cell": 1
+    },
+    {
+      "name": "Schlachtruf",
+      "cost": 4,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +2 Angriff.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "neutral_32",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": "neutral3",
+      "cell": 2
+    },
+    {
+      "name": "Trojanisches Pferd",
+      "cost": 6,
+      "attack": 5,
+      "health": 7,
+      "type": "minion",
+      "text": "Vermächtnis: Ruft zwei Krieger (2/2).",
+      "death": [
+        {
+          "type": "summon",
+          "n": 2,
+          "token": "warrior"
+        }
+      ],
+      "id": "neutral_33",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Brander",
+      "cost": 7,
+      "attack": 6,
+      "health": 5,
+      "type": "minion",
+      "text": "Vermächtnis: Fügt allen feindlichen Dienern 3 Schaden zu.",
+      "death": [
+        {
+          "type": "aoe",
+          "n": 3
+        }
+      ],
+      "id": "neutral_34",
+      "hero": "neutral",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Vergessene Weisheit",
+      "cost": 4,
+      "type": "spell",
+      "text": "Ergründet zwei Karten. Erhaltet 3 Rüstung.",
+      "effects": [
+        {
+          "type": "discover",
+          "n": 2,
+          "pool": "any"
+        },
+        {
+          "type": "armor",
+          "n": 3
+        }
+      ],
+      "target": null,
+      "id": "neutral_35",
+      "hero": "neutral",
+      "rarity": "epic",
+      "art": "neutral3",
+      "cell": 5
+    },
+    {
+      "name": "Burgbesatzung",
+      "cost": 8,
+      "attack": 6,
+      "health": 9,
+      "type": "minion",
+      "text": "Schildwall. Göttliche Gunst.",
+      "taunt": true,
+      "shield": true,
+      "id": "neutral_36",
+      "hero": "neutral",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Donnernde Legion",
+      "cost": 7,
+      "type": "spell",
+      "text": "Ruft drei Krieger (2/2) und gebt Euren Dienern +1/+1.",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 3,
+          "token": "warrior"
+        },
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "target": null,
+      "id": "neutral_37",
+      "hero": "neutral",
+      "rarity": "epic",
+      "art": "neutral3",
+      "cell": 7
+    },
+    {
+      "name": "Herodot, Vater der Geschichte",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet eine Zeitalterkarte – auch aus einem fremden Zeitalter.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "ages"
+        }
+      ],
+      "id": "neutral_38",
+      "hero": "neutral",
+      "rarity": "legendary",
+      "art": "neutral3",
+      "cell": 8
+    },
+    {
+      "name": "Zenobia, Rebellin von Palmyra",
+      "cost": 8,
+      "attack": 6,
+      "health": 6,
+      "type": "minion",
+      "text": "Einmarsch: Übernehmt die Kontrolle über einen feindlichen Diener mit höchstens 4 Angriff.",
+      "target": "enemyMinion",
+      "targetMax": 4,
+      "battle": [
+        {
+          "type": "steal",
+          "n": 1
+        }
+      ],
+      "id": "neutral_39",
+      "hero": "neutral",
+      "rarity": "legendary",
+      "art": "neutral3",
+      "cell": 9
+    },
+    {
+      "name": "Agent des Zehnerrats",
+      "cost": 3,
+      "attack": 4,
+      "health": 3,
+      "type": "minion",
+      "text": "Tarnung.",
+      "stealth": true,
+      "id": "dandolo_10",
+      "hero": "dandolo",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Plünderer am Rhein",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Plünderung.",
+      "plunder": true,
+      "id": "khan_10",
+      "hero": "khan",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kobra des Nils",
+      "cost": 2,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Tödliches Gift.",
+      "poison": true,
+      "id": "imhotep_10",
+      "hero": "imhotep",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Zwanzig Städte in Flammen",
+      "cost": 3,
+      "type": "spell",
+      "text": "Fügt allen feindlichen Dienern 2 Schaden zu. Belastung 1.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "overload": 1,
+      "id": "boudicca_10",
+      "hero": "boudicca",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Eid der Arkanisten",
+      "cost": 1,
+      "type": "spell",
+      "text": "Belegt einen Diener mit Bannung. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "silence",
+          "n": 1
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": "minion",
+      "id": "nostradamus_10",
+      "hero": "nostradamus",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Böhmischer Söldner",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Plünderung.",
+      "plunder": true,
+      "id": "ragnar_10",
+      "hero": "ragnar",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Brandschatzung",
+      "cost": 1,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden. Belastung 1.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        }
+      ],
+      "target": "any",
+      "overload": 1,
+      "id": "ragnar_11",
+      "hero": "ragnar",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Heimlicher Bote",
+      "cost": 2,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "Tarnung.",
+      "stealth": true,
+      "id": "musashi_10",
+      "hero": "musashi",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Freibeuterin",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Plünderung.",
+      "plunder": true,
+      "id": "neutral_42",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Späherin im Unterholz",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Tarnung.",
+      "stealth": true,
+      "id": "neutral_43",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Wandermönch",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Belegt einen Diener mit Bannung.",
+      "target": "minion",
+      "battle": [
+        {
+          "type": "silence",
+          "n": 1
+        }
+      ],
+      "id": "neutral_44",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Giftmischerin",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Tödliches Gift.",
+      "poison": true,
+      "id": "neutral_45",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Condottiere",
+      "cost": 3,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Belastung 2.",
+      "overload": 2,
+      "id": "neutral_46",
+      "hero": "neutral",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ruderer der Triere",
+      "cost": 1,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Plünderung.",
+      "plunder": true,
+      "id": "perikles_0",
+      "hero": "perikles",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Lange Mauern",
+      "cost": 2,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall.",
+      "building": true,
+      "taunt": true,
+      "id": "perikles_1",
+      "hero": "perikles",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Rede auf die Gefallenen",
+      "cost": 3,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +1/+2.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 2
+        }
+      ],
+      "target": null,
+      "id": "perikles_2",
+      "hero": "perikles",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Strategos",
+      "cost": 3,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Euer schwächstes Bauwerk erhält +2 Haltbarkeit. Ohne Bauwerk erhaltet Ihr 2 Rüstung.",
+      "battle": [
+        {
+          "type": "fortify",
+          "n": 2,
+          "else": [
+            {
+              "type": "armor",
+              "n": 2
+            }
+          ]
+        }
+      ],
+      "id": "perikles_3",
+      "hero": "perikles",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pnyx",
+      "cost": 3,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Zieht 1 Karte.",
+      "building": true,
+      "start": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "perikles_4",
+      "hero": "perikles",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Scherbengericht",
+      "cost": 2,
+      "type": "spell",
+      "text": "Schickt einen feindlichen Diener auf die Hand seines Besitzers zurück.",
+      "effects": [
+        {
+          "type": "bounce",
+          "n": 1
+        }
+      ],
+      "target": "enemyMinion",
+      "id": "perikles_5",
+      "hero": "perikles",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Triere von Salamis",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "type": "minion",
+      "text": "Vorstoß. Plünderung.",
+      "rush": true,
+      "plunder": true,
+      "id": "perikles_6",
+      "hero": "perikles",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pest von Athen",
+      "cost": 4,
+      "type": "spell",
+      "text": "Fügt allen Dienern 2 Schaden zu. Bauwerke bleiben verschont.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 2,
+          "both": true
+        }
+      ],
+      "target": null,
+      "id": "perikles_7",
+      "hero": "perikles",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Odeion",
+      "cost": 4,
+      "attack": 0,
+      "health": 7,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ruft einen Bürger (1/2).",
+      "building": true,
+      "start": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "citizen"
+        }
+      ],
+      "id": "perikles_8",
+      "hero": "perikles",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Phidias, Meister der Akropolis",
+      "cost": 7,
+      "attack": 5,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Errichtet die Athena Parthenos (Bauwerk, 8 Haltbarkeit): Eure Diener haben +1/+1.",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "parthenos"
+        }
+      ],
+      "id": "perikles_9",
+      "hero": "perikles",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pilumwerfer",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Verursacht 1 Schaden.",
+      "target": "any",
+      "battle": [
+        {
+          "type": "damage",
+          "n": 1
+        }
+      ],
+      "id": "agrippa_0",
+      "hero": "agrippa",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Legionär der Zehnten",
+      "cost": 2,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "agrippa_1",
+      "hero": "agrippa",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Castra",
+      "cost": 3,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Eure Diener haben +1/+1.",
+      "building": true,
+      "buffAura": {
+        "attack": 1,
+        "health": 1
+      },
+      "id": "agrippa_2",
+      "hero": "agrippa",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Testudo",
+      "cost": 2,
+      "type": "spell",
+      "text": "Gebt einem befreundeten Diener +2/+2 und Schildwall.",
+      "effects": [
+        {
+          "type": "buff",
+          "n": 2,
+          "health": 2
+        },
+        {
+          "type": "grant",
+          "n": 1,
+          "key": "taunt"
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "agrippa_3",
+      "hero": "agrippa",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ballista",
+      "cost": 3,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Am Ende Eures Zuges: Fügt einem zufälligen Feind 2 Schaden zu.",
+      "building": true,
+      "end": [
+        {
+          "type": "randomDamage",
+          "n": 2
+        }
+      ],
+      "id": "agrippa_4",
+      "hero": "agrippa",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Liburnen bei Actium",
+      "cost": 3,
+      "type": "spell",
+      "text": "Fügt zweimal einem zufälligen feindlichen Diener 2 Schaden zu.",
+      "effects": [
+        {
+          "type": "randomDamage",
+          "n": 2,
+          "times": 2,
+          "minions": true
+        }
+      ],
+      "target": null,
+      "id": "agrippa_5",
+      "hero": "agrippa",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Primus Pilus",
+      "cost": 5,
+      "attack": 5,
+      "health": 4,
+      "type": "minion",
+      "text": "Vorstoß. Einmarsch: Gebt Euren anderen Dienern +1 Angriff.",
+      "rush": true,
+      "battle": [
+        {
+          "type": "buffAll",
+          "n": 1,
+          "excludeSelf": true
+        }
+      ],
+      "id": "agrippa_6",
+      "hero": "agrippa",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Thermen des Agrippa",
+      "cost": 2,
+      "attack": 0,
+      "health": 4,
+      "type": "minion",
+      "text": "Bauwerk. Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her.",
+      "building": true,
+      "end": [
+        {
+          "type": "healHero",
+          "n": 2
+        }
+      ],
+      "id": "agrippa_7",
+      "hero": "agrippa",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pantheon",
+      "cost": 4,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ergründet eine Karte eines anderen Helden.",
+      "building": true,
+      "start": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "foreign"
+        }
+      ],
+      "id": "agrippa_8",
+      "hero": "agrippa",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Vitruv, Baumeister Roms",
+      "cost": 5,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Eure Bauwerke kosten 2 weniger. Einmarsch: Ergründet ein Bauwerk.",
+      "buildingDiscount": 2,
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "building"
+        }
+      ],
+      "id": "agrippa_9",
+      "hero": "agrippa",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bogenschütze aus Elkab",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Vermächtnis: Fügt einem zufälligen feindlichen Diener 1 Schaden zu.",
+      "death": [
+        {
+          "type": "randomDamage",
+          "n": 1,
+          "minions": true
+        }
+      ],
+      "id": "amanirenas_0",
+      "hero": "amanirenas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Krieger der Nilflotte",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Plünderung.",
+      "plunder": true,
+      "id": "amanirenas_1",
+      "hero": "amanirenas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pfeilregen vor Auaris",
+      "cost": 2,
+      "type": "spell",
+      "text": "Fügt allen feindlichen Dienern 1 Schaden zu.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "amanirenas_2",
+      "hero": "amanirenas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Speerträger aus Theben",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "amanirenas_3",
+      "hero": "amanirenas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Priester der Selket",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Gebt einem befreundeten Diener Tödliches Gift.",
+      "target": "friendlyMinion",
+      "battle": [
+        {
+          "type": "grant",
+          "n": 1,
+          "key": "poison"
+        }
+      ],
+      "id": "amanirenas_4",
+      "hero": "amanirenas",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Medjai-Kundschafter",
+      "cost": 3,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Tarnung. Tödliches Gift.",
+      "stealth": true,
+      "poison": true,
+      "id": "amanirenas_5",
+      "hero": "amanirenas",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Erbeuteter Streitwagen",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Vorstoß. Plünderung.",
+      "rush": true,
+      "plunder": true,
+      "id": "amanirenas_6",
+      "hero": "amanirenas",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Überfall auf Nefrusi",
+      "cost": 3,
+      "type": "spell",
+      "text": "Verursacht 3 Schaden an einem Diener. Stellt bei Eurem Helden 3 Leben wieder her.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 3
+        },
+        {
+          "type": "healHero",
+          "n": 3
+        }
+      ],
+      "target": "minion",
+      "id": "amanirenas_7",
+      "hero": "amanirenas",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ahmose, Befreier Ägyptens",
+      "cost": 5,
+      "attack": 5,
+      "health": 4,
+      "type": "minion",
+      "text": "Doppelschlag. Plünderung.",
+      "double": true,
+      "plunder": true,
+      "id": "amanirenas_8",
+      "hero": "amanirenas",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Zeremonialaxt des Ahmose",
+      "cost": 6,
+      "type": "spell",
+      "text": "Vernichtet einen feindlichen Diener. Euer Gegner hat im nächsten Zug 2 Mana weniger.",
+      "effects": [
+        {
+          "type": "destroy",
+          "n": 1
+        },
+        {
+          "type": "enemyOverload",
+          "n": 2
+        }
+      ],
+      "target": "enemyMinion",
+      "id": "amanirenas_9",
+      "hero": "amanirenas",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kopistin der Chronik",
+      "cost": 1,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Stellt bei Eurem Helden 1 Leben wieder her.",
+      "battle": [
+        {
+          "type": "healHero",
+          "n": 1
+        }
+      ],
+      "id": "anna_0",
+      "hero": "anna",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pantokrator-Spital",
+      "cost": 3,
+      "type": "spell",
+      "text": "Stellt bei allen eigenen Charakteren 2 Leben wieder her. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "healAll",
+          "n": 2
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "anna_1",
+      "hero": "anna",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Warägergardist",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Schildwall. Göttliche Gunst.",
+      "taunt": true,
+      "shield": true,
+      "id": "anna_2",
+      "hero": "anna",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hofärztin",
+      "cost": 3,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Stellt bei Eurem Helden 1 Leben wieder her.",
+      "end": [
+        {
+          "type": "healHero",
+          "n": 1
+        }
+      ],
+      "id": "anna_3",
+      "hero": "anna",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Griechisches Feuer",
+      "cost": 4,
+      "type": "spell",
+      "text": "Fügt allen feindlichen Dienern 3 Schaden zu. Belastung 2.",
+      "effects": [
+        {
+          "type": "aoe",
+          "n": 3
+        }
+      ],
+      "target": null,
+      "overload": 2,
+      "id": "anna_4",
+      "hero": "anna",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bibliothekar von Konstantinopel",
+      "cost": 4,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet einen Zauber.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "spell"
+        }
+      ],
+      "id": "anna_5",
+      "hero": "anna",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kataphrakt",
+      "cost": 5,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Vorstoß. Schildwall.",
+      "rush": true,
+      "taunt": true,
+      "id": "anna_6",
+      "hero": "anna",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Chrysobull",
+      "cost": 3,
+      "type": "spell",
+      "text": "Zieht 2 Karten. Sie kosten 1 weniger.",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 2,
+          "mod": -1
+        }
+      ],
+      "target": null,
+      "id": "anna_7",
+      "hero": "anna",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Nikephoros Bryennios",
+      "cost": 5,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet zweimal eine Karte, die in dieser Partie schon gespielt wurde.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 2,
+          "pool": "played"
+        }
+      ],
+      "id": "anna_8",
+      "hero": "anna",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Alexios I. Komnenos",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Erhaltet eine zufällige Karte, die in dieser Partie schon gespielt wurde.",
+      "end": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "played"
+        }
+      ],
+      "id": "anna_9",
+      "hero": "anna",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gärtner von Tetzcotzinco",
+      "cost": 1,
+      "attack": 1,
+      "health": 4,
+      "type": "minion",
+      "text": "Wann immer dieser Diener geheilt wird, erhält er +1 Angriff.",
+      "onHeal": [
+        {
+          "type": "buffSelf",
+          "n": 1
+        }
+      ],
+      "id": "nezahualcoyotl_0",
+      "hero": "nezahualcoyotl",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Adlerkrieger",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "nezahualcoyotl_1",
+      "hero": "nezahualcoyotl",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Blumenkrieg",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 2 Schaden an einem Diener. Stellt bei allen eigenen Charakteren 2 Leben wieder her.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 2
+        },
+        {
+          "type": "healAll",
+          "n": 2
+        }
+      ],
+      "target": "minion",
+      "id": "nezahualcoyotl_2",
+      "hero": "nezahualcoyotl",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Jaguarkrieger",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Tarnung. Plünderung.",
+      "stealth": true,
+      "plunder": true,
+      "id": "nezahualcoyotl_3",
+      "hero": "nezahualcoyotl",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Aquädukt von Chapultepec",
+      "cost": 2,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Am Ende Eures Zuges: Stellt bei allen eigenen Charakteren 2 Leben wieder her.",
+      "building": true,
+      "end": [
+        {
+          "type": "healAll",
+          "n": 2
+        }
+      ],
+      "id": "nezahualcoyotl_4",
+      "hero": "nezahualcoyotl",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gesetze von Texcoco",
+      "cost": 2,
+      "type": "spell",
+      "text": "Versetzt einen feindlichen Diener in Starre. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "freeze",
+          "n": 1
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": "enemyMinion",
+      "id": "nezahualcoyotl_5",
+      "hero": "nezahualcoyotl",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Quetzal-Hauptmann",
+      "cost": 4,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Stellt bei allen eigenen Charakteren 3 Leben wieder her.",
+      "battle": [
+        {
+          "type": "healAll",
+          "n": 3
+        }
+      ],
+      "id": "nezahualcoyotl_6",
+      "hero": "nezahualcoyotl",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Damm von Nezahualcóyotl",
+      "cost": 4,
+      "attack": 0,
+      "health": 7,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall. Am Ende Eures Zuges: Stellt bei allen eigenen Charakteren 2 Leben wieder her.",
+      "building": true,
+      "taunt": true,
+      "end": [
+        {
+          "type": "healAll",
+          "n": 2
+        }
+      ],
+      "id": "nezahualcoyotl_7",
+      "hero": "nezahualcoyotl",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Itzcoatl, Herr von Tenochtitlan",
+      "cost": 6,
+      "attack": 5,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Ruft einen Adlerkrieger und einen Jaguarkrieger.",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "nezahualcoyotl_1"
+        },
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "nezahualcoyotl_3"
+        }
+      ],
+      "id": "nezahualcoyotl_8",
+      "hero": "nezahualcoyotl",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Nezahualpilli, Sohn des Dichters",
+      "cost": 5,
+      "attack": 3,
+      "health": 6,
+      "type": "minion",
+      "text": "Wann immer ein eigener Charakter geheilt wird, erhält ein zufälliger eigener Diener +1 Angriff.",
+      "allyHeal": [
+        {
+          "type": "buffRandom",
+          "n": 1
+        }
+      ],
+      "id": "nezahualcoyotl_9",
+      "hero": "nezahualcoyotl",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Lehnsmann",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Vermächtnis: Ein zufälliger eigener Diener erhält +1/+1.",
+      "death": [
+        {
+          "type": "buffRandom",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "id": "masako_0",
+      "hero": "masako",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bogenschütze der Pfalz",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Fügt einem feindlichen Diener 1 Schaden zu.",
+      "target": "enemyMinion",
+      "battle": [
+        {
+          "type": "damage",
+          "n": 1
+        }
+      ],
+      "id": "masako_1",
+      "hero": "masako",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Treueschwur",
+      "cost": 1,
+      "type": "spell",
+      "text": "Gebt Euren Dienern mit Schildwall +2/+2.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 2,
+          "health": 2,
+          "only": "taunt"
+        }
+      ],
+      "target": null,
+      "id": "masako_2",
+      "hero": "masako",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Stiftsdame aus Quedlinburg",
+      "cost": 2,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Gebt einem befreundeten Diener Göttliche Gunst.",
+      "target": "friendlyMinion",
+      "battle": [
+        {
+          "type": "shield",
+          "n": 1
+        }
+      ],
+      "id": "masako_3",
+      "hero": "masako",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Späher an der Elbe",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Tarnung. Vermächtnis: Zieht 1 Karte.",
+      "stealth": true,
+      "death": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "masako_4",
+      "hero": "masako",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Heerbann",
+      "cost": 4,
+      "type": "spell",
+      "text": "Ruft drei Lehnsmänner.",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 3,
+          "token": "masako_0"
+        }
+      ],
+      "target": null,
+      "id": "masako_5",
+      "hero": "masako",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "St. Pantaleon in Köln",
+      "cost": 2,
+      "attack": 0,
+      "health": 4,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält Göttliche Gunst.",
+      "building": true,
+      "start": [
+        {
+          "type": "grantRandom",
+          "n": 1,
+          "key": "shield"
+        }
+      ],
+      "id": "masako_6",
+      "hero": "masako",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Haft in Utrecht",
+      "cost": 3,
+      "type": "spell",
+      "text": "Belegt einen feindlichen Diener mit Bannung und versetzt ihn in Starre.",
+      "effects": [
+        {
+          "type": "silence",
+          "n": 1
+        },
+        {
+          "type": "freeze",
+          "n": 1
+        }
+      ],
+      "target": "enemyMinion",
+      "id": "masako_7",
+      "hero": "masako",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Willigis, Erzbischof von Mainz",
+      "cost": 5,
+      "attack": 4,
+      "health": 6,
+      "type": "minion",
+      "text": "Schildwall. Einmarsch: Gebt Euren anderen Dienern mit Schildwall +2/+2.",
+      "taunt": true,
+      "battle": [
+        {
+          "type": "buffAll",
+          "n": 2,
+          "health": 2,
+          "only": "taunt",
+          "excludeSelf": true
+        }
+      ],
+      "id": "masako_8",
+      "hero": "masako",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Otto II., Kaiser",
+      "cost": 6,
+      "attack": 5,
+      "health": 5,
+      "type": "minion",
+      "text": "Vermächtnis: Eure Diener erhalten +2/+2 und Schildwall.",
+      "death": [
+        {
+          "type": "buffAll",
+          "n": 2,
+          "health": 2
+        },
+        {
+          "type": "grantAll",
+          "n": 1,
+          "key": "taunt"
+        }
+      ],
+      "id": "masako_9",
+      "hero": "masako",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Spartiat der Dreihundert",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Schildwall. Wann immer dieser Diener Schaden erleidet, erhält er +1 Angriff.",
+      "taunt": true,
+      "onDamage": [
+        {
+          "type": "buffSelf",
+          "n": 1
+        }
+      ],
+      "id": "leonidas_10",
+      "hero": "leonidas",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Engpass der Thermopylen",
+      "cost": 3,
+      "type": "spell",
+      "text": "Versetzt alle feindlichen Diener mit 3 oder mehr Angriff in Starre.",
+      "effects": [
+        {
+          "type": "freeze",
+          "n": 1,
+          "all": true,
+          "minAttack": 3
+        }
+      ],
+      "target": null,
+      "id": "leonidas_11",
+      "hero": "leonidas",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Astronomin des Museions",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Arkaner Fokus +1.",
+      "focus": 1,
+      "id": "hypatia_10",
+      "hero": "hypatia",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kommentar zu Diophant",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 2 Schaden an einem Diener. Stirbt er, ergründet Ihr einen Zauber.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 2,
+          "onKill": [
+            {
+              "type": "discover",
+              "n": 1,
+              "pool": "spell"
+            }
+          ]
+        }
+      ],
+      "target": "minion",
+      "id": "hypatia_11",
+      "hero": "hypatia",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Priesterin der Sachmet",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Stellt bei einem Ziel 3 Leben wieder her.",
+      "target": "any",
+      "battle": [
+        {
+          "type": "heal",
+          "n": 3
+        }
+      ],
+      "id": "imhotep_11",
+      "hero": "imhotep",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ka-Statue",
+      "cost": 2,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall. Vermächtnis: Stellt bei Eurem Helden 5 Leben wieder her.",
+      "building": true,
+      "taunt": true,
+      "death": [
+        {
+          "type": "healHero",
+          "n": 5
+        }
+      ],
+      "id": "imhotep_12",
+      "hero": "imhotep",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Galeerenschmied",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Eure Waffe erhält +1 Angriff und +1 Haltbarkeit.",
+      "battle": [
+        {
+          "type": "weaponUp",
+          "n": 1
+        }
+      ],
+      "id": "dandolo_11",
+      "hero": "dandolo",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Plünderung Konstantinopels",
+      "cost": 6,
+      "type": "spell",
+      "text": "Vernichtet einen feindlichen Diener. Ergründet eine Karte eines anderen Helden.",
+      "effects": [
+        {
+          "type": "destroy",
+          "n": 1
+        },
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "foreign"
+        }
+      ],
+      "target": "enemyMinion",
+      "id": "dandolo_12",
+      "hero": "dandolo",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Heerlager an der Weser",
+      "cost": 3,
+      "attack": 0,
+      "health": 4,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ruft einen Reiter (1/1, Sturmangriff).",
+      "building": true,
+      "start": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "rider"
+        }
+      ],
+      "id": "khan_11",
+      "hero": "khan",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Versammlung in Marklo",
+      "cost": 4,
+      "type": "spell",
+      "text": "Ruft drei Reiter (1/1, Sturmangriff).",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 3,
+          "token": "rider"
+        }
+      ],
+      "target": null,
+      "id": "khan_12",
+      "hero": "khan",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Barde der Arverner",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Euer Held erhält in diesem Zug +2 Angriff.",
+      "battle": [
+        {
+          "type": "heroAttack",
+          "n": 2
+        }
+      ],
+      "id": "boudicca_11",
+      "hero": "boudicca",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gallische Reiterei",
+      "cost": 5,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Sturmangriff. Einmarsch: Fügt allen feindlichen Dienern 1 Schaden zu.",
+      "charge": true,
+      "battle": [
+        {
+          "type": "aoe",
+          "n": 1
+        }
+      ],
+      "id": "boudicca_12",
+      "hero": "boudicca",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Laborbuch",
+      "cost": 1,
+      "type": "spell",
+      "text": "Zieht 1 Karte. Sie kostet 1 weniger.",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 1,
+          "mod": -1
+        }
+      ],
+      "target": null,
+      "id": "nostradamus_11",
+      "hero": "nostradamus",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Weißes Gold",
+      "cost": 3,
+      "type": "spell",
+      "text": "Ergründet eine Karte. Sie kostet 2 weniger. Euer Held erleidet 2 Schaden.",
+      "effects": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "any",
+          "mod": -2
+        },
+        {
+          "type": "selfDamage",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "nostradamus_12",
+      "hero": "nostradamus",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Adlige Stifterin",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Ruft eine Novizin (1/1).",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "novice"
+        }
+      ],
+      "id": "jeanne_10",
+      "hero": "jeanne",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Weihe der Klosterkirche",
+      "cost": 4,
+      "type": "spell",
+      "text": "Gebt Euren Dienern Göttliche Gunst.",
+      "effects": [
+        {
+          "type": "grantAll",
+          "n": 1,
+          "key": "shield"
+        }
+      ],
+      "target": null,
+      "id": "jeanne_11",
+      "hero": "jeanne",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Feldmesser",
+      "cost": 2,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt.",
+      "battle": [
+        {
+          "type": "summonNew",
+          "n": 1,
+          "tokens": [
+            "totem_heal",
+            "totem_fire",
+            "totem_guard",
+            "totem_strength"
+          ]
+        }
+      ],
+      "id": "ragnar_12",
+      "hero": "ragnar",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Beuterecht",
+      "cost": 1,
+      "type": "spell",
+      "text": "Gebt einem befreundeten Diener +3 Angriff und Plünderung.",
+      "effects": [
+        {
+          "type": "buff",
+          "n": 3
+        },
+        {
+          "type": "grant",
+          "n": 1,
+          "key": "plunder"
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "ragnar_13",
+      "hero": "ragnar",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ritter aus Murau",
+      "cost": 4,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Doppelschlag.",
+      "double": true,
+      "id": "musashi_11",
+      "hero": "musashi",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Frische Lanze",
+      "cost": 2,
+      "type": "spell",
+      "text": "Gebt einem befreundeten Diener +1 Angriff und Doppelschlag.",
+      "effects": [
+        {
+          "type": "buff",
+          "n": 1
+        },
+        {
+          "type": "grant",
+          "n": 1,
+          "key": "double"
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "musashi_12",
+      "hero": "musashi",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Steinmetz vom Pentelikon",
+      "cost": 2,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Euer schwächstes Bauwerk erhält +2 Haltbarkeit. Ohne Bauwerk ruft er einen Bürger (1/2).",
+      "battle": [
+        {
+          "type": "fortify",
+          "n": 2,
+          "else": [
+            {
+              "type": "summon",
+              "n": 1,
+              "token": "citizen"
+            }
+          ]
+        }
+      ],
+      "id": "perikles_10",
+      "hero": "perikles",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schatz des Seebunds",
+      "cost": 3,
+      "type": "spell",
+      "text": "Zieht 1 Karte, dazu 1 für jedes eigene Bauwerk (höchstens 3).",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 1,
+          "per": "building",
+          "max": 3
+        }
+      ],
+      "target": null,
+      "id": "perikles_11",
+      "hero": "perikles",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Aquilifer",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Gebt Euren anderen Dienern +1 Leben.",
+      "battle": [
+        {
+          "type": "buffAll",
+          "n": 0,
+          "health": 1,
+          "excludeSelf": true
+        }
+      ],
+      "id": "agrippa_10",
+      "hero": "agrippa",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Harpax",
+      "cost": 4,
+      "type": "spell",
+      "text": "Übernehmt die Kontrolle über einen feindlichen Diener mit höchstens 2 Angriff.",
+      "effects": [
+        {
+          "type": "steal",
+          "n": 1
+        }
+      ],
+      "target": "enemyMinion",
+      "targetMax": 2,
+      "id": "agrippa_11",
+      "hero": "agrippa",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pfeilmacher aus Edfu",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Fügt einem zufälligen Feind 1 Schaden zu.",
+      "battle": [
+        {
+          "type": "randomDamage",
+          "n": 1
+        }
+      ],
+      "id": "amanirenas_10",
+      "hero": "amanirenas",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gift der Hornviper",
+      "cost": 3,
+      "type": "spell",
+      "text": "Zwei zufällige eigene Diener erhalten Tödliches Gift. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "grantRandom",
+          "n": 1,
+          "key": "poison"
+        },
+        {
+          "type": "grantRandom",
+          "n": 1,
+          "key": "poison"
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "amanirenas_11",
+      "hero": "amanirenas",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Spitalarzt des Pantokrator",
+      "cost": 2,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Heilt Eure Diener um 1.",
+      "passive": "heal",
+      "id": "anna_10",
+      "hero": "anna",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Chronist am Kaiserhof",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Kostet 1 weniger je drei Karten, die in dieser Partie gespielt wurden.",
+      "costPerPlayed": 3,
+      "id": "anna_11",
+      "hero": "anna",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Dichter von Texcoco",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Stellt bei allen eigenen Charakteren 1 Leben wieder her.",
+      "battle": [
+        {
+          "type": "healAll",
+          "n": 1
+        }
+      ],
+      "id": "nezahualcoyotl_10",
+      "hero": "nezahualcoyotl",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Chinampa",
+      "cost": 2,
+      "attack": 0,
+      "health": 4,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält +1/+1.",
+      "building": true,
+      "start": [
+        {
+          "type": "buffRandom",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "id": "nezahualcoyotl_11",
+      "hero": "nezahualcoyotl",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kanzler der Kaiserin",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Gebt einem befreundeten Diener Schildwall.",
+      "target": "friendlyMinion",
+      "battle": [
+        {
+          "type": "grant",
+          "n": 1,
+          "key": "taunt"
+        }
+      ],
+      "id": "masako_10",
+      "hero": "masako",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Siegel der Kaiserin",
+      "cost": 2,
+      "type": "spell",
+      "text": "Eure Diener mit Schildwall erhalten Göttliche Gunst. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "grantAll",
+          "n": 1,
+          "key": "shield",
+          "only": "taunt"
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "masako_11",
+      "hero": "masako",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Olympionike",
+      "cost": 4,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Sturmangriff. Göttliche Gunst.",
+      "charge": true,
+      "shield": true,
+      "id": "griechen_0",
+      "hero": "griechen",
+      "age": "griechen",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Rhapsode",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet eine Karte Eures Zeitalters.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "age"
+        }
+      ],
+      "id": "griechen_1",
+      "hero": "griechen",
+      "age": "griechen",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Marathonläufer",
+      "cost": 2,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Sturmangriff. Vermächtnis: Zieht 1 Karte.",
+      "charge": true,
+      "death": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "griechen_2",
+      "hero": "griechen",
+      "age": "griechen",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Orakel von Delphi",
+      "cost": 3,
+      "type": "spell",
+      "text": "Ergründet zwei Karten Eures Helden.",
+      "effects": [
+        {
+          "type": "discover",
+          "n": 2,
+          "pool": "hero"
+        }
+      ],
+      "target": null,
+      "id": "griechen_3",
+      "hero": "griechen",
+      "age": "griechen",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Leuchtturm von Pharos",
+      "cost": 3,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Arkaner Fokus +1. Eure Zauber kosten 1 weniger.",
+      "building": true,
+      "focus": 1,
+      "spellDiscount": 1,
+      "id": "griechen_4",
+      "hero": "griechen",
+      "age": "griechen",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Akropolis",
+      "cost": 2,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Eure Diener haben +1 Leben.",
+      "building": true,
+      "buffAura": {
+        "health": 1
+      },
+      "id": "griechen_5",
+      "hero": "griechen",
+      "age": "griechen",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bibliothek von Alexandria",
+      "cost": 3,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ergründet einen Zauber.",
+      "building": true,
+      "start": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "spell"
+        }
+      ],
+      "id": "griechen_6",
+      "hero": "griechen",
+      "age": "griechen",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Knappe",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Gebt einem befreundeten Diener +1 Angriff.",
+      "target": "friendlyMinion",
+      "battle": [
+        {
+          "type": "buff",
+          "n": 1
+        }
+      ],
+      "id": "mittelalter_0",
+      "hero": "mittelalter",
+      "age": "mittelalter",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Armbrustschütze",
+      "cost": 3,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Verursacht 2 Schaden an einem Diener.",
+      "target": "minion",
+      "battle": [
+        {
+          "type": "damage",
+          "n": 2
+        }
+      ],
+      "id": "mittelalter_1",
+      "hero": "mittelalter",
+      "age": "mittelalter",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Mönch von Cluny",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet eine Karte Eures Zeitalters.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "age"
+        }
+      ],
+      "id": "mittelalter_2",
+      "hero": "mittelalter",
+      "age": "mittelalter",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hansekogge",
+      "cost": 4,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Zieht 2 Karten. Belastung 1.",
+      "overload": 1,
+      "battle": [
+        {
+          "type": "draw",
+          "n": 2
+        }
+      ],
+      "id": "mittelalter_3",
+      "hero": "mittelalter",
+      "age": "mittelalter",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Turnierritter",
+      "cost": 4,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Vorstoß. Göttliche Gunst.",
+      "rush": true,
+      "shield": true,
+      "id": "mittelalter_4",
+      "hero": "mittelalter",
+      "age": "mittelalter",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Burgfried",
+      "cost": 2,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall. Zu Beginn Eures Zuges: Erhaltet 2 Rüstung.",
+      "building": true,
+      "taunt": true,
+      "start": [
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "id": "mittelalter_5",
+      "hero": "mittelalter",
+      "age": "mittelalter",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Tribok",
+      "cost": 4,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Am Ende Eures Zuges: Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu.",
+      "building": true,
+      "end": [
+        {
+          "type": "randomDamage",
+          "n": 3,
+          "board": true
+        }
+      ],
+      "id": "mittelalter_6",
+      "hero": "mittelalter",
+      "age": "mittelalter",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Landsknecht",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "ostasien_0",
+      "hero": "ostasien",
+      "age": "ostasien",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Buchdrucker aus Mainz",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet eine Karte Eures Zeitalters.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "age"
+        }
+      ],
+      "id": "ostasien_1",
+      "hero": "ostasien",
+      "age": "ostasien",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Leipziger Kaffeehaus",
+      "cost": 2,
+      "type": "spell",
+      "text": "Stellt bei Eurem Helden 4 Leben wieder her. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "healHero",
+          "n": 4
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "ostasien_2",
+      "hero": "ostasien",
+      "age": "ostasien",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kartaunen-Salve",
+      "cost": 3,
+      "type": "spell",
+      "text": "Fügt fünfmal einem zufälligen Feind 1 Schaden zu.",
+      "effects": [
+        {
+          "type": "randomDamage",
+          "n": 1,
+          "times": 5
+        }
+      ],
+      "target": null,
+      "id": "ostasien_3",
+      "hero": "ostasien",
+      "age": "ostasien",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kriegsgaleone",
+      "cost": 5,
+      "attack": 3,
+      "health": 7,
+      "type": "minion",
+      "text": "Schildwall. Wann immer dieser Diener Schaden erleidet, fügt er einem zufälligen Feind 1 Schaden zu.",
+      "taunt": true,
+      "onDamage": [
+        {
+          "type": "randomDamage",
+          "n": 1
+        }
+      ],
+      "id": "ostasien_4",
+      "hero": "ostasien",
+      "age": "ostasien",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Stehendes Heer",
+      "cost": 5,
+      "type": "spell",
+      "text": "Ruft drei Musketiere (2/2, Schildwall).",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 3,
+          "token": "terracotta"
+        }
+      ],
+      "target": null,
+      "id": "ostasien_5",
+      "hero": "ostasien",
+      "age": "ostasien",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Sternschanze",
+      "cost": 2,
+      "attack": 0,
+      "health": 7,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall. Feindliche Diener können Euren Helden nicht in dem Zug angreifen, in dem sie erscheinen.",
+      "building": true,
+      "taunt": true,
+      "wall": true,
+      "id": "ostasien_6",
+      "hero": "ostasien",
+      "age": "ostasien",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kolosseum",
+      "cost": 3,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Wann immer ein Diener stirbt, erhaltet 1 Rüstung.",
+      "building": true,
+      "anyDeath": [
+        {
+          "type": "armor",
+          "n": 1
+        }
+      ],
+      "id": "neutral_47",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hängende Gärten",
+      "cost": 2,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Am Ende Eures Zuges: Heilt Eure Diener um 1. Heilung wirkt bei Euren Dienern doppelt.",
+      "building": true,
+      "passive": "heal",
+      "healDouble": true,
+      "id": "neutral_48",
+      "hero": "neutral",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pyramiden von Gizeh",
+      "cost": 4,
+      "attack": 0,
+      "health": 7,
+      "type": "minion",
+      "text": "Bauwerk. Eure Vermächtnisse wirken zweimal.",
+      "building": true,
+      "doubleDeath": true,
+      "id": "neutral_49",
+      "hero": "neutral",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Thebanischer Plänkler",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Vermächtnis: Euer Diener ganz links erhält +1 Angriff.",
+      "death": [
+        {
+          "type": "buffLeft",
+          "n": 1
+        }
+      ],
+      "id": "epaminondas_0",
+      "hero": "epaminondas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Böotischer Hoplit",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Euer Diener ganz links erhält +1 Leben.",
+      "battle": [
+        {
+          "type": "buffLeft",
+          "n": 0,
+          "health": 1
+        }
+      ],
+      "id": "epaminondas_1",
+      "hero": "epaminondas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Fünfzig Schilde tief",
+      "cost": 2,
+      "type": "spell",
+      "text": "Euer Diener ganz links erhält +2/+2.",
+      "effects": [
+        {
+          "type": "buffLeft",
+          "n": 2,
+          "health": 2
+        }
+      ],
+      "target": null,
+      "id": "epaminondas_2",
+      "hero": "epaminondas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Böotarch",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Euer Diener ganz links erhält +1/+1.",
+      "battle": [
+        {
+          "type": "buffLeft",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "id": "epaminondas_3",
+      "hero": "epaminondas",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Kämpfer der Heiligen Schar",
+      "cost": 5,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "Göttliche Gunst. Einmarsch: Ruft seinen Gefährten (3/3, Göttliche Gunst).",
+      "shield": true,
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "companion"
+        }
+      ],
+      "id": "epaminondas_4",
+      "hero": "epaminondas",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schlacht bei Leuktra",
+      "cost": 4,
+      "type": "spell",
+      "text": "Verursacht 4 Schaden an einem Diener. Euer Diener ganz links erhält +1/+1.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 4
+        },
+        {
+          "type": "buffLeft",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "target": "minion",
+      "id": "epaminondas_5",
+      "hero": "epaminondas",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Befreiung Messeniens",
+      "cost": 5,
+      "type": "spell",
+      "text": "Ruft zwei freie Messenier (2/2). Euer Diener ganz links erhält +2/+2.",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 2,
+          "token": "messenian"
+        },
+        {
+          "type": "buffLeft",
+          "n": 2,
+          "health": 2
+        }
+      ],
+      "target": null,
+      "id": "epaminondas_6",
+      "hero": "epaminondas",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Thebanischer Phalangit",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Schildwall. Wann immer dieser Diener Schaden erleidet, erhält Euer Diener ganz links +1 Angriff.",
+      "taunt": true,
+      "onDamage": [
+        {
+          "type": "buffLeft",
+          "n": 1
+        }
+      ],
+      "id": "epaminondas_7",
+      "hero": "epaminondas",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Megalopolis",
+      "cost": 3,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Euer Diener ganz links erhält +1/+1.",
+      "building": true,
+      "start": [
+        {
+          "type": "buffLeft",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "id": "epaminondas_8",
+      "hero": "epaminondas",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pelopidas, Führer der Heiligen Schar",
+      "cost": 6,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Euer Diener ganz links erhält Doppelschlag und Göttliche Gunst.",
+      "battle": [
+        {
+          "type": "buffLeft",
+          "n": 0,
+          "grant": [
+            "double",
+            "shield"
+          ]
+        }
+      ],
+      "id": "epaminondas_9",
+      "hero": "epaminondas",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Veles",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Versetzt einen feindlichen Diener in Starre.",
+      "target": "enemyMinion",
+      "battle": [
+        {
+          "type": "freeze",
+          "n": 1
+        }
+      ],
+      "id": "fabius_0",
+      "hero": "fabius",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Triarier",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Schildwall. Einmarsch: Erhaltet 2 Rüstung.",
+      "taunt": true,
+      "battle": [
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "id": "fabius_1",
+      "hero": "fabius",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hinhalten",
+      "cost": 2,
+      "type": "spell",
+      "text": "Versetzt zwei zufällige feindliche Diener in Starre. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "freeze",
+          "n": 1,
+          "random": true
+        },
+        {
+          "type": "freeze",
+          "n": 1,
+          "random": true
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "fabius_2",
+      "hero": "fabius",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Konsul der Republik",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Erhaltet 3 Rüstung.",
+      "battle": [
+        {
+          "type": "armor",
+          "n": 3
+        }
+      ],
+      "id": "fabius_3",
+      "hero": "fabius",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Verbrannte Erde",
+      "cost": 3,
+      "type": "spell",
+      "text": "Versetzt alle feindlichen Diener in Starre. Zieht 1 Karte. Erhaltet 2 Rüstung.",
+      "effects": [
+        {
+          "type": "freeze",
+          "n": 1,
+          "all": true
+        },
+        {
+          "type": "draw",
+          "n": 1
+        },
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "fabius_4",
+      "hero": "fabius",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Späher am Volturnus",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Tarnung. Vermächtnis: Versetzt einen zufälligen feindlichen Diener in Starre.",
+      "stealth": true,
+      "death": [
+        {
+          "type": "freeze",
+          "n": 1,
+          "random": true
+        }
+      ],
+      "id": "fabius_5",
+      "hero": "fabius",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Minucius, der Reiteroberst",
+      "cost": 4,
+      "attack": 5,
+      "health": 3,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "fabius_6",
+      "hero": "fabius",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Rückeroberung von Tarent",
+      "cost": 6,
+      "type": "spell",
+      "text": "Übernehmt die Kontrolle über einen feindlichen Diener in Starre.",
+      "effects": [
+        {
+          "type": "steal",
+          "n": 1
+        }
+      ],
+      "target": "enemyMinion",
+      "targetFrozen": true,
+      "id": "fabius_7",
+      "hero": "fabius",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Lager auf den Höhen",
+      "cost": 3,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall. Am Ende Eures Zuges: Versetzt einen zufälligen feindlichen Diener in Starre.",
+      "building": true,
+      "taunt": true,
+      "end": [
+        {
+          "type": "freeze",
+          "n": 1,
+          "random": true
+        }
+      ],
+      "id": "fabius_8",
+      "hero": "fabius",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Marcellus, Schwert Roms",
+      "cost": 6,
+      "attack": 6,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Vernichtet einen feindlichen Diener in Starre.",
+      "target": "enemyMinion",
+      "targetFrozen": true,
+      "battle": [
+        {
+          "type": "destroy",
+          "n": 1
+        }
+      ],
+      "id": "fabius_9",
+      "hero": "fabius",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Botin der Cherusker",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "type": "minion",
+      "text": "Einmarsch: Ruft einen Stammeskrieger (1/2).",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "tribesman"
+        }
+      ],
+      "id": "mandukhai_0",
+      "hero": "mandukhai",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hüterin des Herdfeuers",
+      "cost": 2,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Eure anderen Diener haben +1 Leben.",
+      "buffAura": {
+        "health": 1
+      },
+      "id": "mandukhai_1",
+      "hero": "mandukhai",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ruf zum Thing",
+      "cost": 3,
+      "type": "spell",
+      "text": "Ruft zwei Stammeskrieger (1/2).",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 2,
+          "token": "tribesman"
+        }
+      ],
+      "target": null,
+      "id": "mandukhai_2",
+      "hero": "mandukhai",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Krieger im Keil",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Habt Ihr 4 oder mehr Diener, erhält er +2/+2.",
+      "battle": [
+        {
+          "type": "ifMinions",
+          "n": 4,
+          "then": [
+            {
+              "type": "buffSelf",
+              "n": 2,
+              "health": 2
+            }
+          ],
+          "else": []
+        }
+      ],
+      "id": "mandukhai_3",
+      "hero": "mandukhai",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Varusschlacht",
+      "cost": 4,
+      "type": "spell",
+      "text": "Ruft einen Stammeskrieger (1/2). Gebt Euren Dienern +1/+1.",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "tribesman"
+        },
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "target": null,
+      "id": "mandukhai_4",
+      "hero": "mandukhai",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Krieger der Sippe",
+      "cost": 3,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Ruft einen Sippenbruder (2/1).",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "twin"
+        }
+      ],
+      "id": "mandukhai_5",
+      "hero": "mandukhai",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Heiliger Hain",
+      "cost": 2,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Eure Diener haben +1 Angriff.",
+      "building": true,
+      "buffAura": {
+        "attack": 1
+      },
+      "id": "mandukhai_6",
+      "hero": "mandukhai",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Seitenwechsel",
+      "cost": 5,
+      "type": "spell",
+      "text": "Übernehmt die Kontrolle über einen feindlichen Diener mit höchstens 3 Angriff.",
+      "effects": [
+        {
+          "type": "steal",
+          "n": 1
+        }
+      ],
+      "target": "enemyMinion",
+      "targetMax": 3,
+      "id": "mandukhai_7",
+      "hero": "mandukhai",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Arminius, Fürst der Cherusker",
+      "cost": 4,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Erhält +1/+1 für jeden anderen eigenen Diener.",
+      "battle": [
+        {
+          "type": "buffSelf",
+          "n": 1,
+          "health": 1,
+          "per": "minion"
+        }
+      ],
+      "id": "mandukhai_8",
+      "hero": "mandukhai",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bund der Stämme",
+      "cost": 8,
+      "type": "spell",
+      "text": "Füllt Euer Feld mit Stammeskriegern (1/2). Gebt Euren Dienern +1/+1.",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 7,
+          "token": "tribesman"
+        },
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "target": null,
+      "id": "mandukhai_9",
+      "hero": "mandukhai",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Mamlukenrekrut",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "baibars_0",
+      "hero": "baibars",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Barid-Kurier",
+      "cost": 2,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Vermächtnis: Zieht 1 Karte.",
+      "death": [
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "id": "baibars_1",
+      "hero": "baibars",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ain Dschalut",
+      "cost": 3,
+      "type": "spell",
+      "text": "Verursacht 2 Schaden an einem Diener. Ruft einen Mamlukenreiter (2/1, Vorstoß).",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 2
+        },
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "mamluk"
+        }
+      ],
+      "target": "minion",
+      "id": "baibars_2",
+      "hero": "baibars",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bogenreiter der Bahriya",
+      "cost": 3,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Vorstoß. Einmarsch: Fügt einem zufälligen Feind 1 Schaden zu.",
+      "rush": true,
+      "battle": [
+        {
+          "type": "randomDamage",
+          "n": 1
+        }
+      ],
+      "id": "baibars_3",
+      "hero": "baibars",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Manjaniq-Meister",
+      "cost": 4,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu.",
+      "battle": [
+        {
+          "type": "randomDamage",
+          "n": 3,
+          "board": true
+        }
+      ],
+      "id": "baibars_4",
+      "hero": "baibars",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Vorgetäuschte Flucht",
+      "cost": 1,
+      "type": "spell",
+      "text": "Schickt einen eigenen Diener auf Eure Hand zurück. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "bounce",
+          "n": 1
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": "friendlyMinion",
+      "id": "baibars_5",
+      "hero": "baibars",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Qutuz, Sultan von Ägypten",
+      "cost": 5,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Vorstoß. Vermächtnis: Ruft zwei Mamlukenreiter (2/1, Vorstoß).",
+      "rush": true,
+      "death": [
+        {
+          "type": "summon",
+          "n": 2,
+          "token": "mamluk"
+        }
+      ],
+      "id": "baibars_6",
+      "hero": "baibars",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Sturm auf Antiochia",
+      "cost": 2,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +1 Angriff und Vorstoß.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 1
+        },
+        {
+          "type": "grantAll",
+          "n": 1,
+          "key": "rush"
+        }
+      ],
+      "target": null,
+      "id": "baibars_7",
+      "hero": "baibars",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Zitadelle von Kairo",
+      "cost": 4,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ruft einen Mamlukenreiter (2/1, Vorstoß).",
+      "building": true,
+      "start": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "mamluk"
+        }
+      ],
+      "id": "baibars_8",
+      "hero": "baibars",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Qalawun, Emir der Bahriya",
+      "cost": 6,
+      "attack": 4,
+      "health": 5,
+      "type": "minion",
+      "text": "Vorstoß. Einmarsch: Eure anderen Diener mit Vorstoß erhalten +2/+2. Alle mit Vorstoß erhalten Göttliche Gunst.",
+      "rush": true,
+      "battle": [
+        {
+          "type": "buffAll",
+          "n": 2,
+          "health": 2,
+          "only": "rush",
+          "excludeSelf": true
+        },
+        {
+          "type": "grantAll",
+          "n": 1,
+          "key": "shield",
+          "only": "rush"
+        }
+      ],
+      "id": "baibars_9",
+      "hero": "baibars",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schanzarbeiter",
+      "cost": 2,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Vermächtnis: Ruft einen Schanzkorb (1/2, Schildwall).",
+      "death": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "wagon"
+        }
+      ],
+      "id": "zizka_0",
+      "hero": "zizka",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Grenadier",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Verursacht 1 Schaden.",
+      "target": "any",
+      "battle": [
+        {
+          "type": "damage",
+          "n": 1
+        }
+      ],
+      "id": "zizka_1",
+      "hero": "zizka",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Salve von der Bastion",
+      "cost": 2,
+      "type": "spell",
+      "text": "Fügt für jeden Eurer Diener mit Schildwall einem zufälligen Feind 1 Schaden zu.",
+      "effects": [
+        {
+          "type": "randomDamage",
+          "n": 1,
+          "per": "taunt"
+        }
+      ],
+      "target": null,
+      "id": "zizka_2",
+      "hero": "zizka",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ingenieur des Königs",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Schildwall. Einmarsch: Ruft einen Schanzkorb (1/2, Schildwall).",
+      "taunt": true,
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "wagon"
+        }
+      ],
+      "id": "zizka_3",
+      "hero": "zizka",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Festungsgeschütz",
+      "cost": 3,
+      "attack": 1,
+      "health": 5,
+      "type": "minion",
+      "text": "Schildwall. Am Ende Eures Zuges: Fügt einem zufälligen Feind 1 Schaden zu.",
+      "taunt": true,
+      "end": [
+        {
+          "type": "randomDamage",
+          "n": 1
+        }
+      ],
+      "id": "zizka_4",
+      "hero": "zizka",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Faschinen",
+      "cost": 2,
+      "type": "spell",
+      "text": "Gebt Euren Dienern mit Schildwall +1/+1. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 1,
+          "health": 1,
+          "only": "taunt"
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "zizka_5",
+      "hero": "zizka",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Minengang",
+      "cost": 3,
+      "type": "spell",
+      "text": "Vernichtet einen feindlichen Diener mit höchstens 3 Angriff.",
+      "effects": [
+        {
+          "type": "destroy",
+          "n": 1
+        }
+      ],
+      "target": "enemyMinion",
+      "targetMax": 3,
+      "id": "zizka_6",
+      "hero": "zizka",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Zitadelle von Lille",
+      "cost": 4,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall. Eure Diener mit Schildwall haben +1/+1.",
+      "building": true,
+      "taunt": true,
+      "buffAura": {
+        "attack": 1,
+        "health": 1,
+        "only": "taunt"
+      },
+      "id": "zizka_7",
+      "hero": "zizka",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Louvois, Kriegsminister",
+      "cost": 6,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Einmarsch: Ruft zwei Schanzkörbe (1/2, Schildwall).",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 2,
+          "token": "wagon"
+        }
+      ],
+      "id": "zizka_8",
+      "hero": "zizka",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ludwig XIV., der Sonnenkönig",
+      "cost": 5,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Vermächtnis: Ruft drei Füsiliere (2/3, Schildwall).",
+      "death": [
+        {
+          "type": "summon",
+          "n": 3,
+          "token": "taborite"
+        }
+      ],
+      "id": "zizka_9",
+      "hero": "zizka",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Speerwerfer vom Mont Lassois",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Fügt dem feindlichen Helden 1 Schaden zu.",
+      "battle": [
+        {
+          "type": "face",
+          "n": 1
+        }
+      ],
+      "id": "fuhao_0",
+      "hero": "fuhao",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Prunkdolch",
+      "cost": 2,
+      "type": "spell",
+      "text": "Rüstet eine 2/2-Waffe aus.",
+      "effects": [
+        {
+          "type": "weapon",
+          "n": 2,
+          "durability": 2
+        }
+      ],
+      "target": null,
+      "id": "fuhao_1",
+      "hero": "fuhao",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Reiter an der Seine",
+      "cost": 3,
+      "attack": 3,
+      "health": 2,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "fuhao_2",
+      "hero": "fuhao",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Seherin",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Einmarsch: Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "deck"
+        }
+      ],
+      "id": "fuhao_3",
+      "hero": "fuhao",
+      "rarity": "basic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Aufgebot des Fürstensitzes",
+      "cost": 4,
+      "type": "spell",
+      "text": "Ruft zwei Krieger (2/2). Euer Held erhält in diesem Zug +2 Angriff.",
+      "effects": [
+        {
+          "type": "summon",
+          "n": 2,
+          "token": "warrior"
+        },
+        {
+          "type": "heroAttack",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "fuhao_4",
+      "hero": "fuhao",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Trankopfer",
+      "cost": 1,
+      "type": "spell",
+      "text": "Zieht 1 Karte. Euer Held erhält in diesem Zug +1 Angriff.",
+      "effects": [
+        {
+          "type": "draw",
+          "n": 1
+        },
+        {
+          "type": "heroAttack",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "fuhao_5",
+      "hero": "fuhao",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gelage am Krater",
+      "cost": 1,
+      "type": "spell",
+      "text": "Seht zweimal die obersten drei Karten Eures Decks an und nehmt je eine davon auf die Hand.",
+      "effects": [
+        {
+          "type": "discover",
+          "n": 2,
+          "pool": "deck"
+        }
+      ],
+      "target": null,
+      "id": "fuhao_6",
+      "hero": "fuhao",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schleuderer am Wall",
+      "cost": 4,
+      "attack": 3,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Fügt dreimal einem zufälligen Feind 1 Schaden zu.",
+      "battle": [
+        {
+          "type": "randomDamage",
+          "n": 1,
+          "times": 3
+        }
+      ],
+      "id": "fuhao_7",
+      "hero": "fuhao",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Halle auf dem Mont Lassois",
+      "cost": 1,
+      "attack": 0,
+      "health": 3,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand.",
+      "building": true,
+      "start": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "deck"
+        }
+      ],
+      "id": "fuhao_8",
+      "hero": "fuhao",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gesandter aus Massalia",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Einmarsch: Seht zweimal die obersten drei Karten Eures Decks an und nehmt je eine davon auf die Hand. Sie kosten 2 weniger.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 2,
+          "pool": "deck",
+          "mod": -2
+        }
+      ],
+      "id": "fuhao_9",
+      "hero": "fuhao",
+      "rarity": "legendary",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gladiator",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Vorstoß. Wann immer dieser Diener Schaden erleidet, erhält er +1 Angriff.",
+      "rush": true,
+      "onDamage": [
+        {
+          "type": "buffSelf",
+          "n": 1
+        }
+      ],
+      "id": "rom_0",
+      "hero": "rom",
+      "age": "rom",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Senator der Kurie",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet eine Karte Eures Zeitalters.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "age"
+        }
+      ],
+      "id": "rom_1",
+      "hero": "rom",
+      "age": "rom",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Centurio",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Gebt einem befreundeten Diener +1/+1.",
+      "target": "friendlyMinion",
+      "battle": [
+        {
+          "type": "buff",
+          "n": 1,
+          "health": 1
+        }
+      ],
+      "id": "rom_2",
+      "hero": "rom",
+      "age": "rom",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Triumphzug",
+      "cost": 3,
+      "type": "spell",
+      "text": "Gebt Euren Dienern +1 Angriff. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "buffAll",
+          "n": 1
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "rom_3",
+      "hero": "rom",
+      "age": "rom",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Via Appia",
+      "cost": 2,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält +1 Angriff.",
+      "building": true,
+      "start": [
+        {
+          "type": "buffRandom",
+          "n": 1
+        }
+      ],
+      "id": "rom_4",
+      "hero": "rom",
+      "age": "rom",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Vestalin am ewigen Feuer",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her.",
+      "end": [
+        {
+          "type": "healHero",
+          "n": 2
+        }
+      ],
+      "id": "rom_5",
+      "hero": "rom",
+      "age": "rom",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Pax Romana",
+      "cost": 5,
+      "type": "spell",
+      "text": "Versetzt alle feindlichen Diener in Starre. Stellt bei allen eigenen Charakteren 3 Leben wieder her.",
+      "effects": [
+        {
+          "type": "freeze",
+          "n": 1,
+          "all": true
+        },
+        {
+          "type": "healAll",
+          "n": 3
+        }
+      ],
+      "target": null,
+      "id": "rom_6",
+      "hero": "rom",
+      "age": "rom",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Wagenbauer",
+      "cost": 2,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Einmarsch: Ruft einen Streitwagen (1/1, Sturmangriff).",
+      "battle": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "chariot"
+        }
+      ],
+      "id": "steppe_0",
+      "hero": "steppe",
+      "age": "steppe",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schreiber im Lebenshaus",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet eine Karte Eures Zeitalters.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "age"
+        }
+      ],
+      "id": "steppe_1",
+      "hero": "steppe",
+      "age": "steppe",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Schuss vom Streitwagen",
+      "cost": 2,
+      "type": "spell",
+      "text": "Verursacht 2 Schaden. Stirbt dadurch ein Diener, zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "damage",
+          "n": 2,
+          "onKill": [
+            {
+              "type": "draw",
+              "n": 1
+            }
+          ]
+        }
+      ],
+      "target": "any",
+      "id": "steppe_2",
+      "hero": "steppe",
+      "age": "steppe",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Wache der Medjai",
+      "cost": 4,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Vermächtnis: Ruft einen Medjai-Krieger (3/3).",
+      "death": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "immortal"
+        }
+      ],
+      "id": "steppe_3",
+      "hero": "steppe",
+      "age": "steppe",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Angriff der Streitwagen",
+      "cost": 3,
+      "type": "spell",
+      "text": "Fügt dreimal einem zufälligen Feind 1 Schaden zu. Ruft einen Streitwagen (1/1, Sturmangriff).",
+      "effects": [
+        {
+          "type": "randomDamage",
+          "n": 1,
+          "times": 3
+        },
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "chariot"
+        }
+      ],
+      "target": null,
+      "id": "steppe_4",
+      "hero": "steppe",
+      "age": "steppe",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Bernsteinstraße",
+      "cost": 2,
+      "attack": 0,
+      "health": 4,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Zieht 1 Karte. Euer Held erleidet 1 Schaden.",
+      "building": true,
+      "start": [
+        {
+          "type": "draw",
+          "n": 1
+        },
+        {
+          "type": "selfDamage",
+          "n": 1
+        }
+      ],
+      "id": "steppe_5",
+      "hero": "steppe",
+      "age": "steppe",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Festung Buhen",
+      "cost": 3,
+      "attack": 0,
+      "health": 5,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges: Ruft einen Medjai-Krieger (3/3).",
+      "building": true,
+      "start": [
+        {
+          "type": "summon",
+          "n": 1,
+          "token": "immortal"
+        }
+      ],
+      "id": "steppe_6",
+      "hero": "steppe",
+      "age": "steppe",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Akrit der Grenzmark",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "byzanz_0",
+      "hero": "byzanz",
+      "age": "byzanz",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Gelehrter im Haus der Weisheit",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "type": "minion",
+      "text": "Einmarsch: Ergründet eine Karte Eures Zeitalters.",
+      "battle": [
+        {
+          "type": "discover",
+          "n": 1,
+          "pool": "age"
+        }
+      ],
+      "id": "byzanz_1",
+      "hero": "byzanz",
+      "age": "byzanz",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Tribut in Goldbyzantinern",
+      "cost": 2,
+      "type": "spell",
+      "text": "Euer Gegner hat im nächsten Zug 1 Mana weniger. Zieht 1 Karte.",
+      "effects": [
+        {
+          "type": "enemyOverload",
+          "n": 1
+        },
+        {
+          "type": "draw",
+          "n": 1
+        }
+      ],
+      "target": null,
+      "id": "byzanz_2",
+      "hero": "byzanz",
+      "age": "byzanz",
+      "rarity": "common",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Arzt des Bimaristan",
+      "cost": 3,
+      "attack": 2,
+      "health": 5,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Stellt bei allen eigenen Charakteren 1 Leben wieder her.",
+      "end": [
+        {
+          "type": "healAll",
+          "n": 1
+        }
+      ],
+      "id": "byzanz_3",
+      "hero": "byzanz",
+      "age": "byzanz",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Theodosianische Mauern",
+      "cost": 2,
+      "attack": 0,
+      "health": 6,
+      "type": "minion",
+      "text": "Bauwerk. Schildwall. Wann immer dieses Bauwerk Schaden erleidet, erhaltet 2 Rüstung.",
+      "building": true,
+      "taunt": true,
+      "onDamage": [
+        {
+          "type": "armor",
+          "n": 2
+        }
+      ],
+      "id": "byzanz_4",
+      "hero": "byzanz",
+      "age": "byzanz",
+      "rarity": "rare",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Hagia Sophia",
+      "cost": 3,
+      "attack": 0,
+      "health": 7,
+      "type": "minion",
+      "text": "Bauwerk. Eure Diener haben +1 Leben. Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her.",
+      "building": true,
+      "buffAura": {
+        "health": 1
+      },
+      "end": [
+        {
+          "type": "healHero",
+          "n": 2
+        }
+      ],
+      "id": "byzanz_5",
+      "hero": "byzanz",
+      "age": "byzanz",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    },
+    {
+      "name": "Ibn an-Nafis, Arzt von Kairo",
+      "cost": 4,
+      "attack": 3,
+      "health": 5,
+      "type": "minion",
+      "text": "Heilung wirkt bei Euren Dienern doppelt. Einmarsch: Stellt bei allen eigenen Charakteren 2 Leben wieder her.",
+      "healDouble": true,
+      "battle": [
+        {
+          "type": "healAll",
+          "n": 2
+        }
+      ],
+      "id": "byzanz_6",
+      "hero": "byzanz",
+      "age": "byzanz",
+      "rarity": "epic",
+      "art": null,
+      "cell": 0
+    }
+  ],
+  "tokens": {
+    "recruit": {
+      "name": "Rekrut",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "type": "minion",
+      "text": "",
+      "id": "recruit",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": "jeanne",
+      "cell": 10
+    },
+    "novice": {
+      "name": "Novizin",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "type": "minion",
+      "text": "",
+      "id": "novice",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "warrior": {
+      "name": "Krieger",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "",
+      "id": "warrior",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": "jeanne",
+      "cell": 10
+    },
+    "eagle": {
+      "name": "Habicht",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "",
+      "id": "eagle",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "stoneguard": {
+      "name": "Pyramidenwächter",
+      "cost": 3,
+      "attack": 2,
+      "health": 5,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "stoneguard",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": "imhotep",
+      "cell": 10
+    },
+    "totem_heal": {
+      "name": "Grenzstein des Klosters",
+      "cost": 1,
+      "attack": 0,
+      "health": 2,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Heilt Eure Diener um 1.",
+      "passive": "heal",
+      "id": "totem_heal",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "totem_fire": {
+      "name": "Grenzstein der Mark",
+      "cost": 1,
+      "attack": 0,
+      "health": 2,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Fügt dem feindlichen Helden 1 Schaden zu.",
+      "passive": "fire",
+      "id": "totem_fire",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "totem_guard": {
+      "name": "Grenzstein der Burg",
+      "cost": 1,
+      "attack": 0,
+      "health": 2,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "totem_guard",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "totem_strength": {
+      "name": "Grenzstein des Dorfes",
+      "cost": 1,
+      "attack": 0,
+      "health": 2,
+      "type": "minion",
+      "text": "Am Ende Eures Zuges: Ein anderer zufälliger Diener erhält +1 Angriff.",
+      "passive": "strength",
+      "id": "totem_strength",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "coin": {
+      "name": "Gunst der Stunde",
+      "cost": 0,
+      "type": "spell",
+      "text": "Erhaltet nur in diesem Zug 2 Mana.",
+      "effects": [
+        {
+          "type": "mana",
+          "n": 2
+        }
+      ],
+      "target": null,
+      "id": "coin",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": "jeanne",
+      "cell": 11
+    },
+    "hoplite": {
+      "name": "Hoplit",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "hoplite",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": "leonidas",
+      "cell": 10
+    },
+    "citizen": {
+      "name": "Bürger",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "",
+      "id": "citizen",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "pioneer": {
+      "name": "Pionier",
+      "cost": 1,
+      "attack": 1,
+      "health": 3,
+      "type": "minion",
+      "text": "Eure Bauwerke kosten 1 weniger.",
+      "buildingDiscount": 1,
+      "id": "pioneer",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "rider": {
+      "name": "Reiter",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "rider",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "chariot": {
+      "name": "Streitwagen",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "type": "minion",
+      "text": "Sturmangriff.",
+      "charge": true,
+      "id": "chariot",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "terracotta": {
+      "name": "Musketier",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "terracotta",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "tribesman": {
+      "name": "Stammeskrieger",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "",
+      "id": "tribesman",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "wagon": {
+      "name": "Schanzkorb",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "wagon",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "taborite": {
+      "name": "Füsilier",
+      "cost": 2,
+      "attack": 2,
+      "health": 3,
+      "type": "minion",
+      "text": "Schildwall.",
+      "taunt": true,
+      "id": "taborite",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "mamluk": {
+      "name": "Mamlukenreiter",
+      "cost": 2,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "mamluk",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "immortal": {
+      "name": "Medjai-Krieger",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "",
+      "id": "immortal",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "messenian": {
+      "name": "Freier Messenier",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "type": "minion",
+      "text": "",
+      "id": "messenian",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "companion": {
+      "name": "Gefährte der Heiligen Schar",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "type": "minion",
+      "text": "Göttliche Gunst.",
+      "shield": true,
+      "id": "companion",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "twin": {
+      "name": "Sippenbruder",
+      "cost": 2,
+      "attack": 2,
+      "health": 1,
+      "type": "minion",
+      "text": "",
+      "id": "twin",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "elephant": {
+      "name": "Kriegselefant",
+      "cost": 5,
+      "attack": 5,
+      "health": 6,
+      "type": "minion",
+      "text": "Vorstoß.",
+      "rush": true,
+      "id": "elephant",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "parthenos": {
+      "name": "Athena Parthenos",
+      "cost": 5,
+      "attack": 0,
+      "health": 8,
+      "type": "minion",
+      "text": "Bauwerk. Eure Diener haben +1/+1.",
+      "building": true,
+      "buffAura": {
+        "attack": 1,
+        "health": 1
+      },
+      "id": "parthenos",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": null,
+      "cell": 0
+    },
+    "pyramid": {
+      "name": "Stufenpyramide",
+      "cost": 4,
+      "attack": 0,
+      "health": 8,
+      "type": "minion",
+      "text": "Bauwerk. Zu Beginn Eures Zuges erhält Euer schwächster Diener +2/+2.",
+      "building": true,
+      "start": [
+        {
+          "type": "buffWeakest",
+          "n": 2,
+          "health": 2
+        }
+      ],
+      "id": "pyramid",
+      "hero": "neutral",
+      "rarity": "token",
+      "art": "@pyramid",
+      "cell": 0
+    }
+  },
+  "cosmetics": {
+    "catalog": {
+      "backs": [
+        {
+          "id": "chroniken",
+          "name": "Aeterna-Siegel",
+          "text": "Der klassische Rücken mit dem goldenen Stern der Chronik.",
+          "price": 0
+        },
+        {
+          "id": "tempel",
+          "name": "Tempelstein",
+          "text": "Verwitterter Kalkstein mit Mäanderband und Moos in den Fugen.",
+          "price": 150
+        },
+        {
+          "id": "sparta",
+          "name": "Spartas Bronzeschild",
+          "text": "Ein gehämmertes Lambda auf spartanischem Purpur.",
+          "price": 200
+        },
+        {
+          "id": "pharao",
+          "name": "Pharaonengold",
+          "text": "Lapislazuli, Blattgold und das wachende Auge des Horus.",
+          "price": 200
+        },
+        {
+          "id": "runen",
+          "name": "Wikinger-Runen",
+          "text": "Basalt aus dem Norden, gezeichnet von eisblauen Runen.",
+          "price": 200
+        },
+        {
+          "id": "sterne",
+          "name": "Sternenkarte",
+          "text": "Das Astrolabium von Alexandria unter einem Himmel aus Gold.",
+          "price": 250
+        },
+        {
+          "id": "lilien",
+          "name": "Lilienbanner",
+          "text": "Goldene Lilien auf königsblauem Tuch, wie in Orléans.",
+          "price": 250
+        },
+        {
+          "id": "zen",
+          "name": "Tusche & Kirschblüte",
+          "text": "Schwarzer Lack, ein roter Pinselkreis und fallende Blüten.",
+          "price": 250
+        }
+      ],
+      "skins": [
+        {
+          "id": "leonidas-marmor",
+          "hero": "leonidas",
+          "atlas": "heroes-marble",
+          "name": "Marmorhallen-Edition",
+          "text": "Hüter der Thermopylen",
+          "price": 300
+        },
+        {
+          "id": "hypatia-marmor",
+          "hero": "hypatia",
+          "atlas": "heroes-marble",
+          "name": "Marmorhallen-Edition",
+          "text": "Sternkundige von Alexandria",
+          "price": 300
+        },
+        {
+          "id": "imhotep-marmor",
+          "hero": "imhotep",
+          "atlas": "heroes-marble",
+          "name": "Marmorhallen-Edition",
+          "text": "Baumeister von Sakkara",
+          "price": 300
+        },
+        {
+          "id": "dandolo-marmor",
+          "hero": "dandolo",
+          "atlas": "heroes-marble",
+          "name": "Marmorhallen-Edition",
+          "text": "Doge von Venedig",
+          "price": 300
+        }
+      ],
+      "boards": [
+        {
+          "id": "standard",
+          "name": "Standard",
+          "text": "Der Feldherrentisch aus Sandstein und poliertem Holz.",
+          "image": "board",
+          "price": 0
+        },
+        {
+          "id": "athen",
+          "name": "Marmortisch von Athen",
+          "text": "Weißer Marmor vom Pentelikon, wie im Rat der Fünfhundert.",
+          "tint": "grayscale(.9) brightness(1.2) contrast(.9)",
+          "price": 100
+        },
+        {
+          "id": "kapitol",
+          "name": "Porphyr des Kapitols",
+          "text": "Roter Porphyr mit Bronzebeschlägen aus dem Senat Roms.",
+          "tint": "hue-rotate(-24deg) saturate(1.2) brightness(.74)",
+          "price": 100
+        },
+        {
+          "id": "skriptorium",
+          "name": "Pult des Skriptoriums",
+          "text": "Dunkle Eiche und Schiefer aus der Schreibstube eines Klosters.",
+          "tint": "grayscale(.6) sepia(.3) brightness(.6) contrast(1.1)",
+          "price": 100
+        },
+        {
+          "id": "porzellan",
+          "name": "Meißner Porzellan",
+          "text": "Weißes Porzellan und Kobaltblau aus Böttgers Manufaktur.",
+          "tint": "grayscale(1) sepia(.35) hue-rotate(170deg) saturate(1.8) brightness(1.25)",
+          "price": 100
+        }
+      ],
+      "frames": [
+        {
+          "id": "tempeltor",
+          "name": "Tempeltor",
+          "text": "Kalkstein, Bronze und ein Bogenfenster – der Rahmen jeder Karte.",
+          "price": 0
+        },
+        {
+          "id": "gold",
+          "name": "Goldene Karten",
+          "text": "Blattgold auf jedem Rahmen Deiner Karten; im Duell läuft ein Glanz darüber.",
+          "price": 600
+        }
+      ]
+    },
+    "retired": [
+      "khan-marmor",
+      "boudicca-marmor",
+      "nostradamus-marmor",
+      "jeanne-marmor",
+      "ragnar-marmor",
+      "musashi-marmor"
+    ],
+    "retiredBoards": [
+      "ancient",
+      "egypt",
+      "viking",
+      "japan"
+    ]
+  }
+}

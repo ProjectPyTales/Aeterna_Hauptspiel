@@ -1,0 +1,849 @@
+[
+  {
+    "marker": "heldengalerie",
+    "spec": "heldengalerie – Heldenmünze der Galerie (klein) und Medaillon der Großansicht mit Rändelung, 512 × 512",
+    "source": "quellcode/assets/game/view/setup.js",
+    "line": 19,
+    "files": [
+      "assets/backgrounds/heldengalerie.webp",
+      "assets/ui/heldengalerie.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "filterknopf",
+    "spec": "filterknopf – Steinknöpfe für Manakosten (Ätherkristall mit Zahl) und Seltenheit (Archiv-Siegel), je 96 × 96",
+    "source": "quellcode/assets/game/view/collection.js",
+    "line": 14,
+    "files": [
+      "assets/ui/filterknopf-mana-normal.svg",
+      "assets/ui/filterknopf-mana-aktiv.svg",
+      "assets/ui/filterknopf-common-normal.svg",
+      "assets/ui/filterknopf-common-aktiv.svg",
+      "assets/ui/filterknopf-rare-normal.svg",
+      "assets/ui/filterknopf-rare-aktiv.svg",
+      "assets/ui/filterknopf-epic-normal.svg",
+      "assets/ui/filterknopf-epic-aktiv.svg",
+      "assets/ui/filterknopf-legendary-normal.svg",
+      "assets/ui/filterknopf-legendary-aktiv.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenbuch",
+    "spec": "kartenbuch – aufgeschlagenes Kartenbuch mit Ledereinband, Pergamentseiten und Buchrücken, 1868 × 1240",
+    "source": "quellcode/assets/game/view/collection.js",
+    "line": 26,
+    "files": [
+      "assets/ui-art/kartenbuch.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "manakurve",
+    "spec": "manakurve – Balken der Manakurve als Ätherkristall-Säulen in drei Phasenfarben, 760 × 220",
+    "source": "quellcode/assets/game/view/collection.js",
+    "line": 37,
+    "files": [
+      "assets/ui/manakurve-frueh.svg",
+      "assets/ui/manakurve-mittel.svg",
+      "assets/ui/manakurve-spaet.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "praesentationspodest",
+    "spec": "praesentationspodest – runder Marmorsockel mit Bronzering unter einem warmen Lichtkegel, 1200 × 900",
+    "source": "quellcode/assets/game/view/shop.js",
+    "line": 32,
+    "files": [
+      "assets/ui-art/praesentationspodest.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "heldenmuenze-basar",
+    "spec": "heldenmuenze-basar – Skin in der bronzenen Heldenmünze wie im Duell (Rändelung, Umschrift), 640 × 640",
+    "source": "quellcode/assets/game/view/shop.js",
+    "line": 38,
+    "files": [
+      "assets/ui/heldenmuenze-basar.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "miniatur-spielfeld",
+    "spec": "miniatur-spielfeld – Schlachtfeld als kleiner Feldherrentisch in Schrägsicht mit Münzen und Plaketten, 1000 × 700",
+    "source": "quellcode/assets/game/view/shop.js",
+    "line": 40,
+    "files": [
+      "assets/ui/miniatur-spielfeld.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "steinplatten",
+    "spec": "steinplatten – Steinplatten des Bildschirmwechsels (linke und rechte Hälfte), 812 × 824",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 26,
+    "files": [
+      "assets/ui-art/steinplatten-links.png",
+      "assets/ui-art/steinplatten-rechts.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-chroniken",
+    "spec": "kartenruecken-chroniken – Kartenrücken „Aeterna-Siegel“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 47,
+    "files": [
+      "assets/cardbacks/kartenruecken-chroniken.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-tempel",
+    "spec": "kartenruecken-tempel – Kartenrücken „Tempelstein“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 54,
+    "files": [
+      "assets/cardbacks/kartenruecken-tempel.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-sparta",
+    "spec": "kartenruecken-sparta – Kartenrücken „Spartas Bronzeschild“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 61,
+    "files": [
+      "assets/cardbacks/kartenruecken-sparta.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-pharao",
+    "spec": "kartenruecken-pharao – Kartenrücken „Pharaonengold“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 68,
+    "files": [
+      "assets/cardbacks/kartenruecken-pharao.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-runen",
+    "spec": "kartenruecken-runen – Kartenrücken „Wikinger-Runen“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 73,
+    "files": [
+      "assets/cardbacks/kartenruecken-runen.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-sterne",
+    "spec": "kartenruecken-sterne – Kartenrücken „Sternenkarte“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 81,
+    "files": [
+      "assets/cardbacks/kartenruecken-sterne.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-lilien",
+    "spec": "kartenruecken-lilien – Kartenrücken „Lilienbanner“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 89,
+    "files": [
+      "assets/cardbacks/kartenruecken-lilien.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenruecken-zen",
+    "spec": "kartenruecken-zen – Kartenrücken „Tusche & Kirschblüte“, 400 × 564",
+    "source": "quellcode/assets/game/view/stone.js",
+    "line": 94,
+    "files": [
+      "assets/cardbacks/kartenruecken-zen.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "missionssiegel",
+    "spec": "missionssiegel – Wachssiegel einer Station (offen, vollendet, versiegelt) mit Turm für Belagerungen, 128 × 128",
+    "source": "quellcode/assets/game/view/campaign.js",
+    "line": 15,
+    "files": [
+      "assets/ui/missionssiegel-offen.svg",
+      "assets/ui/missionssiegel-offen-belagerung.svg",
+      "assets/ui/missionssiegel-vollendet.svg",
+      "assets/ui/missionssiegel-vollendet-belagerung.svg",
+      "assets/ui/missionssiegel-versiegelt.svg",
+      "assets/ui/missionssiegel-versiegelt-belagerung.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "weltkarte",
+    "spec": "weltkarte – gemalte Weltkarte Europa und Mittelmeer mit Kästchen „Neue Welt“ (heute Küstenlinien als SVG), 2160 × 1280",
+    "source": "quellcode/assets/game/view/campaign.js",
+    "line": 25,
+    "files": [
+      "assets/backgrounds/weltkarte.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "waehrung",
+    "spec": "waehrung – Symbole für Gold, Staub und Kartenpakete (heute ◉ ✧ ▣ als Schriftzeichen), je 64 × 64",
+    "source": "quellcode/assets/game/view/kit.js",
+    "line": 25,
+    "files": [
+      "assets/ui/waehrung-gold.svg",
+      "assets/ui/waehrung-staub.svg",
+      "assets/ui/waehrung-pakete.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "startbefehle",
+    "spec": "startbefehle – Startkarte als Schriftrolle mit zwei Holzstäben, Wachssiegel „austauschen“, Deckstapel, 300 × 520",
+    "source": "quellcode/assets/game/view/dialogs.js",
+    "line": 60,
+    "files": [
+      "assets/ui-art/startbefehle.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "ergebnis-banner",
+    "spec": "ergebnis-banner – Banner „TRIUMPH“ / „NIEDERLAGE“ / „UNENTSCHIEDEN“ über dem Ergebnis, 900 × 240",
+    "source": "quellcode/assets/game/view/dialogs.js",
+    "line": 73,
+    "files": [
+      "assets/ui/ergebnis-banner-triumph.svg",
+      "assets/ui/ergebnis-banner-niederlage.svg",
+      "assets/ui/ergebnis-banner-unentschieden.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "schildwall",
+    "spec": "schildwall – Schildwall hinter der Plakette: Holzschild mit Eisenbuckel links, Bronze-Aspis rechts, 240 × 200",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 18,
+    "files": [
+      "assets/ui-art/schildwall.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "starre-ketten",
+    "spec": "starre-ketten – Ketten und Raureif über einem Diener in Starre, 188 × 256",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 28,
+    "files": [
+      "assets/ui/starre-ketten.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "tarnung-unterholz",
+    "spec": "tarnung-unterholz – Diener in Tarnung: Schatten und Farne im Unterholz über dem Bild, 188 × 256",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 37,
+    "files": [
+      "assets/ui/tarnung-unterholz.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "giftphiole",
+    "spec": "giftphiole – Phiole mit grünem Gift am Rand der Plakette, 64 × 96",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 44,
+    "files": [
+      "assets/ui-art/giftphiole.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "vermaechtnis-urne",
+    "spec": "vermaechtnis-urne – Urne unter der Plakette eines Dieners mit Vermächtnis, 72 × 96",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 50,
+    "files": [
+      "assets/ui-art/vermaechtnis-urne.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "gunst-aurenkreis",
+    "spec": "gunst-aurenkreis – schimmernder Aurenkreis der Göttlichen Gunst um eine Plakette, 300 × 360",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 58,
+    "files": [
+      "assets/ui/gunst-aurenkreis.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "eiskristall",
+    "spec": "eiskristall – Eissplitter beim Erstarren und für Frost-Zauber, 32 × 96",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 79,
+    "files": [
+      "assets/ui/eiskristall.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "giftblasen",
+    "spec": "giftblasen – grüne Giftblasen und Spritzer, wenn Tödliches Gift wirkt, 32 × 32",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 85,
+    "files": [
+      "assets/ui/giftblasen.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "urnengeist",
+    "spec": "urnengeist – aus der Urne aufsteigender Rauch, wenn ein Vermächtnis wirkt, 64 × 64",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 91,
+    "files": [
+      "assets/ui/urnengeist.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "faehigkeits-effekt",
+    "spec": "faehigkeits-effekt – leuchtendes Fähigkeitssymbol des Helden über dem Ziel (22 Farben), 160 × 160",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 143,
+    "files": [
+      "assets/ui/faehigkeits-effekt-leonidas.svg",
+      "assets/ui/faehigkeits-effekt-hypatia.svg",
+      "assets/ui/faehigkeits-effekt-imhotep.svg",
+      "assets/ui/faehigkeits-effekt-dandolo.svg",
+      "assets/ui/faehigkeits-effekt-khan.svg",
+      "assets/ui/faehigkeits-effekt-boudicca.svg",
+      "assets/ui/faehigkeits-effekt-nostradamus.svg",
+      "assets/ui/faehigkeits-effekt-jeanne.svg",
+      "assets/ui/faehigkeits-effekt-ragnar.svg",
+      "assets/ui/faehigkeits-effekt-musashi.svg",
+      "assets/ui/faehigkeits-effekt-perikles.svg",
+      "assets/ui/faehigkeits-effekt-agrippa.svg",
+      "assets/ui/faehigkeits-effekt-amanirenas.svg",
+      "assets/ui/faehigkeits-effekt-anna.svg",
+      "assets/ui/faehigkeits-effekt-nezahualcoyotl.svg",
+      "assets/ui/faehigkeits-effekt-masako.svg",
+      "assets/ui/faehigkeits-effekt-epaminondas.svg",
+      "assets/ui/faehigkeits-effekt-fabius.svg",
+      "assets/ui/faehigkeits-effekt-mandukhai.svg",
+      "assets/ui/faehigkeits-effekt-baibars.svg",
+      "assets/ui/faehigkeits-effekt-zizka.svg",
+      "assets/ui/faehigkeits-effekt-fuhao.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "chronik-banner",
+    "spec": "chronik-banner – Pergamentband des Chronisten mit der Ankündigung der Schlacht, 1400 × 160",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 192,
+    "files": [
+      "assets/ui/chronik-banner.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "muenze-initiative",
+    "spec": "muenze-initiative – bronzene Münze der Feldzug-Initiative mit den Bildnissen beider Helden, 400 × 400",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 198,
+    "files": [
+      "assets/ui/muenze-initiative.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "triumph-banner",
+    "spec": "triumph-banner – Siegesbanner „TRIUMPH“ (rot und gold), Niederlage und Unentschieden, das sich an einer Stange entrollt, 900 × 520",
+    "source": "quellcode/assets/game/view/match/fx.js",
+    "line": 222,
+    "files": [
+      "assets/ui/triumph-banner-triumph.svg",
+      "assets/ui/triumph-banner-niederlage.svg",
+      "assets/ui/triumph-banner-unentschieden.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "edelstein",
+    "spec": "edelstein – facettierter Edelstein für Kosten, Seltenheit und Mana (je Farbe), 96 × 96",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 39,
+    "files": [
+      "assets/ui/edelstein-lapis.svg",
+      "assets/ui/edelstein-olive.svg",
+      "assets/ui/edelstein-red.svg",
+      "assets/ui/edelstein-gold.svg",
+      "assets/ui/edelstein-silver.svg",
+      "assets/ui/edelstein-obsidian.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "lebensherz",
+    "spec": "lebensherz – Herz für die Lebenspunkte, 96 × 96",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 41,
+    "files": [
+      "assets/ui/lebensherz.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "stufenpyramide",
+    "spec": "stufenpyramide – Motiv der Stufenpyramide des Djoser (Spielstein pyramid), 724 × 724",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 44,
+    "files": [],
+    "covered": false
+  },
+  {
+    "marker": "werte-kristall",
+    "spec": "werte-kristall – Ätherkristall der Kosten wie in der Äther-Uhr (blau, billiger grün, teurer rot), 160 × 160",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 84,
+    "files": [
+      "assets/ui/werte-kristall-blau.svg",
+      "assets/ui/werte-kristall-gruen.svg",
+      "assets/ui/werte-kristall-rot.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "werte-klingen",
+    "spec": "werte-klingen – Angriff auf zwei gekreuzten Klingen hinter einer Bronzescheibe, 160 × 160",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 93,
+    "files": [
+      "assets/ui/werte-klingen.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "werte-schild",
+    "spec": "werte-schild – Leben im roten Schild mit Goldrand, 160 × 160",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 100,
+    "files": [
+      "assets/ui/werte-schild.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "werte-turm",
+    "spec": "werte-turm – Haltbarkeit eines Bauwerks auf einem Steinturm, 160 × 160",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 105,
+    "files": [
+      "assets/ui/werte-turm.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "archivsiegel",
+    "spec": "archivsiegel – Archiv-Siegel der Seltenheit aus Wachs: Bronze, Silber, Gold, Himmels-Obsidian, je 160 × 160",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 114,
+    "files": [
+      "assets/ui/archivsiegel-common.svg",
+      "assets/ui/archivsiegel-rare.svg",
+      "assets/ui/archivsiegel-epic.svg",
+      "assets/ui/archivsiegel-legendary.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "lorbeerkranz",
+    "spec": "lorbeerkranz – goldener Lorbeerkranz über dem Giebel legendärer Karten, 900 × 500",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 121,
+    "files": [
+      "assets/ui/lorbeerkranz.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenrahmen",
+    "spec": "kartenrahmen – Kartenrahmen in Tempeltor-Form für Diener, Zauber und Bauwerke, normal und golden (Giebel, Säulen, Bogenfenster, Namensband, Textfeld, Sockel), 800 × 1128",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 130,
+    "files": [
+      "assets/ui-art/kartenrahmen-building-gold.png",
+      "assets/ui-art/kartenrahmen-building-normal.png",
+      "assets/ui-art/kartenrahmen-minion-gold.png",
+      "assets/ui-art/kartenrahmen-minion-normal.png",
+      "assets/ui-art/kartenrahmen-spell-gold.png",
+      "assets/ui-art/kartenrahmen-spell-normal.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "knopf-match",
+    "spec": "knopf-match – Knopf auf dem Spielbrett (Zug beenden, Chronik, Pause, Hilfe), aktiv und ruhend, 344 × 128",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 197,
+    "files": [
+      "assets/ui/knopf-match-zug-aktiv.svg",
+      "assets/ui/knopf-match-chronik-aktiv.svg",
+      "assets/ui/knopf-match-pause-aktiv.svg",
+      "assets/ui/knopf-match-hilfe-aktiv.svg",
+      "assets/ui/knopf-match-zug-ruhend.svg",
+      "assets/ui/knopf-match-chronik-ruhend.svg",
+      "assets/ui/knopf-match-pause-ruhend.svg",
+      "assets/ui/knopf-match-hilfe-ruhend.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "faehigkeitssymbole",
+    "spec": "faehigkeitssymbole – Symbol der Heldenfähigkeit, eines je Held (22), 96 × 96",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 199,
+    "files": [
+      "assets/ui/faehigkeitssymbole-leonidas.svg",
+      "assets/ui/faehigkeitssymbole-hypatia.svg",
+      "assets/ui/faehigkeitssymbole-imhotep.svg",
+      "assets/ui/faehigkeitssymbole-dandolo.svg",
+      "assets/ui/faehigkeitssymbole-khan.svg",
+      "assets/ui/faehigkeitssymbole-boudicca.svg",
+      "assets/ui/faehigkeitssymbole-nostradamus.svg",
+      "assets/ui/faehigkeitssymbole-jeanne.svg",
+      "assets/ui/faehigkeitssymbole-ragnar.svg",
+      "assets/ui/faehigkeitssymbole-musashi.svg",
+      "assets/ui/faehigkeitssymbole-perikles.svg",
+      "assets/ui/faehigkeitssymbole-agrippa.svg",
+      "assets/ui/faehigkeitssymbole-amanirenas.svg",
+      "assets/ui/faehigkeitssymbole-anna.svg",
+      "assets/ui/faehigkeitssymbole-nezahualcoyotl.svg",
+      "assets/ui/faehigkeitssymbole-masako.svg",
+      "assets/ui/faehigkeitssymbole-epaminondas.svg",
+      "assets/ui/faehigkeitssymbole-fabius.svg",
+      "assets/ui/faehigkeitssymbole-mandukhai.svg",
+      "assets/ui/faehigkeitssymbole-baibars.svg",
+      "assets/ui/faehigkeitssymbole-zizka.svg",
+      "assets/ui/faehigkeitssymbole-fuhao.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "herrschersiegel",
+    "spec": "herrschersiegel – geprägtes Herrschersiegel der Heldenfähigkeit, Vorderseite (bereit, ruhend) und graue Rückseite, 248 × 248",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 228,
+    "files": [
+      "assets/ui/herrschersiegel-bereit.svg",
+      "assets/ui/herrschersiegel-ruhend.svg",
+      "assets/ui/herrschersiegel-verbraucht.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "heldenmuenze",
+    "spec": "heldenmuenze – geprägte Bronzemünze des Helden mit Rändelung, Umschrift (Name) und Porträt, Spieler und Gegner, 400 × 400",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 236,
+    "files": [
+      "assets/ui/heldenmuenze.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "phalanxschild",
+    "spec": "phalanxschild – Rüstung als runder Hoplitenschild (Aspis) über dem Leben, 112 × 112",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 267,
+    "files": [
+      "assets/ui/phalanxschild.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "waffenablage",
+    "spec": "waffenablage – Waffe links neben dem Helden: Klinge auf Bronzeplatte, Wucht (Angriff) und Schmiedequalität (Haltbarkeit), 160 × 210",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 270,
+    "files": [
+      "assets/ui-art/waffenablage.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "feldherrentisch",
+    "spec": "feldherrentisch – eingeritzte Weltkarte auf dem Feldherrentisch (Kompassrose, Loxodromen, Gradnetz), 3200 × 1600",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 290,
+    "files": [
+      "assets/backgrounds/board.webp",
+      "assets/backgrounds/board-athen.webp",
+      "assets/backgrounds/board-kapitol.webp",
+      "assets/backgrounds/board-porzellan.webp",
+      "assets/backgrounds/board-skriptorium.webp"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "aetheruhr",
+    "spec": "aetheruhr – Mana-Anzeige als bronzene Äther-Uhr mit zehn Kristallen (voll, verbraucht, gesperrt, fehlt) und Zahl in der Mitte, 256 × 256",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 303,
+    "files": [
+      "assets/ui/aetheruhr-00.svg",
+      "assets/ui/aetheruhr-01.svg",
+      "assets/ui/aetheruhr-02.svg",
+      "assets/ui/aetheruhr-03.svg",
+      "assets/ui/aetheruhr-04.svg",
+      "assets/ui/aetheruhr-05.svg",
+      "assets/ui/aetheruhr-06.svg",
+      "assets/ui/aetheruhr-07.svg",
+      "assets/ui/aetheruhr-08.svg",
+      "assets/ui/aetheruhr-09.svg",
+      "assets/ui/aetheruhr-10.svg",
+      "assets/ui/aetherkristall-voll.svg",
+      "assets/ui/aetherkristall-verbraucht.svg",
+      "assets/ui/aetherkristall-gesperrt.svg",
+      "assets/ui/aetherkristall-fehlt.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "zugtafel",
+    "spec": "zugtafel – herabfallende Steintafel „Dein Zug“ / „Zug des Gegners“ an zwei Ketten, mit Bronzerahmen, 960 × 200",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 337,
+    "files": [
+      "assets/ui/zugtafel-spieler.svg",
+      "assets/ui/zugtafel-gegner.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "pergamentstapel",
+    "spec": "pergamentstapel – Deck als Stapel gerollter Pergamente (1–6 Rollen), 160 × 200",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 365,
+    "files": [
+      "assets/ui/pergamentstapel-1.svg",
+      "assets/ui/pergamentstapel-2.svg",
+      "assets/ui/pergamentstapel-3.svg",
+      "assets/ui/pergamentstapel-4.svg",
+      "assets/ui/pergamentstapel-5.svg",
+      "assets/ui/pergamentstapel-6.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "stundenglas",
+    "spec": "stundenglas – Stundenglas der Erschöpfung „Zahn der Zeit“ mit rinnendem Sand, 140 × 200",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 370,
+    "files": [
+      "assets/ui-art/stundenglas.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "versiegelte-befehle",
+    "spec": "versiegelte-befehle – verdeckte Karte der KI-Hand als gerollter Befehl mit rotem Wachssiegel, 80 × 160",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 390,
+    "files": [
+      "assets/ui-art/versiegelte-befehle.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "chronikleiste",
+    "spec": "chronikleiste – senkrechte Pergamentleiste mit Bronzestäben oben und unten, 140 × 1100",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 400,
+    "files": [
+      "assets/ui-art/chronikleiste.png"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "chronik-eintrag",
+    "spec": "chronik-eintrag – Eintrag der Chronik-Leiste: Bild der Karte oder Fähigkeit mit Seitenfarbe und Marke, 116 × 116",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 406,
+    "files": [
+      "assets/ui/chronik-eintrag-spieler.svg",
+      "assets/ui/chronik-eintrag-gegner.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "chronometer",
+    "spec": "chronometer – bronzenes Chronometer „Zug beenden“: Gehäuse mit Bügel, Zifferblatt und Schild (aktiv, Gegnerzug), 256 × 336",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 429,
+    "files": [
+      "assets/ui/chronometer-aktiv.svg",
+      "assets/ui/chronometer-gegnerzug.svg",
+      "assets/ui/chronometer-zeiger.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "diener-plakette",
+    "spec": "diener-plakette – Diener-Plakette auf dem Feld (Rahmen, Angriff, Leben, Bauwerk-Turm, Schlüsselwort-Leiste), 204 × 272",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 470,
+    "files": [
+      "assets/ui/diener-plakette-minion.svg",
+      "assets/ui/diener-plakette-spell.svg",
+      "assets/ui/diener-plakette-building.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "goldglanz",
+    "spec": "goldglanz – Glanzstreifen, der über Goldene Karten läuft, 160 × 800",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 522,
+    "files": [
+      "assets/ui/goldglanz.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "marschroute",
+    "spec": "marschroute – Marschrouten-Pfeil aus roten Tintenwinkeln mit Pfeilspitze, 64 × 64 je Winkel",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 549,
+    "files": [
+      "assets/ui/marschroute-winkel.svg",
+      "assets/ui/marschroute-spitze.svg",
+      "assets/ui/marschroute-punkt.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "tintenspritzer",
+    "spec": "tintenspritzer – Spritzer getrockneter Tinte hinter einer Schadenszahl (drei Varianten), 220 × 220",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 566,
+    "files": [
+      "assets/ui/tintenspritzer-1.svg",
+      "assets/ui/tintenspritzer-2.svg",
+      "assets/ui/tintenspritzer-3.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "staubwolke",
+    "spec": "staubwolke – Staubwolke beim Aufprall einer Karte und beim Zerbrechen einer Plakette, 128 × 128",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 572,
+    "files": [
+      "assets/ui/staubwolke-00.svg",
+      "assets/ui/staubwolke-01.svg",
+      "assets/ui/staubwolke-02.svg",
+      "assets/ui/staubwolke-03.svg",
+      "assets/ui/staubwolke-04.svg",
+      "assets/ui/staubwolke-05.svg",
+      "assets/ui/staubwolke-06.svg",
+      "assets/ui/staubwolke-07.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "steinrisse",
+    "spec": "steinrisse – Risse im Steintisch unter einer landenden Karte (drei Varianten), 440 × 240",
+    "source": "quellcode/assets/game/view/match/render.js",
+    "line": 574,
+    "files": [
+      "assets/ui/steinrisse-1.svg",
+      "assets/ui/steinrisse-2.svg",
+      "assets/ui/steinrisse-3.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "reiter",
+    "spec": "reiter – Steinreiter (ruhend und aktiv), 540 × 112",
+    "source": "quellcode/assets/game/view/css/stone.css",
+    "line": 29,
+    "files": [
+      "assets/ui/reiter-ruhend.svg",
+      "assets/ui/reiter-aktiv.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "goldglanz-basar",
+    "spec": "goldglanz-basar – derselbe Glanzstreifen wie im Duell über der Goldenen Karte im Schaufenster, 160 × 800",
+    "source": "quellcode/assets/game/view/css/stone.css",
+    "line": 94,
+    "files": [
+      "assets/ui/goldglanz-basar.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "steinknopf",
+    "spec": "steinknopf – Steinknopf in vier Ausführungen (Stein, Gold, Türkis, Gefahr), 9-Slice 360 × 108",
+    "source": "quellcode/assets/game/view/css/style.css",
+    "line": 1,
+    "files": [
+      "assets/ui/steinknopf-stein-normal.svg",
+      "assets/ui/steinknopf-stein-hover.svg",
+      "assets/ui/steinknopf-stein-pressed.svg",
+      "assets/ui/steinknopf-stein-disabled.svg",
+      "assets/ui/steinknopf-gold-normal.svg",
+      "assets/ui/steinknopf-gold-hover.svg",
+      "assets/ui/steinknopf-gold-pressed.svg",
+      "assets/ui/steinknopf-gold-disabled.svg",
+      "assets/ui/steinknopf-tuerkis-normal.svg",
+      "assets/ui/steinknopf-tuerkis-hover.svg",
+      "assets/ui/steinknopf-tuerkis-pressed.svg",
+      "assets/ui/steinknopf-tuerkis-disabled.svg",
+      "assets/ui/steinknopf-gefahr-normal.svg",
+      "assets/ui/steinknopf-gefahr-hover.svg",
+      "assets/ui/steinknopf-gefahr-pressed.svg",
+      "assets/ui/steinknopf-gefahr-disabled.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "panel",
+    "spec": "panel – Rahmen für Tafeln, Kopfleiste und Dialoge, 9-Slice 512 × 512",
+    "source": "quellcode/assets/game/view/css/style.css",
+    "line": 1,
+    "files": [
+      "assets/ui/panel-hell.svg",
+      "assets/ui/panel-dunkel.svg"
+    ],
+    "covered": true
+  },
+  {
+    "marker": "kartenpaket",
+    "spec": "kartenpaket – versiegeltes Kartenpaket mit Emblem, 680 × 918",
+    "source": "quellcode/assets/game/view/css/style.css",
+    "line": 1,
+    "files": [
+      "assets/ui-art/kartenpaket.png"
+    ],
+    "covered": true
+  }
+]

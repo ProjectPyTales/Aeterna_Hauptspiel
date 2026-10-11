@@ -1,0 +1,31 @@
+﻿id,name,category,file,art,cell,atlas_target,single_target
+leonidas_0,Spartanischer Rekrut,cards,assets/cards/leonidas_0.png,r02-b01-01,0,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/leonidas_0.png
+leonidas_1,Wächter der Thermopylen,cards,assets/cards/leonidas_1.png,r02-b01-01,1,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/leonidas_1.png
+leonidas_2,Bronzener Wall,cards,assets/cards/leonidas_2.png,r02-b01-01,2,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/leonidas_2.png
+leonidas_7,Spartas Erbe,cards,assets/cards/leonidas_7.png,r02-b01-01,3,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/leonidas_7.png
+leonidas_8,Dienekes,cards,assets/cards/leonidas_8.png,r02-b01-01,4,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/leonidas_8.png
+leonidas_10,Spartiat der Dreihundert,cards,assets/cards/leonidas_10.png,r02-b01-01,5,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/leonidas_10.png
+leonidas_11,Engpass der Thermopylen,cards,assets/cards/leonidas_11.png,r02-b01-01,6,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/leonidas_11.png
+hoplite,Hoplit,tokens,assets/tokens/hoplite.png,r02-b01-01,7,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/tokens/hoplite.png
+hypatia_1,Himmelsstrahl,cards,assets/cards/hypatia_1.png,r02-b01-01,8,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/hypatia_1.png
+hypatia_3,Sternenregen,cards,assets/cards/hypatia_3.png,r02-b01-01,9,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/hypatia_3.png
+hypatia_4,Astrolabienwächter,cards,assets/cards/hypatia_4.png,r02-b01-01,10,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/hypatia_4.png
+hypatia_10,Astronomin des Museions,cards,assets/cards/hypatia_10.png,r02-b01-01,11,quellcode/assets/game/assets/art/r02-b01-01.webp,quellcode/assets/game/assets/cards/hypatia_10.png
+hypatia_11,Kommentar zu Diophant,cards,assets/cards/hypatia_11.png,r02-b01-02,0,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/hypatia_11.png
+jeanne_3,Einkleidung der Novizinnen,cards,assets/cards/jeanne_3.png,r02-b01-02,1,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_3.png
+jeanne_4,Pilger am Rhein,cards,assets/cards/jeanne_4.png,r02-b01-02,2,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_4.png
+jeanne_5,Segen der Äbtissin,cards,assets/cards/jeanne_5.png,r02-b01-02,3,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_5.png
+jeanne_6,Vorsängerin im Chor,cards,assets/cards/jeanne_6.png,r02-b01-02,4,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_6.png
+jeanne_7,Spiel der Tugenden,cards,assets/cards/jeanne_7.png,r02-b01-02,5,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_7.png
+jeanne_8,Ritter mit dem Schutzbrief,cards,assets/cards/jeanne_8.png,r02-b01-02,6,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_8.png
+jeanne_9,"Jutta von Sponheim, Magistra",cards,assets/cards/jeanne_9.png,r02-b01-02,7,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_9.png
+jeanne_10,Adlige Stifterin,cards,assets/cards/jeanne_10.png,r02-b01-02,8,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_10.png
+jeanne_11,Weihe der Klosterkirche,cards,assets/cards/jeanne_11.png,r02-b01-02,9,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/jeanne_11.png
+novice,Novizin,tokens,assets/tokens/novice.png,r02-b01-02,10,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/tokens/novice.png
+dandolo_5,Maskierte Wache,cards,assets/cards/dandolo_5.png,r02-b01-02,11,quellcode/assets/game/assets/art/r02-b01-02.webp,quellcode/assets/game/assets/cards/dandolo_5.png
+dandolo_7,Admiral der Galeeren,cards,assets/cards/dandolo_7.png,r02-b01-03,0,quellcode/assets/game/assets/art/r02-b01-03.webp,quellcode/assets/game/assets/cards/dandolo_7.png
+dandolo_10,Agent des Zehnerrats,cards,assets/cards/dandolo_10.png,r02-b01-03,1,quellcode/assets/game/assets/art/r02-b01-03.webp,quellcode/assets/game/assets/cards/dandolo_10.png
+dandolo_11,Galeerenschmied,cards,assets/cards/dandolo_11.png,r02-b01-03,2,quellcode/assets/game/assets/art/r02-b01-03.webp,quellcode/assets/game/assets/cards/dandolo_11.png
+dandolo_12,Plünderung Konstantinopels,cards,assets/cards/dandolo_12.png,r02-b01-03,3,quellcode/assets/game/assets/art/r02-b01-03.webp,quellcode/assets/game/assets/cards/dandolo_12.png
+imhotep_7,Goldener Skarabäus,cards,assets/cards/imhotep_7.png,r02-b01-03,4,quellcode/assets/game/assets/art/r02-b01-03.webp,quellcode/assets/game/assets/cards/imhotep_7.png
+totem_heal,Grenzstein des Klosters,tokens,assets/tokens/totem_heal.png,r02-b01-03,5,quellcode/assets/game/assets/art/r02-b01-03.webp,quellcode/assets/game/assets/tokens/totem_heal.png

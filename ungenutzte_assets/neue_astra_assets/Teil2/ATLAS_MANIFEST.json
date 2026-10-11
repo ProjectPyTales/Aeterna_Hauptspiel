@@ -1,0 +1,180 @@
+[
+  {
+    "art": "r02-b01-01",
+    "file": "game-assets/art/r02-b01-01.webp",
+    "size": [
+      2896,
+      2172
+    ],
+    "columns": 4,
+    "rows": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "cells": [
+      {
+        "cell": 0,
+        "id": "leonidas_0"
+      },
+      {
+        "cell": 1,
+        "id": "leonidas_1"
+      },
+      {
+        "cell": 2,
+        "id": "leonidas_2"
+      },
+      {
+        "cell": 3,
+        "id": "leonidas_7"
+      },
+      {
+        "cell": 4,
+        "id": "leonidas_8"
+      },
+      {
+        "cell": 5,
+        "id": "leonidas_10"
+      },
+      {
+        "cell": 6,
+        "id": "leonidas_11"
+      },
+      {
+        "cell": 7,
+        "id": "hoplite"
+      },
+      {
+        "cell": 8,
+        "id": "hypatia_1"
+      },
+      {
+        "cell": 9,
+        "id": "hypatia_3"
+      },
+      {
+        "cell": 10,
+        "id": "hypatia_4"
+      },
+      {
+        "cell": 11,
+        "id": "hypatia_10"
+      }
+    ],
+    "unused_cells": []
+  },
+  {
+    "art": "r02-b01-02",
+    "file": "game-assets/art/r02-b01-02.webp",
+    "size": [
+      2896,
+      2172
+    ],
+    "columns": 4,
+    "rows": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "cells": [
+      {
+        "cell": 0,
+        "id": "hypatia_11"
+      },
+      {
+        "cell": 1,
+        "id": "jeanne_3"
+      },
+      {
+        "cell": 2,
+        "id": "jeanne_4"
+      },
+      {
+        "cell": 3,
+        "id": "jeanne_5"
+      },
+      {
+        "cell": 4,
+        "id": "jeanne_6"
+      },
+      {
+        "cell": 5,
+        "id": "jeanne_7"
+      },
+      {
+        "cell": 6,
+        "id": "jeanne_8"
+      },
+      {
+        "cell": 7,
+        "id": "jeanne_9"
+      },
+      {
+        "cell": 8,
+        "id": "jeanne_10"
+      },
+      {
+        "cell": 9,
+        "id": "jeanne_11"
+      },
+      {
+        "cell": 10,
+        "id": "novice"
+      },
+      {
+        "cell": 11,
+        "id": "dandolo_5"
+      }
+    ],
+    "unused_cells": []
+  },
+  {
+    "art": "r02-b01-03",
+    "file": "game-assets/art/r02-b01-03.webp",
+    "size": [
+      2896,
+      2172
+    ],
+    "columns": 4,
+    "rows": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "cells": [
+      {
+        "cell": 0,
+        "id": "dandolo_7"
+      },
+      {
+        "cell": 1,
+        "id": "dandolo_10"
+      },
+      {
+        "cell": 2,
+        "id": "dandolo_11"
+      },
+      {
+        "cell": 3,
+        "id": "dandolo_12"
+      },
+      {
+        "cell": 4,
+        "id": "imhotep_7"
+      },
+      {
+        "cell": 5,
+        "id": "totem_heal"
+      }
+    ],
+    "unused_cells": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  }
+]

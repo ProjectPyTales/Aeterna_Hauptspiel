@@ -1,0 +1,77 @@
+{
+  "source_size": [
+    822,
+    1913
+  ],
+  "logical_size": [
+    140,
+    1100
+  ],
+  "method": "3-slice, caps proportional, stretch middle only",
+  "cap_heights_at_140": [
+    45.98540145985402,
+    44.79318734793188
+  ],
+  "assets": [
+    {
+      "id": "chronikleiste-oben",
+      "category": "chronicle_slice",
+      "file": "assets/ui-art/chronikleiste-oben.png",
+      "target": "quellcode/assets/game/assets/ui-art/chronikleiste-oben.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/chronikleiste.png",
+      "size": [
+        822,
+        270
+      ],
+      "source_rect": [
+        0,
+        0,
+        822,
+        270
+      ],
+      "source_sha256": "cec1b7508f5af8d50b6c61ae9fa598c5ecb0ed592a9b0ed41fb41f1471c47526",
+      "slice_role": "oben"
+    },
+    {
+      "id": "chronikleiste-mitte",
+      "category": "chronicle_slice",
+      "file": "assets/ui-art/chronikleiste-mitte.png",
+      "target": "quellcode/assets/game/assets/ui-art/chronikleiste-mitte.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/chronikleiste.png",
+      "size": [
+        822,
+        1380
+      ],
+      "source_rect": [
+        0,
+        270,
+        822,
+        1380
+      ],
+      "source_sha256": "cec1b7508f5af8d50b6c61ae9fa598c5ecb0ed592a9b0ed41fb41f1471c47526",
+      "slice_role": "mitte"
+    },
+    {
+      "id": "chronikleiste-unten",
+      "category": "chronicle_slice",
+      "file": "assets/ui-art/chronikleiste-unten.png",
+      "target": "quellcode/assets/game/assets/ui-art/chronikleiste-unten.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/chronikleiste.png",
+      "size": [
+        822,
+        263
+      ],
+      "source_rect": [
+        0,
+        1650,
+        822,
+        263
+      ],
+      "source_sha256": "cec1b7508f5af8d50b6c61ae9fa598c5ecb0ed592a9b0ed41fb41f1471c47526",
+      "slice_role": "unten"
+    }
+  ]
+}

@@ -1,0 +1,1186 @@
+{
+  "release": "Teil 03",
+  "scope": "UI-Abschlusslieferung",
+  "count": 41,
+  "new_card_token_motifs": 0,
+  "new_filter_states": 26,
+  "technical_and_platform_assets": 15,
+  "assets": [
+    {
+      "id": "filterknopf-mana-hover",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-mana-hover.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-mana-hover.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-mana-normal.svg",
+      "family": "mana",
+      "state": "hover",
+      "png": "assets/ui/filterknopf-mana-hover.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          4,
+          4,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "de489cfd05d9417f9445fe8fb3548be90a3c203fc52a2adb8c5cd715de0ebd7c"
+    },
+    {
+      "id": "filterknopf-mana-pressed",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-mana-pressed.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-mana-pressed.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-mana-normal.svg",
+      "family": "mana",
+      "state": "pressed",
+      "png": "assets/ui/filterknopf-mana-pressed.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          204,
+          4,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "617ce8de74dd76f729e6efa60854509d4e260ad18910def7a6b6b482120568e7"
+    },
+    {
+      "id": "filterknopf-mana-disabled",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-mana-disabled.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-mana-disabled.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-mana-normal.svg",
+      "family": "mana",
+      "state": "disabled",
+      "png": "assets/ui/filterknopf-mana-disabled.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          404,
+          4,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "370590ecea0376797088df175d403728cc62c7803acdb32da63a821e3be39800"
+    },
+    {
+      "id": "filterknopf-mana-fokus",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-mana-fokus.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-mana-fokus.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-mana-normal.svg",
+      "family": "mana",
+      "state": "fokus",
+      "png": "assets/ui/filterknopf-mana-fokus.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          604,
+          4,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "2e0614ae22e3c22857fb4fad9afc0e972fb08da2f8c8541e81bf85931177f6ad"
+    },
+    {
+      "id": "filterknopf-basic-normal",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-basic-normal.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-basic-normal.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "basic",
+      "state": "normal",
+      "png": "assets/ui/filterknopf-basic-normal.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          804,
+          4,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "cca1eb399f50dc5c782b14232aa5958f2a2947b4be81274d71086076bb288063"
+    },
+    {
+      "id": "filterknopf-basic-aktiv",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-basic-aktiv.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-basic-aktiv.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "basic",
+      "state": "aktiv",
+      "png": "assets/ui/filterknopf-basic-aktiv.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          1004,
+          4,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "4e29a5a17507a94d6c87a10ccf508bb1391b22931e564048a88ae993510b45d9"
+    },
+    {
+      "id": "filterknopf-basic-hover",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-basic-hover.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-basic-hover.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "basic",
+      "state": "hover",
+      "png": "assets/ui/filterknopf-basic-hover.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          4,
+          204,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "527b4de4ce88b3e053b07ba4527ab45e61247059e95bba3f1d99021d3d5eeeca"
+    },
+    {
+      "id": "filterknopf-basic-pressed",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-basic-pressed.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-basic-pressed.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "basic",
+      "state": "pressed",
+      "png": "assets/ui/filterknopf-basic-pressed.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          204,
+          204,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "b6e3f8022f9c9fc3c934d72ef55f78b3444c11849c8b48ba71f0cbb9f759146e"
+    },
+    {
+      "id": "filterknopf-basic-disabled",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-basic-disabled.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-basic-disabled.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "basic",
+      "state": "disabled",
+      "png": "assets/ui/filterknopf-basic-disabled.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          404,
+          204,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "123cc60ab21229569a430c923037eaaec1d2dd0485dee43a220297e8ac0776f6"
+    },
+    {
+      "id": "filterknopf-basic-fokus",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-basic-fokus.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-basic-fokus.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "basic",
+      "state": "fokus",
+      "png": "assets/ui/filterknopf-basic-fokus.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          604,
+          204,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "f9aa030427a4c321ef2fa44024104be1342875bc311bde7b9915ea1ba71c04c5"
+    },
+    {
+      "id": "filterknopf-common-hover",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-common-hover.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-common-hover.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "common",
+      "state": "hover",
+      "png": "assets/ui/filterknopf-common-hover.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          804,
+          204,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "cd045e8b64b9cd01a12685d7bc1364223b356db92e4c59e03efea141c4e123bd",
+      "required_existing_emblem": "assets/ui/archivsiegel-common.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-common-pressed",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-common-pressed.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-common-pressed.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "common",
+      "state": "pressed",
+      "png": "assets/ui/filterknopf-common-pressed.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          1004,
+          204,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "4149e31edba2f09d1a013840c863eff16387a83697908a91ddb030f9c3cd68ac",
+      "required_existing_emblem": "assets/ui/archivsiegel-common.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-common-disabled",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-common-disabled.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-common-disabled.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "common",
+      "state": "disabled",
+      "png": "assets/ui/filterknopf-common-disabled.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          4,
+          404,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "5d9801574bd2cc8707add775c6a279cacf5ad28cfdd1e6507c45da75dcf7549c",
+      "required_existing_emblem": "assets/ui/archivsiegel-common.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-common-fokus",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-common-fokus.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-common-fokus.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-common-normal.svg",
+      "family": "common",
+      "state": "fokus",
+      "png": "assets/ui/filterknopf-common-fokus.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          204,
+          404,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "db4fbfeefc8537cf2d366c7f7d45edc3cda0cd2098298d4c100b51792f025794",
+      "required_existing_emblem": "assets/ui/archivsiegel-common.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-rare-hover",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-rare-hover.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-rare-hover.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-rare-normal.svg",
+      "family": "rare",
+      "state": "hover",
+      "png": "assets/ui/filterknopf-rare-hover.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          404,
+          404,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "cd045e8b64b9cd01a12685d7bc1364223b356db92e4c59e03efea141c4e123bd",
+      "required_existing_emblem": "assets/ui/archivsiegel-rare.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-rare-pressed",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-rare-pressed.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-rare-pressed.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-rare-normal.svg",
+      "family": "rare",
+      "state": "pressed",
+      "png": "assets/ui/filterknopf-rare-pressed.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          604,
+          404,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "4149e31edba2f09d1a013840c863eff16387a83697908a91ddb030f9c3cd68ac",
+      "required_existing_emblem": "assets/ui/archivsiegel-rare.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-rare-disabled",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-rare-disabled.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-rare-disabled.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-rare-normal.svg",
+      "family": "rare",
+      "state": "disabled",
+      "png": "assets/ui/filterknopf-rare-disabled.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          804,
+          404,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "5d9801574bd2cc8707add775c6a279cacf5ad28cfdd1e6507c45da75dcf7549c",
+      "required_existing_emblem": "assets/ui/archivsiegel-rare.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-rare-fokus",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-rare-fokus.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-rare-fokus.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-rare-normal.svg",
+      "family": "rare",
+      "state": "fokus",
+      "png": "assets/ui/filterknopf-rare-fokus.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          1004,
+          404,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "db4fbfeefc8537cf2d366c7f7d45edc3cda0cd2098298d4c100b51792f025794",
+      "required_existing_emblem": "assets/ui/archivsiegel-rare.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-epic-hover",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-epic-hover.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-epic-hover.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-epic-normal.svg",
+      "family": "epic",
+      "state": "hover",
+      "png": "assets/ui/filterknopf-epic-hover.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          4,
+          604,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "cd045e8b64b9cd01a12685d7bc1364223b356db92e4c59e03efea141c4e123bd",
+      "required_existing_emblem": "assets/ui/archivsiegel-epic.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-epic-pressed",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-epic-pressed.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-epic-pressed.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-epic-normal.svg",
+      "family": "epic",
+      "state": "pressed",
+      "png": "assets/ui/filterknopf-epic-pressed.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          204,
+          604,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "4149e31edba2f09d1a013840c863eff16387a83697908a91ddb030f9c3cd68ac",
+      "required_existing_emblem": "assets/ui/archivsiegel-epic.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-epic-disabled",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-epic-disabled.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-epic-disabled.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-epic-normal.svg",
+      "family": "epic",
+      "state": "disabled",
+      "png": "assets/ui/filterknopf-epic-disabled.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          404,
+          604,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "5d9801574bd2cc8707add775c6a279cacf5ad28cfdd1e6507c45da75dcf7549c",
+      "required_existing_emblem": "assets/ui/archivsiegel-epic.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-epic-fokus",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-epic-fokus.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-epic-fokus.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-epic-normal.svg",
+      "family": "epic",
+      "state": "fokus",
+      "png": "assets/ui/filterknopf-epic-fokus.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          604,
+          604,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "db4fbfeefc8537cf2d366c7f7d45edc3cda0cd2098298d4c100b51792f025794",
+      "required_existing_emblem": "assets/ui/archivsiegel-epic.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-legendary-hover",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-legendary-hover.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-legendary-hover.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-legendary-normal.svg",
+      "family": "legendary",
+      "state": "hover",
+      "png": "assets/ui/filterknopf-legendary-hover.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          804,
+          604,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "cd045e8b64b9cd01a12685d7bc1364223b356db92e4c59e03efea141c4e123bd",
+      "required_existing_emblem": "assets/ui/archivsiegel-legendary.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-legendary-pressed",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-legendary-pressed.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-legendary-pressed.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-legendary-normal.svg",
+      "family": "legendary",
+      "state": "pressed",
+      "png": "assets/ui/filterknopf-legendary-pressed.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          1004,
+          604,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "4149e31edba2f09d1a013840c863eff16387a83697908a91ddb030f9c3cd68ac",
+      "required_existing_emblem": "assets/ui/archivsiegel-legendary.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-legendary-disabled",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-legendary-disabled.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-legendary-disabled.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-legendary-normal.svg",
+      "family": "legendary",
+      "state": "disabled",
+      "png": "assets/ui/filterknopf-legendary-disabled.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          4,
+          804,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "5d9801574bd2cc8707add775c6a279cacf5ad28cfdd1e6507c45da75dcf7549c",
+      "required_existing_emblem": "assets/ui/archivsiegel-legendary.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filterknopf-legendary-fokus",
+      "category": "filter",
+      "file": "assets/ui/filterknopf-legendary-fokus.svg",
+      "target": "quellcode/assets/game/assets/ui/filterknopf-legendary-fokus.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui/filterknopf-legendary-normal.svg",
+      "family": "legendary",
+      "state": "fokus",
+      "png": "assets/ui/filterknopf-legendary-fokus.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          204,
+          804,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "db4fbfeefc8537cf2d366c7f7d45edc3cda0cd2098298d4c100b51792f025794",
+      "required_existing_emblem": "assets/ui/archivsiegel-legendary.png",
+      "emblem_rect": [
+        46,
+        46,
+        100,
+        100
+      ]
+    },
+    {
+      "id": "filter-auswahl-overlay",
+      "category": "filter_overlay",
+      "file": "assets/ui/filter-auswahl-overlay.svg",
+      "target": "quellcode/assets/game/assets/ui/filter-auswahl-overlay.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: Auswahlring; ergänzte Haken-Geometrie",
+      "png": "assets/ui/filter-auswahl-overlay.png",
+      "size": [
+        192,
+        192
+      ],
+      "atlas": {
+        "file": "game-assets/ui/r03-filter.png",
+        "rect": [
+          404,
+          804,
+          192,
+          192
+        ],
+        "rotation": false
+      },
+      "sha256": "bd643b3c644b57c6ba662207f31d2c64d1ee1b2445e769754772b21e304e4442"
+    },
+    {
+      "id": "kartenrahmen-building-gold-clip",
+      "category": "card_aperture_mask",
+      "file": "assets/masks/kartenrahmen-building-gold-clip.png",
+      "target": "quellcode/assets/game/assets/masks/kartenrahmen-building-gold-clip.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/kartenrahmen-building-gold.png",
+      "svg": "assets/masks/kartenrahmen-building-gold-clip.svg",
+      "size": [
+        1056,
+        1490
+      ],
+      "source_sha256": "7c7011af002e8dcb8eadab93b02862dc8dccbada8ebb4e1de4df41940c0e6559",
+      "aperture_bbox": [
+        237,
+        240,
+        821,
+        875
+      ],
+      "underlap_px": 3,
+      "card_type": "building",
+      "finish": "gold",
+      "atlas": {
+        "file": "game-assets/ui/r03-masken.png",
+        "rect": [
+          4,
+          4,
+          1056,
+          1490
+        ],
+        "rotation": false
+      },
+      "sha256": "6c16bd24eb4563a100e14b4a8c6762a3fbe2a39be98a77c0483b9b1fec663ba9"
+    },
+    {
+      "id": "kartenrahmen-building-normal-clip",
+      "category": "card_aperture_mask",
+      "file": "assets/masks/kartenrahmen-building-normal-clip.png",
+      "target": "quellcode/assets/game/assets/masks/kartenrahmen-building-normal-clip.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/kartenrahmen-building-normal.png",
+      "svg": "assets/masks/kartenrahmen-building-normal-clip.svg",
+      "size": [
+        1056,
+        1490
+      ],
+      "source_sha256": "1f9298828f25b4efe08c0be8ac213793e618e2c41cefac81e91692f0890f09d4",
+      "aperture_bbox": [
+        239,
+        284,
+        817,
+        837
+      ],
+      "underlap_px": 3,
+      "card_type": "building",
+      "finish": "normal",
+      "atlas": {
+        "file": "game-assets/ui/r03-masken.png",
+        "rect": [
+          1068,
+          4,
+          1056,
+          1490
+        ],
+        "rotation": false
+      },
+      "sha256": "cc673ce2b3fb7ab94595e76cdcfba2f4f1fcb3d63d93338c8c346453dbcaa8bd"
+    },
+    {
+      "id": "kartenrahmen-minion-gold-clip",
+      "category": "card_aperture_mask",
+      "file": "assets/masks/kartenrahmen-minion-gold-clip.png",
+      "target": "quellcode/assets/game/assets/masks/kartenrahmen-minion-gold-clip.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/kartenrahmen-minion-gold.png",
+      "svg": "assets/masks/kartenrahmen-minion-gold-clip.svg",
+      "size": [
+        1055,
+        1490
+      ],
+      "source_sha256": "7c15e5a4bbb3c2864e193b7cff7262b89c8a182c4c8d3506585787826f5f18b8",
+      "aperture_bbox": [
+        215,
+        236,
+        839,
+        817
+      ],
+      "underlap_px": 3,
+      "card_type": "minion",
+      "finish": "gold",
+      "atlas": {
+        "file": "game-assets/ui/r03-masken.png",
+        "rect": [
+          2132,
+          4,
+          1055,
+          1490
+        ],
+        "rotation": false
+      },
+      "sha256": "d83a4fba6db6b6b2dde92909474136bf627223d9b66127c5dec353b54d5bd5fa"
+    },
+    {
+      "id": "kartenrahmen-minion-normal-clip",
+      "category": "card_aperture_mask",
+      "file": "assets/masks/kartenrahmen-minion-normal-clip.png",
+      "target": "quellcode/assets/game/assets/masks/kartenrahmen-minion-normal-clip.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/kartenrahmen-minion-normal.png",
+      "svg": "assets/masks/kartenrahmen-minion-normal-clip.svg",
+      "size": [
+        1056,
+        1490
+      ],
+      "source_sha256": "cf40e23ea4d21305d9b7c2944ae58396efcbca1f9538fdd110b337362f1848f8",
+      "aperture_bbox": [
+        227,
+        250,
+        829,
+        796
+      ],
+      "underlap_px": 3,
+      "card_type": "minion",
+      "finish": "normal",
+      "atlas": {
+        "file": "game-assets/ui/r03-masken.png",
+        "rect": [
+          4,
+          1502,
+          1056,
+          1490
+        ],
+        "rotation": false
+      },
+      "sha256": "3d748663af2b2b010ca01871eee20d5aa5dc886b94ef4224f1195bea6957f93f"
+    },
+    {
+      "id": "kartenrahmen-spell-gold-clip",
+      "category": "card_aperture_mask",
+      "file": "assets/masks/kartenrahmen-spell-gold-clip.png",
+      "target": "quellcode/assets/game/assets/masks/kartenrahmen-spell-gold-clip.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/kartenrahmen-spell-gold.png",
+      "svg": "assets/masks/kartenrahmen-spell-gold-clip.svg",
+      "size": [
+        1056,
+        1490
+      ],
+      "source_sha256": "a67f02fa00b4a2069bdf71dea99a271a8adecaef1a7a531815d989e6a98a4bf5",
+      "aperture_bbox": [
+        229,
+        193,
+        827,
+        909
+      ],
+      "underlap_px": 3,
+      "card_type": "spell",
+      "finish": "gold",
+      "atlas": {
+        "file": "game-assets/ui/r03-masken.png",
+        "rect": [
+          1068,
+          1502,
+          1056,
+          1490
+        ],
+        "rotation": false
+      },
+      "sha256": "6de0db0b42d1c681b4722374a7dfffa20d7a11da9b43f1911caea58de1633f0e"
+    },
+    {
+      "id": "kartenrahmen-spell-normal-clip",
+      "category": "card_aperture_mask",
+      "file": "assets/masks/kartenrahmen-spell-normal-clip.png",
+      "target": "quellcode/assets/game/assets/masks/kartenrahmen-spell-normal-clip.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/kartenrahmen-spell-normal.png",
+      "svg": "assets/masks/kartenrahmen-spell-normal-clip.svg",
+      "size": [
+        1056,
+        1489
+      ],
+      "source_sha256": "5434c709f4d404d4b36db9fcdf22d5111b42baae5447fe34b8af1c62bf859c9e",
+      "aperture_bbox": [
+        237,
+        256,
+        818,
+        869
+      ],
+      "underlap_px": 3,
+      "card_type": "spell",
+      "finish": "normal",
+      "atlas": {
+        "file": "game-assets/ui/r03-masken.png",
+        "rect": [
+          2132,
+          1502,
+          1056,
+          1489
+        ],
+        "rotation": false
+      },
+      "sha256": "48c8f73800a1762105d54136294fbc78bd1edcd3d17d3b3db0fe3fab1b53d394"
+    },
+    {
+      "id": "chronikleiste-oben",
+      "category": "chronicle_slice",
+      "file": "assets/ui-art/chronikleiste-oben.png",
+      "target": "quellcode/assets/game/assets/ui-art/chronikleiste-oben.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/chronikleiste.png",
+      "size": [
+        822,
+        270
+      ],
+      "source_rect": [
+        0,
+        0,
+        822,
+        270
+      ],
+      "source_sha256": "cec1b7508f5af8d50b6c61ae9fa598c5ecb0ed592a9b0ed41fb41f1471c47526",
+      "slice_role": "oben",
+      "atlas": {
+        "file": "game-assets/ui/r03-chronik.png",
+        "rect": [
+          4,
+          4,
+          822,
+          270
+        ],
+        "rotation": false
+      },
+      "sha256": "49010f1c7cb5c8a0127aadf4332c35b331b9fc6587591f172e755fd07242ee1a"
+    },
+    {
+      "id": "chronikleiste-mitte",
+      "category": "chronicle_slice",
+      "file": "assets/ui-art/chronikleiste-mitte.png",
+      "target": "quellcode/assets/game/assets/ui-art/chronikleiste-mitte.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/chronikleiste.png",
+      "size": [
+        822,
+        1380
+      ],
+      "source_rect": [
+        0,
+        270,
+        822,
+        1380
+      ],
+      "source_sha256": "cec1b7508f5af8d50b6c61ae9fa598c5ecb0ed592a9b0ed41fb41f1471c47526",
+      "slice_role": "mitte",
+      "atlas": {
+        "file": "game-assets/ui/r03-chronik.png",
+        "rect": [
+          834,
+          4,
+          822,
+          1380
+        ],
+        "rotation": false
+      },
+      "sha256": "3750ad5d603e10f9fe6270eae97d2f0e2612e6551a49f68a542b6654d5a72947"
+    },
+    {
+      "id": "chronikleiste-unten",
+      "category": "chronicle_slice",
+      "file": "assets/ui-art/chronikleiste-unten.png",
+      "target": "quellcode/assets/game/assets/ui-art/chronikleiste-unten.png",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: assets/ui-art/chronikleiste.png",
+      "size": [
+        822,
+        263
+      ],
+      "source_rect": [
+        0,
+        1650,
+        822,
+        263
+      ],
+      "source_sha256": "cec1b7508f5af8d50b6c61ae9fa598c5ecb0ed592a9b0ed41fb41f1471c47526",
+      "slice_role": "unten",
+      "atlas": {
+        "file": "game-assets/ui/r03-chronik.png",
+        "rect": [
+          1664,
+          4,
+          822,
+          263
+        ],
+        "rotation": false
+      },
+      "sha256": "f4b8f863617fdc7a9473e3361bf4a706779c785751835bfd2d779835e603086f"
+    },
+    {
+      "id": "hauptmenue-trefferflaechen",
+      "category": "hit_geometry",
+      "file": "assets/geometry/hauptmenue-trefferflaechen.svg",
+      "target": "quellcode/assets/game/assets/geometry/hauptmenue-trefferflaechen.svg",
+      "creation": "deterministic_native_ui",
+      "source": "Teil 01: game-assets/art/hall-aeterna.webp",
+      "png": "assets/geometry/hauptmenue-trefferflaechen.png",
+      "size": [
+        2602,
+        1084
+      ],
+      "runtime_display": false,
+      "sha256": "c9029e041b10f7499d99f8d80b7179758acb335d989b134baf4bf10437caddbd"
+    },
+    {
+      "id": "ic_launcher_foreground",
+      "category": "android_drawable",
+      "file": "android-res/drawable/ic_launcher_foreground.xml",
+      "target": "android/app/src/main/res/drawable/ic_launcher_foreground.xml",
+      "creation": "native_derivative_of_part01",
+      "source": "Teil 01: assets/ui/app-icon-foreground.svg",
+      "size": [
+        108,
+        108
+      ],
+      "sha256": "7a673cec2c81b6a735fbbe4c6a81e00707859f02822696d6145e532778411f04"
+    },
+    {
+      "id": "ic_launcher_monochrome",
+      "category": "android_drawable",
+      "file": "android-res/drawable/ic_launcher_monochrome.xml",
+      "target": "android/app/src/main/res/drawable/ic_launcher_monochrome.xml",
+      "creation": "native_derivative_of_part01",
+      "source": "Teil 01: assets/ui/app-icon-foreground.svg",
+      "size": [
+        108,
+        108
+      ],
+      "sha256": "77568d1096fda5a999d7daf89f9b166164822ab78baff578b17d7ba5b1071897"
+    },
+    {
+      "id": "splash_icon",
+      "category": "android_drawable",
+      "file": "android-res/drawable/splash_icon.xml",
+      "target": "android/app/src/main/res/drawable/splash_icon.xml",
+      "creation": "native_derivative_of_part01",
+      "source": "Teil 01: assets/ui/app-icon-foreground.svg",
+      "size": [
+        108,
+        108
+      ],
+      "sha256": "58547dcbceb68802ad0cb2ff696f6d88403f8a1887405188eae0e31970321c46"
+    },
+    {
+      "id": "ic_launcher_background",
+      "category": "android_drawable",
+      "file": "android-res/drawable/ic_launcher_background.xml",
+      "target": "android/app/src/main/res/drawable/ic_launcher_background.xml",
+      "creation": "native_derivative_of_part01",
+      "source": "Teil 01: assets/ui/app-icon-foreground.svg",
+      "size": [
+        108,
+        108
+      ],
+      "sha256": "0a5dc5c31ce12f37649e32ff528e729d097a95f66c3a5e48360826c9c024a1fe"
+    }
+  ]
+}

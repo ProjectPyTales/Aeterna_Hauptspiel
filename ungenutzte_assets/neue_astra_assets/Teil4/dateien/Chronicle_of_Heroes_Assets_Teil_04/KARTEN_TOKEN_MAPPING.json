@@ -1,0 +1,182 @@
+{
+  "agrippa_0": {
+    "art": "r04-01",
+    "cell": 0,
+    "category": "cards",
+    "name": "Pilumwerfer"
+  },
+  "agrippa_1": {
+    "art": "r04-01",
+    "cell": 1,
+    "category": "cards",
+    "name": "Legionär der Zehnten"
+  },
+  "agrippa_2": {
+    "art": "r04-01",
+    "cell": 2,
+    "category": "cards",
+    "name": "Castra"
+  },
+  "agrippa_3": {
+    "art": "r04-01",
+    "cell": 3,
+    "category": "cards",
+    "name": "Testudo"
+  },
+  "agrippa_4": {
+    "art": "r04-01",
+    "cell": 4,
+    "category": "cards",
+    "name": "Ballista"
+  },
+  "agrippa_5": {
+    "art": "r04-01",
+    "cell": 5,
+    "category": "cards",
+    "name": "Liburnen bei Actium"
+  },
+  "agrippa_6": {
+    "art": "r04-01",
+    "cell": 6,
+    "category": "cards",
+    "name": "Primus Pilus"
+  },
+  "agrippa_7": {
+    "art": "r04-01",
+    "cell": 7,
+    "category": "cards",
+    "name": "Thermen des Agrippa"
+  },
+  "agrippa_8": {
+    "art": "r04-01",
+    "cell": 8,
+    "category": "cards",
+    "name": "Pantheon"
+  },
+  "agrippa_9": {
+    "art": "r04-01",
+    "cell": 9,
+    "category": "cards",
+    "name": "Vitruv, Baumeister Roms"
+  },
+  "agrippa_10": {
+    "art": "r04-01",
+    "cell": 10,
+    "category": "cards",
+    "name": "Aquilifer"
+  },
+  "agrippa_11": {
+    "art": "r04-01",
+    "cell": 11,
+    "category": "cards",
+    "name": "Harpax"
+  },
+  "pioneer": {
+    "art": "r04-02",
+    "cell": 0,
+    "category": "tokens",
+    "name": "Pionier"
+  },
+  "perikles_0": {
+    "art": "r04-02",
+    "cell": 1,
+    "category": "cards",
+    "name": "Ruderer der Triere"
+  },
+  "perikles_1": {
+    "art": "r04-02",
+    "cell": 2,
+    "category": "cards",
+    "name": "Lange Mauern"
+  },
+  "perikles_2": {
+    "art": "r04-02",
+    "cell": 3,
+    "category": "cards",
+    "name": "Rede auf die Gefallenen"
+  },
+  "perikles_3": {
+    "art": "r04-02",
+    "cell": 4,
+    "category": "cards",
+    "name": "Strategos"
+  },
+  "perikles_4": {
+    "art": "r04-02",
+    "cell": 5,
+    "category": "cards",
+    "name": "Pnyx"
+  },
+  "perikles_5": {
+    "art": "r04-02",
+    "cell": 6,
+    "category": "cards",
+    "name": "Scherbengericht"
+  },
+  "perikles_6": {
+    "art": "r04-02",
+    "cell": 7,
+    "category": "cards",
+    "name": "Triere von Salamis"
+  },
+  "perikles_7": {
+    "art": "r04-02",
+    "cell": 8,
+    "category": "cards",
+    "name": "Pest von Athen"
+  },
+  "perikles_8": {
+    "art": "r04-02",
+    "cell": 9,
+    "category": "cards",
+    "name": "Odeion"
+  },
+  "perikles_9": {
+    "art": "r04-02",
+    "cell": 10,
+    "category": "cards",
+    "name": "Phidias, Meister der Akropolis"
+  },
+  "perikles_10": {
+    "art": "r04-02",
+    "cell": 11,
+    "category": "cards",
+    "name": "Steinmetz vom Pentelikon"
+  },
+  "perikles_11": {
+    "art": "r04-03",
+    "cell": 0,
+    "category": "cards",
+    "name": "Schatz des Seebunds"
+  },
+  "citizen": {
+    "art": "r04-03",
+    "cell": 1,
+    "category": "tokens",
+    "name": "Bürger"
+  },
+  "parthenos": {
+    "art": "r04-03",
+    "cell": 2,
+    "category": "tokens",
+    "name": "Athena Parthenos"
+  },
+  "griechen_0": {
+    "art": "r04-03",
+    "cell": 3,
+    "category": "cards",
+    "name": "Olympionike"
+  },
+  "griechen_1": {
+    "art": "r04-03",
+    "cell": 4,
+    "category": "cards",
+    "name": "Rhapsode"
+  },
+  "griechen_3": {
+    "art": "r04-03",
+    "cell": 5,
+    "category": "cards",
+    "name": "Orakel von Delphi"
+  }
+}

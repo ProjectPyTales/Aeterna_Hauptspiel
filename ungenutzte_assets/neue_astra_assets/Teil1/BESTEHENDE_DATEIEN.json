@@ -1,0 +1,117 @@
+[
+  {
+    "old": "musashi.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "nostradamus.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "dandolo.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "hypatia.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "ragnar.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "khan.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "jeanne.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "heroes.webp",
+    "replacement": "game-assets/art/r01-heroes.webp",
+    "action": "replace only after integration checks"
+  },
+  {
+    "old": "neutral3.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "neutral1.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "weltkarte.svg",
+    "replacement": "assets/backgrounds/weltkarte.svg",
+    "action": "replace only after integration checks"
+  },
+  {
+    "old": "board.webp",
+    "replacement": "game-assets/art/board.webp",
+    "action": "replace only after integration checks"
+  },
+  {
+    "old": "board-preview.webp",
+    "replacement": "game-assets/art/board-preview.webp",
+    "action": "replace only after integration checks"
+  },
+  {
+    "old": "leonidas.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "legendary-frame.webp",
+    "replacement": "assets/ui-art/kartenrahmen-minion-gold.png + assets/ui/lorbeerkranz.svg",
+    "action": "replace usage with layered frame"
+  },
+  {
+    "old": "temple.webp",
+    "replacement": "game-assets/art/temple.webp",
+    "action": "replace only after integration checks"
+  },
+  {
+    "old": "neutral0.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "imhotep.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "heroes-marble.webp",
+    "replacement": "game-assets/art/r01-heroes-marble.webp",
+    "action": "replace only after integration checks"
+  },
+  {
+    "old": "boudicca.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "neutral2.webp",
+    "replacement": "Only the nine card IDs listed in KARTEN_HELDEN_MAPPING.json move to game-assets/art/r01-cards-01.webp; all other references stay in their original atlases.",
+    "action": "KEEP in Teil 01; only migrate IDs explicitly supplied in KARTEN_HELDEN_MAPPING.json"
+  },
+  {
+    "old": "menu.webp",
+    "replacement": "game-assets/art/menu.webp",
+    "action": "replace only after integration checks"
+  },
+  {
+    "old": "hall-aeterna.webp",
+    "replacement": "game-assets/art/hall-aeterna.webp",
+    "action": "replace only after integration checks"
+  }
+]

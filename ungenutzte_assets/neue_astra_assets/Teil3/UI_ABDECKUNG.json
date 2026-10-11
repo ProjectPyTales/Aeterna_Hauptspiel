@@ -1,0 +1,78 @@
+{
+  "source": "Teil 01 LIEFERSTATUS + Teil 02 LIEFERSTATUS + Originalprojekt view/collection.js",
+  "groups": [
+    {
+      "group": "Filterzustände",
+      "status": "delivered_not_integrated",
+      "asset_ids": [
+        "filterknopf-mana-hover",
+        "filterknopf-mana-pressed",
+        "filterknopf-mana-disabled",
+        "filterknopf-mana-fokus",
+        "filterknopf-basic-normal",
+        "filterknopf-basic-aktiv",
+        "filterknopf-basic-hover",
+        "filterknopf-basic-pressed",
+        "filterknopf-basic-disabled",
+        "filterknopf-basic-fokus",
+        "filterknopf-common-hover",
+        "filterknopf-common-pressed",
+        "filterknopf-common-disabled",
+        "filterknopf-common-fokus",
+        "filterknopf-rare-hover",
+        "filterknopf-rare-pressed",
+        "filterknopf-rare-disabled",
+        "filterknopf-rare-fokus",
+        "filterknopf-epic-hover",
+        "filterknopf-epic-pressed",
+        "filterknopf-epic-disabled",
+        "filterknopf-epic-fokus",
+        "filterknopf-legendary-hover",
+        "filterknopf-legendary-pressed",
+        "filterknopf-legendary-disabled",
+        "filterknopf-legendary-fokus",
+        "filter-auswahl-overlay"
+      ]
+    },
+    {
+      "group": "Kartenrahmen-Clipmasken",
+      "status": "delivered_not_integrated",
+      "asset_ids": [
+        "kartenrahmen-building-gold-clip",
+        "kartenrahmen-building-normal-clip",
+        "kartenrahmen-minion-gold-clip",
+        "kartenrahmen-minion-normal-clip",
+        "kartenrahmen-spell-gold-clip",
+        "kartenrahmen-spell-normal-clip"
+      ]
+    },
+    {
+      "group": "Chronikleiste",
+      "status": "delivered_not_integrated",
+      "asset_ids": [
+        "chronikleiste-oben",
+        "chronikleiste-mitte",
+        "chronikleiste-unten"
+      ]
+    },
+    {
+      "group": "Hauptmenü-Trefferflächen",
+      "status": "delivered_not_integrated",
+      "asset_ids": [
+        "hauptmenue-trefferflaechen"
+      ]
+    },
+    {
+      "group": "Android-Icon/Splash",
+      "status": "delivered_not_integrated",
+      "asset_ids": [
+        "ic_launcher_foreground",
+        "ic_launcher_monochrome",
+        "splash_icon",
+        "ic_launcher_background"
+      ]
+    }
+  ],
+  "missing_non_card_asset_groups": [],
+  "excluded_token": "pyramid bleibt Karten-/Tokenauftrag"
+}

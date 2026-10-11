@@ -1,0 +1,446 @@
+[
+  {
+    "id": "basar",
+    "category": "backgrounds",
+    "name": "basar",
+    "prompt": "Use case: stylized-concept. Production background for Aeterna historical card game, wide 2:1, target 3200x1600. A warm sunlit historical curiosity bazaar inside a limestone arcade. Empty circular ivory marble presentation pedestal on the RIGHT half, bronze edge, warm upper-right spotlight. Distant cloth canopies and closed wooden display cases only at edges. LEFT 55% and lower strip uncluttered for live catalog and purchase controls. No signs, no people, no currency text, no painted cards. Match reference hand-painted materials and contours, not photo or 3D. No watermark."
+  },
+  {
+    "id": "board",
+    "category": "backgrounds",
+    "name": "Standard",
+    "prompt": "Use case: stylized-concept. Single production game background, perfectly orthographic TOP-DOWN view, wide 2:1 ratio, target 3200x1600. Hand-painted warm Aeterna style matching supplied concept, sunlight from upper RIGHT. warm sandstone central surface with dark polished walnut outer frame, quiet finely incised Mediterranean map. Flat usable playing surface fills the image, no perspective table legs. All ornaments confined to outermost 8%, central 84% quiet low contrast for cards. No text, no cards, no figures, no medallions, no screen UI, no heavy center seam. Material study not claimed archaeological table."
+  },
+  {
+    "id": "board-athen",
+    "category": "backgrounds",
+    "name": "Marmortisch von Athen",
+    "prompt": "Use case: stylized-concept. Single production game background, perfectly orthographic TOP-DOWN view, wide 2:1 ratio, target 3200x1600. Hand-painted warm Aeterna style matching supplied concept, sunlight from upper RIGHT. ivory Pentelic marble, very subtle grey veins, Greek meander on thin bronze border and tiny owl corner ornaments. Flat usable playing surface fills the image, no perspective table legs. All ornaments confined to outermost 8%, central 84% quiet low contrast for cards. No text, no cards, no figures, no medallions, no screen UI, no heavy center seam. Material study not claimed archaeological table."
+  },
+  {
+    "id": "board-kapitol",
+    "category": "backgrounds",
+    "name": "Porphyr des Kapitols",
+    "prompt": "Use case: stylized-concept. Single production game background, perfectly orthographic TOP-DOWN view, wide 2:1 ratio, target 3200x1600. Hand-painted warm Aeterna style matching supplied concept, sunlight from upper RIGHT. muted red porphyry, dark walnut rim, restrained bronze laurel corners. Flat usable playing surface fills the image, no perspective table legs. All ornaments confined to outermost 8%, central 84% quiet low contrast for cards. No text, no cards, no figures, no medallions, no screen UI, no heavy center seam. Material study not claimed archaeological table."
+  },
+  {
+    "id": "board-porzellan",
+    "category": "backgrounds",
+    "name": "Meißner Porzellan",
+    "prompt": "Use case: stylized-concept. Single production game background, perfectly orthographic TOP-DOWN view, wide 2:1 ratio, target 3200x1600. Hand-painted warm Aeterna style matching supplied concept, sunlight from upper RIGHT. warm ivory porcelain with delicate cobalt blue floral border, central surface plain and calm. Flat usable playing surface fills the image, no perspective table legs. All ornaments confined to outermost 8%, central 84% quiet low contrast for cards. No text, no cards, no figures, no medallions, no screen UI, no heavy center seam. Material study not claimed archaeological table."
+  },
+  {
+    "id": "board-skriptorium",
+    "category": "backgrounds",
+    "name": "Pult des Skriptoriums",
+    "prompt": "Use case: stylized-concept. Single production game background, perfectly orthographic TOP-DOWN view, wide 2:1 ratio, target 3200x1600. Hand-painted warm Aeterna style matching supplied concept, sunlight from upper RIGHT. dark warm oak planks with a central worn slate writing surface, parchment and quill confined to outer corners. Flat usable playing surface fills the image, no perspective table legs. All ornaments confined to outermost 8%, central 84% quiet low contrast for cards. No text, no cards, no figures, no medallions, no screen UI, no heavy center seam. Material study not claimed archaeological table."
+  },
+  {
+    "id": "hall-aeterna",
+    "category": "backgrounds",
+    "name": "Hauptmenü",
+    "prompt": "Use case: style-transfer. Edit target is the attached Aeterna MAIN MENU image. Redraw and polish it in the same coherent warm hand-painted historical adventure illustration style as its existing limestone, bronze and sparse ivy. Improve stone carving, subtle material wear, bronze modeling, light consistency and elegant crisp edges. Preserve EXACT layout and relative geometry: original panorama 2602x1084; four central hexagonal blank menu slabs, blank title tablet upper left, the four rail medallions for quests/bazaar/collection/packs in their current locations, settings gear upper right, gold wallet. Keep every clickable plate and medallion in the same place and same silhouette. Lighting warm from upper RIGHT. No text, no numbers, no new controls, no humans, no weapons. Do not flatten into photorealism. Wide 2.4004:1 panorama, output as close to 2602x1084 as possible. Do not crop."
+  },
+  {
+    "id": "heldengalerie",
+    "category": "backgrounds",
+    "name": "heldengalerie",
+    "prompt": "Use case: stylized-concept. Production background for Aeterna historical card game, wide 2:1, target 3200x1600. An elegant limestone gallery of history with shallow empty arched niches along the edges, bronze fittings and restrained lapis accents. Center and left side quiet for live hero portrait UI. No statues of generic kings, no portraits, no lettering. Warm upper-right sunlight. Match reference hand-painted materials and contours, not photo or 3D. No watermark."
+  },
+  {
+    "id": "menu",
+    "category": "backgrounds",
+    "name": "menu",
+    "prompt": "Use case: stylized-concept. Production background for Aeterna historical card game, wide 2:1, target 3200x1600. Warm sunlit limestone temple archive hallway, open circular architectural motif on RIGHT, quiet left half for menu text, bronze and ivy details, no UI controls or text. Match reference hand-painted materials and contours, not photo or 3D. No watermark."
+  },
+  {
+    "id": "pakete",
+    "category": "backgrounds",
+    "name": "pakete",
+    "prompt": "Use case: stylized-concept. Production background for Aeterna historical card game, wide 2:1, target 3200x1600. Warm stone chamber with empty ceremonial table in lower center, bronze edge and red wax accents, softly lit stone wall, quiet middle to receive an animated card pack. No lettering, no prepainted cards or packs. Match reference hand-painted materials and contours, not photo or 3D. No watermark."
+  },
+  {
+    "id": "sammlung",
+    "category": "backgrounds",
+    "name": "sammlung",
+    "prompt": "Use case: stylized-concept. Production background for Aeterna historical card game, wide 2:1, target 3200x1600. A warm monastic archive room with limestone arches, bookshelves at left and right edges and an empty dark oak table in foreground. Very calm center for interactive card book overlay. Upper-right sunlight, olive and bronze accents. No people, no readable text, no painted cards. Match reference hand-painted materials and contours, not photo or 3D. No watermark."
+  },
+  {
+    "id": "temple",
+    "category": "backgrounds",
+    "name": "temple",
+    "prompt": "Use case: stylized-concept. Production background for Aeterna historical card game, wide 2:1, target 3200x1600. Warm ivory limestone wall with shallow Greek meander frieze, bronze fittings and sparse ivy, calm empty center, hand painted, no text. Match reference hand-painted materials and contours, not photo or 3D. No watermark."
+  },
+  {
+    "id": "kartenruecken-chroniken",
+    "category": "cardbacks",
+    "name": "Aeterna-Siegel",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. aged bronze seal with a four-point chronicle star on ivory limestone. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "kartenruecken-lilien",
+    "category": "cardbacks",
+    "name": "Lilienbanner",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. three gold fleur-de-lis emblems on blue medieval French woven cloth. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "kartenruecken-pharao",
+    "category": "cardbacks",
+    "name": "Pharaonengold",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. lapis and gold Egyptian eye of Horus with restrained lotus border. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "kartenruecken-runen",
+    "category": "cardbacks",
+    "name": "Wikinger-Runen",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. dark weathered northern stone with small historically plausible Younger Futhark decorative strokes, no modern occult symbols. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "kartenruecken-sparta",
+    "category": "cardbacks",
+    "name": "Spartas Bronzeschild",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. round hammered bronze aspis on muted Spartan red textile; raised geometric lambda emblem only. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "kartenruecken-sterne",
+    "category": "cardbacks",
+    "name": "Sternenkarte",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. engraved brass astrolabe and gold star points on deep lapis enamel. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "kartenruecken-tempel",
+    "category": "cardbacks",
+    "name": "Tempelstein",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. weathered limestone temple panel with carved Greek meander and tiny ivy leaves. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "kartenruecken-zen",
+    "category": "cardbacks",
+    "name": "Tusche & Kirschblüte",
+    "prompt": "Use case: stylized-concept. A single finished full-bleed playing card BACK, portrait ratio 400:564, target 800x1128. black lacquer, restrained red brush circle and delicate cherry blossom branch, Japanese artistic cosmetic. Warm painted Aeterna limestone/bronze rendering, upper RIGHT light, crisp symmetrical composition, rounded rectangular border, no lettering, no watermark, no white margin. Reference is for materials and rendering only."
+  },
+  {
+    "id": "boudicca_5",
+    "category": "cards",
+    "name": "Heilkundige mit der Mistel",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Heilkundige mit der Mistel.\nPRIMARY SUBJECT — this is what MUST be depicted: An adult Gallic FEMALE herbal healer, grey-brown braided hair, modest wool dress, no armor, collecting mistletoe into a basket. She is not Vercingetorix: no beard, sword, shield or male chieftain.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Vercingetorix and Arverni, Gaul circa 52 BCE. Late La Tene mail, iron swords, long oval shields, simple helmets, torcs, wool tunics and trousers. No horned fantasy helmets or Scottish tartan.  Gallic forts use earthworks, stone-and-timber ramparts, no medieval crenellated castle keeps.\nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions."
+  },
+  {
+    "id": "dandolo_4",
+    "category": "cards",
+    "name": "Dogenklinge",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Dogenklinge.\nPRIMARY SUBJECT — this is what MUST be depicted: A single plain medieval Italian iron short sword with a simple bronze guard lying diagonally on red cloth in a Venetian wooden chest. Weapon still life; no portrait.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\n PERIOD CONTEXT: Venice circa 1200, medieval wool and linen, mail, practical iron and wood. Background only close wooden ship structures and sea or a wood-beamed medieval Arsenal interior as appropriate. No skyline, large domed building, minaret, tall tower, Renaissance palace, modern gondola, carnival mask, gunpowder weapon or magic. For the explicit 1204 plunder scene, show captured bronze treasures and stone interiors without any skyline. The exact PRIMARY SUBJECT has priority over its owner faction. No doge portrait unless the card explicitly names him."
+  },
+  {
+    "id": "dandolo_6",
+    "category": "cards",
+    "name": "Geheimer Vertrag",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Geheimer Vertrag.\nPRIMARY SUBJECT — this is what MUST be depicted: Close-up of two clothed medieval merchant hands passing a folded parchment contract with a red wax seal across a wooden table. No readable text, no portrait.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\n PERIOD CONTEXT: Venice circa 1200, medieval wool and linen, mail, practical iron and wood. Background only close wooden ship structures and sea or a wood-beamed medieval Arsenal interior as appropriate. No skyline, large domed building, minaret, tall tower, Renaissance palace, modern gondola, carnival mask, gunpowder weapon or magic. For the explicit 1204 plunder scene, show captured bronze treasures and stone interiors without any skyline. The exact PRIMARY SUBJECT has priority over its owner faction. No doge portrait unless the card explicitly names him."
+  },
+  {
+    "id": "hypatia_9",
+    "category": "cards",
+    "name": "Theon von Alexandria",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Theon von Alexandria.\nPRIMARY SUBJECT — this is what MUST be depicted: Theon of Alexandria, an elderly MALE mathematician around 380 CE, grey beard, plain philosopher himation, geometry tools and papyrus, distinct face. Do not depict his daughter Hypatia.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions."
+  },
+  {
+    "id": "leonidas_3",
+    "category": "cards",
+    "name": "Hoplitenhauptmann",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Hoplitenhauptmann.\nPRIMARY SUBJECT — this is what MUST be depicted: A distinct middle-aged Greek hoplite captain directing three soldiers into formation, transverse crest is not used as Roman rank shorthand; plain Greek equipment.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions."
+  },
+  {
+    "id": "leonidas_4",
+    "category": "cards",
+    "name": "Speerträger",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Speerträger.\nPRIMARY SUBJECT — this is what MUST be depicted: A Spartan spearman mid-stride with long dory spear, linen cuirass, shield visible; action scene with full spear direction clear.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions."
+  },
+  {
+    "id": "leonidas_5",
+    "category": "cards",
+    "name": "Schildstoß",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Schildstoß.\nPRIMARY SUBJECT — this is what MUST be depicted: A close action scene of one Greek round bronze shield physically pushing an opposing shield, dust and impact, no magic or glowing royal portrait.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions."
+  },
+  {
+    "id": "leonidas_6",
+    "category": "cards",
+    "name": "Phalanxveteran",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Phalanxveteran.\nPRIMARY SUBJECT — this is what MUST be depicted: An elderly scarred Spartan phalanx veteran bracing behind a battered bronze shield, grey beard and worn linen armor, no king insignia.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions."
+  },
+  {
+    "id": "leonidas_9",
+    "category": "cards",
+    "name": "Gorgo, Stimme Spartas",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Gorgo, Stimme Spartas.\nPRIMARY SUBJECT — this is what MUST be depicted: Gorgo, an adult Spartan WOMAN and queen circa 480 BCE, wearing a dignified wool peplos and mantle fastened at the shoulders, dark hair pinned simply, speaking to listeners in a Spartan courtyard. No male king, no beard, no armor bikini, no Egyptian crown.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions."
+  },
+  {
+    "id": "agrippa",
+    "category": "heroes",
+    "name": "Marcus Agrippa",
+    "prompt": "Use case: historical-scene. Asset: heroes / Marcus Agrippa. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Marcus Vipsanius Agrippa, Roman general, strong brow, naval crown (corona rostrata), Actium fleet behind. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHISTORICAL CONSTRAINTS: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. Portrait: broad strong brow, short curly hair, clean shaven, restrained naval crown. Agrippa original Pantheon must not use Hadrian later dome.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "amanirenas",
+    "category": "heroes",
+    "name": "Ahhotep I.",
+    "prompt": "Use case: historical-scene. Asset: heroes / Ahhotep I.. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Queen Ahhotep I of Egypt, vulture crown, golden flies of valour on a chain, ceremonial axe, Theban temple behind. Epoch: Ende der Zweiten Zwischenzeit, Beginn des Neuen Reiches, Theben (Waset) in Oberägypten.\nHISTORICAL CONSTRAINTS: Ahhotep I and Egypt circa 1550 BCE, late Second Intermediate Period/early Eighteenth Dynasty. Linen, gold and faience, wood hide shields, bows, bronze axes; chariots only where named. No Ptolemaic queen, Roman armor, or Nubian Amanirenas. Portrait: Egyptian queen with linen dress, restrained vulture headdress, gold fly pendants treated as traditional attribution; exact tomb ownership is debated.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "anna",
+    "category": "heroes",
+    "name": "Anna Komnene",
+    "prompt": "Use case: historical-scene. Asset: heroes / Anna Komnene. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Anna Komnene, Byzantine princess and historian, purple and gold robes, holding a codex. Epoch: Byzantinisches Reich, Konstantinopel.\nHISTORICAL CONSTRAINTS: Anna Komnene, Constantinople circa 1120 CE. Byzantine silk, purple and gold textiles, codex manuscripts, mail/lamellar for soldiers, round shields, cross-domed churches. Hagia Sophia without Ottoman minarets. Portrait: mature Byzantine scholar princess, modest silk dress and veil, codex, no fantasy crown.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "baibars",
+    "category": "heroes",
+    "name": "Baibars",
+    "prompt": "Use case: historical-scene. Asset: heroes / Baibars. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Baibars, Mamluk sultan, blue eyes, turban with helmet, lance, Cairo citadel behind. Epoch: Mamlukensultanat, Kairo, Syrien und Palästina.\nHISTORICAL CONSTRAINTS: Mamluk Egypt and Syria circa 1260 CE. Thirteenth-century mail, textile-covered lamellar where appropriate, conical helmets, lance, composite bow, patterned tunics. No sixteenth-century Ottoman armor or flintlocks. Portrait: mature Kipchak-origin sultan in cloth-wrapped conical helmet and mail, restrained turquoise accents, Cairo citadel.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "boudicca",
+    "category": "heroes",
+    "name": "Vercingetorix",
+    "prompt": "Use case: historical-scene. Asset: heroes / Vercingetorix. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Vercingetorix, Gallic chieftain of the Arverni, long hair and drooping moustache, gold torc, bronze helmet at his side, ramparts of Alesia behind. Epoch: Späte Römische Republik, Gallischer Krieg, Gallien: Gergovia und Alesia.\nHISTORICAL CONSTRAINTS: Vercingetorix and Arverni, Gaul circa 52 BCE. Late La Tene mail, iron swords, long oval shields, simple helmets, torcs, wool tunics and trousers. No horned fantasy helmets or Scottish tartan. Portrait: adult Gallic man, moustache, torc, cloak, Alesia backdrop; not Boudicca.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "dandolo",
+    "category": "heroes",
+    "name": "Enrico Dandolo",
+    "prompt": "Use case: historical-scene. ONE portrait of Enrico Dandolo. Elderly blind Venetian doge circa 1200, red mantle, simple early ducal cap, white under-cap, grey beard, subtly clouded eyes. Background ONLY a wooden medieval Venetian galley and open sea. No city skyline, domes, mosques or minarets. Plain staff in hand, no sultan costume or later carnival attire. Hand-painted softly stylized historical card art matching the supplied Aeterna rendering reference. Warm upper-right sunlight, bronze and ivory palette, brown painted contours, not a photo. Square 1024x1024, centered head and shoulders, face and important attributes safe for circular crop. No text, no frame, no watermark. Plausible reconstruction, not authenticated likeness."
+  },
+  {
+    "id": "epaminondas",
+    "category": "heroes",
+    "name": "Epaminondas",
+    "prompt": "Use case: historical-scene. ONE portrait of Epaminondas. Theban commander circa 371 BCE, bearded adult Greek man in OPEN Boeotian bronze helmet with broad rolled brim, linen cuirass and muted blue cloak. Completely PLAIN round bronze aspis without letters, lambda, crest or emblem. Boeotian hills and unmarked hoplite shields behind. Absolutely no Spartan lambda. Hand-painted softly stylized historical card art matching the supplied Aeterna rendering reference. Warm upper-right sunlight, bronze and ivory palette, brown painted contours, not a photo. Square 1024x1024, centered head and shoulders, face and important attributes safe for circular crop. No text, no frame, no watermark. Plausible reconstruction, not authenticated likeness."
+  },
+  {
+    "id": "fabius",
+    "category": "heroes",
+    "name": "Fabius Maximus",
+    "prompt": "Use case: historical-scene. Asset: heroes / Fabius Maximus. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Quintus Fabius Maximus, elderly Roman dictator in toga with a small wart on his lip, hills of Campania behind. Epoch: Römische Republik, Rom und Süditalien.\nHISTORICAL CONSTRAINTS: Quintus Fabius Maximus, Rome circa 217 BCE, middle Republic. Toga praetexta, oval shields, mail, Montefortino helmets, no Imperial segmented armor. Portrait: older Roman statesman, clean shaven, white toga with restrained purple border, rolling Italian hills.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "fuhao",
+    "category": "heroes",
+    "name": "Fürstin von Vix",
+    "prompt": "Use case: historical-scene. Asset: heroes / Fürstin von Vix. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of the Lady of Vix, Celtic princess of the Hallstatt period, massive gold torc, amber beads, the great bronze krater behind. Epoch: Ältere Eisenzeit (Hallstattzeit), frühe Kelten, Mont Lassois bei Vix in Burgund.\nHISTORICAL CONSTRAINTS: Lady of Vix, Hallstatt Burgundy circa 500 BCE. Wool garments, bronze fibulae, gold torc around neck not on head, amber and lignite bracelets, bronze krater, wagon and Mont Lassois. No Chinese Shang imagery, no La Tene war fantasy. Portrait: mature woman with gold torc, patterned wool dress, amber ornaments. Name and exact face unknown; status as ruler is interpretive.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "hypatia",
+    "category": "heroes",
+    "name": "Hypatia",
+    "prompt": "Use case: historical-scene. Asset: heroes / Hypatia. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Hypatia\nHISTORICAL CONSTRAINTS: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. Portrait: mature Greek-speaking woman scholar, thoughtful face, simply pinned dark hair. The great Ptolemaic library is not shown as an intact institution in her lifetime.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "imhotep",
+    "category": "heroes",
+    "name": "Imhotep",
+    "prompt": "Use case: historical-scene. Asset: heroes / Imhotep. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Imhotep\nHISTORICAL CONSTRAINTS: Egypt, Third Dynasty circa 2650 BCE. Old Kingdom linen kilts, copper tools, papyrus and stone architecture at Saqqara. No horses, war chariots, iron, New Kingdom battle dress or glass laboratory equipment. Portrait: non-royal Egyptian architect and official, close cap, linen, papyrus roll, no pharaonic crown. Later statues are iconographic references, not contemporary portraits.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "jeanne",
+    "category": "heroes",
+    "name": "Hildegard von Bingen",
+    "prompt": "Use case: historical-scene. Asset: heroes / Hildegard von Bingen. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Hildegard of Bingen, Benedictine abbess in black habit and white veil, wax tablet and stylus, a fiery light from above, Rhine valley behind. Epoch: Hochmittelalter, Disibodenberg und Rupertsberg bei Bingen am Rhein.\nHISTORICAL CONSTRAINTS: Hildegard of Bingen, Rupertsberg circa 1150 CE. Benedictine habits and veils, Romanesque architecture, wax tablets, parchment, medicinal garden. No fifteenth-century plate armor or Joan of Arc insignia. Portrait: mature abbess with white linen under-veil and dark outer veil, stylus and tablet.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "khan",
+    "category": "heroes",
+    "name": "Widukind",
+    "prompt": "Use case: historical-scene. Asset: heroes / Widukind. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Widukind, Saxon leader of the 8th century, long hair and beard, fur cloak over mail, spear, misty Westphalian forest behind. Epoch: Frühmittelalter, Sachsenkriege, Westfalen und das Land an der Weser.\nHISTORICAL CONSTRAINTS: Widukind, Saxony, eighth century CE. Saxon wool tunics, cloaks, seax knives, spears, round wood shields, mail for wealthy warriors. No horns, Mongol lamellar armor or Mongolian faces inferred from legacy ID. Portrait: mature Saxon noble, beard, wool cloak and mail, Weser beech woodland.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "leonidas",
+    "category": "heroes",
+    "name": "Leonidas I.",
+    "prompt": "Use case: historical-scene. Asset: heroes / Leonidas I.. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Leonidas I.\nHISTORICAL CONSTRAINTS: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. Portrait: mature bearded commander, helmet raised to reveal face.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "mandukhai",
+    "category": "heroes",
+    "name": "Thusnelda",
+    "prompt": "Use case: historical-scene. Asset: heroes / Thusnelda. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Thusnelda, Germanic noblewoman of the Cherusci, braided hair, woollen cloak with bronze brooch, proud gaze, dark forest behind. Epoch: Frühe römische Kaiserzeit, Germanien zwischen Weser und Rhein.\nHISTORICAL CONSTRAINTS: Thusnelda and Cherusci, Germania circa 15 CE. Wool and linen, fibula brooches, round shields, spears, longhouses. No Mongol, Viking horned helmet, medieval castle or fantasy warrior corset. Portrait: adult Germanic noblewoman, pinned or braided hair, wool mantle with bronze brooch, forest.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "masako",
+    "category": "heroes",
+    "name": "Theophanu",
+    "prompt": "Use case: historical-scene. Asset: heroes / Theophanu. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Empress Theophanu, Byzantine-born empress in purple and gold with a pearl crown, holding a charter, Ottonian church behind. Epoch: Ottonisches Reich, Konstantinopel, Rom und das Reich zwischen Rhein und Elbe.\nHISTORICAL CONSTRAINTS: Theophanu, Ottonian Empire circa 980 CE. Byzantine-influenced silk and gold court dress, pearl diadem, Romanesque churches, parchment charters. No Japanese armor or late medieval Gothic forms. Portrait: young Byzantine-born empress in formal silk with pearl diadem, dignified, charter.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "musashi",
+    "category": "heroes",
+    "name": "Ulrich von Liechtenstein",
+    "prompt": "Use case: historical-scene. A single square hand-painted historical portrait of the fully clothed adult thirteenth-century Styrian knight and poet Ulrich von Liechtenstein. He wears a long mail hauberk, a modest red surcoat and a wool cloak, and holds a plain great helm under one arm. Face clearly visible, mature calm expression, short beard, tournament field softly painted behind. No helmet crest or figurines. No Japanese objects. No fifteenth-century full plate armor. Warm limestone, bronze and muted red palette, painted brown contours, upper-right warm sunlight. Match only the rendering style of the supplied reference. Single centered half-length figure safe for a round portrait crop. No text, no border, no watermark. Face is a plausible reconstruction, not a verified likeness."
+  },
+  {
+    "id": "nezahualcoyotl",
+    "category": "heroes",
+    "name": "Nezahualcóyotl",
+    "prompt": "Use case: historical-scene. ONE portrait of Nezahualcóyotl. Fifteenth-century Acolhua/Nahua ruler of Texcoco, mature Indigenous central Mexican man. SMALL turquoise mosaic xiuhuitzolli diadem: low band with ONE compact triangular front projection, NO FEATHERS whatsoever. Short straight dark hair. White cotton tilma with narrow turquoise woven border, flower held in hand, reed canoes on Lake Texcoco behind. NO feather fan, feather headdress, long feathers, warbonnet, European crown. Compact turquoise diadem is essential. Hand-painted softly stylized historical card art matching the supplied Aeterna rendering reference. Warm upper-right sunlight, bronze and ivory palette, brown painted contours, not a photo. Square 1024x1024, centered head and shoulders, face and important attributes safe for circular crop. No text, no frame, no watermark. Plausible reconstruction, not authenticated likeness."
+  },
+  {
+    "id": "nostradamus",
+    "category": "heroes",
+    "name": "Johann Friedrich Böttger",
+    "prompt": "Use case: historical-scene. Asset: heroes / Johann Friedrich Böttger. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Johann Friedrich Boettger, young Baroque alchemist in a periwig and waistcoat, holding a white porcelain cup, glowing kiln and flasks behind. Epoch: Barock, Kursachsen unter August dem Starken, Berlin, Dresden und Meißen.\nHISTORICAL CONSTRAINTS: Johann Friedrich Boettger, Dresden and Meissen circa 1708 CE. Baroque coats, linen cravats, natural or curled wigs, clay crucibles and early porcelain. No medieval wizard clothes or magic runes. Portrait: young male alchemist in early eighteenth-century dress holding a small plain white porcelain vessel; not Nostradamus.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "perikles",
+    "category": "heroes",
+    "name": "Perikles",
+    "prompt": "Use case: historical-scene. Asset: heroes / Perikles. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Pericles, Athenian statesman, bearded, wearing a Corinthian helmet pushed up on his head, Acropolis behind. Epoch: Griechische Antike, Athen und der Piräus.\nHISTORICAL CONSTRAINTS: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. Portrait: bearded Pericles with Corinthian helmet pushed up, based on established sculptural portrait type.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "ragnar",
+    "category": "heroes",
+    "name": "Wiprecht von Groitzsch",
+    "prompt": "Use case: historical-scene. ONE portrait of Wiprecht von Groitzsch. German count circa 1100, mature man, iron nasal helmet, long unadorned mail hauberk, plain wool cloak and rolled charter. Plain natural wood kite shield with iron edge. NO painted heraldic lion, coat of arms, patterned surcoat, later plate armor or fantasy. Modest timber fort and earthworks at Groitzsch behind. Hand-painted softly stylized historical card art matching the supplied Aeterna rendering reference. Warm upper-right sunlight, bronze and ivory palette, brown painted contours, not a photo. Square 1024x1024, centered head and shoulders, face and important attributes safe for circular crop. No text, no frame, no watermark. Plausible reconstruction, not authenticated likeness."
+  },
+  {
+    "id": "zizka",
+    "category": "heroes",
+    "name": "Vauban",
+    "prompt": "Use case: historical-scene. Asset: heroes / Vauban. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: Portrait of Sebastien Vauban, Marshal of France, Baroque periwig, breastplate and blue sash, plan of a star fort in hand, fortress walls behind. Epoch: Absolutismus, Zeit Ludwigs XIV., Frankreich: Festungen von Lille bis Briançon.\nHISTORICAL CONSTRAINTS: Sebastien Le Prestre de Vauban, France circa 1695 CE. Late seventeenth-century long coats, breeches, periwigs, matchlock or flintlock muskets as appropriate, bastioned fortifications, gabions and cannon. No Hussite wagon fort or medieval knight. Portrait: mature engineer with long curled wig, cuirass and blue sash, fortress drawing, face inspired by period portrait tradition.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "dandolo-marmor",
+    "category": "skins",
+    "name": "Enrico Dandolo – Marmorhallen",
+    "prompt": "Use case: historical-scene. Asset: skins / Enrico Dandolo – Marmorhallen. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: A sculpted ivory marble bust of Enrico Dandolo in a warm limestone niche, subtle gilt bronze accents, polished sculptural material, not living skin. Same costume and character as the base portrait.\nHISTORICAL CONSTRAINTS: Venice and Constantinople, circa 1200 CE. Wool, silk, chain mail, medieval oared galleys. No tricorn, eighteenth-century carnival mask, or Renaissance flintlock. Portrait: elderly blind doge, subdued cloudy eyes, simple early ducal cap and red mantle, no eyepatch.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "hypatia-marmor",
+    "category": "skins",
+    "name": "Hypatia – Marmorhallen",
+    "prompt": "Use case: historical-scene. Asset: skins / Hypatia – Marmorhallen. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: A sculpted ivory marble bust of Hypatia in a warm limestone niche, subtle gilt bronze accents, polished sculptural material, not living skin. Same costume and character as the base portrait.\nHISTORICAL CONSTRAINTS: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. Portrait: mature Greek-speaking woman scholar, thoughtful face, simply pinned dark hair. The great Ptolemaic library is not shown as an intact institution in her lifetime.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "imhotep-marmor",
+    "category": "skins",
+    "name": "Imhotep – Marmorhallen",
+    "prompt": "Use case: historical-scene. Asset: skins / Imhotep – Marmorhallen. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: A sculpted ivory marble bust of Imhotep in a warm limestone niche, subtle gilt bronze accents, polished sculptural material, not living skin. Same costume and character as the base portrait.\nHISTORICAL CONSTRAINTS: Egypt, Third Dynasty circa 2650 BCE. Old Kingdom linen kilts, copper tools, papyrus and stone architecture at Saqqara. No horses, war chariots, iron, New Kingdom battle dress or glass laboratory equipment. Portrait: non-royal Egyptian architect and official, close cap, linen, papyrus roll, no pharaonic crown. Later statues are iconographic references, not contemporary portraits.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "leonidas-marmor",
+    "category": "skins",
+    "name": "Leonidas I. – Marmorhallen",
+    "prompt": "Use case: historical-scene. Asset: skins / Leonidas I. – Marmorhallen. STYLE LOCK: hand-painted illustrated historical adventure card game, softly stylized human proportions, visible painted brush shapes and thin dark-brown contours, NOT a photograph or 3D render. Use the supplied image ONLY as reference for rendering style/materials/light, do not copy its layout into the scene. Warm light from upper RIGHT, warm ivory limestone #e5ceb1, weathered bronze #875d3e, restrained gold #d6a148, lapis and olive accents. Distinct readable silhouette, restrained background detail, coherent museum-informed costume and material culture. No frame, no captions, no letters, no numbers, no UI, no watermark. Square full-bleed composition, principal face/object within central 70%, safe for round crop. Exactly ONE finished illustration, no contact sheet.\nSUBJECT: A sculpted ivory marble bust of Leonidas I. in a warm limestone niche, subtle gilt bronze accents, polished sculptural material, not living skin. Same costume and character as the base portrait.\nHISTORICAL CONSTRAINTS: Sparta, circa 480 BCE. Greek linen or bronze cuirass, bronze Corinthian helmet, round aspis, dory spear, red wool cloak. No Roman segmented armor, no fantasy leather harness. Portrait: mature bearded commander, helmet raised to reveal face.\nHuman faces without secure contemporary likenesses are plausible artistic reconstructions, not verified portraits. Depict the named subject literally; game mechanics such as damage, summoning and buffs are not physical historical facts. Any miraculous glow is a restrained game metaphor, no monsters or anachronistic costume."
+  },
+  {
+    "id": "chronikleiste",
+    "category": "ui-art",
+    "name": "chronikleiste",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single very tall narrow blank parchment strip rolled around small bronze rods at top and bottom, quiet beige center, no text or icons, aspect ratio 140:1100. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 140:1100."
+  },
+  {
+    "id": "giftphiole",
+    "category": "ui-art",
+    "name": "giftphiole",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single small corked glass phial containing olive-green liquid, bronze neck band, no label. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 64:96."
+  },
+  {
+    "id": "kartenbuch",
+    "category": "ui-art",
+    "name": "kartenbuch",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single large open card collection book seen almost orthographically from above, dark leather cover, two blank parchment pages, reinforced bronze corner fittings, visible gutter. The pages must be empty and low contrast, no cards or text. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 1868:1240."
+  },
+  {
+    "id": "kartenpaket",
+    "category": "ui-art",
+    "name": "kartenpaket",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single sealed rectangular card pack wrapped in warm ivory parchment with red wax seal bearing a simple four-point chronicle star, aged bronze corner clasps. Upright front view, no lettering, no loose cards. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 680:918."
+  },
+  {
+    "id": "kartenrahmen-building-gold",
+    "category": "ui-art",
+    "name": "Kartenrahmen building gold",
+    "prompt": "Use case: stylized-concept. Exactly one front orthographic card frame for a historical game, portrait 800:1128. Temple-gate silhouette with triangular pediment at top, strong square stone pillars and crenellated architectural top, empty horizontal name ribbon below art window, blank parchment rules area in lower quarter, stone stepped plinth at bottom. Entire architectural frame richly gilded with restrained warm gold, still visibly weathered carved stone and bronze. Match painted Aeterna reference. Genuine transparency OUTSIDE the frame and INSIDE the large upper portrait window. Name ribbon and rules parchment are opaque blank. No illustration, no figure, no symbols, no numbers, no text. Precise aligned symmetric frame, warm upper-right light."
+  },
+  {
+    "id": "kartenrahmen-building-normal",
+    "category": "ui-art",
+    "name": "Kartenrahmen building normal",
+    "prompt": "Use case: stylized-concept. Exactly one front orthographic card frame for a historical game, portrait 800:1128. Temple-gate silhouette with triangular pediment at top, strong square stone pillars and crenellated architectural top, empty horizontal name ribbon below art window, blank parchment rules area in lower quarter, stone stepped plinth at bottom. Warm ivory limestone with sparse bronze and gold trim. Match painted Aeterna reference. Genuine transparency OUTSIDE the frame and INSIDE the large upper portrait window. Name ribbon and rules parchment are opaque blank. No illustration, no figure, no symbols, no numbers, no text. Precise aligned symmetric frame, warm upper-right light."
+  },
+  {
+    "id": "kartenrahmen-minion-gold",
+    "category": "ui-art",
+    "name": "Kartenrahmen minion gold",
+    "prompt": "Use case: stylized-concept. Exactly one front orthographic card frame for a historical game, portrait 800:1128. Temple-gate silhouette with triangular pediment at top, fluted side pillars and round arched picture opening, empty horizontal name ribbon below art window, blank parchment rules area in lower quarter, stone stepped plinth at bottom. Entire architectural frame richly gilded with restrained warm gold, still visibly weathered carved stone and bronze. Match painted Aeterna reference. Genuine transparency OUTSIDE the frame and INSIDE the large upper portrait window. Name ribbon and rules parchment are opaque blank. No illustration, no figure, no symbols, no numbers, no text. Precise aligned symmetric frame, warm upper-right light."
+  },
+  {
+    "id": "kartenrahmen-minion-normal",
+    "category": "ui-art",
+    "name": "Kartenrahmen minion normal",
+    "prompt": "Use case: stylized-concept. Exactly one front orthographic card frame for a historical game, portrait 800:1128. Temple-gate silhouette with triangular pediment at top, fluted side pillars and round arched picture opening, empty horizontal name ribbon below art window, blank parchment rules area in lower quarter, stone stepped plinth at bottom. Warm ivory limestone with sparse bronze and gold trim. Match painted Aeterna reference. Genuine transparency OUTSIDE the frame and INSIDE the large upper portrait window. Name ribbon and rules parchment are opaque blank. No illustration, no figure, no symbols, no numbers, no text. Precise aligned symmetric frame, warm upper-right light."
+  },
+  {
+    "id": "kartenrahmen-spell-gold",
+    "category": "ui-art",
+    "name": "Kartenrahmen spell gold",
+    "prompt": "Use case: stylized-concept. Exactly one front orthographic card frame for a historical game, portrait 800:1128. Temple-gate silhouette with triangular pediment at top, slender columns and pointed radiant arched picture opening, empty horizontal name ribbon below art window, blank parchment rules area in lower quarter, stone stepped plinth at bottom. Entire architectural frame richly gilded with restrained warm gold, still visibly weathered carved stone and bronze. Match painted Aeterna reference. Genuine transparency OUTSIDE the frame and INSIDE the large upper portrait window. Name ribbon and rules parchment are opaque blank. No illustration, no figure, no symbols, no numbers, no text. Precise aligned symmetric frame, warm upper-right light."
+  },
+  {
+    "id": "kartenrahmen-spell-normal",
+    "category": "ui-art",
+    "name": "Kartenrahmen spell normal",
+    "prompt": "Use case: stylized-concept. Exactly one front orthographic card frame for a historical game, portrait 800:1128. Temple-gate silhouette with triangular pediment at top, slender columns and pointed radiant arched picture opening, empty horizontal name ribbon below art window, blank parchment rules area in lower quarter, stone stepped plinth at bottom. Warm ivory limestone with sparse bronze and gold trim. Match painted Aeterna reference. Genuine transparency OUTSIDE the frame and INSIDE the large upper portrait window. Name ribbon and rules parchment are opaque blank. No illustration, no figure, no symbols, no numbers, no text. Precise aligned symmetric frame, warm upper-right light."
+  },
+  {
+    "id": "praesentationspodest",
+    "category": "ui-art",
+    "name": "praesentationspodest",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single circular ivory marble display plinth with a thin aged-bronze rim, front three-quarter view, top face empty and clearly usable; soft warm upper-right illumination; no items. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 1200:900."
+  },
+  {
+    "id": "schildwall",
+    "category": "ui-art",
+    "name": "schildwall",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Two protective shields standing slightly splayed: round wood shield with iron boss on left, round bronze Greek aspis on right. Clear empty gap in center for a unit card overlay. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 240:200."
+  },
+  {
+    "id": "startbefehle",
+    "category": "ui-art",
+    "name": "startbefehle",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single vertically opened blank parchment scroll with wood rollers at top and bottom, small unmarked red wax seal near lower right. Broad blank center for dynamic card art and text. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 300:520."
+  },
+  {
+    "id": "steinplatten-links",
+    "category": "ui-art",
+    "name": "steinplatten-links",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Left half of a monumental sliding limestone door panel, front orthographic view, carved meander outer edge, rough straight joining edge on RIGHT, bronze clamps, no text. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 812:824."
+  },
+  {
+    "id": "steinplatten-rechts",
+    "category": "ui-art",
+    "name": "steinplatten-rechts",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Right half of a monumental sliding limestone door panel, front orthographic view, carved meander outer edge, rough straight joining edge on LEFT, bronze clamps, no text. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 812:824."
+  },
+  {
+    "id": "stundenglas",
+    "category": "ui-art",
+    "name": "stundenglas",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single elegant bronze hourglass, two clear glass bulbs and golden sand visibly flowing, centered front view, no lettering. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 140:200."
+  },
+  {
+    "id": "vermaechtnis-urne",
+    "category": "ui-art",
+    "name": "vermaechtnis-urne",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single small ancient Mediterranean ceramic funerary urn with warm terracotta body, two handles and bronze lid, no lettering. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 72:96."
+  },
+  {
+    "id": "versiegelte-befehle",
+    "category": "ui-art",
+    "name": "versiegelte-befehle",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single narrow rolled parchment command scroll tied with muted red cord and red wax seal, vertical, no text. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 80:160."
+  },
+  {
+    "id": "waffenablage",
+    "category": "ui-art",
+    "name": "waffenablage",
+    "prompt": "Use case: stylized-concept. One isolated finished hand-painted Aeterna game UI sprite. Single small front-view dark bronze inventory tray with a historically inspired plain iron short sword resting diagonally, two small empty round stat sockets at bottom, no numbers. Warm limestone ivory, aged bronze, dark brown contours, subtle brushwork matching reference, warm light from upper RIGHT. Object fully inside canvas with 5% padding; genuine transparent background, no floor/background, no text, no watermark. Shape proportions 160:210."
+  }
+]

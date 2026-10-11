@@ -1,0 +1,12 @@
+# Begrenzter Prüfstand und kurze Beobachtungen
+
+- Keine umfassende historische, anatomische oder spielinterne Abnahme; keine zusätzliche Quellenrecherche oder Variantenvergleiche. Alle 30 Bilder wurden jeweils einmal erzeugt und ohne Korrekturgenerierung geliefert.
+- Rom: stark dekorative Adler, Helme, Beschläge und der Stab des Primus Pilus sind illustrative Ausformungen. Die mechanischen Details von Ballista, Harpax, Schiffen und dem Vermessungsgerät sind nicht als technisch geprüfte Rekonstruktionen zu verstehen. Manche Rüstungsteile im Hintergrund weichen von der strengen spät-republikanischen Vorgabe ab.
+- Das Pantheonmotiv vermeidet die spätere Kuppel, behauptet aber keine gesicherte Rekonstruktion der ersten Anlage. Die Thermen sind eine idealisierte Säulen- und Badelandschaft.
+- Athen erscheint häufig mit stark zusammengerückter Akropolis, Stadt und Küste. Diese Hintergründe sind kompositorisch verdichtet und keine topografische Dokumentation. Bauphasen, Polychromie und einzelne Tempeldetails wurden nicht umfassend abgeglichen.
+- Der Strategos trägt zusätzlich einen Architekturplan; das ist eine gestalterische Ergänzung des Generators. Der Steinmetz arbeitet vor einer stark verdichteten Stadt-/Akropoliskulisse, nicht vor einer präzise rekonstruierten Landschaft des Pentelikon.
+- Bei der Triere sind Ruderanordnung und Rigging vereinfacht; gesetzte Segel und der Hintergrund sind keine geprüfte Darstellung der konkreten Schlacht von Salamis.
+- Phidias zeigt den Künstler bei der Arbeit an einer monumentalen Statue; der Token Athena Parthenos zeigt dagegen die vollendete Kultstatue ohne Werkstattaktion. Beide beziehen sich bewusst auf dasselbe Werk, sind aber unterschiedliche Aufträge und Szenen. Gesicht, Ornamentik und Attribute sind freie Rekonstruktionen.
+- Der Olympionike besitzt eine athenerähnliche Tempelkulisse; der Ort ist nicht verlässlich als Olympia erkennbar. Der Rhapsode ist als rezitierender Vortragender mit Stab dargestellt. Das Orakel zeigt eine dramatisierte Rauch-/Dreifußszene, keine historische Tatsachenbehauptung über Dämpfe.
+- Münzen, Pläne und kleine Ornamente können pseudo-schriftliche Spuren enthalten. Wiederkehrende Gesichts- und Hintergrundtypen sind möglich, obwohl die Vorgaben unterschiedliche Personen und Posen verlangen.
+- Die 41 geretteten Motivsperren und die ungeklärten Alexandria-Zuordnungen bleiben unverändert. Es wurden keine der gesperrten IDs ausgewählt.

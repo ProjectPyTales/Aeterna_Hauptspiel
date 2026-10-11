@@ -1,0 +1,24 @@
+{
+  "release": "Teil 03",
+  "date": "2026-10-09",
+  "priority": "UI first, <=50 exception",
+  "delivered_ui_components": 41,
+  "new_card_token_motifs": 0,
+  "regular_open_card_token_jobs": 295,
+  "blocked_card_jobs": 2,
+  "total_remaining_card_token_jobs": 297,
+  "rescued_motifs_locked": 41,
+  "known_pending_ui_asset_groups": [],
+  "pending_integration": [
+    "Einbau im Spiel",
+    "Android-Ressourcen kompilieren und auf Gerät prüfen",
+    "Menü-Trefferflächen im Laufzeitlayout prüfen"
+  ],
+  "prior_releases_required": [
+    "Teil 01",
+    "gerettet.zip",
+    "Teil 02"
+  ],
+  "original_game_modified": false,
+  "github_modified": false
+}

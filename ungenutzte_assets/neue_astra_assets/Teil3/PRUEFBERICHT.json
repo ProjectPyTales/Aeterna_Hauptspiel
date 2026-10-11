@@ -1,0 +1,45 @@
+{
+  "release": "Teil 03",
+  "result": "passed_limited_technical_checks",
+  "checks": {
+    "asset_count": 41,
+    "unique_ids": true,
+    "manifest_paths_and_hashes": true,
+    "decoded_raster_files": 48,
+    "parsed_svg_and_android_xml": 41,
+    "atlas_pixel_exact_entries": 36,
+    "six_masks_enclosed_and_nonempty": true,
+    "chronicle_lossless_reassembly": true,
+    "unchanged_carried_forward_files": [
+      "GERETTETE_ASSETS_ZUORDNUNG.json",
+      "GERETTETE_ASSETS_ZUORDNUNG.csv",
+      "GESPERRTE_ZUORDNUNGSPRUEFUNG.json",
+      "OFFENE_GENERIERUNGSAUFTRAEGE.json",
+      "OFFENE_ASSETS.csv",
+      "RESTBESTAND.json"
+    ],
+    "open_jobs": 295,
+    "rescued_motifs_locked": 41,
+    "alexandria_ids_locked": [
+      "hypatia_0",
+      "hypatia_2"
+    ],
+    "new_card_token_motifs": 0,
+    "android_resource_references_resolved": true,
+    "android_foreground_geometric_safe_circle_radius": 33,
+    "android_actual_compile_or_device_test": false,
+    "known_filter_background_reuse": "Vier Seltenheiten teilen Grundgrafik; unterschiedliche Archiv-Siegel aus Teil 01 sind verbindliche Overlay-Abhängigkeiten."
+  },
+  "limits": [
+    "Keine Integration ins eigentliche Spiel",
+    "Kein APK-Build, kein Gerätetest",
+    "Keine umfassende visuelle oder historische Abnahme",
+    "Menü-Geometrie muss später mit realen Touch-/Zoomtransformationen getestet werden"
+  ],
+  "input_archives": {
+    "gerettet.zip": "b969df393ea7d14e9a51f2ae23b752e8b12886f6b7d7032a173765083f6b7be0",
+    "Chronicle_of_Heroes-main.zip": "9bf15ef2bd1b7e65430588c1ef7396cc23d80947ebdcb3eda0c54d6a7bdf9214",
+    "Chronicle_of_Heroes_Assets_Teil_02.zip": "4319db1d777f0811019e3203a246513d1e0ddee1c1828c2de80af2770ecaeee6",
+    "Chronicle_of_Heroes_Assets_Teil_01.zip": "300ddaf63469ab5da46df6ff4ce729ef5f1bee4841ddf57370d20a903f39cd4f"
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "schema": 1,
+  "release": "Teil 01",
+  "partial": true,
+  "only_apply_listed_ids": true,
+  "atlas_layout": {
+    "cols": 4,
+    "rows": 3,
+    "cell": 724,
+    "pixel_width": 2896,
+    "pixel_height": 2172
+  },
+  "heroes": {
+    "leonidas": {
+      "art": "r01-heroes",
+      "cell": 0,
+      "individual": "assets/heroes/leonidas.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "hypatia": {
+      "art": "r01-heroes",
+      "cell": 1,
+      "individual": "assets/heroes/hypatia.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "imhotep": {
+      "art": "r01-heroes",
+      "cell": 2,
+      "individual": "assets/heroes/imhotep.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "dandolo": {
+      "art": "r01-heroes",
+      "cell": 3,
+      "individual": "assets/heroes/dandolo.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "khan": {
+      "art": "r01-heroes",
+      "cell": 4,
+      "individual": "assets/heroes/khan.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "boudicca": {
+      "art": "r01-heroes",
+      "cell": 5,
+      "individual": "assets/heroes/boudicca.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "nostradamus": {
+      "art": "r01-heroes",
+      "cell": 6,
+      "individual": "assets/heroes/nostradamus.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "jeanne": {
+      "art": "r01-heroes",
+      "cell": 7,
+      "individual": "assets/heroes/jeanne.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "ragnar": {
+      "art": "r01-heroes",
+      "cell": 8,
+      "individual": "assets/heroes/ragnar.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "musashi": {
+      "art": "r01-heroes",
+      "cell": 9,
+      "individual": "assets/heroes/musashi.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "perikles": {
+      "art": "r01-heroes",
+      "cell": 10,
+      "individual": "assets/heroes/perikles.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "agrippa": {
+      "art": "r01-heroes",
+      "cell": 11,
+      "individual": "assets/heroes/agrippa.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes.webp"
+    },
+    "amanirenas": {
+      "art": "r01-heroes-2",
+      "cell": 0,
+      "individual": "assets/heroes/amanirenas.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "anna": {
+      "art": "r01-heroes-2",
+      "cell": 1,
+      "individual": "assets/heroes/anna.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "nezahualcoyotl": {
+      "art": "r01-heroes-2",
+      "cell": 2,
+      "individual": "assets/heroes/nezahualcoyotl.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "masako": {
+      "art": "r01-heroes-2",
+      "cell": 3,
+      "individual": "assets/heroes/masako.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "epaminondas": {
+      "art": "r01-heroes-2",
+      "cell": 4,
+      "individual": "assets/heroes/epaminondas.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "fabius": {
+      "art": "r01-heroes-2",
+      "cell": 5,
+      "individual": "assets/heroes/fabius.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "mandukhai": {
+      "art": "r01-heroes-2",
+      "cell": 6,
+      "individual": "assets/heroes/mandukhai.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "baibars": {
+      "art": "r01-heroes-2",
+      "cell": 7,
+      "individual": "assets/heroes/baibars.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "zizka": {
+      "art": "r01-heroes-2",
+      "cell": 8,
+      "individual": "assets/heroes/zizka.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    },
+    "fuhao": {
+      "art": "r01-heroes-2",
+      "cell": 9,
+      "individual": "assets/heroes/fuhao.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-2.webp"
+    }
+  },
+  "cards": {
+    "leonidas_3": {
+      "art": "r01-cards-01",
+      "cell": 0,
+      "individual": "assets/cards/leonidas_3.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "leonidas_4": {
+      "art": "r01-cards-01",
+      "cell": 1,
+      "individual": "assets/cards/leonidas_4.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "leonidas_5": {
+      "art": "r01-cards-01",
+      "cell": 2,
+      "individual": "assets/cards/leonidas_5.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "leonidas_6": {
+      "art": "r01-cards-01",
+      "cell": 3,
+      "individual": "assets/cards/leonidas_6.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "leonidas_9": {
+      "art": "r01-cards-01",
+      "cell": 4,
+      "individual": "assets/cards/leonidas_9.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "hypatia_9": {
+      "art": "r01-cards-01",
+      "cell": 5,
+      "individual": "assets/cards/hypatia_9.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "dandolo_4": {
+      "art": "r01-cards-01",
+      "cell": 6,
+      "individual": "assets/cards/dandolo_4.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "dandolo_6": {
+      "art": "r01-cards-01",
+      "cell": 7,
+      "individual": "assets/cards/dandolo_6.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    },
+    "boudicca_5": {
+      "art": "r01-cards-01",
+      "cell": 8,
+      "individual": "assets/cards/boudicca_5.webp",
+      "target": "quellcode/assets/game/assets/art/r01-cards-01.webp"
+    }
+  },
+  "tokens": {},
+  "skins": {
+    "leonidas-marmor": {
+      "art": "r01-heroes-marble",
+      "cell": 0,
+      "individual": "assets/skins/leonidas-marmor.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-marble.webp"
+    },
+    "hypatia-marmor": {
+      "art": "r01-heroes-marble",
+      "cell": 1,
+      "individual": "assets/skins/hypatia-marmor.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-marble.webp"
+    },
+    "imhotep-marmor": {
+      "art": "r01-heroes-marble",
+      "cell": 2,
+      "individual": "assets/skins/imhotep-marmor.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-marble.webp"
+    },
+    "dandolo-marmor": {
+      "art": "r01-heroes-marble",
+      "cell": 3,
+      "individual": "assets/skins/dandolo-marmor.webp",
+      "target": "quellcode/assets/game/assets/art/r01-heroes-marble.webp"
+    }
+  },
+  "boards": {
+    "standard": {
+      "image": "board",
+      "remove_tint": true,
+      "master": "assets/backgrounds/board.webp",
+      "runtime": "game-assets/art/board.webp",
+      "preview": "game-assets/art/board-preview.webp"
+    },
+    "athen": {
+      "image": "board-athen",
+      "remove_tint": true,
+      "master": "assets/backgrounds/board-athen.webp",
+      "runtime": "game-assets/art/board-athen.webp",
+      "preview": "game-assets/art/board-athen-preview.webp"
+    },
+    "kapitol": {
+      "image": "board-kapitol",
+      "remove_tint": true,
+      "master": "assets/backgrounds/board-kapitol.webp",
+      "runtime": "game-assets/art/board-kapitol.webp",
+      "preview": "game-assets/art/board-kapitol-preview.webp"
+    },
+    "skriptorium": {
+      "image": "board-skriptorium",
+      "remove_tint": true,
+      "master": "assets/backgrounds/board-skriptorium.webp",
+      "runtime": "game-assets/art/board-skriptorium.webp",
+      "preview": "game-assets/art/board-skriptorium-preview.webp"
+    },
+    "porzellan": {
+      "image": "board-porzellan",
+      "remove_tint": true,
+      "master": "assets/backgrounds/board-porzellan.webp",
+      "runtime": "game-assets/art/board-porzellan.webp",
+      "preview": "game-assets/art/board-porzellan-preview.webp"
+    }
+  },
+  "notes": [
+    "Teil 01: apply ONLY listed IDs. Keep all other card/token art and missingArt entries.",
+    "Keep @pyramid rendering until its artwork is delivered. No token images are included in Teil 01.",
+    "R.atlases must load every mapped hero/card/skin atlas, including r01-heroes-2.",
+    "Skin renderer must load r01-heroes-marble explicitly."
+  ]
+}

@@ -1,0 +1,457 @@
+{
+  "release": "Teil 03",
+  "policy": "Auch semantische Motivüberschneidungen unter anderen IDs sind gesperrt.",
+  "entries": [
+    {
+      "id": "boudicca_5",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "dandolo_4",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "dandolo_6",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "hypatia_9",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_3",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_4",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_5",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_6",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_9",
+      "source": "Teil 01",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_0",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_1",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_2",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_7",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_8",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_10",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "leonidas_11",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "hoplite",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "hypatia_1",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "hypatia_3",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "hypatia_4",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "hypatia_10",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "hypatia_11",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_3",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_4",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_5",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_6",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_7",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_8",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_9",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_10",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "jeanne_11",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "novice",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "dandolo_5",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "dandolo_7",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "dandolo_10",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "dandolo_11",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "dandolo_12",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "imhotep_7",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "totem_heal",
+      "source": "Teil 02",
+      "reason": "already_delivered"
+    },
+    {
+      "id": "imhotep_8",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Altägyptisches Gericht unter der Sonne.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_2",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Arvernerkrieger vor den Vulkanhügeln.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_4",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Arvernischer Reiter im Speerangriff.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "hypatia_8",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Astronom unter Alexandrias Sternenhimmel.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "hypatia_6",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Bewahrerin des alexandrinischen Wissens.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "hypatia_7",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Bronzespiegel bündelt Sonnenlicht.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "imhotep_9",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Djoser und die Stufenpyramide.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "dandolo_2",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Dolch gegen Holzschild auf Schiffsplanken.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_1",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Funkenflug zwischen Fläschchen im Labor.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "dandolo_8",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Galeerenbau im venezianischen Arsenal.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_1",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Gallischer Eichenschild mit Eisenbuckel.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_3",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Gallischer Krieger schwingt das Langschwert.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_7",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Gallischer Schildwächter auf Gergovia.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "imhotep_6",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Jährliche Flut bei Saqqara.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "imhotep_5",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Leinen und Salbgefäße im altägyptischen Einbalsamierungsraum.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "jeanne_1",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Leuchtende Kräuter in Hildegards Garten.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "dandolo_9",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Marco Polo auf der Seidenstraße.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_7",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Meißner Arbeiter am glühenden Brennofen.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_6",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Ostfälischer Schildträger mit Speer.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "hypatia_5",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Papyrusstudium in Alexandrien.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_7",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sachsen stürmen die brennende Burg.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "jeanne_0",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Schlüsselhüterin am Rupertsberg.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_6",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Schreiber in der Meißner Porzellanmanufaktur.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_6",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Speere und Schilde der Gallier.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_0",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Späher im dunklen Buchenwald.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_4",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsische Falknerin mit Habicht.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_5",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsische Speerträger vor dem brennenden Dorf.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_8",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsische Wache am Königstein.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_4",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsischer Arzt mit Kräutern.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_2",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsischer Bergmann mit Kaolinkorb.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_9",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsischer Edelmann am Weserufer.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_1",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsischer Speerwerfer im Nebel.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "khan_8",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Sächsischer Sturm aus dem Wald.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_9",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Tschirnhaus am großen Brennspiegel.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "dandolo_0",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Venezianischer Bote im Ruderboo.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "dandolo_3",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Venezianischer Gesandter mit Siegelbrief.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "dandolo_1",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Venezianischer Schiffbauer in der Werft.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_8",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Vercingetorix reitet aus Alesia.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "nostradamus_5",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Versiegelter Befehl im Alchemielabor.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "jeanne_2",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Wächter am romanischen Klostertor.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "boudicca_0",
+      "source": "gerettet.zip",
+      "source_file": "gerettet/Wächterin des heiligen Eichenhains.png",
+      "reason": "rescued_motif_locked_assignment_provisional"
+    },
+    {
+      "id": "hypatia_0",
+      "source": "Teil 02 Sperrliste",
+      "reason": "possible_duplicate_do_not_generate"
+    },
+    {
+      "id": "hypatia_2",
+      "source": "Teil 02 Sperrliste",
+      "reason": "possible_duplicate_do_not_generate"
+    }
+  ]
+}

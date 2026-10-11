@@ -1,0 +1,452 @@
+[
+  {
+    "id": "agrippa_0",
+    "category": "cards",
+    "name": "Pilumwerfer",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Pilumwerfer.\nPRIMARY SUBJECT — this is what MUST be depicted: a Roman legionary throwing a pilum, shield raised, dust of the battlefield. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_0.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_1",
+    "category": "cards",
+    "name": "Legionär der Zehnten",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Legionär der Zehnten.\nPRIMARY SUBJECT — this is what MUST be depicted: a legionary of the Tenth Legion charging with gladius and red scutum, eagle standard behind. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_1.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_2",
+    "category": "cards",
+    "name": "Castra",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Castra.\nPRIMARY SUBJECT — this is what MUST be depicted: a Roman legionary camp (castra) with palisade, gate towers and neat rows of tents at dusk. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_2.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_3",
+    "category": "cards",
+    "name": "Testudo",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Testudo.\nPRIMARY SUBJECT — this is what MUST be depicted: Roman legionaries in testudo formation, shields locked overhead under a rain of arrows. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_3.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_4",
+    "category": "cards",
+    "name": "Ballista",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Ballista.\nPRIMARY SUBJECT — this is what MUST be depicted: a Roman ballista bolt thrower on a wooden platform, engineers loading a heavy bolt. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_4.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_5",
+    "category": "cards",
+    "name": "Liburnen bei Actium",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Liburnen bei Actium.\nPRIMARY SUBJECT — this is what MUST be depicted: light Liburnian galleys outmanoeuvring large warships at the battle of Actium, smoke on the sea. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_5.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_6",
+    "category": "cards",
+    "name": "Primus Pilus",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Primus Pilus.\nPRIMARY SUBJECT — this is what MUST be depicted: a veteran Roman centurion (primus pilus) with a transverse helmet crest and vine staff, leading a charge. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_6.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_7",
+    "category": "cards",
+    "name": "Thermen des Agrippa",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Thermen des Agrippa.\nPRIMARY SUBJECT — this is what MUST be depicted: the Baths of Agrippa in Rome, steaming pools under marble arches, warm light. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_7.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_8",
+    "category": "cards",
+    "name": "Pantheon",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Pantheon.\nPRIMARY SUBJECT — this is what MUST be depicted: A cautious archaeological reconstruction of Agrippa first Pantheon circa 27 BCE: rectangular colonnaded temple front in a Roman courtyard. No Hadrianic rotunda or dome. No legible inscription. Its exact original appearance is uncertain.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_8.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_9",
+    "category": "cards",
+    "name": "Vitruv, Baumeister Roms",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Vitruv, Baumeister Roms.\nPRIMARY SUBJECT — this is what MUST be depicted: Vitruvius, Roman architect, with compass and scroll of De architectura, an aqueduct under construction behind. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_9.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_10",
+    "category": "cards",
+    "name": "Aquilifer",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Aquilifer.\nPRIMARY SUBJECT — this is what MUST be depicted: a Roman aquilifer carrying the golden legionary eagle standard, lion pelt over his helmet. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_10.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "agrippa_11",
+    "category": "cards",
+    "name": "Harpax",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Harpax.\nPRIMARY SUBJECT — this is what MUST be depicted: the harpax, a grappling hook fired from a Roman ship catapult hooking an enemy galley. Epoch: Römische Republik und frühe Kaiserzeit, Rom, Actium und die Provinzen.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/agrippa_11.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "pioneer",
+    "category": "tokens",
+    "name": "Pionier",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Pionier.\nPRIMARY SUBJECT — this is what MUST be depicted: a Roman legion engineer with pickaxe and surveying groma, building a road. Epoch: neutral, any historical epoch.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Marcus Vipsanius Agrippa, Rome circa 30 BCE. Late Republican mail or bronze cuirass, Montefortino/Coolus-type helmets, oval scuta. No Imperial lorica segmentata, no medieval ships. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/tokens/pioneer.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_0",
+    "category": "cards",
+    "name": "Ruderer der Triere",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Ruderer der Triere.\nPRIMARY SUBJECT — this is what MUST be depicted: an Athenian trireme rower pulling an oar below deck, sweat and bronze light, coins at his belt. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_0.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_1",
+    "category": "cards",
+    "name": "Lange Mauern",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Lange Mauern.\nPRIMARY SUBJECT — this is what MUST be depicted: the Long Walls of Athens running from the city to the harbour of Piraeus, massive limestone fortification. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_1.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_2",
+    "category": "cards",
+    "name": "Rede auf die Gefallenen",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Rede auf die Gefallenen.\nPRIMARY SUBJECT — this is what MUST be depicted: Pericles giving the funeral oration on a wooden platform before a crowd of Athenians, cypress coffins. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_2.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_3",
+    "category": "cards",
+    "name": "Strategos",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Strategos.\nPRIMARY SUBJECT — this is what MUST be depicted: an Athenian strategos in a Corinthian helmet with a scroll of building plans, Acropolis scaffolding behind. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_3.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_4",
+    "category": "cards",
+    "name": "Pnyx",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Pnyx.\nPRIMARY SUBJECT — this is what MUST be depicted: the Pnyx hill of Athens with the speaker platform and citizens gathered for the assembly, Acropolis in the distance. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_4.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_5",
+    "category": "cards",
+    "name": "Scherbengericht",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Scherbengericht.\nPRIMARY SUBJECT — this is what MUST be depicted: Athenian citizens scratching names on pottery shards (ostraka) for an ostracism vote. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_5.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_6",
+    "category": "cards",
+    "name": "Triere von Salamis",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Triere von Salamis.\nPRIMARY SUBJECT — this is what MUST be depicted: a Greek trireme with a bronze ram charging through waves at Salamis, oars in perfect rhythm. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_6.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_7",
+    "category": "cards",
+    "name": "Pest von Athen",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Pest von Athen.\nPRIMARY SUBJECT — this is what MUST be depicted: the plague of Athens, a dim crowded street inside the city walls, a physician bending over the sick, sombre light. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_7.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_8",
+    "category": "cards",
+    "name": "Odeion",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Odeion.\nPRIMARY SUBJECT — this is what MUST be depicted: the Odeon of Pericles, a great roofed concert hall with many columns at the foot of the Acropolis. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_8.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_9",
+    "category": "cards",
+    "name": "Phidias, Meister der Akropolis",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Phidias, Meister der Akropolis.\nPRIMARY SUBJECT — this is what MUST be depicted: Phidias the sculptor on scaffolding before the colossal gold-and-ivory Athena Parthenos statue. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_9.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_10",
+    "category": "cards",
+    "name": "Steinmetz vom Pentelikon",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Steinmetz vom Pentelikon.\nPRIMARY SUBJECT — this is what MUST be depicted: a stonemason quarrying white marble on Mount Pentelikon, blocks for the Parthenon. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_10.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "perikles_11",
+    "category": "cards",
+    "name": "Schatz des Seebunds",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Schatz des Seebunds.\nPRIMARY SUBJECT — this is what MUST be depicted: the treasury of the Delian League, chests of silver coins with the Athenian owl. Epoch: Griechische Antike, Athen und der Piräus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/perikles_11.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "citizen",
+    "category": "tokens",
+    "name": "Bürger",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Bürger.\nPRIMARY SUBJECT — this is what MUST be depicted: an Athenian citizen in a himation holding a voting pebble, agora behind. Epoch: neutral, any historical epoch.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athens circa 440 BCE. Classical Greek chiton and himation, bronze helmets, round aspis, early classical temples with restrained polychromy. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/tokens/citizen.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "parthenos",
+    "category": "tokens",
+    "name": "Athena Parthenos",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Athena Parthenos.\nPRIMARY SUBJECT — this is what MUST be depicted: the colossal gold-and-ivory statue of Athena Parthenos inside the Parthenon, Nike in her hand. Epoch: neutral, any historical epoch.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Athena Parthenos gold and ivory cult statue in fifth-century BCE Parthenon, Athena holding a small Nike; clearly a sculptural object not a living giant.\nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/tokens/parthenos.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "griechen_0",
+    "category": "cards",
+    "name": "Olympionike",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Olympionike.\nPRIMARY SUBJECT — this is what MUST be depicted: an Olympic victor with an olive wreath and a palm branch, stadium of Olympia behind. Epoch: Griechenland und Hellenismus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Ancient Greece or Hellenistic Alexandria as appropriate to the named subject. Classical temples, linen/wool, bronze; distinguish fifth-century BCE Athens from third-century BCE Pharos.\nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/griechen_0.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "griechen_1",
+    "category": "cards",
+    "name": "Rhapsode",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Rhapsode.\nPRIMARY SUBJECT — this is what MUST be depicted: a Greek rhapsode reciting Homer with a staff before listeners. Epoch: Griechenland und Hellenismus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Ancient Greece or Hellenistic Alexandria as appropriate to the named subject. Classical temples, linen/wool, bronze; distinguish fifth-century BCE Athens from third-century BCE Pharos.\nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/griechen_1.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  },
+  {
+    "id": "griechen_3",
+    "category": "cards",
+    "name": "Orakel von Delphi",
+    "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Orakel von Delphi.\nPRIMARY SUBJECT — this is what MUST be depicted: the Pythia of Delphi on her tripod above the vapours, temple of Apollo. Epoch: Griechenland und Hellenismus.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Ancient Greece or Hellenistic Alexandria as appropriate to the named subject. Classical temples, linen/wool, bronze; distinguish fifth-century BCE Athens from third-century BCE Pharos.\nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+    "file": "assets/cards/griechen_3.png",
+    "transparent": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "reference": "concept",
+    "status": "pending",
+    "revision": 2
+  }
+]

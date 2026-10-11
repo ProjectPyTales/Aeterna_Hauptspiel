@@ -1,0 +1,182 @@
+{
+  "leonidas_0": {
+    "art": "r02-b01-01",
+    "cell": 0,
+    "category": "cards",
+    "name": "Spartanischer Rekrut"
+  },
+  "leonidas_1": {
+    "art": "r02-b01-01",
+    "cell": 1,
+    "category": "cards",
+    "name": "Wächter der Thermopylen"
+  },
+  "leonidas_2": {
+    "art": "r02-b01-01",
+    "cell": 2,
+    "category": "cards",
+    "name": "Bronzener Wall"
+  },
+  "leonidas_7": {
+    "art": "r02-b01-01",
+    "cell": 3,
+    "category": "cards",
+    "name": "Spartas Erbe"
+  },
+  "leonidas_8": {
+    "art": "r02-b01-01",
+    "cell": 4,
+    "category": "cards",
+    "name": "Dienekes"
+  },
+  "leonidas_10": {
+    "art": "r02-b01-01",
+    "cell": 5,
+    "category": "cards",
+    "name": "Spartiat der Dreihundert"
+  },
+  "leonidas_11": {
+    "art": "r02-b01-01",
+    "cell": 6,
+    "category": "cards",
+    "name": "Engpass der Thermopylen"
+  },
+  "hoplite": {
+    "art": "r02-b01-01",
+    "cell": 7,
+    "category": "tokens",
+    "name": "Hoplit"
+  },
+  "hypatia_1": {
+    "art": "r02-b01-01",
+    "cell": 8,
+    "category": "cards",
+    "name": "Himmelsstrahl"
+  },
+  "hypatia_3": {
+    "art": "r02-b01-01",
+    "cell": 9,
+    "category": "cards",
+    "name": "Sternenregen"
+  },
+  "hypatia_4": {
+    "art": "r02-b01-01",
+    "cell": 10,
+    "category": "cards",
+    "name": "Astrolabienwächter"
+  },
+  "hypatia_10": {
+    "art": "r02-b01-01",
+    "cell": 11,
+    "category": "cards",
+    "name": "Astronomin des Museions"
+  },
+  "hypatia_11": {
+    "art": "r02-b01-02",
+    "cell": 0,
+    "category": "cards",
+    "name": "Kommentar zu Diophant"
+  },
+  "jeanne_3": {
+    "art": "r02-b01-02",
+    "cell": 1,
+    "category": "cards",
+    "name": "Einkleidung der Novizinnen"
+  },
+  "jeanne_4": {
+    "art": "r02-b01-02",
+    "cell": 2,
+    "category": "cards",
+    "name": "Pilger am Rhein"
+  },
+  "jeanne_5": {
+    "art": "r02-b01-02",
+    "cell": 3,
+    "category": "cards",
+    "name": "Segen der Äbtissin"
+  },
+  "jeanne_6": {
+    "art": "r02-b01-02",
+    "cell": 4,
+    "category": "cards",
+    "name": "Vorsängerin im Chor"
+  },
+  "jeanne_7": {
+    "art": "r02-b01-02",
+    "cell": 5,
+    "category": "cards",
+    "name": "Spiel der Tugenden"
+  },
+  "jeanne_8": {
+    "art": "r02-b01-02",
+    "cell": 6,
+    "category": "cards",
+    "name": "Ritter mit dem Schutzbrief"
+  },
+  "jeanne_9": {
+    "art": "r02-b01-02",
+    "cell": 7,
+    "category": "cards",
+    "name": "Jutta von Sponheim, Magistra"
+  },
+  "jeanne_10": {
+    "art": "r02-b01-02",
+    "cell": 8,
+    "category": "cards",
+    "name": "Adlige Stifterin"
+  },
+  "jeanne_11": {
+    "art": "r02-b01-02",
+    "cell": 9,
+    "category": "cards",
+    "name": "Weihe der Klosterkirche"
+  },
+  "novice": {
+    "art": "r02-b01-02",
+    "cell": 10,
+    "category": "tokens",
+    "name": "Novizin"
+  },
+  "dandolo_5": {
+    "art": "r02-b01-02",
+    "cell": 11,
+    "category": "cards",
+    "name": "Maskierte Wache"
+  },
+  "dandolo_7": {
+    "art": "r02-b01-03",
+    "cell": 0,
+    "category": "cards",
+    "name": "Admiral der Galeeren"
+  },
+  "dandolo_10": {
+    "art": "r02-b01-03",
+    "cell": 1,
+    "category": "cards",
+    "name": "Agent des Zehnerrats"
+  },
+  "dandolo_11": {
+    "art": "r02-b01-03",
+    "cell": 2,
+    "category": "cards",
+    "name": "Galeerenschmied"
+  },
+  "dandolo_12": {
+    "art": "r02-b01-03",
+    "cell": 3,
+    "category": "cards",
+    "name": "Plünderung Konstantinopels"
+  },
+  "imhotep_7": {
+    "art": "r02-b01-03",
+    "cell": 4,
+    "category": "cards",
+    "name": "Goldener Skarabäus"
+  },
+  "totem_heal": {
+    "art": "r02-b01-03",
+    "cell": 5,
+    "category": "tokens",
+    "name": "Grenzstein des Klosters"
+  }
+}

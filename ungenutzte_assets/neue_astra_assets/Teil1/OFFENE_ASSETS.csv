@@ -1,0 +1,369 @@
+Bereich,ID,Name,Status
+cards,leonidas_0,Spartanischer Rekrut,Noch nicht in Teil 01 enthalten
+cards,leonidas_1,Wächter der Thermopylen,Noch nicht in Teil 01 enthalten
+cards,leonidas_2,Bronzener Wall,Noch nicht in Teil 01 enthalten
+cards,leonidas_7,Spartas Erbe,Noch nicht in Teil 01 enthalten
+cards,leonidas_8,Dienekes,Noch nicht in Teil 01 enthalten
+cards,hypatia_0,Bibliothekslehrling,Noch nicht in Teil 01 enthalten
+cards,hypatia_1,Himmelsstrahl,Noch nicht in Teil 01 enthalten
+cards,hypatia_2,Sternenkundiger,Noch nicht in Teil 01 enthalten
+cards,hypatia_3,Sternenregen,Noch nicht in Teil 01 enthalten
+cards,hypatia_4,Astrolabienwächter,Noch nicht in Teil 01 enthalten
+cards,hypatia_5,Lehrsatz,Noch nicht in Teil 01 enthalten
+cards,hypatia_6,Museionshüterin,Noch nicht in Teil 01 enthalten
+cards,hypatia_7,Sonnenfokus,Noch nicht in Teil 01 enthalten
+cards,hypatia_8,Sternenorakel,Noch nicht in Teil 01 enthalten
+cards,imhotep_0,Nilschülerin,Noch nicht in Teil 01 enthalten
+cards,imhotep_1,Heilender Balsam,Noch nicht in Teil 01 enthalten
+cards,imhotep_2,Pyramidenwächter,Noch nicht in Teil 01 enthalten
+cards,imhotep_3,Tempelärztin,Noch nicht in Teil 01 enthalten
+cards,imhotep_4,Sonnensegen,Noch nicht in Teil 01 enthalten
+cards,imhotep_5,Balsamierer,Noch nicht in Teil 01 enthalten
+cards,imhotep_6,Nilschwemme,Noch nicht in Teil 01 enthalten
+cards,imhotep_7,Goldener Skarabäus,Noch nicht in Teil 01 enthalten
+cards,imhotep_8,Urteil der Sonne,Noch nicht in Teil 01 enthalten
+cards,imhotep_9,"Djoser, der Erbauer",Noch nicht in Teil 01 enthalten
+cards,dandolo_0,Lagunenbote,Noch nicht in Teil 01 enthalten
+cards,dandolo_1,Arsenalarbeiter,Noch nicht in Teil 01 enthalten
+cards,dandolo_2,Präziser Stich,Noch nicht in Teil 01 enthalten
+cards,dandolo_3,Handelsgesandter,Noch nicht in Teil 01 enthalten
+cards,dandolo_5,Maskierte Wache,Noch nicht in Teil 01 enthalten
+cards,dandolo_7,Admiral der Galeeren,Noch nicht in Teil 01 enthalten
+cards,dandolo_8,Arsenal von Venedig,Noch nicht in Teil 01 enthalten
+cards,dandolo_9,"Marco Polo, der Weltenfahrer",Noch nicht in Teil 01 enthalten
+cards,khan_0,Späher aus Engern,Noch nicht in Teil 01 enthalten
+cards,khan_1,Speerwerfer aus Westfalen,Noch nicht in Teil 01 enthalten
+cards,khan_2,Pfeilschuss,Noch nicht in Teil 01 enthalten
+cards,khan_3,Reiter der Edelinge,Noch nicht in Teil 01 enthalten
+cards,khan_4,Falknerin,Noch nicht in Teil 01 enthalten
+cards,khan_5,Sachsenaufstand,Noch nicht in Teil 01 enthalten
+cards,khan_6,Schildträger aus Ostfalen,Noch nicht in Teil 01 enthalten
+cards,khan_7,Sturm auf die Eresburg,Noch nicht in Teil 01 enthalten
+cards,khan_8,Gefolgschaft Widukinds,Noch nicht in Teil 01 enthalten
+cards,khan_9,"Abbi, Gefährte Widukinds",Noch nicht in Teil 01 enthalten
+cards,boudicca_0,Hüterin des Hains,Noch nicht in Teil 01 enthalten
+cards,boudicca_1,Schild aus Eichenholz,Noch nicht in Teil 01 enthalten
+cards,boudicca_2,Krieger der Arverner,Noch nicht in Teil 01 enthalten
+cards,boudicca_3,Hieb mit dem Langschwert,Noch nicht in Teil 01 enthalten
+cards,boudicca_4,Reiter der Arverner,Noch nicht in Teil 01 enthalten
+cards,boudicca_6,Erhebung der Gallier,Noch nicht in Teil 01 enthalten
+cards,boudicca_7,Verteidiger von Gergovia,Noch nicht in Teil 01 enthalten
+cards,boudicca_8,Letzter Ritt vor Alesia,Noch nicht in Teil 01 enthalten
+cards,boudicca_9,"Commius, Führer des Entsatzheers",Noch nicht in Teil 01 enthalten
+cards,nostradamus_0,Apothekerlehrling,Noch nicht in Teil 01 enthalten
+cards,nostradamus_1,Verpuffung im Laboratorium,Noch nicht in Teil 01 enthalten
+cards,nostradamus_2,Bergmann aus Aue,Noch nicht in Teil 01 enthalten
+cards,nostradamus_3,Geheimes Rezeptbuch,Noch nicht in Teil 01 enthalten
+cards,nostradamus_4,Pestarzt,Noch nicht in Teil 01 enthalten
+cards,nostradamus_5,Befehl des Kurfürsten,Noch nicht in Teil 01 enthalten
+cards,nostradamus_6,Schreiber der Manufaktur,Noch nicht in Teil 01 enthalten
+cards,nostradamus_7,Glut des Brennofens,Noch nicht in Teil 01 enthalten
+cards,nostradamus_8,Wache auf dem Königstein,Noch nicht in Teil 01 enthalten
+cards,nostradamus_9,"Tschirnhaus, Naturforscher",Noch nicht in Teil 01 enthalten
+cards,jeanne_0,Pförtnerin vom Rupertsberg,Noch nicht in Teil 01 enthalten
+cards,jeanne_1,Grünkraft,Noch nicht in Teil 01 enthalten
+cards,jeanne_2,Klostervogt,Noch nicht in Teil 01 enthalten
+cards,jeanne_3,Einkleidung der Novizinnen,Noch nicht in Teil 01 enthalten
+cards,jeanne_4,Pilger am Rhein,Noch nicht in Teil 01 enthalten
+cards,jeanne_5,Segen der Äbtissin,Noch nicht in Teil 01 enthalten
+cards,jeanne_6,Vorsängerin im Chor,Noch nicht in Teil 01 enthalten
+cards,jeanne_7,Spiel der Tugenden,Noch nicht in Teil 01 enthalten
+cards,jeanne_8,Ritter mit dem Schutzbrief,Noch nicht in Teil 01 enthalten
+cards,jeanne_9,"Jutta von Sponheim, Magistra",Noch nicht in Teil 01 enthalten
+cards,ragnar_0,Siedler aus Franken,Noch nicht in Teil 01 enthalten
+cards,ragnar_1,Fehde,Noch nicht in Teil 01 enthalten
+cards,ragnar_2,Burgmann von Groitzsch,Noch nicht in Teil 01 enthalten
+cards,ragnar_3,Lokator,Noch nicht in Teil 01 enthalten
+cards,ragnar_4,Verhau,Noch nicht in Teil 01 enthalten
+cards,ragnar_5,Panzerreiter,Noch nicht in Teil 01 enthalten
+cards,ragnar_6,Rodung,Noch nicht in Teil 01 enthalten
+cards,ragnar_7,Grenzwächter der Mark,Noch nicht in Teil 01 enthalten
+cards,ragnar_8,Heerfahrt nach Italien,Noch nicht in Teil 01 enthalten
+cards,ragnar_9,Judith von Böhmen,Noch nicht in Teil 01 enthalten
+cards,musashi_0,Edelknabe,Noch nicht in Teil 01 enthalten
+cards,musashi_1,Lanzenstoß,Noch nicht in Teil 01 enthalten
+cards,musashi_2,Fahrender Ritter,Noch nicht in Teil 01 enthalten
+cards,musashi_3,Minnebrief,Noch nicht in Teil 01 enthalten
+cards,musashi_4,Minneritter,Noch nicht in Teil 01 enthalten
+cards,musashi_5,Mit eingelegter Lanze,Noch nicht in Teil 01 enthalten
+cards,musashi_6,Kämpe im Buhurt,Noch nicht in Teil 01 enthalten
+cards,musashi_7,Venusfahrt,Noch nicht in Teil 01 enthalten
+cards,musashi_8,Landrichter der Steiermark,Noch nicht in Teil 01 enthalten
+cards,musashi_9,Friedrich der Streitbare,Noch nicht in Teil 01 enthalten
+cards,neutral_0,Dorfwache,Noch nicht in Teil 01 enthalten
+cards,neutral_1,Wandernder Händler,Noch nicht in Teil 01 enthalten
+cards,neutral_2,Steinschleuderer,Noch nicht in Teil 01 enthalten
+cards,neutral_3,Wilderin,Noch nicht in Teil 01 enthalten
+cards,neutral_4,Torwache der Burg,Noch nicht in Teil 01 enthalten
+cards,neutral_5,Kavallerist,Noch nicht in Teil 01 enthalten
+cards,neutral_6,Feldheilerin,Noch nicht in Teil 01 enthalten
+cards,neutral_7,Archivarin,Noch nicht in Teil 01 enthalten
+cards,neutral_8,Wachhund,Noch nicht in Teil 01 enthalten
+cards,neutral_9,Veteran,Noch nicht in Teil 01 enthalten
+cards,neutral_10,Belagerungsturm,Noch nicht in Teil 01 enthalten
+cards,neutral_11,Schmied,Noch nicht in Teil 01 enthalten
+cards,neutral_12,Wüstenspäherin,Noch nicht in Teil 01 enthalten
+cards,neutral_13,Gebirgswache,Noch nicht in Teil 01 enthalten
+cards,neutral_14,Verwegener Bote,Noch nicht in Teil 01 enthalten
+cards,neutral_15,Nachtwächter,Noch nicht in Teil 01 enthalten
+cards,neutral_16,Versorgung,Noch nicht in Teil 01 enthalten
+cards,neutral_17,Heilkräuter,Noch nicht in Teil 01 enthalten
+cards,neutral_18,Wurfmesser,Noch nicht in Teil 01 enthalten
+cards,neutral_19,Kriegselefant,Noch nicht in Teil 01 enthalten
+cards,neutral_20,Ordensritter,Noch nicht in Teil 01 enthalten
+cards,neutral_21,Söldnerhauptmann,Noch nicht in Teil 01 enthalten
+cards,neutral_22,Adler der Berge,Noch nicht in Teil 01 enthalten
+cards,neutral_23,Grabwächter,Noch nicht in Teil 01 enthalten
+cards,neutral_24,Sammelruf,Noch nicht in Teil 01 enthalten
+cards,neutral_25,Feldration,Noch nicht in Teil 01 enthalten
+cards,neutral_26,Bogenmeisterin,Noch nicht in Teil 01 enthalten
+cards,neutral_27,Prätorianer,Noch nicht in Teil 01 enthalten
+cards,neutral_28,Silberner Bannerträger,Noch nicht in Teil 01 enthalten
+cards,neutral_29,Flammenkrug,Noch nicht in Teil 01 enthalten
+cards,neutral_30,Löwin der Arena,Noch nicht in Teil 01 enthalten
+cards,neutral_31,Seidenkarawanenführer,Noch nicht in Teil 01 enthalten
+cards,neutral_32,Schlachtruf,Noch nicht in Teil 01 enthalten
+cards,neutral_33,Trojanisches Pferd,Noch nicht in Teil 01 enthalten
+cards,neutral_34,Brander,Noch nicht in Teil 01 enthalten
+cards,neutral_35,Vergessene Weisheit,Noch nicht in Teil 01 enthalten
+cards,neutral_36,Burgbesatzung,Noch nicht in Teil 01 enthalten
+cards,neutral_37,Donnernde Legion,Noch nicht in Teil 01 enthalten
+cards,neutral_38,"Herodot, Vater der Geschichte",Noch nicht in Teil 01 enthalten
+cards,neutral_39,"Zenobia, Rebellin von Palmyra",Noch nicht in Teil 01 enthalten
+cards,dandolo_10,Agent des Zehnerrats,Noch nicht in Teil 01 enthalten
+cards,khan_10,Plünderer am Rhein,Noch nicht in Teil 01 enthalten
+cards,imhotep_10,Kobra des Nils,Noch nicht in Teil 01 enthalten
+cards,boudicca_10,Zwanzig Städte in Flammen,Noch nicht in Teil 01 enthalten
+cards,nostradamus_10,Eid der Arkanisten,Noch nicht in Teil 01 enthalten
+cards,ragnar_10,Böhmischer Söldner,Noch nicht in Teil 01 enthalten
+cards,ragnar_11,Brandschatzung,Noch nicht in Teil 01 enthalten
+cards,musashi_10,Heimlicher Bote,Noch nicht in Teil 01 enthalten
+cards,neutral_42,Freibeuterin,Noch nicht in Teil 01 enthalten
+cards,neutral_43,Späherin im Unterholz,Noch nicht in Teil 01 enthalten
+cards,neutral_44,Wandermönch,Noch nicht in Teil 01 enthalten
+cards,neutral_45,Giftmischerin,Noch nicht in Teil 01 enthalten
+cards,neutral_46,Condottiere,Noch nicht in Teil 01 enthalten
+cards,perikles_0,Ruderer der Triere,Noch nicht in Teil 01 enthalten
+cards,perikles_1,Lange Mauern,Noch nicht in Teil 01 enthalten
+cards,perikles_2,Rede auf die Gefallenen,Noch nicht in Teil 01 enthalten
+cards,perikles_3,Strategos,Noch nicht in Teil 01 enthalten
+cards,perikles_4,Pnyx,Noch nicht in Teil 01 enthalten
+cards,perikles_5,Scherbengericht,Noch nicht in Teil 01 enthalten
+cards,perikles_6,Triere von Salamis,Noch nicht in Teil 01 enthalten
+cards,perikles_7,Pest von Athen,Noch nicht in Teil 01 enthalten
+cards,perikles_8,Odeion,Noch nicht in Teil 01 enthalten
+cards,perikles_9,"Phidias, Meister der Akropolis",Noch nicht in Teil 01 enthalten
+cards,agrippa_0,Pilumwerfer,Noch nicht in Teil 01 enthalten
+cards,agrippa_1,Legionär der Zehnten,Noch nicht in Teil 01 enthalten
+cards,agrippa_2,Castra,Noch nicht in Teil 01 enthalten
+cards,agrippa_3,Testudo,Noch nicht in Teil 01 enthalten
+cards,agrippa_4,Ballista,Noch nicht in Teil 01 enthalten
+cards,agrippa_5,Liburnen bei Actium,Noch nicht in Teil 01 enthalten
+cards,agrippa_6,Primus Pilus,Noch nicht in Teil 01 enthalten
+cards,agrippa_7,Thermen des Agrippa,Noch nicht in Teil 01 enthalten
+cards,agrippa_8,Pantheon,Noch nicht in Teil 01 enthalten
+cards,agrippa_9,"Vitruv, Baumeister Roms",Noch nicht in Teil 01 enthalten
+cards,amanirenas_0,Bogenschütze aus Elkab,Noch nicht in Teil 01 enthalten
+cards,amanirenas_1,Krieger der Nilflotte,Noch nicht in Teil 01 enthalten
+cards,amanirenas_2,Pfeilregen vor Auaris,Noch nicht in Teil 01 enthalten
+cards,amanirenas_3,Speerträger aus Theben,Noch nicht in Teil 01 enthalten
+cards,amanirenas_4,Priester der Selket,Noch nicht in Teil 01 enthalten
+cards,amanirenas_5,Medjai-Kundschafter,Noch nicht in Teil 01 enthalten
+cards,amanirenas_6,Erbeuteter Streitwagen,Noch nicht in Teil 01 enthalten
+cards,amanirenas_7,Überfall auf Nefrusi,Noch nicht in Teil 01 enthalten
+cards,amanirenas_8,"Ahmose, Befreier Ägyptens",Noch nicht in Teil 01 enthalten
+cards,amanirenas_9,Zeremonialaxt des Ahmose,Noch nicht in Teil 01 enthalten
+cards,anna_0,Kopistin der Chronik,Noch nicht in Teil 01 enthalten
+cards,anna_1,Pantokrator-Spital,Noch nicht in Teil 01 enthalten
+cards,anna_2,Warägergardist,Noch nicht in Teil 01 enthalten
+cards,anna_3,Hofärztin,Noch nicht in Teil 01 enthalten
+cards,anna_4,Griechisches Feuer,Noch nicht in Teil 01 enthalten
+cards,anna_5,Bibliothekar von Konstantinopel,Noch nicht in Teil 01 enthalten
+cards,anna_6,Kataphrakt,Noch nicht in Teil 01 enthalten
+cards,anna_7,Chrysobull,Noch nicht in Teil 01 enthalten
+cards,anna_8,Nikephoros Bryennios,Noch nicht in Teil 01 enthalten
+cards,anna_9,Alexios I. Komnenos,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_0,Gärtner von Tetzcotzinco,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_1,Adlerkrieger,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_2,Blumenkrieg,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_3,Jaguarkrieger,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_4,Aquädukt von Chapultepec,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_5,Gesetze von Texcoco,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_6,Quetzal-Hauptmann,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_7,Damm von Nezahualcóyotl,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_8,"Itzcoatl, Herr von Tenochtitlan",Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_9,"Nezahualpilli, Sohn des Dichters",Noch nicht in Teil 01 enthalten
+cards,masako_0,Lehnsmann,Noch nicht in Teil 01 enthalten
+cards,masako_1,Bogenschütze der Pfalz,Noch nicht in Teil 01 enthalten
+cards,masako_2,Treueschwur,Noch nicht in Teil 01 enthalten
+cards,masako_3,Stiftsdame aus Quedlinburg,Noch nicht in Teil 01 enthalten
+cards,masako_4,Späher an der Elbe,Noch nicht in Teil 01 enthalten
+cards,masako_5,Heerbann,Noch nicht in Teil 01 enthalten
+cards,masako_6,St. Pantaleon in Köln,Noch nicht in Teil 01 enthalten
+cards,masako_7,Haft in Utrecht,Noch nicht in Teil 01 enthalten
+cards,masako_8,"Willigis, Erzbischof von Mainz",Noch nicht in Teil 01 enthalten
+cards,masako_9,"Otto II., Kaiser",Noch nicht in Teil 01 enthalten
+cards,leonidas_10,Spartiat der Dreihundert,Noch nicht in Teil 01 enthalten
+cards,leonidas_11,Engpass der Thermopylen,Noch nicht in Teil 01 enthalten
+cards,hypatia_10,Astronomin des Museions,Noch nicht in Teil 01 enthalten
+cards,hypatia_11,Kommentar zu Diophant,Noch nicht in Teil 01 enthalten
+cards,imhotep_11,Priesterin der Sachmet,Noch nicht in Teil 01 enthalten
+cards,imhotep_12,Ka-Statue,Noch nicht in Teil 01 enthalten
+cards,dandolo_11,Galeerenschmied,Noch nicht in Teil 01 enthalten
+cards,dandolo_12,Plünderung Konstantinopels,Noch nicht in Teil 01 enthalten
+cards,khan_11,Heerlager an der Weser,Noch nicht in Teil 01 enthalten
+cards,khan_12,Versammlung in Marklo,Noch nicht in Teil 01 enthalten
+cards,boudicca_11,Barde der Arverner,Noch nicht in Teil 01 enthalten
+cards,boudicca_12,Gallische Reiterei,Noch nicht in Teil 01 enthalten
+cards,nostradamus_11,Laborbuch,Noch nicht in Teil 01 enthalten
+cards,nostradamus_12,Weißes Gold,Noch nicht in Teil 01 enthalten
+cards,jeanne_10,Adlige Stifterin,Noch nicht in Teil 01 enthalten
+cards,jeanne_11,Weihe der Klosterkirche,Noch nicht in Teil 01 enthalten
+cards,ragnar_12,Feldmesser,Noch nicht in Teil 01 enthalten
+cards,ragnar_13,Beuterecht,Noch nicht in Teil 01 enthalten
+cards,musashi_11,Ritter aus Murau,Noch nicht in Teil 01 enthalten
+cards,musashi_12,Frische Lanze,Noch nicht in Teil 01 enthalten
+cards,perikles_10,Steinmetz vom Pentelikon,Noch nicht in Teil 01 enthalten
+cards,perikles_11,Schatz des Seebunds,Noch nicht in Teil 01 enthalten
+cards,agrippa_10,Aquilifer,Noch nicht in Teil 01 enthalten
+cards,agrippa_11,Harpax,Noch nicht in Teil 01 enthalten
+cards,amanirenas_10,Pfeilmacher aus Edfu,Noch nicht in Teil 01 enthalten
+cards,amanirenas_11,Gift der Hornviper,Noch nicht in Teil 01 enthalten
+cards,anna_10,Spitalarzt des Pantokrator,Noch nicht in Teil 01 enthalten
+cards,anna_11,Chronist am Kaiserhof,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_10,Dichter von Texcoco,Noch nicht in Teil 01 enthalten
+cards,nezahualcoyotl_11,Chinampa,Noch nicht in Teil 01 enthalten
+cards,masako_10,Kanzler der Kaiserin,Noch nicht in Teil 01 enthalten
+cards,masako_11,Siegel der Kaiserin,Noch nicht in Teil 01 enthalten
+cards,griechen_0,Olympionike,Noch nicht in Teil 01 enthalten
+cards,griechen_1,Rhapsode,Noch nicht in Teil 01 enthalten
+cards,griechen_2,Marathonläufer,Noch nicht in Teil 01 enthalten
+cards,griechen_3,Orakel von Delphi,Noch nicht in Teil 01 enthalten
+cards,griechen_4,Leuchtturm von Pharos,Noch nicht in Teil 01 enthalten
+cards,griechen_5,Akropolis,Noch nicht in Teil 01 enthalten
+cards,griechen_6,Bibliothek von Alexandria,Noch nicht in Teil 01 enthalten
+cards,mittelalter_0,Knappe,Noch nicht in Teil 01 enthalten
+cards,mittelalter_1,Armbrustschütze,Noch nicht in Teil 01 enthalten
+cards,mittelalter_2,Mönch von Cluny,Noch nicht in Teil 01 enthalten
+cards,mittelalter_3,Hansekogge,Noch nicht in Teil 01 enthalten
+cards,mittelalter_4,Turnierritter,Noch nicht in Teil 01 enthalten
+cards,mittelalter_5,Burgfried,Noch nicht in Teil 01 enthalten
+cards,mittelalter_6,Tribok,Noch nicht in Teil 01 enthalten
+cards,ostasien_0,Landsknecht,Noch nicht in Teil 01 enthalten
+cards,ostasien_1,Buchdrucker aus Mainz,Noch nicht in Teil 01 enthalten
+cards,ostasien_2,Leipziger Kaffeehaus,Noch nicht in Teil 01 enthalten
+cards,ostasien_3,Kartaunen-Salve,Noch nicht in Teil 01 enthalten
+cards,ostasien_4,Kriegsgaleone,Noch nicht in Teil 01 enthalten
+cards,ostasien_5,Stehendes Heer,Noch nicht in Teil 01 enthalten
+cards,ostasien_6,Sternschanze,Noch nicht in Teil 01 enthalten
+cards,neutral_47,Kolosseum,Noch nicht in Teil 01 enthalten
+cards,neutral_48,Hängende Gärten,Noch nicht in Teil 01 enthalten
+cards,neutral_49,Pyramiden von Gizeh,Noch nicht in Teil 01 enthalten
+cards,epaminondas_0,Thebanischer Plänkler,Noch nicht in Teil 01 enthalten
+cards,epaminondas_1,Böotischer Hoplit,Noch nicht in Teil 01 enthalten
+cards,epaminondas_2,Fünfzig Schilde tief,Noch nicht in Teil 01 enthalten
+cards,epaminondas_3,Böotarch,Noch nicht in Teil 01 enthalten
+cards,epaminondas_4,Kämpfer der Heiligen Schar,Noch nicht in Teil 01 enthalten
+cards,epaminondas_5,Schlacht bei Leuktra,Noch nicht in Teil 01 enthalten
+cards,epaminondas_6,Befreiung Messeniens,Noch nicht in Teil 01 enthalten
+cards,epaminondas_7,Thebanischer Phalangit,Noch nicht in Teil 01 enthalten
+cards,epaminondas_8,Megalopolis,Noch nicht in Teil 01 enthalten
+cards,epaminondas_9,"Pelopidas, Führer der Heiligen Schar",Noch nicht in Teil 01 enthalten
+cards,fabius_0,Veles,Noch nicht in Teil 01 enthalten
+cards,fabius_1,Triarier,Noch nicht in Teil 01 enthalten
+cards,fabius_2,Hinhalten,Noch nicht in Teil 01 enthalten
+cards,fabius_3,Konsul der Republik,Noch nicht in Teil 01 enthalten
+cards,fabius_4,Verbrannte Erde,Noch nicht in Teil 01 enthalten
+cards,fabius_5,Späher am Volturnus,Noch nicht in Teil 01 enthalten
+cards,fabius_6,"Minucius, der Reiteroberst",Noch nicht in Teil 01 enthalten
+cards,fabius_7,Rückeroberung von Tarent,Noch nicht in Teil 01 enthalten
+cards,fabius_8,Lager auf den Höhen,Noch nicht in Teil 01 enthalten
+cards,fabius_9,"Marcellus, Schwert Roms",Noch nicht in Teil 01 enthalten
+cards,mandukhai_0,Botin der Cherusker,Noch nicht in Teil 01 enthalten
+cards,mandukhai_1,Hüterin des Herdfeuers,Noch nicht in Teil 01 enthalten
+cards,mandukhai_2,Ruf zum Thing,Noch nicht in Teil 01 enthalten
+cards,mandukhai_3,Krieger im Keil,Noch nicht in Teil 01 enthalten
+cards,mandukhai_4,Varusschlacht,Noch nicht in Teil 01 enthalten
+cards,mandukhai_5,Krieger der Sippe,Noch nicht in Teil 01 enthalten
+cards,mandukhai_6,Heiliger Hain,Noch nicht in Teil 01 enthalten
+cards,mandukhai_7,Seitenwechsel,Noch nicht in Teil 01 enthalten
+cards,mandukhai_8,"Arminius, Fürst der Cherusker",Noch nicht in Teil 01 enthalten
+cards,mandukhai_9,Bund der Stämme,Noch nicht in Teil 01 enthalten
+cards,baibars_0,Mamlukenrekrut,Noch nicht in Teil 01 enthalten
+cards,baibars_1,Barid-Kurier,Noch nicht in Teil 01 enthalten
+cards,baibars_2,Ain Dschalut,Noch nicht in Teil 01 enthalten
+cards,baibars_3,Bogenreiter der Bahriya,Noch nicht in Teil 01 enthalten
+cards,baibars_4,Manjaniq-Meister,Noch nicht in Teil 01 enthalten
+cards,baibars_5,Vorgetäuschte Flucht,Noch nicht in Teil 01 enthalten
+cards,baibars_6,"Qutuz, Sultan von Ägypten",Noch nicht in Teil 01 enthalten
+cards,baibars_7,Sturm auf Antiochia,Noch nicht in Teil 01 enthalten
+cards,baibars_8,Zitadelle von Kairo,Noch nicht in Teil 01 enthalten
+cards,baibars_9,"Qalawun, Emir der Bahriya",Noch nicht in Teil 01 enthalten
+cards,zizka_0,Schanzarbeiter,Noch nicht in Teil 01 enthalten
+cards,zizka_1,Grenadier,Noch nicht in Teil 01 enthalten
+cards,zizka_2,Salve von der Bastion,Noch nicht in Teil 01 enthalten
+cards,zizka_3,Ingenieur des Königs,Noch nicht in Teil 01 enthalten
+cards,zizka_4,Festungsgeschütz,Noch nicht in Teil 01 enthalten
+cards,zizka_5,Faschinen,Noch nicht in Teil 01 enthalten
+cards,zizka_6,Minengang,Noch nicht in Teil 01 enthalten
+cards,zizka_7,Zitadelle von Lille,Noch nicht in Teil 01 enthalten
+cards,zizka_8,"Louvois, Kriegsminister",Noch nicht in Teil 01 enthalten
+cards,zizka_9,"Ludwig XIV., der Sonnenkönig",Noch nicht in Teil 01 enthalten
+cards,fuhao_0,Speerwerfer vom Mont Lassois,Noch nicht in Teil 01 enthalten
+cards,fuhao_1,Prunkdolch,Noch nicht in Teil 01 enthalten
+cards,fuhao_2,Reiter an der Seine,Noch nicht in Teil 01 enthalten
+cards,fuhao_3,Seherin,Noch nicht in Teil 01 enthalten
+cards,fuhao_4,Aufgebot des Fürstensitzes,Noch nicht in Teil 01 enthalten
+cards,fuhao_5,Trankopfer,Noch nicht in Teil 01 enthalten
+cards,fuhao_6,Gelage am Krater,Noch nicht in Teil 01 enthalten
+cards,fuhao_7,Schleuderer am Wall,Noch nicht in Teil 01 enthalten
+cards,fuhao_8,Halle auf dem Mont Lassois,Noch nicht in Teil 01 enthalten
+cards,fuhao_9,Gesandter aus Massalia,Noch nicht in Teil 01 enthalten
+cards,rom_0,Gladiator,Noch nicht in Teil 01 enthalten
+cards,rom_1,Senator der Kurie,Noch nicht in Teil 01 enthalten
+cards,rom_2,Centurio,Noch nicht in Teil 01 enthalten
+cards,rom_3,Triumphzug,Noch nicht in Teil 01 enthalten
+cards,rom_4,Via Appia,Noch nicht in Teil 01 enthalten
+cards,rom_5,Vestalin am ewigen Feuer,Noch nicht in Teil 01 enthalten
+cards,rom_6,Pax Romana,Noch nicht in Teil 01 enthalten
+cards,steppe_0,Wagenbauer,Noch nicht in Teil 01 enthalten
+cards,steppe_1,Schreiber im Lebenshaus,Noch nicht in Teil 01 enthalten
+cards,steppe_2,Schuss vom Streitwagen,Noch nicht in Teil 01 enthalten
+cards,steppe_3,Wache der Medjai,Noch nicht in Teil 01 enthalten
+cards,steppe_4,Angriff der Streitwagen,Noch nicht in Teil 01 enthalten
+cards,steppe_5,Bernsteinstraße,Noch nicht in Teil 01 enthalten
+cards,steppe_6,Festung Buhen,Noch nicht in Teil 01 enthalten
+cards,byzanz_0,Akrit der Grenzmark,Noch nicht in Teil 01 enthalten
+cards,byzanz_1,Gelehrter im Haus der Weisheit,Noch nicht in Teil 01 enthalten
+cards,byzanz_2,Tribut in Goldbyzantinern,Noch nicht in Teil 01 enthalten
+cards,byzanz_3,Arzt des Bimaristan,Noch nicht in Teil 01 enthalten
+cards,byzanz_4,Theodosianische Mauern,Noch nicht in Teil 01 enthalten
+cards,byzanz_5,Hagia Sophia,Noch nicht in Teil 01 enthalten
+cards,byzanz_6,"Ibn an-Nafis, Arzt von Kairo",Noch nicht in Teil 01 enthalten
+tokens,recruit,Rekrut,Noch nicht in Teil 01 enthalten
+tokens,novice,Novizin,Noch nicht in Teil 01 enthalten
+tokens,warrior,Krieger,Noch nicht in Teil 01 enthalten
+tokens,eagle,Habicht,Noch nicht in Teil 01 enthalten
+tokens,stoneguard,Pyramidenwächter,Noch nicht in Teil 01 enthalten
+tokens,totem_heal,Grenzstein des Klosters,Noch nicht in Teil 01 enthalten
+tokens,totem_fire,Grenzstein der Mark,Noch nicht in Teil 01 enthalten
+tokens,totem_guard,Grenzstein der Burg,Noch nicht in Teil 01 enthalten
+tokens,totem_strength,Grenzstein des Dorfes,Noch nicht in Teil 01 enthalten
+tokens,coin,Gunst der Stunde,Noch nicht in Teil 01 enthalten
+tokens,hoplite,Hoplit,Noch nicht in Teil 01 enthalten
+tokens,citizen,Bürger,Noch nicht in Teil 01 enthalten
+tokens,pioneer,Pionier,Noch nicht in Teil 01 enthalten
+tokens,rider,Reiter,Noch nicht in Teil 01 enthalten
+tokens,chariot,Streitwagen,Noch nicht in Teil 01 enthalten
+tokens,terracotta,Musketier,Noch nicht in Teil 01 enthalten
+tokens,tribesman,Stammeskrieger,Noch nicht in Teil 01 enthalten
+tokens,wagon,Schanzkorb,Noch nicht in Teil 01 enthalten
+tokens,taborite,Füsilier,Noch nicht in Teil 01 enthalten
+tokens,mamluk,Mamlukenreiter,Noch nicht in Teil 01 enthalten
+tokens,immortal,Medjai-Krieger,Noch nicht in Teil 01 enthalten
+tokens,messenian,Freier Messenier,Noch nicht in Teil 01 enthalten
+tokens,companion,Gefährte der Heiligen Schar,Noch nicht in Teil 01 enthalten
+tokens,twin,Sippenbruder,Noch nicht in Teil 01 enthalten
+tokens,elephant,Kriegselefant,Noch nicht in Teil 01 enthalten
+tokens,parthenos,Athena Parthenos,Noch nicht in Teil 01 enthalten
+tokens,pyramid,Stufenpyramide,Noch nicht in Teil 01 enthalten

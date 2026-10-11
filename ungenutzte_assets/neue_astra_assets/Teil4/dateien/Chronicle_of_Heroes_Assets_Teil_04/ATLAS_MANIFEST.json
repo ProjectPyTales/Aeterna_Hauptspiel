@@ -1,0 +1,183 @@
+[
+  {
+    "art": "r04-01",
+    "file": "game-assets/art/r04-01.webp",
+    "size": [
+      2896,
+      2172
+    ],
+    "columns": 4,
+    "rows": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "cells": [
+      {
+        "cell": 0,
+        "id": "agrippa_0"
+      },
+      {
+        "cell": 1,
+        "id": "agrippa_1"
+      },
+      {
+        "cell": 2,
+        "id": "agrippa_2"
+      },
+      {
+        "cell": 3,
+        "id": "agrippa_3"
+      },
+      {
+        "cell": 4,
+        "id": "agrippa_4"
+      },
+      {
+        "cell": 5,
+        "id": "agrippa_5"
+      },
+      {
+        "cell": 6,
+        "id": "agrippa_6"
+      },
+      {
+        "cell": 7,
+        "id": "agrippa_7"
+      },
+      {
+        "cell": 8,
+        "id": "agrippa_8"
+      },
+      {
+        "cell": 9,
+        "id": "agrippa_9"
+      },
+      {
+        "cell": 10,
+        "id": "agrippa_10"
+      },
+      {
+        "cell": 11,
+        "id": "agrippa_11"
+      }
+    ],
+    "unused_cells": [],
+    "sha256": "e0988c46fd7e2b7104c8307f87a6a644be5b528648b947d0e8ba18170ddd292b"
+  },
+  {
+    "art": "r04-02",
+    "file": "game-assets/art/r04-02.webp",
+    "size": [
+      2896,
+      2172
+    ],
+    "columns": 4,
+    "rows": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "cells": [
+      {
+        "cell": 0,
+        "id": "pioneer"
+      },
+      {
+        "cell": 1,
+        "id": "perikles_0"
+      },
+      {
+        "cell": 2,
+        "id": "perikles_1"
+      },
+      {
+        "cell": 3,
+        "id": "perikles_2"
+      },
+      {
+        "cell": 4,
+        "id": "perikles_3"
+      },
+      {
+        "cell": 5,
+        "id": "perikles_4"
+      },
+      {
+        "cell": 6,
+        "id": "perikles_5"
+      },
+      {
+        "cell": 7,
+        "id": "perikles_6"
+      },
+      {
+        "cell": 8,
+        "id": "perikles_7"
+      },
+      {
+        "cell": 9,
+        "id": "perikles_8"
+      },
+      {
+        "cell": 10,
+        "id": "perikles_9"
+      },
+      {
+        "cell": 11,
+        "id": "perikles_10"
+      }
+    ],
+    "unused_cells": [],
+    "sha256": "f1766ca8860a680190e1721dce55243d6b83adae9acb980728e9677ff8c9dcfd"
+  },
+  {
+    "art": "r04-03",
+    "file": "game-assets/art/r04-03.webp",
+    "size": [
+      2896,
+      2172
+    ],
+    "columns": 4,
+    "rows": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "cells": [
+      {
+        "cell": 0,
+        "id": "perikles_11"
+      },
+      {
+        "cell": 1,
+        "id": "citizen"
+      },
+      {
+        "cell": 2,
+        "id": "parthenos"
+      },
+      {
+        "cell": 3,
+        "id": "griechen_0"
+      },
+      {
+        "cell": 4,
+        "id": "griechen_1"
+      },
+      {
+        "cell": 5,
+        "id": "griechen_3"
+      }
+    ],
+    "unused_cells": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "sha256": "0aa9590dd673ff3a120f52c2ad0a7ddee63ee883cc5215a48912f846af90fd46"
+  }
+]

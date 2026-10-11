@@ -1,0 +1,37 @@
+{
+  "count": 2,
+  "jobs": [
+    {
+      "id": "hypatia_0",
+      "category": "cards",
+      "name": "Bibliothekslehrling",
+      "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Bibliothekslehrling.\nPRIMARY SUBJECT — this is what MUST be depicted: A young adult male student studying a papyrus scroll in a modest Alexandrian scholarly room circa 400 CE, tunic and himation, no grand intact Ptolemaic Library.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+      "file": "assets/cards/hypatia_0.png",
+      "transparent": false,
+      "size": [
+        1024,
+        1024
+      ],
+      "reference": "concept",
+      "status": "blocked_recovery_assignment_review",
+      "revision": 2,
+      "note": "Nicht neu generieren: Überschneidung mit gesperrten geretteten Motiven Papyrusstudium / Astronom. Erst ursprüngliche Zuordnung klären."
+    },
+    {
+      "id": "hypatia_2",
+      "category": "cards",
+      "name": "Sternenkundiger",
+      "prompt": "Use case: historical-scene. CARD TITLE (do not write it): Sternenkundiger.\nPRIMARY SUBJECT — this is what MUST be depicted: An elderly male astronomer in late Roman tunic using a simple sighting instrument under stars, not a portrait of Hypatia, no telescope.\nHand-painted historical card illustration matching Aeterna reference only in brushwork, warm ivory/bronze palette, thin brown contours and upper-RIGHT warm sunlight. NOT photo, not a UI screen. Square full-bleed 1024x1024, meaningful subject fills central 70%, legible at thumbnail size. No text, letters, numbers, border or watermark. Exactly one scene, no grid.\nMATERIAL AND PERIOD CONTEXT ONLY, not an instruction to depict a leader: Alexandria, circa 400 CE, late Roman Egypt. Philosopher in modest linen tunic and himation, scrolls and geometric instruments, no telescope or modern equations. \nDo not replace the requested scene, object, occupation or group with a portrait of its faction leader. When a human is specified use the requested gender and age, and vary face and pose from other cards. The hero portrait is a different asset. Depict architecture and tools coherently for this named subject. Miraculous game mechanics are allegories, not history. Faces without secure likenesses are reconstructions.",
+      "file": "assets/cards/hypatia_2.png",
+      "transparent": false,
+      "size": [
+        1024,
+        1024
+      ],
+      "reference": "concept",
+      "status": "blocked_recovery_assignment_review",
+      "revision": 2,
+      "note": "Nicht neu generieren: Überschneidung mit gesperrten geretteten Motiven Papyrusstudium / Astronom. Erst ursprüngliche Zuordnung klären."
+    }
+  ]
+}

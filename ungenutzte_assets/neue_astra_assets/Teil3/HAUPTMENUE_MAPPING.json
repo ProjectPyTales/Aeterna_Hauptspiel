@@ -1,0 +1,255 @@
+{
+  "id": "hauptmenue-trefferflaechen",
+  "source": "Teil 01: game-assets/art/hall-aeterna.webp",
+  "source_sha256": "afa937306ff94c4dcd5573e178195464e6cf43890f69da476cb11912cec04584",
+  "source_size": [
+    2602,
+    1084
+  ],
+  "stage_size": [
+    1600,
+    800
+  ],
+  "scale": 0.7380073800738007,
+  "source_crop_left": 217,
+  "controls": [
+    {
+      "id": "plate-0",
+      "binding": "view.plates[0].go",
+      "shape": "polygon",
+      "points": [
+        [
+          1054.52,
+          306.19
+        ],
+        [
+          1534.77,
+          306.19
+        ],
+        [
+          1570.35,
+          358.28
+        ],
+        [
+          1534.77,
+          411.64
+        ],
+        [
+          1054.52,
+          411.64
+        ],
+        [
+          1020.22,
+          358.28
+        ]
+      ]
+    },
+    {
+      "id": "plate-1",
+      "binding": "view.plates[1].go",
+      "shape": "polygon",
+      "points": [
+        [
+          977.02,
+          445.95
+        ],
+        [
+          1617.36,
+          445.95
+        ],
+        [
+          1649.12,
+          498.04
+        ],
+        [
+          1617.36,
+          552.67
+        ],
+        [
+          977.02,
+          552.67
+        ],
+        [
+          943.99,
+          498.04
+        ]
+      ]
+    },
+    {
+      "id": "plate-2",
+      "binding": "view.plates[2].go",
+      "shape": "polygon",
+      "points": [
+        [
+          974.48,
+          585.7
+        ],
+        [
+          1618.63,
+          585.7
+        ],
+        [
+          1649.12,
+          636.52
+        ],
+        [
+          1618.63,
+          686.07
+        ],
+        [
+          974.48,
+          686.07
+        ],
+        [
+          943.99,
+          636.52
+        ]
+      ]
+    },
+    {
+      "id": "plate-3",
+      "binding": "view.plates[3].go",
+      "shape": "polygon",
+      "points": [
+        [
+          1050.71,
+          722.92
+        ],
+        [
+          1538.58,
+          722.92
+        ],
+        [
+          1574.16,
+          775.01
+        ],
+        [
+          1538.58,
+          825.83
+        ],
+        [
+          1050.71,
+          825.83
+        ],
+        [
+          1016.41,
+          775.01
+        ]
+      ]
+    },
+    {
+      "id": "quests",
+      "shape": "circle_and_rect",
+      "center": [
+        838.54,
+        694.97
+      ],
+      "radius": 81.31,
+      "rect": [
+        0.0,
+        661.93,
+        729.27,
+        68.61
+      ],
+      "label": [
+        362.09,
+        696.24
+      ]
+    },
+    {
+      "id": "bazaar",
+      "shape": "circle_and_rect",
+      "center": [
+        950.34,
+        916.04
+      ],
+      "radius": 81.31,
+      "rect": [
+        0.0,
+        879.19,
+        838.54,
+        67.34
+      ],
+      "label": [
+        416.73,
+        913.5
+      ]
+    },
+    {
+      "id": "collection",
+      "shape": "circle_and_rect",
+      "center": [
+        1758.38,
+        694.97
+      ],
+      "radius": 81.31,
+      "rect": [
+        1854.94,
+        661.93,
+        747.06,
+        68.61
+      ],
+      "label": [
+        2194.17,
+        696.24
+      ]
+    },
+    {
+      "id": "packs",
+      "shape": "circle_and_rect",
+      "center": [
+        1649.12,
+        916.04
+      ],
+      "radius": 81.31,
+      "rect": [
+        1754.57,
+        879.19,
+        847.43,
+        67.34
+      ],
+      "label": [
+        2161.13,
+        913.5
+      ]
+    },
+    {
+      "id": "settings",
+      "shape": "circle",
+      "center": [
+        2215.77,
+        67.34
+      ],
+      "radius": 72.42
+    }
+  ],
+  "star": [
+    1303.54,
+    88.94
+  ],
+  "ring": [
+    1303.54,
+    622.55
+  ],
+  "gold_line": {
+    "center": [
+      1303.54,
+      620.01
+    ],
+    "rx": 470.087890625,
+    "ry": 485.333984375
+  },
+  "title_rect": [
+    409.1,
+    69.88,
+    415.46,
+    149.92
+  ],
+  "gold_rect": [
+    1951.5,
+    31.76,
+    184.22,
+    60.98
+  ],
+  "note": "Konservative innere Trefferflächen am gelieferten Bild; nicht die alten Konzeptkoordinaten. Keine Änderung am Spiel."
+}

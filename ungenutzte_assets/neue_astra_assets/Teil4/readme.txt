@@ -1,0 +1,1 @@
+Die ZIP Die von Astra gestellt wurde war kaputt, deshalb kann es sein, dass dieser Ordner Teil4 teilweise unvollstänidg ist, da es mir rar gerettet werden musste.

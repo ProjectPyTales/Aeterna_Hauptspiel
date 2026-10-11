@@ -1,0 +1,6 @@
+{
+  "image_generation_calls": 0,
+  "reason": "Alle offenen UI-Arbeiten betreffen das bestehende Vektorsystem, technische Masken, Geometrie und native Ressourcen. Keine gemalten Motive neu erzeugt.",
+  "recipe": "tools/build_ui.py",
+  "style": "HISTORIK_UND_STIL.md"
+}

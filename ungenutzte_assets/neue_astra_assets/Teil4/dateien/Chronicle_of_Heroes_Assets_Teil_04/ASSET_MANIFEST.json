@@ -1,0 +1,729 @@
+{
+  "release": "Teil 04",
+  "date": "2026-10-09",
+  "count": 30,
+  "cards": 27,
+  "tokens": 3,
+  "assets": [
+    {
+      "id": "agrippa_0",
+      "name": "Pilumwerfer",
+      "category": "cards",
+      "file": "assets/cards/agrippa_0.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "ab82f003ea583490ba2c1a518f082c7db381a091b83e529ad51863a53ca4cf36",
+      "art": "r04-01",
+      "cell": 0,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_0.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_1",
+      "name": "Legionär der Zehnten",
+      "category": "cards",
+      "file": "assets/cards/agrippa_1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "4e9018626583e470ed3df086cc3243b70b38c8b731244efb76cbcf173918442b",
+      "art": "r04-01",
+      "cell": 1,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_1.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_2",
+      "name": "Castra",
+      "category": "cards",
+      "file": "assets/cards/agrippa_2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "fffc000436e3395ecf8f0d045beb40f9b83a16c86927f8397d498bbe93df8167",
+      "art": "r04-01",
+      "cell": 2,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_2.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_3",
+      "name": "Testudo",
+      "category": "cards",
+      "file": "assets/cards/agrippa_3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "958846f8ca4de3668a114cbc95c7a7617e2eab9c657581147aa17e6486662e02",
+      "art": "r04-01",
+      "cell": 3,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_3.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_4",
+      "name": "Ballista",
+      "category": "cards",
+      "file": "assets/cards/agrippa_4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "653f99b7ead905b45568fda41eaa2afa39c8047d1b5eac1a38b01fb2ef45d7ee",
+      "art": "r04-01",
+      "cell": 4,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_4.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_5",
+      "name": "Liburnen bei Actium",
+      "category": "cards",
+      "file": "assets/cards/agrippa_5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "36e72f1c0100f55b08bc75052ea36fa8c3021c6a2ac90d00de4dce1a2138fd30",
+      "art": "r04-01",
+      "cell": 5,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_5.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_6",
+      "name": "Primus Pilus",
+      "category": "cards",
+      "file": "assets/cards/agrippa_6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "cb4831853b70159add2212ae0cb69e219450c4b6c7a4e255b7df10920da40d7d",
+      "art": "r04-01",
+      "cell": 6,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_6.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_7",
+      "name": "Thermen des Agrippa",
+      "category": "cards",
+      "file": "assets/cards/agrippa_7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "4fbcdb10e70691992a4e5a2f758e523957174679258616a28b53539d5e47dff5",
+      "art": "r04-01",
+      "cell": 7,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_7.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_8",
+      "name": "Pantheon",
+      "category": "cards",
+      "file": "assets/cards/agrippa_8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "598cf38e064c9dec4ff89ed488faea8161e837eb95f274a78948733cd0aaa906",
+      "art": "r04-01",
+      "cell": 8,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_8.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_9",
+      "name": "Vitruv, Baumeister Roms",
+      "category": "cards",
+      "file": "assets/cards/agrippa_9.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "cc49d3d29652989c97be51dfd15ceddd20bbcffbbf80ea9472251239020dfcc5",
+      "art": "r04-01",
+      "cell": 9,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_9.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_10",
+      "name": "Aquilifer",
+      "category": "cards",
+      "file": "assets/cards/agrippa_10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "8838cbfcc4335a8627d0764d5da2fa8b20ba81706b3182ad323c00c2f7cc933f",
+      "art": "r04-01",
+      "cell": 10,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_10.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "agrippa_11",
+      "name": "Harpax",
+      "category": "cards",
+      "file": "assets/cards/agrippa_11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "163e96dba0ac4d033f952f2776fdb70c20e9f6a378608d27e210c3b29e456861",
+      "art": "r04-01",
+      "cell": 11,
+      "atlas_file": "game-assets/art/r04-01.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-01.webp",
+      "single_target": "quellcode/assets/game/assets/cards/agrippa_11.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "pioneer",
+      "name": "Pionier",
+      "category": "tokens",
+      "file": "assets/tokens/pioneer.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "b1050c3c6881a0c4087208d9aa4824a9c93a6edc2c6d21eef59fea4e972d5256",
+      "art": "r04-02",
+      "cell": 0,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/tokens/pioneer.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_0",
+      "name": "Ruderer der Triere",
+      "category": "cards",
+      "file": "assets/cards/perikles_0.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "c356f08a34c057482b5c9f82268c489f04ed882cb0d4bd10e38e374519e9ddf6",
+      "art": "r04-02",
+      "cell": 1,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_0.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_1",
+      "name": "Lange Mauern",
+      "category": "cards",
+      "file": "assets/cards/perikles_1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "8f74434a02d8bbf5dfce3a31aa500d81f0ffc66db55dc5683b543c5b98fd9f66",
+      "art": "r04-02",
+      "cell": 2,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_1.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_2",
+      "name": "Rede auf die Gefallenen",
+      "category": "cards",
+      "file": "assets/cards/perikles_2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "50d78db5f6aea2a6431950339c50b1454de388b91336e6630dac15f5e26cf3f0",
+      "art": "r04-02",
+      "cell": 3,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_2.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_3",
+      "name": "Strategos",
+      "category": "cards",
+      "file": "assets/cards/perikles_3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "4ba8391f6a48d39c7fe76ebd817c07bdb15c1578b3666df20d55054e951159b6",
+      "art": "r04-02",
+      "cell": 4,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_3.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_4",
+      "name": "Pnyx",
+      "category": "cards",
+      "file": "assets/cards/perikles_4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "12c6e3aa778691e59f33a2096ea2d7327a90b911f96c854bf184b22c571282f5",
+      "art": "r04-02",
+      "cell": 5,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_4.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_5",
+      "name": "Scherbengericht",
+      "category": "cards",
+      "file": "assets/cards/perikles_5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "57cdb26d2d8096cd94a04ae41d6963873b2db8fd57c8028c7a12292d6b22f783",
+      "art": "r04-02",
+      "cell": 6,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_5.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_6",
+      "name": "Triere von Salamis",
+      "category": "cards",
+      "file": "assets/cards/perikles_6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "e4242995482f1a635e8d5df2ea13ac40d807476f634c18286bd4f9220e44088b",
+      "art": "r04-02",
+      "cell": 7,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_6.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_7",
+      "name": "Pest von Athen",
+      "category": "cards",
+      "file": "assets/cards/perikles_7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "fecec626fea969ebc39590e501fdb03d9c8d3d3244a01b7a16235647637ccf50",
+      "art": "r04-02",
+      "cell": 8,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_7.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_8",
+      "name": "Odeion",
+      "category": "cards",
+      "file": "assets/cards/perikles_8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "91cbc75fcb4dcb3f10da9bfb10601031274e2c48ad996ca12fbf0532f902e30f",
+      "art": "r04-02",
+      "cell": 9,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_8.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_9",
+      "name": "Phidias, Meister der Akropolis",
+      "category": "cards",
+      "file": "assets/cards/perikles_9.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "d1515e3ff709693369fdcc55b9ced364052fe0eceec9040bbee9e036868402b6",
+      "art": "r04-02",
+      "cell": 10,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_9.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_10",
+      "name": "Steinmetz vom Pentelikon",
+      "category": "cards",
+      "file": "assets/cards/perikles_10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "1703022fb2b9256396b7430cfa9809fbc2d1d09195191c570ca8b5f13feeddc6",
+      "art": "r04-02",
+      "cell": 11,
+      "atlas_file": "game-assets/art/r04-02.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-02.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_10.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "perikles_11",
+      "name": "Schatz des Seebunds",
+      "category": "cards",
+      "file": "assets/cards/perikles_11.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "d1e23e0a7e8640113e73d6f8b16f587bc340ffd42cd9b218d509f1b6f882c6f9",
+      "art": "r04-03",
+      "cell": 0,
+      "atlas_file": "game-assets/art/r04-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/perikles_11.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "citizen",
+      "name": "Bürger",
+      "category": "tokens",
+      "file": "assets/tokens/citizen.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "9528c3e623dc7315ca07a6e5ace95b5fc7b8bf137838fd1be20c9ede8a51a367",
+      "art": "r04-03",
+      "cell": 1,
+      "atlas_file": "game-assets/art/r04-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-03.webp",
+      "single_target": "quellcode/assets/game/assets/tokens/citizen.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "parthenos",
+      "name": "Athena Parthenos",
+      "category": "tokens",
+      "file": "assets/tokens/parthenos.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "69828276f39761a896d3d0c957abaeff076f41926ea4bf8e7bc1d38c11748506",
+      "art": "r04-03",
+      "cell": 2,
+      "atlas_file": "game-assets/art/r04-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-03.webp",
+      "single_target": "quellcode/assets/game/assets/tokens/parthenos.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "griechen_0",
+      "name": "Olympionike",
+      "category": "cards",
+      "file": "assets/cards/griechen_0.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "cdd01a45837fbe2193aff381d8ece128ec106cbb2284c772d84e5a1c76945bef",
+      "art": "r04-03",
+      "cell": 3,
+      "atlas_file": "game-assets/art/r04-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/griechen_0.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "griechen_1",
+      "name": "Rhapsode",
+      "category": "cards",
+      "file": "assets/cards/griechen_1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "2db9a531c3f11130018f30f70654c18198fa16d46871510f2cfd0cf8c450a95e",
+      "art": "r04-03",
+      "cell": 4,
+      "atlas_file": "game-assets/art/r04-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/griechen_1.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    },
+    {
+      "id": "griechen_3",
+      "name": "Orakel von Delphi",
+      "category": "cards",
+      "file": "assets/cards/griechen_3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "requested_size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "ebe824e512c4bd64136d316fa6c89958836272858c8fa315fa8728da675b2d43",
+      "art": "r04-03",
+      "cell": 5,
+      "atlas_file": "game-assets/art/r04-03.webp",
+      "atlas_target": "quellcode/assets/game/assets/art/r04-03.webp",
+      "single_target": "quellcode/assets/game/assets/cards/griechen_3.png",
+      "status": "generated_technical_check_only",
+      "generation": "built-in image_gen",
+      "versions_generated": 1
+    }
+  ]
+}
