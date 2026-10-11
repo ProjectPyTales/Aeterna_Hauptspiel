@@ -127,9 +127,38 @@ function laurel(c){c.save();
 function column(c,x,y,w,h,p){round(c,x,y+7,w,h-14,2,grad(c,x,0,w,0,p.column[0],p.column[1]),p.ink,1.2);
  for(let k=1;k<4;k++){const xx=x+k*w/4;c.beginPath();c.moveTo(xx,y+10);c.lineTo(xx,y+h-10);c.strokeStyle='#3b281233';c.lineWidth=1.4;c.stroke();c.beginPath();c.moveTo(xx+1.2,y+10);c.lineTo(xx+1.2,y+h-10);c.strokeStyle='#ffffff55';c.lineWidth=.8;c.stroke();}
  for(const yy of [y,y+h-8])round(c,x-2,yy,w+4,8,2,grad(c,0,yy,0,8,p.trim,p.stone[0]),p.ink,1.1);}
-// ASTRA: kartenrahmen – Kartenrahmen in Tempeltor-Form für Diener, Zauber und Bauwerke, normal und golden (Giebel, Säulen, Bogenfenster, Namensband, Textfeld, Sockel), 800 × 1128
+// Painted surface from Astra (AP A.2, CHS.ui): R.pic draws a picture contained and centred in a box and reports
+// whether it had one – every caller keeps its code drawing for the time the picture is missing.
+const pic=(c,name,cx,cy,w,h)=>{const im=CHS.ui[name];if(!im)return false;const k=Math.min(w/im.naturalWidth,h/im.naturalHeight),iw=im.naturalWidth*k,ih=im.naturalHeight*k;
+ c.drawImage(im,cx-iw/2,cy-ih/2,iw,ih);return true;};
+R.pic=pic;
+// The painted temple gates (AP A.2): one frame each for minion, spell and building, normal and golden. The art window
+// comes from Astra's clip masks (CHB.windows); name plate, text field and the star of the gable were measured on the frames.
+const PAINTED={'minion-normal':{plate:163,text:[182,244],star:28},'spell-normal':{plate:178,text:[196,250],star:15},'building-normal':{plate:173,text:[190,250],star:23},
+ 'minion-gold':{plate:167,text:[184,241],star:30},'spell-gold':{plate:183,text:[199,248],star:15},'building-gold':{plate:178,text:[192,245],star:24}};
+function paintedCard(c,card,opts,owner,legend){const kind=card.building?'building':card.type==='spell'?'spell':'minion',key=kind+'-'+(opts.gold?'gold':'normal'),
+ frame=CHS.ui['kartenrahmen-'+key],box=window.CHB?.windows?.[key],P=PAINTED[key];if(!frame||!box)return false;
+ if(opts.glow){c.save();c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=20;c.drawImage(frame,0,0,200,282);c.restore();}
+ const [x0,y0,x1,y1]=box,side=Math.max(x1-x0,y1-y0)+4;
+ c.save();c.beginPath();c.rect(x0-2,y0-2,x1-x0+4,y1-y0+4);c.clip();R.tile(c,card.art,card.cell,(x0+x1-side)/2,(y0+y1-side)/2,side,side,card);c.restore();
+ c.drawImage(frame,0,0,200,282);
+ ellipse(c,100,P.star,8.5,8.5,grad(c,92,P.star-8,16,16,'#6b4a22','#e6c065'),'#3b2812',1.1);txt(c,owner?.icon||'✦',100,P.star+.5,9.5,'#fff3d0','center',13);
+ txt(c,card.name,100,P.plate,14,'#2a1d10','center',138);
+ const [t0,t1]=P.text,mid=(t0+t1)/2,room=t1-t0-8;c.font='13px Body';let fs=lines(c,card.text||'Diener',140).length>4?11:12.5;c.font=fs+'px Body';
+ let body=lines(c,card.text||'Diener',140),lh=body.length>4?10:12;if(body.length*lh>room||body.length>5){fs=10;c.font=fs+'px Body';body=lines(c,card.text,148);lh=9.4;}
+ body=body.slice(0,Math.max(1,Math.floor(room/lh)+1));const top=mid-(body.length-1)*lh/2;body.forEach((t,i)=>txt(c,t,100,top+i*lh,fs,'#30251a'));
+ etherCrystal(c,25,34,22,card.cost);
+ if(card.building)towerBadge(c,174,257,card.health);
+ else if(card.type==='minion'){blades(c,25,257,card.attack);lifeShield(c,175,257,card.health);}
+ archiveSeal(c,100,264,11.5,card.rarity);
+ if(legend)laurel(c);
+ if(opts.gold){c.save();gatePath(c);c.clip();c.globalCompositeOperation='screen';const sh=c.createLinearGradient(0,0,200,282);sh.addColorStop(.28,'#fff6d000');sh.addColorStop(.4,'#fff6d040');sh.addColorStop(.52,'#fff6d000');c.fillStyle=sh;c.fillRect(0,0,200,282);c.restore();}
+ if(opts.locked){c.save();gatePath(c);c.clip();c.fillStyle='#131b23a0';c.fillRect(0,0,200,282);c.restore();round(c,60,110,80,40,6,'#161a20d9','#aa8d56',1);txt(c,'GESPERRT',100,130,11,'#cfb886');}
+ return true;}
+// Astra-Bild (AP A.2): kartenrahmen – Kartenrahmen in Tempeltor-Form für Diener, Zauber und Bauwerke, normal und golden (Giebel, Säulen, Bogenfenster, Namensband, Textfeld, Sockel), 800 × 1128
 R.card=(c,card,x,y,w=200,h=282,opts={})=>{const legend=card.rarity==='legendary',owner=D.owner(card),col=owner?.color||'#7c6a4c',p=FRAME[opts.gold?'gold':legend?'legend':'plain'];
  c.save();c.translate(x,y);c.scale(w/200,h/282);
+ if(paintedCard(c,card,opts,owner,legend)){c.restore();return;}
  if(opts.glow){c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=20;}
  gatePath(c);c.fillStyle=grad(c,0,0,200,282,p.stone[0],p.stone[1]);c.fill();c.shadowBlur=0;c.lineWidth=3;c.strokeStyle=p.ink;c.stroke();
  c.beginPath();c.moveTo(9,33);c.lineTo(100,10);c.lineTo(191,33);c.strokeStyle='#ffffff55';c.lineWidth=1.2;c.stroke();
@@ -267,8 +296,8 @@ function legend(c,text,r){const chars=[...text],arc=Math.PI*1.2*r;let size=10.5;
 // ASTRA: phalanxschild – Rüstung als runder Hoplitenschild (Aspis) über dem Leben, 112 × 112
 function aspis(c,x,y,n){c.save();c.shadowColor='#10141899';c.shadowBlur=6;c.shadowOffsetY=2;ellipse(c,x,y,23,23,grad(c,x-23,y-23,46,46,'#56636a','#e3ecee'),'#262e33',3);c.restore();
  ellipse(c,x,y,17.5,17.5,null,'#f6fbff99',1.5);for(let i=0;i<8;i++){const an=i*Math.PI/4;ellipse(c,x+Math.cos(an)*20.5,y+Math.sin(an)*20.5,1.3,1.3,'#f6fbff');}number(c,n,x,y+1,23);}
-// ASTRA: waffenablage – Waffe links neben dem Helden: Klinge auf Bronzeplatte, Wucht (Angriff) und Schmiedequalität (Haltbarkeit), 160 × 210
-function weaponRack(c,x,y,w){c.save();c.shadowColor='#160e09aa';c.shadowBlur=10;c.shadowOffsetY=4;round(c,x-31,y-46,62,84,12,grad(c,x-31,y-46,62,84,'#35281b','#8d6c3d'),'#2a1e12',3);c.restore();
+// Astra-Bild (AP A.2): waffenablage – Waffe links neben dem Helden: Klinge auf Bronzeplatte, Wucht (Angriff) und Schmiedequalität (Haltbarkeit), 160 × 210
+function weaponRack(c,x,y,w){if(pic(c,'waffenablage',x,y+4,80,104)){number(c,w.attack,x-15,y+38,16);number(c,w.durability,x+14,y+38,16);return;}c.save();c.shadowColor='#160e09aa';c.shadowBlur=10;c.shadowOffsetY=4;round(c,x-31,y-46,62,84,12,grad(c,x-31,y-46,62,84,'#35281b','#8d6c3d'),'#2a1e12',3);c.restore();
  round(c,x-26,y-41,52,74,9,null,'#e9c98a66',1.2);
  c.save();c.translate(x,y-6);c.rotate(-.72);c.beginPath();c.moveTo(-3.6,-30);c.lineTo(0,-38);c.lineTo(3.6,-30);c.lineTo(3.6,12);c.lineTo(-3.6,12);c.closePath();c.fillStyle=grad(c,-4,0,8,0,'#7d898f','#f4f8f9');c.fill();c.strokeStyle='#2c3438';c.lineWidth=1.2;c.stroke();
  round(c,-12,12,24,5,2,'#c9a052','#4a3418',1);round(c,-2.5,17,5,12,2,'#5a3d1e');ellipse(c,0,31,4,4,'#c9a052','#4a3418',1);c.restore();
@@ -367,8 +396,8 @@ function scrolls(g,n){for(let i=0;i<n;i++){const y=74-i*13,dx=(i%2?3:-3),w=60,h=
  g.save();g.shadowColor='#160e09aa';g.shadowBlur=5;g.shadowOffsetY=2;round(g,x,y-h/2,w,h,6,grad(g,0,y-h/2,0,h,'#b89a64','#f3e3bb'),'#5b4326',1.4);g.restore();
  ellipse(g,x+w,y,4.5,h/2,'#d8c08c','#5b4326',1.2);ellipse(g,x+w,y,1.8,3,null,'#7a5e3388',1);
  round(g,x+w*.42,y-h/2-.5,6,h+1,1.5,'#9b2f22','#4e170f',1);}}
-// ASTRA: stundenglas – Stundenglas der Erschöpfung „Zahn der Zeit“ mit rinnendem Sand, 140 × 200
-function hourglassArt(g){g.save();g.shadowColor='#160e09aa';g.shadowBlur=8;g.shadowOffsetY=3;
+// Astra-Bild (AP A.2): stundenglas – Stundenglas der Erschöpfung „Zahn der Zeit“ mit rinnendem Sand, 140 × 200
+function hourglassArt(g){if(pic(g,'stundenglas',0,42,74,100))return;g.save();g.shadowColor='#160e09aa';g.shadowBlur=8;g.shadowOffsetY=3;
  for(const y of [-2,84])round(g,-28,y,56,9,4,grad(g,-28,y,56,9,'#5a3d1e','#efcd85'),'#2e2012',1.5);g.restore();
  for(const sx of [-1,1])round(g,sx*24-2.5,5,5,80,2,grad(g,0,0,5,0,'#5a3d1e','#d9b46e'),'#2e2012',1);
  const bulb=()=>{g.beginPath();g.moveTo(-17,8);g.bezierCurveTo(-17,30,-3,36,-3,41);g.bezierCurveTo(-3,46,-17,52,-17,82);g.lineTo(17,82);g.bezierCurveTo(17,52,3,46,3,41);g.bezierCurveTo(3,36,17,30,17,8);g.closePath();};
@@ -387,8 +416,8 @@ function deck(c,s,p,now){const pp=s.players[p],yy=p===0?590:158,x=1448;
  touch('deck'+p,1411,yy-10,80,125,{kind:'deck'});
  round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');touch('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
 // AP 1.8 Teil 2: the rival's hand as sealed orders – rolled scrolls with a red wax seal.
-// ASTRA: versiegelte-befehle – verdeckte Karte der KI-Hand als gerollter Befehl mit rotem Wachssiegel, 80 × 160
-function orderArt(g){g.save();g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowOffsetY=3;round(g,-14,-52,28,72,6,grad(g,-14,0,28,0,'#a88a58','#f3e3bb'),'#5b4326',1.5);g.restore();
+// Astra-Bild (AP A.2): versiegelte-befehle – verdeckte Karte der KI-Hand als gerollter Befehl mit rotem Wachssiegel, 80 × 160
+function orderArt(g){if(pic(g,'versiegelte-befehle',0,-16,40,80))return;g.save();g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowOffsetY=3;round(g,-14,-52,28,72,6,grad(g,-14,0,28,0,'#a88a58','#f3e3bb'),'#5b4326',1.5);g.restore();
  for(const y of [-52,20])ellipse(g,0,y,14,4.5,'#d8c08c','#5b4326',1.2);
  g.strokeStyle='#7a5e3366';g.lineWidth=1;for(const y of [-38,-28,-18])g.beginPath(),g.moveTo(-9,y),g.lineTo(9,y),g.stroke();
  round(g,-15,-4,30,4,1.5,'#9b2f22');
@@ -397,8 +426,14 @@ function orderArt(g){g.save();g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowO
 // AP 1.8 Teil 2: the chronicle strip at the left edge. Parchment with bronze rods; the newest entries on top, each a
 // picture with the side's colour (gold yours, red the rival's) and a mark (✦ spell, ☠ loss, ✕ burnt, ⌛ Erschöpfung);
 // a new turn starts a new parchment section. Tap an entry for the card, the strip for the whole chronicle.
-// ASTRA: chronikleiste – senkrechte Pergamentleiste mit Bronzestäben oben und unten, 140 × 1100
-function stripArt(g){const {x,y,w,h}=L.strip;
+// Astra-Bild (AP A.2): chronikleiste – senkrechte Pergamentleiste mit Bronzestäben oben und unten, 140 × 1100
+function stripArt(g){const {x,y,w,h}=L.strip,top=CHS.ui['chronikleiste-oben'],mid=CHS.ui['chronikleiste-mitte'],end=CHS.ui['chronikleiste-unten'];
+ // Astra's strip in three slices (Teil 3): only the middle stretches, the rods keep their proportions.
+ // The parchment fills 38 % of the slices' width (the rods 56 %), so the slices are scaled until it covers the strip.
+ if(top&&mid&&end){const W=(w+6)/.38,X=x+w/2-W/2,th=top.naturalHeight*W/top.naturalWidth,eh=end.naturalHeight*W/end.naturalWidth,
+   y0=y-8-th*.25,y1=y+h+8-eh*.55;
+  g.save();g.shadowColor='#160e09aa';g.shadowBlur=10;g.shadowOffsetY=4;g.drawImage(top,X,y0,W,th);g.drawImage(mid,X,y0+th-1,W,y1-y0-th+2);g.drawImage(end,X,y1,W,eh);g.restore();
+  txt(g,'CHRONIK',x+w/2,y0+th*.5,11,'#2e2012','center',w+10);return;}
  g.save();g.shadowColor='#160e09aa';g.shadowBlur=10;g.shadowOffsetY=4;round(g,x+4,y+14,w-8,h-28,4,grad(g,x,0,w,0,'#c9ad78','#f3e3bb'),'#6a5030',1.5);g.restore();
  g.strokeStyle='#7a5e3322';g.lineWidth=1;for(let yy=y+40;yy<y+h-30;yy+=9){g.beginPath();g.moveTo(x+10,yy);g.lineTo(x+w-10,yy+(yy%3));g.stroke();}
  for(const yy of [y,y+h-24]){round(g,x-4,yy,w+8,24,10,grad(g,0,yy,0,24,'#5a3d1e','#efcd85'),'#2e2012',2);for(const sx of [x-2,x+w+2])ellipse(g,sx,yy+12,6,12,grad(g,sx-6,yy,12,24,'#4a3216','#d9b46e'),'#2e2012',1.5);}
@@ -414,7 +449,7 @@ function entryArt(g,e){const k=54/2,col=e.p===0?'#e2bf6a':e.p===1?'#c8473b':'#9a
  g.restore();
  const card=e.kind==='card'?D.byId[e.id]:null,mark=e.type==='death'?['☠','#5b1a14']:e.type==='burn'?['✕','#5b1a14']:e.type==='fatigue'?['−'+(e.n||''),'#5b1a14']:card?.type==='spell'?['✦','#1f4f8f']:e.type==='power'?['◆','#3b2812']:e.type==='steal'?['⇄','#6a4a10']:null;
  if(mark){ellipse(g,k-2,k-2,11,11,mark[1],'#f3d79a',1.5);txt(g,mark[0],k-2,k-1.5,mark[0].length>1?10:13,'#fff1cf');}}
-function strip(c,items,now){R.blit(c,R.sprite('strip',L.strip.x-20,L.strip.y-12,L.strip.w+40,L.strip.h+30,stripArt));touch('chronicle',L.strip.x,L.strip.y,L.strip.w,L.strip.h);
+function strip(c,items,now){R.blit(c,R.sprite('strip',L.strip.x-70,L.strip.y-40,L.strip.w+140,L.strip.h+80,stripArt));touch('chronicle',L.strip.x,L.strip.y,L.strip.w,L.strip.h);
  items.forEach((e,i)=>{const {x,y,size}=L.stripRow(i);
   // A new parchment section per turn, headed by its number.
   if(i&&items[i-1].turn!==e.turn){const sy=y-L.strip.step/2;c.save();c.strokeStyle='#6a503088';c.lineWidth=1.2;c.setLineDash([4,3]);c.beginPath();c.moveTo(L.strip.x+8,sy);c.lineTo(L.strip.x+L.strip.w-8,sy);c.stroke();c.restore();

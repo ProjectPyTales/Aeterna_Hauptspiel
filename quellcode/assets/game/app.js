@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.21.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.22.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -121,7 +121,8 @@ function artLoaded(){art.ready=true;if(art.next){const [next,arg,force]=art.next
  const work=d=>{while(jobs.length&&d.timeRemaining()>6)jobs.shift()();if(jobs.length)idle(work);};idle(work);}
 store.load();applyProfile();resize();
 const bar=$('loading').querySelector('.loading-track span');
-H.preload((done,total)=>{bar.style.width=Math.round(100*done/total)+'%';}).then(()=>{$('loading').remove();
+// The painted surface (AP A.2, CHS.ui) loads next to the hall, so cards, backs and the board never start as drawings.
+Promise.all([H.preload((done,total)=>{bar.style.width=Math.round(100*done/total)+'%';}),S.loadUI()]).then(()=>{$('loading').remove();
  $('slabs').querySelector('.slab-l').innerHTML=S.slabArt('l');$('slabs').querySelector('.slab-r').innerHTML=S.slabArt('r');
  show('menu',!reduced());store.save();matchView.start();
  return R.load((done,total)=>{art.done=done;art.total=total;if(art.next)artToast();}).then(artLoaded);})

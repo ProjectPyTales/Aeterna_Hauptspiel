@@ -29,7 +29,7 @@ const sub=e=>e.kind==='backs'||e.kind==='frames'?(e.item.price?'Kosmetik':'Stand
 const tile=e=>html`<div class="${V.cls('shop-tile',e.equipped&&'equipped',!e.owned&&'locked',e.picked&&'picked')}" data-key="${e.item.id}"><button class="shop-pick" aria-label="Zeigen: ${title(e)}" aria-pressed="${e.picked}" data-cmd="select" data-a="${e.kind}" data-b="${e.item.id}">${art[e.kind](e)}<span class="tile-text"><b>${title(e)}</b><small>${sub(e)}</small></span>${badge(e)}</button></div>`;
 
 // ---------- The pedestal ----------
-// ASTRA: praesentationspodest – runder Marmorsockel mit Bronzering unter einem warmen Lichtkegel, 1200 × 900
+// Astra-Bild (AP A.2): praesentationspodest – runder Marmorsockel mit Bronzering unter einem warmen Lichtkegel, 1200 × 900
 const pedestal=body=>html`<div class="podium"><span class="spot"></span><span class="spot-floor"></span>${body}<span class="pedestal"><i></i></span></div>`;
 // A card back turns slowly in 3D; its reverse is a card in Your frame. Stands still under reduced motion.
 const spinning=item=>html`<div class="spin-card" aria-hidden="true"><div class="spin-inner"><img class="face" src="${S.backURL(item.id)}" alt=""><img class="face reverse" src="${R.frameSample(R.look.frame)}" alt=""></div></div>`;

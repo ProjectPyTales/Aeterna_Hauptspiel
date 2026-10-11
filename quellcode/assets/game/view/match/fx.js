@@ -15,7 +15,7 @@ const TAU=Math.PI*2,now=()=>T.clock.now(),still=()=>!!window.AEP?.reducedMotion?
 const noise=(seed,i)=>{const x=Math.sin(seed*12.9898+i*78.233)*43758.5453;return x-Math.floor(x);};
 
 // ---------- Keywords on the plaque (plaque coordinates, inside the sprite of render.js) ----------
-// ASTRA: schildwall – Schildwall hinter der Plakette: Holzschild mit Eisenbuckel links, Bronze-Aspis rechts, 240 × 200
+// Astra-Bild (AP A.2): schildwall – Schildwall hinter der Plakette: Holzschild mit Eisenbuckel links, Bronze-Aspis rechts, 240 × 200
 function woodShield(g,x,y,r){g.save();g.translate(x,y);g.shadowColor='#1a0f08aa';g.shadowBlur=8;g.shadowOffsetY=3;
  ellipse(g,0,0,r,r,'#6b4524','#2a1a0c',3);g.shadowBlur=0;g.shadowOffsetY=0;g.save();g.beginPath();g.arc(0,0,r-2,0,TAU);g.clip();
  for(let i=-3;i<=3;i++){g.fillStyle=i%2?'#8a5a2e':'#9c6a38';g.fillRect(i*r/3.4-r/6.8,-r,r/3.4,2*r);g.strokeStyle='#3a240f88';g.lineWidth=1;g.strokeRect(i*r/3.4-r/6.8,-r,r/3.4,2*r);}g.restore();
@@ -24,7 +24,7 @@ function bronzeShield(g,x,y,r){g.save();g.translate(x,y);g.shadowColor='#1a0f08a
  ellipse(g,0,0,r,r,grad(g,-r,-r,2*r,2*r,'#6a4316','#f2c46c'),'#3a2508',3);g.shadowBlur=0;g.shadowOffsetY=0;
  ellipse(g,0,0,r-6,r-6,grad(g,-r,-r,2*r,2*r,'#8c5a1e','#e2aa52'),'#5a3a10',1.5);
  g.beginPath();g.moveTo(-r*.42,r*.3);g.lineTo(0,-r*.48);g.lineTo(r*.42,r*.3);g.strokeStyle='#5a3008';g.lineWidth=4;g.lineCap='round';g.stroke();g.restore();}
-F.shieldWall=g=>{woodShield(g,-53,16,30);bronzeShield(g,53,16,30);};
+F.shieldWall=g=>{if(R.pic(g,'schildwall',0,16,176,146))return;woodShield(g,-53,16,30);bronzeShield(g,53,16,30);};
 // ASTRA: starre-ketten – Ketten und Raureif über einem Diener in Starre, 188 × 256
 function chainLinks(g,x0,y0,x1,y1){const n=10,an=Math.atan2(y1-y0,x1-x0);for(let i=0;i<=n;i++){const q=i/n,x=mix(x0,x1,q),y=mix(y0,y1,q);
  g.save();g.translate(x,y);g.rotate(an);g.scale(1,i%2?.45:1);ellipse(g,0,0,6,3.6,null,'#2b343c',3.6);ellipse(g,0,0,6,3.6,null,i%2?'#d4e0ea':'#a7b6c2',1.8);g.restore();}}
@@ -41,14 +41,14 @@ F.stealth=g=>{g.save();g.beginPath();g.roundRect(-43,-60,86,116,4);g.clip();
   for(let i=1;i<8;i++){const q=i/8,px=len*.15*2*q*(1-q)+len*.05*q*q,py=-len*q,l=(1-q)*len*.32+3;for(const s of [-1,1]){g.beginPath();g.ellipse(px+s*l/2,py+2,l/2,2.2,s*.5,0,TAU);g.fill();}}g.restore();};
  for(const [x,y,len,an,col] of [[-36,58,62,-.35,'#1f3a1c'],[-14,60,74,-.08,'#29482a'],[10,60,66,.12,'#1c331b'],[34,58,58,.4,'#284427'],[-46,-20,40,1.2,'#1a2e19'],[46,-28,42,-1.25,'#1a2e19']])frond(x,y,len,an,col);
  ellipse(g,-12,-14,2.6,1.6,'#e8d27a');ellipse(g,4,-14,2.6,1.6,'#e8d27a');g.restore();};
-// ASTRA: giftphiole – Phiole mit grünem Gift am Rand der Plakette, 64 × 96
-F.vial=g=>{g.save();g.translate(50,-30);g.rotate(.18);g.shadowColor='#0b1a08aa';g.shadowBlur=6;g.shadowOffsetY=2;
+// Astra-Bild (AP A.2): giftphiole – Phiole mit grünem Gift am Rand der Plakette, 64 × 96
+F.vial=g=>{g.save();if(R.pic(g,'giftphiole',50,-30,30,44)){g.restore();return;}g.translate(50,-30);g.rotate(.18);g.shadowColor='#0b1a08aa';g.shadowBlur=6;g.shadowOffsetY=2;
  ellipse(g,0,8,12,12,'#d8f2d0aa','#2b3a26',2);g.shadowBlur=0;g.shadowOffsetY=0;g.save();g.beginPath();g.arc(0,8,10.5,0,TAU);g.clip();
  const liq=g.createLinearGradient(0,4,0,19);liq.addColorStop(0,'#b8ff6a');liq.addColorStop(1,'#2f9a2a');g.fillStyle=liq;g.fillRect(-12,3,24,18);g.restore();
  round(g,-4.5,-10,9,10,2,'#d8f2d0cc','#2b3a26',1.6);round(g,-5.5,-15,11,6,2,'#8a5a2e','#3a240f',1.4);
  ellipse(g,-4,4,2.4,4,'#ffffffaa');ellipse(g,3,11,1.6,1.6,'#e8ffd0');g.restore();};
-// ASTRA: vermaechtnis-urne – Urne unter der Plakette eines Dieners mit Vermächtnis, 72 × 96
-F.urn=g=>{g.save();g.translate(0,83);g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowOffsetY=2;
+// Astra-Bild (AP A.2): vermaechtnis-urne – Urne unter der Plakette eines Dieners mit Vermächtnis, 72 × 96
+F.urn=g=>{g.save();if(R.pic(g,'vermaechtnis-urne',0,82,32,42)){g.restore();return;}g.translate(0,83);g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowOffsetY=2;
  g.beginPath();g.moveTo(-8,-18);g.quadraticCurveTo(-18,-8,-15,4);g.quadraticCurveTo(-12,14,-6,16);g.lineTo(6,16);g.quadraticCurveTo(12,14,15,4);g.quadraticCurveTo(18,-8,8,-18);g.closePath();
  g.fillStyle=grad(g,-16,-18,32,34,'#5a2e1c','#c4714a');g.fill();g.shadowBlur=0;g.shadowOffsetY=0;g.strokeStyle='#2a140a';g.lineWidth=1.8;g.stroke();
  g.fillStyle='#1c0e08';g.fillRect(-13,-3,26,5);g.strokeStyle='#e8b48a';g.lineWidth=1;g.beginPath();for(let i=-11;i<=11;i+=4){g.moveTo(i,-2);g.lineTo(i+2,1);}g.stroke();

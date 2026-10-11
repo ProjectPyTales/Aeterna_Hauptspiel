@@ -57,7 +57,7 @@ D_.zoom={render:vm=>{const c=vm.state.card,type=c.building?'Bauwerk':c.type==='m
 
 // AP 3.8: the starting orders are laid out as scrolls that unroll one after another; replaced ones carry a red wax seal
 // and, on „Beginnen“, roll up and back into the deck of scrolls at the right (rolling).
-// ASTRA: startbefehle – Startkarte als Schriftrolle mit zwei Holzstäben, Wachssiegel „austauschen“, Deckstapel, 300 × 520
+// Astra-Bild (AP A.2): startbefehle – Startkarte als Schriftrolle mit zwei Holzstäben, Wachssiegel „austauschen“, Deckstapel, 300 × 520
 D_.mulligan={render:vm=>{const m=vm.mulligan;
  return html`<div class="scrim"><div class="${V.cls('mulligan',m.rolling&&'rolling')}" style="--n:${m.hand.length}"><div class="eyebrow">${m.first?'Du beginnst':'Der Gegner beginnt · Du erhältst die Gunst der Stunde'}</div><h2>Deine Startbefehle</h2><p>Tippe auf Befehle, die Du zurück ins Deck rollen möchtest.</p><div class="mulligan-cards">${
   m.hand.map((x,i)=>html`<button class="${V.cls('mulligan-card',x.replace&&'replace')}" style="--i:${i}" data-key="${x.uid}" data-cmd="toggleMull" data-a="${x.uid}" aria-pressed="${x.replace}"><span class="rod top"></span><span class="sheet"><img src="${R.thumb(x.card.id)}" alt="${x.card.name}"></span><span class="rod bottom"></span></button>`)}<div class="mulligan-deck" aria-label="Deck: ${m.deck} Befehle"><i></i><i></i><i></i><b>${m.deck}</b></div></div>${

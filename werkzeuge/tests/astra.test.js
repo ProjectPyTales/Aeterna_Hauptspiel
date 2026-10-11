@@ -28,7 +28,7 @@ test('Laden: bilder.js vor data.js; im Ordner nur Bilder, auf die das Spiel zeig
  const K=require(path.join(game,'model/cosmetics.js'));
  const used=new Set([...D.cards,...Object.values(D.tokens),...D.heroes].map(c=>c.art).filter(a=>a&&a[0]!=='@'));
  for(const b of K.catalog.boards)used.add(b.image).add(b.image+'-preview');
- for(const name of ['heroes-marble','hall-aeterna','menu','temple','legendary-frame','board-preview'])used.add(name);
+ for(const name of ['heroes-marble','hall-aeterna','menu','legendary-frame','board-preview','bg-basar','bg-sammlung','bg-pakete','bg-heldengalerie'])used.add(name);
  const files=fs.readdirSync(art).filter(f=>f.endsWith('.webp')).map(f=>f.slice(0,-5));
  assert.deepEqual(files.filter(f=>!used.has(f)),[],'Atlanten ohne Karte gehören nicht in die APK');
  for(const a of used)assert.ok(files.includes(a),a);
@@ -42,4 +42,18 @@ test('Stand: ASTRA_STAND.csv nennt alle 377 Karten und Spielsteine, Auftrag nur 
   assert.equal(['eingebaut','Revision'].includes(s),!!B.cards[id],id+': Status passt zu bilder.js');}
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG.md'),'utf8');
  for(const [id,s] of Object.entries(status))assert.equal(md.includes('| `'+id+'` |'),['offen','Revision','wiederbeschaffen'].includes(s),id+' im Auftrag');
+});
+
+test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ein Bildfenster, CSS zeigt auf vorhandene Bilder',()=>{
+ const ui=path.join(game,'assets/ui');
+ for(const [name,[w,h]] of Object.entries(B.ui))assert.deepEqual(size(path.join(ui,name+'.webp')),[w,h],name);
+ for(const kind of ['minion','spell','building'])for(const v of ['normal','gold']){const k=kind+'-'+v,[x0,y0,x1,y1]=B.windows[k];
+  assert.ok(B.ui['kartenrahmen-'+k],k);assert.ok(x0>20&&x1<180&&y0>20&&y1<180&&x1-x0>80&&y1-y0>80,k+': Fenster im Tempeltor');}
+ for(const back of ['chroniken','tempel','sparta','pharao','runen','sterne','lilien','zen'])assert.ok(B.ui['kartenruecken-'+back],back);
+ const css=fs.readFileSync(path.join(game,'view/css/astra.css'),'utf8');
+ for(const m of css.matchAll(/url\('\.\.\/\.\.\/(assets\/[^']+)'\)/g))assert.ok(fs.existsSync(path.join(game,m[1])),m[1]);
+ const html=fs.readFileSync(path.join(game,'index.html'),'utf8');assert.ok(html.indexOf('astra.css')>html.indexOf('screens.css'),'astra.css zuletzt');
+ // Erledigte Kennungen tragen den Vermerk statt ASTRA:, damit MOTIVE.md sie nicht mehr listet.
+ const md=fs.readFileSync(path.join(root,'ungenutzte_assets/MOTIVE.md'),'utf8');
+ for(const k of ['kartenrahmen','kartenruecken-chroniken','chronikleiste','stundenglas','waffenablage','kartenbuch','waehrung'])assert.ok(!md.includes('`'+k+'`'),k);
 });

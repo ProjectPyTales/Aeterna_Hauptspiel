@@ -1,6 +1,7 @@
 // Erzeugt von werkzeuge/astra_bilder.py aus ungenutzte_assets/neue_astra_assets/ – nicht von Hand ändern.
 // Gemalte Astra-Bilder (AP A.1): Karte oder Spielstein → [Atlas, Feld], Held → [Atlas, Feld].
-// data.js legt das über die Karten und Helden.
+// data.js legt das über die Karten und Helden. Oberfläche (AP A.2): ui = Bild → [Breite, Höhe] in assets/ui/,
+// windows = Bildfenster der Kartenrahmen [links, oben, rechts, unten] auf der Karte von 200 × 282.
 (function(root){'use strict';
 const api={cards:{
   leonidas_0:["astra-karten-01", 0],
@@ -193,6 +194,43 @@ const api={cards:{
   baibars:["heroes2", 7],
   zizka:["heroes2", 8],
   fuhao:["heroes2", 9]
+},ui:{
+  "kartenruecken-chroniken":[400, 564],
+  "kartenruecken-tempel":[400, 564],
+  "kartenruecken-sparta":[400, 564],
+  "kartenruecken-pharao":[400, 564],
+  "kartenruecken-runen":[400, 565],
+  "kartenruecken-sterne":[400, 564],
+  "kartenruecken-lilien":[400, 564],
+  "kartenruecken-zen":[400, 564],
+  "kartenrahmen-minion-normal":[600, 847],
+  "kartenrahmen-minion-gold":[600, 847],
+  "kartenrahmen-spell-normal":[600, 846],
+  "kartenrahmen-spell-gold":[600, 847],
+  "kartenrahmen-building-normal":[600, 847],
+  "kartenrahmen-building-gold":[600, 847],
+  "chronikleiste-oben":[280, 92],
+  "chronikleiste-mitte":[280, 470],
+  "chronikleiste-unten":[280, 90],
+  stundenglas:[280, 400],
+  "versiegelte-befehle":[160, 320],
+  waffenablage:[320, 420],
+  schildwall:[480, 400],
+  giftphiole:[128, 192],
+  "vermaechtnis-urne":[144, 192],
+  kartenpaket:[680, 917],
+  praesentationspodest:[1000, 750],
+  kartenbuch:[1539, 1022],
+  startbefehle:[480, 832],
+  "steinplatten-links":[1000, 1016],
+  "steinplatten-rechts":[1000, 1014]
+},windows:{
+  "building-gold":[44.9, 45.4, 155.5, 165.6],
+  "building-normal":[45.3, 53.8, 154.7, 158.4],
+  "minion-gold":[40.8, 44.7, 159.1, 154.6],
+  "minion-normal":[43.0, 47.3, 157.0, 150.7],
+  "spell-gold":[43.4, 36.5, 156.6, 172.0],
+  "spell-normal":[44.9, 48.5, 154.9, 164.6]
 }};
 if(typeof module!=='undefined')module.exports=api;else root.CHB=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

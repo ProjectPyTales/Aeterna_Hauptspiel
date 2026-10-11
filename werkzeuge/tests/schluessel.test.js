@@ -18,7 +18,7 @@ test('AP 3.6: Schildwall, Starre, Tarnung, Gift und Vermächtnis haben eigene Bi
  assert.match(render,/if\(u\.shield\)K\.ring\(c\)/,'Göttliche Gunst als Aurenkreis um die Plakette');assert.match(render,/if\(u\.shield\)window\.CHF\.aura\(c,x,y,t,ms\)/,'mit umlaufendem Schimmer in jedem Bild');
  const marks=render.slice(render.indexOf('const own=!u.silenced;const marks'),render.indexOf('if(!building&&marks.length)'));
  for(const g of ['☠','⚗','◐'])assert.ok(!marks.includes(g),g+' ersetzt');
- for(const k of ['schildwall','starre-ketten','tarnung-unterholz','giftphiole','vermaechtnis-urne','gunst-aurenkreis','eiskristall','giftblasen','urnengeist'])assert.match(fx,new RegExp('// ASTRA: '+k+' – '),k);
+ for(const k of ['schildwall','starre-ketten','tarnung-unterholz','giftphiole','vermaechtnis-urne','gunst-aurenkreis','eiskristall','giftblasen','urnengeist'])assert.match(fx,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
 });
 
 test('fx.js wird überall geladen, wo render.js läuft (Spiel und Renderer-Labor), und zwar nach motion.js',()=>{
@@ -64,7 +64,7 @@ test('AP 3.8: Anfang und Ende laufen über die Match-Uhr, ein Tippen überspring
  F.present('finale',{winner:0},()=>done++);assert.equal(F.stage.info.loser,1,'das Relief des Gegners bricht');assert.ok(!F.hidden(1),'erst nach dem Bruch verborgen');
  F.skip();assert.equal(done,3,'Tippen: gleich zum Ergebnis');assert.ok(F.stage.held&&!F.busy(),'Banner bleibt unter dem Dialog liegen');
  F.stop();assert.equal(F.stage,null);F.present('stop',null,()=>done++);assert.equal(done,4);delete stage.window.AEP;T.reset();
- for(const k of ['chronik-banner','muenze-initiative','triumph-banner','faehigkeits-effekt'])assert.match(fx,new RegExp('// ASTRA: '+k+' – '),k);
+ for(const k of ['chronik-banner','muenze-initiative','triumph-banner','faehigkeits-effekt'])assert.match(fx,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
 });
 
 // Shell-Attrappe und ein Brett, das present protokolliert und auf Wunsch sofort weitermacht.

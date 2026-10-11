@@ -2,7 +2,10 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.21.0** (Astra-Bilder eingebaut nach AP A.1: **alle 22 Heldenporträts**, **167 von 377
+Aktueller Stand im Code: **Version 1.22.0** (Astra-Oberfläche nach AP A.2: **gemalte Kartenrahmen** für Diener, Zauber und
+Bauwerke, **acht gemalte Kartenrücken**, Chronikleiste, Stundenglas, versiegelte Befehle, Waffenablage, Schildwall, Phiole und Urne
+im Match, Kartenpaket, Podest, Kartenbuch, Startbefehle, Steinplatten, **neu gemaltes Hauptmenü**, Hintergründe, Währungssymbole,
+**neues App-Icon und Splash**; Entscheidung 19: `hypatia_0`/`hypatia_2` werden neu bestellt); davor 1.21.0 (Astra-Bilder eingebaut nach AP A.1: **alle 22 Heldenporträts**, **167 von 377
 Karten- und Spielsteinbildern**, vier Marmor-Skins und **fünf gemalte Schlachtfeld-Tische** aus Astras sechs Teillieferungen
 und den geretteten Bildern; der Auftrag für die übrigen 210 Motive steht in `ungenutzte_assets/ASTRA_AUFTRAG.md`); davor
 1.20.0 (Schlüsselwort-Effekte und Anfang und Ende des Matches nach AP 3.6 und AP 3.8:
@@ -124,9 +127,10 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
 | `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`) |
 | `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Heldenmünze `coinArt`, Siegel `seal`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`; seit 1.17.0 Äther-Uhr `dial`, Chronik-Leiste `strip`, Pergament-Deck und Stundenglas `deck`, versiegelte Befehle `orderArt`, Zugtafel `turnPlate`; seit 1.18.0 Kartenrahmen `R.card` als Tempeltor, Hand mit Federn `hand`, Marschroute `route`, Effekte `effects` mit Tinte, Pumpen, Splittern, Staub und Rissen), seit 1.20.0 `fx.js` (`CHF`: Schlüsselwort-Bilder und -Effekte, Elemente und Heldenfähigkeiten, Intro mit Münzwurf und Finale), `anim.js` (`CHT`, seit 1.18.0: Kurven, Zeitleisten, Federn, Match-Uhr mit Tempo und Treffer-Stopp, Kamerawackeln), `motion.js` (`CHM`, Zeitleisten je Aktion, Ziehen, Verbrennen, Stundenglas), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel auf der Match-Uhr, Bildraten-Anzeige) |
-| `view/css/` | View | `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte) |
+| `view/css/` | View | seit 1.22.0 `astra.css` (zuletzt geladen: Astras gemalte Bilder für Paket, Podest, Kartenbuch, Startbefehle, Steinplatten, Hintergründe, Währungen), `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte) |
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`) |
 | `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
+| `assets/ui/` | – | Seit 1.22.0 (AP A.2): Astras Oberflächenbilder als WebP mit Transparenz (Kartenrahmen, Kartenrücken, Chronikleiste …) und Währungen als SVG, erzeugt von `werkzeuge/astra_bilder.py`, geladen von `CHS.loadUI` vor dem ersten Bildschirm |
 | `assets/fonts/` | – | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
 | `assets/art/` | – | Bilder als WebP, nie von Hand ersetzen: seit 1.21.0 Astra-Atlanten `astra-karten-*.webp`, Helden `heroes`/`heroes2`, Skins und Tische aus `werkzeuge/astra_bilder.py`; übrige alte Bilder aus `werkzeuge/bilder_webp.py` (Originale in `ungenutzte_assets/archiviert/art-original/`); seit 1.19.0 `weltkarte.svg` (Küsten der Kampagnenkarte, erzeugt von `werkzeuge/weltkarte.js` aus Natural Earth) |
 
@@ -588,29 +592,41 @@ Kartenrücken, Hintergründe, Tische, 192 UI-Vektoren, 19 gemalte UI-Ebenen, 9 K
 - [x] **Aktuelle Liste:** `ungenutzte_assets/ASTRA_AUFTRAG.md` (Stand, Auftragstext, Parameter, nur offene IDs mit Motiv aus
   Astras Briefing) und `ASTRA_STAND.csv` (alle 377 IDs mit Status und Quelle) – beide erzeugt, nie von Hand ändern.
   *Stand: 166 eingebaut, 1 eingebaut mit Korrekturwunsch (`fabius_0`, Rüstung zu schwer), 202 neu zu erzeugen, 6 aus Teil 4
-  verloren (`perikles_7`–`9`, `pioneer`, `citizen`, `parthenos`), 2 gesperrt (`hypatia_0`, `hypatia_2`, Entscheidung 19).*
+  verloren (`perikles_7`–`9`, `pioneer`, `citizen`, `parthenos`), 2 gesperrt (`hypatia_0`, `hypatia_2`, Entscheidung 19 – *seit 1.22.0 entschieden: neu bestellen*).*
   Das von ChatGPT gelieferte Briefing (Stand nach Teil 4) liegt als `neue_astra_assets/PRODUKTIONSBRIEFING.md` bei und ist
   nur noch Quelle der Motivbeschreibungen.
 - Abnahme: Test `astra.test.js` (Zuordnung, Atlasgrößen, Helden, keine verwaisten Bilder, Stand und Auftrag stimmen überein),
   Klickpfad mit neuen Referenzbildern. *✓* Auf dem Handy ansehen: Porträts in Münze und Galerie, Karten im Kartenbuch, Tische.
 
-**AP A.2 – Astra-Oberfläche einbauen (L)** – *offen, nächste Sitzungen*
+**AP A.2 – Astra-Oberfläche einbauen (L)** – *✓ in 1.22.0 für alle gemalten Teile (Rückmeldung vom 11. 10. 2026: „da fehlt aber einiges“)*
 
-Die übrigen Teil-1- und Teil-3-Dateien ersetzen im Code gezeichnete Grafiken (70 `ASTRA:`-Kennungen, `MOTIVE.md`) und brauchen
-Umbau statt Austausch: Ihre Formen weichen von den heutigen ab.
-- [ ] **Hauptmenü** `hall-aeterna` (neues Motiv 1942 × 809 mit Ring und Plakette) mit neuen Trefferflächen
-  (Teil 3 `HAUPTMENUE_MAPPING.json`) – Vergleich alt/neu und Deine Freigabe vorher.
-- [ ] Hintergründe für Untermenüs, Basar, Sammlung, Pakete, Heldengalerie (`menu`, `temple`, `basar`, `sammlung`, `pakete`,
-  `heldengalerie`).
-- [ ] **Kartenrücken** (8 Bilder) statt Zeichnung in `stone.js`; **Kartenrahmen** (`ui-art/kartenrahmen-*`, Clipmasken Teil 3)
-  statt `R.card`; Diener-Plakette, Äther-Uhr und -Kristalle, Chronometer, Chronik-Leiste, Pergament-Deck, Stundenglas,
-  versiegelte Befehle, Waffenablage, Schildwall, Giftphiole, Urne, Archiv-Siegel, Edelsteine, Filterknöpfe, Kartenbuch,
-  Podest, Steinplatten, Kartenpaket – je Kennung Bild statt Zeichnung, Kommentar `ASTRA:` entfernen.
-- [ ] Android: adaptives und monochromes Icon, Splash aus Teil 3 `android-res/`.
-- Abnahme: `MOTIVE.md` ohne die ersetzten Kennungen, Klickpfad mit neuen Referenzbildern, Bildrate wie vorher.
+Teil 1 und Teil 3 liefern zweierlei: **27 gemalte Oberflächenbilder** (Kartenrücken, Kartenrahmen, Chronikleiste, Stundenglas,
+versiegelte Befehle, Waffenablage, Schildwall, Phiole, Urne, Kartenpaket, Podest, Kartenbuch, Startbefehle, Steinplatten), dazu
+gemalte Hintergründe, ein neu gemaltes Hauptmenü und App-Icon/Splash – und **192 flache Vektorgrafiken** (Äther-Uhr, Chronometer,
+Knöpfe, Edelsteine, Staub, Risse …). Die gemalten sind jetzt im Spiel; jede Zeichenfunktion bleibt als Ersatz, falls ein Bild
+fehlt (`CHS.ui`, `R.pic`), und trägt statt `ASTRA:` den Vermerk `Astra-Bild (AP A.2)`.
+- [x] **Kartenrahmen** gemalt (Diener mit Rundfenster, Zauber mit Bogen, Bauwerk mit Zinnen; je normal und golden): Bildfenster
+  aus Astras Clipmasken (`CHB.windows`), Namensband, Textfeld und Giebelstern auf den Bildern vermessen; Kosten, Werte,
+  Siegel und Lorbeer bleiben gezeichnet darüber.
+- [x] **Acht Kartenrücken** (Basar, Deck, Pakete, Hand), **Kartenpaket**, **Präsentationspodest** im Basar, **Kartenbuch** in der
+  Sammlung, **Startbefehle** als gemalte Schriftrolle, **Steinplatten** des Bildschirmwechsels als runde Steintür.
+- [x] Im Match: **Chronikleiste** in drei Stücken (nur die Mitte wird gestreckt, Teil 3), **Stundenglas**, **versiegelte Befehle**
+  der KI-Hand, **Waffenablage** mit den Werten in ihren Fassungen, **Schildwall**, **Giftphiole**, **Vermächtnis-Urne**.
+- [x] **Hauptmenü** neu gemalt: Astras Fassung hat dieselbe Geometrie (2602 × 1084, deckungsgleich überblendet) – Trefferflächen
+  und Ausschnitte in `hall.js` bleiben. **Hintergründe**: Bühne, Basar, Sammlung, Kartenpakete, Heldenwahl (unter der dunklen
+  Lasur der Bildschirme); `temple.webp` entfällt.
+- [x] **App-Icon** (adaptiv, monochrom) und **Splash** aus Teil 3 `android-res/` (Vektor, keine Bilddateien).
+- [x] **Währungssymbole** (Gold, Staub, Pakete) als Vektorbilder statt der Schriftzeichen ◉ ✧ ▣.
+- [ ] **Flache Vektorgrafiken:** bewusst *nicht* eingebaut – Äther-Uhr, Chronometer, Edelsteine, Werte-Symbole, Siegel, Knöpfe,
+  Steinknöpfe, Panels, Reiter, Filterknöpfe, Staub, Risse, Tinte, Marschroute, Banner und Fähigkeitssymbole sind einfache
+  Flächen mit Verlauf und damit schlichter als die heutigen Zeichnungen. Sie bleiben in `neue_astra_assets/Teil1/assets/ui/`.
+  Wenn Du einzelne davon trotzdem sehen willst, sag welche; sonst bestelle ich sie bei Astra als **gemalte** Bilder (48 Kennungen in
+  `MOTIVE.md`, Abschnitt „Im Code gezeichnet“).
+- Abnahme: Klickpfad mit neuen Referenzbildern, Test `astra.test.js` (jedes Oberflächenbild liegt bereit, Rahmen haben ein
+  Bildfenster), `MOTIVE.md` ohne die ersetzten Kennungen (70 → 48). *✓* Auf dem Handy ansehen: Karten, Rücken, Match, Menü, Icon.
 
 **AP A.3 – Restliche Motive bei Astra (Du, fortlaufend)**
-- [ ] Die 210 offenen IDs aus `ASTRA_AUFTRAG.md` in kleinen Paketen (10–12 Bilder je ZIP) bestellen; jede Lieferung als neuer
+- [ ] Die 212 offenen IDs aus `ASTRA_AUFTRAG.md` (seit Entscheidung 19 mit `hypatia_0` und `hypatia_2`) in kleinen Paketen (10–12 Bilder je ZIP) bestellen; jede Lieferung als neuer
   Ordner in `neue_astra_assets/`, dann baut eine Sitzung sie ein (oft ohne Code: nur Werkzeug, Tests, Referenzbilder).
 - [ ] Teil 4 vollständig wiederfinden (sechs Bilder) und `fabius_0` korrigieren lassen.
 
@@ -2159,9 +2175,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     Schlüsselwörtern kostet 1,3–1,5 ms je Bild (CPU 4×: 5,5–7,5 ms). Die Emulation ohne GPU rastert im Extremfall nur rund 37 Bilder/s –
     deshalb ist die Messreihe vom Gerät jetzt wichtig: Bildraten-Anzeige an, ein wildes Gefecht mit Gunst, Starre und Zaubern.
 
-19. **Gesperrte Alexandria-Bilder** (AP A.1): Die geretteten Bilder „Papyrusstudium“ und „Astronom“ hat Astra vorläufig
-    `hypatia_5` (Lehrsatz) und `hypatia_8` (Sternenorakel) zugeordnet; sie könnten auch `hypatia_0` (Bibliothekslehrling) und
-    `hypatia_2` (Sternenkundiger) sein. *Vorschlag:* Zuordnung so lassen und `hypatia_0`/`hypatia_2` neu bestellen.
+19. ~~**Gesperrte Alexandria-Bilder** (AP A.1)~~ – *entschieden (11. 10. 2026, wie vorgeschlagen):* Die geretteten Bilder
+    „Papyrusstudium“ und „Astronom“ bleiben `hypatia_5` (Lehrsatz) und `hypatia_8` (Sternenorakel); `hypatia_0`
+    (Bibliothekslehrling) und `hypatia_2` (Sternenkundiger) stehen als neue Aufträge in `ASTRA_AUFTRAG.md`.
 20. **Heldenfähigkeiten** (AP L.5): Welche Fähigkeiten neu werden, entscheidest Du nach meiner Prüftabelle.
 ---
 
@@ -2188,12 +2204,13 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 16 ✓ | AP 1.4, AP 1.6, AP 1.7, Rückmeldung 1.18.0 | erledigt in 1.19.0 – Basar als Schaufenster mit Podest und inszeniertem Kauf, Sammlung als Kartenbuch mit Manakurve, Heldengalerie, Kampagnenkarte mit 22 Stationen; Uhrwerk statt Gong, ruhigerer Tod, Goldglanz und Zugtafel repariert |
 | 17 ✓ | AP 3.6, AP 3.8, Rückmeldung 1.19.0 | erledigt in 1.20.0 – Schildwall, Gunst, Starre, Tarnung, Gift und Vermächtnis als Bilder und Effekte, Zauber-Partikel je Element, 22 Fähigkeits-Effekte; Intro mit Chronist, Münzwurf, Schriftrollen, Triumph mit Relief, Banner, Hörnern und Belohnungsbalken; leiseres Uhrwerk, ruhigerer Tod, Blätterseiten mit Karten |
 | 18 ✓ | AP A.1 | erledigt in 1.21.0 – Astra-Bilder: 22 Heldenporträts, 167 Karten und Spielsteine, Skins, fünf Tische; aktueller Auftrag für Astra |
-| 19 | AP A.2 Teil 1, Rückmeldung 1.20.0 und 1.21.0 | Astra-Oberfläche: Kartenrahmen, Kartenrücken, Hintergründe, Match-Elemente – die größte sichtbare Lücke |
-| 20 | AP A.2 Teil 2, AP L.5 | Hauptmenü neu, Android-Icon; Heldenfähigkeiten passend zur Geschichte (Prüftabelle, Deine Entscheidung, Balance) |
+| 18b ✓ | AP A.2, Entscheidung 19 | erledigt in 1.22.0 – gemalte Kartenrahmen und -rücken, Match-Elemente, Menüs, Hauptmenü, Hintergründe, App-Icon und Splash |
+| 19 | Rückmeldung 1.20.0–1.22.0, AP L.5 | Feinschliff der neuen Optik nach Deinem Blick aufs Handy; Heldenfähigkeiten passend zur Geschichte (Prüftabelle, Deine Entscheidung, Balance) |
+| 20 | neue Astra-Lieferungen, gemalte Ersatzbilder für die 48 Zeichnungen | sobald Astra liefert – meist nur ein Werkzeuglauf |
 | 21 | AP 3.7 (Lunte), AP 3.9, AP 4.4 Teil 1, AP 4.5 | Lesbarkeit (Schlüsselwörter erklären, Angriffsvorschau), lebendige Ecken, Klang und Haptik aus einem Guss |
 | 22 | Phase 4 (Stimmen, Chronist, KI-Dialoge) | sobald Entscheidung 7 (Quelle der Stimmen) steht |
 | 22+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
-| laufend | AP A.3 (Du) | restliche 210 Motive aus `ungenutzte_assets/ASTRA_AUFTRAG.md` bei Astra bestellen, 10–12 je ZIP; jede Sitzung baut Neues mit ein |
+| laufend | AP A.3 (Du) | restliche 212 Motive aus `ungenutzte_assets/ASTRA_AUFTRAG.md` bei Astra bestellen, 10–12 je ZIP; jede Sitzung baut Neues mit ein |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
 
@@ -2201,44 +2218,45 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 18 (Version 1.21.0):** AP A.1 – **Astra-Bilder im Spiel**: alle **22 Heldenporträts** (Münze, Galerie,
-Intro), **167 Karten- und Spielsteinbilder** aus Teil 1–6 und den geretteten Bildern, **vier Marmor-Skins** und **fünf gemalte
-Tische** statt Farbfilter. Neues Werkzeug `werkzeuge/astra_bilder.py` baut jede künftige Lieferung mit einem Aufruf ein – PNG oder
-WebP ist dabei egal. **Aktuelle Liste** für Astra: `ungenutzte_assets/ASTRA_AUFTRAG.md` (210 offene Motive mit Beschreibung,
-ersetzt das ChatGPT-Briefing) und `ASTRA_STAND.csv`. Neu im Plan: **AP L.5** (Heldenfähigkeiten passend zu Rolle und Taten des
-Helden), AP A.2 (Astra-Oberfläche), AP A.3 (restliche Motive). Davor: Sitzung 17 (1.20.0) AP 3.6, 3.8; Sitzung 16 (1.19.0) AP 1.4,
-1.6, 1.7; Sitzung 15 (1.18.0) AP 1.5, AP 3.1–3.5; Sitzungen 1–14 (1.4.0–1.17.0) Stil, Hauptmenü, MVVM, Balance, 22 Helden, 350 Karten,
-Lehrplan, Spielbrett.
+**Erledigt in Sitzung 18 (Versionen 1.21.0 und 1.22.0):** AP A.1 – **Astra-Bilder**: 22 Heldenporträts, 167 Karten- und
+Spielsteinbilder, vier Marmor-Skins, fünf gemalte Tische, Werkzeug `werkzeuge/astra_bilder.py`, aktuelle Liste
+`ungenutzte_assets/ASTRA_AUFTRAG.md`. AP A.2 – **Astra-Oberfläche** (Deine Rückmeldung „da fehlt aber einiges“): gemalte
+**Kartenrahmen** (Diener, Zauber, Bauwerk, je normal und golden), **acht Kartenrücken**, **Chronikleiste**, **Stundenglas**,
+**versiegelte Befehle**, **Waffenablage**, **Schildwall**, **Phiole**, **Urne**, **Kartenpaket**, **Podest**, **Kartenbuch**,
+**Startbefehle**, **Steinplatten**, **neu gemaltes Hauptmenü**, Hintergründe für Bühne, Basar, Sammlung, Pakete und Heldenwahl,
+**App-Icon und Splash**, Währungssymbole. Die 192 flachen Vektorgrafiken habe ich nicht eingebaut (schlichter als das, was das
+Spiel heute zeichnet; AP A.2). Neu im Plan: **AP L.5** (Heldenfähigkeiten aus Rolle und Taten des Helden). Entscheidung 19
+umgesetzt. Davor: Sitzung 17 (1.20.0) AP 3.6, 3.8; Sitzung 16 (1.19.0) AP 1.4, 1.6, 1.7; Sitzungen 1–15 (1.4.0–1.18.0).
 
 **Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.21.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. **Astra-Bilder ansehen:** Heldenwahl (alle Porträts), Heldenmünzen im Match (Gesicht gut im Kreis?), Sammlung (Karten mit neuen
-   Bildern), Basar → Schlachtfelder (fünf Tische) und ein Match auf einem neuen Tisch – stört der breitere Rahmen Hand oder Uhr?
-   Gefällt ein Bild nicht (ID oder Name nennen), kommt es in den Auftrag zurück.
-3. **Rückmeldung 1.20.0** (falls noch offen): Intro, Münzwurf, Schriftrollen, Schlüsselwörter, Finale, Bildrate (Entscheidung 18).
-4. **Astra:** nächste Pakete aus `ASTRA_AUFTRAG.md` bestellen (Datei anhängen, 10–12 IDs nennen); vollständiges Teil 4 suchen;
-   Entscheidung 19 (zwei Alexandria-Bilder).
+1. `Aeterna-1.22.0-Test.apk` aus dem Release „Test-APK“ als Update installieren – **das App-Icon ist neu** (Startbildschirm).
+2. **Karten:** Sind Name, Text und Werte auf den gemalten Rahmen gut lesbar (Hand, Sammlung, Großansicht)? Sitzt das Bild im
+   Rundfenster (Diener), Bogen (Zauber) und Zinnenfenster (Bauwerk)?
+3. **Match:** Chronikleiste links, Befehle der KI oben, Stundenglas bei leerem Deck, Waffe neben dem Helden, Schildwall,
+   Phiole, Urne – passt alles? Bleibt es flüssig (Bildraten-Anzeige)?
+4. **Menüs:** Hauptmenü, Basar (Podest, Kartenrücken, Paket), Sammlung (Kartenbuch), Starthand (Schriftrollen),
+   Bildschirmwechsel (Steintür), Hintergründe – zu hell oder zu dunkel?
+5. **Astra:** nächste Pakete aus `ASTRA_AUFTRAG.md` bestellen (jetzt 212 Motive, `hypatia_0` und `hypatia_2` dabei); wenn Du die
+   flachen Vektorgrafiken gemalt haben willst, sag Bescheid – dann schreibe ich dafür einen eigenen Auftrag.
 
-**Sitzung 19 – AP A.2 Teil 1: Astra-Oberfläche im Match und in den Menüs**
+**Sitzung 19 – Feinschliff der neuen Optik und AP L.5**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.21.0 | Bilder, die nicht gefallen, Tischrahmen, neue Astra-Lieferungen einbauen | Geschmack zuerst; neue Lieferungen sind nur ein Werkzeuglauf |
-| AP A.2 | Kartenrahmen (gemalt, mit Clipmasken), Kartenrücken als Bilder, Diener-Plakette, Äther-Uhr, Chronometer, Chronik-Leiste, Deck, versiegelte Befehle, Hintergründe der Untermenüs | die gemalten Bilder stehen noch in gezeichneten Rahmen |
+| Rückmeldung 1.20.0–1.22.0 | Lesbarkeit der gemalten Karten, Lage der Match-Elemente, Helligkeit der Hintergründe, neue Astra-Lieferungen einbauen | die Optik hat sich in einer Sitzung stark verändert – erst ansehen, dann schleifen |
+| AP L.5 | Prüftabelle der 22 Heldenfähigkeiten (Rolle, Tat, Quelle), Vorschläge für die unpassenden, nach Deiner Entscheidung umsetzen mit Balance-Lauf | Dein Wunsch vom 11. 10.; die elf Ersatzhelden tragen noch die Fähigkeiten ihrer Vorgänger |
 
-Risiko: mittel – viele Zeichenfunktionen werden zu Bildern, Bildrate und Lesbarkeit müssen bleiben; Regeln ändern sich nicht.
-Das Hauptmenü (neues Motiv, neue Trefferflächen) und AP L.5 folgen in Sitzung 20.
+Risiko: gering bis mittel – der Feinschliff ändert keine Regeln; AP L.5 ändert Regeln und braucht den vollen Balance-Lauf.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP A.2 Teil 1 (Astra-Oberfläche: Kartenrahmen,
-> Kartenrücken, Match-Elemente, Hintergründe)** ab, baue neue Astra-Lieferungen aus `ungenutzte_assets/neue_astra_assets/` mit
-> `werkzeuge/astra_bilder.py` ein und übernimm mein Feedback zu Version 1.21.0: *(hier Feedback zu Porträts, Karten, Tischen
-> einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im
-> Handyformat, lass die Tests und den Klickpfad laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne
-> am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
-> Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Übernimm mein Feedback zu den Versionen 1.20.0 bis 1.22.0:
+> *(hier Feedback zu Karten, Match, Menüs, Icon und Bildrate einfügen)*, baue neue Astra-Lieferungen aus
+> `ungenutzte_assets/neue_astra_assets/` mit `werkzeuge/astra_bilder.py` ein und arbeite **AP L.5 (Heldenfähigkeiten aus der
+> Geschichte)** ab: erst die Prüftabelle mit Vorschlägen, dann nach meiner Entscheidung umsetzen. Halte dich an die „Regeln für
+> jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests und den
+> Klickpfad laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach
+> `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: xhigh.** Viele Zeichenfunktionen werden durch Bilder ersetzt (Masken, Zustände,
-Pixeldichte, Sprite-Cache) und jede muss im Handyformat geprüft werden; *high* reicht, wenn Du nur neue Astra-Lieferungen einbauen
-lassen willst.
+**Empfohlener Effort für den nächsten Prompt: high.** Feinschliff nach Rückmeldung und eine Prüftabelle sind überschaubar; der
+Balance-Lauf für AP L.5 kostet Zeit, nicht Denkarbeit. *xhigh*, wenn Deine Rückmeldung größere Umbauten der neuen Optik verlangt.

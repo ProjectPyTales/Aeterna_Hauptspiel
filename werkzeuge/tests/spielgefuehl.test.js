@@ -97,7 +97,7 @@ test('AP 3.5: Treffersound je Einheit, Schadenszahl mit Tinte, Pumpen und Splitt
  // Seit 1.20.0 (Rückmeldung zu 1.19.0): kein Staub und kein Schleifen mehr beim Tod eines Dieners, nur ein Bauwerk stürzt hörbar ein.
  assert.ok(!R.fx.some(f=>f.type==='dust'||f.type==='sound'),'Diener: ohne Staub und Fall-Laut');
  R.fx=[];R.events([{type:'death',target:'u1',p:1,id:'neutral_0',building:true}],{particles:false});assert.equal(R.fx.map(f=>f.type).join(),'sound','ohne Partikel nur der Fall-Laut des Bauwerks');R.fx=[];
- for(const k of ['marschroute','tintenspritzer','staubwolke','steinrisse'])assert.match(render,new RegExp('// ASTRA: '+k+' – '),k);
+ for(const k of ['marschroute','tintenspritzer','staubwolke','steinrisse'])assert.match(render,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
  assert.match(render,/function route\([^]*?motion\(\)\?\(t\*\.09\)%step:0/,'die Winkel marschieren (nicht bei reduzierter Bewegung)');
  assert.match(render,/if\(d\.target&&d\.target!=='h0'\)pulse\(c,d\.target,t\)/,'Ziel unter der Route pulsiert');
  assert.match(render,/if\(ready&&!selected\)round\(c,-55,-72,110,144,11,null,'#8dff6a',2\.5\)/,'grüne Umrandung, wer angreifen kann');
@@ -127,7 +127,7 @@ test('AP 3.2: ViewModel – Drücken hebt die Karte an, Aura bei erfüllter Bedi
 });
 
 test('AP 1.5: Kartenrahmen als Tempeltor mit Werte-Symbolen, Archiv-Siegel und Lorbeer – gekennzeichnete Platzhalter',()=>{
- for(const k of ['kartenrahmen','werte-kristall','werte-klingen','werte-schild','werte-turm','archivsiegel','lorbeerkranz','goldglanz'])assert.match(render,new RegExp('// ASTRA: '+k+' – '),k);
+ for(const k of ['kartenrahmen','werte-kristall','werte-klingen','werte-schild','werte-turm','archivsiegel','lorbeerkranz','goldglanz'])assert.match(render,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
  assert.match(render,/etherCrystal\(c,25,34,22,card\.cost\);[^]*?blades\(c,25,257,card\.attack\);lifeShield\(c,175,257,card\.health\);/,'Kosten oben links, Angriff unten links, Leben unten rechts');
  assert.match(render,/archiveSeal\(c,100,258,11\.5,card\.rarity\);\n if\(legend\)laurel\(c\);/,'Siegel je Seltenheit, Lorbeer für Legendäre');
  assert.doesNotMatch(render,/legendary-frame/,'der alte Adlerrahmen entfällt');

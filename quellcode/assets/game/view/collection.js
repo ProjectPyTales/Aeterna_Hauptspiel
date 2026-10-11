@@ -23,7 +23,7 @@ const card=(x,i)=>html`<button class="${V.cls('collect-card',!x.owned&&'locked')
 // The same card on the turning leaf and on the old half under it: a picture only, no command.
 const still=x=>html`<span class="${V.cls('collect-card',!x.owned&&'locked')}"><img src="${R.thumb(x.card.id)}" alt="" decoding="async">${x.inDeck?html`<span class="in-deck">${x.inDeck}</span>`:''}<span class="count">${x.owned?'× '+x.owned:'Nicht im Besitz'}</span></span>`;
 const leaf=v=>v.turn&&v.leaf?html`<div class="${V.cls('page','under',v.turn>0?'on-left':'on-right')}" aria-hidden="true">${v.leaf.under.map(still)}</div><div class="page-turn" aria-hidden="true"><div class="leaf-face front">${v.leaf.front.map(still)}</div><div class="leaf-face back">${v.leaf.back.map(still)}</div></div>`:'';
-// ASTRA: kartenbuch – aufgeschlagenes Kartenbuch mit Ledereinband, Pergamentseiten und Buchrücken, 1868 × 1240
+// Astra-Bild (AP A.2): kartenbuch – aufgeschlagenes Kartenbuch mit Ledereinband, Pergamentseiten und Buchrücken, 1868 × 1240
 const book=v=>{const left=v.cards.slice(0,4),right=v.cards.slice(4);
  return html`<section class="cardbook"><div class="${V.cls('spread',v.turn>0&&'turn-next',v.turn<0&&'turn-prev')}" data-key="page-${v.page}"><div class="page left">${left.map((x,i)=>card(x,i))}</div><div class="spine"></div><div class="page right">${right.map((x,i)=>card(x,i+4))}</div>${leaf(v)}</div><div class="pagination">${
  V.button({label:'‹',cmd:'page',a:-1,small:true,disabled:v.page===0,aria:'Vorherige Seite'})}<span>Seite ${v.page+1} / ${v.pages}</span>${
@@ -54,7 +54,7 @@ function prefetch(ids){const key=ids.join();if(key===warm)return;warm=key;idle((
 
 AEV.screens=AEV.screens||{};AEV.dialogs=AEV.dialogs||{};
 AEV.screens.collection={render:vm=>{const v=vm.view;prefetch(v.ahead);
- return html`<div class="screen">${V.topbar('Sammlung & Decks',vm.wallet())}<div class="book">${filters(v)}${book(v)}<aside class="deck-side" data-key="${v.edit?'edit-'+v.edit.id:'decks'}">${v.edit?editor(v):chooser(v)}</aside>${flight(v)}</div></div>`;}};
+ return html`<div class="screen collection">${V.topbar('Sammlung & Decks',vm.wallet())}<div class="book">${filters(v)}${book(v)}<aside class="deck-side" data-key="${v.edit?'edit-'+v.edit.id:'decks'}">${v.edit?editor(v):chooser(v)}</aside>${flight(v)}</div></div>`;}};
 
 // The card zooms in from its place on the page (--fx/--fy: from the dialog's picture back to the slot).
 AEV.dialogs.card={render:vm=>{const v=vm.view,c=v.card,slot=vm.state.slot,from=slot==null?null:slotAt(slot);

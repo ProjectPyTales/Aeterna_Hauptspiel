@@ -1,0 +1,36 @@
+/* Painted surface from Astra (AP A.2): pictures in assets/ui/ and assets/art/ (werkzeuge/astra_bilder.py) over the drawn
+   stand-ins of the other style sheets. Loaded last; each rule only swaps a picture, the layout stays. */
+
+/* Backgrounds under the dark wash of each screen. */
+.bazaar{background:linear-gradient(180deg,#1d1915d9,#15120fe6 60%,#100d0bee),url('../../assets/art/bg-basar.webp') center/cover}
+.screen.collection{background:linear-gradient(100deg,#111b21e0,#171c20a8),url('../../assets/art/bg-sammlung.webp') center/cover}
+.screen.setup{background:linear-gradient(100deg,#111b21e0,#171c20a8),url('../../assets/art/bg-heldengalerie.webp') center/cover}
+.pack-opening{background:radial-gradient(ellipse at center,#554329cc,#0c131bf2 65%),url('../../assets/art/bg-pakete.webp') center/cover}
+.pack-reveal{background:radial-gradient(ellipse at 50% 42%,#32434ad0,#0c141af2 75%),url('../../assets/art/bg-pakete.webp') center/cover}
+
+/* Astra-Bild (AP A.2): kartenpaket – the sealed pack (red ribbon, wax seal with the star). */
+.pack-display{border:0;border-radius:0;background:url('../../assets/ui/kartenpaket.webp') center/100% 100% no-repeat;box-shadow:none}
+.pack-display:before,.pack-display:after,.pack-display>*{display:none}
+
+/* Astra-Bild (AP A.2): praesentationspodest – marble pedestal with bronze ring. */
+.podium>.pedestal{width:420px;height:315px;margin-left:-210px;bottom:-118px;border-radius:0;box-shadow:none;
+ background:url('../../assets/ui/praesentationspodest.webp') center top/contain no-repeat;filter:drop-shadow(0 18px 22px #000a)}
+.pedestal i{display:none}
+
+/* Astra-Bild (AP A.2): kartenbuch – leather-bound book; the pages keep their padding for the cards. */
+.spread{background:url('../../assets/ui/kartenbuch.webp') center/100% 100% no-repeat;box-shadow:0 16px 30px #000a;padding:22px 34px 26px}
+
+/* Astra-Bild (AP A.2): startbefehle – each starting order on a painted scroll (rods and seal are part of the picture). */
+.mulligan-card .sheet{background:url('../../assets/ui/startbefehle.webp') center/100% 100% no-repeat;box-shadow:none;padding:58px 30px 72px;filter:drop-shadow(0 6px 10px #0008)}
+.mulligan-card .rod{visibility:hidden}
+
+/* Astra-Bild (AP A.2): steinplatten – the round stone door closes over the drawn wall. */
+.slab .slab-art{position:absolute;top:0;height:100%;width:auto;z-index:1}
+.slab-l .slab-art{right:-6px}.slab-r .slab-art{left:-6px}
+.slab:has(.slab-art):after,.slab:has(.slab-art):before{display:none}
+
+/* Astra-Bild: waehrung – gold coin, star dust and card pack in the wallet (vector pictures). */
+.wallet .cur{display:inline-block;width:1.2em;height:1.2em;margin-right:.3em;vertical-align:-.22em;background:center/contain no-repeat}
+.cur.gold{background-image:url('../../assets/ui/waehrung-gold.svg')}
+.cur.dust{background-image:url('../../assets/ui/waehrung-staub.svg')}
+.cur.packs{background-image:url('../../assets/ui/waehrung-pakete.svg')}
