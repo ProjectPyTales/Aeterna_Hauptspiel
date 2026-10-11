@@ -75,6 +75,7 @@ jobs:
       # Nur main: Artefakte älter als ein Tag löschen (früher APK 30 Tage, Screenshots 14 Tage) – hält den Actions-Speicher frei.
       - name: Alte Artefakte aufräumen (nur main)
         if: github.ref == 'refs/heads/main'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -109,9 +110,11 @@ jobs:
       - name: Renderer-Labor (AP 2.5, Canvas 2D gegen PixiJS – ohne GPU nur Funktionsprobe)
         run: node werkzeuge/labormessung.js
 
-      # Screenshots und Messwerte nur, wenn etwas fehlschlägt (je Lauf rund 40 MB).
+      # Screenshots und Messwerte nur, wenn etwas fehlschlägt (je Lauf rund 40 MB). Ist der Actions-Speicher voll, scheitert nur
+      # das Hochladen – die CI bleibt deshalb nicht rot (continue-on-error).
       - uses: actions/upload-artifact@v4
         if: failure()
+        continue-on-error: true
         with:
           name: Sichtpruefung
           path: sichtpruefung/
@@ -130,8 +133,10 @@ jobs:
       - name: Balance-Lauf (KI gegen KI, alle Paarungen, Start- und Zufallsdecks)
         run: node werkzeuge/balance.js --partien 20 --bericht balance-ci/BERICHT.md
 
+      # Bericht nur, wenn der Lauf scheitert; ein voller Actions-Speicher macht die CI nicht rot.
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: failure()
+        continue-on-error: true
         with:
           name: Balance
           path: balance-ci/

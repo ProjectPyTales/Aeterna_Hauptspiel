@@ -196,7 +196,9 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
   Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
-  Keine neuen Artefakte mit langer Aufbewahrung anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp.
+  Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
+  `continue-on-error`, damit ein voller Speicher die CI nie rot macht. Zurück zu einer alten Version: `main` auf den alten Stand
+  zurücksetzen (Revert) – die CI baut genau diese APK neu, mit derselben Signatur.
   Der Job „apk“ baut seit 1.12.0 mit Gradle (`android/`) und prüft Paket-ID, Version und Zertifikat. Lokal fehlt in den
   Claude-Code-Sitzungen das Android-SDK (`dl.google.com` gesperrt): Kotlin-Änderungen dort gegen die Android-API aus
   `org.robolectric:android-all` (Maven Central) vorkompilieren, gebaut wird in der CI.
