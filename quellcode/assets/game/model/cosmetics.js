@@ -20,14 +20,15 @@ const retired=['khan','boudicca','nostradamus','jeanne','ragnar','musashi'].map(
 const retiredBoards=['ancient','egypt','viking','japan'];
 const refund=raw=>{if(!raw||typeof raw!=='object')return 0;const ids=list=>Array.isArray(list)?[...new Set(list)]:[];
  return ids(raw.skins).filter(id=>retired.includes(id)).length*300+ids(raw.boards).filter(id=>retiredBoards.includes(id)).length*100;};
-// Ein Schlachtfeld ist der Tisch unter beiden Epochenhälften (AP 1.8, Entscheidung 3). Tische ohne image sind Platzhalter
-// für Astra (MOTIVE.md): Bis das Bild da ist, zeichnet das Spiel den Standardtisch mit dem Farbfilter tint (CSS-Filter).
+// Ein Schlachtfeld ist der Tisch unter beiden Epochenhälften (AP 1.8, Entscheidung 3). Seit 1.21.0 (AP A.1) hat jeder
+// Tisch sein Astra-Bild (werkzeuge/astra_bilder.py). Ein Tisch ohne image bliebe Platzhalter: der Standardtisch mit dem
+// Farbfilter tint (CSS-Filter), gelistet in MOTIVE.md.
 const boards=[
 {id:'standard',name:'Standard',text:'Der Feldherrentisch aus Sandstein und poliertem Holz.',image:'board',price:0},
-{id:'athen',name:'Marmortisch von Athen',text:'Weißer Marmor vom Pentelikon, wie im Rat der Fünfhundert.',tint:'grayscale(.9) brightness(1.2) contrast(.9)',price:100},
-{id:'kapitol',name:'Porphyr des Kapitols',text:'Roter Porphyr mit Bronzebeschlägen aus dem Senat Roms.',tint:'hue-rotate(-24deg) saturate(1.2) brightness(.74)',price:100},
-{id:'skriptorium',name:'Pult des Skriptoriums',text:'Dunkle Eiche und Schiefer aus der Schreibstube eines Klosters.',tint:'grayscale(.6) sepia(.3) brightness(.6) contrast(1.1)',price:100},
-{id:'porzellan',name:'Meißner Porzellan',text:'Weißes Porzellan und Kobaltblau aus Böttgers Manufaktur.',tint:'grayscale(1) sepia(.35) hue-rotate(170deg) saturate(1.8) brightness(1.25)',price:100}];
+{id:'athen',name:'Marmortisch von Athen',text:'Weißer Marmor vom Pentelikon, wie im Rat der Fünfhundert.',image:'board-athen',price:100},
+{id:'kapitol',name:'Porphyr des Kapitols',text:'Roter Porphyr mit Bronzebeschlägen aus dem Senat Roms.',image:'board-kapitol',price:100},
+{id:'skriptorium',name:'Pult des Skriptoriums',text:'Dunkle Eiche und Schiefer aus der Schreibstube eines Klosters.',image:'board-skriptorium',price:100},
+{id:'porzellan',name:'Meißner Porzellan',text:'Weißes Porzellan und Kobaltblau aus Böttgers Manufaktur.',image:'board-porzellan',price:100}];
 // Kartenrahmen (AP 1.5, 1.18.0): the temple gate is the standard; golden cards gild every frame of your own cards – in
 // the hand, in the air, in the collection – and a glint passes over them in the match. Purely cosmetic.
 const frames=[

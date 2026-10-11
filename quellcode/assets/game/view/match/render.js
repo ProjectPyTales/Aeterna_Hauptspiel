@@ -5,8 +5,8 @@
 // file, which happens off the main thread – createImageBitmap(<img>) blocked the hall for up to 3 s at 4× CPU.
 const picture=name=>{const src='assets/art/'+name+'.webp',viaImage=()=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=src;});
  return window.createImageBitmap?fetch(src).then(r=>{if(!r.ok)throw Error(r.status);return r.blob();}).then(b=>createImageBitmap(b)).catch(viaImage):viaImage();};
-// Card atlases come from the cards themselves: since 1.14.0 (AP L.1) a replaced hero has no portrait, but his cards keep their pictures.
-R.atlases=()=>['board','heroes','heroes-marble',...new Set(Object.values(D.byId).map(c=>c.art).filter(a=>a&&a[0]!=='@'))];
+// Atlases come from the heroes and cards themselves (since 1.21.0, AP A.1, Astra's portraits in heroes and heroes2).
+R.atlases=()=>['board',...new Set(D.heroes.map(h=>h.art).filter(Boolean)),'heroes-marble',...new Set(Object.values(D.byId).map(c=>c.art).filter(a=>a&&a[0]!=='@'))];
 R.load=(progress=()=>{})=>{const names=R.atlases();let done=0;
  return Promise.all(names.map(name=>picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>progress(++done,names.length))));};
 R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>delete R.pending[name]);};
@@ -188,8 +188,8 @@ R.artworks={};R.artwork=id=>{if(!R.artworks[id]){const card=D.byId[id],im=R.imag
  const c=document.createElement('canvas');c.width=im.width/4;c.height=im.height/3;
  R.tile(c.getContext('2d'),card.art,card.cell,0,0,c.width,c.height);R.artworks[id]=blobURL(c);}return R.artworks[id];};
 // atlas === true picks the player's equipped skin for that hero.
-R.medals={};R.heroStyle=(id,atlas='heroes')=>{const i=D.heroes.findIndex(h=>h.id===id),hero=D.heroes[i];
- if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=300;c.height=450;R.tile(c.getContext('2d'),null,0,0,0,300,450,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id]||'heroes';return `background-image:url('assets/art/${atlas}.webp');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
+R.medals={};R.heroStyle=(id,atlas)=>{const hero=D.heroById[id],i=hero.cell;
+ if(!hero.art){if(!R.medals[id]){const c=document.createElement('canvas');c.width=300;c.height=450;R.tile(c.getContext('2d'),null,0,0,0,300,450,hero);R.medals[id]=c.toDataURL('image/png');}return `background-image:url('${R.medals[id]}');background-size:cover;background-position:center`;}if(atlas===true)atlas=R.look.skins[id];atlas=atlas||hero.art;return `background-image:url('assets/art/${atlas}.webp');background-size:400% 300%;background-position:${(i%4)/3*100}% ${Math.floor(i/4)/2*100}%`;};
 function hit(id,x,y,w,h,data={}){R.hits.push({id,x,y,w,h,...data});}
 // Touch targets of at least 48 dp (AP 1.8): 84 stage units are 48 CSS pixels on a 915 px wide phone; the picture keeps its size.
 const TOUCH=84;function touch(id,x,y,w,h,data){const tw=Math.max(w,TOUCH),th=Math.max(h,TOUCH);hit(id,x-(tw-w)/2,y-(th-h)/2,tw,th,data);}
@@ -243,7 +243,7 @@ function coinArt(c,a,hero,skin,ready){
  if(a.weapon)weaponRack(c,-124,18,a.weapon);}
 // The struck medal alone (AP 3.8: the coin of the Feldzug-Initiative and the relief that breaks use it too); the shadow
 // is the caller's.
-function medal(c,hero,skin){const r=L.coin,idx=D.heroes.indexOf(hero);
+function medal(c,hero,skin){const r=L.coin,idx=hero.cell;
  ellipse(c,0,0,r,r,grad(c,-r,-r,2*r,2*r,'#5e3f1c','#f0cd85'),'#2e2012',3);c.save();c.shadowColor='transparent';
  // Reeded edge, a raised rim with the name as legend, then the struck portrait.
  c.beginPath();for(let i=0;i<120;i++){const an=i*Math.PI/60;c.moveTo(Math.cos(an)*(r-6),Math.sin(an)*(r-6));c.lineTo(Math.cos(an)*(r-1.5),Math.sin(an)*(r-1.5));}c.strokeStyle='#3a291488';c.lineWidth=1.4;c.stroke();
@@ -409,7 +409,7 @@ function entryArt(g,e){const k=54/2,col=e.p===0?'#e2bf6a':e.p===1?'#c8473b':'#9a
  g.save();g.beginPath();g.roundRect(-k,-k,2*k,2*k,5);g.clip();if(e.type==='death'||e.type==='burn')g.filter='grayscale(1) brightness(.8)';
  if(e.type==='fatigue'){g.fillStyle='#3a2a1a';g.fillRect(-k,-k,2*k,2*k);g.save();g.translate(0,-k*.78);g.scale(.62,.62);hourglassArt(g);g.restore();}
  else if(e.kind==='card'){const card=D.byId[e.id];R.tile(g,card.art,card.cell,-k*1.2,-k*1.05,k*2.4,k*2.4,card);}
- else if(e.kind==='power'||e.kind==='hero'){const hero=D.heroById[e.id];if(e.kind==='hero'&&hero)R.tile(g,hero.art,D.heroes.indexOf(hero),-k*1.2,-k*1.1,k*2.4,k*2.4,hero);else{g.fillStyle=grad(g,-k,-k,2*k,2*k,'#292723',hero?.color||'#555');g.fillRect(-k,-k,2*k,2*k);if(hero)powerIcon(g,hero.id,0,0);}}
+ else if(e.kind==='power'||e.kind==='hero'){const hero=D.heroById[e.id];if(e.kind==='hero'&&hero)R.tile(g,hero.art,hero.cell,-k*1.2,-k*1.1,k*2.4,k*2.4,hero);else{g.fillStyle=grad(g,-k,-k,2*k,2*k,'#292723',hero?.color||'#555');g.fillRect(-k,-k,2*k,2*k);if(hero)powerIcon(g,hero.id,0,0);}}
  else{g.fillStyle='#26383d';g.fillRect(-k,-k,2*k,2*k);txt(g,'✦',0,0,30,'#d6b577');}
  g.restore();
  const card=e.kind==='card'?D.byId[e.id]:null,mark=e.type==='death'?['☠','#5b1a14']:e.type==='burn'?['✕','#5b1a14']:e.type==='fatigue'?['−'+(e.n||''),'#5b1a14']:card?.type==='spell'?['✦','#1f4f8f']:e.type==='power'?['◆','#3b2812']:e.type==='steal'?['⇄','#6a4a10']:null;

@@ -4,7 +4,7 @@ require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
-const D=need('model/data.js'),E=need('model/engine.js'),P=need('model/profile.js'),L=need('model/lore.js');
+const B=need('model/bilder.js'),D=need('model/data.js'),E=need('model/engine.js'),P=need('model/profile.js'),L=need('model/lore.js');
 const NEW=['epaminondas','fabius','mandukhai','baibars','zizka','fuhao'],AGES=['rom','steppe','byzanz'];
 
 function ready(hero,foe='khan'){const s=E.create({hero,foe,seed:777,first:0});E.mulligan(s,[]);for(const a of s.players){a.hand=[];a.mana=a.maxMana=10;}return s;}
@@ -17,7 +17,7 @@ test('Welle 2: sechs Helden mit 10 Karten, Chronik, Startdeck, Mission 17–22 u
  assert.deepEqual(D.heroes.slice(16).map(h=>h.id),NEW);
  for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id);
   assert.deepEqual(set.map(c=>c.rarity),['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'],id);
-  assert.ok(set.every(c=>D.missingArt(c))&&!h.art,id+': Platzhalter und Monogramm');assert.ok(D.personalities[h.ai],id+': KI-Persönlichkeit');
+  assert.ok(set.every(c=>D.missingArt(c)||B.cards[c.id]),id+': Platzhalter oder Astra-Motiv');assert.deepEqual([h.art,h.cell],B.heroes[id],id+': Astra-Porträt');assert.ok(D.personalities[h.ai],id+': KI-Persönlichkeit');
   assert.ok(L.of(id),id);assert.equal(P.validateDeck(P.fresh(),id,E.starter(id)),null,id);}
  assert.deepEqual(D.missions.slice(16).map(m=>m.hero),NEW);
  for(const a of AGES){const heroes=D.heroes.filter(h=>h.age===a),set=D.cards.filter(c=>c.age===a);

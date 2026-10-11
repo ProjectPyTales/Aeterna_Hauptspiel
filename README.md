@@ -2,7 +2,10 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.20.0** (Schlüsselwort-Effekte und Anfang und Ende des Matches nach AP 3.6 und AP 3.8:
+Aktueller Stand im Code: **Version 1.21.0** (Astra-Bilder eingebaut nach AP A.1: **alle 22 Heldenporträts**, **167 von 377
+Karten- und Spielsteinbildern**, vier Marmor-Skins und **fünf gemalte Schlachtfeld-Tische** aus Astras sechs Teillieferungen
+und den geretteten Bildern; der Auftrag für die übrigen 210 Motive steht in `ungenutzte_assets/ASTRA_AUFTRAG.md`); davor
+1.20.0 (Schlüsselwort-Effekte und Anfang und Ende des Matches nach AP 3.6 und AP 3.8:
 Schildwall als Holz- und Bronzeschilde, Göttliche Gunst als schimmernder Aurenkreis, der klirrend zerspringt, Starre mit Ketten
 und Raureif, Tarnung im Unterholz, Gift als Phiole, Vermächtnis als Urne; Zauber-Partikel je Element und ein eigener Effekt für jede
 der 22 Heldenfähigkeiten; Intro mit den Helden und dem Chronisten, Münzwurf um den ersten Zug, Startbefehle als Schriftrollen, Sieg
@@ -111,6 +114,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 |---|---|---|
 | `core/mvvm.js` | Kern | Kleiner eigener Binder (`AEM`, ~5 KB, offline): beobachtbare ViewModels, DOM-Abgleich statt `innerHTML`-Neuaufbau, Befehle über `data-cmd`, maskierendes `html`-Template |
 | `model/data.js` | Model | 22 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel), Zeitalter (`age`, Liste `CHD.ages` mit Farbe und Zeichen, seit 1.14.0 sechs Epochen nach dem Lehrplan; `CHD.replaced` nennt die elf in AP L.1 ersetzten Helden) und KI-Persönlichkeit (`ai`, `CHD.personalities`), 350 Karten (davon 42 Zeitalterkarten), Spielsteine (Tokens), 22 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf, `CHD.owner`/`CHD.eraOf` nennen Held, Zeitalter oder „Neutral“ |
+| `model/bilder.js` | Model | Seit 1.21.0 (AP A.1): gemalte Astra-Bilder je Karte, Spielstein und Held → Atlas und Feld (`CHB`), erzeugt von `werkzeuge/astra_bilder.py`, vor `data.js` geladen; `data.js` legt sie über alte Atlasfelder und Platzhalter |
 | `model/lore.js` | Model | Chronik der Helden (AP 5.9, 22 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`); seit 1.14.0 die Tabelle `curriculum` mit Klassenstufe und Lernbereich je Held (AP L.1) |
 | `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs (auch mehrere auf einmal, `openPacks`), Codes (`codes`, `redeem`), Aufgaben, Import-Prüfung (`CHP`) |
@@ -124,7 +128,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`) |
 | `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
 | `assets/fonts/` | – | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
-| `assets/art/` | – | Bilder als WebP, erzeugt von `werkzeuge/bilder_webp.py` aus `ungenutzte_assets/art-original/` (nie von Hand ersetzen); seit 1.19.0 `weltkarte.svg` (Küsten der Kampagnenkarte, erzeugt von `werkzeuge/weltkarte.js` aus Natural Earth) |
+| `assets/art/` | – | Bilder als WebP, nie von Hand ersetzen: seit 1.21.0 Astra-Atlanten `astra-karten-*.webp`, Helden `heroes`/`heroes2`, Skins und Tische aus `werkzeuge/astra_bilder.py`; übrige alte Bilder aus `werkzeuge/bilder_webp.py` (Originale in `ungenutzte_assets/archiviert/art-original/`); seit 1.19.0 `weltkarte.svg` (Küsten der Kampagnenkarte, erzeugt von `werkzeuge/weltkarte.js` aus Natural Earth) |
 
 | Pfad | Inhalt |
 |---|---|
@@ -134,7 +138,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`), Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
 | `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
-| `ungenutzte_assets/` | Ausgangsbilder; `art-original/` sind die Originale aller Spielbilder (Quelle der WebP-Dateien); `ui/hauptmenue-konzept.jpg` ist das Konzeptbild des Hauptmenüs; `MOTIVE.md` listet alle fehlenden Motive mit fertigem Prompt (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
+| `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
 ### Architektur: wohin neuer Code gehört (MVVM)
 
@@ -193,7 +197,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
@@ -227,8 +231,10 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 - **Signatur, Paket-ID und Version:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren (Alias `chroniken`), Paket-ID
   `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht. Neue Version: `versionCode` +1 und `versionName` in
   `android/app/build.gradle.kts`, dazu `VERSION` in `app.js` (ein Test prüft, dass beide übereinstimmen).
-- **Bilder:** Originale nach `ungenutzte_assets/art-original/` (PNG oder JPEG mit `.png`-Endung), dann
-  `python3 werkzeuge/bilder_webp.py` – das Spiel lädt nur die WebP-Dateien. Atlanten für Match, Sammlung und Basar in
+- **Bilder:** Astra-Lieferungen als neuer Ordner nach `ungenutzte_assets/neue_astra_assets/` (PNG oder WebP, Dateiname = ID;
+  neuen Ordner in `FOLDERS` von `werkzeuge/astra_bilder.py` eintragen), dann `python3 werkzeuge/astra_bilder.py` und
+  `node werkzeuge/motive.js` – das Spiel lädt nur die WebP-Atlanten. Alte Bilder: `ungenutzte_assets/archiviert/art-original/`,
+  `python3 werkzeuge/bilder_webp.py`. Atlanten für Match, Sammlung und Basar in
   `R.atlases()` eintragen (lädt im Hintergrund), Bilder des Hauptmenüs in `H.preload`.
 - **Lizenzen:** Nur eigene, generierte oder klar lizenzfreie Assets (CC0/OFL/MIT), Quelle in der Credits-Liste notieren.
 - **Effort-Empfehlung:** Der [Vorschlag für die nächste Sitzung](#vorschlag-für-die-nächste-sitzung) endet immer mit
@@ -389,7 +395,8 @@ Kloster, Stadt und Hanse), Juden, Islam und Kreuzzüge, Wahlbereiche Besiedlung 
 Kl. 7 Buchdruck, Renaissance, Entdeckungen und eine indianische Hochkultur, Reformation, Dreißigjähriger Krieg,
 Absolutismus (Ludwig XIV.), Barock in Sachsen (August der Starke), Aufklärung.
 Leitlinien: nur ältere Geschichte (bis etwa 1800), **eher unbekannte Personen aus dem Umfeld** der großen Namen
-(Perikles statt Sokrates, ein Weggefährte oder Gegner statt Napoleon), keine problematischen Figuren. Kartenwirkungen
+(Perikles statt Sokrates, ein Weggefährte oder Gegner statt Napoleon), keine problematischen Figuren. **Jede
+Heldenfähigkeit gehört zur historischen Rolle, Funktion oder Tat ihres Helden – im Namen und in der Wirkung** (AP L.5). Kartenwirkungen
 und Heldenfähigkeiten bleiben, es ändern sich Person, Namen, Texte und Bilder.
 
 **AP L.1 – Helden nach dem Lehrplan (M)** – *✓ in 1.14.0 (Entscheidung 17: wie vorgeschlagen, Leonidas bleibt)*
@@ -521,6 +528,91 @@ Bis dahin entstehen weiter Platzhalter – einheitlich gekennzeichnet, damit Ast
 - [x] Platzhalter-Bilder, die doch als Datei nötig sind, heißen `platzhalter-<kennung>.webp`. *Bisher keins nötig.*
 - Abnahme: `grep -rn "ASTRA:" quellcode/` und `MOTIVE.md` nennen dieselben Kennungen (Test). *✓ `lehrplan.test.js`
   prüft auch, dass jede Kennzeichnung Kennung, Beschreibung und Größe hat und keine Kennung doppelt vorkommt.*
+
+**AP L.5 – Heldenfähigkeiten aus der Geschichte des Helden (M)** – *neu (Wunsch vom 11. 10. 2026), offen*
+
+Die Heldenfähigkeit muss etwas mit der **historischen Rolle, Funktion oder den Handlungen** des Helden zu tun haben –
+**sowohl im Namen als auch in der Funktionsweise**. Ein passender Name reicht nicht, wenn die Wirkung beliebig ist (z. B.
+„+1 Angriff“ für eine Herrscherin); eine passende Wirkung braucht einen Namen, der die Tat nennt. Seit AP L.1 haben die elf
+Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dringendsten.
+- [ ] Alle 22 Fähigkeiten prüfen: Welche historische Rolle, Funktion oder Tat steht dahinter (mit Quelle, wie in der Chronik)?
+  Passt die Wirkung zu dieser Tat, passt der Name? Ergebnis als Tabelle hier: *passt* / *Name ändern* / *Wirkung ändern*.
+- [ ] Für jede Fähigkeit, die nicht passt, einen Vorschlag mit Name und Wirkung aus den vorhandenen Effekten (`ability` als
+  Daten, AP 5.10) – Spielweise und KI-Persönlichkeit des Helden möglichst erhalten; Entscheidung bei Dir.
+- [ ] Umsetzen als bewusste Regeländerung (Phase-5-Regeln: neue Tests, voller Balance-Lauf, Ziele aus AP 5.2 halten),
+  Effekt der Fähigkeit (`CHF.POWERS`, AP 3.6), Chronikseite und Glossar nachziehen.
+- Abnahme: Für jeden Helden steht in der Tabelle, an welche Rolle oder Tat Name und Wirkung anknüpfen; Balance im Ziel.
+- Gilt auch für **jeden künftigen Helden**: Fähigkeit erst aus der Geschichte ableiten, dann ausbalancieren.
+
+  Ausgangsstand 1.21.0:
+
+  | Held | Fähigkeit | Wirkung |
+  |---|---|---|
+  | Leonidas I. | Phalanx | Erhaltet 1 Rüstung. Eure Diener erhalten +1 Leben. |
+  | Hypatia | Sternenfunke | Verursacht 1 Schaden an einem zufälligen Feind. |
+  | Imhotep | Heilkunst | Stellt bei einem Ziel 3 Leben wieder her. |
+  | Enrico Dandolo | Rammsporn der Galeeren | Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus. |
+  | Widukind | Überfall aus dem Wald | Fügt dem feindlichen Helden 2 Schaden zu. |
+  | Vercingetorix | Schild der Arverner | +1 Angriff für diesen Zug und +2 Rüstung. |
+  | Johann Friedrich Böttger | Arkanum | Zieht 1 Karte. Euer Held erleidet 1 Schaden. |
+  | Hildegard von Bingen | Klostergemeinschaft | Ruft eine Novizin (1/1) herbei. |
+  | Wiprecht von Groitzsch | Grenzsteine setzen | Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. |
+  | Ulrich von Liechtenstein | Tjost | +1 Angriff für diesen Zug. |
+  | Perikles | Bauherr der Akropolis | Ruft einen Bürger (1/2). Euer schwächstes Bauwerk erhält +2 Haltbarkeit. |
+  | Marcus Agrippa | Legionspioniere | Ruft einen Pionier (1/3). Solange er lebt, kosten Eure Bauwerke 1 weniger. |
+  | Ahhotep I. | Goldene Fliegen | Verursacht 1 Schaden an einem zufälligen Feind. Stirbt dadurch ein Diener, der nicht beschworen wurde, zieht 1 Karte. |
+  | Anna Komnene | Alexiade | Ergründet eine Karte, die in dieser Partie schon gespielt wurde. |
+  | Nezahualcóyotl | Blumenlied | Stellt bei allen eigenen Charakteren 2 Leben wieder her. |
+  | Theophanu | Regentschaft | Ein befreundeter Diener erhält +1 Leben und Schildwall. |
+  | Epaminondas | Schiefe Schlachtordnung | Euer Diener ganz links erhält +1/+1. |
+  | Fabius Maximus | Cunctator | Verursacht 1 Schaden an einem feindlichen Diener und versetzt ihn in Starre. |
+  | Thusnelda | Stammesbündnis | Habt Ihr 3 oder mehr Diener, erhalten alle +1 Leben. Sonst ruft Ihr einen Stammeskrieger (1/2). |
+  | Baibars | Mamlukenreiter | Ein befreundeter Diener erhält +1 Angriff und Vorstoß. |
+  | Vauban | Festungsbau | Ruft einen Schanzkorb (1/2, Schildwall). |
+  | Fürstin von Vix | Opfergabe | Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand. |
+
+**AP A.1 – Astra-Bilder einbauen: Karten, Spielsteine, Helden, Skins, Tische (M)** – *✓ in 1.21.0*
+
+Astra hat die Bilder in Teillieferungen geschickt, weil die Chats bei großen Datenmengen abbrachen: Teil 1 (Helden, Skins,
+Kartenrücken, Hintergründe, Tische, 192 UI-Vektoren, 19 gemalte UI-Ebenen, 9 Karten), Teil 2 (30 Karten/Spielsteine), Teil 3
+(UI-Ergänzungen, Masken, Android-Grafiken), Teil 4 (beschädigt: 24 von 30 Bildern), Teil 5 (30: Imhotep, Ahhotep, Vix), Teil 6
+(28 von 40, Limit erreicht), dazu 41 gerettete Bilder ohne IDs und 5 Mamlukenbilder ohne IDs.
+- [x] **PNG oder WebP ist egal:** Das Spiel lädt nur WebP-Atlanten; `werkzeuge/astra_bilder.py` erzeugt sie aus jedem
+  Lieferformat (Originale 1254 px vor 1024er-Fassungen, spätere Lieferungen vor früheren). Drei 1024er-PNGs in Teil 5 und Teil 6
+  waren abgeschnitten – die Originale waren heil.
+- [x] **167 Karten- und Spielsteinbilder** in 14 Atlanten `astra-karten-*.webp` (4 × 3 à 362 px wie bisher), Zuordnung
+  `model/bilder.js`. Astras Bilder gehen alten Motiven vor; 5 alte Kartenatlanten fielen ganz weg (Bilder 8,9 → 14,8 MB, die APK wächst entsprechend).
+  Gerettete Bilder nach Astras Arbeitszuordnung, die fünf Mamlukenbilder als `baibars_0`–`baibars_4` (angesehen, passen).
+- [x] **Alle 22 Heldenporträts** (`heroes`, `heroes2`) statt Monogrammen, **vier Marmor-Skins** neu, **fünf Tische** gemalt
+  (Standard, Athen, Kapitol, Skriptorium, Porzellan) statt Farbfilter-Platzhaltern.
+- [x] **Aktuelle Liste:** `ungenutzte_assets/ASTRA_AUFTRAG.md` (Stand, Auftragstext, Parameter, nur offene IDs mit Motiv aus
+  Astras Briefing) und `ASTRA_STAND.csv` (alle 377 IDs mit Status und Quelle) – beide erzeugt, nie von Hand ändern.
+  *Stand: 166 eingebaut, 1 eingebaut mit Korrekturwunsch (`fabius_0`, Rüstung zu schwer), 202 neu zu erzeugen, 6 aus Teil 4
+  verloren (`perikles_7`–`9`, `pioneer`, `citizen`, `parthenos`), 2 gesperrt (`hypatia_0`, `hypatia_2`, Entscheidung 19).*
+  Das von ChatGPT gelieferte Briefing (Stand nach Teil 4) liegt als `neue_astra_assets/PRODUKTIONSBRIEFING.md` bei und ist
+  nur noch Quelle der Motivbeschreibungen.
+- Abnahme: Test `astra.test.js` (Zuordnung, Atlasgrößen, Helden, keine verwaisten Bilder, Stand und Auftrag stimmen überein),
+  Klickpfad mit neuen Referenzbildern. *✓* Auf dem Handy ansehen: Porträts in Münze und Galerie, Karten im Kartenbuch, Tische.
+
+**AP A.2 – Astra-Oberfläche einbauen (L)** – *offen, nächste Sitzungen*
+
+Die übrigen Teil-1- und Teil-3-Dateien ersetzen im Code gezeichnete Grafiken (70 `ASTRA:`-Kennungen, `MOTIVE.md`) und brauchen
+Umbau statt Austausch: Ihre Formen weichen von den heutigen ab.
+- [ ] **Hauptmenü** `hall-aeterna` (neues Motiv 1942 × 809 mit Ring und Plakette) mit neuen Trefferflächen
+  (Teil 3 `HAUPTMENUE_MAPPING.json`) – Vergleich alt/neu und Deine Freigabe vorher.
+- [ ] Hintergründe für Untermenüs, Basar, Sammlung, Pakete, Heldengalerie (`menu`, `temple`, `basar`, `sammlung`, `pakete`,
+  `heldengalerie`).
+- [ ] **Kartenrücken** (8 Bilder) statt Zeichnung in `stone.js`; **Kartenrahmen** (`ui-art/kartenrahmen-*`, Clipmasken Teil 3)
+  statt `R.card`; Diener-Plakette, Äther-Uhr und -Kristalle, Chronometer, Chronik-Leiste, Pergament-Deck, Stundenglas,
+  versiegelte Befehle, Waffenablage, Schildwall, Giftphiole, Urne, Archiv-Siegel, Edelsteine, Filterknöpfe, Kartenbuch,
+  Podest, Steinplatten, Kartenpaket – je Kennung Bild statt Zeichnung, Kommentar `ASTRA:` entfernen.
+- [ ] Android: adaptives und monochromes Icon, Splash aus Teil 3 `android-res/`.
+- Abnahme: `MOTIVE.md` ohne die ersetzten Kennungen, Klickpfad mit neuen Referenzbildern, Bildrate wie vorher.
+
+**AP A.3 – Restliche Motive bei Astra (Du, fortlaufend)**
+- [ ] Die 210 offenen IDs aus `ASTRA_AUFTRAG.md` in kleinen Paketen (10–12 Bilder je ZIP) bestellen; jede Lieferung als neuer
+  Ordner in `neue_astra_assets/`, dann baut eine Sitzung sie ein (oft ohne Code: nur Werkzeug, Tests, Referenzbilder).
+- [ ] Teil 4 vollständig wiederfinden (sechs Bilder) und `fabius_0` korrigieren lassen.
 
 ### Phase 0 – Sofortkorrekturen und Umbenennung (S)
 
@@ -2017,6 +2109,8 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
 | Helden nach dem sächsischen Lehrplan, Lebenswelten, eigene Musik, Astra-Platzhalter (Wunsch vom 7. 10. 2026) | AP L.1 ✓ in 1.14.0, AP L.2 ✓ in 1.15.0 (Zeitalterkarten in 1.14.0), AP L.3 ✓ in 1.13.0, AP L.4 ✓ in 1.14.0 |
+| Astra-Assets einbauen, Liste der fehlenden Assets aktualisieren (Wunsch vom 11. 10. 2026) | AP A.1 ✓ in 1.21.0, AP A.2 (Oberfläche), AP A.3 (restliche Motive, `ASTRA_AUFTRAG.md`) |
+| Heldenfähigkeiten passen zu Rolle, Funktion oder Taten des Helden – im Namen und in der Wirkung | AP L.5 |
 | Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“; Rückmeldung zu 1.11.0 ✓ in 1.12.0: alle Pakete auf einmal, ohne Standbild |
 
 ---
@@ -2065,6 +2159,10 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     Schlüsselwörtern kostet 1,3–1,5 ms je Bild (CPU 4×: 5,5–7,5 ms). Die Emulation ohne GPU rastert im Extremfall nur rund 37 Bilder/s –
     deshalb ist die Messreihe vom Gerät jetzt wichtig: Bildraten-Anzeige an, ein wildes Gefecht mit Gunst, Starre und Zaubern.
 
+19. **Gesperrte Alexandria-Bilder** (AP A.1): Die geretteten Bilder „Papyrusstudium“ und „Astronom“ hat Astra vorläufig
+    `hypatia_5` (Lehrsatz) und `hypatia_8` (Sternenorakel) zugeordnet; sie könnten auch `hypatia_0` (Bibliothekslehrling) und
+    `hypatia_2` (Sternenkundiger) sein. *Vorschlag:* Zuordnung so lassen und `hypatia_0`/`hypatia_2` neu bestellen.
+20. **Heldenfähigkeiten** (AP L.5): Welche Fähigkeiten neu werden, entscheidest Du nach meiner Prüftabelle.
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
@@ -2089,10 +2187,13 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 15 ✓ | AP 1.5, AP 3.1–3.5, Rückmeldung 1.17.0 | erledigt in 1.18.0 – Karten als Tempeltor mit Werte-Symbolen, Siegeln und Lorbeer, Goldene Karten; Werkzeugkasten mit Uhr, Treffer-Stopp und Federn; Hand, Ausspielen, Ziehen, Angriff und Tod mit Gewicht; Heldennamen auf der Münze frei |
 | 16 ✓ | AP 1.4, AP 1.6, AP 1.7, Rückmeldung 1.18.0 | erledigt in 1.19.0 – Basar als Schaufenster mit Podest und inszeniertem Kauf, Sammlung als Kartenbuch mit Manakurve, Heldengalerie, Kampagnenkarte mit 22 Stationen; Uhrwerk statt Gong, ruhigerer Tod, Goldglanz und Zugtafel repariert |
 | 17 ✓ | AP 3.6, AP 3.8, Rückmeldung 1.19.0 | erledigt in 1.20.0 – Schildwall, Gunst, Starre, Tarnung, Gift und Vermächtnis als Bilder und Effekte, Zauber-Partikel je Element, 22 Fähigkeits-Effekte; Intro mit Chronist, Münzwurf, Schriftrollen, Triumph mit Relief, Banner, Hörnern und Belohnungsbalken; leiseres Uhrwerk, ruhigerer Tod, Blätterseiten mit Karten |
-| 18 | AP 3.7 (Lunte), AP 3.9, AP 4.4 Teil 1, AP 4.5 | Lesbarkeit (Schlüsselwörter erklären, Angriffsvorschau), lebendige Ecken, Klang und Haptik aus einem Guss |
-| 19 | Phase 4 (Stimmen, Chronist, KI-Dialoge) | sobald Entscheidung 7 (Quelle der Stimmen) steht |
-| 19+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
-| in ein paar Wochen | Astra (Du) | alle Platzhalter und im Code gezeichneten Grafiken aus `MOTIVE.md` erzeugen |
+| 18 ✓ | AP A.1 | erledigt in 1.21.0 – Astra-Bilder: 22 Heldenporträts, 167 Karten und Spielsteine, Skins, fünf Tische; aktueller Auftrag für Astra |
+| 19 | AP A.2 Teil 1, Rückmeldung 1.20.0 und 1.21.0 | Astra-Oberfläche: Kartenrahmen, Kartenrücken, Hintergründe, Match-Elemente – die größte sichtbare Lücke |
+| 20 | AP A.2 Teil 2, AP L.5 | Hauptmenü neu, Android-Icon; Heldenfähigkeiten passend zur Geschichte (Prüftabelle, Deine Entscheidung, Balance) |
+| 21 | AP 3.7 (Lunte), AP 3.9, AP 4.4 Teil 1, AP 4.5 | Lesbarkeit (Schlüsselwörter erklären, Angriffsvorschau), lebendige Ecken, Klang und Haptik aus einem Guss |
+| 22 | Phase 4 (Stimmen, Chronist, KI-Dialoge) | sobald Entscheidung 7 (Quelle der Stimmen) steht |
+| 22+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
+| laufend | AP A.3 (Du) | restliche 210 Motive aus `ungenutzte_assets/ASTRA_AUFTRAG.md` bei Astra bestellen, 10–12 je ZIP; jede Sitzung baut Neues mit ein |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
 
@@ -2100,55 +2201,44 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 17 (Version 1.20.0):** AP 3.6 – **Schlüsselwörter sichtbar**: Schildwall als Holzschild und Bronze-Aspis
-hinter der Plakette, Göttliche Gunst als **Aurenkreis mit umlaufendem Schimmer, der klirrend zerspringt**, Starre mit **Ketten und
-Raureif** (Kranz aus Eissplittern, Kettenrasseln), Tarnung im **Unterholz**, Gift als **Phiole** (Blasen, wenn es wirkt), Vermächtnis als
-**Urne**, die sich beim Tod hebt; **Zauber-Partikel je Element** (acht Elemente aus den Effekten) und **ein eigener Effekt für jede der 22
-Heldenfähigkeiten** (Element, Bahn, Farbe, Symbol). AP 3.8 – **Intro** mit beiden Helden und dem Chronisten, **Münzwurf** um den ersten
-Zug (Gunst der Stunde fliegt von der Münze in die Hand), **Startbefehle als Schriftrollen**, die getauschten rollen ins Deck zurück;
-**Sieg**: Relief bricht, Banner „TRIUMPH“, Kriegshörner, danach **Belohnungsbalken** (Gold, Aufgaben, Kampagne). **Rückmeldung zu
-1.19.0:** Uhrwerk rund 4 dB leiser (im Gegnerzug 8 dB), Tod ohne Staub und Schleifen, **Blätterseiten tragen die Karten**. Fünf neue
-Klänge (`schluessel_klang.py`), 15 neue Astra-Kennungen (zwei ersetzt, jetzt 70). Davor: Sitzung 16 (1.19.0) AP 1.4, 1.6, 1.7; Sitzung 15 (1.18.0) AP 1.5,
-AP 3.1–3.5; Sitzung 14 (1.17.0) AP 1.8 Teil 2, AP 3.7; Sitzung 13 (1.16.0) AP 1.8 Teil 1; Sitzung 12 (1.15.0) AP L.2; Sitzung 11
-(1.14.0) AP L.1, L.4; Sitzung 10 (1.13.0) AP 2.4, 2.5, 5.11 Teil 2, L.3; Sitzung 9 (1.12.0) AP 2.1, 2.2, 0.2; Sitzungen 1–8
-(1.4.0–1.11.0) Stil, Hauptmenü, MVVM, Balance, Schlüsselwörter, Legendäre, 22 Helden und 350 Karten.
+**Erledigt in Sitzung 18 (Version 1.21.0):** AP A.1 – **Astra-Bilder im Spiel**: alle **22 Heldenporträts** (Münze, Galerie,
+Intro), **167 Karten- und Spielsteinbilder** aus Teil 1–6 und den geretteten Bildern, **vier Marmor-Skins** und **fünf gemalte
+Tische** statt Farbfilter. Neues Werkzeug `werkzeuge/astra_bilder.py` baut jede künftige Lieferung mit einem Aufruf ein – PNG oder
+WebP ist dabei egal. **Aktuelle Liste** für Astra: `ungenutzte_assets/ASTRA_AUFTRAG.md` (210 offene Motive mit Beschreibung,
+ersetzt das ChatGPT-Briefing) und `ASTRA_STAND.csv`. Neu im Plan: **AP L.5** (Heldenfähigkeiten passend zu Rolle und Taten des
+Helden), AP A.2 (Astra-Oberfläche), AP A.3 (restliche Motive). Davor: Sitzung 17 (1.20.0) AP 3.6, 3.8; Sitzung 16 (1.19.0) AP 1.4,
+1.6, 1.7; Sitzung 15 (1.18.0) AP 1.5, AP 3.1–3.5; Sitzungen 1–14 (1.4.0–1.17.0) Stil, Hauptmenü, MVVM, Balance, 22 Helden, 350 Karten,
+Lehrplan, Spielbrett.
 
-**Vorher bitte von dir auf dem OnePlus 15 (10–15 Minuten):**
-1. `Aeterna-1.20.0-Test.apk` aus dem Release „Test-APK“ (rechts unter Releases) als Update installieren – es entsteht beim
-   ersten Lauf auf `main` nach dieser Umstellung.
-2. **Rückmeldung 1.19.0:** Zug beenden – Uhrwerk jetzt angenehm? Ein Diener stirbt – passt es jetzt? Sammlung blättern (‹ ›):
-   Sind die Karten auf dem Blatt zu sehen, und blättert es flüssig?
-3. **Intro und Münzwurf** (Duell beginnen): 3,2 s – zu lang? Ein Tippen überspringt. Ist zu lesen, wer beginnt?
-4. **Starthand:** Rollen sich die Befehle schön auf? Zwei tauschen – rollen sie sichtbar ins Deck, fliegen die neuen in die Hand?
-5. **Schlüsselwörter** (am schnellsten mit Code `CHRONIK`, dann Karten mit Schildwall, Gunst, Starre, Tarnung, Gift, Vermächtnis
-   spielen): Sind Schilde, Ring, Ketten, Unterholz, Phiole und Urne auf dem Handy erkennbar? Klirren, Ketten, Blubbern zu laut?
-6. **Zauber und Heldenfähigkeiten:** Passen die Farben? Gefällt ein Effekt gar nicht (Held nennen)?
-7. **Sieg und Niederlage:** Relief, Banner, Hörner – zu laut oder zu lang? Füllen sich die Balken verständlich?
-8. **Bildrate:** Bildraten-Anzeige an (Einstellungen → Über das Spiel → fünfmal „Version“) und ein wildes Gefecht mit Gunst,
-   Starre und Zaubern – bleibt es bei 120 fps (Entscheidung 18)? Weiter offen: Entscheidung 7 (Stimmen).
+**Vorher bitte von dir (10–15 Minuten):**
+1. `Aeterna-1.21.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. **Astra-Bilder ansehen:** Heldenwahl (alle Porträts), Heldenmünzen im Match (Gesicht gut im Kreis?), Sammlung (Karten mit neuen
+   Bildern), Basar → Schlachtfelder (fünf Tische) und ein Match auf einem neuen Tisch – stört der breitere Rahmen Hand oder Uhr?
+   Gefällt ein Bild nicht (ID oder Name nennen), kommt es in den Auftrag zurück.
+3. **Rückmeldung 1.20.0** (falls noch offen): Intro, Münzwurf, Schriftrollen, Schlüsselwörter, Finale, Bildrate (Entscheidung 18).
+4. **Astra:** nächste Pakete aus `ASTRA_AUFTRAG.md` bestellen (Datei anhängen, 10–12 IDs nennen); vollständiges Teil 4 suchen;
+   Entscheidung 19 (zwei Alexandria-Bilder).
 
-**Sitzung 18 – AP 3.7 (Lunte), AP 3.9, AP 4.4 Teil 1, AP 4.5: Lesbarkeit, lebendige Ecken, Klang und Haptik**
+**Sitzung 19 – AP A.2 Teil 1: Astra-Oberfläche im Match und in den Menüs**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.20.0 | Intro, Münzwurf, Schriftrollen, Schlüsselwörter, Zauber, Finale, Bildrate | Geschmack und Gerät zuerst |
-| AP 3.9 | Langer Druck erklärt Schlüsselwörter in Sprechblasen, Angriffsvorschau mit erwartetem Schaden; Eck-Dioramen reagieren auf Antippen | die neuen Bilder brauchen Worte; Lesbarkeit für Klasse 5–7 |
-| AP 3.7 | Glühende Lunte als Countdown nur in Belagerungsmissionen | letzter offener Punkt von AP 3.7 |
-| AP 4.4 Teil 1 | Klangkategorien (Stein-UI, Pergament, Kampf, Magie, Belohnung), Lautheit aller Klänge angleichen, Quellen in den Credits | nach fünf Sitzungen mit neuen Klängen; Deine Rückmeldungen „zu viel“ kamen meist vom Klang |
-| AP 4.5 | Haptik-Sprache: leicht, mittel, schwer; abschaltbar | passt zu AP 4.4, nutzt die Brücke aus AP 2.1 |
+| Rückmeldung 1.21.0 | Bilder, die nicht gefallen, Tischrahmen, neue Astra-Lieferungen einbauen | Geschmack zuerst; neue Lieferungen sind nur ein Werkzeuglauf |
+| AP A.2 | Kartenrahmen (gemalt, mit Clipmasken), Kartenrücken als Bilder, Diener-Plakette, Äther-Uhr, Chronometer, Chronik-Leiste, Deck, versiegelte Befehle, Hintergründe der Untermenüs | die gemalten Bilder stehen noch in gezeichneten Rahmen |
 
-Risiko: gering, Regeln ändern sich nicht. Stimmen (AP 4.1–4.3) erst, wenn Entscheidung 7 steht. Im Blick aus der Balance: Theophanu
-mit Zufallsdecks 54,4 %, Dandolo 47,0 %, Vercingetorix mit Startdecks 46,5 %.
+Risiko: mittel – viele Zeichenfunktionen werden zu Bildern, Bildrate und Lesbarkeit müssen bleiben; Regeln ändern sich nicht.
+Das Hauptmenü (neues Motiv, neue Trefferflächen) und AP L.5 folgen in Sitzung 20.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP 3.9 (Lesbarkeit und lebendige Ecken), die Lunte aus
-> AP 3.7, AP 4.4 Teil 1 (Klangkategorien und Lautheit) und AP 4.5 (Haptik)** ab und übernimm mein Feedback zu Version 1.20.0:
-> *(hier Feedback zu Intro, Münzwurf, Schriftrollen, Schlüsselwörtern, Zaubern, Finale und Bildrate einfügen)*. Halte dich an die
-> „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die zwingend
-> notwendigen Tests und den Klickpfad laufen und sorge für eine grüne CI. (Spare im Zweifel Tokens bei der Prüfphase und delegiere
-> Prüfungen an mich und mein OnePlus 15.) Hake erledigte Punkte in der README ab und trage Messwerte ein. Öffne am Ende einen Pull
-> Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Arbeite **AP A.2 Teil 1 (Astra-Oberfläche: Kartenrahmen,
+> Kartenrücken, Match-Elemente, Hintergründe)** ab, baue neue Astra-Lieferungen aus `ungenutzte_assets/neue_astra_assets/` mit
+> `werkzeuge/astra_bilder.py` ein und übernimm mein Feedback zu Version 1.21.0: *(hier Feedback zu Porträts, Karten, Tischen
+> einfügen)*. Halte dich an die „Regeln für jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im
+> Handyformat, lass die Tests und den Klickpfad laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne
+> am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
+> Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Überschaubare Pakete ohne Regeländerung (Sprechblasen, Vorschau, Pegel-Messung,
-Haptik); *xhigh* nur, wenn Deine Rückmeldung zu 1.20.0 größere Umbauten an den Effekten verlangt.
+**Empfohlener Effort für den nächsten Prompt: xhigh.** Viele Zeichenfunktionen werden durch Bilder ersetzt (Masken, Zustände,
+Pixeldichte, Sprite-Cache) und jede muss im Handyformat geprüft werden; *high* reicht, wenn Du nur neue Astra-Lieferungen einbauen
+lassen willst.
