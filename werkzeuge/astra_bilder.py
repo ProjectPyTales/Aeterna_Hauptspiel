@@ -28,7 +28,7 @@ import shutil
 import subprocess
 import sys
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 NEU = os.path.join(ROOT, 'ungenutzte_assets/neue_astra_assets')
@@ -85,8 +85,11 @@ UI = {
     'praesentationspodest': (f'{T1}/ui-art/praesentationspodest.png', 1000),
     'kartenbuch': (f'{T1}/ui-art/kartenbuch.png', 1539),
     'startbefehle': (f'{T1}/ui-art/startbefehle.png', 480),
-    'steinplatten-links': (f'{T1}/ui-art/steinplatten-links.png', 1000),
-    'steinplatten-rechts': (f'{T1}/ui-art/steinplatten-rechts.png', 1000),
+    # Rückmeldung zu 1.22.0: Astras zwei Hälften passen nicht zueinander (andere Rundung, Platten, Scharniere) und standen mit
+    # Wand dazwischen. Beide Flügel kommen jetzt aus der rechten Hälfte, ohne leeren Rand, der linke gespiegelt – so treffen
+    # sich die Steinleisten an der Naht und die Tür schließt symmetrisch.
+    'steinplatten-links': (f'{T1}/ui-art/steinplatten-rechts.png', 780, 'gespiegelt'),
+    'steinplatten-rechts': (f'{T1}/ui-art/steinplatten-rechts.png', 780, 'beschnitten'),
 }
 # Vektorbilder, die unverändert nach assets/ui/ kommen (heute nur die Währungen; die übrigen flachen Vektoren aus Teil 1
 # sind schlichter als die Zeichnungen im Spiel und bleiben ungenutzt, siehe README AP A.2).
@@ -149,10 +152,14 @@ def ui_images():
     out = os.path.join(GAME, 'assets/ui')
     os.makedirs(out, exist_ok=True)
     sizes = {}
-    for name, (src, width) in UI.items():
+    for name, (src, width, *how) in UI.items():
         im = Image.open(os.path.join(NEU, src))
         im.load()
         im = im.convert('RGBA' if 'A' in im.getbands() else 'RGB')
+        if how:
+            im = im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox())
+            if how[0] == 'gespiegelt':
+                im = ImageOps.mirror(im)
         h = round(im.height * width / im.width)
         im.resize((width, h), Image.LANCZOS).save(os.path.join(out, name + '.webp'), 'WEBP', quality=88, method=6)
         sizes[name] = [width, h]

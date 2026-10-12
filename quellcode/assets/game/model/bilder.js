@@ -222,8 +222,8 @@ const api={cards:{
   praesentationspodest:[1000, 750],
   kartenbuch:[1539, 1022],
   startbefehle:[480, 832],
-  "steinplatten-links":[1000, 1016],
-  "steinplatten-rechts":[1000, 1014]
+  "steinplatten-links":[780, 1233],
+  "steinplatten-rechts":[780, 1233]
 },windows:{
   "building-gold":[44.9, 45.4, 155.5, 165.6],
   "building-normal":[45.3, 53.8, 154.7, 158.4],

@@ -25,8 +25,9 @@
 .mulligan-card .rod{visibility:hidden}
 
 /* Astra-Bild (AP A.2): steinplatten – the round stone door closes over the drawn wall. */
-.slab .slab-art{position:absolute;top:0;height:100%;width:auto;z-index:1}
-.slab-l .slab-art{right:-6px}.slab-r .slab-art{left:-6px}
+/* Feedback on 1.22.0: both wings are cut to the door itself and meet with their stone bars at the seam – no wall between. */
+.slab .slab-art{position:absolute;top:4%;height:92%;width:auto;z-index:1}
+.slab-l .slab-art{right:0}.slab-r .slab-art{left:0}
 .slab:has(.slab-art):after,.slab:has(.slab-art):before{display:none}
 
 /* Astra-Bild: waehrung – gold coin, star dust and card pack in the wallet (vector pictures). */
