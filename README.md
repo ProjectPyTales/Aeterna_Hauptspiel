@@ -348,6 +348,11 @@ gemaltes Zielbild für das Hauptmenü.
 Hearthstone-Schlüsselwörter (in 1.7.0 ersetzt), das Brennseil als Zugtimer, Original-Sounds,
 1:1 nachgebaute Bildschirme und Kartenrahmen.
 
+**Spaß und Lernen zu gleichen Teilen (Wunsch vom 12. 10. 2026):** Aeterna soll zur Hälfte Spiel und zur Hälfte
+Geschichtsunterricht sein. Helden und Karten bleiben deshalb **sehr nah an der belegten Geschichte**: Namen, Wirkungen,
+Bilder und Texte knüpfen an das an, was Quellen und Funde wirklich zeigen; Fantasy-Reste (Sternenmagie, Zauberstrahlen)
+werden ersetzt, Unsicheres wird als unsicher erzählt (AP L.5, AP L.6).
+
 **Eigene Identität – „Die lebendige Chronik“:**
 - Material: heller Kalkstein, poliertes dunkles Holz, Bronze, Blattgold, Lapislazuli-Akzente; Licht fällt warm.
 - Das Spielfeld ist ein **Feldherrentisch** mit eingeritzter Weltkarte; Diener werden auf dem Feld zu
@@ -534,20 +539,54 @@ Bis dahin entstehen weiter Platzhalter – einheitlich gekennzeichnet, damit Ast
 - Abnahme: `grep -rn "ASTRA:" quellcode/` und `MOTIVE.md` nennen dieselben Kennungen (Test). *✓ `lehrplan.test.js`
   prüft auch, dass jede Kennzeichnung Kennung, Beschreibung und Größe hat und keine Kennung doppelt vorkommt.*
 
-**AP L.5 – Heldenfähigkeiten aus der Geschichte des Helden (M)** – *neu (Wunsch vom 11. 10. 2026), offen*
+**AP L.5 – Heldenfähigkeiten aus der Geschichte des Helden (M)** – *Prüftabelle in Sitzung 19 (12. 10. 2026), Umsetzung nach Deiner Entscheidung*
 
 Die Heldenfähigkeit muss etwas mit der **historischen Rolle, Funktion oder den Handlungen** des Helden zu tun haben –
 **sowohl im Namen als auch in der Funktionsweise**. Ein passender Name reicht nicht, wenn die Wirkung beliebig ist (z. B.
 „+1 Angriff“ für eine Herrscherin); eine passende Wirkung braucht einen Namen, der die Tat nennt. Seit AP L.1 haben die elf
 Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dringendsten.
-- [ ] Alle 22 Fähigkeiten prüfen: Welche historische Rolle, Funktion oder Tat steht dahinter (mit Quelle, wie in der Chronik)?
+- [x] Alle 22 Fähigkeiten prüfen: Welche historische Rolle, Funktion oder Tat steht dahinter (mit Quelle, wie in der Chronik)?
   Passt die Wirkung zu dieser Tat, passt der Name? Ergebnis als Tabelle hier: *passt* / *Name ändern* / *Wirkung ändern*.
-- [ ] Für jede Fähigkeit, die nicht passt, einen Vorschlag mit Name und Wirkung aus den vorhandenen Effekten (`ability` als
+  *✓ Prüftabelle unten: 16 passen, 3 brauchen einen neuen Namen, 3 eine neue Wirkung.*
+- [x] Für jede Fähigkeit, die nicht passt, einen Vorschlag mit Name und Wirkung aus den vorhandenen Effekten (`ability` als
   Daten, AP 5.10) – Spielweise und KI-Persönlichkeit des Helden möglichst erhalten; Entscheidung bei Dir.
+  *✓ Vorschläge in der Spalte rechts; für Imhotep und Vercingetorix steht je eine Alternative dabei.*
 - [ ] Umsetzen als bewusste Regeländerung (Phase-5-Regeln: neue Tests, voller Balance-Lauf, Ziele aus AP 5.2 halten),
   Effekt der Fähigkeit (`CHF.POWERS`, AP 3.6), Chronikseite und Glossar nachziehen.
 - Abnahme: Für jeden Helden steht in der Tabelle, an welche Rolle oder Tat Name und Wirkung anknüpfen; Balance im Ziel.
 - Gilt auch für **jeden künftigen Helden**: Fähigkeit erst aus der Geschichte ableiten, dann ausbalancieren.
+
+  **Prüftabelle (Sitzung 19, Stand 1.22.0).** Maßstab: Name *und* Wirkung knüpfen an eine belegte Rolle, Funktion oder Tat
+  an; Spielweise und KI-Persönlichkeit bleiben; nur Effekte, die die Engine schon kennt. Fett = Vorschlag zur Entscheidung.
+
+  | Held | Rolle oder Tat (Quelle) | heute | Urteil | Vorschlag |
+  |---|---|---|---|---|
+  | Leonidas I. | hielt 480 v. Chr. mit der Phalanx der Hopliten den Engpass der Thermopylen (Herodot VII 204–225) | Phalanx: 1 Rüstung, Diener +1 Leben | *passt* – die geschlossene Schildreihe wird Zug um Zug zäher | – |
+  | Hypatia | lehrte Mathematik, Astronomie und Philosophie; ihre Hörer kamen von weit her (Sokrates Scholastikos, Kirchengeschichte VII 15), etwa Synesios von Kyrene | Sternenfunke: 1 Schaden an einem zufälligen Feind | *Wirkung und Name ändern* – ein Funke aus den Sternen ist Zauberei, und genau Zauberei dichtete ihr der Chronist Johannes von Nikiu später an, um ihre Ermordung zu rechtfertigen; Hypatia lehrte und rechnete, sie kämpfte nicht | **Unterricht:** Ruft einen Schüler (1/2, Arkaner Fokus +1). Neuer Spielstein „Schüler der Hypatia“ (Platzhalter für Astra). Spielweise bleibt: Zauber, nur durch Wissen statt durch Sterne verstärkt |
+  | Imhotep | Kanzler Djosers, auf dem Statuensockel aus Sakkara auch „Baumeister, Bildhauer“; die Überlieferung schreibt ihm die Stufenpyramide zu. Als Heilgott verehrt wurde er erst rund 2 000 Jahre später | Heilkunst: stellt bei einem Ziel 3 Leben wieder her | *Wirkung ändern* – Heilen erzählt die spätere Verehrung, nicht sein Leben | **Baumeister des Djoser:** Euer schwächster Diener erhält +2 Leben – Stufe um Stufe wie die Pyramide (die Karte Djoser zeigt das große Vorbild). *Alternative:* Wirkung bleibt, Name „Heilgott von Sakkara“ |
+  | Enrico Dandolo | stand 1203 beim Sturm auf Konstantinopel in Waffen am Bug seiner Galeere, das Banner von San Marco vor sich, und ließ sich als Erster an Land setzen (Villehardouin) | Rammsporn der Galeeren: Waffe 1/2 | *passt* – der Doge greift selbst an; Name nach Entscheidung 13 | – |
+  | Widukind | führte den Widerstand der Sachsen gegen Karl den Großen, ein Krieg aus Überfällen und Aufständen; 778 zogen die Sachsen plündernd bis an den Rhein (Fränkische Reichsannalen 777–785) | Überfall aus dem Wald: 2 Schaden am feindlichen Helden | *passt* | – |
+  | Vercingetorix | Oberbefehlshaber der Gallier 52 v. Chr.; ließ Dörfer und Vorräte verbrennen, damit Caesars Heer hungerte – an einem Tag über zwanzig Städte der Biturigen (Caesar, Gallischer Krieg VII 14–15); siegte bei Gergovia | Schild der Arverner: +1 Angriff für diesen Zug, +2 Rüstung | *Wirkung und Name ändern* – von Boudicca geerbt, ohne Bezug zu ihm | **Kein Korn für Caesar:** Fügt allen feindlichen Dienern 1 Schaden zu. Belastung 1 – das eigene Land brennt mit. Heldenangriff bleibt über Barde und „Letzter Ritt vor Alesia“. *Alternative:* Wirkung bleibt, Name „Gergovia“ |
+  | Johann Friedrich Böttger | fand das Arkanum, das geheime Rezept des Porzellans, in Versuchen, die seine Gesundheit ruinierten (Chronik) | Arkanum: zieht 1 Karte, 1 Schaden am eigenen Helden | *passt* – Wissen um den Preis der eigenen Gesundheit | – |
+  | Hildegard von Bingen | Magistra, gründete um 1150 das Kloster Rupertsberg und später Eibingen (Vita Hildegardis) | Klostergemeinschaft: ruft eine Novizin (1/1) | *passt* | – |
+  | Wiprecht von Groitzsch | ließ Wald roden, siedelte Bauern aus Franken an, gründete Kloster Pegau, erhielt 1123 die Mark Meißen (Pegauer Annalen) | Grenzsteine setzen: ruft einen fehlenden Grenzstein | *passt* – die vier Steine stehen für Kloster, Mark, Burg und Dorf seines Landesausbaus | – |
+  | Ulrich von Liechtenstein | forderte auf der Venusfahrt 1227 jeden Ritter zur Tjost (Frauendienst, 1255) | Tjost: +1 Angriff für diesen Zug (1 Mana) | *passt* | – |
+  | Perikles | bezahlte aus der Kasse des Seebunds das Bauprogramm der Akropolis (Plutarch, Perikles 12–13), lenkte die Bürger auf der Pnyx | Bauherr der Akropolis: Bürger (1/2), Bauwerk +2 | *passt* | – |
+  | Marcus Agrippa | Feldherr und Bauherr: Aquädukte, Thermen, Pantheon (Cassius Dio 49,43), Straßen in Gallien (Strabon IV 6,11) | Legionspioniere: Pionier (1/3), Bauwerke −1 | *passt* | – |
+  | Ahhotep I. | hielt Ägypten im Krieg gegen die Hyksos zusammen und „sorgte für seine Soldaten“ (Ahmose-Stele, Karnak); im Königinnengrab von 1859 lagen drei Goldene Fliegen, eine Auszeichnung für Tapferkeit (Zuordnung umstritten) | Goldene Fliegen: 1 Schaden an einem zufälligen Feind, stirbt dadurch ein echter Diener, zieht 1 Karte | *passt* – ihre Truppen schlagen zu, Erfolg wird belohnt wie mit der Goldenen Fliege; Chronik und Glossar erklären die Auszeichnung | – |
+  | Anna Komnene | schrieb die Alexiade, damit die Taten ihres Vaters nicht vergessen werden (Vorwort der Alexiade) | Alexiade: ergründet eine schon gespielte Karte | *passt* | – |
+  | Nezahualcóyotl | Dichter und Gesetzgeber; leitete um 1450 nach einer Flut den Bau des Damms durch den Texcoco-See und später den des Aquädukts von Chapultepec, das Tenochtitlan mit Quellwasser versorgte (Ixtlilxochitl) | Blumenlied: alle eigenen Charaktere +2 Leben | *Name ändern* – Lieder heilen nicht, frisches Wasser schon | **Quellwasser von Chapultepec:** Wirkung bleibt. Das Blumenlied bleibt in der Chronik |
+  | Theophanu | regierte 984–991 für ihren dreijährigen Sohn Otto III., den sie Heinrich dem Zänker wieder abrang (Thietmar von Merseburg) | Regentschaft: ein Diener +1 Leben und Schildwall | *passt* – sie stellt sich schützend vor das Kind auf dem Thron | – |
+  | Epaminondas | stellte bei Leuktra 371 v. Chr. den linken Flügel „fünfzig Schilde tief“ auf (Xenophon, Hellenika VI 4,12) | Schiefe Schlachtordnung: Diener ganz links +1/+1 | *passt* | – |
+  | Fabius Maximus | mied die Feldschlacht, folgte Hannibal über die Höhen und schnitt ihm den Nachschub ab (Livius XXII 12–18) – „einer hat uns durch Zögern den Staat gerettet“ (Ennius) | Cunctator: 1 Schaden und Starre (3 Mana) | *passt* | – |
+  | Thusnelda | Frau des Arminius; 15 n. Chr. vom eigenen Vater an Germanicus ausgeliefert – ihr Raub trieb Arminius, die Cherusker und ihre Nachbarn erneut zum Krieg zu rufen (Tacitus, Annalen I 57–59); 17 n. Chr. im Triumphzug (Strabon VII 1,4) | Stammesbündnis: ab 3 Dienern alle +1 Leben, sonst ein Stammeskrieger (1/2) | *Name ändern* – das Bündnis schmiedete Arminius, nicht sie; die Wirkung (die Stämme stehen zusammen) passt zu dem, was ihr Schicksal auslöste | **Ruf zu den Waffen:** Wirkung bleibt |
+  | Baibars | führte bei Ain Dschalut 1260 die Vorhut der Mamlukenreiter und lockte die Mongolen mit einer vorgetäuschten Flucht in die Falle | Mamlukenreiter: ein Diener +1 Angriff und Vorstoß | *passt* | – |
+  | Vauban | leitete rund fünfzig Belagerungen mit Laufgräben, die gedeckt an die Mauern heranführten, und baute rund dreihundert Festungen (Chronik) | Festungsbau: ruft einen Schanzkorb (1/2, Schildwall) | *passt* – Schanzkörbe deckten seine Laufgräben | – |
+  | Fürstin von Vix | ihr Grab (1953) barg den Krater aus einer griechischen Werkstatt und weitere Waren aus dem Mittelmeer; der Mont Lassois lag am Oberlauf der Seine an einem Handelsweg nach Massalia | Opfergabe: seht die obersten drei Karten an, nehmt eine | *Name ändern* – ob sie Priesterin war, ist offen; belegt ist der Fernhandel | **Handel mit Massalia:** Wirkung bleibt – aus den Waren der Händler das Beste wählen |
+
+  Folgen der Vorschläge: neuer Spielstein „Schüler der Hypatia“ (hinten angehängt), Belastung an einer Heldenfähigkeit
+  (eine Zeile in `engine.js`), drei neue Effekte in `CHF.POWERS`, Chronikseiten (Spielstil) von Hypatia, Imhotep,
+  Vercingetorix, Thusnelda und der Fürstin von Vix, Glossar unverändert. Dann voller Balance-Lauf.
 
   Ausgangsstand 1.21.0:
 
@@ -575,6 +614,22 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
   | Baibars | Mamlukenreiter | Ein befreundeter Diener erhält +1 Angriff und Vorstoß. |
   | Vauban | Festungsbau | Ruft einen Schanzkorb (1/2, Schildwall). |
   | Fürstin von Vix | Opfergabe | Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand. |
+
+**AP L.6 – Karten, Schlüsselwörter und Chronik nah an der Geschichte (L)** – *neu (Wunsch vom 12. 10. 2026: halb Spaß, halb Lernen), offen*
+
+Was AP L.5 für die Heldenfähigkeiten tut, gilt für alle 350 Karten und Spielsteine: Name, Wirkung und Bild sollen an etwas
+Belegtes anknüpfen. AP L.2 hat Namen nach Lebenswelt vergeben, aber die Wirkungen und die Karten der elf gebliebenen
+Helden nicht geprüft.
+- [ ] **Fantasy-Reste** finden und ersetzen, z. B. Hypatias Himmelsstrahl, Sternenregen, Sonnenfokus und Sternenorakel,
+  Imhotep mit Urteil der Sonne und Sonnensegen – als Prüftabelle wie in AP L.5 (Karte, Bezug, Urteil, Vorschlag),
+  Entscheidung bei Dir, Wirkungen nur mit Balance-Lauf.
+- [ ] **Schlüsselwörter** prüfen: „Arkaner Fokus“ und „Göttliche Gunst“ klingen nach Magie – historische Namen vorschlagen
+  (etwa Gelehrsamkeit, Schutz der Heiligen), Entscheidung bei Dir (vgl. Entscheidung 4).
+- [ ] **Ein Satz Geschichte je Karte:** In der Großansicht eine Zeile „Aus der Chronik“ mit einer belegten Tatsache und
+  Quelle (z. B. Lange Mauern: „Sie verbanden Athen mit dem Hafen Piräus, 6 km.“) – das Lernen steckt dann in jeder Karte.
+- [ ] Chronikseiten aller 22 Helden gegenlesen: Zitate mit Quelle, Unsicheres als unsicher markiert, Spielstil-Text passend
+  zur (neuen) Fähigkeit.
+- Abnahme: Test, der jeder Karte eine Chronikzeile abverlangt; keine Fantasy-Wörter mehr in Namen und Texten (Liste im Test).
 
 **AP A.1 – Astra-Bilder einbauen: Karten, Spielsteine, Helden, Skins, Tische (M)** – *✓ in 1.21.0*
 
@@ -627,6 +682,12 @@ fehlt (`CHS.ui`, `R.pic`), und trägt statt `ASTRA:` den Vermerk `Astra-Bild (AP
 - [x] **Rückmeldung zu 1.21.0:** Großansicht einer Karte – das Motiv füllt jetzt seinen Rahmen (eine ältere CSS-Regel hielt es
   auf 300 px); Heldenmünzen zeigen Astras Porträts quadratisch und mit der Oberkante am Rand, Helmbusch und Stirn sind nicht
   mehr abgeschnitten.
+- [x] **Rückmeldung zu 1.22.0** (Sitzung 19): Die **Steintür** vor dem Match sah beim Zuschlagen komisch aus – Astras zwei
+  Hälften passen nicht zueinander (andere Rundung, Platten und Scharniere) und standen mit einem Stück Wand dazwischen. Jetzt
+  kommen beide Flügel aus der rechten Hälfte (die linke gespiegelt, ohne leeren Rand) und treffen sich mit ihren Steinleisten an
+  der Naht: eine runde Flügeltür, die symmetrisch zuschlägt (`astra_bilder.py`, `astra.css`). Die **Leuchtrahmen** der
+  Handkarten (grün spielbar, gelb mit erfüllter Bedingung, gold gewählt) folgten noch dem gezeichneten Tempeltor und standen
+  schief über dem gemalten Giebel – jetzt haben sie die Silhouette des gemalten Rahmens samt Bildfenster (`render.js`, `gateGlow`).
 - Abnahme: Klickpfad mit neuen Referenzbildern, Test `astra.test.js` (jedes Oberflächenbild liegt bereit, Rahmen haben ein
   Bildfenster), `MOTIVE.md` ohne die ersetzten Kennungen (70 → 48). *✓* Auf dem Handy ansehen: Karten, Rücken, Match, Menü, Icon.
 
@@ -2198,7 +2259,11 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 19. ~~**Gesperrte Alexandria-Bilder** (AP A.1)~~ – *entschieden (11. 10. 2026, wie vorgeschlagen):* Die geretteten Bilder
     „Papyrusstudium“ und „Astronom“ bleiben `hypatia_5` (Lehrsatz) und `hypatia_8` (Sternenorakel); `hypatia_0`
     (Bibliothekslehrling) und `hypatia_2` (Sternenkundiger) stehen als neue Aufträge in `ASTRA_AUFTRAG.md`.
-20. **Heldenfähigkeiten** (AP L.5): Welche Fähigkeiten neu werden, entscheidest Du nach meiner Prüftabelle.
+20. **Heldenfähigkeiten** (AP L.5): Welche Fähigkeiten neu werden, entscheidest Du nach meiner Prüftabelle. *Prüftabelle
+    steht (Sitzung 19):* neue Wirkung für Hypatia, Imhotep und Vercingetorix, neuer Name für Nezahualcóyotl, Thusnelda und
+    die Fürstin von Vix, die übrigen 16 passen.
+21. **Schlüsselwörter und Karten nah an der Geschichte** (AP L.6): Welche Fantasy-Namen ersetzt werden, entscheidest Du nach
+    der Prüftabelle in AP L.6.
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
