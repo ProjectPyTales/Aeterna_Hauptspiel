@@ -70,6 +70,7 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
    - [Phase 5 – Regeln, Karten und Balance](#phase-5--regeln-karten-und-balance-l)
    - [Phase 6 – Spielmodi und Motivation](#phase-6--spielmodi-und-motivation-fortlaufend)
    - [Phase 7 – Release-Qualität](#phase-7--release-qualität-m)
+   - [Phase 8 – itch.io und Crossplay](#phase-8--itchio-und-crossplay-wunsch-vom-12-10-2026)
 8. [Weitere Ideen](#weitere-ideen)
 9. [Deine Ideensammlung – wo sie im Plan steht](#deine-ideensammlung--wo-sie-im-plan-steht)
 10. [Offene Entscheidungen](#offene-entscheidungen)
@@ -2069,6 +2070,20 @@ So, dass es im Spiel nicht kaputt aussieht:
 - [ ] Lokales Fehlerprotokoll und automatische Spielstand-Sicherungen.
 - [ ] Optional Play-Store: eigener Upload-Schlüssel, Datenschutzerklärung, Store-Grafiken, Name „Aeterna“ auf Markenkonflikte prüfen.
 
+### Phase 8 – itch.io und Crossplay (Wunsch vom 12. 10. 2026)
+
+Kein zweites Programm: Das Spiel läuft schon heute im Browser (`service/platform.js` hat für jede Android-Funktion
+einen Browser-Ersatz). Eine itch.io-Fassung ist derselbe Code als ZIP – gepflegt wird weiter nur eine Codebasis.
+
+- [ ] **AP 8.1 itch.io-Webausgabe (S):** CI baut neben der APK ein HTML5-ZIP aus `quellcode/assets/game/`
+  (Spielstand im Browser, Export/Import als Datei, Vollbild-Knopf, Querformat-Hinweis am PC, Maus statt Halten).
+  Hochladen machst Du (zuerst als Entwurf oder mit Passwort). **Sinnvoll ab jetzt** – kostet keine doppelte Pflege.
+- [ ] **AP 8.2 Crossplay (L):** Duell zweier Menschen über das Netz, Handy gegen Browser. Voraussetzungen:
+  Regeln stehen (nach AP L.5 und dem Balance-Lauf), Engine deterministisch mit festem Startwert, Züge als
+  kleine Befehle statt Zustandsabgleich. Danach Verbindung (WebRTC mit Einladungscode oder kleiner Relay-Server),
+  Abbruch und Wiederverbinden, gleiche Version auf beiden Seiten. **Erst nach Phase 3/5**, weil jede Regeländerung
+  beide Seiten trifft.
+
 ---
 
 ## Weitere Ideen
@@ -2214,6 +2229,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 21 | AP 3.7 (Lunte), AP 3.9, AP 4.4 Teil 1, AP 4.5 | Lesbarkeit (Schlüsselwörter erklären, Angriffsvorschau), lebendige Ecken, Klang und Haptik aus einem Guss |
 | 22 | Phase 4 (Stimmen, Chronist, KI-Dialoge) | sobald Entscheidung 7 (Quelle der Stimmen) steht |
 | 22+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
+| ab 19 nebenbei | AP 8.1 | itch.io-HTML5-ZIP aus der CI – gleiche Codebasis, keine zweite App |
+| nach Phase 3/5 | AP 8.2 | Crossplay, sobald Regeln und Balance stehen |
 | laufend | AP A.3 (Du) | restliche 212 Motive aus `ungenutzte_assets/ASTRA_AUFTRAG.md` bei Astra bestellen, 10–12 je ZIP; jede Sitzung baut Neues mit ein |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
@@ -2252,12 +2269,17 @@ umgesetzt. Davor: Sitzung 17 (1.20.0) AP 3.6, 3.8; Sitzung 16 (1.19.0) AP 1.4, 1
 
 Risiko: gering bis mittel – der Feinschliff ändert keine Regeln; AP L.5 ändert Regeln und braucht den vollen Balance-Lauf.
 
+**Zu itch.io und Crossplay:** Die itch.io-Fassung braucht keine zweite App – das Spiel ist schon eine Webseite in der
+Android-Hülle. AP 8.1 (HTML5-ZIP aus der CI) kann deshalb jetzt mitlaufen, wenn Sitzung 19 Luft hat. Crossplay (AP 8.2)
+lohnt erst, wenn die Regeln stehen (nach AP L.5 und Phase 3/5), sonst muss jede Regeländerung doppelt getestet werden.
+
 **Text zum Kopieren für den Start:**
 
 > Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Übernimm mein Feedback zu den Versionen 1.20.0 bis 1.22.0:
 > *(hier Feedback zu Karten, Match, Menüs, Icon und Bildrate einfügen)*, baue neue Astra-Lieferungen aus
 > `ungenutzte_assets/neue_astra_assets/` mit `werkzeuge/astra_bilder.py` ein und arbeite **AP L.5 (Heldenfähigkeiten aus der
-> Geschichte)** ab: erst die Prüftabelle mit Vorschlägen, dann nach meiner Entscheidung umsetzen. Halte dich an die „Regeln für
+> Geschichte)** ab: erst die Prüftabelle mit Vorschlägen, dann nach meiner Entscheidung umsetzen. Wenn Zeit bleibt:
+> **AP 8.1** (itch.io-HTML5-ZIP als CI-Artefakt). Halte dich an die „Regeln für
 > jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests und den
 > Klickpfad laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach
 > `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
