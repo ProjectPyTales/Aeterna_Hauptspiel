@@ -656,6 +656,61 @@ Helden nicht geprüft.
   zur (neuen) Fähigkeit.
 - Abnahme: Test, der jeder Karte eine Chronikzeile abverlangt; keine Fantasy-Wörter mehr in Namen und Texten (Liste im Test).
 
+  **Prüftabelle Teil 1 (Sitzung 20, Stand 1.23.0) – zur Entscheidung.** Geprüft: alle 350 Kartennamen und -texte, 28 Spielsteine
+  und alle 212 Bilder im Spiel (167 von Astra, 45 alte). Maßstab nach Deiner Rückmeldung zu 1.23.0: **Der neue Name richtet sich nach
+  dem Bild, das schon im Spiel ist** – kein neues Astra-Bild; Wirkungen bleiben (kein Balance-Lauf nötig). Fett = Vorschlag.
+
+  *A. Fantasy-Reste – Astras Bild bleibt, der Name folgt dem Bild*
+
+  | Karte (Wirkung) | Bild heute | Urteil | Vorschlag (Bezug, Quelle) |
+  |---|---|---|---|
+  | Himmelsstrahl (Hypatia, 2: 3 Schaden) | Sonnenstrahl fällt auf eine Armillarsphäre, Pharos dahinter | *Name ändern* – ein Strahl vom Himmel ist Zauberei | **Erdmessung des Eratosthenes** – der Leiter der Bibliothek bestimmte um 240 v. Chr. aus dem Schatten der Mittagssonne in Alexandria (1/50 Kreis) und Syene (5 000 Stadien entfernt) den Erdumfang: 250 000 Stadien (Kleomedes, Himmelslehre I 7) |
+  | Sternenregen (Hypatia, 4: 2 Schaden an allen feindlichen Dienern) | Sternschnuppen über Alexandria, zwei Männer beobachten und schreiben mit | *Name ändern* – Sterne fallen nicht auf Feinde | **Sternkatalog des Hipparchos** – Hipparchos sah einen neuen Stern und verzeichnete daraufhin die Fixsterne, damit Spätere Veränderungen am Himmel erkennen (Plinius, Naturgeschichte II 95); Ptolemaios übernahm den Katalog |
+  | Astrolabienwächter (Hypatia, 3: 3/3 Göttliche Gunst) | Mann trägt ein Astrolab durch eine Säulenhalle am Hafen | *Name ändern* – einen „Wächter“ des Astrolabs gab es nicht | **Synesios von Kyrene** – Hypatias Schüler, später Bischof von Ptolemais (daher die Gunst); ließ ein silbernes Astrolab bauen und nennt Hypatia dabei seine „verehrteste Lehrerin“ (Synesios, Über das Astrolab; seine Briefe an Hypatia) |
+  | Sonnenfokus (Hypatia, 6: 7 Schaden) | Bronzespiegel bündelt Sonnenlicht | *Name ändern* – das Bild zeigt schon den Brennspiegel | **Brennspiegel des Archimedes** – Archimedes soll 212 v. Chr. römische Schiffe vor Syrakus mit Spiegeln entzündet haben; das erzählen erst Zonaras (IX 4) und Tzetzes (Chiliaden II 35) im 12. Jh., Polybios schweigt – **wohl eine Legende**, und so erzählt es die Karte |
+  | Sternenorakel (Hypatia, 5: 4/7, am Zugende 1 Schaden am Helden) | Gelehrter unter dem Sternenhimmel mit Armillarsphäre | *Name ändern* – ein Orakel aus den Sternen ist Sterndeutung | **Klaudios Ptolemaios** – schrieb um 150 n. Chr. in Alexandria den Almagest mit über 1 000 Sternen; Theon kommentierte ihn, und laut Theons Vermerk sah Hypatia die Ausgabe des dritten Buchs durch |
+  | Sonnensegen (Imhotep, 2: ein Diener +2/+2) | Opfertisch mit Broten, Krug und Lotos vor der Stufenpyramide | *Name ändern* – die Sonne segnet nicht | **Brot und Bier** – Lohn und Speise der Arbeiter im Alten Reich; in der Arbeiterstadt von Gizeh fand man Großbäckereien (Ausgrabungen von Mark Lehner); „Brot und Bier“ steht auch in jeder Opferformel |
+  | Urteil der Sonne (Imhotep, 5: 5 Schaden, 5 Leben) | Gericht: Beamter mit Schriftrolle, Bittsteller knien | *Name ändern* – die Sonne richtet nicht | **Urteil nach der Maat** – Maat heißt Wahrheit, Recht und Ordnung; „Groß ist die Maat, dauernd ihre Wirkung“ (Lehre des Ptahhotep, Altes Reich). Schaden und Heilung gleich groß: das Gleichgewicht |
+
+  *B. Passt nicht in die Zeit – Astras Bild bleibt*
+
+  | Karte | Bild heute | Urteil | Vorschlag |
+  |---|---|---|---|
+  | Maskierte Wache (Dandolo, 3/3 Schildwall) | Wache mit Kapuze und Laterne am Kanal, ohne Maske | *Name ändern* – Masken sind in Venedig erst ab 1268 belegt (Dandolo †1205), das Bild zeigt auch keine | **Nachtwache am Kanal** |
+  | Agent des Zehnerrats (Dandolo, 4/3 Tarnung) | Vermummter mit Dolch in einer Hafengasse | *Name ändern* – den Rat der Zehn gab es erst ab 1310 | **Spitzel im Venezianerviertel** – Venedigs Kaufleute hatten seit 1082 ein eigenes Viertel in Konstantinopel (Chrysobull des Alexios I.); 1171 ließ Kaiser Manuel I. alle Venezianer im Reich festnehmen (Niketas Choniates) |
+  | Marco Polo, der Weltenfahrer (Dandolo, Legendär) | Reisender mit Kamel am Hafen | *passt mit Hinweis* – geboren 1254, nach Dandolo; aber Vater und Onkel handelten um 1260 im lateinischen Konstantinopel, das Dandolos Kreuzzug geschaffen hatte (Marco Polo, Il Milione, Prolog) | bleibt – die Chronikzeile (Teil 2) sagt es |
+
+  *C. Alte Bilder (nicht von Astra) mit Fantasy-Motiv – nur vorhandene Bilder*
+
+  | Karte | Bild heute | Urteil | Vorschlag |
+  |---|---|---|---|
+  | Ordensritter (neutral) | Gestalt aus glühenden Kristallen | *Bild weg* | Name bleibt; bis Astra liefert der **Platzhalter** – das Motiv steht schon im Auftrag (weißer Waffenrock mit Kreuz), also kein zusätzliches Bild |
+  | Grabwächter (neutral) | wandelndes Skelett mit Pharaonenkopftuch | *Bild weg* – Untote gibt es nicht | ebenso **Platzhalter**, Motiv schon im Auftrag (lebender Wächter mit Lampe) |
+  | Vergessene Weisheit (neutral, 4: Ergründet zwei Karten, 3 Rüstung) | Schriftrolle mit schwebenden Lichtringen | *Bild und Name ändern* | ungenutztes altes Bild „goldenes Buch mit Erdkugel“ (`neutral3`, Feld 10) als **Mercators Atlas** – Gerhard Mercator nannte in Duisburg als Erster eine Kartensammlung „Atlas“ (erschienen 1595); „Ergründet zwei Karten“ wird zum Wortspiel. Fällt aus dem Astra-Auftrag |
+  | Adler der Berge (neutral) | Weißkopfseeadler – lebt nur in Nordamerika | *Bild tauschen* | ungenutztes altes Bild eines **Steinadlers** (`khan`, Feld 10), Name bleibt. Fällt aus dem Auftrag |
+  | Geheimes Rezeptbuch (Böttger) | Sternkarte mit Sonnengesicht und Mondphasen (Rest von Nostradamus) | *Name ändern* – dann passt das Bild | **Rezept des Goldmachers** – Böttger gab 1701 in Berlin vor, Gold machen zu können, und floh nach Sachsen; für die Alchemisten stand die Sonne für Gold, der Mond für Silber. Fällt aus dem Auftrag |
+
+  *D. Schlüsselwörter und Kartentyp (nur Wörter; die gezeichneten Effekte bleiben)*
+
+  | Heute | Wo | Urteil | Vorschlag |
+  |---|---|---|---|
+  | Göttliche Gunst | 24 Karten, Spielstein, Missionen, Hilfe | *ändern* – nennt eine Tat der Götter, also Magie | **Segen** – ein Ritual, das Menschen in jeder Epoche vollzogen (Opfer vor der Schlacht, Schwertsegen, Segen der Äbtissin); der Lichtkreis passt weiter. *Alternative:* „Parade“ (weltlich, passt aber nicht zu Nonnen und Pilgern) |
+  | Arkaner Fokus | Theon, Astronomin des Museions, Leuchtturm von Pharos | *ändern* – „arkan“ heißt geheim, magisch | **Gelehrsamkeit** – alle drei stehen für Wissen. *Alternative:* „Wissen“ |
+  | Kartentyp „Zauber“ | Großansicht, Glossar, Hilfe, 6 Kartentexte | *ändern* – Zauberei, dazu der deutsche Hearthstone-Begriff | **Ereignis** – Pest von Athen, Scherbengericht, Varusschlacht: die meisten „Zauber“ sind Ereignisse; Waffen heißen in der Großansicht nur „Waffe“ |
+
+  *E. Astra-Auftrag verkleinern (Deine Rückmeldung: möglichst keine neuen Bilder)*
+
+  | Was | Vorschlag |
+  |---|---|
+  | 36 alte Bilder, die nichts Falsches zeigen: 30 neutrale (Dorfwache bis Zenobia), Pfeilschuss, Apothekerlehrling, Sternenkundiger, Spielsteine Rekrut, Krieger, Gunst der Stunde | **behalten** und aus `ASTRA_AUFTRAG.md` nehmen (Status „altes Bild bleibt“); mit C und dem nie gerufenen Spielstein „Pyramidenwächter“ wird der Auftrag **205 → 165 Bilder** kleiner |
+  | bleiben im Auftrag, weil das alte Bild nicht stimmt | Feldheilerin (rotes Kreuz erst seit 1863), Wachhund (Deutscher Schäferhund erst seit 1899), Bibliothekslehrling (prunkvolle Bibliothek, die es um 400 nicht mehr gab), Ordensritter, Grabwächter |
+
+  *Geprüft und passend* (Auswahl): Orakel von Delphi (die Einrichtung ist belegt), Eid der Arkanisten (so hießen in Meißen die
+  Eingeweihten), Seherin der Fürstin von Vix (Vogelschau), Grünkraft (Hildegards *viriditas*), Donnernde Legion (*Legio XII
+  Fulminata*), Goldener Skarabäus (Schutzamulett); Trojanisches Pferd und Hängende Gärten bleiben, die Chronikzeile (Teil 2) nennt sie
+  Sage bzw. unsicher. Missionsgegner ohne Vorbild (Der Zensor, Hüter der Grabkammer, Der Maskendoge) sind ein Punkt für später.
+  Hypatias Schüler bekommt den Fokus nicht zurück – das Stapeln war eine Regelfrage, kein Namensproblem.
+
 **AP A.1 – Astra-Bilder einbauen: Karten, Spielsteine, Helden, Skins, Tische (M)** – *✓ in 1.21.0*
 
 Astra hat die Bilder in Teillieferungen geschickt, weil die Chats bei großen Datenmengen abbrachen: Teil 1 (Helden, Skins,
