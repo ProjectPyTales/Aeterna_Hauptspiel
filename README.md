@@ -145,7 +145,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
 | `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`), Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 48 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
@@ -555,9 +555,17 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
 - [x] Für jede Fähigkeit, die nicht passt, einen Vorschlag mit Name und Wirkung aus den vorhandenen Effekten (`ability` als
   Daten, AP 5.10) – Spielweise und KI-Persönlichkeit des Helden möglichst erhalten; Entscheidung bei Dir.
   *✓ Vorschläge in der Spalte rechts; für Imhotep und Vercingetorix steht je eine Alternative dabei.*
-- [ ] Umsetzen als bewusste Regeländerung (Phase-5-Regeln: neue Tests, voller Balance-Lauf, Ziele aus AP 5.2 halten),
+- [x] Umsetzen als bewusste Regeländerung (Phase-5-Regeln: neue Tests, voller Balance-Lauf, Ziele aus AP 5.2 halten),
   Effekt der Fähigkeit (`CHF.POWERS`, AP 3.6), Chronikseite und Glossar nachziehen.
+  *✓ in 1.23.0: Test `faehigkeiten.test.js`, `CHF.POWERS`, Spielstil der Chronikseiten, Glossar unverändert (keine neuen
+  Schlüsselwörter). Voller Balance-Lauf (101 200 Partien, Bericht `balance/BERICHT.md`, vorher `BERICHT-1.22.0.md`):
+  Startdecks **21/22** Helden im Ziel (vorher 20/22) – Vercingetorix 46,5 → 48,7 %, Hypatia 51,8 → 52,8 %, Imhotep
+  48,6 → 52,1 %; nur Leonidas bleibt mit 53,7 % knapp darüber (vorher 54,3 %). Zufallsdecks 19/22 (vorher 20/22): Theophanu
+  53,9 % und Dandolo 46,7 % wie bisher, neu Imhotep mit 53,5 % knapp darüber (im Zufallsfehler von ±1,4 Punkten);
+  Vercingetorix 48,4 %, Hypatia 48,7 %. Paarungen ≥ 40/60: 198/231 und 220/231 (vorher 199 und 223), Beginner 47,3 % und
+  50,6 %, Legendäre 53,5 %.*
 - Abnahme: Für jeden Helden steht in der Tabelle, an welche Rolle oder Tat Name und Wirkung anknüpfen; Balance im Ziel.
+  *✓ Tabelle unten und `AELORE.deeds` (Heldenwahl); Balance siehe oben – Imhotep mit Zufallsdecks im Blick behalten.*
 - Gilt auch für **jeden künftigen Helden**: Fähigkeit erst aus der Geschichte ableiten, dann ausbalancieren.
 
   **Prüftabelle (Sitzung 19, Stand 1.22.0).** Maßstab: Name *und* Wirkung knüpfen an eine belegte Rolle, Funktion oder Tat
@@ -2330,7 +2338,8 @@ schief darüberzustehen. **AP L.5** – Prüftabelle aller 22 Heldenfähigkeiten
 Entscheidung neue Wirkung für **Hypatia** (Unterricht: ruft einen Schüler 1/1), **Imhotep** (Baumeister des Djoser:
 schwächster Diener +1/+1) und **Vercingetorix** (Kein Korn für Caesar: 1 Schaden an einem zufälligen feindlichen Diener),
 neue Namen für **Nezahualcóyotl**, **Thusnelda** und die **Fürstin von Vix**; in der Heldenwahl steht unter jeder Fähigkeit die
-Tat mit Quelle. Voller Balance-Lauf: Ergebnis folgt in `balance/BERICHT.md`. Neu im Plan: **Leitbild „halb Spaß, halb Lernen“** und **AP L.6** (Karten,
+Tat mit Quelle. Drei Werte musste der volle Balance-Lauf justieren (Vercingetorix traf erst alle Diener und gewann mit
+Startdecks 85 %); danach Startdecks 21/22 Helden im Ziel (vorher 20/22), Zufallsdecks 19/22 (Imhotep 53,5 % knapp darüber). Neu im Plan: **Leitbild „halb Spaß, halb Lernen“** und **AP L.6** (Karten,
 Schlüsselwörter und Chronik nah an der Geschichte). Astra liefert in den nächsten Wochen nichts – kein neuer Werkzeuglauf nötig.
 Davor: Sitzung 18 (1.21.0, 1.22.0) AP A.1, A.2; Sitzungen 1–17 (1.4.0–1.20.0).
 
