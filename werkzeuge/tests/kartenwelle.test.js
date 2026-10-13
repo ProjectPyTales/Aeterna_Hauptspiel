@@ -54,8 +54,10 @@ test('Bauwerke (AP 5.5): Pharos verbilligt Zauber, Akropolis stärkt, Kolosseum 
 });
 
 test('Hängende Gärten verdoppeln die Heilung eigener Diener, Große Mauer hält frische Diener vom Helden fern',()=>{
- const s=ready('imhotep');E.summon(s,0,'neutral_48');const u=E.summon(s,0,'neutral_13');u.health=1;s.players[0].health=20;
- act(s,{type:'power',target:u.uid});assert.equal(u.health,7,'3 Heilung wirken doppelt');act(s,{type:'end'});assert.equal(u.health,7,'voll');
+ // Seit 1.23.0 (AP L.5) heilt Imhotep nicht mehr – Nezahualcóyotls Quellwasser heilt alle eigenen Charaktere um 2.
+ const s=ready('nezahualcoyotl');E.summon(s,0,'neutral_48');const u=E.summon(s,0,'neutral_13');u.health=1;s.players[0].health=20;
+ act(s,{type:'power'});assert.equal(u.health,5,'2 Heilung wirken doppelt');assert.equal(s.players[0].health,22,'beim Helden einfach');
+ act(s,{type:'end'});assert.equal(u.health,7,'die Gärten heilen am Zugende doppelt');
  const w=ready('khan','musashi');E.summon(w,1,'ostasien_6');w.players[1].board[0].taunt=false;// nur die Regel der Mauer prüfen
  const rider=play(w,'neutral_5');assert.ok(!E.attackTargets(w,0,rider.uid).includes('h1'),'Sturmangriff erreicht den Helden nicht');
  assert.ok(E.attackTargets(w,0,rider.uid).length>0,'die Mauer selbst darf er angreifen');end(w);end(w);assert.ok(E.attackTargets(w,0,rider.uid).includes('h1'),'im nächsten Zug schon');
