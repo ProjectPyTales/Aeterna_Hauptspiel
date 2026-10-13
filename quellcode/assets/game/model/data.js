@@ -23,7 +23,7 @@ const replaced=['khan','boudicca','nostradamus','jeanne','ragnar','musashi','ama
 const heroes=[
 {id:'leonidas',name:'Leonidas I.',era:'Sparta',color:'#9c3830',power:'Phalanx',powerText:'Erhaltet 1 Rüstung. Eure Diener erhalten +1 Leben.',cost:2,icon:'Λ',age:'griechen',ability:A([E('armor',1),E('buffAll',0,{health:1})]),ai:'defensive'},
 {id:'hypatia',name:'Hypatia',era:'Alexandria',color:'#336ea6',power:'Unterricht',powerText:'Ruft einen Schüler (1/1) herbei.',cost:2,icon:'✦',age:'griechen',ability:A(E('summon',1,{token:'student'})),ai:'combo'},
-{id:'imhotep',name:'Imhotep',era:'Ägypten',color:'#c19940',power:'Baumeister des Djoser',powerText:'Euer schwächster Diener erhält +2 Leben.',cost:2,icon:'☥',age:'steppe',ability:A(E('buffWeakest',0,{health:2})),ai:'defensive'},
+{id:'imhotep',name:'Imhotep',era:'Ägypten',color:'#c19940',power:'Baumeister des Djoser',powerText:'Euer schwächster Diener erhält +1/+1.',cost:2,icon:'☥',age:'steppe',ability:A(E('buffWeakest',1,{health:1})),ai:'defensive'},
 {id:'dandolo',name:'Enrico Dandolo',era:'Venedig',color:'#8d5065',power:'Rammsporn der Galeeren',powerText:'Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus.',cost:2,icon:'†',age:'byzanz',ability:A(E('weapon',1,{durability:2})),ai:'combo'},
 {id:'khan',name:'Widukind',era:'Sachsen',color:'#947142',power:'Überfall aus dem Wald',powerText:'Fügt dem feindlichen Helden 2 Schaden zu.',cost:2,icon:'♘',age:'mittelalter',ability:A(E('face',2)),ai:'aggressive'},
 {id:'boudicca',name:'Vercingetorix',era:'Arverner',color:'#45835b',power:'Kein Korn für Caesar',powerText:'Fügt einem zufälligen feindlichen Diener 1 Schaden zu.',cost:2,icon:'✹',age:'rom',ability:A(E('randomDamage',1,{minions:true})),ai:'aggressive'},

@@ -591,14 +591,15 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
   Folgen der Vorschläge: neuer Spielstein „Schüler der Hypatia“ (hinten angehängt), Belastung an einer Heldenfähigkeit
   (eine Zeile in `engine.js`), drei neue Effekte in `CHF.POWERS`, Chronikseiten (Spielstil) von Hypatia, Imhotep,
   Vercingetorix, Thusnelda und der Fürstin von Vix, Glossar unverändert. Dann voller Balance-Lauf.
-  *✓ Umgesetzt in 1.23.0, zwei Werte nach dem Balance-Lauf justiert (Varianten vorher in Modellkopien verglichen):*
+  *✓ Umgesetzt in 1.23.0, drei Werte nach den Balance-Läufen justiert (Varianten vorher in Modellkopien verglichen):*
   - *Vercingetorix: 1 Schaden an **allen** feindlichen Dienern (auch mit Belastung 2 oder 3 Mana) gewann mit Startdecks
     80–89 % – die Startdecks sind voller kleiner Diener. Jetzt trifft die verbrannte Erde **einen zufälligen feindlichen
     Diener** (1 Schaden, ohne Belastung) – derselbe Gedanke, eine Truppe nach der anderen hungert.*
   - *Hypatia: Der Schüler mit Arkanem Fokus stapelte sich (jeder Zug ein Schüler, +1, +2, +3 …); mit dem doppelten
     Sternenregen im Startdeck gewann sie zu oft, mit Zufallsdecks zu selten (59 % gegen 42 %). Jetzt ruft sie einen
     **Schüler (1/1)** ohne Fokus. Der Fokus kann zurückkommen, wenn AP L.6 ihre Sternen-Zauber durch geschichtliche ersetzt.*
-  - *Imhotep bleibt wie vorgeschlagen (+2 Leben); er lag nur so tief, solange Vercingetorix alle Diener traf.*
+  - *Imhotep: Mit +2 Leben für den Schwächsten fehlte seinem Startdeck die Heilung des Helden (42,9 % im vollen Lauf).
+    Jetzt erhält der schwächste Diener **+1/+1** – wie die Stufenpyramide (+2/+2), nur eine Stufe kleiner.*
   - *Belastung an Heldenfähigkeiten braucht es damit nicht; `canPower` verlangt für Vercingetorix einen feindlichen Diener.*
   *Zur Korrektur gegenüber meiner ersten Fassung: Der Statuensockel nennt Imhotep belegt nur
   „Vorsteher der Bildhauer“ (neben Siegelbewahrer und Hohepriester), nicht „Baumeister“ – die Stufenpyramide schreibt ihm
@@ -2275,8 +2276,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 19. ~~**Gesperrte Alexandria-Bilder** (AP A.1)~~ – *entschieden (11. 10. 2026, wie vorgeschlagen):* Die geretteten Bilder
     „Papyrusstudium“ und „Astronom“ bleiben `hypatia_5` (Lehrsatz) und `hypatia_8` (Sternenorakel); `hypatia_0`
     (Bibliothekslehrling) und `hypatia_2` (Sternenkundiger) stehen als neue Aufträge in `ASTRA_AUFTRAG.md`.
-20. ~~**Heldenfähigkeiten** (AP L.5)~~ – *entschieden (13. 10. 2026: „Alle Empfehlungen“), umgesetzt in 1.23.0, zwei Werte
-    nach dem Balance-Lauf justiert (siehe AP L.5):* neue Wirkung
+20. ~~**Heldenfähigkeiten** (AP L.5)~~ – *entschieden (13. 10. 2026: „Alle Empfehlungen“), umgesetzt in 1.23.0, drei Werte
+    nach den Balance-Läufen justiert (siehe AP L.5):* neue Wirkung
     für Hypatia (Unterricht), Imhotep (Baumeister des Djoser) und Vercingetorix (Kein Korn für Caesar), neuer Name für
     Nezahualcóyotl (Quellwasser von Chapultepec), Thusnelda (Ruf zu den Waffen) und die Fürstin von Vix (Handel mit
     Massalia); die übrigen 16 passen.
@@ -2327,7 +2328,7 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 Naht (Astras Hälften passten nicht zueinander), die **Leuchtrahmen** der Handkarten folgen dem gemalten Kartenrahmen statt
 schief darüberzustehen. **AP L.5** – Prüftabelle aller 22 Heldenfähigkeiten mit Rolle, Tat und Quelle; nach Deiner
 Entscheidung neue Wirkung für **Hypatia** (Unterricht: ruft einen Schüler 1/1), **Imhotep** (Baumeister des Djoser:
-schwächster Diener +2 Leben) und **Vercingetorix** (Kein Korn für Caesar: 1 Schaden an einem zufälligen feindlichen Diener),
+schwächster Diener +1/+1) und **Vercingetorix** (Kein Korn für Caesar: 1 Schaden an einem zufälligen feindlichen Diener),
 neue Namen für **Nezahualcóyotl**, **Thusnelda** und die **Fürstin von Vix**; in der Heldenwahl steht unter jeder Fähigkeit die
 Tat mit Quelle. Voller Balance-Lauf: Ergebnis folgt in `balance/BERICHT.md`. Neu im Plan: **Leitbild „halb Spaß, halb Lernen“** und **AP L.6** (Karten,
 Schlüsselwörter und Chronik nah an der Geschichte). Astra liefert in den nächsten Wochen nichts – kein neuer Werkzeuglauf nötig.

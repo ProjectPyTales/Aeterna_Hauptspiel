@@ -28,7 +28,7 @@ imhotep:{life:'um 2700 – 2650 v. Chr. (Altes Reich, 3. Dynastie)',epoch:'Altes
   'Die Überlieferung schreibt ihm die Stufenpyramide von Sakkara zu – den ersten großen Steinbau der Welt.',
   'Noch Jahrhunderte später wurde er als Weiser verehrt und schließlich als Gott der Heilkunst angebetet; die Griechen setzten ihn mit Asklepios gleich.'],
  quote:'Der Siegelbewahrer des Königs von Unterägypten, der Erste nach dem König, Verwalter des großen Palastes … Imhotep',source:'Inschrift auf dem Statuensockel Djosers, Sakkara (Titel, sinngemäß)',
- style:'Imhotep baut und heilt: Stufe um Stufe werden seine schwächsten Diener zäher, bis die Stufenpyramide steht.',
+ style:'Imhotep baut und heilt: Stufe um Stufe wachsen seine schwächsten Diener, bis die Stufenpyramide steht.',
  favorites:['imhotep_1','imhotep_6','imhotep_9'],
  relations:[['Djoser','König und Bauherr, als Legendäre auf seiner Seite'],['Hypatia','Verbündete: Erbin des ägyptischen Wissens'],['Perikles','Bruder im Geiste: ein weiterer großer Bauherr, Held seit 1.9.0']],
  voice:'warm, bedächtig, feierlich',music:'Sistren, Rahmentrommel, Nay-Flöte'},

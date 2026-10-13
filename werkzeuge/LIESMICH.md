@@ -5,9 +5,9 @@ das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle
 
 ## Neu in 1.23.0 (AP L.5 Heldenfähigkeiten aus der Geschichte, Rückmeldung zu 1.22.0)
 
-- **Heldenfähigkeiten** (`model/data.js`, Entscheidung 20: alle Empfehlungen der Prüftabelle in der README, zwei Werte nach
+- **Heldenfähigkeiten** (`model/data.js`, Entscheidung 20: alle Empfehlungen der Prüftabelle in der README, drei Werte nach
   Balance-Varianten justiert): Hypatia *Unterricht* (ruft den neuen Spielstein `student`, „Schüler der Hypatia“ 1/1, hinten an
-  `tokens` angehängt), Imhotep *Baumeister des Djoser* (`buffWeakest` 0/+2), Vercingetorix *Kein Korn für Caesar*
+  `tokens` angehängt), Imhotep *Baumeister des Djoser* (`buffWeakest` +1/+1), Vercingetorix *Kein Korn für Caesar*
   (`randomDamage` 1 mit `minions:true`); neue Namen für Nezahualcóyotl, Thusnelda und die Fürstin von Vix. `engine.js`:
   `canPower` verlangt für `buffWeakest` einen eigenen und für `randomDamage` mit `minions` einen sichtbaren feindlichen Diener.
   `fx.js`: `CHF.POWERS` für die drei neuen Wirkungen. Varianten wurden vorher mit `AETERNA_MODELL` in Modellkopien verglichen.

@@ -36,7 +36,7 @@ test('Hypatia: Unterricht ruft ohne Zielwahl einen Schüler (AP L.5)',()=>{
 test('Imhotep baut am Schwächsten, Vercingetorix verbrennt das Land, Böttger zieht für 1 Leben',()=>{
  let s=ready('imhotep');assert.equal(E.canPower(s,0),false,'ohne Diener nichts zu bauen');
  const weak=E.summon(s,0,'neutral_0'),strong=E.summon(s,0,'attrappe_34');power(s);
- assert.deepEqual([weak.health,weak.maxHealth,weak.attack,strong.health],[4,4,1,4]);
+ assert.deepEqual([weak.health,weak.maxHealth,weak.attack,strong.health,strong.attack],[3,3,2,4,3],'der Schwächste wächst um +1/+1');
  s=ready('boudicca');assert.equal(E.canPower(s,0),false,'ohne feindlichen Diener kein Ziel');
  const a=E.summon(s,1,'neutral_0'),b=E.summon(s,1,'attrappe_34');const hp=s.players[1].health;power(s);
  assert.equal(2+4-a.health-b.health,1,'1 Schaden an einem feindlichen Diener');assert.equal(s.players[1].health,hp,'nicht am Helden');
