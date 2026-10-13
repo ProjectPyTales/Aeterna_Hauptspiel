@@ -49,10 +49,10 @@ test('AP 3.6: Zauber-Partikel je Element und ein eigener Effekt für jede der 22
   assert.ok(['arc','straight','spiral','rain','rise','wave'].includes(p.path),h.id);keys.add(p.color);}
  assert.equal(keys.size,D.heroes.length,'jede Fähigkeit in eigener Farbe');
  // Ein Zauber und eine Fähigkeit landen: Ausbruch am Ziel, die Fähigkeit mit dem Zeichen ihres Helden.
- T.reset();R.fx=[];const s=E.create({hero:'hypatia',foe:'leonidas',seed:5,first:0});E.mulligan(s,[]);s.players[0].mana=10;const before=E.clone(s);
+ T.reset();R.fx=[];const s=E.create({hero:'khan',foe:'leonidas',seed:5,first:0});E.mulligan(s,[]);s.players[0].mana=10;const before=E.clone(s);
  E.apply(s,{type:'power'});M.begin(before,s,{type:'power'},null,()=>{},()=>{});
  while(!M.transition.hit){T.clock.tick((T.clock.real??0)+16);M.frame(s,T.clock.now());}
- const b=R.fx.filter(f=>f.type==='burst');assert.ok(b.length>=1&&b[0].glyph==='hypatia'&&b[0].element==='arcane','Sternenfunke: '+JSON.stringify(b[0]));M.cancel();R.fx=[];T.reset();
+ const b=R.fx.filter(f=>f.type==='burst');assert.ok(b.length>=1&&b[0].glyph==='khan'&&b[0].element==='nature','Überfall aus dem Wald: '+JSON.stringify(b[0]));M.cancel();R.fx=[];T.reset();
 });
 
 test('AP 3.8: Anfang und Ende laufen über die Match-Uhr, ein Tippen überspringt, reduzierte Bewegung zeigt sie nicht',()=>{

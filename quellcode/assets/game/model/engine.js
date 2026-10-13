@@ -170,7 +170,7 @@ function canPower(s,p){const a=s.players[p],h=heroOf(a),ab=h.ability;if(s.phase!
  if(ab.target==='randomMinion'&&!randomMinions(s,p).length)return false;
  const ok=e=>e.type==='summon'||e.type==='summonNew'?a.board.length<7&&(e.type==='summon'||e.tokens.some(id=>!a.board.some(u=>u.id===id)))
   :e.type==='discover'?pool(s,p,e.pool).length>0:e.type==='fortify'&&!a.board.some(u=>u.building)?e.else.every(ok)
-  :e.type==='buffLeft'?minions(a).length>0:e.type==='ifMinions'?(minions(a).length>=e.n?e.then:e.else).every(ok):true;
+  :e.type==='buffLeft'||e.type==='buffWeakest'?minions(a).length>0:e.type==='ifMinions'?(minions(a).length>=e.n?e.then:e.else).every(ok):true;
  return ab.effects.every(ok);}
 // Amanirenas: the visible enemy minions (no buildings) a random power can hit.
 const randomMinions=(s,p)=>s.players[1-p].board.filter(u=>!u.stealth&&!u.building&&u.health>0).map(u=>u.uid);
@@ -183,7 +183,9 @@ function equalAction(a,b){return a.type===b.type&&a.uid===b.uid&&a.target===b.ta
 function power(s,p,target){const a=s.players[p],h=heroOf(a),ab=h.ability;a.powerUsed=true;a.mana-=h.cost;
  if(ab.target==='random'){const foes=['h'+(1-p),...s.players[1-p].board.filter(u=>!u.stealth).map(u=>u.uid)];target=foes[Math.floor(rand(s)*foes.length)];}
  if(ab.target==='randomMinion')target=pick(s,randomMinions(s,p));
- emit(s,'power',{p,target:target||'h'+p});log(s,heroName(s,p)+' nutzt '+h.power+'.');effects(s,p,ab.effects,target,null);}
+ emit(s,'power',{p,target:target||'h'+p});log(s,heroName(s,p)+' nutzt '+h.power+'.');effects(s,p,ab.effects,target,null);
+ // AP L.5 (1.23.0): Vercingetorix' verbrannte Erde kostet auch das eigene Land – Belastung an der Fähigkeit wie an Karten.
+ if(ab.overload)a.overload=(a.overload||0)+ab.overload;}
 function boss(s){if(s.mission==null||s.active!==1)return;const m=D.missions[s.mission],a=s.players[1],n=a.turns;switch(m.ability){case 'armor':a.armor+=2;break;case 'draw':if(n%3===0)draw(s,1);break;case 'heal':heal(s,'h1',2);break;case 'weapon':if(n%3===0)a.weapon={attack:2,durability:2};break;case 'arrow':hurt(s,'h0',1);break;case 'recruit':if(n%2===0)summon(s,1,'recruit');break;case 'storm':if(n%3===0)effects(s,1,[{type:'aoe',n:1}]);break;case 'shield':if(a.board[0])a.board[0].shield=true;break;case 'totem':if(n%3===0)summon(s,1,'totem_fire');break;case 'final':a.armor+=2;if(a.board.length){a.board[0].attack++;a.board[0].maxHealth++;a.board[0].health++;}break;
  // Missions since 1.9.0 describe their boss as data: effects every n-th own turn.
  default:if(m.effects&&n%(m.every||1)===0)effects(s,1,m.effects,null,null,{auto:true});}emit(s,'boss',{p:1});}

@@ -59,6 +59,13 @@ BAIBARS = {
 REVISION = {
     'fabius_0': 'Veles trägt zu schwere Rüstung: schlichte Tunika, kleiner leichter Rundschild, Wurfspeere, kein Kettenhemd.',
 }
+# Neue Karten und Spielsteine nach dem Briefing: ID → (Gruppe, Name, Motiv). Erscheinen im Auftrag wie Briefing-Zeilen.
+NEW_MOTIFS = {
+    'student': ('Spielsteine', 'Schüler der Hypatia',
+                'Junger Gelehrter in schlichtem Chiton und Mantel um 400 n. Chr., sitzt mit Wachstafel und Griffel, ein '
+                'Astrolab aus Messing auf dem Tisch, Säulenhalle in Alexandria im Hintergrund. Kein Zauber, kein Leuchten '
+                '(AP L.5: Hypatias Unterricht).'),
+}
 # Nicht neu erzeugen, bis eine Zuordnung geklärt ist. Entscheidung 19 (11. 10. 2026): Die geretteten Alexandria-Bilder
 # bleiben hypatia_5 und hypatia_8, hypatia_0 und hypatia_2 werden neu bestellt – nichts mehr gesperrt.
 BLOCKED = set()
@@ -266,6 +273,8 @@ def main():
 
     # Stand je ID und der nächste Auftrag an Astra.
     motifs = briefing()
+    for n, (i, (g, name, motif)) in enumerate(NEW_MOTIFS.items()):
+        motifs.setdefault(i, (g, '', name, motif, 10 ** 5 + n))
     status = {}
     for c in data['cards'] + data['tokens']:
         i = c['id']

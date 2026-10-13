@@ -3,7 +3,7 @@
 *Automatisch erzeugt von `node werkzeuge/motive.js` – nicht von Hand ändern.* Bis ein Motiv da ist, zeichnet das Spiel
 einen gestalteten Platzhalter (Epochenfarbe, Symbol, „Motiv folgt“; AP 5.12).
 
-**Stand:** 165 Karten ohne Motiv, 0 Helden ohne Porträt, 0 Schlachtfelder ohne Bild, 48 im Code gezeichnete Grafiken.
+**Stand:** 166 Karten ohne Motiv, 0 Helden ohne Porträt, 0 Schlachtfelder ohne Bild, 48 im Code gezeichnete Grafiken.
 Die Karten der elf Lehrplan-Helden tragen seit 1.15.0 (AP L.2) Namen und Bildideen aus deren Lebenswelt.
 
 **Für Astra gilt seit 1.21.0 (AP A.1) `ungenutzte_assets/ASTRA_AUFTRAG.md`:** Dort stehen alle Karten, die noch kein
@@ -178,6 +178,7 @@ zeigt nur, wo das Spiel heute einen Platzhalter zeichnet.
 | `elephant` | Kriegselefant | Neutral | Diener | 724 × 724 (Atlasfeld 362 × 362) | Card illustration for a mobile card game, hand-painted stylized fantasy-antique style matching the Aeterna concept art, warm golden light, rich detail, clean readable silhouette centred for a round portrait crop, painterly background, no text, no frame. a Carthaginian war elephant with a tower on its back. Epoch: neutral, any historical epoch. |
 | `parthenos` | Athena Parthenos | Neutral | Bauwerk | 724 × 724 (Atlasfeld 362 × 362) | Card illustration for a mobile card game, hand-painted stylized fantasy-antique style matching the Aeterna concept art, warm golden light, rich detail, clean readable silhouette centred for a round portrait crop, painterly background, no text, no frame. the colossal gold-and-ivory statue of Athena Parthenos inside the Parthenon, Nike in her hand. Epoch: neutral, any historical epoch. |
 | `pyramid` | Stufenpyramide | Neutral | Bauwerk | 724 × 724 (Atlasfeld 362 × 362) | Card illustration for a mobile card game, hand-painted stylized fantasy-antique style matching the Aeterna concept art, warm golden light, rich detail, clean readable silhouette centred for a round portrait crop, painterly background, no text, no frame. the step pyramid of Djoser at Saqqara at golden hour, desert sky. Epoch: neutral, any historical epoch. |
+| `student` | Schüler der Hypatia | Neutral | Diener | 724 × 724 (Atlasfeld 362 × 362) | Card illustration for a mobile card game, hand-painted stylized fantasy-antique style matching the Aeterna concept art, warm golden light, rich detail, clean readable silhouette centred for a round portrait crop, painterly background, no text, no frame. Schüler der Hypatia: Arkaner Fokus +1.. Epoch: neutral, any historical epoch. |
 
 ## Im Code gezeichnet (AP L.4)
 

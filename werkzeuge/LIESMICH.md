@@ -1,7 +1,24 @@
-# Aeterna 1.22.0 – Bauen & Prüfen
+# Aeterna 1.23.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.23.0 (AP L.5 Heldenfähigkeiten aus der Geschichte, Rückmeldung zu 1.22.0)
+
+- **Heldenfähigkeiten** (`model/data.js`, Entscheidung 20: alle Empfehlungen der Prüftabelle in der README): Hypatia
+  *Unterricht* (ruft den neuen Spielstein `student`, „Schüler der Hypatia“ 1/2 mit `focus:1`, hinten an `tokens` angehängt),
+  Imhotep *Baumeister des Djoser* (`buffWeakest` 0/+2), Vercingetorix *Kein Korn für Caesar* (`aoe` 1 und `overload:1` an der
+  Fähigkeit); neue Namen für Nezahualcóyotl, Thusnelda und die Fürstin von Vix. `engine.js`: `power()` bucht `ability.overload`
+  als Belastung, `canPower` verlangt für `buffWeakest` einen eigenen Diener. `fx.js`: `CHF.POWERS` für die drei neuen Wirkungen.
+- **Tat zur Fähigkeit:** `AELORE.deeds`/`AELORE.deed(id)` (`model/lore.js`) – ein Satz mit Quelle je Held, in der Heldenwahl unter
+  der Fähigkeit (`Setup.view.deed`, `.power-deed` in `screens.css`); Spielstil-Texte der fünf betroffenen Helden neu.
+- **Steintür** (Rückmeldung): `astra_bilder.py` schneidet die rechte Hälfte auf die Tür zu und spiegelt sie für links
+  (`UI`-Einträge mit drittem Feld `beschnitten`/`gespiegelt`); `astra.css` setzt beide Flügel an die Naht.
+  `NEW_MOTIFS` liefert Motive für neue IDs ohne Briefing-Zeile (heute `student`).
+- **Leuchtrahmen** (Rückmeldung): `gateGlow(color,blur,key)` in `render.js` nimmt die Silhouette des gemalten Rahmens
+  (`frameKey`: Art und gold/normal) samt Bildfenster, doppelt gezeichnet; ohne Bild bleibt das gezeichnete Tempeltor.
+- Tests: neu `tests/faehigkeiten.test.js`, angepasst `heldenbalance.test.js` und `schluessel.test.js`. Voller Balance-Lauf,
+  alter Bericht als `balance/BERICHT-1.22.0.md`. Version 1.23.0 / versionCode 26.
 
 ## Neu in 1.22.0 (AP A.2 Astra-Oberfläche, Entscheidung 19)
 
