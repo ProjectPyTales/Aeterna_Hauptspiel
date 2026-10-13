@@ -2313,49 +2313,43 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 18 (Versionen 1.21.0 und 1.22.0):** AP A.1 – **Astra-Bilder**: 22 Heldenporträts, 167 Karten- und
-Spielsteinbilder, vier Marmor-Skins, fünf gemalte Tische, Werkzeug `werkzeuge/astra_bilder.py`, aktuelle Liste
-`ungenutzte_assets/ASTRA_AUFTRAG.md`. AP A.2 – **Astra-Oberfläche** (Deine Rückmeldung „da fehlt aber einiges“): gemalte
-**Kartenrahmen** (Diener, Zauber, Bauwerk, je normal und golden), **acht Kartenrücken**, **Chronikleiste**, **Stundenglas**,
-**versiegelte Befehle**, **Waffenablage**, **Schildwall**, **Phiole**, **Urne**, **Kartenpaket**, **Podest**, **Kartenbuch**,
-**Startbefehle**, **Steinplatten**, **neu gemaltes Hauptmenü**, Hintergründe für Bühne, Basar, Sammlung, Pakete und Heldenwahl,
-**App-Icon und Splash**, Währungssymbole. Die 192 flachen Vektorgrafiken habe ich nicht eingebaut (schlichter als das, was das
-Spiel heute zeichnet; AP A.2). Neu im Plan: **AP L.5** (Heldenfähigkeiten aus Rolle und Taten des Helden). Entscheidung 19
-umgesetzt. Davor: Sitzung 17 (1.20.0) AP 3.6, 3.8; Sitzung 16 (1.19.0) AP 1.4, 1.6, 1.7; Sitzungen 1–15 (1.4.0–1.18.0).
+**Erledigt in Sitzung 19 (Version 1.23.0):** Rückmeldung zu 1.22.0 – die **Steintür** schließt als runde Flügeltür an der
+Naht (Astras Hälften passten nicht zueinander), die **Leuchtrahmen** der Handkarten folgen dem gemalten Kartenrahmen statt
+schief darüberzustehen. **AP L.5** – Prüftabelle aller 22 Heldenfähigkeiten mit Rolle, Tat und Quelle; nach Deiner
+Entscheidung neue Wirkung für **Hypatia** (Unterricht: Schüler mit Arkanem Fokus), **Imhotep** (Baumeister des Djoser:
+schwächster Diener +2 Leben) und **Vercingetorix** (Kein Korn für Caesar: 1 Schaden an allen feindlichen Dienern, Belastung 1),
+neue Namen für **Nezahualcóyotl**, **Thusnelda** und die **Fürstin von Vix**; in der Heldenwahl steht unter jeder Fähigkeit die
+Tat mit Quelle. Voller Balance-Lauf: Ergebnis folgt in `balance/BERICHT.md`. Neu im Plan: **Leitbild „halb Spaß, halb Lernen“** und **AP L.6** (Karten,
+Schlüsselwörter und Chronik nah an der Geschichte). Astra liefert in den nächsten Wochen nichts – kein neuer Werkzeuglauf nötig.
+Davor: Sitzung 18 (1.21.0, 1.22.0) AP A.1, A.2; Sitzungen 1–17 (1.4.0–1.20.0).
 
-**Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.22.0-Test.apk` aus dem Release „Test-APK“ als Update installieren – **das App-Icon ist neu** (Startbildschirm).
-2. **Karten:** Sind Name, Text und Werte auf den gemalten Rahmen gut lesbar (Hand, Sammlung, Großansicht)? Sitzt das Bild im
-   Rundfenster (Diener), Bogen (Zauber) und Zinnenfenster (Bauwerk)?
-3. **Match:** Chronikleiste links, Befehle der KI oben, Stundenglas bei leerem Deck, Waffe neben dem Helden, Schildwall,
-   Phiole, Urne – passt alles? Bleibt es flüssig (Bildraten-Anzeige)?
-4. **Menüs:** Hauptmenü, Basar (Podest, Kartenrücken, Paket), Sammlung (Kartenbuch), Starthand (Schriftrollen),
-   Bildschirmwechsel (Steintür), Hintergründe – zu hell oder zu dunkel?
-5. **Astra:** nächste Pakete aus `ASTRA_AUFTRAG.md` bestellen (jetzt 212 Motive, `hypatia_0` und `hypatia_2` dabei) und die
-   gemalte Oberfläche aus `ASTRA_AUFTRAG_OBERFLAECHE.md` (fünf Pakete; Paket 4 mit den Fähigkeitssymbolen erst nach AP L.5).
+**Vorher bitte von dir (10 Minuten):**
+1. `Aeterna-1.23.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. **Steintür:** Bildschirmwechsel zwischen zwei Untermenüs (z. B. Basar → Sammlung) und vor dem Match – wirkt die Flügeltür?
+3. **Leuchtrahmen:** Handkarten grün (spielbar), gelb (Bedingung erfüllt), gold (gewählt) – sitzen sie jetzt sauber?
+4. **Neue Fähigkeiten** ausprobieren: Hypatia (Schüler), Imhotep (Baumeister), Vercingetorix (Kein Korn für Caesar) – macht es
+   Spaß, und ist die Zeile mit der Tat in der Heldenwahl hilfreich?
 
-**Sitzung 19 – Feinschliff der neuen Optik und AP L.5**
+**Sitzung 20 – Karten nah an der Geschichte (AP L.6, Teil 1)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.20.0–1.22.0 | Lesbarkeit der gemalten Karten, Lage der Match-Elemente, Helligkeit der Hintergründe, neue Astra-Lieferungen einbauen | die Optik hat sich in einer Sitzung stark verändert – erst ansehen, dann schleifen |
-| AP L.5 | Prüftabelle der 22 Heldenfähigkeiten (Rolle, Tat, Quelle), Vorschläge für die unpassenden, nach Deiner Entscheidung umsetzen mit Balance-Lauf | Dein Wunsch vom 11. 10.; die elf Ersatzhelden tragen noch die Fähigkeiten ihrer Vorgänger |
+| Rückmeldung 1.23.0 | Steintür, Leuchtrahmen, neue Fähigkeiten nach Deinem Blick aufs Handy | kleine Nacharbeit, falls nötig |
+| AP L.6 Teil 1 | Prüftabelle für die Karten der elf gebliebenen Helden und die Schlüsselwörter: Fantasy-Reste (Himmelsstrahl, Sternenregen, Sonnenfokus, Urteil der Sonne, „Arkaner Fokus“, „Göttliche Gunst“), je mit Bezug, Urteil und Vorschlag; nach Deiner Entscheidung umbenennen | Dein Wunsch vom 12. 10.: halb Spaß, halb Lernen – die Heldenfähigkeiten sind jetzt geschichtsnah, die Karten noch nicht überall |
+| AP L.6 Teil 2 (wenn Zeit bleibt) | „Aus der Chronik“: ein belegter Satz mit Quelle je Karte in der Großansicht, zuerst für die 22 Lieblingskarten | das Lernen steckt dann in jeder Karte, nicht nur in der Chronik |
 
-Risiko: gering bis mittel – der Feinschliff ändert keine Regeln; AP L.5 ändert Regeln und braucht den vollen Balance-Lauf.
-
-**Zu itch.io und Crossplay:** Die itch.io-Fassung braucht keine zweite App – das Spiel ist schon eine Webseite in der
-Android-Hülle. Beides kommt gemeinsam und erst spät (Deine Vorgabe vom 12. 10.): Crossplay (AP 8.2) lohnt erst, wenn
-die Regeln stehen (nach AP L.5 und Phase 3/5), und die itch.io-Fassung (AP 8.1) brauchst Du erst mit Crossplay.
+Risiko: gering – Teil 1 ändert vor allem Namen und Texte; nur wenn Du Wirkungen ändern willst, folgt ein Balance-Lauf.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Übernimm mein Feedback zu den Versionen 1.20.0 bis 1.22.0:
-> *(hier Feedback zu Karten, Match, Menüs, Icon und Bildrate einfügen)*, baue neue Astra-Lieferungen aus
-> `ungenutzte_assets/neue_astra_assets/` mit `werkzeuge/astra_bilder.py` ein und arbeite **AP L.5 (Heldenfähigkeiten aus der
-> Geschichte)** ab: erst die Prüftabelle mit Vorschlägen, dann nach meiner Entscheidung umsetzen. Halte dich an die „Regeln für
-> jede Sitzung“ und an die MVVM-Struktur, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests und den
-> Klickpfad laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach
-> `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Übernimm mein Feedback zu Version 1.23.0:
+> *(hier Feedback zu Steintür, Leuchtrahmen und den neuen Heldenfähigkeiten einfügen)* und arbeite **AP L.6 (Karten,
+> Schlüsselwörter und Chronik nah an der Geschichte)** ab: erst die Prüftabelle mit Vorschlägen, dann nach meiner Entscheidung
+> umsetzen. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, prüfe
+> optische Änderungen mit Screenshots im Handyformat, lass die Tests und den Klickpfad laufen und sorge für eine grüne CI. Hake
+> erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen
+> Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Feinschliff nach Rückmeldung und eine Prüftabelle sind überschaubar; der
-Balance-Lauf für AP L.5 kostet Zeit, nicht Denkarbeit. *xhigh*, wenn Deine Rückmeldung größere Umbauten der neuen Optik verlangt.
+**Empfohlener Effort für den nächsten Prompt: high.** Die Prüftabelle für rund 130 Karten verlangt sorgfältige
+Quellenarbeit (jede Angabe muss stimmen), die Umsetzung selbst ist dann überschaubar. *xhigh*, wenn Du auch Wirkungen von
+Karten ändern willst (Balance-Lauf und mehr Tests).
