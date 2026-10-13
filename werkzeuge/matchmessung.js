@@ -1,6 +1,6 @@
 // Messlauf für den Match-Renderer (AP 2.4) im Handyformat (915 × 412, Pixeldichte 2,6).
-// Baut ein volles Match auf – 7 Diener je Seite (seit 1.20.0 mit allen Schlüsselwörtern aus AP 3.6: Schildwall, Göttliche
-// Gunst, Starre, Tarnung, Tödliches Gift, Vermächtnis), 10 Handkarten, die alle spielbar leuchten – und misst je 3 s ohne
+// Baut ein volles Match auf – 7 Diener je Seite (seit 1.20.0 mit allen Schlüsselwörtern aus AP 3.6: Schildwall, Segen
+// (bis 1.23.0 Göttliche Gunst), Starre, Tarnung, Tödliches Gift, Vermächtnis), 10 Handkarten, die alle spielbar leuchten – und misst je 3 s ohne
 // und mit 4× gedrosselter CPU:
 //   ruhe      – nur die Bildschleife (atmende Diener, leuchtende Karten, schimmernde Gunst)
 //   gefecht   – dazu alle 250 ms Treffer, Tod und Heilung mit Partikeln, Gunst zerspringt, Starre, Gift und ein

@@ -3,7 +3,7 @@
  * is drawn from pre-rendered sprites (R.sprite) – each picture only copies them. All pictures are placeholders for Astra.
  *  - Keywords on the plaque (drawn into its sprite): Schildwall as wooden and bronze shields, Starre as chains and
  *    hoarfrost, Tarnung as shadow in the undergrowth, Tödliches Gift as a phial, Vermächtnis as an urn below the plaque.
- *  - Göttliche Gunst as a shimmering ring of light around the plaque (each picture), which shatters with a clink.
+ *  - Segen (until 1.23.0 Göttliche Gunst) as a shimmering ring of light around the plaque (each picture), which shatters with a clink.
  *  - Spell particles per element (F.element) and one effect per hero power (F.POWERS: element, path, colour, glyph).
  *  - Opening: the heroes face each other, the chronicler announces the battle, a bronze coin decides who begins.
  *  - Close: the ruler's relief of the loser breaks, a banner „TRIUMPH“ unrolls, war horns. */
@@ -54,8 +54,8 @@ F.urn=g=>{g.save();if(R.pic(g,'vermaechtnis-urne',0,82,32,42)){g.restore();retur
  g.fillStyle='#1c0e08';g.fillRect(-13,-3,26,5);g.strokeStyle='#e8b48a';g.lineWidth=1;g.beginPath();for(let i=-11;i<=11;i+=4){g.moveTo(i,-2);g.lineTo(i+2,1);}g.stroke();
  round(g,-9,-22,18,5,2,'#8a4a2e','#2a140a',1.4);round(g,-7,15,14,5,2,'#6a3420','#2a140a',1.2);g.restore();};
 
-// ---------- Göttliche Gunst: a ring of light (each picture) that shatters with a clink ----------
-// ASTRA: gunst-aurenkreis – schimmernder Aurenkreis der Göttlichen Gunst um eine Plakette, 300 × 360
+// ---------- Segen: a ring of light (each picture) that shatters with a clink ----------
+// ASTRA: gunst-aurenkreis – schimmernder Aurenkreis des Segens um eine Plakette, 300 × 360
 const auraRing=()=>R.sprite('gunst',-80,-96,160,192,g=>{g.shadowColor='#ffe27a';g.shadowBlur=16;ellipse(g,0,0,64,80,null,'#fff2b8',3.2);g.shadowBlur=0;
  ellipse(g,0,0,60,76,null,'#ffffffaa',1.2);const gr=g.createRadialGradient(0,0,40,0,0,82);gr.addColorStop(0,'#fff6c000');gr.addColorStop(.85,'#ffe9a022');gr.addColorStop(1,'#ffe9a000');g.fillStyle=gr;g.fillRect(-80,-96,160,192);});
 const glintDot=()=>R.sprite('gunstglint',-16,-16,32,32,g=>{const gr=g.createRadialGradient(0,0,0,0,0,16);gr.addColorStop(0,'#ffffff');gr.addColorStop(.3,'#fff3b8cc');gr.addColorStop(1,'#fff3b800');g.fillStyle=gr;g.fillRect(-16,-16,32,32);});

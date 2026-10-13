@@ -31,10 +31,10 @@ D_.redeem={render:vm=>{const s=vm.state;return V.modal({width:760,body:html`<h2>
 const RULES=[['1 · Karte ausspielen','Karte antippen, dann „Ausspielen“ oder ein gültiges Ziel wählen. Karten folgen Deinem Finger. Ziehe sie an die gewünschte Position auf Deiner Spielfeldhälfte. In der Hand kannst Du sie umsortieren; außerhalb des Felds springen sie zurück.'],
  ['2 · Angreifen','Grün leuchtenden Diener oder bewaffneten Helden antippen und Gegner wählen. Ziehen zeigt einen Zielpfeil.'],
  ['3 · Heldenfähigkeit','Das runde Symbol neben Deinem Helden ist einmal pro Zug nutzbar. '+CHD.heroes.filter(h=>h.cost!==2).map(h=>h.name+' kostet '+h.cost+' Mana').join(', ')+', alle anderen 2.'],
- ['4 · Karten ansehen','Eine Karte, einen Diener oder die Heldenfähigkeit lange drücken. Friedhöfe zeigen bereits abgelegte Karten.'],
- ['Schildwall & Göttliche Gunst','Angriffe müssen zuerst Diener mit Schildwall treffen; Zauber umgehen ihn. Göttliche Gunst fängt den nächsten Schaden ab.'],
+ ['4 · Karten ansehen','Eine Karte, einen Diener oder die Heldenfähigkeit lange drücken. Friedhöfe zeigen bereits abgelegte Karten. Die Großansicht erklärt jedes Schlüsselwort – auch, warum Zauber so heißen – und erzählt aus der Chronik.'],
+ ['Schildwall & Segen','Angriffe müssen zuerst Diener mit Schildwall treffen; Zauber umgehen ihn. Segen fängt den nächsten Schaden ab.'],
  ['Einmarsch & Vermächtnis','Einmarsch wirkt beim Ausspielen aus der Hand, Vermächtnis nach dem Tod. Sturmangriff: sofort angreifen. Vorstoß: sofort angreifen, im ersten Zug nur Diener.'],
- ['Starre & Doppelschlag','Ein Diener in Starre verpasst seinen nächsten Angriff (❄). Doppelschlag: zwei Angriffe pro Zug. Arkaner Fokus +X: Eure Zauber verursachen X mehr Schaden.'],
+ ['Starre & Doppelschlag','Ein Diener in Starre verpasst seinen nächsten Angriff (❄). Doppelschlag: zwei Angriffe pro Zug. Weisheit +X: Eure Zauber verursachen X mehr Schaden.'],
  ['Ergründen & Bauwerke','Ergründen: Wähle eine von drei Karten auf die Hand. Bauwerke belegen einen Platz, greifen nie an und haben Haltbarkeit; Flächenschaden und Heilung wirken nicht.'],
  ['Mana & Grenzen','Jeder eigene Zug erhöht maximales Mana bis 10. Höchstens 7 Diener, 10 Handkarten. Ein leeres Deck verursacht steigenden Erschöpfungsschaden.'],
  ['Waffen & Fortschritt','Waffen verlieren pro Heldenangriff 1 Haltbarkeit. Siege geben 40 Gold. Niederlagen nach 4 eigenen Zügen geben 10 Gold; Aufgeben gibt keines.']];
@@ -52,7 +52,7 @@ D_.lore={render:vm=>{const {hero:h,page:l,school,favorites}=vm.state;
 // Card zoom in the match: read-only; a tap beside the card closes it.
 D_.zoom={render:vm=>{const c=vm.state.card,type=c.building?'Bauwerk':c.type==='minion'?'Diener':c.effect?.type==='weapon'?'Zauber · Waffe':'Zauber';
  return html`<div class="scrim card-zoom-scrim" data-scrim><div class="modal panel card-zoom" role="dialog" aria-modal="true" aria-labelledby="zoom-title" style="width:1120px">${
-  V.button({label:'×',cmd:'close',extra:'close',aria:'Großansicht schließen'})}<div class="card-detail zoom-detail"><div class="zoom-art"><img src="${R.artwork(c.id)}" alt="${c.name} – vollständiges Kartenmotiv" draggable="false"><span class="zoom-cost">${c.cost}</span></div><div class="details"><div class="eyebrow">${vm.state.era} · ${D.rarities[c.rarity]}</div><h2 id="zoom-title">${c.name}</h2><div class="zoom-type">${type} · ${c.cost} Mana</div><p class="zoom-text">${c.text||'Ein Diener ohne zusätzliche Fähigkeit.'}</p>${V.glossary(c.text)}${
+  V.button({label:'×',cmd:'close',extra:'close',aria:'Großansicht schließen'})}<div class="card-detail zoom-detail"><div class="zoom-art"><img src="${R.artwork(c.id)}" alt="${c.name} – vollständiges Kartenmotiv" draggable="false"><span class="zoom-cost">${c.cost}</span></div><div class="details"><div class="eyebrow">${vm.state.era} · ${D.rarities[c.rarity]}</div><h2 id="zoom-title">${c.name}</h2><div class="zoom-type">${type} · ${c.cost} Mana</div><p class="zoom-text">${c.text||'Ein Diener ohne zusätzliche Fähigkeit.'}</p>${V.glossary(c)}${V.chronicle(c)}${
   c.type==='minion'?html`<div class="zoom-stats">${c.building?html`<span>♜ ${c.health} Haltbarkeit</span>`:html`<span>⚔ ${c.attack} Angriff</span><span>♥ ${c.health} Leben</span>`}</div>`:''}<p class="zoom-hint">Zum Schließen außerhalb der Karte tippen.</p></div></div></div></div>`;}};
 
 // AP 3.8: the starting orders are laid out as scrolls that unroll one after another; replaced ones carry a red wax seal

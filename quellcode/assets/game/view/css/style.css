@@ -14,10 +14,10 @@
 .zoom-detail .eyebrow{font-size:16px;line-height:1.6;letter-spacing:2px;padding-right:20px}
 .zoom-detail h2{font-size:36px;line-height:1.2;margin:12px 0 16px}
 .zoom-type{font-size:21px;color:#e7c687;border-top:1px solid #8f7249;padding-top:16px}
-.zoom-detail .zoom-text{font-size:27px;line-height:1.5;color:#f2e6ce;margin:22px 0;overflow-wrap:break-word}
+.zoom-detail .zoom-text{font-size:27px;line-height:1.5;color:#f2e6ce;margin:16px 0;overflow-wrap:break-word}
 .zoom-stats{display:flex;gap:14px;flex-wrap:wrap;font-size:22px;color:#f4dfac}
 .zoom-stats span{padding:8px 13px;background:#11191b80;border:1px solid #746148;border-radius:7px}
-.zoom-detail .zoom-hint{font-size:17px;color:#bdb39f;line-height:1.5;margin-top:27px}
+.zoom-detail .zoom-hint{font-size:17px;color:#bdb39f;line-height:1.5;margin-top:20px}
 
 /* The left drawer opens immediately beside the inset resource pillar. */
 .chronicle-scrim{display:block;background:#0c151a38;backdrop-filter:none}

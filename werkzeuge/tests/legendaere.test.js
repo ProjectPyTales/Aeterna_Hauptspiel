@@ -32,10 +32,10 @@ test('Gorgo: ein Hoplit je feindlichem Diener, Schildwall-Diener haben +1 Angrif
  gorgo.health=0;E.settle(s);assert.equal(guard.attack,2,'Aura endet mit ihrem Tod');
 });
 
-test('Theon: Arkaner Fokus +1 und Wiederholung mit zufälligem Ziel (Zufall der Engine, reproduzierbar)',()=>{
+test('Theon: Weisheit +1 und Wiederholung mit zufälligem Ziel (Zufall der Engine, reproduzierbar)',()=>{
  const s=ready('hypatia','khan');play(s,'hypatia_9');play(s,'hypatia_3');
  const foe=E.summon(s,1,'neutral_9');end(s);
- assert.equal(foe.health,3,'Sternenregen am Zugende erneut: 2 + 1 Fokus');
+ assert.equal(foe.health,3,'Sternkatalog am Zugende erneut: 2 + 1 Weisheit');
 });
 
 test('Djoser: Einmarsch errichtet die Stufenpyramide (Bauwerk, Haltbarkeit 8)',()=>{
@@ -75,7 +75,7 @@ test('Caterina: am Zugende eine Karte, 2 billiger, und 1 Schaden am eigenen Held
  assert.equal(E.cost(s,0,h),Math.max(0,D.byId[h.id].cost-2));
 });
 
-test('Jutta von Sponheim (bis 1.14.0 La Hire): Novizinnen +1/+1 mit Göttlicher Gunst, die Heldenfähigkeit ruft zwei',()=>{
+test('Jutta von Sponheim (bis 1.14.0 La Hire): Novizinnen +1/+1 mit Segen, die Heldenfähigkeit ruft zwei',()=>{
  const s=ready('jeanne','khan');const old=E.summon(s,0,'novice');play(s,'jeanne_9');
  assert.deepEqual([old.attack,old.health,old.shield],[2,2,true]);
  act(s,{type:'power'});

@@ -59,10 +59,10 @@ test('Bannung: Fähigkeiten, Segnungen und Auren weg, Werte auf Kartenwert, Verm
  end(s3);play(s3,'nostradamus_10',{target:pyr.uid});end(s3);const minion=s3.players[0].board.find(u=>u.id==='imhotep_9');assert.equal(minion.attack,4,'Pyramide wirkt nicht mehr');
 });
 
-test('Tödliches Gift: vernichtet beschädigte Diener, nicht Helden, Bauwerke oder Göttliche Gunst',()=>{
+test('Tödliches Gift: vernichtet beschädigte Diener, nicht Helden, Bauwerke oder Segen',()=>{
  const s=ready('imhotep','leonidas');const cobra=play(s,id('Kobra des Nils'));cobra.ready=true;
- const big=E.summon(s,1,'neutral_36');// Burgbesatzung 7/9, Göttliche Gunst
- act(s,{type:'attack',uid:cobra.uid,target:big.uid});assert.ok(s.players[1].board.includes(big),'Gunst fängt ab');
+ const big=E.summon(s,1,'neutral_36');// Burgbesatzung 7/9, Segen
+ act(s,{type:'attack',uid:cobra.uid,target:big.uid});assert.ok(s.players[1].board.includes(big),'Segen fängt ab');
  assert.equal(s.players[0].board.length,0,'Kobra fällt');
  const s2=ready('imhotep','leonidas');const c2=play(s2,id('Kobra des Nils'));c2.ready=true;const v=E.summon(s2,1,'neutral_9');
  act(s2,{type:'attack',uid:c2.uid,target:v.uid});assert.equal(s2.players[1].board.length,0);

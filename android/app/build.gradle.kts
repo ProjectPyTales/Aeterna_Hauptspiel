@@ -16,8 +16,8 @@ android {
         applicationId = "de.chroniken.helden.layout"
         minSdk = 28
         targetSdk = 36
-        versionCode = 26
-        versionName = "1.23.0"
+        versionCode = 27
+        versionName = "1.24.0"
     }
 
     signingConfigs {

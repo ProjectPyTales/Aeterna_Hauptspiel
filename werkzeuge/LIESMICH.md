@@ -1,7 +1,22 @@
-# Aeterna 1.23.0 – Bauen & Prüfen
+# Aeterna 1.24.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.24.0 (AP L.6 Teil 1: Karten und Schlüsselwörter nah an der Geschichte, Entscheidung 21)
+
+- **Namen nach den vorhandenen Bildern** (`model/data.js`, nur Namen und Texte – ein Vergleich aller übrigen Kartenfelder gegen
+  1.23.0 zeigt null Regeländerungen): elf Karten neu benannt, Ordensritter und Grabwächter als Platzhalter (`newMotif`), Adler der
+  Berge und Mercators Atlas mit ungenutzten alten Atlasfeldern (`oldArt`: `khan` 10, `neutral3` 10).
+- **Schlüsselwörter:** Göttliche Gunst → Segen, Arkaner Fokus → Weisheit (Engine-Felder `shield`/`focus` bleiben); das Glossar hat
+  einen Eintrag „Zauber“ (Glaube der Zeit). `CHD.glossaryOf(karte)` liefert die Schlüsselwörter einer Karte und bei Zaubern „Zauber“,
+  `V.glossary` nimmt jetzt die Karte statt des Texts.
+- **Aus der Chronik:** `AELORE.cards`/`AELORE.card(id)` (`model/lore.js`), angezeigt von `V.chronicle` (`view/kit.js`,
+  `.chronicle-line` in `kit.css`) in der Großansicht und den Kartendetails der Sammlung; 16 Zeilen.
+- **`astra_bilder.py`:** `KEEP_OLD` (39 geprüfte alte Bilder, Status `altes Bild`) und `UNUSED` (`stoneguard`, Status `unbenutzt`)
+  gehen nicht mehr in `ASTRA_AUFTRAG.md` (205 → 165 offene Motive); die Atlanten bleiben Byte für Byte gleich.
+- Tests: neu `tests/geschichte.test.js`, angepasst `astra.test.js`, `schluesselwoerter.test.js` und Texte weiterer Tests.
+  Version 1.24.0 / versionCode 27.
 
 ## Neu in 1.23.0 (AP L.5 Heldenfähigkeiten aus der Geschichte, Rückmeldung zu 1.22.0)
 

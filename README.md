@@ -2,7 +2,11 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.23.0** (Heldenfähigkeiten aus der Geschichte nach AP L.5: **Hypatia unterrichtet** und ruft Schüler
+Aktueller Stand im Code: **Version 1.24.0** (Karten und Schlüsselwörter nah an der Geschichte nach AP L.6 Teil 1: elf neue Namen, die
+dem vorhandenen Bild folgen – etwa **Brennspiegel des Archimedes**, **Erdmessung des Eratosthenes**, **Brot und Bier** –, **Segen** statt
+Göttlicher Gunst, **Weisheit** statt Arkanem Fokus, „Zauber“ als Glaube der Zeit erklärt; eine Zeile **„Aus der Chronik“** mit Quelle für
+16 Karten; kein einziges neues Bild, der Astra-Auftrag schrumpft von 205 auf 165 Motive);
+davor 1.23.0 (Heldenfähigkeiten aus der Geschichte nach AP L.5: **Hypatia unterrichtet** und ruft Schüler
 herbei, **Imhotep baut** als Baumeister des Djoser, **Vercingetorix verbrennt das Land** – „Kein Korn für Caesar“;
 neue Namen für Nezahualcóyotl, Thusnelda und die Fürstin von Vix; in der Heldenwahl steht unter jeder Fähigkeit die Tat mit
 Quelle; nach Deiner Rückmeldung schließt die Steintür als runde Flügeltür und die Leuchtrahmen folgen dem gemalten Kartenrahmen);
@@ -121,9 +125,9 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | Pfad | Schicht | Inhalt |
 |---|---|---|
 | `core/mvvm.js` | Kern | Kleiner eigener Binder (`AEM`, ~5 KB, offline): beobachtbare ViewModels, DOM-Abgleich statt `innerHTML`-Neuaufbau, Befehle über `data-cmd`, maskierendes `html`-Template |
-| `model/data.js` | Model | 22 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel), Zeitalter (`age`, Liste `CHD.ages` mit Farbe und Zeichen, seit 1.14.0 sechs Epochen nach dem Lehrplan; `CHD.replaced` nennt die elf in AP L.1 ersetzten Helden) und KI-Persönlichkeit (`ai`, `CHD.personalities`), 350 Karten (davon 42 Zeitalterkarten), Spielsteine (Tokens), 22 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf, `CHD.owner`/`CHD.eraOf` nennen Held, Zeitalter oder „Neutral“ |
+| `model/data.js` | Model | 22 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel), Zeitalter (`age`, Liste `CHD.ages` mit Farbe und Zeichen, seit 1.14.0 sechs Epochen nach dem Lehrplan; `CHD.replaced` nennt die elf in AP L.1 ersetzten Helden) und KI-Persönlichkeit (`ai`, `CHD.personalities`), 350 Karten (davon 42 Zeitalterkarten), Spielsteine (Tokens), 22 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf, `CHD.owner`/`CHD.eraOf` nennen Held, Zeitalter oder „Neutral“; seit 1.24.0 `CHD.glossaryOf(karte)` – Schlüsselwörter einer Karte, bei Zaubern auch das Wort „Zauber“ |
 | `model/bilder.js` | Model | Seit 1.21.0 (AP A.1): gemalte Astra-Bilder je Karte, Spielstein und Held → Atlas und Feld (`CHB`), erzeugt von `werkzeuge/astra_bilder.py`, vor `data.js` geladen; `data.js` legt sie über alte Atlasfelder und Platzhalter |
-| `model/lore.js` | Model | Chronik der Helden (AP 5.9, 22 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`); seit 1.14.0 die Tabelle `curriculum` mit Klassenstufe und Lernbereich je Held (AP L.1), seit 1.23.0 `deeds` – die Tat hinter jeder Heldenfähigkeit mit Quelle (AP L.5) |
+| `model/lore.js` | Model | Chronik der Helden (AP 5.9, 22 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`); seit 1.14.0 die Tabelle `curriculum` mit Klassenstufe und Lernbereich je Held (AP L.1), seit 1.23.0 `deeds` – die Tat hinter jeder Heldenfähigkeit mit Quelle (AP L.5), seit 1.24.0 `cards` – „Aus der Chronik“, ein belegter Satz mit Quelle je Karte (AP L.6 Teil 2, `AELORE.card(id)`) |
 | `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs (auch mehrere auf einmal, `openPacks`), Codes (`codes`, `redeem`), Aufgaben, Import-Prüfung (`CHP`) |
 | `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`); seit 1.16.0 sind Schlachtfelder die Tische unter den Epochenhälften, Tische ohne `image` Platzhalter mit CSS-Farbfilter `tint`, alte Felder werden über `refund` erstattet; seit 1.18.0 Kartenrahmen `frames` (Tempeltor, Goldene Karten, ausgerüstet in `equipped.frame`) |
@@ -175,9 +179,9 @@ mit echten MIME-Typen (u. a. `.webp .jpg .svg .woff2 .mp3`, Liste in `AssetClien
 **Bereits vorhandene Spielmechanik** (damit nichts doppelt gebaut wird): Mana 1 → 10,
 Startkarten-Tausch, Münze für den zweiten Spieler („Gunst der Stunde“, 0 Mana, +2 Mana in diesem Zug),
 Handlimit 10 mit Verbrennen, steigende Erschöpfung bei leerem Deck, Aufmarsch-Verzögerung,
-höchstens 7 Diener pro Seite, kein Zugtimer, Schildwall, Göttliche Gunst, Einmarsch, Vermächtnis,
+höchstens 7 Diener pro Seite, kein Zugtimer, Schildwall, Segen (bis 1.23.0 Göttliche Gunst), Einmarsch, Vermächtnis,
 Sturmangriff, Waffen, Rüstung, Runensteine (Engine-IDs `totem_*`), KI-Gegner. Seit 1.7.0 außerdem Vorstoß, Starre, Ergründen (offene Wahl
-`s.choice`, Aktion `choose`), Doppelschlag, Arkaner Fokus, Bauwerke (`building`), Auren, Kostenänderungen je Handkarte
+`s.choice`, Aktion `choose`), Doppelschlag, Weisheit (bis 1.23.0 Arkaner Fokus), Bauwerke (`building`), Auren, Kostenänderungen je Handkarte
 (`E.cost`) und Übernahme feindlicher Diener. Seit 1.8.0 Plünderung (`plunder`), Tarnung (`stealth`), Bannung (Effekt
 `silence`, Feld `silenced`), Tödliches Gift (`poison`) und Belastung (`overload`, gesperrte Kristalle `locked`).
 Seit 1.9.0 (AP 5.10) **Heldenfähigkeiten als Daten** (`hero.ability`: dieselben Effekte wie Karten; Bedingungen wie Platz
@@ -206,7 +210,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
@@ -640,21 +644,86 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
   | Vauban | Festungsbau | Ruft einen Schanzkorb (1/2, Schildwall). |
   | Fürstin von Vix | Opfergabe | Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand. |
 
-**AP L.6 – Karten, Schlüsselwörter und Chronik nah an der Geschichte (L)** – *neu (Wunsch vom 12. 10. 2026: halb Spaß, halb Lernen), offen*
+**AP L.6 – Karten, Schlüsselwörter und Chronik nah an der Geschichte (L)** – *Teil 1 ✓ in 1.24.0 (Entscheidung 21), Teil 2 begonnen (16 Chronikzeilen)*
 
 Was AP L.5 für die Heldenfähigkeiten tut, gilt für alle 350 Karten und Spielsteine: Name, Wirkung und Bild sollen an etwas
 Belegtes anknüpfen. AP L.2 hat Namen nach Lebenswelt vergeben, aber die Wirkungen und die Karten der elf gebliebenen
 Helden nicht geprüft.
-- [ ] **Fantasy-Reste** finden und ersetzen, z. B. Hypatias Himmelsstrahl, Sternenregen, Sonnenfokus und Sternenorakel,
+- [x] **Fantasy-Reste** finden und ersetzen, z. B. Hypatias Himmelsstrahl, Sternenregen, Sonnenfokus und Sternenorakel,
   Imhotep mit Urteil der Sonne und Sonnensegen – als Prüftabelle wie in AP L.5 (Karte, Bezug, Urteil, Vorschlag),
-  Entscheidung bei Dir, Wirkungen nur mit Balance-Lauf.
-- [ ] **Schlüsselwörter** prüfen: „Arkaner Fokus“ und „Göttliche Gunst“ klingen nach Magie – historische Namen vorschlagen
-  (etwa Gelehrsamkeit, Schutz der Heiligen), Entscheidung bei Dir (vgl. Entscheidung 4).
+  Entscheidung bei Dir, Wirkungen nur mit Balance-Lauf. *✓ in 1.24.0: Prüftabelle unten, alle Vorschläge umgesetzt – elf neue
+  Namen, die dem vorhandenen Bild folgen, Platzhalter für Ordensritter und Grabwächter, zwei ungenutzte alte Bilder (Steinadler,
+  Buch mit Erdkugel). Wirkungen unverändert: Ein Vergleich aller Kartenfelder außer Name, Text und Bild gegen 1.23.0 zeigt null
+  Regeländerungen – deshalb kein voller Balance-Lauf (der verkürzte läuft in der CI).*
+- [x] **Schlüsselwörter** prüfen: „Arkaner Fokus“ und „Göttliche Gunst“ klingen nach Magie – historische Namen vorschlagen
+  (etwa Gelehrsamkeit, Schutz der Heiligen), Entscheidung bei Dir (vgl. Entscheidung 4). *✓ in 1.24.0 nach Deiner Entscheidung:
+  **Segen** (Glossar: „Um Segen baten Menschen in jeder Epoche …“), **Weisheit** (Dein Vorschlag – „Gelehrsamkeit“ war zu schwer),
+  **„Zauber“ bleibt** und wird als Glaube der Zeit erklärt: unter jedem Zauber in der Großansicht und in den Kartendetails
+  (Amulette in Ägypten, Fluchtafeln in Rom, Merseburger Zaubersprüche), die Hilfe sagt, wo. Der Lichtkreis des Segens und alle
+  Effekte bleiben, Engine-Felder (`shield`, `focus`) und Spielstände ebenso.*
 - [ ] **Ein Satz Geschichte je Karte:** In der Großansicht eine Zeile „Aus der Chronik“ mit einer belegten Tatsache und
   Quelle (z. B. Lange Mauern: „Sie verbanden Athen mit dem Hafen Piräus, 6 km.“) – das Lernen steckt dann in jeder Karte.
+  *Begonnen in 1.24.0: Anzeige in Großansicht und Kartendetails (`V.chronicle`, Daten `AELORE.cards`), 16 Zeilen für die
+  geprüften Karten – darunter die drei Sagen und Unsicherheiten (Brennspiegel „wohl eine Legende“, Trojanisches Pferd „Sage“,
+  Hängende Gärten „unsicher“) und Marco Polo, der erst nach Dandolo lebte. Offen: die übrigen 334 Karten.*
 - [ ] Chronikseiten aller 22 Helden gegenlesen: Zitate mit Quelle, Unsicheres als unsicher markiert, Spielstil-Text passend
   zur (neuen) Fähigkeit.
 - Abnahme: Test, der jeder Karte eine Chronikzeile abverlangt; keine Fantasy-Wörter mehr in Namen und Texten (Liste im Test).
+
+  **Prüftabelle Teil 1 (Sitzung 20, Stand 1.23.0) – entschieden (Entscheidung 21), umgesetzt in 1.24.0.** Geprüft: alle 350 Kartennamen und -texte, 28 Spielsteine
+  und alle 212 Bilder im Spiel (167 von Astra, 45 alte). Maßstab nach Deiner Rückmeldung zu 1.23.0: **Der neue Name richtet sich nach
+  dem Bild, das schon im Spiel ist** – kein neues Astra-Bild; Wirkungen bleiben (kein Balance-Lauf nötig). Fett = Vorschlag.
+
+  *A. Fantasy-Reste – Astras Bild bleibt, der Name folgt dem Bild*
+
+  | Karte (Wirkung) | Bild heute | Urteil | Vorschlag (Bezug, Quelle) |
+  |---|---|---|---|
+  | Himmelsstrahl (Hypatia, 2: 3 Schaden) | Sonnenstrahl fällt auf eine Armillarsphäre, Pharos dahinter | *Name ändern* – ein Strahl vom Himmel ist Zauberei | **Erdmessung des Eratosthenes** – der Leiter der Bibliothek bestimmte um 240 v. Chr. aus dem Schatten der Mittagssonne in Alexandria (1/50 Kreis) und Syene (5 000 Stadien entfernt) den Erdumfang: 250 000 Stadien (Kleomedes, Himmelslehre I 7) |
+  | Sternenregen (Hypatia, 4: 2 Schaden an allen feindlichen Dienern) | Sternschnuppen über Alexandria, zwei Männer beobachten und schreiben mit | *Name ändern* – Sterne fallen nicht auf Feinde | **Sternkatalog des Hipparchos** – Hipparchos sah einen neuen Stern und verzeichnete daraufhin die Fixsterne, damit Spätere Veränderungen am Himmel erkennen (Plinius, Naturgeschichte II 95); Ptolemaios übernahm den Katalog |
+  | Astrolabienwächter (Hypatia, 3: 3/3 Göttliche Gunst) | Mann trägt ein Astrolab durch eine Säulenhalle am Hafen | *Name ändern* – einen „Wächter“ des Astrolabs gab es nicht | **Synesios von Kyrene** – Hypatias Schüler, später Bischof von Ptolemais (daher die Gunst); ließ ein silbernes Astrolab bauen und nennt Hypatia dabei seine „verehrteste Lehrerin“ (Synesios, Über das Astrolab; seine Briefe an Hypatia) |
+  | Sonnenfokus (Hypatia, 6: 7 Schaden) | Bronzespiegel bündelt Sonnenlicht | *Name ändern* – das Bild zeigt schon den Brennspiegel | **Brennspiegel des Archimedes** – Archimedes soll 212 v. Chr. römische Schiffe vor Syrakus mit Spiegeln entzündet haben; das erzählen erst Zonaras (IX 4) und Tzetzes (Chiliaden II 35) im 12. Jh., Polybios schweigt – **wohl eine Legende**, und so erzählt es die Karte |
+  | Sternenorakel (Hypatia, 5: 4/7, am Zugende 1 Schaden am Helden) | Gelehrter unter dem Sternenhimmel mit Armillarsphäre | *Name ändern* – ein Orakel aus den Sternen ist Sterndeutung | **Klaudios Ptolemaios** – schrieb um 150 n. Chr. in Alexandria den Almagest mit über 1 000 Sternen; Theon kommentierte ihn, und laut Theons Vermerk sah Hypatia die Ausgabe des dritten Buchs durch |
+  | Sonnensegen (Imhotep, 2: ein Diener +2/+2) | Opfertisch mit Broten, Krug und Lotos vor der Stufenpyramide | *Name ändern* – die Sonne segnet nicht | **Brot und Bier** – Lohn und Speise der Arbeiter im Alten Reich; in der Arbeiterstadt von Gizeh fand man Großbäckereien (Ausgrabungen von Mark Lehner); „Brot und Bier“ steht auch in jeder Opferformel |
+  | Urteil der Sonne (Imhotep, 5: 5 Schaden, 5 Leben) | Gericht: Beamter mit Schriftrolle, Bittsteller knien | *Name ändern* – die Sonne richtet nicht | **Urteil nach der Maat** – Maat heißt Wahrheit, Recht und Ordnung; „Groß ist die Maat, dauernd ihre Wirkung“ (Lehre des Ptahhotep, Altes Reich). Schaden und Heilung gleich groß: das Gleichgewicht |
+
+  *B. Passt nicht in die Zeit – Astras Bild bleibt*
+
+  | Karte | Bild heute | Urteil | Vorschlag |
+  |---|---|---|---|
+  | Maskierte Wache (Dandolo, 3/3 Schildwall) | Wache mit Kapuze und Laterne am Kanal, ohne Maske | *Name ändern* – Masken sind in Venedig erst ab 1268 belegt (Dandolo †1205), das Bild zeigt auch keine | **Nachtwache am Kanal** |
+  | Agent des Zehnerrats (Dandolo, 4/3 Tarnung) | Vermummter mit Dolch in einer Hafengasse | *Name ändern* – den Rat der Zehn gab es erst ab 1310 | **Spitzel im Venezianerviertel** – Venedigs Kaufleute hatten seit 1082 ein eigenes Viertel in Konstantinopel (Chrysobull des Alexios I.); 1171 ließ Kaiser Manuel I. alle Venezianer im Reich festnehmen (Niketas Choniates) |
+  | Marco Polo, der Weltenfahrer (Dandolo, Legendär) | Reisender mit Kamel am Hafen | *passt mit Hinweis* – geboren 1254, nach Dandolo; aber Vater und Onkel handelten um 1260 im lateinischen Konstantinopel, das Dandolos Kreuzzug geschaffen hatte (Marco Polo, Il Milione, Prolog) | bleibt – die Chronikzeile (Teil 2) sagt es |
+
+  *C. Alte Bilder (nicht von Astra) mit Fantasy-Motiv – nur vorhandene Bilder*
+
+  | Karte | Bild heute | Urteil | Vorschlag |
+  |---|---|---|---|
+  | Ordensritter (neutral) | Gestalt aus glühenden Kristallen | *Bild weg* | Name bleibt; bis Astra liefert der **Platzhalter** – das Motiv steht schon im Auftrag (weißer Waffenrock mit Kreuz), also kein zusätzliches Bild |
+  | Grabwächter (neutral) | wandelndes Skelett mit Pharaonenkopftuch | *Bild weg* – Untote gibt es nicht | ebenso **Platzhalter**, Motiv schon im Auftrag (lebender Wächter mit Lampe) |
+  | Vergessene Weisheit (neutral, 4: Ergründet zwei Karten, 3 Rüstung) | Schriftrolle mit schwebenden Lichtringen | *Bild und Name ändern* | ungenutztes altes Bild „goldenes Buch mit Erdkugel“ (`neutral3`, Feld 10) als **Mercators Atlas** – Gerhard Mercator nannte in Duisburg als Erster eine Kartensammlung „Atlas“ (erschienen 1595); „Ergründet zwei Karten“ wird zum Wortspiel. Fällt aus dem Astra-Auftrag |
+  | Adler der Berge (neutral) | Weißkopfseeadler – lebt nur in Nordamerika | *Bild tauschen* | ungenutztes altes Bild eines **Steinadlers** (`khan`, Feld 10), Name bleibt. Fällt aus dem Auftrag |
+  | Geheimes Rezeptbuch (Böttger) | Sternkarte mit Sonnengesicht und Mondphasen (Rest von Nostradamus) | *Name ändern* – dann passt das Bild | **Rezept des Goldmachers** – Böttger gab 1701 in Berlin vor, Gold machen zu können, und floh nach Sachsen; für die Alchemisten stand die Sonne für Gold, der Mond für Silber. Fällt aus dem Auftrag |
+
+  *D. Schlüsselwörter und Kartentyp (nur Wörter; die gezeichneten Effekte bleiben)*
+
+  | Heute | Wo | Urteil | Vorschlag |
+  |---|---|---|---|
+  | Göttliche Gunst | 24 Karten, Spielstein, Missionen, Hilfe | *ändern* – nennt eine Tat der Götter, also Magie | **Segen** – ein Ritual, das Menschen in jeder Epoche vollzogen (Opfer vor der Schlacht, Schwertsegen, Segen der Äbtissin); der Lichtkreis passt weiter. *Alternative:* „Parade“ (weltlich, passt aber nicht zu Nonnen und Pilgern) |
+  | Arkaner Fokus | Theon, Astronomin des Museions, Leuchtturm von Pharos | *ändern* – „arkan“ heißt geheim, magisch | **Gelehrsamkeit** – alle drei stehen für Wissen. *Alternative:* „Wissen“. *Entschieden: **Weisheit*** (Gelehrsamkeit war zu schwer) |
+  | Kartentyp „Zauber“ | Großansicht, Glossar, Hilfe, 6 Kartentexte | *ändern* – Zauberei, dazu der deutsche Hearthstone-Begriff | **Ereignis** – Pest von Athen, Scherbengericht, Varusschlacht: die meisten „Zauber“ sind Ereignisse; Waffen heißen in der Großansicht nur „Waffe“. *Entschieden: **„Zauber“ bleibt*** – an Zauber glaubten die Menschen wirklich; Glossar und Hilfe erklären es |
+
+  *E. Astra-Auftrag verkleinern (Deine Rückmeldung: möglichst keine neuen Bilder)*
+
+  | Was | Vorschlag |
+  |---|---|
+  | 36 alte Bilder, die nichts Falsches zeigen: 30 neutrale (Dorfwache bis Zenobia), Pfeilschuss, Apothekerlehrling, Sternenkundiger, Spielsteine Rekrut, Krieger, Gunst der Stunde | **behalten** und aus `ASTRA_AUFTRAG.md` nehmen (Status „altes Bild bleibt“); mit C und dem nie gerufenen Spielstein „Pyramidenwächter“ wird der Auftrag **205 → 165 Bilder** kleiner |
+  | bleiben im Auftrag, weil das alte Bild nicht stimmt | Feldheilerin (rotes Kreuz erst seit 1863), Wachhund (Deutscher Schäferhund erst seit 1899), Bibliothekslehrling (prunkvolle Bibliothek, die es um 400 nicht mehr gab), Ordensritter, Grabwächter |
+
+  *Geprüft und passend* (Auswahl): Orakel von Delphi (die Einrichtung ist belegt), Eid der Arkanisten (so hießen in Meißen die
+  Eingeweihten), Seherin der Fürstin von Vix (Vogelschau), Grünkraft (Hildegards *viriditas*), Donnernde Legion (*Legio XII
+  Fulminata*), Goldener Skarabäus (Schutzamulett); Trojanisches Pferd und Hängende Gärten bleiben, die Chronikzeile (Teil 2) nennt sie
+  Sage bzw. unsicher. Missionsgegner ohne Vorbild (Der Zensor, Hüter der Grabkammer, Der Maskendoge) sind ein Punkt für später.
+  Hypatias Schüler bekommt den Fokus nicht zurück – das Stapeln war eine Regelfrage, kein Namensproblem.
 
 **AP A.1 – Astra-Bilder einbauen: Karten, Spielsteine, Helden, Skins, Tische (M)** – *✓ in 1.21.0*
 
@@ -716,8 +785,13 @@ fehlt (`CHS.ui`, `R.pic`), und trägt statt `ASTRA:` den Vermerk `Astra-Bild (AP
 - Abnahme: Klickpfad mit neuen Referenzbildern, Test `astra.test.js` (jedes Oberflächenbild liegt bereit, Rahmen haben ein
   Bildfenster), `MOTIVE.md` ohne die ersetzten Kennungen (70 → 48). *✓* Auf dem Handy ansehen: Karten, Rücken, Match, Menü, Icon.
 
-**AP A.3 – Restliche Motive bei Astra (Du, fortlaufend)**
-- [ ] Die 212 offenen IDs aus `ASTRA_AUFTRAG.md` (seit Entscheidung 19 mit `hypatia_0` und `hypatia_2`) in kleinen Paketen (10–12 Bilder je ZIP) bestellen; jede Lieferung als neuer
+**AP A.3 – Restliche Motive bei Astra (Du, erst wenn das Spiel fertig gebaut ist)**
+
+*Dein Hinweis vom 13. 10. 2026:* Erst wird das Spiel komplett fertig gebaut, dann kommen die Assets – damit spätere Änderungen
+keine Bilder mehr verwerfen. Bis dahin: neue Karten und Grafiken als gekennzeichnete Platzhalter (AP 5.12, AP L.4), und jede
+Namensänderung richtet sich nach einem vorhandenen Bild (wie in AP L.6).
+- [ ] Die 165 offenen IDs aus `ASTRA_AUFTRAG.md` (seit 1.24.0 ohne die 39 alten Bilder, die bleiben, und ohne den nie gerufenen
+  Spielstein `stoneguard`; vorher 205) plus sechs aus Teil 4 in kleinen Paketen (10–12 Bilder je ZIP) bestellen; jede Lieferung als neuer
   Ordner in `neue_astra_assets/`, dann baut eine Sitzung sie ein (oft ohne Code: nur Werkzeug, Tests, Referenzbilder).
 - [ ] Teil 4 vollständig wiederfinden (sechs Bilder) und `fabius_0` korrigieren lassen.
 
@@ -2232,7 +2306,9 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
 | Helden nach dem sächsischen Lehrplan, Lebenswelten, eigene Musik, Astra-Platzhalter (Wunsch vom 7. 10. 2026) | AP L.1 ✓ in 1.14.0, AP L.2 ✓ in 1.15.0 (Zeitalterkarten in 1.14.0), AP L.3 ✓ in 1.13.0, AP L.4 ✓ in 1.14.0 |
 | Astra-Assets einbauen, Liste der fehlenden Assets aktualisieren (Wunsch vom 11. 10. 2026) | AP A.1 ✓ in 1.21.0, AP A.2 (Oberfläche), AP A.3 (restliche Motive, `ASTRA_AUFTRAG.md`) |
-| Heldenfähigkeiten passen zu Rolle, Funktion oder Taten des Helden – im Namen und in der Wirkung | AP L.5 |
+| Heldenfähigkeiten passen zu Rolle, Funktion oder Taten des Helden – im Namen und in der Wirkung | AP L.5 – ✓ in 1.23.0 |
+| Halb Spaß, halb Lernen: Karten, Schlüsselwörter und Chronik nah an der Geschichte, möglichst ohne neue Bilder | AP L.6 – Teil 1 ✓ in 1.24.0, Teil 2 begonnen |
+| Erst das Spiel fertig bauen, dann die Assets (Hinweis vom 13. 10. 2026) | Entscheidung 22, AP A.3, [Empfohlene Reihenfolge](#empfohlene-reihenfolge-der-sitzungen) |
 | Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“; Rückmeldung zu 1.11.0 ✓ in 1.12.0: alle Pakete auf einmal, ohne Standbild |
 
 ---
@@ -2289,8 +2365,14 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     für Hypatia (Unterricht), Imhotep (Baumeister des Djoser) und Vercingetorix (Kein Korn für Caesar), neuer Name für
     Nezahualcóyotl (Quellwasser von Chapultepec), Thusnelda (Ruf zu den Waffen) und die Fürstin von Vix (Handel mit
     Massalia); die übrigen 16 passen.
-21. **Schlüsselwörter und Karten nah an der Geschichte** (AP L.6): Welche Fantasy-Namen ersetzt werden, entscheidest Du nach
-    der Prüftabelle in AP L.6.
+21. ~~**Schlüsselwörter und Karten nah an der Geschichte** (AP L.6)~~ – *entschieden (13. 10. 2026), umgesetzt in 1.24.0:* alle
+    Karten-Vorschläge der Prüftabelle (Namen nach den vorhandenen Bildern, Platzhalter für Ordensritter und Grabwächter, zwei alte
+    Bilder wiederverwendet), Göttliche Gunst → **Segen**, Arkaner Fokus → **Weisheit**, **„Zauber“ bleibt** und wird als Glaube der
+    Zeit erklärt; 39 alte Bilder bleiben und fallen aus dem Astra-Auftrag (205 → 165).
+22. **Was gehört zum fertigen Spiel?** (Dein Hinweis vom 13. 10.: erst fertig bauen, dann Assets): Welche offenen Inhalts-Pakete
+    kommen noch vor der großen Astra-Bestellung? Kandidaten mit neuen Bildern: AP 5.6 Hinterhalte (Mechanik und Karten), AP 5.7
+    Erweiterung „Wunder der Welt“ (rund 90 Karten), AP 6.1–6.4 Modi (Draft, Rangliste, Aufgaben, Kampagne 2.0 mit Belagerung und
+    Lunte), AP 3.9 Eck-Dioramen; ohne neue Bilder: AP L.6 Teil 2 (Chronikzeilen), Phase 4 (Klang). Vorschlag unten.
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
@@ -2318,13 +2400,13 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 18 ✓ | AP A.1 | erledigt in 1.21.0 – Astra-Bilder: 22 Heldenporträts, 167 Karten und Spielsteine, Skins, fünf Tische; aktueller Auftrag für Astra |
 | 18b ✓ | AP A.2, Entscheidung 19 | erledigt in 1.22.0 – gemalte Kartenrahmen und -rücken, Match-Elemente, Menüs, Hauptmenü, Hintergründe, App-Icon und Splash |
 | 19 ✓ | Rückmeldung 1.22.0, AP L.5 | erledigt in 1.23.0 – Steintür als Flügeltür, Leuchtrahmen nach dem gemalten Rahmen; Prüftabelle der 22 Heldenfähigkeiten, drei neue Wirkungen und drei neue Namen, Tat mit Quelle in der Heldenwahl, AP L.6 neu |
-| 20 | AP L.6 Teil 1 (Prüftabelle Karten und Schlüsselwörter), Rückmeldung 1.23.0 | Dein Wunsch: halb Spaß, halb Lernen – erst prüfen, dann nach Deiner Entscheidung umbenennen |
-| später | neue Astra-Lieferungen, gemalte Ersatzbilder für die 48 Zeichnungen | sobald Astra wieder liefert (in den nächsten Wochen nicht) – meist nur ein Werkzeuglauf |
-| 21 | AP 3.7 (Lunte), AP 3.9, AP 4.4 Teil 1, AP 4.5 | Lesbarkeit (Schlüsselwörter erklären, Angriffsvorschau), lebendige Ecken, Klang und Haptik aus einem Guss |
-| 22 | Phase 4 (Stimmen, Chronist, KI-Dialoge) | sobald Entscheidung 7 (Quelle der Stimmen) steht |
-| 22+ | AP 5.6, AP 5.7, Phase 6 | Hinterhalte, Erweiterung „Wunder der Welt“, Modi |
+| 20 ✓ | Rückmeldung 1.23.0, AP L.6 Teil 1, Teil 2 begonnen | erledigt in 1.24.0 – elf Karten nach ihren vorhandenen Bildern umbenannt, Segen und Weisheit, „Zauber“ als Glaube erklärt, 16 Chronikzeilen mit Quelle, Astra-Auftrag 205 → 165 ohne ein neues Bild |
+| 21 | Entscheidung 22, AP 5.6 Hinterhalte | Dein Hinweis: erst das Spiel fertig bauen, dann die Assets – zuerst festlegen, was zum fertigen Spiel gehört, dann die letzte große Mechanik (Hinterhalte als versiegelte Wachsrollen), mit Platzhaltern |
+| 22 | AP 5.7 Erweiterung „Wunder der Welt“ (falls in Entscheidung 22 gewählt) | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
+| 23 | Phase 6 Modi mit AP 3.7 (Lunte in Belagerungsmissionen) | Draft, Rangliste, Aufgaben, Kampagne 2.0 – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
+| 24+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
+| nach dem letzten Inhalts-Paket | AP A.3 (Du), dann ein Einbau-Lauf | den dann vollständigen `ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md` bei Astra bestellen, 10–12 je ZIP; jede Lieferung baut eine Sitzung mit dem Werkzeug ein |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
-| laufend | AP A.3 (Du) | restliche 212 Motive aus `ungenutzte_assets/ASTRA_AUFTRAG.md` bei Astra bestellen, 10–12 je ZIP; jede Sitzung baut Neues mit ein |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
 
@@ -2332,44 +2414,47 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 19 (Version 1.23.0):** Rückmeldung zu 1.22.0 – die **Steintür** schließt als runde Flügeltür an der
-Naht (Astras Hälften passten nicht zueinander), die **Leuchtrahmen** der Handkarten folgen dem gemalten Kartenrahmen statt
-schief darüberzustehen. **AP L.5** – Prüftabelle aller 22 Heldenfähigkeiten mit Rolle, Tat und Quelle; nach Deiner
-Entscheidung neue Wirkung für **Hypatia** (Unterricht: ruft einen Schüler 1/1), **Imhotep** (Baumeister des Djoser:
-schwächster Diener +1/+1) und **Vercingetorix** (Kein Korn für Caesar: 1 Schaden an einem zufälligen feindlichen Diener),
-neue Namen für **Nezahualcóyotl**, **Thusnelda** und die **Fürstin von Vix**; in der Heldenwahl steht unter jeder Fähigkeit die
-Tat mit Quelle. Drei Werte musste der volle Balance-Lauf justieren (Vercingetorix traf erst alle Diener und gewann mit
-Startdecks 85 %); danach Startdecks 21/22 Helden im Ziel (vorher 20/22), Zufallsdecks 19/22 (Imhotep 53,5 % knapp darüber). Neu im Plan: **Leitbild „halb Spaß, halb Lernen“** und **AP L.6** (Karten,
-Schlüsselwörter und Chronik nah an der Geschichte). Astra liefert in den nächsten Wochen nichts – kein neuer Werkzeuglauf nötig.
-Davor: Sitzung 18 (1.21.0, 1.22.0) AP A.1, A.2; Sitzungen 1–17 (1.4.0–1.20.0).
+**Erledigt in Sitzung 20 (Version 1.24.0):** Rückmeldung zu 1.23.0 („alles super“) – nichts nachzuarbeiten. **AP L.6 Teil 1** –
+Prüftabelle aller 350 Karten, 28 Spielsteine und 212 Bilder; nach Deiner Entscheidung (21) elf neue Namen, die dem **vorhandenen
+Bild** folgen (Erdmessung des Eratosthenes, Sternkatalog des Hipparchos, Synesios von Kyrene, Brennspiegel des Archimedes,
+Klaudios Ptolemaios, Brot und Bier, Urteil nach der Maat, Nachtwache am Kanal, Spitzel im Venezianerviertel, Mercators Atlas,
+Rezept des Goldmachers), **Segen** statt Göttlicher Gunst, **Weisheit** statt Arkanem Fokus, **„Zauber“** bleibt und wird als
+Glaube der Zeit erklärt; Ordensritter und Grabwächter zeigen statt Kristallgestalt und Skelett den Platzhalter, der Adler der
+Berge einen Steinadler aus einem ungenutzten alten Bild. **Null Regeländerungen**, kein neues Bild – der Astra-Auftrag schrumpft
+von 205 auf 165 Motive, weil 39 geprüfte alte Bilder bleiben. **AP L.6 Teil 2 begonnen:** „Aus der Chronik“ mit Quelle in
+Großansicht und Kartendetails, 16 Karten. Dein Hinweis „erst fertig bauen, dann Assets“ steht in AP A.3, in Entscheidung 22 und
+in der Reihenfolge. Davor: Sitzung 19 (1.23.0) AP L.5; Sitzungen 1–18 (1.4.0–1.22.0).
 
 **Vorher bitte von dir (10 Minuten):**
-1. `Aeterna-1.23.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. **Steintür:** Bildschirmwechsel zwischen zwei Untermenüs (z. B. Basar → Sammlung) und vor dem Match – wirkt die Flügeltür?
-3. **Leuchtrahmen:** Handkarten grün (spielbar), gelb (Bedingung erfüllt), gold (gewählt) – sitzen sie jetzt sauber?
-4. **Neue Fähigkeiten** ausprobieren: Hypatia (Schüler), Imhotep (Baumeister), Vercingetorix (Kein Korn für Caesar) – macht es
-   Spaß, und ist die Zeile mit der Tat in der Heldenwahl hilfreich?
+1. `Aeterna-1.24.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. In der **Sammlung** die Karten von Hypatia und Imhotep antippen: Passen die neuen Namen zu den Bildern? Ist die Zeile „Aus der
+   Chronik“ unter Brennspiegel, Mercators Atlas oder Marco Polo gut lesbar?
+3. **Entscheidung 22** (siehe [Offene Entscheidungen](#offene-entscheidungen)): Was gehört zum fertigen Spiel? *Mein Vorschlag:*
+   **Hinterhalte ja** (die letzte fehlende Kartenart, der Feldherrentisch hat schon ihren Platz über dem Helden); **Erweiterung klein**
+   – je Held zwei Karten und zehn neutrale (≈ 54 statt 90 neue Bilder); **Draft und Aufgaben ja** (kaum neue Bilder),
+   **Rangliste und Kampagne 2.0 mit Belagerung und Lunte** nach Deinem Geschmack.
 
-**Sitzung 20 – Karten nah an der Geschichte (AP L.6, Teil 1)**
+**Sitzung 21 – Entscheidung 22 und Hinterhalte (AP 5.6)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.23.0 | Steintür, Leuchtrahmen, neue Fähigkeiten nach Deinem Blick aufs Handy | kleine Nacharbeit, falls nötig |
-| AP L.6 Teil 1 | Prüftabelle für die Karten der elf gebliebenen Helden und die Schlüsselwörter: Fantasy-Reste (Himmelsstrahl, Sternenregen, Sonnenfokus, Urteil der Sonne, „Arkaner Fokus“, „Göttliche Gunst“), je mit Bezug, Urteil und Vorschlag; nach Deiner Entscheidung umbenennen | Dein Wunsch vom 12. 10.: halb Spaß, halb Lernen – die Heldenfähigkeiten sind jetzt geschichtsnah, die Karten noch nicht überall |
-| AP L.6 Teil 2 (wenn Zeit bleibt) | „Aus der Chronik“: ein belegter Satz mit Quelle je Karte in der Großansicht, zuerst für die 22 Lieblingskarten | das Lernen steckt dann in jeder Karte, nicht nur in der Chronik |
+| Rückmeldung 1.24.0 | Namen, Chronikzeilen, Platzhalter nach Deinem Blick aufs Handy | kleine Nacharbeit, falls nötig |
+| Entscheidung 22 | Umfang des fertigen Spiels festhalten (README, Reihenfolge) | danach steht fest, welche Bilder Astra am Ende liefern muss |
+| AP 5.6 Hinterhalte | Engine: verdeckte Karten, die bei gegnerischen Aktionen auslösen („Wenn ein feindlicher Diener angreift …“); KI, die sie legt und fürchtet; etwa 12 Karten aus der Geschichte (z. B. Hinterhalt im Teutoburger Wald, Vorgetäuschte Flucht, Fabius’ Lager auf den Höhen) mit Prüftabelle wie in AP L.5/L.6; versiegelte Wachsrollen über dem Helden als Platzhalter (`ASTRA:`) | die letzte große Mechanik; ihre Karten und Rollen gehören in die eine Astra-Bestellung am Ende |
 
-Risiko: gering – Teil 1 ändert vor allem Namen und Texte; nur wenn Du Wirkungen ändern willst, folgt ein Balance-Lauf.
+Risiko: mittel – neue Regeln brauchen Tests, KI-Bewertung und einen vollen Balance-Lauf (≈ 30 min); Spielstände bleiben (neue Karten-IDs
+nur hinten anhängen).
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Übernimm mein Feedback zu Version 1.23.0:
-> *(hier Feedback zu Steintür, Leuchtrahmen und den neuen Heldenfähigkeiten einfügen)* und arbeite **AP L.6 (Karten,
-> Schlüsselwörter und Chronik nah an der Geschichte)** ab: erst die Prüftabelle mit Vorschlägen, dann nach meiner Entscheidung
-> umsetzen. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, prüfe
-> optische Änderungen mit Screenshots im Handyformat, lass die Tests und den Klickpfad laufen und sorge für eine grüne CI. Hake
-> erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen
-> Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Übernimm mein Feedback zu Version 1.24.0:
+> *(hier Feedback zu den neuen Namen und den Chronikzeilen einfügen)* und meine **Entscheidung 22** *(was zum fertigen Spiel gehört)*.
+> Arbeite dann **AP 5.6 (Taktische Hinterhalte)** ab: erst eine Prüftabelle mit Kartenvorschlägen aus der Geschichte, dann nach meiner
+> Entscheidung umsetzen. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur,
+> baue neue Grafiken als gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den
+> Klickpfad und den vollen Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen
+> Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Die Prüftabelle für rund 130 Karten verlangt sorgfältige
-Quellenarbeit (jede Angabe muss stimmen), die Umsetzung selbst ist dann überschaubar. *xhigh*, wenn Du auch Wirkungen von
-Karten ändern willst (Balance-Lauf und mehr Tests).
+**Empfohlener Effort für den nächsten Prompt: xhigh.** Eine neue Mechanik greift in Engine, KI, Darstellung und Balance zugleich ein
+(Auslöser im Zug des Gegners, verdeckte Information für die KI, voller Balance-Lauf). *high* reicht, wenn Du nur Entscheidung 22
+festhalten und die Prüftabelle für die Hinterhalt-Karten sehen willst.

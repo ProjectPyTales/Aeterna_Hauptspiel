@@ -10,6 +10,10 @@ button.grave-card{padding:0;border:0;background:none;box-shadow:none;min-height:
 .glossary dt{display:inline;font-weight:bold;color:#efcf8c;margin-right:6px}
 .glossary dt:after{content:':'}
 .glossary dd{display:inline;margin:0}
+/* Aus der Chronik (AP L.6): Satz mit Quelle unter den Schlüsselwörtern, wie eine Randnotiz auf Pergament. */
+.chronicle-line{margin:8px 0 0;padding:7px 11px;font-size:17px;line-height:1.45;color:#e8dcc2;background:#2a20146b;border-left:3px solid #6f8f6a;border-radius:4px}
+.chronicle-line b{display:block;font-family:Cinzel,serif;font-size:14px;letter-spacing:.06em;color:#b9d1a8;margin-bottom:2px}
+.chronicle-line cite{display:block;font-size:14px;font-style:italic;color:#b8aa8c;margin-top:3px}
 /* Ergründen: three sealed scrolls, one card is chosen. */
 .discover{width:1240px;text-align:center;padding:30px 30px 34px;background:#172127f5;border:2px solid #a88957;border-radius:20px;box-shadow:0 24px 65px #0009}
 .discover h2{font-size:36px;margin:4px 0 6px}

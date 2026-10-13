@@ -69,6 +69,16 @@ NEW_MOTIFS = {
 # Nicht neu erzeugen, bis eine Zuordnung geklärt ist. Entscheidung 19 (11. 10. 2026): Die geretteten Alexandria-Bilder
 # bleiben hypatia_5 und hypatia_8, hypatia_0 und hypatia_2 werden neu bestellt – nichts mehr gesperrt.
 BLOCKED = set()
+# AP L.6 (Entscheidung 21, 13. 10. 2026: möglichst keine neuen Bilder): Alte Bilder, die nichts Falsches zeigen, bleiben im Spiel
+# und gehen nicht mehr an Astra – geprüft mit dem Bild vor Augen. Feldheilerin (rotes Kreuz erst seit 1863), Wachhund (Schäferhund
+# erst seit 1899), Bibliothekslehrling (Prunkbibliothek um 400), Ordensritter und Grabwächter bleiben im Auftrag.
+KEEP_OLD = {f'neutral_{i}' for i in (0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 24, 25, 26, 28, 29,
+                                     30, 31, 32, 37, 38, 39)} | {'khan_2', 'nostradamus_0', 'hypatia_2', 'recruit', 'warrior', 'coin'}
+# … dazu drei, die AP L.6 mit einem vorhandenen Bild löst: Steinadler (khan, Feld 10) für den Adler der Berge, goldenes Buch
+# mit Erdkugel (neutral3, Feld 10) für Mercators Atlas, Sternkarte (Sonne = Gold, Mond = Silber) für das Rezept des Goldmachers.
+KEEP_OLD |= {'neutral_22', 'neutral_35', 'nostradamus_3'}
+# Spielsteine, die keine Karte und keine Fähigkeit ruft: kein Bild bestellen.
+UNUSED = {'stoneguard'}
 # Teil 4 kam beschädigt an: laut Manifest erzeugt, Datei fehlt (Briefing, Abschnitt 8).
 LOST_T4 = {'perikles_7', 'perikles_8', 'perikles_9', 'pioneer', 'citizen', 'parthenos'}
 # Schlachtfeld-Tische (Feld image in model/cosmetics.js).
@@ -286,6 +296,10 @@ def main():
             status[i] = 'gesperrt'
         elif i in LOST_T4:
             status[i] = 'wiederbeschaffen'
+        elif i in KEEP_OLD:
+            status[i] = 'altes Bild'
+        elif i in UNUSED:
+            status[i] = 'unbenutzt'
         else:
             status[i] = 'offen'
     with open(os.path.join(ROOT, 'ungenutzte_assets/ASTRA_STAND.csv'), 'w', encoding='utf-8', newline='') as f:
@@ -294,7 +308,8 @@ def main():
         for c in data['cards'] + data['tokens']:
             w.writerow([c['id'], c['name'], c['owner'], status[c['id']], found.get(c['id'], '')])
     auftrag(data, status, motifs, len(items), len({v[0] for v in card_map.values()}))
-    counts = {s: list(status.values()).count(s) for s in ['eingebaut', 'Revision', 'offen', 'wiederbeschaffen', 'gesperrt']}
+    counts = {s: list(status.values()).count(s) for s in ['eingebaut', 'Revision', 'altes Bild', 'unbenutzt', 'offen',
+                                                          'wiederbeschaffen', 'gesperrt']}
     print(f'{len(items)} Karten und Spielsteine in {len({v[0] for v in card_map.values()})} Atlanten, '
           f'22 Helden, 4 Skins, 5 Tische · Stand: {counts}')
 
@@ -319,7 +334,8 @@ def auftrag(data, status, motifs, done, atlases):
            '| Status | Karten | Spielsteine | Summe |', '|---|---:|---:|---:|']
     allcards = {c['id'] for c in data['cards']}
     for s, text in [('eingebaut', 'Eingebaut (im Spiel)'), ('Revision', 'Eingebaut, Korrektur nötig'),
-                    ('offen', 'Neu erzeugen'), ('wiederbeschaffen', 'Teil 4 beschädigt – Original suchen, sonst neu'),
+                    ('altes Bild', 'Altes Bild bleibt (AP L.6) – nicht erzeugen'),
+                    ('unbenutzt', 'Im Spiel nie gerufen – nicht erzeugen'), ('offen', 'Neu erzeugen'), ('wiederbeschaffen', 'Teil 4 beschädigt – Original suchen, sonst neu'),
                     ('gesperrt', 'Gesperrt – Zuordnung klären')]:
         k = sum(1 for i, v in status.items() if v == s and i in allcards)
         t = sum(1 for i, v in status.items() if v == s and i not in allcards)

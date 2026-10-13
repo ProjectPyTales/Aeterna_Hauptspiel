@@ -532,7 +532,7 @@ function plaque(c,u,card,ready,selected,aim){
  for(const xx of [-47,47])for(const yy of [-64,64])ellipse(c,xx,yy,1.8,1.8,'#dac499');
  round(c,-43,-60,86,116,4,null,'#201b18aa',2);
  if(card.rarity!=='basic'&&card.rarity!=='token')gem(c,0,61,legend?8:6,rarityColor[card.rarity]);
- // Göttliche Gunst: a ring of light around the plaque; two lights run round it in every picture (CHF.aura).
+ // Segen: a ring of light around the plaque; two lights run round it in every picture (CHF.aura).
  if(u.shield)K.ring(c);
  if(u.frozen)K.frost(c);
  if(u.poison)K.vial(c);
@@ -543,7 +543,7 @@ function plaque(c,u,card,ready,selected,aim){
   c.font='bold 26px Title';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#30251a';c.fillText(u.attack,-36.5,60);
   round(c,17,43,39,32,8,grad(c,17,43,39,32,'#581722','#b52e40'),'#34171c',2.5);number(c,u.health,36.5,60,25);}
  if(!u.ready&&u.attacks===0&&!building)txt(c,'z',34,-50,22,'#346f29');
- // Keyword marks between the stats: Vermächtnis, effect at turn end, Vorstoß, Doppelschlag, Arkaner Fokus.
+ // Keyword marks between the stats: Vermächtnis, effect at turn end, Vorstoß, Doppelschlag, Weisheit.
  // 1.8.0: ◐ Tarnung, ♥ Plünderung, ⚗ Tödliches Gift, ⊘ Bannung (the card's own marks are gone).
  // 1.20.0 (AP 3.6): the urn, the phial and the undergrowth replace ☠, ⚗ and ◐.
  const own=!u.silenced;const marks=[own&&(card.passive||card.start||card.end||card.onHeal||card.allyHeal)&&['✦','#d8c9fa'],u.rush&&['➤','#ffd27a'],u.double&&['⚔','#ffe3b0'],own&&card.focus&&['✧'+card.focus,'#a9dcff'],u.plunder&&['♥','#ff8f7a'],u.silenced&&['⊘','#d5d0c8']].filter(Boolean);
@@ -716,7 +716,7 @@ R.paint={round,ellipse,grad,txt,number,sparkle,powerIcon};
 const hash=s=>String(s).split('').reduce((n,ch)=>n*31+ch.charCodeAt(0)>>>0,7);
 R.events=(events,settings)=>{const t=T.clock.now(),played=new Set(),fx=settings.particles!==false;
  for(const ev of events){const pos=R.positions[ev.target]||R.positions['h'+(ev.p||0)]||{x:800,y:400};
-  // Keyword effects of this event (AP 3.6): Göttliche Gunst shatters, Starre, Tödliches Gift, the urn of a Vermächtnis.
+  // Keyword effects of this event (AP 3.6): Segen shatters, Starre, Tödliches Gift, the urn of a Vermächtnis.
   const own=window.CHF.event(ev,pos,t,fx);
   if(ev.type==='death'){const u=R.units[ev.target];
    // Feedback 1.19.0 („immer noch etwas viel“): shorter, closer shards, no dust; only a building still crashes down.

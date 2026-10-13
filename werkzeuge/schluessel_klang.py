@@ -1,6 +1,6 @@
 """Erzeugt die Geräusche für Schlüsselwörter, Münzwurf und Sieg (AP 3.6, AP 3.8; prozedural, CC0).
 
-clink-1, -2    Göttliche Gunst zerspringt: helles, gläsernes Klirren mit nachrieselnden Splittern (≈ 0,5 s)
+clink-1, -2    Segen (bis 1.23.0 Göttliche Gunst) zerspringt: helles, gläsernes Klirren mit nachrieselnden Splittern (≈ 0,5 s)
 chains-1, -2   Starre: rasselnde Ketten und ein metallisches Einrasten (≈ 0,5 s)
 poison-1, -2   Tödliches Gift: blubbernde Blasen über einem leisen Zischen (≈ 0,6 s)
 toss-1, -2     Feldzug-Initiative: hochgeworfene Bronzemünze, die sirrend kreiselt (≈ 0,8 s)

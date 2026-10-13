@@ -62,7 +62,7 @@ AEV.dialogs.card={render:vm=>{const v=vm.view,c=v.card,slot=vm.state.slot,from=s
   v.editing?V.button({label:'Zum Deck hinzufügen',cmd:'addCard',a:c.id,style:'gold'}):'',
   v.price?[V.button({label:'Herstellen · '+v.price+' ✧',cmd:'craft',a:c.id,disabled:!v.canCraft}),V.button({label:'Entzaubern · +'+v.dust+' ✧',cmd:'dustCard',a:c.id,disabled:!v.canDust})]
   :html`<span class="muted">Basiskarten sind dauerhaft verfügbar.</span>`],'start')}`;
- return V.modal({width:1000,scrim:true,body:html`<div class="card-detail"><img class="${V.cls('zoom-in',from&&'from-slot')}" src="${R.thumb(c.id)}" alt="${c.name}" style="${from?`--fx:${from.x-ZOOM.x}px;--fy:${from.y+92-400}px`:''}"><div class="details"><div class="eyebrow">${v.era} · ${c.cost} Mana · ${D.rarities[c.rarity]}</div><h3>${c.name}</h3><p class="card-text">${c.text||'Ein Diener ohne zusätzliche Fähigkeit.'}</p>${V.glossary(c.text)}${
+ return V.modal({width:1000,scrim:true,body:html`<div class="card-detail"><img class="${V.cls('zoom-in',from&&'from-slot')}" src="${R.thumb(c.id)}" alt="${c.name}" style="${from?`--fx:${from.x-ZOOM.x}px;--fy:${from.y+92-400}px`:''}"><div class="details"><div class="eyebrow">${v.era} · ${c.cost} Mana · ${D.rarities[c.rarity]}</div><h3>${c.name}</h3><p class="card-text">${c.text||'Ein Diener ohne zusätzliche Fähigkeit.'}</p>${V.glossary(c)}${V.chronicle(c)}${
   c.building?html`<p>♜ ${c.health} Haltbarkeit</p>`:c.type==='minion'?html`<p>⚔ ${c.attack} Angriff · ♥ ${c.health} Leben</p>`:''}${controls}</div></div>`});}};
 
 AEV.dialogs.newDeck={render:vm=>V.modal({close:false,body:html`<h2>Neues Deck</h2><p>Wähle den Helden für Dein neues Deck.</p><select id="newhero" class="wide" data-change="choose" aria-label="Held">${
