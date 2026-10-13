@@ -15,7 +15,7 @@ class Setup extends Screen{
   const decks=p.decks.filter(d=>d.hero===s.hero);if(!decks.some(d=>d.id===s.deckId))s.deckId=decks[0]?.id||'';
   const hero=D.heroes.find(h=>h.id===heroId),page=LORE.of(heroId);
   return {mode:s.mode,day,hero,foe:day?D.heroes.find(h=>h.id===day.foe):null,heroes:HEROES,gallery:GALLERY,
-   age:D.ageById[hero.age],school:LORE.school(heroId),life:page?.life||'',style:D.personalities[hero.ai]||null,
+   age:D.ageById[hero.age],school:LORE.school(heroId),deed:LORE.deed(heroId),life:page?.life||'',style:D.personalities[hero.ai]||null,
    favorites:(page?.favorites||[]).map(id=>D.byId[id]).filter(Boolean),
    selected:heroId,decks,deckId:s.deckId,foeId:s.foe,foeStyle:D.personalities[D.heroById[s.foe]?.ai]||null,mission:s.mode==='campaign'?D.missions[s.mission]:null};}
  chooseHero(id){if(this.session.mode==='daily'||this.session.mode==='random'||!D.heroes.some(h=>h.id===id)||this.session.hero===id)return;

@@ -170,7 +170,7 @@ function canPower(s,p){const a=s.players[p],h=heroOf(a),ab=h.ability;if(s.phase!
  if(ab.target==='randomMinion'&&!randomMinions(s,p).length)return false;
  const ok=e=>e.type==='summon'||e.type==='summonNew'?a.board.length<7&&(e.type==='summon'||e.tokens.some(id=>!a.board.some(u=>u.id===id)))
   :e.type==='discover'?pool(s,p,e.pool).length>0:e.type==='fortify'&&!a.board.some(u=>u.building)?e.else.every(ok)
-  :e.type==='buffLeft'?minions(a).length>0:e.type==='ifMinions'?(minions(a).length>=e.n?e.then:e.else).every(ok):true;
+  :e.type==='buffLeft'||e.type==='buffWeakest'?minions(a).length>0:e.type==='randomDamage'&&e.minions?randomMinions(s,p).length>0:e.type==='ifMinions'?(minions(a).length>=e.n?e.then:e.else).every(ok):true;
  return ab.effects.every(ok);}
 // Amanirenas: the visible enemy minions (no buildings) a random power can hit.
 const randomMinions=(s,p)=>s.players[1-p].board.filter(u=>!u.stealth&&!u.building&&u.health>0).map(u=>u.uid);

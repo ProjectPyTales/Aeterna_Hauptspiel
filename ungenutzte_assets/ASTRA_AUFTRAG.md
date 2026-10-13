@@ -10,10 +10,10 @@
 |---|---:|---:|---:|
 | Eingebaut (im Spiel) | 163 | 3 | **166** |
 | Eingebaut, Korrektur nötig | 1 | 0 | **1** |
-| Neu erzeugen | 183 | 21 | **204** |
+| Neu erzeugen | 183 | 22 | **205** |
 | Teil 4 beschädigt – Original suchen, sonst neu | 3 | 3 | **6** |
 | Gesperrt – Zuordnung klären | 0 | 0 | **0** |
-| **Gesamt** | **350** | **27** | **377** |
+| **Gesamt** | **350** | **28** | **378** |
 
 Im Spiel: 167 Karten und Spielsteine in 14 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
 
@@ -438,7 +438,7 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 | `hypatia_0` | Bibliothekslehrling | neu | Junger erwachsener männlicher Schüler mit Papyrus in einem bescheidenen alexandrinischen Gelehrtenraum um 400 n. Chr.; Tunika/Himation, keine monumentale intakte ptolemäische Bibliothek. |
 | `hypatia_2` | Sternenkundiger | neu | Älterer Astronom mit einfachem Visierinstrument unter Sternen in spätrömisch-alexandrinischem Kontext; kein Fernrohr und kein Hypatia-Porträt. |
 
-## 6. Spielsteine: 24
+## 6. Spielsteine: 25
 
 Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige Szene, kein Freisteller.
 
@@ -476,3 +476,9 @@ Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige S
 | `pioneer` | Pionier | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Römischer Pionier der späten Republik/frühen Kaiserzeit mit Werkzeug und einfacher Soldatenausrüstung beim Bauen; Einzelperson, warmer Stein und Ziegelrot, Profil T1. |
 | `citizen` | Bürger | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Ein athenischer Bürger in schlichtem Chiton/Himation vor ruhiger Stadtkulisse; klare menschliche Halbfigur statt Feldherr. Klassisches Athen, Profil T1. |
 | `parthenos` | Athena Parthenos | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Vollendete Athena-Parthenos-Kultstatue im Tempelraum; Elfenbein-/Goldwirkung sparsam, Statue statt lebender Göttin, keine Werkstattaktion. Klassisches Athen, Profil T1. |
+
+### Spielsteine
+
+| ID | Name | Status | Konkretes Motiv und Komposition |
+|---|---|---|---|
+| `student` | Schüler der Hypatia | neu | Junger Gelehrter in schlichtem Chiton und Mantel um 400 n. Chr., sitzt mit Wachstafel und Griffel, ein Astrolab aus Messing auf dem Tisch, Säulenhalle in Alexandria im Hintergrund. Kein Zauber, kein Leuchten (AP L.5: Hypatias Unterricht). |

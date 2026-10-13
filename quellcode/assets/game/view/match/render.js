@@ -195,9 +195,17 @@ R.card=(c,card,x,y,w=200,h=282,opts={})=>{const legend=card.rarity==='legendary'
 // Cache card faces once (plain and golden). Only transforms and shadows change while dragging.
 // With a pixel density above 1.2 the faces are cached larger, so a dragged card (258 units) stays sharp.
 // The aura follows the temple gate: green when playable, golden yellow when a condition is met (AP 3.2), gold when selected.
-const gateGlow=(color,blur)=>R.sprite('gateglow:'+[color,blur],-blur*2,-blur*2,200+blur*4,282+blur*4,g=>{g.shadowColor=color;g.shadowBlur=blur;gatePath(g);g.fillStyle=color;g.fill();});
+// Feedback on 1.22.0: on Astra's painted frames it takes their silhouette (frame plus art window) – the drawn gate outline
+// stood askew above the painted gable. Drawn twice: the soft shadow alone was too faint on the wooden rail.
+const frameKey=(card,gold)=>(card.building?'building':card.type==='spell'?'spell':'minion')+'-'+(gold?'gold':'normal');
+const gateGlow=(color,blur,key)=>{const frame=CHS.ui['kartenrahmen-'+key],box=frame&&window.CHB?.windows?.[key];
+ return R.sprite('gateglow:'+[color,blur,box?key:''],-blur*2,-blur*2,200+blur*4,282+blur*4,g=>{g.shadowColor=color;g.shadowBlur=blur;
+  if(!box){gatePath(g);g.fillStyle=color;g.fill();return;}
+  const w=frame.naturalWidth,h=frame.naturalHeight,cv=document.createElement('canvas');cv.width=w;cv.height=h;const m=cv.getContext('2d');
+  m.drawImage(frame,0,0);m.fillRect(box[0]*w/200,box[1]*h/282,(box[2]-box[0])*w/200,(box[3]-box[1])*h/282);
+  m.globalCompositeOperation='source-in';m.fillStyle=color;m.fillRect(0,0,w,h);g.drawImage(cv,0,0,200,282);g.drawImage(cv,0,0,200,282);});};
 R.cardCache={};R.fastCard=(c,card,x,y,w,h,opts={})=>{const cw=R.scale>1.2?400:300,gold=!!opts.gold,key=card.id+':'+cw+(gold?':gold':'');let im=R.cardCache[key];if(!im){im=document.createElement('canvas');im.width=cw;im.height=Math.round(cw*1.41);R.card(im.getContext('2d'),card,0,0,cw,im.height,{gold});R.cardCache[key]=im;}
- if(opts.glow){const sp=opts.selected?gateGlow('#ffc653',20):opts.glow==='boost'?gateGlow('#ffd23a',18):gateGlow('#71ff56',12);c.save();c.translate(x,y);c.scale(w/200,h/282);R.blit(c,sp);c.restore();}c.drawImage(im,x,y,w,h);
+ if(opts.glow){const fk=frameKey(card,gold),sp=opts.selected?gateGlow('#ffc653',20,fk):opts.glow==='boost'?gateGlow('#ffd23a',18,fk):gateGlow('#71ff56',12,fk);c.save();c.translate(x,y);c.scale(w/200,h/282);R.blit(c,sp);c.restore();}c.drawImage(im,x,y,w,h);
  // A changed cost (Marco Polo, Caterina, Andraste) covers the printed crystal: green when cheaper.
  if(opts.cost!=null&&opts.cost!==card.cost){const k=w/200;c.save();c.translate(x,y);c.scale(k,k);etherCrystal(c,25,34,22,opts.cost,opts.cost<card.cost?'green':'red');c.restore();}};
 R.smoothed={};R.smooth=(id,x,y,dt)=>{const old=R.smoothed[id]||{x,y},q=1-Math.exp(-dt/58);const p={x:old.x+(x-old.x)*q,y:old.y+(y-old.y)*q};R.smoothed[id]=p;return p;};
