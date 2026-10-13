@@ -107,9 +107,9 @@ F.ELEMENTS={fire:{core:'#fff3c4',mid:'#ff9a3a',edge:'#c8361a'},frost:{core:'#fff
  shadow:{core:'#e8d8f0',mid:'#7a4a8a',edge:'#1a1020'},nature:{core:'#f0ffd8',mid:'#7ccf5a',edge:'#2f6b2a'},poison:{core:'#eaffd0',mid:'#7be04a',edge:'#1f6a1a'}};
 // One effect per hero power (AP 3.6): its element, the path of the orb (arc, straight, spiral, rain from above, rise from
 // the ground, wave from the hero), its own colour and the hero's glyph stamped where it lands. Since 1.23.0 (AP L.5) Hypatia's
-// pupil rises in light, Imhotep's stone grows from the ground and Vercingetorix' burnt land runs as a wave of fire.
+// pupil rises in light, Imhotep's stone grows from the ground and Vercingetorix' burnt land falls on one enemy as fire.
 F.POWERS={leonidas:['earth','wave','#d8a050'],hypatia:['light','rise','#9fd8ff'],imhotep:['earth','rise','#ffe39a'],dandolo:['earth','straight','#d89a6a'],
- khan:['nature','rain','#8fd06a'],boudicca:['fire','wave','#ff9a5a'],nostradamus:['arcane','spiral','#c8a8ff'],jeanne:['light','rise','#fff0c0'],
+ khan:['nature','rain','#8fd06a'],boudicca:['fire','arc','#ff9a5a'],nostradamus:['arcane','spiral','#c8a8ff'],jeanne:['light','rise','#fff0c0'],
  ragnar:['earth','rise','#8ad0dc'],musashi:['gold','straight','#ffb0bc'],perikles:['light','rise','#f2f0e6'],agrippa:['earth','rise','#e8955a'],
  amanirenas:['gold','arc','#ffd84a'],anna:['arcane','spiral','#e09ad0'],nezahualcoyotl:['nature','wave','#ffa8d0'],masako:['gold','rise','#a8b8ff'],
  epaminondas:['gold','straight','#9ec0ff'],fabius:['frost','arc','#bfe8ff'],mandukhai:['nature','wave','#ffc070'],baibars:['fire','straight','#ff8a5a'],

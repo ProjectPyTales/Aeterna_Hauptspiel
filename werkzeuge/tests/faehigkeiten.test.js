@@ -9,15 +9,16 @@ test('Jeder Held hat eine Tat zu seiner Fähigkeit, kurz genug für die Heldenwa
  assert.deepEqual(Object.keys(LORE.deeds).sort(),D.heroes.map(h=>h.id).sort());
 });
 
+// Nach dem Balance-Lauf justiert: Hypatias Schüler ohne Arkanen Fokus, Vercingetorix trifft einen statt aller Diener.
 test('Die Entscheidung zu AP L.5 ist umgesetzt: drei neue Wirkungen, drei neue Namen',()=>{
  const by=Object.fromEntries(D.heroes.map(h=>[h.name,h]));
  assert.equal(by.Hypatia.power,'Unterricht');assert.deepEqual(by.Hypatia.ability.effects,[{type:'summon',n:1,token:'student'}]);
  assert.equal(by.Imhotep.power,'Baumeister des Djoser');assert.equal(by.Imhotep.ability.effects[0].type,'buffWeakest');
- assert.equal(by.Vercingetorix.power,'Kein Korn für Caesar');assert.equal(by.Vercingetorix.ability.overload,1);
+ assert.equal(by.Vercingetorix.power,'Kein Korn für Caesar');assert.deepEqual(by.Vercingetorix.ability.effects,[{type:'randomDamage',n:1,minions:true}]);
  assert.equal(by['Nezahualcóyotl'].power,'Quellwasser von Chapultepec');
  assert.equal(by.Thusnelda.power,'Ruf zu den Waffen');
  assert.equal(by['Fürstin von Vix'].power,'Handel mit Massalia');
- const student=D.byId.student;assert.deepEqual([student.name,student.attack,student.health,student.focus,student.rarity],['Schüler der Hypatia',1,2,1,'token']);
+ const student=D.byId.student;assert.deepEqual([student.name,student.attack,student.health,student.rarity],['Schüler der Hypatia',1,1,'token']);
 });
 
 test('Keine Sternenmagie mehr in Namen und Texten der Heldenfähigkeiten',()=>{

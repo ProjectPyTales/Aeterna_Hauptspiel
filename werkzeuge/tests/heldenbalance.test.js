@@ -25,22 +25,21 @@ test('Leonidas: 1 Rüstung und +1 Leben für alle eigenen Diener',()=>{
  assert.deepEqual([a.health,a.maxHealth,b.health,b.maxHealth],[3,3,5,5]);
 });
 
-test('Hypatia: Unterricht ruft ohne Zielwahl einen Schüler mit Arkanem Fokus (AP L.5)',()=>{
+test('Hypatia: Unterricht ruft ohne Zielwahl einen Schüler (AP L.5)',()=>{
  const s=ready('hypatia');
  assert.equal(E.targetKind(s,0,{type:'power'}),null);
  power(s);
- assert.deepEqual(s.players[0].board.map(u=>[u.id,u.attack,u.health]),[['student',1,2]]);
- assert.equal(E.focus(s,0),1,'der Schüler verstärkt Zauber um 1');
+ assert.deepEqual(s.players[0].board.map(u=>[u.id,u.attack,u.health]),[['student',1,1]]);
+ assert.equal(E.focus(s,0),0,'ohne Arkanen Fokus – er stapelte sich mit jedem Schüler');
 });
 
 test('Imhotep baut am Schwächsten, Vercingetorix verbrennt das Land, Böttger zieht für 1 Leben',()=>{
  let s=ready('imhotep');assert.equal(E.canPower(s,0),false,'ohne Diener nichts zu bauen');
  const weak=E.summon(s,0,'neutral_0'),strong=E.summon(s,0,'attrappe_34');power(s);
  assert.deepEqual([weak.health,weak.maxHealth,weak.attack,strong.health],[4,4,1,4]);
- s=ready('boudicca');const a=E.summon(s,1,'neutral_0'),b=E.summon(s,1,'attrappe_34');const hp=s.players[1].health;power(s);
- assert.deepEqual([a.health,b.health,s.players[1].health],[1,3,hp],'1 Schaden an allen feindlichen Dienern, nicht am Helden');
- assert.equal(s.players[0].overload,1,'Belastung 1');
- E.apply(s,{type:'end'});E.apply(s,{type:'end'});assert.equal(s.players[0].locked,1);
+ s=ready('boudicca');assert.equal(E.canPower(s,0),false,'ohne feindlichen Diener kein Ziel');
+ const a=E.summon(s,1,'neutral_0'),b=E.summon(s,1,'attrappe_34');const hp=s.players[1].health;power(s);
+ assert.equal(2+4-a.health-b.health,1,'1 Schaden an einem feindlichen Diener');assert.equal(s.players[1].health,hp,'nicht am Helden');
  s=ready('nostradamus');const deck=s.players[0].deck.length;power(s);
  assert.equal(s.players[0].health,29);assert.equal(s.players[0].hand.length,1);assert.equal(s.players[0].deck.length,deck-1);
  for(const id of ['leonidas','hypatia','imhotep','boudicca','nostradamus'])assert.match(D.heroes.find(h=>h.id===id).powerText,/\d/);

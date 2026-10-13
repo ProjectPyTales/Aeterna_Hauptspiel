@@ -5,11 +5,12 @@ das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle
 
 ## Neu in 1.23.0 (AP L.5 Heldenfähigkeiten aus der Geschichte, Rückmeldung zu 1.22.0)
 
-- **Heldenfähigkeiten** (`model/data.js`, Entscheidung 20: alle Empfehlungen der Prüftabelle in der README): Hypatia
-  *Unterricht* (ruft den neuen Spielstein `student`, „Schüler der Hypatia“ 1/2 mit `focus:1`, hinten an `tokens` angehängt),
-  Imhotep *Baumeister des Djoser* (`buffWeakest` 0/+2), Vercingetorix *Kein Korn für Caesar* (`aoe` 1 und `overload:1` an der
-  Fähigkeit); neue Namen für Nezahualcóyotl, Thusnelda und die Fürstin von Vix. `engine.js`: `power()` bucht `ability.overload`
-  als Belastung, `canPower` verlangt für `buffWeakest` einen eigenen Diener. `fx.js`: `CHF.POWERS` für die drei neuen Wirkungen.
+- **Heldenfähigkeiten** (`model/data.js`, Entscheidung 20: alle Empfehlungen der Prüftabelle in der README, zwei Werte nach
+  Balance-Varianten justiert): Hypatia *Unterricht* (ruft den neuen Spielstein `student`, „Schüler der Hypatia“ 1/1, hinten an
+  `tokens` angehängt), Imhotep *Baumeister des Djoser* (`buffWeakest` 0/+2), Vercingetorix *Kein Korn für Caesar*
+  (`randomDamage` 1 mit `minions:true`); neue Namen für Nezahualcóyotl, Thusnelda und die Fürstin von Vix. `engine.js`:
+  `canPower` verlangt für `buffWeakest` einen eigenen und für `randomDamage` mit `minions` einen sichtbaren feindlichen Diener.
+  `fx.js`: `CHF.POWERS` für die drei neuen Wirkungen. Varianten wurden vorher mit `AETERNA_MODELL` in Modellkopien verglichen.
 - **Tat zur Fähigkeit:** `AELORE.deeds`/`AELORE.deed(id)` (`model/lore.js`) – ein Satz mit Quelle je Held, in der Heldenwahl unter
   der Fähigkeit (`Setup.view.deed`, `.power-deed` in `screens.css`); Spielstil-Texte der fünf betroffenen Helden neu.
 - **Steintür** (Rückmeldung): `astra_bilder.py` schneidet die rechte Hälfte auf die Tür zu und spiegelt sie für links

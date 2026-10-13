@@ -2,8 +2,8 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.23.0** (Heldenfähigkeiten aus der Geschichte nach AP L.5: **Hypatia unterrichtet** Schüler,
-die ihre Zauber stärken, **Imhotep baut** als Baumeister des Djoser, **Vercingetorix verbrennt das Land** – „Kein Korn für Caesar“;
+Aktueller Stand im Code: **Version 1.23.0** (Heldenfähigkeiten aus der Geschichte nach AP L.5: **Hypatia unterrichtet** und ruft Schüler
+herbei, **Imhotep baut** als Baumeister des Djoser, **Vercingetorix verbrennt das Land** – „Kein Korn für Caesar“;
 neue Namen für Nezahualcóyotl, Thusnelda und die Fürstin von Vix; in der Heldenwahl steht unter jeder Fähigkeit die Tat mit
 Quelle; nach Deiner Rückmeldung schließt die Steintür als runde Flügeltür und die Leuchtrahmen folgen dem gemalten Kartenrahmen);
 davor 1.22.0 (Astra-Oberfläche nach AP A.2: **gemalte Kartenrahmen** für Diener, Zauber und
@@ -591,7 +591,16 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
   Folgen der Vorschläge: neuer Spielstein „Schüler der Hypatia“ (hinten angehängt), Belastung an einer Heldenfähigkeit
   (eine Zeile in `engine.js`), drei neue Effekte in `CHF.POWERS`, Chronikseiten (Spielstil) von Hypatia, Imhotep,
   Vercingetorix, Thusnelda und der Fürstin von Vix, Glossar unverändert. Dann voller Balance-Lauf.
-  *✓ So umgesetzt in 1.23.0. Zur Korrektur gegenüber meiner ersten Fassung: Der Statuensockel nennt Imhotep belegt nur
+  *✓ Umgesetzt in 1.23.0, zwei Werte nach dem Balance-Lauf justiert (Varianten vorher in Modellkopien verglichen):*
+  - *Vercingetorix: 1 Schaden an **allen** feindlichen Dienern (auch mit Belastung 2 oder 3 Mana) gewann mit Startdecks
+    80–89 % – die Startdecks sind voller kleiner Diener. Jetzt trifft die verbrannte Erde **einen zufälligen feindlichen
+    Diener** (1 Schaden, ohne Belastung) – derselbe Gedanke, eine Truppe nach der anderen hungert.*
+  - *Hypatia: Der Schüler mit Arkanem Fokus stapelte sich (jeder Zug ein Schüler, +1, +2, +3 …); mit dem doppelten
+    Sternenregen im Startdeck gewann sie zu oft, mit Zufallsdecks zu selten (59 % gegen 42 %). Jetzt ruft sie einen
+    **Schüler (1/1)** ohne Fokus. Der Fokus kann zurückkommen, wenn AP L.6 ihre Sternen-Zauber durch geschichtliche ersetzt.*
+  - *Imhotep bleibt wie vorgeschlagen (+2 Leben); er lag nur so tief, solange Vercingetorix alle Diener traf.*
+  - *Belastung an Heldenfähigkeiten braucht es damit nicht; `canPower` verlangt für Vercingetorix einen feindlichen Diener.*
+  *Zur Korrektur gegenüber meiner ersten Fassung: Der Statuensockel nennt Imhotep belegt nur
   „Vorsteher der Bildhauer“ (neben Siegelbewahrer und Hohepriester), nicht „Baumeister“ – die Stufenpyramide schreibt ihm
   die Überlieferung zu; Tabelle und Chronik sagen das jetzt so.*
 
@@ -2266,7 +2275,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 19. ~~**Gesperrte Alexandria-Bilder** (AP A.1)~~ – *entschieden (11. 10. 2026, wie vorgeschlagen):* Die geretteten Bilder
     „Papyrusstudium“ und „Astronom“ bleiben `hypatia_5` (Lehrsatz) und `hypatia_8` (Sternenorakel); `hypatia_0`
     (Bibliothekslehrling) und `hypatia_2` (Sternenkundiger) stehen als neue Aufträge in `ASTRA_AUFTRAG.md`.
-20. ~~**Heldenfähigkeiten** (AP L.5)~~ – *entschieden (13. 10. 2026: „Alle Empfehlungen“), umgesetzt in 1.23.0:* neue Wirkung
+20. ~~**Heldenfähigkeiten** (AP L.5)~~ – *entschieden (13. 10. 2026: „Alle Empfehlungen“), umgesetzt in 1.23.0, zwei Werte
+    nach dem Balance-Lauf justiert (siehe AP L.5):* neue Wirkung
     für Hypatia (Unterricht), Imhotep (Baumeister des Djoser) und Vercingetorix (Kein Korn für Caesar), neuer Name für
     Nezahualcóyotl (Quellwasser von Chapultepec), Thusnelda (Ruf zu den Waffen) und die Fürstin von Vix (Handel mit
     Massalia); die übrigen 16 passen.
@@ -2316,8 +2326,8 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 **Erledigt in Sitzung 19 (Version 1.23.0):** Rückmeldung zu 1.22.0 – die **Steintür** schließt als runde Flügeltür an der
 Naht (Astras Hälften passten nicht zueinander), die **Leuchtrahmen** der Handkarten folgen dem gemalten Kartenrahmen statt
 schief darüberzustehen. **AP L.5** – Prüftabelle aller 22 Heldenfähigkeiten mit Rolle, Tat und Quelle; nach Deiner
-Entscheidung neue Wirkung für **Hypatia** (Unterricht: Schüler mit Arkanem Fokus), **Imhotep** (Baumeister des Djoser:
-schwächster Diener +2 Leben) und **Vercingetorix** (Kein Korn für Caesar: 1 Schaden an allen feindlichen Dienern, Belastung 1),
+Entscheidung neue Wirkung für **Hypatia** (Unterricht: ruft einen Schüler 1/1), **Imhotep** (Baumeister des Djoser:
+schwächster Diener +2 Leben) und **Vercingetorix** (Kein Korn für Caesar: 1 Schaden an einem zufälligen feindlichen Diener),
 neue Namen für **Nezahualcóyotl**, **Thusnelda** und die **Fürstin von Vix**; in der Heldenwahl steht unter jeder Fähigkeit die
 Tat mit Quelle. Voller Balance-Lauf: Ergebnis folgt in `balance/BERICHT.md`. Neu im Plan: **Leitbild „halb Spaß, halb Lernen“** und **AP L.6** (Karten,
 Schlüsselwörter und Chronik nah an der Geschichte). Astra liefert in den nächsten Wochen nichts – kein neuer Werkzeuglauf nötig.

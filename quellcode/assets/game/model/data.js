@@ -22,11 +22,11 @@ const ages=[['steppe','Frühzeit und Ägypten','#a8843c','☥'],['griechen','Gri
 const replaced=['khan','boudicca','nostradamus','jeanne','ragnar','musashi','amanirenas','masako','mandukhai','zizka','fuhao'];
 const heroes=[
 {id:'leonidas',name:'Leonidas I.',era:'Sparta',color:'#9c3830',power:'Phalanx',powerText:'Erhaltet 1 Rüstung. Eure Diener erhalten +1 Leben.',cost:2,icon:'Λ',age:'griechen',ability:A([E('armor',1),E('buffAll',0,{health:1})]),ai:'defensive'},
-{id:'hypatia',name:'Hypatia',era:'Alexandria',color:'#336ea6',power:'Unterricht',powerText:'Ruft einen Schüler (1/2, Arkaner Fokus +1).',cost:2,icon:'✦',age:'griechen',ability:A(E('summon',1,{token:'student'})),ai:'combo'},
+{id:'hypatia',name:'Hypatia',era:'Alexandria',color:'#336ea6',power:'Unterricht',powerText:'Ruft einen Schüler (1/1) herbei.',cost:2,icon:'✦',age:'griechen',ability:A(E('summon',1,{token:'student'})),ai:'combo'},
 {id:'imhotep',name:'Imhotep',era:'Ägypten',color:'#c19940',power:'Baumeister des Djoser',powerText:'Euer schwächster Diener erhält +2 Leben.',cost:2,icon:'☥',age:'steppe',ability:A(E('buffWeakest',0,{health:2})),ai:'defensive'},
 {id:'dandolo',name:'Enrico Dandolo',era:'Venedig',color:'#8d5065',power:'Rammsporn der Galeeren',powerText:'Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus.',cost:2,icon:'†',age:'byzanz',ability:A(E('weapon',1,{durability:2})),ai:'combo'},
 {id:'khan',name:'Widukind',era:'Sachsen',color:'#947142',power:'Überfall aus dem Wald',powerText:'Fügt dem feindlichen Helden 2 Schaden zu.',cost:2,icon:'♘',age:'mittelalter',ability:A(E('face',2)),ai:'aggressive'},
-{id:'boudicca',name:'Vercingetorix',era:'Arverner',color:'#45835b',power:'Kein Korn für Caesar',powerText:'Fügt allen feindlichen Dienern 1 Schaden zu. Belastung 1.',cost:2,icon:'✹',age:'rom',ability:{...A(E('aoe',1)),overload:1},ai:'aggressive'},
+{id:'boudicca',name:'Vercingetorix',era:'Arverner',color:'#45835b',power:'Kein Korn für Caesar',powerText:'Fügt einem zufälligen feindlichen Diener 1 Schaden zu.',cost:2,icon:'✹',age:'rom',ability:A(E('randomDamage',1,{minions:true})),ai:'aggressive'},
 {id:'nostradamus',name:'Johann Friedrich Böttger',era:'Meißen',color:'#69509c',power:'Arkanum',powerText:'Zieht 1 Karte. Euer Held erleidet 1 Schaden.',cost:2,icon:'⚗',age:'ostasien',ability:A([E('draw',1),E('selfDamage',1)]),ai:'combo'},
 {id:'jeanne',name:'Hildegard von Bingen',era:'Rupertsberg',color:'#b39853',power:'Klostergemeinschaft',powerText:'Ruft eine Novizin (1/1) herbei.',cost:2,icon:'❦',age:'mittelalter',ability:A(E('summon',1,{token:'novice',bonusIf:'jeanne_9'})),ai:'aggressive'},
 {id:'ragnar',name:'Wiprecht von Groitzsch',era:'Mark Meißen',color:'#397c89',power:'Grenzsteine setzen',powerText:'Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt.',cost:2,icon:'⚒',age:'mittelalter',ability:A(E('summonNew',1,{tokens:['totem_heal','totem_fire','totem_guard','totem_strength']})),ai:'aggressive'},
@@ -235,8 +235,9 @@ const tokens={recruit:M('Rekrut',1,1,1),novice:M('Novizin',1,1,1),warrior:M('Kri
   companion:M('Gefährte der Heiligen Schar',3,3,3,'Göttliche Gunst.',{shield:true}),twin:M('Sippenbruder',2,2,1),elephant:M('Kriegselefant',5,5,6,'Vorstoß.',{rush:true}),
   parthenos:M('Athena Parthenos',5,0,8,'Bauwerk. Eure Diener haben +1/+1.',{building:true,buffAura:{attack:1,health:1}}),
  pyramid:M('Stufenpyramide',4,0,8,'Bauwerk. Zu Beginn Eures Zuges erhält Euer schwächster Diener +2/+2.',{building:true,start:[E('buffWeakest',2,{health:2})]}),
- // AP L.5 (1.23.0): Hypatias Unterricht – ihre Hörer kamen von weit her (Sokrates Scholastikos VII 15).
- student:M('Schüler der Hypatia',1,1,2,'Arkaner Fokus +1.',{focus:1})};
+ // AP L.5 (1.23.0): Hypatias Unterricht – ihre Hörer kamen von weit her (Sokrates Scholastikos VII 15). Ohne Arkanen
+ // Fokus: Ein Schüler je Zug stapelte ihn, mit dem doppelten Sternenregen im Startdeck gewann Hypatia zu oft (Balance-Lauf).
+ student:M('Schüler der Hypatia',1,1,1)};
 const ART={hoplite:['leonidas',10],pyramid:['@pyramid',0],eagle:[null,0],stoneguard:['imhotep',10],citizen:[null,0],pioneer:[null,0],parthenos:[null,0],rider:[null,0],chariot:[null,0],terracotta:[null,0],
  tribesman:[null,0],wagon:[null,0],taborite:[null,0],mamluk:[null,0],immortal:[null,0],messenian:[null,0],companion:[null,0],twin:[null,0],elephant:[null,0],
  novice:[null,0],student:[null,0],totem_heal:[null,0],totem_fire:[null,0],totem_guard:[null,0],totem_strength:[null,0]};
