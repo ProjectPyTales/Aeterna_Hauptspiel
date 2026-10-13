@@ -30,7 +30,7 @@ test('Hypatia: Unterricht ruft ohne Zielwahl einen Schüler (AP L.5)',()=>{
  assert.equal(E.targetKind(s,0,{type:'power'}),null);
  power(s);
  assert.deepEqual(s.players[0].board.map(u=>[u.id,u.attack,u.health]),[['student',1,1]]);
- assert.equal(E.focus(s,0),0,'ohne Arkanen Fokus – er stapelte sich mit jedem Schüler');
+ assert.equal(E.focus(s,0),0,'ohne Weisheit (bis 1.23.0 Arkaner Fokus) – sie stapelte sich mit jedem Schüler');
 });
 
 test('Imhotep baut am Schwächsten, Vercingetorix verbrennt das Land, Böttger zieht für 1 Leben',()=>{

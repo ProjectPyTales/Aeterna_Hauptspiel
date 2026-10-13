@@ -15,7 +15,7 @@ test('AP 3.6: Schildwall, Starre, Tarnung, Gift und Vermächtnis haben eigene Bi
  for(const k of ['shieldWall','frost','stealth','vial','urn','ring','aura'])assert.equal(typeof F[k],'function',k);
  assert.match(render,/if\(u\.taunt\)K\.shieldWall\(c\);if\(card\.death&&!u\.silenced&&!building\)K\.urn\(c\)/,'Schilde und Urne hinter der Plakette');
  assert.match(render,/if\(u\.stealth\)K\.stealth\(c\)/);assert.match(render,/if\(u\.frozen\)K\.frost\(c\)/);assert.match(render,/if\(u\.poison\)K\.vial\(c\)/);
- assert.match(render,/if\(u\.shield\)K\.ring\(c\)/,'Göttliche Gunst als Aurenkreis um die Plakette');assert.match(render,/if\(u\.shield\)window\.CHF\.aura\(c,x,y,t,ms\)/,'mit umlaufendem Schimmer in jedem Bild');
+ assert.match(render,/if\(u\.shield\)K\.ring\(c\)/,'Segen als Aurenkreis um die Plakette');assert.match(render,/if\(u\.shield\)window\.CHF\.aura\(c,x,y,t,ms\)/,'mit umlaufendem Schimmer in jedem Bild');
  const marks=render.slice(render.indexOf('const own=!u.silenced;const marks'),render.indexOf('if(!building&&marks.length)'));
  for(const g of ['☠','⚗','◐'])assert.ok(!marks.includes(g),g+' ersetzt');
  for(const k of ['schildwall','starre-ketten','tarnung-unterholz','giftphiole','vermaechtnis-urne','gunst-aurenkreis','eiskristall','giftblasen','urnengeist'])assert.match(fx,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
@@ -26,14 +26,14 @@ test('fx.js wird überall geladen, wo render.js läuft (Spiel und Renderer-Labor
   assert.ok(r>=0&&f>m&&m>r,page);}
 });
 
-test('AP 3.6: Gunst zerspringt klirrend, Starre mit Ketten, Gift blubbert, die Urne entlässt ihr Vermächtnis',()=>{
+test('AP 3.6: Segen zerspringt klirrend, Starre mit Ketten, Gift blubbert, die Urne entlässt ihr Vermächtnis',()=>{
  const card=D.cards.find(c=>c.type==='minion'&&c.death&&!c.building);sounds.length=0;R.fx=[];
  R.units={a:{u:{shield:true},card:D.byId.neutral_0,sp:{},x:400,y:300,p:1,seen:0},b:{u:{},card,sp:{},x:600,y:300,p:1,seen:0},c:{u:{silenced:true},card,sp:{},x:700,y:300,p:1,seen:0}};
  R.positions={a:{x:400,y:300},b:{x:600,y:300},c:{x:700,y:300}};
  R.events([{type:'shield',target:'a'},{type:'freeze',target:'a'},{type:'poison',target:'b'},{type:'death',target:'b',p:1,id:card.id}],{particles:true});
  for(const k of ['gunst','frostburst','poison','urn'])assert.ok(R.fx.some(f=>f.type===k),k);
  const names=sounds.map(([n])=>n);for(const k of ['clink','chains','poison'])assert.ok(names.includes(k),k);
- assert.ok(!names.includes('armor'),'Gunst klingt nicht mehr nach Rüstung');
+ assert.ok(!names.includes('armor'),'Segen klingt nicht mehr nach Rüstung');
  R.fx=[];R.events([{type:'death',target:'c',p:1,id:card.id}],{particles:true});assert.ok(!R.fx.some(f=>f.type==='urn'),'gebannt: keine Urne');
  for(const k of Object.keys(F.paint))assert.equal(typeof F.paint[k],'function',k);R.fx=[];
 });

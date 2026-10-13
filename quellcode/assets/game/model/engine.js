@@ -1,7 +1,7 @@
 /* Deterministic rules engine. No DOM, clock or network dependencies.
- * Keywords (AP 5.4) keep their engine fields: taunt = Schildwall, shield = Göttliche Gunst, battle = Einmarsch,
+ * Keywords (AP 5.4) keep their engine fields: taunt = Schildwall, shield = Segen (until 1.23.0 Göttliche Gunst), battle = Einmarsch,
  * death = Vermächtnis, charge = Sturmangriff. New in 1.7.0: rush (Vorstoß), freeze (Starre), discover (Ergründen,
- * a pending choice in s.choice), double (Doppelschlag), focus (Arkaner Fokus), buildings (Bauwerk), auras of the
+ * a pending choice in s.choice), double (Doppelschlag), focus (Weisheit, until 1.23.0 Arkaner Fokus), buildings (Bauwerk), auras of the
  * legendaries and per-card cost changes in the hand. New in 1.8.0 (AP 5.4 part 2): plunder (Plünderung), stealth
  * (Tarnung), silence (Bannung, unit.silenced), poison (Tödliches Gift) and overload (Belastung, player.overload/locked).
  * New in 1.9.0 (AP 5.10): hero powers are data (hero.ability: effects and target, conditions follow from the effects),
@@ -46,7 +46,7 @@ function summon(s,p,id,position){const a=s.players[p];if(a.board.length>=7)retur
  if(c.rush)u.rush=true;if(c.double)u.double=true;if(c.stealth)u.stealth=true;if(c.plunder)u.plunder=true;if(c.poison)u.poison=true;if(c.building){u.building=true;u.ready=false;}u.fresh=true;
  a.board.splice(position==null?a.board.length:position,0,u);emit(s,'summon',{p,target:u.uid,id});auras(s);return u;}
 // Auras of the legendaries, recomputed after every change: Gorgo (+1 attack for Schildwall), Jutta von Sponheim (novices
-// +1/+1 and Göttliche Gunst once; until 1.14.0 La Hire with recruits), Judith von Böhmen (boundary stones Schildwall and +1 health) and buffAura of any card (Castra, Athena Parthenos:
+// +1/+1 and Segen once; until 1.14.0 La Hire with recruits), Judith von Böhmen (boundary stones Schildwall and +1 health) and buffAura of any card (Castra, Athena Parthenos:
 // all other own minions). Only the difference to the last value is applied.
 function auras(s){for(const a of s.players){const gorgo=has(a,'leonidas_9'),jutta=has(a,'jeanne_9'),judith=has(a,'ragnar_9'),anthems=a.board.filter(u=>rule(u).buffAura);
  for(const u of a.board){if(u.building)continue;const totem=u.id.startsWith('totem_'),novice=u.id==='novice';
@@ -57,7 +57,7 @@ function auras(s){for(const a of s.players){const gorgo=has(a,'leonidas_9'),jutt
   const da=atk-(u.auraAtk||0),dh=hp-(u.auraHp||0);
   if(da){u.attack+=da;if(atk)u.auraAtk=atk;else delete u.auraAtk;}
   if(dh){u.maxHealth+=dh;u.health=dh>0?u.health+dh:Math.min(u.health,u.maxHealth);if(hp)u.auraHp=hp;else delete u.auraHp;}}}}
-// Arkaner Fokus: extra damage of the player's spells.
+// Weisheit: extra damage of the player's spells.
 const focus=(s,p)=>s.players[p].board.reduce((n,u)=>n+(rule(u).focus||0),0);
 // Cost of a hand card: base cost, its own change (Marco, Caterina, Chrysobull) and Andraste's discount (1 per two fallen
 // minions).
@@ -89,7 +89,7 @@ function choose(s,index){const c=s.choice;s.choice=null;take(s,c.p,c.options[ind
  if(c.left>1){const options=offer(s,c.p,c.pool);if(options.length){s.choice={...c,options,left:c.left-1};emit(s,'choice',{p:c.p});}}}
 
 // ---------- Effects ----------
-// ctx: {spell} adds Arkaner Fokus to damage, {auto} resolves Ergründen at random (Theon's echo at the end of a turn).
+// ctx: {spell} adds Weisheit to damage, {auto} resolves Ergründen at random (Theon's echo at the end of a turn).
 function effects(s,p,list,target,source,ctx={}){const a=s.players[p],enemy=s.players[1-p],plus=ctx.spell?focus(s,p):0;for(const e of list||[]){const t=unit(s,target);switch(e.type){
 // noToken (1.10.0, Kandake): no reward for a summoned token – novices and boundary stones no longer feed Ahhotep's cards.
 case 'damage':hurt(s,target,e.n+plus);if(e.onKill&&t&&!t.hero&&t.obj.health<=0&&!(e.noToken&&D.byId[t.obj.id].rarity==='token'))effects(s,p,e.onKill,null,source,ctx);break;case 'heal':heal(s,target,e.n);break;case 'face':hurt(s,'h'+(1-p),e.n+plus);break;case 'selfDamage':hurt(s,'h'+p,e.n);break;
@@ -235,7 +235,7 @@ function unitValue(u){const c=rule(u);if(u.building)return buildingValue(u,c);
   +(u.plunder?u.attack*.6:0)+(u.poison?2.4:0)+(u.stealth?u.attack*.35+.6:0);}
 // AI personality (AP 5.8 part 2), a field of the hero: aggressive heroes weigh the enemy hero's life higher, defensive ones
 // their own life and a cleared board, combining ones cards in hand, Ergründen and every different own unit that keeps
-// working (triggers, auras, Arkaner Fokus, discounts). Small factors: the style shows, the strength stays.
+// working (triggers, auras, Weisheit, discounts). Small factors: the style shows, the strength stays.
 const STYLE={aggressive:{face:1.3,guard:.95,clear:1,cards:1,engine:0},defensive:{face:.95,guard:1.12,clear:1.06,cards:1,engine:0},combo:{face:1,guard:1,clear:1,cards:1.12,engine:.8}};
 const NEUTRAL={face:1,guard:1,clear:1,cards:1,engine:0};
 const engines=a=>new Set(a.board.filter(u=>{const c=rule(u);return c.passive||c.start||c.end||c.buffAura||c.focus||c.aura||c.allyHeal||c.onHeal||c.spellDiscount||c.buildingDiscount||c.anyDeath;}).map(u=>u.id)).size;

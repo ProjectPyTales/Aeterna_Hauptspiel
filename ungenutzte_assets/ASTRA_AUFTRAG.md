@@ -10,7 +10,9 @@
 |---|---:|---:|---:|
 | Eingebaut (im Spiel) | 163 | 3 | **166** |
 | Eingebaut, Korrektur nötig | 1 | 0 | **1** |
-| Neu erzeugen | 183 | 22 | **205** |
+| Altes Bild bleibt (AP L.6) – nicht erzeugen | 36 | 3 | **39** |
+| Im Spiel nie gerufen – nicht erzeugen | 0 | 1 | **1** |
+| Neu erzeugen | 147 | 18 | **165** |
 | Teil 4 beschädigt – Original suchen, sonst neu | 3 | 3 | **6** |
 | Gesperrt – Zuordnung klären | 0 | 0 | **0** |
 | **Gesamt** | **350** | **28** | **378** |
@@ -117,7 +119,7 @@ Die technischen IDs bleiben wegen bestehender Spielstände erhalten. Der aktuell
 | `totem_*` | Grenzsteine | Fantasy-Totempfähle |
 
 
-## 5. Kartenillustrationen: 187
+## 5. Kartenillustrationen: 151
 
 Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
@@ -167,7 +169,6 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
 | ID | Name | Status | Konkretes Motiv und Komposition |
 |---|---|---|---|
-| `khan_2` | Pfeilschuss | neu | Sächsischer Bogenschütze lässt einen Pfeil auf ein Holzziel am Buchenwald los. Seitenansicht mit verständlicher Bogenhaltung; einfacher Holzbogen. |
 | `khan_3` | Reiter der Edelinge | neu | Sächsischer Edeling reitet mit gesenktem Speer einen Waldweg entlang; Kettenhemd und Wollmantel. Pferd und Speerrichtung bilden eine klare Diagonale. |
 | `khan_10` | Plünderer am Rhein | neu | Sächsische Plünderer tragen Beute am Rheinufer; entfernt Rauch über einem fränkischen Dorf. Vordergrundgruppe gut lesbar, keine grafische Gewaltdarstellung. |
 | `khan_11` | Heerlager an der Weser | neu | Sächsisches Heerlager an der Weser im Morgenlicht; Zelte, Feuer, Pferde und wenige sich rüstende Krieger. Flussbiegung schafft Tiefe. |
@@ -334,8 +335,6 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
 | ID | Name | Status | Konkretes Motiv und Komposition |
 |---|---|---|---|
-| `nostradamus_0` | Apothekerlehrling | neu | Junger Apothekerlehrling in Hemd und schlichter Weste zerreibt Kräuter im Keramikmörser, Dresden um 1705. Nahansicht von Gesicht und Arbeitsgeräten. |
-| `nostradamus_3` | Geheimes Rezeptbuch | neu | Geheimes Rezeptbuch in schräger Ansicht zwischen Tiegeln und einer kleinen Porzellanprobe; teilweise verdeckte Seiten und Siegel betonen Geheimhaltung. Keine lesbare Schrift. |
 | `nostradamus_10` | Eid der Arkanisten | neu | Porzellanarbeiter schwören mit erhobenen Händen vor einem Hofbeamten Verschwiegenheit. Kleine Gruppe in einer Werkstatt; keine mittelalterlichen Magier. |
 | `nostradamus_11` | Laborbuch | neu | Offenes Laborbuch von 1708 von oben, Porzellanscherbe auf den Seiten, Versuchsspuren und Arbeitsutensilien. Sachliche Werkbankstudie; vom geheimen Rezeptbuch kompositorisch unterscheiden. |
 | `nostradamus_12` | Weißes Gold | neu | Frühes weißes Meißner Porzellangefäß auf dunklem Samtkissen. Ruhiges Objektmotiv, weicher Glanz auf weißer Glasur; keine moderne Marke oder Beschriftung. |
@@ -374,46 +373,14 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
 | ID | Name | Status | Konkretes Motiv und Komposition |
 |---|---|---|---|
-| `neutral_0` | Dorfwache | neu | Dorfwächter um 1200 mit Speer und einfachem Holzschild am Holztor. Wolltunika, ruhige Standpose; bescheidene Ausrüstung. |
-| `neutral_1` | Wandernder Händler | neu | Wandernder Händler führt einen kleinen Packesel mit Tuch und Keramik einen Dorfweg entlang. Freundliches Reisebild, Ware eindeutig lesbar. |
-| `neutral_2` | Steinschleuderer | neu | Antiker mediterraner Schleuderer holt mit Lederschleuder aus, Steinbeutel am Gürtel. Leinentunika und felsiger Boden; nachvollziehbare Handhaltung. |
-| `neutral_3` | Wilderin | neu | Erwachsene Wilderin kauert mit schlichtem Jagdbogen im Wald. Praktisches geschlossenes Wollgewand; unauffällige Jagdszene statt Fantasy-Assassinin. |
-| `neutral_4` | Torwache der Burg | neu | Torwache in Kettenhemd und Nasalhelm mit Speer vor einem steinernen Burgtor um 1200. Stärker gerüstet als Dorfwache neutral_0. |
-| `neutral_5` | Kavallerist | neu | Berittener Krieger um 1150 mit Speer, Kettenhemd und langem Schild. Seitliche Reise- oder Wachpose; keine Vollplattenrüstung. |
 | `neutral_6` | Feldheilerin | neu | Feldheilerin verbindet einen sitzenden Soldaten, Leinenapron über Wollkleid. Zuwendung und Hände im Fokus; keine modernen Verbandsverpackungen. |
-| `neutral_7` | Archivarin | neu | Reife Archivarin hält einen geschlossenen Codex vor Handschriftenregalen. Schlichtes Gewand, Wissensarbeit statt Magie. |
 | `neutral_8` | Wachhund | neu | Kräftiger Haushund bewacht eine mittelalterliche Holztür. Niedrige Perspektive, natürliche Anatomie; keine Panzerung. |
-| `neutral_9` | Veteran | neu | Älterer Veteran mit grauem Bart, abgenutztem Kettenhemd und Schild. Ruhige würdevolle Halbfigur, sichtbare Gebrauchsspuren. |
-| `neutral_10` | Belagerungsturm | neu | Hölzerner Belagerungsturm auf großen Rädern nähert sich einer Steinmauer. Rohhautverkleidung, stabile Balken; Gerät als Hauptmotiv. |
-| `neutral_11` | Schmied | neu | Schmied in Hemd und Lederschürze bearbeitet glühendes Eisen am Amboss. Hammerbewegung und Werkstück klar, Funken sparsam. |
-| `neutral_12` | Wüstenspäherin | neu | Nordafrikanische Wüstenspäherin in geschlossenen Leinen- und Wolltüchern mit Sandalen und Speer. Wüstenlandschaft, praktische Reiseausstattung. |
-| `neutral_13` | Gebirgswache | neu | Gebirgswache mit Wollmantel über Kettenhemd und Speer an einem Alpenpass. Standhafte Silhouette vor Fels und weitem Himmel. |
-| `neutral_14` | Verwegener Bote | neu | Verwegener Bote reitet auf kleinem Pferd über einen unebenen Weg; versiegelter Brief am Sattel. Tempo durch Körperhaltung, kein Adelsprunk. |
-| `neutral_15` | Nachtwächter | neu | Nachtwächter mit einfacher Laterne und Stab zwischen Fachwerkhäusern. Warmes Licht oben rechts an der Figur, lesbare Umgebung trotz Nacht. |
-| `neutral_16` | Versorgung | neu | Feldversorgung mit Getreidesäcken, Brot, Tonkrügen und Wolldecken beim Abladen eines Holzkarrens. Güter vorn, kleine Helfer dahinter. |
-| `neutral_17` | Heilkräuter | neu | Heilkräuter, Mörser, Leinentuch und Keramikschale auf einem Holztisch. Nahes Stillleben, natürliche Pflanzenformen und keine Etiketten. |
-| `neutral_18` | Wurfmesser | neu | Drei einfache eiserne Wurfmesser mit Holzgriffen auf dunklem Leder. Sachliche Objektstudie; keine übergroßen Zacken oder Fantasy-Klingen. |
-| `neutral_19` | Kriegselefant | neu | Karthagischer Kriegselefant mit einfacher Ausrüstung und Reiter auf einem antiken Schlachtfeld. Größere Umgebung und Bewegung; Token elephant erhält eigene ruhige Komposition. |
 | `neutral_20` | Ordensritter | neu | Ordensritter des 13. Jahrhunderts im Kettenhemd und schlichtem weißem Waffenrock mit kleinem Kreuz. Topfhelm unter dem Arm, keine spätere Plattenrüstung. |
-| `neutral_21` | Söldnerhauptmann | neu | Erfahrener spätmittelalterlicher Söldnerhauptmann sammelt seine Leute. Gepolstertes Gewand, zeitgerechte Rüstung und deutliche Führungsgeste. |
-| `neutral_22` | Adler der Berge | neu | Steinadler gleitet über europäische Berggipfel. Flügelspannweite und natürliche Federn im Fokus; kein Feuer- oder Magievogel. |
 | `neutral_23` | Grabwächter | neu | Lebender Grabwächter trägt eine Lampe an einer antiken mediterranen Grabanlage. Ruhiges Motiv; keine Mumie, kein Untoter. |
-| `neutral_24` | Sammelruf | neu | Zwei antike Speerträger folgen einem Hornruf und sammeln sich unter einem schlichten Banner. Reaktion und Zusammenkommen statt übernatürlicher Beschwörung. |
-| `neutral_25` | Feldration | neu | Brot, Bohnen, Käse und eine keramische Wasserflasche auf Leinentuch im Feldlager. Essensstillleben in Nahsicht; keine Versorgungskarren. |
-| `neutral_26` | Bogenmeisterin | neu | Erfahrene Bogenmeisterin zieht einen einfachen Langbogen. Geschlossene Wollkleidung, Ledergürtel und Köcher; sicherer Stand und stimmige Hände. |
 | `neutral_27` | Prätorianer | neu | Prätorianer der frühen Kaiserzeit mit römischem Helm, Kettenrüstung und gebogenem Scutum. Wehrhafte Halbfigur; kein mittelalterlicher Ritter. |
-| `neutral_28` | Silberner Bannerträger | neu | Bannerträger mit hell silbrigem Stoffbanner, Kettenhemd und schlichtem Waffenrock. Stoff statt Metallflagge; keine erfundene konkrete Königswappen-Zuordnung. |
-| `neutral_29` | Flammenkrug | neu | Keramischer Brandtopf mit kleinem Feuer und Rauch am Docht auf einer Belagerungsplattform. Objekt als Fokus, keine moderne Handgranate. |
-| `neutral_30` | Löwin der Arena | neu | Löwin in einer römischen Arena, kraftvolle natürliche Körperhaltung. Sand und niedrige Tribünenstaffelung; keine Rüstung oder menschlichen Züge. |
-| `neutral_31` | Seidenkarawanenführer | neu | Karawanenführer mit beladenen Kamelen und Seidenbündeln in einem trockenen Gebirgstal. Mehrlagige Gewänder und verständliche Reiserichtung. |
-| `neutral_32` | Schlachtruf | neu | Mittelalterliche Fußsoldaten heben vor dem Angriff ihre Speere und rufen gemeinsam. Gesichter und Rhythmus der Waffen; keine magische Druckwelle. |
 | `neutral_33` | Trojanisches Pferd | neu | Trojanisches Pferd als hölzernes Objekt vor einer bronzezeitlich inspirierten Stadtmauer. Legendäre Szene, kleine Maßstabsfiguren; keine archäologische Gewissheit behaupten. |
 | `neutral_34` | Brander | neu | Brennendes hölzernes Schiff treibt auf entfernte gegnerische Schiffe zu. Segelbrand und Wasserreflexe; kein modernes Kriegsschiff. |
-| `neutral_35` | Vergessene Weisheit | neu | Antike Schriftrolle, alter Codex, Bronzelampe und geometrisches Instrument auf steinernem Gelehrtentisch. Wiederentdecktes Wissen, keine lesbaren modernen Formeln. |
 | `neutral_36` | Burgbesatzung | neu | Burgbesatzung verteidigt eine Steinmauer mit Schilden und Speeren. Mehrere erkennbare Soldaten; keine einzelne Torwache. |
-| `neutral_37` | Donnernde Legion | neu | Römische Legion marschiert dicht geordnet über eine staubige Straße. Schilde und Schrittfolge erzeugen Rhythmus; kein übernatürlicher Blitz. |
-| `neutral_38` | Herodot, Vater der Geschichte | neu | Herodot als reifer bärtiger Grieche mit Himation, Papyrusrolle und Reisebündel. Nachdenkliches Gelehrtenbild; Gesicht als künstlerische Rekonstruktion. |
-| `neutral_39` | Zenobia, Rebellin von Palmyra | neu | Zenobia in gegürteter langer Tunika, Mantel und zurückhaltendem Diadem vor Palmyras Säulen. Würdevolle syrische Herrscherin; kein Kleopatra-Kostüm. |
 | `neutral_42` | Freibeuterin | neu | Mediterrane Freibeuterin auf einer Galeere mit zeitgerecht schlichtem Schwert und Münzbeutel. Praktische Kleidung, keine modernen Piratenfilm-Accessoires. |
 | `neutral_43` | Späherin im Unterholz | neu | Späherin unter grüner Kapuze im Unterholz; Augen und einfacher Bogen sichtbar. Stille Beobachtung, deutlich engere Komposition als Wilderin neutral_3. |
 | `neutral_44` | Wandermönch | neu | Wandermönch mit Stab und kleinem Holzkreuz auf einem Weg. Beruhigende Lichtstimmung; kein übernatürlicher Heiligenschein nötig. |
@@ -436,9 +403,8 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 | ID | Name | Status | Konkretes Motiv und Komposition |
 |---|---|---|---|
 | `hypatia_0` | Bibliothekslehrling | neu | Junger erwachsener männlicher Schüler mit Papyrus in einem bescheidenen alexandrinischen Gelehrtenraum um 400 n. Chr.; Tunika/Himation, keine monumentale intakte ptolemäische Bibliothek. |
-| `hypatia_2` | Sternenkundiger | neu | Älterer Astronom mit einfachem Visierinstrument unter Sternen in spätrömisch-alexandrinischem Kontext; kein Fernrohr und kein Hypatia-Porträt. |
 
-## 6. Spielsteine: 25
+## 6. Spielsteine: 21
 
 Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige Szene, kein Freisteller.
 
@@ -447,14 +413,10 @@ Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige S
 
 | ID | Name | Status | Konkretes Motiv und Komposition |
 |---|---|---|---|
-| `recruit` | Rekrut | neu | Ein erwachsener, einfacher Rekrut mit Speer und Holzschild vor ruhigem Lagerhintergrund. Gestaltungsvorschlag: schlicht mediterran-mittelalterlich, keine konkrete Herrscheruniform; Einzelperson mit klarer Silhouette. |
-| `warrior` | Krieger | neu | Ein erwachsener einfacher Krieger mit Speer, rundem Holzschild und Wolltunika. Gestaltungsvorschlag: generische europäische historische Fußtruppe; kampfbereit, anderes Gesicht und andere Pose als recruit. |
 | `eagle` | Habicht | neu | Habicht mit angezogenen beziehungsweise zum Greifen geöffneten Fängen über einem deutschen Wald. Kurze breite Flügel und langer Schwanz; ausdrücklich kein Adler trotz Dateiname. |
-| `stoneguard` | Pyramidenwächter | neu | Ein Wächter des Alten Reiches mit Leinenschurz und Hautschild in ruhiger Halbfigur. Pyramidenmauer nur angedeutet; gegenüber imhotep_2 engere, vereinfachte Komposition. |
 | `totem_fire` | Grenzstein der Mark | neu | Grenzstein der Mark mit einfachem Schwertrelief, kleines Signalfeuer daneben. Hauptstein groß, Umgebung ruhig; keine Figur und kein Totempfahl. |
 | `totem_guard` | Grenzstein der Burg | neu | Massiver moosiger Grenzstein mit eingearbeitetem Turmrelief. Frontal-nahe Ansicht, feste breite Silhouette; kein vollständiges Burgpanorama. |
 | `totem_strength` | Grenzstein des Dorfes | neu | Dörflicher Grenzstein mit schlichtem Pflugrelief, reifes Feld dahinter. Stein als Hauptmotiv, goldwarme Akzente; kein magisches Runenobjekt. |
-| `coin` | Gunst der Stunde | neu | Gestaltungsvorschlag für Gunst der Stunde: einzelne gealterte Bronzemünze mit schlichtem Sonnensymbol auf warmem Stein, schmaler goldener Lichtsaum. Keine Währungszahl oder lesbare Prägung; kein Goldhaufen. |
 | `rider` | Reiter | neu | Ein leichter Reiter mit Speer und Rundschild kommt aus einem Wald. Vereinfachter Hintergrund und zentrale Pferd-Reiter-Silhouette; kein Porträt eines benannten Helden. |
 | `chariot` | Streitwagen | neu | Ein leichter ägyptischer Streitwagen mit zwei Pferden und Bogenschützen. Seiten-Dreiviertelansicht, ruhiger Wüstenhintergrund; keine ganze Wagenformation. |
 | `terracotta` | Musketier | neu | Ein barocker Musketier im blauen Rock mit Muskete in Wachhaltung. Menschliche Einzelperson, keine Terrakottastatue und kein chinesischer Soldat. |

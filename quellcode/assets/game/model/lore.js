@@ -73,7 +73,7 @@ jeanne:{life:'1098 – 1179',epoch:'Hochmittelalter',place:'Disibodenberg und Ru
   'Seit ihrer Kindheit hatte sie Visionen. Ab 1141 schrieb sie diese im Buch „Scivias“ („Wisse die Wege“) nieder; Papst Eugen III. ermutigte sie weiterzuschreiben. Sie verfasste auch Bücher über Heilkunde und Natur, komponierte Lieder und ein geistliches Singspiel.',
   'Gegen den Widerstand der Mönche zog sie um 1150 mit ihren Schwestern in ein eigenes Kloster auf dem Rupertsberg bei Bingen und gründete später ein zweites in Eibingen. Sie predigte auf Reisen und schrieb Briefe an Päpste und an Kaiser Friedrich Barbarossa. 2012 wurde sie heiliggesprochen und zur Kirchenlehrerin erhoben.'],
  quote:'Ein feuriges Licht von größtem Glanz kam aus dem geöffneten Himmel und durchströmte mein ganzes Gehirn.',source:'Scivias, Vorrede – über ihre Vision im Jahr 1141',
- style:'Hildegard sammelt ihre Gemeinschaft: viele kleine Helfer, Göttliche Gunst und Segen für die ganze Linie.',
+ style:'Hildegard sammelt ihre Gemeinschaft: viele kleine Helfer und Segen für die ganze Linie.',
  favorites:['jeanne_3','jeanne_6','jeanne_9'],
  relations:[['Jutta von Sponheim','Lehrerin und erste Meisterin auf dem Disibodenberg – als Legendäre auf ihrer Seite'],['Bernhard von Clairvaux','Abt, der ihre Visionen vor dem Papst unterstützte'],['Friedrich I. Barbarossa','Kaiser, dem sie mahnende Briefe schrieb'],['Abt Kuno vom Disibodenberg','wollte sie nicht ziehen lassen – Boss ihrer Mission']],
  voice:'klar, eindringlich, singend',music:'einstimmiger Gesang nach ihren eigenen Liedern, Psalterium, Glocken'},
@@ -241,6 +241,25 @@ const deeds={
  baibars:'Baibars führte bei Ain Dschalut 1260 die Vorhut der Mamlukenreiter gegen die Mongolen.',
  zizka:'Vauban führte seine Laufgräben, gedeckt von Schanzkörben, Schritt für Schritt an die Mauern heran.',
  fuhao:'Im Grab der Fürstin stand ein riesiger Krater aus einer griechischen Werkstatt – Zeichen des Handels über Massalia.'};
-const api={lore,curriculum,school,deeds,of:id=>lore[id]||null,deed:id=>deeds[id]||''};
+// „Aus der Chronik“ (AP L.6 Teil 2, seit 1.24.0): ein belegter Satz mit Quelle je Karte für die Großansicht – zuerst für die
+// Karten, die AP L.6 Teil 1 umbenannt oder geprüft hat. Unsicheres wird als unsicher erzählt. Karte → [Satz, Quelle].
+const cards={
+ hypatia_1:['Eratosthenes, der Leiter der Bibliothek, maß um 240 v. Chr. den Schatten der Mittagssonne in Alexandria und errechnete den Erdumfang: 250 000 Stadien, je nach Stadion 39 000 bis 46 000 km (heute: 40 000 km).','Kleomedes, Himmelslehre I 7'],
+ hypatia_3:['Als Hipparchos einen neuen Stern entdeckte, begann er, die Fixsterne zu verzeichnen – damit Spätere sehen, ob sich am Himmel etwas ändert.','Plinius, Naturgeschichte II 95'],
+ hypatia_4:['Synesios lernte bei Hypatia, ließ ein silbernes Astrolab bauen und nannte sie seine verehrteste Lehrerin; später wurde er Bischof von Ptolemais.','Synesios, Über das Astrolab; Briefe an Hypatia'],
+ hypatia_7:['Archimedes soll 212 v. Chr. römische Schiffe vor Syrakus mit Spiegeln entzündet haben. Davon erzählen erst Schriftsteller Jahrhunderte später, der älteste Bericht kennt keine Spiegel – wohl eine Legende.','Polybios VIII 5–7; Zonaras IX 4; Tzetzes, Chiliaden II 35'],
+ hypatia_8:['Ptolemaios verzeichnete um 150 n. Chr. in Alexandria über 1 000 Sterne im Almagest. Theon schrieb dazu einen Kommentar, den Hypatia durchsah.','Ptolemaios, Almagest VII–VIII; Vermerk Theons zum 3. Buch'],
+ imhotep_4:['Brot und Bier waren im Alten Reich Lohn und Speise der Arbeiter. Bei den Pyramiden von Gizeh fand man ganze Großbäckereien.','Ausgrabungen der Arbeiterstadt von Gizeh (Mark Lehner)'],
+ imhotep_8:['Maat hieß Wahrheit, Recht und Ordnung; nach ihr sollte jedes Urteil fallen: „Groß ist die Maat, dauernd ihre Wirkung.“','Lehre des Ptahhotep, Altes Reich'],
+ dandolo_5:['Masken gehören erst später zu Venedig: Das erste Gesetz über Maskierte stammt von 1268, gut sechzig Jahre nach Dandolos Tod.','Gesetz der Republik Venedig, 1268'],
+ dandolo_9:['Marco Polo kam erst 1254 zur Welt. Sein Vater und sein Onkel handelten um 1260 im lateinischen Konstantinopel – das gab es erst seit Dandolos Kreuzzug.','Marco Polo, Il Milione, Prolog'],
+ dandolo_10:['Seit 1082 hatten Venedigs Kaufleute ein eigenes Viertel in Konstantinopel. 1171 ließ Kaiser Manuel I. alle Venezianer im Reich festnehmen.','Chrysobull Alexios’ I.; Niketas Choniates'],
+ nostradamus_3:['Böttger gab 1701 in Berlin vor, Gold machen zu können, und floh nach Sachsen. Bei den Alchemisten stand die Sonne für Gold, der Mond für Silber.','Berichte aus Berlin 1701; Zeichen der Alchemie'],
+ neutral_20:['Ritterorden wie Templer, Johanniter und Deutscher Orden entstanden zur Zeit der Kreuzzüge; ihre Ritter lebten nach einer Regel wie Mönche.','Regel der Templer, Konzil von Troyes 1129'],
+ neutral_22:['Der Steinadler jagt in den Gebirgen Europas. Seit Marius trug jede römische Legion einen Adler als Feldzeichen.','Plinius, Naturgeschichte X 16'],
+ neutral_33:['Das hölzerne Pferd ist eine Sage: Die Odyssee erwähnt es, Vergil erzählt es aus. Troja gab es wirklich, das Pferd ist nicht belegt.','Homer, Odyssee VIII 492–520; Vergil, Aeneis II'],
+ neutral_35:['Gerhard Mercator nannte als Erster ein Buch mit Landkarten „Atlas“. Es erschien 1595, ein Jahr nach seinem Tod in Duisburg.','Mercator, Atlas sive cosmographicae meditationes, 1595'],
+ neutral_48:['Ob es die Hängenden Gärten von Babylon gab, ist unsicher: Keine babylonische Inschrift nennt sie, erst griechische Schriftsteller beschreiben sie.','Diodor II 10; Strabon XVI 1,5']};
+const api={lore,curriculum,school,deeds,cards,of:id=>lore[id]||null,deed:id=>deeds[id]||'',card:id=>cards[id]||null};
 if(typeof module!=='undefined')module.exports=api;else root.AELORE=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

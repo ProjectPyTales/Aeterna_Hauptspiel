@@ -1,5 +1,5 @@
 // Historische Schlüsselwörter (AP 5.4, Teil 1): Umbenennung und die neuen Regeln Vorstoß, Starre, Ergründen,
-// Doppelschlag, Arkaner Fokus und Bauwerk – mit der KI, die sie bewertet (AP 5.8, Teil).
+// Doppelschlag, Arkaner Fokus (seit 1.24.0 Weisheit) und Bauwerk – mit der KI, die sie bewertet (AP 5.8, Teil).
 require('./attrappen.js');
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const game=path.join(__dirname,'../../quellcode/assets/game');
@@ -28,7 +28,7 @@ test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schl�
  // Spielsteine („Steppenreiter (1/1, Sturmangriff)“), die Pyramiden von Gizeh verdoppeln fremde Vermächtnisse (AP 5.11).
  for(const c0 of D.cards){const c={...c0,text:c0.text.replace(/\([^)]*\)/g,'')};
   assert.equal(c.text.includes('Schildwall'),!!c.taunt||c.id==='leonidas_9'||grants(c,'taunt'),c.name);
-  assert.equal(/Göttliche Gunst\./.test(c.text)&&!c.target&&!grants(c,'shield'),!!c.shield,c.name);
+  assert.equal(/Segen\./.test(c.text)&&!c.target&&!grants(c,'shield'),!!c.shield,c.name);
   assert.equal(c.text.startsWith('Einmarsch')||c.text.includes(' Einmarsch:'),!!c.battle,c.name);
   assert.equal(c.text.includes('Vermächtnis'),!!c.death||!!c.doubleDeath,c.name);
   assert.equal(c.text.includes('Sturmangriff'),!!c.charge,c.name);
@@ -104,11 +104,11 @@ test('Doppelschlag und Duell: Kojirō kämpft gegen den gewählten Diener und gr
  assert.equal(s2.players[1].health,20);assert.equal(E.legal(s2,0).filter(a=>a.uid===k2.uid).length,0);
 });
 
-test('Arkaner Fokus: Theon verstärkt Zauberschaden und wirkt am Zugende den letzten Zauber erneut',()=>{
+test('Weisheit (bis 1.23.0 Arkaner Fokus): Theon verstärkt Zauberschaden und wirkt am Zugende den letzten Zauber erneut',()=>{
  const s=ready('hypatia','khan');play(s,'hypatia_9');
- play(s,'hypatia_1',{target:'h1'});assert.equal(s.players[1].health,26,'3 Schaden + 1 Fokus');
+ play(s,'hypatia_1',{target:'h1'});assert.equal(s.players[1].health,26,'3 Schaden + 1 Weisheit');
  end(s);
- assert.ok(s.log.includes('Theon wirkt Himmelsstrahl erneut.'));
+ assert.ok(s.log.includes('Theon wirkt Erdmessung des Eratosthenes erneut.'));
  const echo=s.events.find(e=>e.type==='echo');assert.ok(echo&&echo.target);
  // Kampfschrei-Schaden zählt nicht als Zauber.
  const s2=ready('hypatia','nostradamus');play(s2,'hypatia_9');const foe=E.summon(s2,1,'attrappe_34');play(s2,'nostradamus_4');assert.equal(foe.health,3);
@@ -119,7 +119,7 @@ test('Bauwerk: Djoser errichtet die Stufenpyramide – kein Angriff, kein Fläch
  const [djoser,pyr]=s.players[0].board;assert.equal(pyr.id,'pyramid');assert.ok(pyr.building);assert.equal(pyr.health,8);
  const small=E.summon(s,0,'neutral_12');// 2/1
  end(s);
- const h=give(s,1,'hypatia_3');act(s,{type:'play',uid:h.uid});// Sternenregen: 2 an alle feindlichen Diener
+ const h=give(s,1,'hypatia_3');act(s,{type:'play',uid:h.uid});// Sternkatalog des Hipparchos: 2 an alle feindlichen Diener
  assert.equal(pyr.health,8,'Flächenschaden trifft Bauwerke nicht');assert.equal(djoser.health,3);
  assert.ok(E.validTargets(s,1,'minion').includes(pyr.uid),'gezielte Zauber dürfen belagern');
  end(s);
@@ -127,7 +127,7 @@ test('Bauwerk: Djoser errichtet die Stufenpyramide – kein Angriff, kein Fläch
  assert.equal(djoser.attack,6,'schwächster eigener Diener +2/+2');assert.equal(djoser.health,5);
  pyr.health=5;E.effects(s,0,[{type:'healAll',n:4}]);assert.equal(pyr.health,5,'keine Heilung');
  assert.ok(!E.validTargets(s,0,'friendlyMinion').includes(pyr.uid));
- assert.equal(small.health<=0||!s.players[0].board.includes(small),true,'der 2/1 starb am Sternenregen');
+ assert.equal(small.health<=0||!s.players[0].board.includes(small),true,'der 2/1 starb am Sternkatalog');
 });
 
 test('Schnelle Kopie bleibt gleich dem Klon, auch mit offener Wahl und Verlauf',()=>{

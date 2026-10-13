@@ -10,38 +10,38 @@ leonidas_7;Spartas Erbe;Sparta;eingebaut;Teil2/assets/cards/leonidas_7.png
 leonidas_8;Dienekes;Sparta;eingebaut;Teil2/assets/cards/leonidas_8.png
 leonidas_9;Gorgo, Stimme Spartas;Sparta;eingebaut;Teil1/assets/cards/leonidas_9.webp
 hypatia_0;Bibliothekslehrling;Alexandria;offen;
-hypatia_1;Himmelsstrahl;Alexandria;eingebaut;Teil2/assets/cards/hypatia_1.png
-hypatia_2;Sternenkundiger;Alexandria;offen;
-hypatia_3;Sternenregen;Alexandria;eingebaut;Teil2/assets/cards/hypatia_3.png
-hypatia_4;Astrolabienwächter;Alexandria;eingebaut;Teil2/assets/cards/hypatia_4.png
+hypatia_1;Erdmessung des Eratosthenes;Alexandria;eingebaut;Teil2/assets/cards/hypatia_1.png
+hypatia_2;Sternenkundiger;Alexandria;altes Bild;
+hypatia_3;Sternkatalog des Hipparchos;Alexandria;eingebaut;Teil2/assets/cards/hypatia_3.png
+hypatia_4;Synesios von Kyrene;Alexandria;eingebaut;Teil2/assets/cards/hypatia_4.png
 hypatia_5;Lehrsatz;Alexandria;eingebaut;gerettet/Papyrusstudium in Alexandrien.png
 hypatia_6;Museionshüterin;Alexandria;eingebaut;gerettet/Bewahrerin des alexandrinischen Wissens.png
-hypatia_7;Sonnenfokus;Alexandria;eingebaut;gerettet/Bronzespiegel bündelt Sonnenlicht.png
-hypatia_8;Sternenorakel;Alexandria;eingebaut;gerettet/Astronom unter Alexandrias Sternenhimmel.png
+hypatia_7;Brennspiegel des Archimedes;Alexandria;eingebaut;gerettet/Bronzespiegel bündelt Sonnenlicht.png
+hypatia_8;Klaudios Ptolemaios;Alexandria;eingebaut;gerettet/Astronom unter Alexandrias Sternenhimmel.png
 hypatia_9;Theon von Alexandria;Alexandria;eingebaut;Teil1/assets/cards/hypatia_9.webp
 imhotep_0;Nilschülerin;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_0.png
 imhotep_1;Heilender Balsam;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_1.png
 imhotep_2;Pyramidenwächter;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_2.png
 imhotep_3;Tempelärztin;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_3.png
-imhotep_4;Sonnensegen;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_4.png
+imhotep_4;Brot und Bier;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_4.png
 imhotep_5;Balsamierer;Ägypten;eingebaut;gerettet/Leinen und Salbgefäße im altägyptischen Einbalsamierungsraum.png
 imhotep_6;Nilschwemme;Ägypten;eingebaut;gerettet/Jährliche Flut bei Saqqara.png
 imhotep_7;Goldener Skarabäus;Ägypten;eingebaut;Teil2/assets/cards/imhotep_7.png
-imhotep_8;Urteil der Sonne;Ägypten;eingebaut;gerettet/Altägyptisches Gericht unter der Sonne.png
+imhotep_8;Urteil nach der Maat;Ägypten;eingebaut;gerettet/Altägyptisches Gericht unter der Sonne.png
 imhotep_9;Djoser, der Erbauer;Ägypten;eingebaut;gerettet/Djoser und die Stufenpyramide.png
 dandolo_0;Lagunenbote;Venedig;eingebaut;gerettet/Venezianischer Bote im Ruderboo.png
 dandolo_1;Arsenalarbeiter;Venedig;eingebaut;gerettet/Venezianischer Schiffbauer in der Werft.png
 dandolo_2;Präziser Stich;Venedig;eingebaut;gerettet/Dolch gegen Holzschild auf Schiffsplanken.png
 dandolo_3;Handelsgesandter;Venedig;eingebaut;gerettet/Venezianischer Gesandter mit Siegelbrief.png
 dandolo_4;Dogenklinge;Venedig;eingebaut;Teil1/assets/cards/dandolo_4.webp
-dandolo_5;Maskierte Wache;Venedig;eingebaut;Teil2/assets/cards/dandolo_5.png
+dandolo_5;Nachtwache am Kanal;Venedig;eingebaut;Teil2/assets/cards/dandolo_5.png
 dandolo_6;Geheimer Vertrag;Venedig;eingebaut;Teil1/assets/cards/dandolo_6.webp
 dandolo_7;Admiral der Galeeren;Venedig;eingebaut;Teil2/assets/cards/dandolo_7.png
 dandolo_8;Arsenal von Venedig;Venedig;eingebaut;gerettet/Galeerenbau im venezianischen Arsenal.png
 dandolo_9;Marco Polo, der Weltenfahrer;Venedig;eingebaut;gerettet/Marco Polo auf der Seidenstraße.png
 khan_0;Späher aus Engern;Sachsen;eingebaut;gerettet/Späher im dunklen Buchenwald.png
 khan_1;Speerwerfer aus Westfalen;Sachsen;eingebaut;gerettet/Sächsischer Speerwerfer im Nebel.png
-khan_2;Pfeilschuss;Sachsen;offen;
+khan_2;Pfeilschuss;Sachsen;altes Bild;
 khan_3;Reiter der Edelinge;Sachsen;offen;
 khan_4;Falknerin;Sachsen;eingebaut;gerettet/Sächsische Falknerin mit Habicht.png
 khan_5;Sachsenaufstand;Sachsen;eingebaut;gerettet/Sächsische Speerträger vor dem brennenden Dorf.png
@@ -59,10 +59,10 @@ boudicca_6;Erhebung der Gallier;Arverner;eingebaut;gerettet/Speere und Schilde d
 boudicca_7;Verteidiger von Gergovia;Arverner;eingebaut;gerettet/Gallischer Schildwächter auf Gergovia.png
 boudicca_8;Letzter Ritt vor Alesia;Arverner;eingebaut;gerettet/Vercingetorix reitet aus Alesia.png
 boudicca_9;Commius, Führer des Entsatzheers;Arverner;eingebaut;Teil6/originale/boudicca_9.png
-nostradamus_0;Apothekerlehrling;Meißen;offen;
+nostradamus_0;Apothekerlehrling;Meißen;altes Bild;
 nostradamus_1;Verpuffung im Laboratorium;Meißen;eingebaut;gerettet/Funkenflug zwischen Fläschchen im Labor.png
 nostradamus_2;Bergmann aus Aue;Meißen;eingebaut;gerettet/Sächsischer Bergmann mit Kaolinkorb.png
-nostradamus_3;Geheimes Rezeptbuch;Meißen;offen;
+nostradamus_3;Rezept des Goldmachers;Meißen;altes Bild;
 nostradamus_4;Pestarzt;Meißen;eingebaut;gerettet/Sächsischer Arzt mit Kräutern.png
 nostradamus_5;Befehl des Kurfürsten;Meißen;eingebaut;gerettet/Versiegelter Befehl im Alchemielabor.png
 nostradamus_6;Schreiber der Manufaktur;Meißen;eingebaut;gerettet/Schreiber in der Meißner Porzellanmanufaktur.png
@@ -99,47 +99,47 @@ musashi_6;Kämpe im Buhurt;Steiermark;offen;
 musashi_7;Venusfahrt;Steiermark;offen;
 musashi_8;Landrichter der Steiermark;Steiermark;offen;
 musashi_9;Friedrich der Streitbare;Steiermark;offen;
-neutral_0;Dorfwache;Neutral;offen;
-neutral_1;Wandernder Händler;Neutral;offen;
-neutral_2;Steinschleuderer;Neutral;offen;
-neutral_3;Wilderin;Neutral;offen;
-neutral_4;Torwache der Burg;Neutral;offen;
-neutral_5;Kavallerist;Neutral;offen;
+neutral_0;Dorfwache;Neutral;altes Bild;
+neutral_1;Wandernder Händler;Neutral;altes Bild;
+neutral_2;Steinschleuderer;Neutral;altes Bild;
+neutral_3;Wilderin;Neutral;altes Bild;
+neutral_4;Torwache der Burg;Neutral;altes Bild;
+neutral_5;Kavallerist;Neutral;altes Bild;
 neutral_6;Feldheilerin;Neutral;offen;
-neutral_7;Archivarin;Neutral;offen;
+neutral_7;Archivarin;Neutral;altes Bild;
 neutral_8;Wachhund;Neutral;offen;
-neutral_9;Veteran;Neutral;offen;
-neutral_10;Belagerungsturm;Neutral;offen;
-neutral_11;Schmied;Neutral;offen;
-neutral_12;Wüstenspäherin;Neutral;offen;
-neutral_13;Gebirgswache;Neutral;offen;
-neutral_14;Verwegener Bote;Neutral;offen;
-neutral_15;Nachtwächter;Neutral;offen;
-neutral_16;Versorgung;Neutral;offen;
-neutral_17;Heilkräuter;Neutral;offen;
-neutral_18;Wurfmesser;Neutral;offen;
-neutral_19;Kriegselefant;Neutral;offen;
+neutral_9;Veteran;Neutral;altes Bild;
+neutral_10;Belagerungsturm;Neutral;altes Bild;
+neutral_11;Schmied;Neutral;altes Bild;
+neutral_12;Wüstenspäherin;Neutral;altes Bild;
+neutral_13;Gebirgswache;Neutral;altes Bild;
+neutral_14;Verwegener Bote;Neutral;altes Bild;
+neutral_15;Nachtwächter;Neutral;altes Bild;
+neutral_16;Versorgung;Neutral;altes Bild;
+neutral_17;Heilkräuter;Neutral;altes Bild;
+neutral_18;Wurfmesser;Neutral;altes Bild;
+neutral_19;Kriegselefant;Neutral;altes Bild;
 neutral_20;Ordensritter;Neutral;offen;
-neutral_21;Söldnerhauptmann;Neutral;offen;
-neutral_22;Adler der Berge;Neutral;offen;
+neutral_21;Söldnerhauptmann;Neutral;altes Bild;
+neutral_22;Adler der Berge;Neutral;altes Bild;
 neutral_23;Grabwächter;Neutral;offen;
-neutral_24;Sammelruf;Neutral;offen;
-neutral_25;Feldration;Neutral;offen;
-neutral_26;Bogenmeisterin;Neutral;offen;
+neutral_24;Sammelruf;Neutral;altes Bild;
+neutral_25;Feldration;Neutral;altes Bild;
+neutral_26;Bogenmeisterin;Neutral;altes Bild;
 neutral_27;Prätorianer;Neutral;offen;
-neutral_28;Silberner Bannerträger;Neutral;offen;
-neutral_29;Flammenkrug;Neutral;offen;
-neutral_30;Löwin der Arena;Neutral;offen;
-neutral_31;Seidenkarawanenführer;Neutral;offen;
-neutral_32;Schlachtruf;Neutral;offen;
+neutral_28;Silberner Bannerträger;Neutral;altes Bild;
+neutral_29;Flammenkrug;Neutral;altes Bild;
+neutral_30;Löwin der Arena;Neutral;altes Bild;
+neutral_31;Seidenkarawanenführer;Neutral;altes Bild;
+neutral_32;Schlachtruf;Neutral;altes Bild;
 neutral_33;Trojanisches Pferd;Neutral;offen;
 neutral_34;Brander;Neutral;offen;
-neutral_35;Vergessene Weisheit;Neutral;offen;
+neutral_35;Mercators Atlas;Neutral;altes Bild;
 neutral_36;Burgbesatzung;Neutral;offen;
-neutral_37;Donnernde Legion;Neutral;offen;
-neutral_38;Herodot, Vater der Geschichte;Neutral;offen;
-neutral_39;Zenobia, Rebellin von Palmyra;Neutral;offen;
-dandolo_10;Agent des Zehnerrats;Venedig;eingebaut;Teil2/assets/cards/dandolo_10.png
+neutral_37;Donnernde Legion;Neutral;altes Bild;
+neutral_38;Herodot, Vater der Geschichte;Neutral;altes Bild;
+neutral_39;Zenobia, Rebellin von Palmyra;Neutral;altes Bild;
+dandolo_10;Spitzel im Venezianerviertel;Venedig;eingebaut;Teil2/assets/cards/dandolo_10.png
 khan_10;Plünderer am Rhein;Sachsen;offen;
 imhotep_10;Kobra des Nils;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_10.png
 boudicca_10;Zwanzig Städte in Flammen;Arverner;eingebaut;Teil6/originale/boudicca_10.png
@@ -349,16 +349,16 @@ byzanz_3;Arzt des Bimaristan;Kreuzzüge;offen;
 byzanz_4;Theodosianische Mauern;Kreuzzüge;offen;
 byzanz_5;Hagia Sophia;Kreuzzüge;offen;
 byzanz_6;Ibn an-Nafis, Arzt von Kairo;Kreuzzüge;offen;
-recruit;Rekrut;Spielstein;offen;
+recruit;Rekrut;Spielstein;altes Bild;
 novice;Novizin;Spielstein;eingebaut;Teil2/assets/tokens/novice.png
-warrior;Krieger;Spielstein;offen;
+warrior;Krieger;Spielstein;altes Bild;
 eagle;Habicht;Spielstein;offen;
-stoneguard;Pyramidenwächter;Spielstein;offen;
+stoneguard;Pyramidenwächter;Spielstein;unbenutzt;
 totem_heal;Grenzstein des Klosters;Spielstein;eingebaut;Teil2/assets/tokens/totem_heal.png
 totem_fire;Grenzstein der Mark;Spielstein;offen;
 totem_guard;Grenzstein der Burg;Spielstein;offen;
 totem_strength;Grenzstein des Dorfes;Spielstein;offen;
-coin;Gunst der Stunde;Spielstein;offen;
+coin;Gunst der Stunde;Spielstein;altes Bild;
 hoplite;Hoplit;Spielstein;eingebaut;Teil2/assets/tokens/hoplite.png
 citizen;Bürger;Spielstein;wiederbeschaffen;
 pioneer;Pionier;Spielstein;wiederbeschaffen;

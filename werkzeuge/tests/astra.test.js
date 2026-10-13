@@ -34,12 +34,17 @@ test('Laden: bilder.js vor data.js; im Ordner nur Bilder, auf die das Spiel zeig
  for(const a of used)assert.ok(files.includes(a),a);
 });
 
-test('Stand: ASTRA_STAND.csv nennt alle 377 Karten und Spielsteine, Auftrag nur offene IDs',()=>{
+test('Stand: ASTRA_STAND.csv nennt alle Karten und Spielsteine, Auftrag nur offene IDs',()=>{
  const rows=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_STAND.csv'),'utf8').trim().split(/\r?\n/).slice(1).map(r=>r.split(';'));
  assert.equal(rows.length,D.cards.length+Object.keys(D.tokens).length);
  const status=Object.fromEntries(rows.map(r=>[r[0],r[3]]));
- for(const [id,s] of Object.entries(status)){assert.ok(['eingebaut','Revision','offen','wiederbeschaffen','gesperrt'].includes(s),id);
-  assert.equal(['eingebaut','Revision'].includes(s),!!B.cards[id],id+': Status passt zu bilder.js');}
+ for(const [id,s] of Object.entries(status)){assert.ok(['eingebaut','Revision','altes Bild','unbenutzt','offen','wiederbeschaffen','gesperrt'].includes(s),id);
+  assert.equal(['eingebaut','Revision'].includes(s),!!B.cards[id],id+': Status passt zu bilder.js');
+  // AP L.6: „altes Bild“ heißt, das Spiel zeigt ein altes, geprüftes Bild – nicht den Platzhalter.
+  if(s==='altes Bild')assert.ok(D.byId[id].art&&!D.missingArt(D.byId[id])&&!D.byId[id].art.startsWith('astra'),id+': altes Bild im Spiel');}
+ // Entscheidung 21 (AP L.6): 39 alte Bilder bleiben, der nie gerufene Pyramidenwächter wird nicht bestellt.
+ assert.equal(Object.values(status).filter(s=>s==='altes Bild').length,39);assert.equal(status.stoneguard,'unbenutzt');
+ for(const id of ['neutral_6','neutral_8','neutral_20','neutral_23','hypatia_0'])assert.equal(status[id],'offen',id+': altes Bild stimmt nicht');
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG.md'),'utf8');
  for(const [id,s] of Object.entries(status))assert.equal(md.includes('| `'+id+'` |'),['offen','Revision','wiederbeschaffen'].includes(s),id+' im Auftrag');
 });

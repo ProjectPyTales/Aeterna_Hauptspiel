@@ -9,7 +9,7 @@ test('Jeder Held hat eine Tat zu seiner Fähigkeit, kurz genug für die Heldenwa
  assert.deepEqual(Object.keys(LORE.deeds).sort(),D.heroes.map(h=>h.id).sort());
 });
 
-// Nach dem Balance-Lauf justiert: Hypatias Schüler ohne Arkanen Fokus, Vercingetorix trifft einen statt aller Diener.
+// Nach dem Balance-Lauf justiert: Hypatias Schüler ohne Weisheit (bis 1.23.0 Arkaner Fokus), Vercingetorix trifft einen statt aller Diener.
 test('Die Entscheidung zu AP L.5 ist umgesetzt: drei neue Wirkungen, drei neue Namen',()=>{
  const by=Object.fromEntries(D.heroes.map(h=>[h.name,h]));
  assert.equal(by.Hypatia.power,'Unterricht');assert.deepEqual(by.Hypatia.ability.effects,[{type:'summon',n:1,token:'student'}]);
