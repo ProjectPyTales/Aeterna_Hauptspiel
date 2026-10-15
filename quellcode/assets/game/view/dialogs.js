@@ -19,6 +19,7 @@ D_.settings={render:vm=>{const s=vm.settings,row=(label,control)=>html`<div clas
   row('Touch-Vibration',pick('haptics',[['true','Ein',s.haptics!==false],['false','Aus',s.haptics===false]]))}${
   row('Spieltempo',pick('speed',[['1','Normal',s.speed===1],['2','Schnell',s.speed===2]]))}${
   row('Partikeleffekte',pick('particles',[['true','Ein',!!s.particles],['false','Aus',!s.particles]]))}${
+  row('Intro beim Start',pick('intro',[['true','Ein',s.intro!==false],['false','Aus',s.intro===false]]))}${
   row('Klangprobe',html`<div class="sound-samples">${vm.samples.map(([g,l])=>V.button({label:l,cmd:'sample',a:g,small:true}))}</div>`)}<p>Sammlung und laufende Partie werden nach jeder Aktion gespeichert. Sichere Deinen Fortschritt vor einer Neuinstallation.</p>${
   V.buttons([V.button({label:'Spielstand exportieren',cmd:'exportSave'}),V.button({label:'Spielstand importieren',cmd:'askImport'})])}${
   V.buttons([V.button({label:'Code einlösen',cmd:'redeem'}),V.button({label:'Über das Spiel',cmd:'credits'}),V.button({label:'Fertig',cmd:'close',style:'gold'})])}`});}};

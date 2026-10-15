@@ -6,4 +6,6 @@
     <color name="gold">#FFD6B675</color>
     <color name="gold_light">#FFF1CB44</color>
     <color name="bronze">#FF9A6A26</color>
+    <!-- Entwickler-Splash PY'TALES (1.26.0): Hintergrund des Videos, view/css/intro.css. -->
+    <color name="pytales">#FF2C2C2C</color>
 </resources>

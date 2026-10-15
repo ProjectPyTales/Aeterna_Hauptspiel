@@ -2,7 +2,9 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 362 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.25.0** (**Taktische Hinterhalte** nach AP 5.6: zwölf Zauber, die verdeckt als versiegelte
+Aktueller Stand im Code: **Version 1.26.0** (Bonus: **Start mit Deinem Entwickler-Splash PY'TALES und einem Intro** – sechs
+Epochen im Takt, Karten im Wirbel, Einschlag mit Siegel und Titel, Match-Cut ins Hauptmenü; siehe
+[Notiz](#notiz-start-mit-entwickler-splash-und-intro-1260)); davor 1.25.0 (**Taktische Hinterhalte** nach AP 5.6: zwölf Zauber, die verdeckt als versiegelte
 Wachsrolle neben dem Helden liegen und im Zug des Gegners zuschnappen – vom **Hinterhalt am Süntel** über das **Fallgatter** bis zur
 **Gegenmine**, jeder mit Quelle in „Aus der Chronik“; eine KI, die eigene Hinterhalte legt, die fremden aber nicht kennt, nur fürchtet);
 davor 1.24.0 (Karten und Schlüsselwörter nah an der Geschichte nach AP L.6 Teil 1: elf neue Namen, die
@@ -67,6 +69,7 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
 ## Inhalt
 
 1. [APK herunterladen](#apk-herunterladen)
+   - [Notiz: Start mit Entwickler-Splash und Intro (1.26.0)](#notiz-start-mit-entwickler-splash-und-intro-1260)
 2. [Projektaufbau](#projektaufbau)
 3. [Regeln für jede Sitzung](#regeln-für-jede-sitzung)
 4. [Ehrliche Bestandsaufnahme](#ehrliche-bestandsaufnahme)
@@ -119,6 +122,43 @@ bleiben).
 
 ---
 
+### Notiz: Start mit Entwickler-Splash und Intro (1.26.0)
+
+Bonusaufgabe vom 15. 10. 2026: vor dem Spiel Dein eigener Entwickler-Splash, danach ein Intro von einigen Sekunden, das Lust
+aufs Spiel macht. Ablauf beim Start der App:
+
+1. **System-Splash** (Android 12+): seit 1.26.0 ohne Zeichen, schlicht im Grau Deines Videos (`#2c2c2c`), bis die Seite steht –
+   vorher zeigte er das Aeterna-Siegel, das sonst *vor* PY'TALES gekommen wäre.
+2. **PY'TALES** (≈ 2,8 s): Deine Animation blendet auf ihrem Grau ein und zu Schwarz aus. Dein Video ist eine Ruheschleife aus
+   drei Posen (A B C B, je 125 ms, 50 s lang, ohne Ton); im Spiel liegt genau diese eine Schleife als verlustfreies animiertes WebP
+   (`assets/intro/pytales.webp`, 480 × 480, 33 KB) – mittig und so groß wie das Video im Vollbild, also sieht es aus wie das
+   Video. Das Original liegt in `ungenutzte_assets/entwicklersplash/`, `werkzeuge/entwicklersplash.py` erzeugt das WebP daraus.
+   Ein WebP statt Video: läuft in der WebView ohne Videodecoder, ohne grauen Abspielknopf und auch, während das Spiel lädt.
+3. **Intro „Die Geschichte erwacht“** (≈ 8 s, `view/intro.js`, ein Canvas, alle Bilder aus dem Spiel):
+   - *Funke* – ein Lichtpunkt reißt eine Naht aus Licht quer über den Bildschirm auf;
+   - *Sechs Epochen im Takt* – je drei gemalte Helden auf schrägen Tafeln mit Namen, im Schlag gewischt, darüber die Epoche des
+     Lehrplans, darunter ein Jahreszähler, der von 2650 v. Chr. bis 1708 n. Chr. rollt, dahinter das Farblicht der Epoche;
+   - *Karten* – die Porträts kippen zu Karten (die echten Karten des Spiels mit Astras Rahmen, Legendäre in Gold), sieben weitere
+     fliegen ein, ein Ring wirbelt immer schneller („22 Helden · 362 Karten · 6 Epochen“) und stürzt in einen Lichtpunkt;
+   - *Einschlag* – ein Atemzug Stille, dann Blitz, Druckwelle, Funken, Lichtstrahlen und Kamerawackeln: das Aeterna-Siegel
+     schlägt ein, AETERNA erscheint Buchstabe für Buchstabe, „Die Geschichte erwacht“, ein Lichtstreif läuft über den Titel;
+   - *Match-Cut* – das Hauptmenü baut sich darunter auf, das Siegel fliegt in den Stern über dem Ring, der aufblitzt.
+4. **Musik** (`assets/audio/intro.ogg`, 9,8 s, `werkzeuge/intro_klang.py`): sample-genau zur selben Zeitleiste – Taiko auf jedem
+   Epochen-Schnitt, gezupfte Achtel in d-Moll, eine Fläche, die sich öffnet; ein Schwirren, dessen Pulse genau dann kommen, wenn
+   eine Karte vorn vorbeizieht, ein Trommelwirbel; beim Einschlag Unterbass, Gong, Kriegshorn und Schwert aus den vorhandenen
+   Spielgeräuschen und ein D-Dur-Akkord, ein Glöckchen je Buchstabe. Das Bild folgt der Uhr des Tons. Lautstärke: Regler
+   „Geräusche“; die Menümusik übernimmt danach. Im Browser bleibt das Intro stumm (Autoplay ist dort ohne Tippen gesperrt).
+
+**Bedienung:** Tippen (oder Zurück) überspringt – im Splash zum Intro, im Intro sofort ins Hauptmenü. In den **Einstellungen**
+schaltet „Intro beim Start: Aus“ das Intro ab, dann kommt nur PY'TALES. Bei „Bewegung reduzieren“ des Systems ebenso.
+Während Splash und Intro laufen, lädt das Spiel im Hintergrund – die Wartezeit ist also nicht verloren.
+
+**Prüfung:** `werkzeuge/tests/intro.test.js` (Dateien, gleiche Zeitleiste in Bild und Musik, Inhalt, Ablauf, Einstellung, Hülle)
+und in der CI `werkzeuge/intromessung.js` (ganzer Ablauf bis ins Menü, Überspringen, reduzierte Bewegung, Standbilder der Akte).
+Klickpfad und Sichtprüfung starten wie bisher ohne Intro (`navigator.webdriver`); `?intro=1` erzwingt es,
+`AEI.current.freeze(t)` hält jeden Moment an. **Offen:** auf dem Gerät ansehen und anhören – Länge, Lautstärke und Tempo lassen
+sich über die Zeitleiste `T` in `view/intro.js` und `werkzeuge/intro_klang.py` (beide gleich halten, der Test prüft es) anpassen.
+
 ## Projektaufbau
 
 Das Spiel ist eine Web-App (HTML/CSS/JavaScript) in einer Android-WebView. Menüs sind DOM,
@@ -137,12 +177,13 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
 | `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` (seit 1.17.0 auch in Node, Einträge mit Seite `p`; `Match.strip` liefert die Chronik-Leiste; seit 1.18.0 `Match.press`/`release` für die gedrückte Handkarte und `Match.hand` mit Kosten, spielbar und erfüllter Bedingung je Handkarte; seit 1.19.0 Schaufenster `Shop.showcase`/`select` und Kauf-Zeichen `bought`, Kartenbuch mit Blätterrichtung `turn`, Steinknöpfen `pick`, Kurve `curveHint` und Flug `flight`, Heldengalerie `GALLERY`, Kampagnenkarte `MAP`/`STATIONS` mit Projektion; seit 1.20.0 Intro `Match.opening`, Schriftrollen `rolling`, Finale und Belohnungsbalken `rewardBars`, Blatt `view.leaf` im Kartenbuch) – **ohne DOM, in Node testbar** |
 | `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
-| `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`) |
+| `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`), seit 1.26.0 Start mit Entwickler-Splash und Intro `intro.js` (`AEI`, Zeitleiste `AEI.T`, Stil `css/intro.css`) |
 | `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Heldenmünze `coinArt`, Siegel `seal`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`; seit 1.17.0 Äther-Uhr `dial`, Chronik-Leiste `strip`, Pergament-Deck und Stundenglas `deck`, versiegelte Befehle `orderArt`, Zugtafel `turnPlate`; seit 1.18.0 Kartenrahmen `R.card` als Tempeltor, Hand mit Federn `hand`, Marschroute `route`, Effekte `effects` mit Tinte, Pumpen, Splittern, Staub und Rissen), seit 1.20.0 `fx.js` (`CHF`: Schlüsselwort-Bilder und -Effekte, Elemente und Heldenfähigkeiten, Intro mit Münzwurf und Finale), `anim.js` (`CHT`, seit 1.18.0: Kurven, Zeitleisten, Federn, Match-Uhr mit Tempo und Treffer-Stopp, Kamerawackeln), `motion.js` (`CHM`, Zeitleisten je Aktion, Ziehen, Verbrennen, Stundenglas), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel auf der Match-Uhr, Bildraten-Anzeige) |
 | `view/css/` | View | seit 1.22.0 `astra.css` (zuletzt geladen: Astras gemalte Bilder für Paket, Podest, Kartenbuch, Startbefehle, Steinplatten, Hintergründe, Währungen), `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte) |
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`) |
 | `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
 | `assets/ui/` | – | Seit 1.22.0 (AP A.2): Astras Oberflächenbilder als WebP mit Transparenz (Kartenrahmen, Kartenrücken, Chronikleiste …) und Währungen als SVG, erzeugt von `werkzeuge/astra_bilder.py`, geladen von `CHS.loadUI` vor dem ersten Bildschirm |
+| `assets/intro/` | – | Seit 1.26.0: Entwickler-Splash `pytales.webp` (aus `werkzeuge/entwicklersplash.py`); die Musik des Intros liegt als `assets/audio/intro.ogg` (aus `werkzeuge/intro_klang.py`) |
 | `assets/fonts/` | – | Cinzel, Cinzel Decorative, Alegreya Sans (SIL OFL, Lizenztexte daneben) |
 | `assets/art/` | – | Bilder als WebP, nie von Hand ersetzen: seit 1.21.0 Astra-Atlanten `astra-karten-*.webp`, Helden `heroes`/`heroes2`, Skins und Tische aus `werkzeuge/astra_bilder.py`; übrige alte Bilder aus `werkzeuge/bilder_webp.py` (Originale in `ungenutzte_assets/archiviert/art-original/`); seit 1.19.0 `weltkarte.svg` (Küsten der Kampagnenkarte, erzeugt von `werkzeuge/weltkarte.js` aus Natural Earth) |
 
@@ -151,7 +192,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `android/` | **Native Hülle** (seit 1.12.0, AP 2.1): Gradle-Projekt in Kotlin – `MainActivity.kt` (WebView, Vollbild, Aussparung, Zurück, Export/Import), `Bridge.kt` (`window.Android`), `AssetClient.kt` (liefert `quellcode/assets/game` unter `https://chroniken.local/` aus), `Haptics.kt`; Version, Paket-ID und Signatur in `app/build.gradle.kts` |
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
-| `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`), Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`, seit 1.26.0 `intro_klang.py`), Entwickler-Splash `entwicklersplash.py`, Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, seit 1.26.0 Start-Messung `intromessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
 | `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 362 Karten), `BERICHT-1.24.0.md` (vor AP 5.6), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 48 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
@@ -2446,6 +2487,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 19 ✓ | Rückmeldung 1.22.0, AP L.5 | erledigt in 1.23.0 – Steintür als Flügeltür, Leuchtrahmen nach dem gemalten Rahmen; Prüftabelle der 22 Heldenfähigkeiten, drei neue Wirkungen und drei neue Namen, Tat mit Quelle in der Heldenwahl, AP L.6 neu |
 | 20 ✓ | Rückmeldung 1.23.0, AP L.6 Teil 1, Teil 2 begonnen | erledigt in 1.24.0 – elf Karten nach ihren vorhandenen Bildern umbenannt, Segen und Weisheit, „Zauber“ als Glaube erklärt, 16 Chronikzeilen mit Quelle, Astra-Auftrag 205 → 165 ohne ein neues Bild |
 | 21 ✓ | Rückmeldung 1.24.0, AP 5.6 Hinterhalte | erledigt in 1.25.0 – zwölf Hinterhalte aus der Geschichte als versiegelte Wachsrollen, Auslöser im Zug des Gegners, ehrliche KI, die sie legt und fürchtet; Entscheidung 22 noch offen |
+| Bonus ✓ | Entwickler-Splash und Intro | erledigt in 1.26.0 – PY'TALES vor dem Spiel, Intro mit sechs Epochen, Kartenring, Einschlag und Match-Cut ins Hauptmenü, eigene Musik, abschaltbar |
 | 22 | Entscheidung 22, AP 5.7 Erweiterung „Wunder der Welt“ Teil 1 (falls gewählt) | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
 | 23 | Phase 6 Modi mit AP 3.7 (Lunte in Belagerungsmissionen) | Draft, Rangliste, Aufgaben, Kampagne 2.0 – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
 | 24+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |

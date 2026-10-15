@@ -12,11 +12,12 @@ window.CHA={levels:{pickup:.65,slide:.55,return:.55,draw:.65,land:.85,hit:.8,cla
  play(group,options={}){if(!this.ctx||this.settings.sfx<=0)return;const available=(this.groups[group]||[]).filter(n=>this.buffers[n]);if(!available.length)return;const now=this.ctx.currentTime;if(now-(this.last[group]??-99)<.055)return;this.last[group]=now;let pool=available.filter(n=>n!==this.lastVariant[group]);if(!pool.length)pool=available;const name=pool[Math.floor(Math.random()*pool.length)];this.lastVariant[group]=name;
  while(this.voices.length>=10){const old=this.voices.shift();try{old.stop();}catch{}}const node=this.ctx.createBufferSource(),gain=this.ctx.createGain(),pan=this.ctx.createStereoPanner();node.buffer=this.buffers[name];node.playbackRate.value=['victory','defeat','gong','heal','power'].includes(group)?1:.975+Math.random()*.05;
  const levels=this.levels;gain.gain.value=(levels[group]??.7)*(options.gain??1);pan.pan.value=Math.max(-.3,Math.min(.3,((options.x??800)-800)/800*.3));node.connect(gain);gain.connect(pan);pan.connect(this.fx);this.voices.push(node);node.onended=()=>{this.voices=this.voices.filter(n=>n!==node);node.disconnect();gain.disconnect();pan.disconnect();};node.start(now+(options.delay||0));if(['clash','fire','land','gong','victory','defeat'].includes(group)){this.duck.gain.cancelScheduledValues(now);this.duck.gain.setTargetAtTime(.6,now,.025);this.duck.gain.setTargetAtTime(1,now+.18,.22);}this.history.push({group,name,at:performance.now()});if(this.history.length>60)this.history.shift();},
- // One looping piece per mode, crossfaded; the element of the other mode pauses once it has faded out.
+ // One looping piece per mode, crossfaded; the element of the other mode pauses once it has faded out. A mode without a
+ // piece (the start intro, 1.26.0, view/intro.js) only fades the music out – it gets no entry in loops.
  pieces:{menu:'musik-menue',battle:'musik-duell'},
  track(mode){this.mode=mode;if(!this.ctx||this.current===mode)return;const now=this.ctx.currentTime;
   for(const [m,entry] of Object.entries(this.loops)){if(m===mode)continue;entry.gain.gain.setTargetAtTime(0,now,.3);clearTimeout(entry.stop);entry.stop=setTimeout(()=>{if(this.current!==m)entry.el.pause();},1700);}
-  this.current=mode;const entry=this.loops[mode]||=this.stream(mode);if(!entry)return;clearTimeout(entry.stop);
+  this.current=mode;const entry=this.loops[mode]||this.stream(mode);if(!entry)return;this.loops[mode]=entry;clearTimeout(entry.stop);
   if(entry.el.paused){entry.el.currentTime=0;entry.el.play().catch(e=>console.warn('Musik',e));}entry.gain.gain.setTargetAtTime(1,now+.015,.45);},
  stream(mode){const name=this.pieces[mode];if(!name||typeof Audio==='undefined')return null;const el=new Audio('assets/audio/'+name+'.ogg');el.loop=true;el.preload='auto';
   const gain=this.ctx.createGain();gain.gain.value=0;this.ctx.createMediaElementSource(el).connect(gain);gain.connect(this.music);return {el,gain};},

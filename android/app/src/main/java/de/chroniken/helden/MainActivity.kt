@@ -46,7 +46,7 @@ class MainActivity : Activity() {
         preferHighRefreshRate()
 
         val view = WebView(this)
-        view.setBackgroundColor(Color.rgb(20, 33, 42))
+        view.setBackgroundColor(Color.rgb(44, 44, 44))
         setContentView(view)
         with(view.settings) {
             javaScriptEnabled = true
@@ -74,7 +74,10 @@ class MainActivity : Activity() {
         view.loadUrl(ORIGIN + "index.html")
     }
 
-    /** Android 12+: Der System-Splash mit dem Aeterna-Zeichen bleibt, bis der Ladebildschirm der Seite steht (höchstens 1,5 s). */
+    /**
+     * Android 12+: Der System-Splash (seit 1.26.0 ohne Zeichen, im Grau von PY'TALES) bleibt, bis die Seite steht
+     * (höchstens 1,5 s); dann übernimmt der Entwickler-Splash der Seite nahtlos (view/intro.js).
+     */
     private fun holdSplashUntilPageReady(view: View) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
         val started = System.currentTimeMillis()

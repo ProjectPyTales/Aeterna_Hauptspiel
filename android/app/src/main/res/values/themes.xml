@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Vollbild bis in die Kamera-Aussparung; die WebView kennt die sicheren Ränder (window.safeInsets). -->
+    <!-- Vollbild bis in die Kamera-Aussparung; die WebView kennt die sicheren Ränder (window.safeInsets).
+         Start (1.26.0): schlicht im Grau des Entwickler-Splashs PY'TALES, den die Seite gleich darauf einblendet. -->
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_window</item>
+        <item name="android:windowBackground">@color/pytales</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:colorAccent">@color/gold</item>
