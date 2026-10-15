@@ -15,7 +15,7 @@ class Settings extends LiveDialog{
  setting(k,v){const s=this.profile.settings;
   if(k==='music'||k==='sfx')s[k]=Math.max(0,Math.min(1,Number(v)||0));
   else if(k==='speed')s.speed=Number(v)===2?2:1;
-  else if(k==='haptics'||k==='particles')s[k]=v===true||v==='true';
+  else if(k==='haptics'||k==='particles'||k==='intro')s[k]=v===true||v==='true';
   else return;
   this.ctx.store.commit();}
  exportSave(){this.ctx.dialogs.exportSave();}

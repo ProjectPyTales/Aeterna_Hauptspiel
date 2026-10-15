@@ -101,6 +101,9 @@ jobs:
       - name: Klickpfad mit Referenzbildern (Menü → Basar → Sammlung → Match → Ergebnis)
         run: node werkzeuge/klickpfad.js
 
+      - name: Start (1.26.0) – Entwickler-Splash PY'TALES und Intro bis ins Hauptmenü, Überspringen, reduzierte Bewegung
+        run: node werkzeuge/intromessung.js
+
       - name: Messlauf Hauptmenü (Screenshots Handy und Tablet, Bildzeiten)
         run: node werkzeuge/sichtpruefung.js
 

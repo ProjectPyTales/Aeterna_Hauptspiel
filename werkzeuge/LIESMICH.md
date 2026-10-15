@@ -1,7 +1,22 @@
-# Aeterna 1.25.0 – Bauen & Prüfen
+# Aeterna 1.26.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.26.0 (Bonus: Entwickler-Splash und Intro)
+
+- **Start** (`view/intro.js`, `AEI.start`, Stil `view/css/intro.css`): `#intro` ist das erste Element der Seite und zeigt ohne
+  Skript den Entwickler-Splash; `app.js` startet `AEI` mit Einstellung (`settings.intro`, neu, Standard an), reduzierter Bewegung,
+  Ton nur in der App (`AEP.bridge`), wartet nach Stufe 1 auf `intro.ready()`, zeigt das Hauptmenü und ruft `intro.reveal()`
+  (Match-Cut zum Stern `#ui .hall-star`). `navigator.webdriver` ohne `?intro=1` überspringt alles (Klickpfad, Sichtprüfung
+  unverändert). `App.intro` nennt den Zustand (`dev`, `dev-out`, `intro`, `hold`, `reveal`, `done`), `back()` überspringt,
+  `AEI.current.freeze(t[, r])` hält ein Bild an. Jedes Bild ist eine reine Funktion der Zeit; die Uhr folgt der Musik.
+- **Bilder und Ton:** `assets/intro/pytales.webp` aus `entwicklersplash.py` (Original `ungenutzte_assets/entwicklersplash/`),
+  `assets/audio/intro.ogg` aus `intro_klang.py` (eigene Spur über `CHA.fx`, nicht im Manifest; `CHA.track('intro')` hält die
+  Menümusik bis zum Hauptmenü zurück; ein Modus ohne Stück legt seitdem keinen leeren Eintrag in `CHA.loops` an). Zeitleiste `T` in beiden Dateien gleich (Test).
+- **Hülle:** System-Splash und WebView im Grau des Splashs (`@color/pytales`, `splash_leer.xml`; `splash_icon.xml` und
+  `splash_window.xml` entfallen).
+- Tests: neu `tests/intro.test.js`; CI-Schritt `intromessung.js` in der Sichtprüfung. Version 1.26.0 / versionCode 29.
 
 ## Neu in 1.25.0 (AP 5.6 Taktische Hinterhalte)
 
