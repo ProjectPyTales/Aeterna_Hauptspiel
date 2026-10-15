@@ -22,8 +22,9 @@ test('Lehrplan: jeder Held hat Klassenstufe 5–7 und Lernbereich, die elf neuen
 
 test('Zeitalter nach dem Lehrplan: sechs Epochen in zeitlicher Folge, je drei bis fünf Helden und sieben Zeitalterkarten',()=>{
  assert.deepEqual(D.ages.map(a=>a.name),['Frühzeit und Ägypten','Griechenland und Hellenismus','Rom und Germanien','Mittelalter im Reich','Kreuzzüge','Frühe Neuzeit']);
- for(const a of D.ages){const heroes=D.heroes.filter(h=>h.age===a.id),set=D.cards.filter(c=>c.age===a.id);
-  assert.ok(heroes.length>=3&&heroes.length<=5,a.id);assert.equal(set.length,7,a.id);
+ // Seit 1.25.0 (AP 5.6) kommt je Zeitalter ein Hinterhalt dazu.
+ for(const a of D.ages){const heroes=D.heroes.filter(h=>h.age===a.id),set=D.cards.filter(c=>c.age===a.id&&!c.ambush);
+  assert.ok(heroes.length>=3&&heroes.length<=5,a.id);assert.equal(set.length,7,a.id);assert.equal(D.cards.filter(c=>c.age===a.id&&c.ambush).length,1,a.id+': ein Hinterhalt');
   assert.ok(set.every(c=>heroes.every(h=>D.playable(c,h.id))),a.id);}
  assert.ok(D.heroes.every(h=>D.ageById[h.age]),'kein Held ohne Zeitalter');
  // Die Grundschule der Epochen: Klasse 5 vorn, Klasse 7 hinten.
@@ -32,13 +33,13 @@ test('Zeitalter nach dem Lehrplan: sechs Epochen in zeitlicher Folge, je drei bi
 });
 
 test('Zeitalterkarten (AP L.2): Frühzeit und Frühe Neuzeit ohne Steppe und Ostasien, Wirkungen und IDs unverändert',()=>{
- const set=D.cards.filter(c=>c.age==='steppe'||c.age==='ostasien'),far=/Steppe|Pers|Parth|Unsterbl|Mongol|Jurt|Japan|China|Korea|Terrakotta|Samurai|Ashigaru|Hwacha|Mandarin|Schildkröt|Große Mauer|Tee/;
+ const set=D.cards.filter(c=>(c.age==='steppe'||c.age==='ostasien')&&!c.ambush),far=/Steppe|Pers|Parth|Unsterbl|Mongol|Jurt|Japan|China|Korea|Terrakotta|Samurai|Ashigaru|Hwacha|Mandarin|Schildkröt|Große Mauer|Tee/;
  assert.equal(set.length,14);
  for(const c of set){assert.ok(!far.test(c.name+' '+c.text),c.id+': '+c.name);
   for(const e of [...(c.effects||[]),...(c.battle||[]),...(c.death||[]),...(c.start||[])])if(e.token)assert.ok(!far.test(D.tokens[e.token].name),c.id+' ruft '+D.tokens[e.token].name);}
  assert.deepEqual(['steppe_0','steppe_6','ostasien_0','ostasien_6'].map(id=>D.byId[id].name),['Wagenbauer','Festung Buhen','Landsknecht','Sternschanze']);
  assert.equal(D.byId.ostasien_6.wall,true);assert.equal(D.tokens.chariot.attack,D.tokens.rider.attack);assert.equal(D.tokens.chariot.charge,true);
- assert.equal(D.cards.length,350);
+ assert.equal(D.cards.filter(c=>!c.ambush).length,350,'ohne die Hinterhalte von 1.25.0 (AP 5.6)');
 });
 
 test('Alte Spielstände (1.13.0): Sammlung und Decks bleiben, alte Decknamen bekommen die neue Epoche',()=>{
@@ -76,7 +77,7 @@ const texts=c=>[c.name,c.text||'',...['effects','battle','death','start','end'].
 
 test('Heldenkarten (AP L.2): 132 Karten der elf Lehrplan-Helden aus ihrer Lebenswelt, Wirkungen und IDs unverändert',()=>{
  const set=D.cards.filter(c=>D.replaced.includes(c.hero));
- assert.equal(set.length,132);
+ assert.equal(set.filter(c=>!c.ambush).length,132,'dazu seit 1.25.0 der Hinterhalt am Süntel (AP 5.6)');
  for(const c of set){assert.ok(!OLD.test(texts(c))&&!FAR.test(texts(c)),c.id+': '+texts(c));}
  for(const h of D.replaced)assert.ok(!FAR.test(D.heroById[h].powerText),h+': '+D.heroById[h].powerText);
  // Spielsteine: Novizinnen, Grenzsteine, Schanzkörbe, Füsiliere, Sippenbruder

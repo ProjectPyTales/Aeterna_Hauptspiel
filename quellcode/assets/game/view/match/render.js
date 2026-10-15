@@ -425,6 +425,19 @@ function deck(c,s,p,now){const pp=s.players[p],yy=p===0?590:158,x=1448;
   txt(c,'−'+(pp.fatigue+1),1451,yy+103,19,'#ff9a8a');}
  touch('deck'+p,1411,yy-10,80,125,{kind:'deck'});
  round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');touch('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
+// Hinterhalte (AP 5.6): a laid ambush is a short roll tied with a cord and closed by a big wax seal – dark red for the
+// rival (its face stays hidden), gold-rimmed for your own, which you can tap to read.
+// ASTRA: hinterhalt-rolle – versiegelte Wachsrolle eines Hinterhalts neben der Heldenmünze (eigene mit Goldrand, fremde rot), 72 × 128
+function ambushArt(g,mine){g.save();g.rotate(-.18);g.shadowColor='#160e09aa';g.shadowBlur=7;g.shadowOffsetY=3;
+ round(g,-15,-30,30,60,7,grad(g,-15,0,30,0,'#8d6f45','#ead6a6'),'#4a3420',1.5);g.restore();g.save();g.rotate(-.18);
+ for(const y of [-30,30])ellipse(g,0,y,15,4.6,'#d2b780','#4a3420',1.2);
+ g.strokeStyle='#5a3a1c';g.lineWidth=2.2;g.beginPath();g.moveTo(-15,-4);g.lineTo(15,-4);g.moveTo(-15,4);g.lineTo(15,4);g.stroke();
+ ellipse(g,0,0,13,13,grad(g,-13,-13,26,26,mine?'#6b1d14':'#4a0f0b',mine?'#d4573f':'#b2362a'),mine?'#e2bf6a':'#3a0a07',mine?2.4:1.5);
+ ellipse(g,0,0,7.5,7.5,null,mine?'#f3d79a99':'#ffb4a055',1.2);txt(g,'⚔',0,.5,10,mine?'#ffe8b8':'#ffcfc4');g.restore();}
+function rolls(c,s,p,now){const list=E.ambushes(s.players[p]);
+ list.forEach((x,i)=>{const pos=L.ambush(p,i),mine=p===0,lift=mine&&motion()?Math.sin(now/520+i)*1.5:0;R.positions['ambush'+p+'_'+i]=pos;
+  R.blit(c,R.sprite('ambush:'+mine,-36,-44,72,88,g=>ambushArt(g,mine)),pos.x,pos.y+lift);
+  touch('ambush'+p+'_'+i,pos.x-17,pos.y-32,34,64,{kind:'ambush',p,idCard:mine?x.id:null});});}
 // AP 1.8 Teil 2: the rival's hand as sealed orders – rolled scrolls with a red wax seal.
 // Astra-Bild (AP A.2): versiegelte-befehle – verdeckte Karte der KI-Hand als gerollter Befehl mit rotem Wachssiegel, 80 × 160
 function orderArt(g){if(pic(g,'versiegelte-befehle',0,-16,40,80))return;g.save();g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowOffsetY=3;round(g,-14,-52,28,72,6,grad(g,-14,0,28,0,'#a88a58','#f3e3bb'),'#5b4326',1.5);g.restore();
@@ -451,13 +464,13 @@ function stripArt(g){const {x,y,w,h}=L.strip,top=CHS.ui['chronikleiste-oben'],mi
 // ASTRA: chronik-eintrag – Eintrag der Chronik-Leiste: Bild der Karte oder Fähigkeit mit Seitenfarbe und Marke, 116 × 116
 function entryArt(g,e){const k=54/2,col=e.p===0?'#e2bf6a':e.p===1?'#c8473b':'#9a8a6a';
  round(g,-k-3,-k-3,2*k+6,2*k+6,7,col,'#2e2012',1.5);
- g.save();g.beginPath();g.roundRect(-k,-k,2*k,2*k,5);g.clip();if(e.type==='death'||e.type==='burn')g.filter='grayscale(1) brightness(.8)';
+ g.save();g.beginPath();g.roundRect(-k,-k,2*k,2*k,5);g.clip();if(e.type==='death'||e.type==='burn'||e.type==='counter')g.filter='grayscale(1) brightness(.8)';
  if(e.type==='fatigue'){g.fillStyle='#3a2a1a';g.fillRect(-k,-k,2*k,2*k);g.save();g.translate(0,-k*.78);g.scale(.62,.62);hourglassArt(g);g.restore();}
  else if(e.kind==='card'){const card=D.byId[e.id];R.tile(g,card.art,card.cell,-k*1.2,-k*1.05,k*2.4,k*2.4,card);}
  else if(e.kind==='power'||e.kind==='hero'){const hero=D.heroById[e.id];if(e.kind==='hero'&&hero)R.tile(g,hero.art,hero.cell,-k*1.2,-k*1.1,k*2.4,k*2.4,hero);else{g.fillStyle=grad(g,-k,-k,2*k,2*k,'#292723',hero?.color||'#555');g.fillRect(-k,-k,2*k,2*k);if(hero)powerIcon(g,hero.id,0,0);}}
  else{g.fillStyle='#26383d';g.fillRect(-k,-k,2*k,2*k);txt(g,'✦',0,0,30,'#d6b577');}
  g.restore();
- const card=e.kind==='card'?D.byId[e.id]:null,mark=e.type==='death'?['☠','#5b1a14']:e.type==='burn'?['✕','#5b1a14']:e.type==='fatigue'?['−'+(e.n||''),'#5b1a14']:card?.type==='spell'?['✦','#1f4f8f']:e.type==='power'?['◆','#3b2812']:e.type==='steal'?['⇄','#6a4a10']:null;
+ const card=e.kind==='card'?D.byId[e.id]:null,mark=e.type==='ambush'||e.type==='sprung'?[e.type==='sprung'?'!':'✉','#7a1f14']:e.type==='death'?['☠','#5b1a14']:e.type==='burn'?['✕','#5b1a14']:e.type==='fatigue'?['−'+(e.n||''),'#5b1a14']:card?.type==='spell'?['✦','#1f4f8f']:e.type==='power'?['◆','#3b2812']:e.type==='steal'?['⇄','#6a4a10']:null;
  if(mark){ellipse(g,k-2,k-2,11,11,mark[1],'#f3d79a',1.5);txt(g,mark[0],k-2,k-1.5,mark[0].length>1?10:13,'#fff1cf');}}
 function strip(c,items,now){R.blit(c,R.sprite('strip',L.strip.x-70,L.strip.y-40,L.strip.w+140,L.strip.h+80,stripArt));touch('chronicle',L.strip.x,L.strip.y,L.strip.w,L.strip.h);
  items.forEach((e,i)=>{const {x,y,size}=L.stripRow(i);
@@ -685,7 +698,7 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  // Rival's fanned hand as sealed orders (AP 1.8 Teil 2); orders still flying from his deck are not in the row yet.
  const order=R.sprite('order',-24,-62,48,92,orderArt),orders=Math.max(0,b.hand.length-CHM.pendingOrders());
  for(let i=0;i<orders;i++){c.save();c.translate(490+i*34,12);c.rotate((i-(b.hand.length-1)/2)*.033);R.blit(c,order);c.restore();}
- deck(c,s,0,t);deck(c,s,1,t);
+ deck(c,s,0,t);deck(c,s,1,t);rolls(c,s,0,t);rolls(c,s,1,t);
  chronometer(c,s,t);
  // Ether dials on the left (1.17.0) and the chronicle strip at the edge (AP 1.8 Teil 2).
  dial(c,0,a,t);dial(c,1,b,t);strip(c,log,t);
@@ -727,7 +740,7 @@ R.events=(events,settings)=>{const t=T.clock.now(),played=new Set(),fx=settings.
    else if(['buff','steal'].includes(ev.type))R.fx.push({...ev,x:pos.x,y:pos.y,start:t,life:750});
    if(ev.type==='attack'||ev.type==='damage')R.fx.push({type:'impact',x:pos.x,y:pos.y,start:t,life:280});}
   // A unit's own blow (AP 3.5): blades, hooves or a lance; a played minion's thud comes from the landing (motion.js).
-  const sound=own?null:{attack:R.hitSound(R.units[ev.source]?.card),damage:'hit',heal:'heal',death:ev.building?'slam':'destroy',power:'power',play:ev.spell?'fire':null,draw:'draw',weapon:'sword',turn:'chime',armor:'armor',steal:'power',discover:'draw',echo:'fire',choice:'pack'}[ev.type];
+  const sound=own?null:{attack:R.hitSound(R.units[ev.source]?.card),damage:'hit',heal:'heal',death:ev.building?'slam':'destroy',power:'power',play:ev.ambush?null:ev.spell?'fire':null,draw:'draw',weapon:'sword',turn:'chime',armor:'armor',steal:'power',discover:'draw',echo:'fire',choice:'pack'}[ev.type];
   // Feedback 1.19.0: the clockwork at a change of turn is softer for the rival's turn; a unit's death is quieter.
   if(sound&&!played.has(sound)){CHA.play(sound,{x:pos.x,gain:ev.type==='damage'&&events.some(e=>e.type==='attack')?.55:ev.type==='turn'&&ev.p===1?.6:ev.type==='death'&&!ev.building?.7:1});played.add(sound);}}
 };

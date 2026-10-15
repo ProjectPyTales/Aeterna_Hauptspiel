@@ -6,7 +6,8 @@
  *  - Segen (until 1.23.0 Göttliche Gunst) as a shimmering ring of light around the plaque (each picture), which shatters with a clink.
  *  - Spell particles per element (F.element) and one effect per hero power (F.POWERS: element, path, colour, glyph).
  *  - Opening: the heroes face each other, the chronicler announces the battle, a bronze coin decides who begins.
- *  - Close: the ruler's relief of the loser breaks, a banner „TRIUMPH“ unrolls, war horns. */
+ *  - Close: the ruler's relief of the loser breaks, a banner „TRIUMPH“ unrolls, war horns.
+ *  - Hinterhalte (AP 5.6, 1.25.0): the seal of the roll breaks and the card rises face up under a ribbon „Hinterhalt!“. */
 (function(){'use strict';
 const R=CHR,L=CHL,T=CHT,D=CHD,{clamp,mix,ease}=T,{round,ellipse,grad,txt,sparkle,powerIcon}=R.paint;
 const F=window.CHF={stage:null};
@@ -168,9 +169,22 @@ F.event=(ev,pos,t,fx)=>{const u=R.units[ev.target];
  if(ev.type==='shield'){if(fx&&u)R.fx.push({type:'gunst',x:u.x,y:u.y,seed:t%997,start:t,life:620});CHA.play('clink',{x:pos.x});return true;}
  if(ev.type==='freeze'){if(fx&&u)R.fx.push({type:'frostburst',x:u.x,y:u.y,start:t,life:700});CHA.play('chains',{x:pos.x,gain:.8});return true;}
  if(ev.type==='poison'){if(fx)R.fx.push({type:'poison',x:pos.x,y:pos.y,seed:t%991,start:t,life:900});CHA.play('poison',{x:pos.x});return true;}
+ if(ev.type==='ambush'){const from=L.ambush(ev.p,0);R.fx.push({type:'ambush',id:ev.id,p:ev.p,from,start:t,life:REVEAL});F.revealUntil=t+REVEAL*.8;
+  T.shake.add(.12);CHA.play('seal',{x:from.x,gain:.85});return true;}
  if(ev.type==='death'&&u&&u.card?.death&&!u.u.silenced&&!u.u.building){if(fx)R.fx.push({type:'urn',x:u.x,y:u.y,start:t+120,life:1100});R.fx.push({type:'sound',sound:'channel',x:u.x,gain:.45,start:t+220,life:300});}
  return false;};
-F.paint={gunst:gunstBreak,frostburst:freezeBurst,poison:poisonBurst,urn:urnRelease,burst};
+// Hinterhalte (AP 5.6): the wax seal of the roll bursts, the card rises face up beside the board on its owner's side with a
+// ribbon „Hinterhalt!“, stays readable and fades. The AI waits while it shows (F.busy).
+// ASTRA: hinterhalt-enthuellung – brechendes Wachssiegel und Band „Hinterhalt!“ über der aufgedeckten Karte, 600 × 160
+const REVEAL=1900;
+function ambushReveal(c,f,t){const e=t-f.start,card=D.byId[f.id];if(!card)return;const q=still()?1:clamp(e/300),out=clamp((e-REVEAL+320)/320),
+  to={x:350,y:f.p===0?430:335},m=ease.outCubic(q),x=mix(f.from.x,to.x,m),y=mix(f.from.y,to.y,m),w=mix(42,226,still()?1:ease.outBack(q)),h=w*1.41;
+ c.save();c.globalAlpha=1-out;
+ if(e<520&&!still())for(let i=0;i<9;i++){const an=i*TAU/9+.4,r=8+e*.13;ellipse(c,f.from.x+Math.cos(an)*r,f.from.y+Math.sin(an)*r+e*e*.00012,4.5,3.2,'#b2362a','#3a0a07',1);}
+ c.shadowColor='#ffcf6a';c.shadowBlur=24;R.fastCard(c,card,x-w/2,y-h/2,w,h);c.shadowBlur=0;
+ if(q>=1){const k=still()?1:.55+.45*ease.outBack(clamp((e-300)/260));c.save();c.translate(x,y-h/2-20);c.scale(k,k);R.blit(c,ribbon(250,'Hinterhalt!'));c.restore();}
+ c.restore();}
+F.paint={gunst:gunstBreak,frostburst:freezeBurst,poison:poisonBurst,urn:urnRelease,burst,ambush:ambushReveal};
 
 // ---------- Opening and close (AP 3.8) ----------
 // F.stage: {kind, at, info, done, held}. The opening: the heroes face each other (0–450 ms), the chronicler's banner
@@ -183,11 +197,11 @@ F.present=(kind,info,done)=>{if(kind==='stop'){F.stop();done();return 0;}if(stil
  if(kind==='opening'){F.stage={kind,at,info,done,coin:false};CHA.play('horn',{gain:.35,delay:.15});CHA.play('page',{gain:.7,delay:.25});return OPENING.end;}
  if(kind==='finale'){F.stage={kind,at,info:{...info,loser:info.winner===0?1:info.winner===1?0:null},done,held:false,broke:false};T.shake.add(.25);CHA.play('seal',{x:800,gain:.9});return FINALE.end;}
  done();return 0;};
-F.busy=()=>!!F.stage&&!F.stage.held;
+F.busy=()=>!!F.stage&&!F.stage.held||now()<(F.revealUntil||0);
 F.skip=()=>{const st=F.stage;if(!st||st.held)return;if(st.kind==='finale'){st.held=true;st.at=now()-FINALE.end;}else F.stage=null;st.done?.();};
-F.cancel=()=>{const st=F.stage;F.stage=null;if(st&&!st.held)st.done?.();};
+F.cancel=()=>{const st=F.stage;F.stage=null;F.revealUntil=0;if(st&&!st.held)st.done?.();};
 // Leaving the match: the opening or close is dropped without going on (the view model shows it again on return).
-F.stop=()=>{F.stage=null;};
+F.stop=()=>{F.stage=null;F.revealUntil=0;};
 // The relief of a side is hidden once it has broken.
 F.hidden=p=>F.stage?.kind==='finale'&&F.stage.broke&&F.stage.info.loser===p;
 // ASTRA: chronik-banner – Pergamentband des Chronisten mit der Ankündigung der Schlacht, 1400 × 160

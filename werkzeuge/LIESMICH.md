@@ -1,7 +1,28 @@
-# Aeterna 1.24.0 – Bauen & Prüfen
+# Aeterna 1.25.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.25.0 (AP 5.6 Taktische Hinterhalte)
+
+- **Regeln** (`model/engine.js`): Zauber mit `ambush` (Auslöser `attack`, `hero`, `defend`, `minion`, `spell`, `death`) legt `apply`
+  verdeckt in `player.ambush` (höchstens `E.AMBUSH_MAX` = 3, `E.canSet`: keiner doppelt); `spring(s, besitzer, auslöser, info)` löst
+  sie nur im Zug des Gegners aus – vor dem Schlag eines angreifenden Dieners, nach dem Ausspielen eines Dieners, vor der Wirkung
+  eines Zaubers (nicht der Gunst der Stunde) und in `settle` beim Tod eines eigenen Dieners. Neue Effekte `cancel`, `counter`,
+  `decoy` (neuer Spielstein `standard`, hinten an `tokens`) und `copySpell`; Ereignisse `ambush` und `counter`. Alte Spielstände ohne
+  `ambush` laufen weiter (`E.ambushes`).
+- **KI:** Vorausschau auf einer Kopie mit `blind` (fremde Hinterhalte lösen dort nicht aus), `AMBUSH_WORTH` für eigene, `risk` lässt
+  billige Diener zuerst angreifen und Zauber etwas warten, solange fremde Rollen liegen.
+- **Karten** (`model/data.js`, Helfer `H`): zwölf Hinterhalte `neutral_50`/`51`, `<zeitalter>_7`, `khan_13`, `fabius_10`, `anna_12`,
+  `leonidas_12` (hinten angehängt), Glossar „Hinterhalt“, Chronikzeilen in `AELORE.cards`, Bildideen in `motive.js` (`IDEA`) und
+  `astra_bilder.py` (`NEW_MOTIFS`) – der Astra-Auftrag wächst von 165 auf 178 Motive, die Atlanten bleiben gleich.
+- **Darstellung:** `L.ambush` (Plätze der Rollen), `rolls`/`ambushArt` in `render.js` (`ASTRA: hinterhalt-rolle`), verdeckter Flug
+  der KI-Karte in `motion.js`, Enthüllung `CHF.paint.ambush` mit Band „Hinterhalt!“ (`ASTRA: hinterhalt-enthuellung`; `CHF.busy`
+  hält die KI, solange sie zu sehen ist), Chronik-Leiste mit Marken ✉ und !, Großansicht „Zauber · Hinterhalt“, Antippen einer Rolle
+  (`Match.ambush`).
+- Tests: neu `tests/hinterhalte.test.js`, angepasst `lehrplan.test.js`, `welle2.test.js`, `schluesselwoerter2.test.js` (Kartenzahlen
+  ohne Hinterhalte); Referenzbild `06-sammlung` (die 1-Mana-Hinterhalte stehen jetzt auf Seite 1). Voller Balance-Lauf, alter Bericht
+  als `balance/BERICHT-1.24.0.md`. Version 1.25.0 / versionCode 28.
 
 ## Neu in 1.24.0 (AP L.6 Teil 1: Karten und Schlüsselwörter nah an der Geschichte, Entscheidung 21)
 

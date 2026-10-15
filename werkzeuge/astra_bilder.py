@@ -65,6 +65,20 @@ NEW_MOTIFS = {
                 'Junger Gelehrter in schlichtem Chiton und Mantel um 400 n. Chr., sitzt mit Wachstafel und Griffel, ein '
                 'Astrolab aus Messing auf dem Tisch, Säulenhalle in Alexandria im Hintergrund. Kein Zauber, kein Leuchten '
                 '(AP L.5: Hypatias Unterricht).'),
+    # AP 5.6 (1.25.0): zwölf Hinterhalte und Annas Träger der Kaiserstandarte.
+    'neutral_50': ('Hinterhalte (AP 5.6)', 'Krähenfüße', 'Eiserne Krähenfüße mit vier Spitzen im zertretenen Gras, ein römischer Soldat streut weitere aus einem Lederbeutel, in der Ferne nahen Reiter.'),
+    'neutral_51': ('Hinterhalte (AP 5.6)', 'Abgefangene Botschaft', 'Römische Futterholer halten auf einer staubigen Straße in Süditalien zwei numidische Reiter an, ein Legionär hält einen versiegelten Brief hoch (207 v. Chr.).'),
+    'steppe_7': ('Hinterhalte (AP 5.6)', 'Falsche Kundschafter von Kadesch', 'Zwei Beduinen knien vor Ramses II. in seinem Lager und zeigen nach Norden; hinter den Mauern von Kadesch warten verborgen hethitische Streitwagen (um 1274 v. Chr.).'),
+    'griechen_7': ('Hinterhalte (AP 5.6)', 'Botschaft des Sikinnos', 'Ein griechischer Sklave rudert nachts in einem kleinen Boot auf die persische Flotte zu, Laternen auf den Trieren, die Meerenge von Salamis (480 v. Chr.).'),
+    'rom_7': ('Hinterhalte (AP 5.6)', 'Wall am Kalkrieser Berg', 'Germanen warten hinter einem langen Wall aus Rasensoden am Fuß eines bewaldeten Bergs; auf dem schmalen Weg am Moor zieht im Regen eine römische Kolonne vorbei (9 n. Chr.).'),
+    'mittelalter_7': ('Hinterhalte (AP 5.6)', 'Fallgatter', 'Das eisenbeschlagene Fallgatter eines Burgtors saust herab, davor reißen Reiter ihre Pferde zurück.'),
+    'byzanz_7': ('Hinterhalte (AP 5.6)', 'Engpass von Myriokephalon', 'Seldschukische Bogenreiter greifen von felsigen Hängen eine lange byzantinische Heereskolonne an, der Tross steckt im engen Pass fest (1176).'),
+    'ostasien_7': ('Hinterhalte (AP 5.6)', 'Gegenmine', 'Verteidiger einer barocken Sternfestung graben bei Kerzenlicht einen Gegenstollen unter dem Wall, einer horcht an der Erdwand, Pulverfässer (um 1700).'),
+    'khan_13': ('Hinterhalte (AP 5.6)', 'Hinterhalt am Süntel', 'Fränkische Reiter stürmen überhastet einen bewaldeten Berghang hinauf auf das Lager der Sachsen zu, von beiden Seiten brechen Sachsen aus dem Wald (782).'),
+    'fabius_10': ('Hinterhalte (AP 5.6)', 'Rettung bei Gerunium', 'Der alte Fabius Maximus führt seine Legionen über einen Hügel, um im Tal umzingelte Römer vor den Karthagern zu retten (217 v. Chr.).'),
+    'anna_12': ('Hinterhalte (AP 5.6)', 'Täuschung bei Larissa', 'Ein byzantinisches Heer steht mit den kaiserlichen Feldzeichen vor den Mauern von Larissa, normannische Ritter stürmen darauf zu (1083).'),
+    'leonidas_12': ('Hinterhalte (AP 5.6)', 'Kampf um den Leichnam', 'Spartanische Hopliten kämpfen im Engpass der Thermopylen um den Leichnam ihres gefallenen Königs und drängen die Perser zurück (480 v. Chr.).'),
+    'standard': ('Hinterhalte (AP 5.6)', 'Träger der Kaiserstandarte', 'Byzantinischer Fahnenträger im Lamellenpanzer mit hoher kaiserlicher Fahne mit goldenem Kreuz (11. Jh.).'),
 }
 # Nicht neu erzeugen, bis eine Zuordnung geklärt ist. Entscheidung 19 (11. 10. 2026): Die geretteten Alexandria-Bilder
 # bleiben hypatia_5 und hypatia_8, hypatia_0 und hypatia_2 werden neu bestellt – nichts mehr gesperrt.

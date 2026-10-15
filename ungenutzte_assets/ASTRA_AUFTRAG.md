@@ -12,10 +12,10 @@
 | Eingebaut, Korrektur nötig | 1 | 0 | **1** |
 | Altes Bild bleibt (AP L.6) – nicht erzeugen | 36 | 3 | **39** |
 | Im Spiel nie gerufen – nicht erzeugen | 0 | 1 | **1** |
-| Neu erzeugen | 147 | 18 | **165** |
+| Neu erzeugen | 159 | 19 | **178** |
 | Teil 4 beschädigt – Original suchen, sonst neu | 3 | 3 | **6** |
 | Gesperrt – Zuordnung klären | 0 | 0 | **0** |
-| **Gesamt** | **350** | **28** | **378** |
+| **Gesamt** | **362** | **29** | **391** |
 
 Im Spiel: 167 Karten und Spielsteine in 14 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
 
@@ -119,7 +119,7 @@ Die technischen IDs bleiben wegen bestehender Spielstände erhalten. Der aktuell
 | `totem_*` | Grenzsteine | Fantasy-Totempfähle |
 
 
-## 5. Kartenillustrationen: 151
+## 5. Kartenillustrationen: 163
 
 Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
@@ -404,7 +404,24 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 |---|---|---|---|
 | `hypatia_0` | Bibliothekslehrling | neu | Junger erwachsener männlicher Schüler mit Papyrus in einem bescheidenen alexandrinischen Gelehrtenraum um 400 n. Chr.; Tunika/Himation, keine monumentale intakte ptolemäische Bibliothek. |
 
-## 6. Spielsteine: 21
+### Hinterhalte (AP 5.6)
+
+| ID | Name | Status | Konkretes Motiv und Komposition |
+|---|---|---|---|
+| `neutral_50` | Krähenfüße | neu | Eiserne Krähenfüße mit vier Spitzen im zertretenen Gras, ein römischer Soldat streut weitere aus einem Lederbeutel, in der Ferne nahen Reiter. |
+| `neutral_51` | Abgefangene Botschaft | neu | Römische Futterholer halten auf einer staubigen Straße in Süditalien zwei numidische Reiter an, ein Legionär hält einen versiegelten Brief hoch (207 v. Chr.). |
+| `steppe_7` | Falsche Kundschafter von Kadesch | neu | Zwei Beduinen knien vor Ramses II. in seinem Lager und zeigen nach Norden; hinter den Mauern von Kadesch warten verborgen hethitische Streitwagen (um 1274 v. Chr.). |
+| `griechen_7` | Botschaft des Sikinnos | neu | Ein griechischer Sklave rudert nachts in einem kleinen Boot auf die persische Flotte zu, Laternen auf den Trieren, die Meerenge von Salamis (480 v. Chr.). |
+| `rom_7` | Wall am Kalkrieser Berg | neu | Germanen warten hinter einem langen Wall aus Rasensoden am Fuß eines bewaldeten Bergs; auf dem schmalen Weg am Moor zieht im Regen eine römische Kolonne vorbei (9 n. Chr.). |
+| `mittelalter_7` | Fallgatter | neu | Das eisenbeschlagene Fallgatter eines Burgtors saust herab, davor reißen Reiter ihre Pferde zurück. |
+| `byzanz_7` | Engpass von Myriokephalon | neu | Seldschukische Bogenreiter greifen von felsigen Hängen eine lange byzantinische Heereskolonne an, der Tross steckt im engen Pass fest (1176). |
+| `ostasien_7` | Gegenmine | neu | Verteidiger einer barocken Sternfestung graben bei Kerzenlicht einen Gegenstollen unter dem Wall, einer horcht an der Erdwand, Pulverfässer (um 1700). |
+| `khan_13` | Hinterhalt am Süntel | neu | Fränkische Reiter stürmen überhastet einen bewaldeten Berghang hinauf auf das Lager der Sachsen zu, von beiden Seiten brechen Sachsen aus dem Wald (782). |
+| `fabius_10` | Rettung bei Gerunium | neu | Der alte Fabius Maximus führt seine Legionen über einen Hügel, um im Tal umzingelte Römer vor den Karthagern zu retten (217 v. Chr.). |
+| `anna_12` | Täuschung bei Larissa | neu | Ein byzantinisches Heer steht mit den kaiserlichen Feldzeichen vor den Mauern von Larissa, normannische Ritter stürmen darauf zu (1083). |
+| `leonidas_12` | Kampf um den Leichnam | neu | Spartanische Hopliten kämpfen im Engpass der Thermopylen um den Leichnam ihres gefallenen Königs und drängen die Perser zurück (480 v. Chr.). |
+
+## 6. Spielsteine: 22
 
 Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige Szene, kein Freisteller.
 
@@ -444,3 +461,9 @@ Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige S
 | ID | Name | Status | Konkretes Motiv und Komposition |
 |---|---|---|---|
 | `student` | Schüler der Hypatia | neu | Junger Gelehrter in schlichtem Chiton und Mantel um 400 n. Chr., sitzt mit Wachstafel und Griffel, ein Astrolab aus Messing auf dem Tisch, Säulenhalle in Alexandria im Hintergrund. Kein Zauber, kein Leuchten (AP L.5: Hypatias Unterricht). |
+
+### Hinterhalte (AP 5.6)
+
+| ID | Name | Status | Konkretes Motiv und Komposition |
+|---|---|---|---|
+| `standard` | Träger der Kaiserstandarte | neu | Byzantinischer Fahnenträger im Lamellenpanzer mit hoher kaiserlicher Fahne mit goldenem Kreuz (11. Jh.). |
