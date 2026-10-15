@@ -15,12 +15,12 @@ const end=s=>act(s,{type:'end'});
 
 test('Welle 2: sechs Helden mit 10 Karten, Chronik, Startdeck, Mission 17–22 und Zeitalter mit je zwei Helden',()=>{
  assert.deepEqual(D.heroes.slice(16).map(h=>h.id),NEW);
- for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id);
+ for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id&&!c.ambush);
   assert.deepEqual(set.map(c=>c.rarity),['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'],id);
   assert.ok(set.every(c=>D.missingArt(c)||B.cards[c.id]),id+': Platzhalter oder Astra-Motiv');assert.deepEqual([h.art,h.cell],B.heroes[id],id+': Astra-Porträt');assert.ok(D.personalities[h.ai],id+': KI-Persönlichkeit');
   assert.ok(L.of(id),id);assert.equal(P.validateDeck(P.fresh(),id,E.starter(id)),null,id);}
  assert.deepEqual(D.missions.slice(16).map(m=>m.hero),NEW);
- for(const a of AGES){const heroes=D.heroes.filter(h=>h.age===a),set=D.cards.filter(c=>c.age===a);
+ for(const a of AGES){const heroes=D.heroes.filter(h=>h.age===a),set=D.cards.filter(c=>c.age===a&&!c.ambush);
   assert.ok(heroes.length>=2,a);assert.equal(set.length,7,a);assert.ok(set.every(c=>c.hero===a&&heroes.every(h=>D.playable(c,h.id))),a);}
  assert.equal(D.cards[269].id,'epaminondas_0','neue IDs hinten angehängt');
 });

@@ -1,8 +1,11 @@
 # Aeterna
 
-*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 350 Karten,
+*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 362 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.24.0** (Karten und Schlüsselwörter nah an der Geschichte nach AP L.6 Teil 1: elf neue Namen, die
+Aktueller Stand im Code: **Version 1.25.0** (**Taktische Hinterhalte** nach AP 5.6: zwölf Zauber, die verdeckt als versiegelte
+Wachsrolle neben dem Helden liegen und im Zug des Gegners zuschnappen – vom **Hinterhalt am Süntel** über das **Fallgatter** bis zur
+**Gegenmine**, jeder mit Quelle in „Aus der Chronik“; eine KI, die eigene Hinterhalte legt, die fremden aber nicht kennt, nur fürchtet);
+davor 1.24.0 (Karten und Schlüsselwörter nah an der Geschichte nach AP L.6 Teil 1: elf neue Namen, die
 dem vorhandenen Bild folgen – etwa **Brennspiegel des Archimedes**, **Erdmessung des Eratosthenes**, **Brot und Bier** –, **Segen** statt
 Göttlicher Gunst, **Weisheit** statt Arkanem Fokus, „Zauber“ als Glaube der Zeit erklärt; eine Zeile **„Aus der Chronik“** mit Quelle für
 16 Karten; kein einziges neues Bild, der Astra-Auftrag schrumpft von 205 auf 165 Motive);
@@ -112,7 +115,7 @@ bleiben).
 | `AETERNA` | 500 Gold |
 | `KARTENPAKETE` | 10 Kartenpakete – im Basar mit „Alle öffnen“ auf einmal aufdecken (seit 1.12.0 alle, vorher höchstens 50) |
 | `ZEITALTER` | 1 000 Staub |
-| `CHRONIK` | jede Karte in voller Zahl (zwei, Legendäre eine) – zum Ausprobieren aller 350 Karten |
+| `CHRONIK` | jede Karte in voller Zahl (zwei, Legendäre eine) – zum Ausprobieren aller 362 Karten |
 
 ---
 
@@ -128,7 +131,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `model/data.js` | Model | 22 Helden mit Heldenfähigkeit als Daten (`ability`: Effekte und Ziel), Zeitalter (`age`, Liste `CHD.ages` mit Farbe und Zeichen, seit 1.14.0 sechs Epochen nach dem Lehrplan; `CHD.replaced` nennt die elf in AP L.1 ersetzten Helden) und KI-Persönlichkeit (`ai`, `CHD.personalities`), 350 Karten (davon 42 Zeitalterkarten), Spielsteine (Tokens), 22 Missionen, Glossar; `CHD.missingArt` kennzeichnet Karten ohne Motiv, `CHD.playable(karte, held)` sagt, ob ein Deck des Helden sie enthalten darf, `CHD.owner`/`CHD.eraOf` nennen Held, Zeitalter oder „Neutral“; seit 1.24.0 `CHD.glossaryOf(karte)` – Schlüsselwörter einer Karte, bei Zaubern auch das Wort „Zauber“ |
 | `model/bilder.js` | Model | Seit 1.21.0 (AP A.1): gemalte Astra-Bilder je Karte, Spielstein und Held → Atlas und Feld (`CHB`), erzeugt von `werkzeuge/astra_bilder.py`, vor `data.js` geladen; `data.js` legt sie über alte Atlasfelder und Platzhalter |
 | `model/lore.js` | Model | Chronik der Helden (AP 5.9, 22 Seiten): Lebensdaten, Biografie, Zitat mit Quelle, Spielstil, Beziehungen (`AELORE`); seit 1.14.0 die Tabelle `curriculum` mit Klassenstufe und Lernbereich je Held (AP L.1), seit 1.23.0 `deeds` – die Tat hinter jeder Heldenfähigkeit mit Quelle (AP L.5), seit 1.24.0 `cards` – „Aus der Chronik“, ein belegter Satz mit Quelle je Karte (AP L.6 Teil 2, `AELORE.card(id)`) |
-| `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau |
+| `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau; seit 1.25.0 Hinterhalte (`player.ambush`, `E.canSet`, `E.ambushes`; `s.blind` verbirgt der KI-Vorausschau die fremden Rollen) |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs (auch mehrere auf einmal, `openPacks`), Codes (`codes`, `redeem`), Aufgaben, Import-Prüfung (`CHP`) |
 | `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`); seit 1.16.0 sind Schlachtfelder die Tische unter den Epochenhälften, Tische ohne `image` Platzhalter mit CSS-Farbfilter `tint`, alte Felder werden über `refund` erstattet; seit 1.18.0 Kartenrahmen `frames` (Tempeltor, Goldene Karten, ausgerüstet in `equipped.frame`) |
 | `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
@@ -149,7 +152,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
 | `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`), Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 350 Karten), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 362 Karten), `BERICHT-1.24.0.md` (vor AP 5.6), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 48 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
@@ -203,6 +206,9 @@ Karten-IDs bleiben (`khan` ist Widukind, `fuhao` die Fürstin von Vix), ebenso d
 Ägypten, `ostasien` = Frühe Neuzeit, `byzanz` = Kreuzzüge). Seit 1.15.0 (AP L.2) tragen auch ihre Karten und Spielsteine
 Namen aus der Lebenswelt der neuen Person; neu ist nur der Spielstein `novice` (Novizin, 1/1) für Hildegard – Jutta von
 Sponheim stärkt Novizinnen, die Rekruten (`recruit`) bleiben Dandolo und Caesars Mission.
+Seit 1.25.0 (AP 5.6) **Hinterhalte**: Zauber mit Feld `ambush` (Auslöser `attack`, `hero`, `defend`, `minion`, `spell`, `death`),
+höchstens drei verdeckt je Spieler (`player.ambush`), keiner doppelt; sie schnappen nur im Zug des Gegners zu, neue Effekte `cancel`
+(Angriff fällt aus), `counter` (Zauber vereitelt), `decoy` (Spielstein fängt den Angriff ab) und `copySpell`.
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -210,7 +216,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
@@ -227,7 +233,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
   `chroniken.profile` bleiben trotz Umbenennung bestehen.
 - **Regeländerungen nur bewusst:** `data.js`/`engine.js` nur in Arbeitspaketen anfassen, die das
   ausdrücklich vorsehen (Phase 5), und dann mit neuen Tests und vollem Balance-Lauf `node werkzeuge/balance.js`
-  (mit 22 Helden und 350 Karten ≈ 30 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
+  (mit 22 Helden und 362 Karten ≈ 30 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
   vergleichen: Kopie von `model/` anlegen und `AETERNA_MODELL=<Ordner> node werkzeuge/balance.js --partien 40`.
 - **Sichtprüfung:** Jede optische Änderung per Playwright-Screenshot im Handyformat
   (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen –
@@ -1133,7 +1139,7 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
   *Klickpfad: neue Referenzbilder 08 (Heldenwahl im Tagesduell) und 13 (Kampagnenkarte); die Karte zeigt 22 Stationen, eine
   angetippte Station öffnet ihre Mission. Alle 29 Prüfungen bestanden.*
 
-**AP 1.8 – Spielbrett und HUD neu (L)** – *Teil 1 ✓ in 1.16.0, Teil 2 ✓ in 1.17.0 (als Astra-Platzhalter); offen: Dioramen, Hinterhalte, Formationen*
+**AP 1.8 – Spielbrett und HUD neu (L)** – *Teil 1 ✓ in 1.16.0, Teil 2 ✓ in 1.17.0 (als Astra-Platzhalter), Hinterhalte ✓ in 1.25.0; offen: Dioramen, Formationen*
 - [x] **Feldherrentisch** aus antikem Stein und poliertem Holz mit eingeritzter Weltkarte. *1.16.0: Der gemalte Standardtisch
   (Sandstein, Holzrahmen) bleibt die Grundfläche; darüber ist eine Karte in den Stein geritzt – Kompassrose auf der Naht,
   32 Loxodromen, Gradnetz, je dunkle Rille mit heller Unterkante (`chart`, `ASTRA: feldherrentisch`).*
@@ -1186,7 +1192,12 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
   steht in Deinem Zug oben und schwingt beim Tippen mit Überschwingen und kleinem Sprung nach unten (und im nächsten Zug
   zurück), das Zugereignis schlägt den Gong; im Gegnerzug ist das Zifferblatt grau (`chronometer`, `ASTRA: chronometer`).*
 - [ ] **Vier Eck-Dioramen** je Epoche, antippbar (Räuchergefäß brennt, Astrolabium dreht sich, Säule bröckelt, Katapult schießt).
-- [ ] **Hinterhalte** als versiegelte Wachsrollen über dem Helden (mit AP 5.6); **Erschöpfung** als Stundenglas ✓.
+- [x] **Hinterhalte** als versiegelte Wachsrollen über dem Helden (mit AP 5.6); **Erschöpfung** als Stundenglas ✓.
+  *1.25.0: bis zu drei kurze Rollen mit Schnur und Wachssiegel neben der Münze – Deine in einer Spalte links Deiner Münze (Goldrand,
+  antippen zeigt die Karte), die des Gegners in einer Reihe links seiner Münze unter den versiegelten Befehlen (rot, antippen erklärt
+  nur, was sie auslösen kann). Legt die KI einen Hinterhalt, fliegt die Karte verdeckt zur Rolle; schnappt einer zu, bricht das
+  Siegel und die Karte steigt unter dem Band „Hinterhalt!“ auf (`L.ambush`, `rolls`, `CHF.paint.ambush`, `ASTRA: hinterhalt-rolle`,
+  `ASTRA: hinterhalt-enthuellung`).*
   *1.17.0: Ist das Deck leer, steht dort ein Stundenglas mit rinnendem Sand und dem Schaden des nächsten Zugs („−3“,
   `ASTRA: stundenglas`).*
 - [ ] Höchstens 7 Plätze je Seite, Formationen rücken bei Verlusten sofort mittig zusammen (vorhanden, Animation verbessern).
@@ -1893,9 +1904,41 @@ Neuer Kartentyp ohne Angriff mit dauerhaftem Effekt, ähnlich Schauplätzen in R
   und gezielte Zauber dürfen sie belagern; die KI bewertet sie über ihre Haltbarkeit. Plakette grau mit ♜ und gezeichneter
   Platzhalter-Pyramide. Bauwerke als eigener Kartentyp aus der Hand fehlen noch.
 
-**AP 5.6 – Taktische Hinterhalte (M)**
-- [ ] Verdeckte Karten als versiegelte Wachsrollen über dem Helden, lösen bei gegnerischen Aktionen automatisch aus
+**AP 5.6 – Taktische Hinterhalte (M)** – *✓ in 1.25.0 (Sitzung 21, Karten nach meinem Vorschlag – Namen, Werte und Auswahl kannst
+Du jederzeit ändern lassen, die IDs bleiben)*
+- [x] Verdeckte Karten als versiegelte Wachsrollen über dem Helden, lösen bei gegnerischen Aktionen automatisch aus
   (z. B. „Wenn ein feindlicher Diener angreift …“, „Wenn der Gegner einen Zauber wirkt …“). Keine Echtzeit-Reaktionen nötig.
+  *1.25.0:* Ein Hinterhalt ist ein Zauber mit Auslöser (`ambush`). Ausgespielt liegt er verdeckt neben dem Helden – höchstens drei,
+  keiner doppelt – und schnappt **nur im Zug des Gegners** zu: wenn ein feindlicher Diener angreift (irgendwen, Euren Helden oder
+  einen Eurer Diener), wenn der Gegner einen Diener ausspielt oder einen Zauber wirkt (die Gunst der Stunde zählt nicht) oder wenn
+  einer Eurer Diener stirbt. Zielt er auf den Angreifer, geschieht das vor dem Schlag: Fällt, erstarrt oder weicht der Angreifer,
+  bleibt der Angriff aus (er ist trotzdem verbraucht). Die Chronik schreibt „X legt einen Hinterhalt“ ohne Namen; schnappt er zu,
+  steht „Hinterhalt: <Name>“ mit Bild in der Leiste.
+- [x] **KI, die sie legt und fürchtet:** Eigene Hinterhalte sind ihr mehr wert als die Karte auf der Hand (sie legt sie, wenn Mana
+  übrig ist). In die Rollen des Gegners schaut sie **nicht**: Ihre Vorausschau rechnet auf einer Kopie, in der fremde Hinterhalte
+  nicht auslösen (`s.blind`) – ein Test prüft, dass sie bei vier verschiedenen verdeckten Rollen genau gleich entscheidet. Liegen
+  Rollen da, greift sie zuerst mit billigen Dienern an (sie „probt“ den Hinterhalt) und wirkt Zauber etwas zögerlicher.
+- [x] **Zwölf Karten aus der Geschichte**, je eine Zeitalterkarte (so hat jeder Held mindestens drei), zwei neutrale und vier
+  Heldenkarten; alle noch ohne Motiv (Platzhalter, 13 neue Zeilen im Astra-Auftrag samt Spielstein), jede mit Chronikzeile und Quelle.
+  Vorschläge aus dem Plan, die es schon gibt, sind nicht doppelt: „Vorgetäuschte Flucht“ ist Baibars’ Zauber, „Lager auf den Höhen“
+  Fabius’ Bauwerk. Ihre Rollen und die Enthüllung sind gekennzeichnete Platzhalter (AP 1.8, `ASTRA_AUFTRAG_OBERFLAECHE.md`, 48 → 50).
+- Abnahme: Test `hinterhalte.test.js` (Legen, alle zwölf Auslöser, eigener Zug löst nichts aus, alte Spielstände, ehrliche KI,
+  30 Partien KI gegen KI mit Hinterhalten in beiden Decks), voller Balance-Lauf.
+
+  | Karte (Kosten, wer) | Auslöser → Wirkung | Bezug und Quelle |
+  |---|---|---|
+  | **Krähenfüße** (1, neutral) | ein feindlicher Diener greift an → er erleidet 2 Schaden | Eisen mit vier Spitzen, gestreut gegen Sichelwagen (Vegetius III 24) |
+  | **Abgefangene Botschaft** (2, neutral) | der Gegner wirkt einen Zauber → Ihr erhaltet eine Kopie | Hasdrubals Brief an Hannibal wird abgefangen, Nero eilt zum Metaurus, 207 v. Chr. (Livius XXVII 43–49) |
+  | **Falsche Kundschafter von Kadesch** (2, Frühzeit und Ägypten) | der Gegner spielt einen Diener aus → er erleidet 4 Schaden | Zwei Beduinen täuschen Ramses II., die hethitischen Streitwagen treffen die Division des Re auf dem Marsch (Kadesch-Bericht) |
+  | **Botschaft des Sikinnos** (1, Griechenland) | der Gegner spielt einen Diener aus → er erstarrt, Ihr zieht 1 Karte | Themistokles’ Botschaft vor Salamis, die Perser rudern die ganze Nacht (Herodot VIII 75–76; Aischylos, Perser) |
+  | **Wall am Kalkrieser Berg** (3, Rom und Germanien) | ein feindlicher Diener greift an → alle feindlichen Diener erleiden 2 Schaden | Wall aus Rasensoden zwischen Berg und Moor, wohl der Ort der Varusschlacht – als unsicher erzählt (Ausgrabungen Kalkriese; Cassius Dio LVI) |
+  | **Fallgatter** (2, Mittelalter im Reich) | ein feindlicher Diener greift Euren Helden an → er kehrt auf die Hand zurück | Burg und Rittertum (Lehrplan Kl. 6); schon 208 v. Chr. in Salapia gegen Hannibals Reiter (Livius XXVII 28) |
+  | **Engpass von Myriokephalon** (3, Kreuzzüge) | ein feindlicher Diener greift an → alle feindlichen Diener erstarren | Die Seldschuken schließen Manuels Heer 1176 im Pass ein (Niketas Choniates) |
+  | **Gegenmine** (3, Frühe Neuzeit) | der Gegner wirkt einen Zauber → er wird vereitelt | Gegenstollen gegen die Minen der Belagerer (Vauban, Verteidigung der Festungen) – passt zu Vaubans „Minengang“ |
+  | **Hinterhalt am Süntel** (3, Widukind) | ein feindlicher Diener greift Euren Helden an → er wird vernichtet | 782: Fränkische Anführer greifen das Lager der Sachsen überstürzt an und fallen (Reichsannalen) |
+  | **Rettung bei Gerunium** (2, Fabius) | ein feindlicher Diener greift einen Eurer Diener an → der Angriff fällt aus, der Angreifer erstarrt | Fabius rettet Minucius aus Hannibals Hinterhalt, 217 v. Chr. (Livius XXII 28–30; Polybios III 104–105) |
+  | **Täuschung bei Larissa** (1, Anna Komnene) | ein feindlicher Diener greift Euren Helden an → ein Träger der Kaiserstandarte (2/2) fängt ihn ab | Alexios lässt sein Heer mit den Feldzeichen aufziehen und fällt über Bohemunds Lager her, 1083 (Alexiade V 5–6) |
+  | **Kampf um den Leichnam** (2, Leonidas) | einer Eurer Diener stirbt → Eure übrigen Diener erhalten +1/+1 | Viermal schlagen die Griechen die Perser um Leonidas’ Leichnam zurück (Herodot VII 225) |
 
 **AP 5.7 – Erweiterung „Wunder der Welt“ (L)**
 - [ ] Rund 90 neue Karten: je Held 6 (davon 1 Legendäre), 20 neutrale, 10 Bauwerke, dazu Hinterhalte; nutzt die neuen
@@ -2300,7 +2343,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Äther-Runen unten rechts, versiegelte KI-Befehle, Chronik-Leiste, Pergament-Deck, Stundenglas | AP 1.8, AP 3.4 – ✓ in 1.17.0 (Mana nach Deiner Rückmeldung als Äther-Uhr links); Stundenglas, das Leben entzieht, ✓ in 1.18.0 |
 | Schlachtfelder außer Standard entfernen, Platzhalter bauen (Rückmeldung zu 1.15.0) | ✓ in 1.16.0 – 100 Gold zurück, vier Platzhalter-Tische (Athen, Kapitol, Skriptorium, Porzellan) |
 | Münzwurf, Startkarten-Tausch, „Gunst der Stunde“, Mana bis 10, Handlimit, gleichzeitiger Schaden, Aufmarsch-Verzögerung, freie Zielwahl, KI-Zug ohne Unterbrechung | vorhanden; Inszenierung in AP 3.4, AP 3.8; Umbenennung ✓ (1.7.0) |
-| Taktische Hinterhalte | AP 5.6, AP 1.8 |
+| Taktische Hinterhalte | AP 5.6 ✓ in 1.25.0, AP 1.8 |
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 – ✓ in 1.18.0 (Platzhalter), dazu Goldene Karten |
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
@@ -2373,6 +2416,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     kommen noch vor der großen Astra-Bestellung? Kandidaten mit neuen Bildern: AP 5.6 Hinterhalte (Mechanik und Karten), AP 5.7
     Erweiterung „Wunder der Welt“ (rund 90 Karten), AP 6.1–6.4 Modi (Draft, Rangliste, Aufgaben, Kampagne 2.0 mit Belagerung und
     Lunte), AP 3.9 Eck-Dioramen; ohne neue Bilder: AP L.6 Teil 2 (Chronikzeilen), Phase 4 (Klang). Vorschlag unten.
+    *Stand 1.25.0:* Die Hinterhalte sind gebaut (Sitzung 21, wie vorgeschlagen) – offen ist der Rest: Erweiterung, Modi, Dioramen.
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
@@ -2401,8 +2445,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 18b ✓ | AP A.2, Entscheidung 19 | erledigt in 1.22.0 – gemalte Kartenrahmen und -rücken, Match-Elemente, Menüs, Hauptmenü, Hintergründe, App-Icon und Splash |
 | 19 ✓ | Rückmeldung 1.22.0, AP L.5 | erledigt in 1.23.0 – Steintür als Flügeltür, Leuchtrahmen nach dem gemalten Rahmen; Prüftabelle der 22 Heldenfähigkeiten, drei neue Wirkungen und drei neue Namen, Tat mit Quelle in der Heldenwahl, AP L.6 neu |
 | 20 ✓ | Rückmeldung 1.23.0, AP L.6 Teil 1, Teil 2 begonnen | erledigt in 1.24.0 – elf Karten nach ihren vorhandenen Bildern umbenannt, Segen und Weisheit, „Zauber“ als Glaube erklärt, 16 Chronikzeilen mit Quelle, Astra-Auftrag 205 → 165 ohne ein neues Bild |
-| 21 | Entscheidung 22, AP 5.6 Hinterhalte | Dein Hinweis: erst das Spiel fertig bauen, dann die Assets – zuerst festlegen, was zum fertigen Spiel gehört, dann die letzte große Mechanik (Hinterhalte als versiegelte Wachsrollen), mit Platzhaltern |
-| 22 | AP 5.7 Erweiterung „Wunder der Welt“ (falls in Entscheidung 22 gewählt) | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
+| 21 ✓ | Rückmeldung 1.24.0, AP 5.6 Hinterhalte | erledigt in 1.25.0 – zwölf Hinterhalte aus der Geschichte als versiegelte Wachsrollen, Auslöser im Zug des Gegners, ehrliche KI, die sie legt und fürchtet; Entscheidung 22 noch offen |
+| 22 | Entscheidung 22, AP 5.7 Erweiterung „Wunder der Welt“ Teil 1 (falls gewählt) | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
 | 23 | Phase 6 Modi mit AP 3.7 (Lunte in Belagerungsmissionen) | Draft, Rangliste, Aufgaben, Kampagne 2.0 – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
 | 24+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
 | nach dem letzten Inhalts-Paket | AP A.3 (Du), dann ein Einbau-Lauf | den dann vollständigen `ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md` bei Astra bestellen, 10–12 je ZIP; jede Lieferung baut eine Sitzung mit dem Werkzeug ein |
@@ -2414,47 +2458,51 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 20 (Version 1.24.0):** Rückmeldung zu 1.23.0 („alles super“) – nichts nachzuarbeiten. **AP L.6 Teil 1** –
-Prüftabelle aller 350 Karten, 28 Spielsteine und 212 Bilder; nach Deiner Entscheidung (21) elf neue Namen, die dem **vorhandenen
-Bild** folgen (Erdmessung des Eratosthenes, Sternkatalog des Hipparchos, Synesios von Kyrene, Brennspiegel des Archimedes,
-Klaudios Ptolemaios, Brot und Bier, Urteil nach der Maat, Nachtwache am Kanal, Spitzel im Venezianerviertel, Mercators Atlas,
-Rezept des Goldmachers), **Segen** statt Göttlicher Gunst, **Weisheit** statt Arkanem Fokus, **„Zauber“** bleibt und wird als
-Glaube der Zeit erklärt; Ordensritter und Grabwächter zeigen statt Kristallgestalt und Skelett den Platzhalter, der Adler der
-Berge einen Steinadler aus einem ungenutzten alten Bild. **Null Regeländerungen**, kein neues Bild – der Astra-Auftrag schrumpft
-von 205 auf 165 Motive, weil 39 geprüfte alte Bilder bleiben. **AP L.6 Teil 2 begonnen:** „Aus der Chronik“ mit Quelle in
-Großansicht und Kartendetails, 16 Karten. Dein Hinweis „erst fertig bauen, dann Assets“ steht in AP A.3, in Entscheidung 22 und
-in der Reihenfolge. Davor: Sitzung 19 (1.23.0) AP L.5; Sitzungen 1–18 (1.4.0–1.22.0).
+**Erledigt in Sitzung 21 (Version 1.25.0):** Rückmeldung zu 1.24.0 („alles läuft gut“) – nichts nachzuarbeiten. **AP 5.6 Taktische
+Hinterhalte**, die letzte große Mechanik: Zauber, die verdeckt als versiegelte Wachsrolle neben dem Helden liegen (höchstens drei)
+und **nur im Zug des Gegners** zuschnappen – bei einem Angriff, einem ausgespielten Diener, einem Zauber oder dem Tod eines eigenen
+Dieners. **Zwölf Karten aus der Geschichte** mit Quelle (Prüftabelle in [AP 5.6](#phase-5--regeln-karten-und-balance-l)): je eine
+Zeitalterkarte, zwei neutrale, dazu Widukinds Hinterhalt am Süntel, Fabius’ Rettung bei Gerunium, Annas Täuschung bei Larissa und
+Leonidas’ Kampf um den Leichnam. Die **KI** legt eigene Hinterhalte, kennt die fremden aber nicht (ihre Vorausschau sieht sie nicht
+auslösen) und greift, solange Rollen liegen, zuerst mit billigen Dienern an. Rollen, verdeckter Flug und Enthüllung „Hinterhalt!“
+sind gekennzeichnete Platzhalter; der Astra-Auftrag wächst um 13 Motive (165 → 178) und 2 Oberflächenteile (48 → 50).
+BALANCE_PLATZHALTER Weil ich ohne Deine Rückmeldung weitergemacht habe, sind die zwölf Karten **mein Vorschlag** – Namen, Wirkungen
+und Kosten lassen sich jederzeit ändern, die IDs bleiben. **Entscheidung 22 ist weiter offen.** Davor: Sitzung 20 (1.24.0) AP L.6
+Teil 1; Sitzungen 1–19 (1.4.0–1.23.0).
 
-**Vorher bitte von dir (10 Minuten):**
-1. `Aeterna-1.24.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. In der **Sammlung** die Karten von Hypatia und Imhotep antippen: Passen die neuen Namen zu den Bildern? Ist die Zeile „Aus der
-   Chronik“ unter Brennspiegel, Mercators Atlas oder Marco Polo gut lesbar?
-3. **Entscheidung 22** (siehe [Offene Entscheidungen](#offene-entscheidungen)): Was gehört zum fertigen Spiel? *Mein Vorschlag:*
-   **Hinterhalte ja** (die letzte fehlende Kartenart, der Feldherrentisch hat schon ihren Platz über dem Helden); **Erweiterung klein**
-   – je Held zwei Karten und zehn neutrale (≈ 54 statt 90 neue Bilder); **Draft und Aufgaben ja** (kaum neue Bilder),
-   **Rangliste und Kampagne 2.0 mit Belagerung und Lunte** nach Deinem Geschmack.
+**Vorher bitte von dir (10–15 Minuten):**
+1. `Aeterna-1.25.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. Hinterhalte ausprobieren: In der **Sammlung** stehen sie unter „Zauber · Hinterhalt“ (mit dem Code `CHRONIK` hast Du alle). Ein
+   Deck mit zwei, drei Hinterhalten bauen (z. B. Widukind: Hinterhalt am Süntel, Fallgatter, Krähenfüße) und eine Schlacht spielen:
+   Sind die Wachsrollen links neben Deiner Münze gut zu sehen und anzutippen? Bleibt die Enthüllung lange genug lesbar? Fühlen sich
+   die Hinterhalte der KI fair an?
+3. Die **Prüftabelle in AP 5.6** ansehen: Passen Namen, Wirkungen und Quellen – oder soll eine Karte anders heißen oder wirken?
+4. **Entscheidung 22** (siehe [Offene Entscheidungen](#offene-entscheidungen)): Was gehört noch zum fertigen Spiel? *Mein Vorschlag:*
+   **Erweiterung klein** – je Held zwei Karten und zehn neutrale (≈ 54 statt 90 neue Bilder); **Draft und Aufgaben ja** (kaum neue
+   Bilder); **Rangliste und Kampagne 2.0 mit Belagerung und Lunte** nach Deinem Geschmack.
 
-**Sitzung 21 – Entscheidung 22 und Hinterhalte (AP 5.6)**
+**Sitzung 22 – Entscheidung 22 und Erweiterung „Wunder der Welt“ Teil 1 (AP 5.7)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.24.0 | Namen, Chronikzeilen, Platzhalter nach Deinem Blick aufs Handy | kleine Nacharbeit, falls nötig |
-| Entscheidung 22 | Umfang des fertigen Spiels festhalten (README, Reihenfolge) | danach steht fest, welche Bilder Astra am Ende liefern muss |
-| AP 5.6 Hinterhalte | Engine: verdeckte Karten, die bei gegnerischen Aktionen auslösen („Wenn ein feindlicher Diener angreift …“); KI, die sie legt und fürchtet; etwa 12 Karten aus der Geschichte (z. B. Hinterhalt im Teutoburger Wald, Vorgetäuschte Flucht, Fabius’ Lager auf den Höhen) mit Prüftabelle wie in AP L.5/L.6; versiegelte Wachsrollen über dem Helden als Platzhalter (`ASTRA:`) | die letzte große Mechanik; ihre Karten und Rollen gehören in die eine Astra-Bestellung am Ende |
+| Rückmeldung 1.25.0 | Hinterhalte nach Deinem Test: Namen, Werte, Rollen, Enthüllung | kleine Nacharbeit, falls nötig |
+| Entscheidung 22 | Umfang des fertigen Spiels festhalten (README, Reihenfolge, Astra-Auftrag) | danach steht fest, welche Bilder Astra am Ende liefern muss |
+| AP 5.7 Teil 1 | Prüftabelle für die Erweiterung (je Held Karten aus seiner Lebenswelt mit Quelle, neutrale Weltwunder und Bauwerke, ein paar Hinterhalte), dann nach Deiner Entscheidung die erste Hälfte umsetzen – mit den vorhandenen Regeln, Platzhaltern, Chronikzeilen und Bildideen für Astra | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
 
-Risiko: mittel – neue Regeln brauchen Tests, KI-Bewertung und einen vollen Balance-Lauf (≈ 30 min); Spielstände bleiben (neue Karten-IDs
+Risiko: mittel – viele neue Karten verschieben die Zufallsdecks; voller Balance-Lauf (≈ 30 min), Spielstände bleiben (neue Karten-IDs
 nur hinten anhängen).
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Chronicle_of_Heroes`. Übernimm mein Feedback zu Version 1.24.0:
-> *(hier Feedback zu den neuen Namen und den Chronikzeilen einfügen)* und meine **Entscheidung 22** *(was zum fertigen Spiel gehört)*.
-> Arbeite dann **AP 5.6 (Taktische Hinterhalte)** ab: erst eine Prüftabelle mit Kartenvorschlägen aus der Geschichte, dann nach meiner
-> Entscheidung umsetzen. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur,
-> baue neue Grafiken als gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den
-> Klickpfad und den vollen Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen
-> Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.25.0:
+> *(hier Feedback zu den Hinterhalten einfügen)* und meine **Entscheidung 22** *(was zum fertigen Spiel gehört)*.
+> Arbeite dann **AP 5.7 (Erweiterung „Wunder der Welt“) Teil 1** ab: erst eine Prüftabelle mit Kartenvorschlägen aus der Geschichte,
+> dann nach meiner Entscheidung umsetzen. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die
+> MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass
+> die Tests, den Klickpfad und den vollen Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab.
+> Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
+> Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: xhigh.** Eine neue Mechanik greift in Engine, KI, Darstellung und Balance zugleich ein
-(Auslöser im Zug des Gegners, verdeckte Information für die KI, voller Balance-Lauf). *high* reicht, wenn Du nur Entscheidung 22
-festhalten und die Prüftabelle für die Hinterhalt-Karten sehen willst.
+**Empfohlener Effort für den nächsten Prompt: high.** Keine neue Mechanik, aber viele Karten mit Quellen und ein voller Balance-Lauf.
+*xhigh* lohnt, wenn die Erweiterung neue Legendäre mit eigenen Regeln bekommen soll (etwa Hannibals Elefanten, die einmal Schildwall
+ignorieren, oder Sun Tzu, bei dem Hinterhalte nichts kosten).

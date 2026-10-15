@@ -14,6 +14,9 @@ L.crystal=(p,i)=>{const m=L.mana[p],an=-Math.PI/2+i*Math.PI/5;return {x:m.x+Math
 // Chronicle strip (AP 1.8 Teil 2) at the left edge: a parchment strip with the newest entries on top, one row each.
 L.strip={x:44,y:96,w:70,h:548,top:160,step:78,rows:6};
 L.stripRow=i=>({x:L.strip.x+L.strip.w/2,y:L.strip.top+i*L.strip.step,size:54});
+// Hinterhalte (AP 5.6): up to three sealed rolls beside the hero coin – yours in a column left of your coin, the rival's
+// in a row left of his (below his sealed orders).
+L.ambush=(p,i)=>p===0?{x:668,y:694-i*54}:{x:684-i*38,y:104};
 // AUSSPIELEN below your ether dial; the rival's sealed orders (hand) along the top edge.
 L.confirm={x:120,y:584,w:140,h:56};
 L.powerPosition=(p,x=L.center,y=L.heroY[p])=>({x:x+L.powerOffset.x*L.heroScale(p),y:y+L.powerOffset.y*L.heroScale(p)});

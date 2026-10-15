@@ -229,6 +229,26 @@ const wave2=[
  ['byzanz_5','epic',M('Hagia Sophia',3,0,7,'Bauwerk. Eure Diener haben +1 Leben. Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her.',{building:true,buffAura:{health:1},end:[E('healHero',2)]})],
  ['byzanz_6','epic',M('Ibn an-Nafis, Arzt von Kairo',4,3,5,'Heilung wirkt bei Euren Dienern doppelt. Einmarsch: Stellt bei allen eigenen Charakteren 2 Leben wieder her.',{healDouble:true,battle:[E('healAll',2)]})]];
 for(const [id,rarity,c] of wave2){const age=id.slice(0,id.lastIndexOf('_'));cards.push({...c,id,hero:age,age,rarity,art:null,cell:0});}
+// Hinterhalte (AP 5.6, 1.25.0): Zauber, die verdeckt neben dem Helden liegen und im Zug des Gegners zuschnappen. ambush
+// nennt den Auslöser (engine.js): attack – ein feindlicher Diener greift an, hero – er greift Euren Helden an, defend – er
+// greift einen Eurer Diener an, minion – der Gegner spielt einen Diener aus, spell – er wirkt einen Zauber, death – einer
+// Eurer Diener stirbt. Je eine Zeitalterkarte, zwei neutrale und vier Heldenkarten, alle mit Quelle (AELORE.cards);
+// noch ohne Motiv (Platzhalter, AP 5.12). IDs nur hinten anhängen.
+const H=(name,cost,trigger,text,effects)=>({...S(name,cost,'Hinterhalt: '+text,effects),ambush:trigger});
+const ambushCards=[
+ ['neutral_50','common',H('Krähenfüße',1,'attack','Wenn ein feindlicher Diener angreift, erleidet er 2 Schaden.',E('damage',2))],
+ ['neutral_51','rare',H('Abgefangene Botschaft',2,'spell','Wenn der Gegner einen Zauber wirkt, erhaltet Ihr eine Kopie davon.',E('copySpell',1))],
+ ['steppe_7','rare',H('Falsche Kundschafter von Kadesch',2,'minion','Wenn der Gegner einen Diener ausspielt, erleidet dieser 4 Schaden.',E('damage',4))],
+ ['griechen_7','common',H('Botschaft des Sikinnos',1,'minion','Wenn der Gegner einen Diener ausspielt, erstarrt dieser. Zieht 1 Karte.',[E('freeze',1),E('draw',1)])],
+ ['rom_7','rare',H('Wall am Kalkrieser Berg',3,'attack','Wenn ein feindlicher Diener angreift, erleiden alle feindlichen Diener 2 Schaden.',E('aoe',2))],
+ ['mittelalter_7','common',H('Fallgatter',2,'hero','Wenn ein feindlicher Diener Euren Helden angreift, kehrt er auf die Hand seines Besitzers zurück.',E('bounce',1))],
+ ['byzanz_7','rare',H('Engpass von Myriokephalon',3,'attack','Wenn ein feindlicher Diener angreift, erstarren alle feindlichen Diener.',E('freeze',1,{all:true}))],
+ ['ostasien_7','rare',H('Gegenmine',3,'spell','Wenn der Gegner einen Zauber wirkt, wird er vereitelt.',E('counter',1))],
+ ['khan_13','rare',H('Hinterhalt am Süntel',3,'hero','Wenn ein feindlicher Diener Euren Helden angreift, wird er vernichtet.',E('destroy',1))],
+ ['fabius_10','rare',H('Rettung bei Gerunium',2,'defend','Wenn ein feindlicher Diener einen Eurer Diener angreift, fällt der Angriff aus und der Angreifer erstarrt.',[E('cancel',1),E('freeze',1)])],
+ ['anna_12','rare',H('Täuschung bei Larissa',1,'hero','Wenn ein feindlicher Diener Euren Helden angreift, ruft Ihr einen Träger der Kaiserstandarte (2/2), der den Angriff abfängt.',E('decoy',1,{token:'standard'}))],
+ ['leonidas_12','rare',H('Kampf um den Leichnam',2,'death','Wenn einer Eurer Diener stirbt, erhalten Eure übrigen Diener +1/+1.',E('buffAll',1,{health:1}))]];
+for(const [id,rarity,c] of ambushCards){const owner=id.slice(0,id.lastIndexOf('_')),age=ages.some(a=>a.id===owner)?owner:null;cards.push({...c,id,hero:owner,...(age?{age}:{}),rarity,art:null,cell:0});}
 const tokens={recruit:M('Rekrut',1,1,1),novice:M('Novizin',1,1,1),warrior:M('Krieger',2,2,2),eagle:M('Habicht',1,2,1),stoneguard:M('Pyramidenwächter',3,2,5,'Schildwall.',{taunt:true}),totem_heal:M('Grenzstein des Klosters',1,0,2,'Am Ende Eures Zuges: Heilt Eure Diener um 1.',{passive:'heal'}),totem_fire:M('Grenzstein der Mark',1,0,2,'Am Ende Eures Zuges: Fügt dem feindlichen Helden 1 Schaden zu.',{passive:'fire'}),totem_guard:M('Grenzstein der Burg',1,0,2,'Schildwall.',{taunt:true}),totem_strength:M('Grenzstein des Dorfes',1,0,2,'Am Ende Eures Zuges: Ein anderer zufälliger Diener erhält +1 Angriff.',{passive:'strength'}),coin:S('Gunst der Stunde',0,'Erhaltet nur in diesem Zug 2 Mana.',E('mana',2)),
  hoplite:M('Hoplit',1,1,2,'Schildwall.',{taunt:true}),citizen:M('Bürger',1,1,2),pioneer:M('Pionier',1,1,3,'Eure Bauwerke kosten 1 weniger.',{buildingDiscount:1}),
  rider:M('Reiter',1,1,1,'Sturmangriff.',{charge:true}),chariot:M('Streitwagen',1,1,1,'Sturmangriff.',{charge:true}),terracotta:M('Musketier',2,2,2,'Schildwall.',{taunt:true}),
@@ -239,10 +259,12 @@ const tokens={recruit:M('Rekrut',1,1,1),novice:M('Novizin',1,1,1),warrior:M('Kri
  pyramid:M('Stufenpyramide',4,0,8,'Bauwerk. Zu Beginn Eures Zuges erhält Euer schwächster Diener +2/+2.',{building:true,start:[E('buffWeakest',2,{health:2})]}),
  // AP L.5 (1.23.0): Hypatias Unterricht – ihre Hörer kamen von weit her (Sokrates Scholastikos VII 15). Ohne Weisheit
  // (bis 1.23.0 Arkaner Fokus): Ein Schüler je Zug stapelte sie, mit dem doppelten Sternenregen (seit 1.24.0 Sternkatalog des Hipparchos) im Startdeck gewann Hypatia zu oft (Balance-Lauf).
- student:M('Schüler der Hypatia',1,1,1)};
+ student:M('Schüler der Hypatia',1,1,1),
+ // AP 5.6 (1.25.0): Annas Täuschung bei Larissa – er trägt die Feldzeichen des Kaisers und fängt den Angriff ab.
+ standard:M('Träger der Kaiserstandarte',1,2,2)};
 const ART={hoplite:['leonidas',10],pyramid:['@pyramid',0],eagle:[null,0],stoneguard:['imhotep',10],citizen:[null,0],pioneer:[null,0],parthenos:[null,0],rider:[null,0],chariot:[null,0],terracotta:[null,0],
  tribesman:[null,0],wagon:[null,0],taborite:[null,0],mamluk:[null,0],immortal:[null,0],messenian:[null,0],companion:[null,0],twin:[null,0],elephant:[null,0],
- novice:[null,0],student:[null,0],totem_heal:[null,0],totem_fire:[null,0],totem_guard:[null,0],totem_strength:[null,0]};
+ novice:[null,0],student:[null,0],standard:[null,0],totem_heal:[null,0],totem_fire:[null,0],totem_guard:[null,0],totem_strength:[null,0]};
 for(const [id,c] of Object.entries(tokens)){c.id=id;c.hero='neutral';c.rarity='token';const [art,cell]=ART[id]||['jeanne',id==='coin'?11:10];c.art=art;c.cell=cell;}
 // Gemalte Astra-Bilder (AP A.1): werkzeuge/astra_bilder.py schreibt model/bilder.js (Karte, Spielstein, Held → Atlas
 // und Feld). Sie gehen alten Atlasfeldern und Platzhaltern vor; was Astra noch nicht geliefert hat, bleibt wie bisher.
@@ -297,6 +319,7 @@ const keywords=[
  ['Bannung','Entfernt alle Fähigkeiten, Segnungen und Auren eines Dieners; Angriff und Leben fallen auf den Kartenwert zurück.','Bann'],
  ['Tödliches Gift','Jeder Schaden, den dieser Diener einem anderen Diener zufügt, vernichtet ihn. Bauwerke sind davor sicher.'],
  ['Belastung','Im nächsten Zug habt Ihr so viel Mana weniger.'],
+ ['Hinterhalt','Liegt verdeckt als versiegelte Rolle neben Eurem Helden – höchstens drei, keine doppelt – und schnappt im Zug des Gegners zu, sobald geschieht, was die Karte nennt. Der Gegner sieht nur die Rolle.'],
  ['Bauwerk','Belegt einen der 7 Plätze, greift nie an und hat Haltbarkeit statt Leben. Flächenschaden und Heilung wirken nicht.'],
  ['Gunst der Stunde','Bekommt, wer nicht beginnt: 0 Mana, +2 Mana in diesem Zug.']].map(([name,text,stem=name])=>({name,text,stem}));
 // Schlüsselwörter, die ein Kartentext nennt – für die Erklärung unter der Großansicht.

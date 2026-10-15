@@ -16,7 +16,7 @@ const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 const chronicle=()=>node?require('./chronicle.js'):root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
 // Chronicle strip (AP 1.8 Teil 2): which log lines it shows and how they are marked.
-const STRIP=[[/ spielt /,'play'],[/ nutzt /,'power'],[/ (wurde besiegt|stürzt ein)\.$/,'death'],[/ verbrannt \(Hand voll\)\.$/,'burn'],[/ übernimmt /,'steal'],[/ erneut\.$/,'echo'],[/: Erschöpfung (\d+)\.$/,'fatigue']];
+const STRIP=[[/ legt einen Hinterhalt\.$/,'ambush'],[/^Hinterhalt: /,'sprung'],[/ wird vereitelt\.$/,'counter'],[/ spielt /,'play'],[/ nutzt /,'power'],[/ (wurde besiegt|stürzt ein)\.$/,'death'],[/ verbrannt \(Hand voll\)\.$/,'burn'],[/ übernimmt /,'steal'],[/ erneut\.$/,'echo'],[/: Erschöpfung (\d+)\.$/,'fatigue']];
 
 // Ergründen: the choice has to be made – the back key and the scrim do not close it.
 class Choice extends Dialog{
@@ -93,7 +93,7 @@ class Match extends Screen{
  // Per hand card: {cost, can (green aura), boost (golden-yellow aura)}. A condition is met when a Formation counts
  // enough own minions (ifMinions, the card itself included) or a Kombo makes the card cheaper than printed.
  hand(s=this.game){if(!s)return {};const a=s.players[0],open=s.active===0&&s.phase==='play'&&!s.choice,out={},army=a.board.filter(u=>!u.building).length;
-  for(const h of a.hand){const card=D.byId[h.id],cost=E.cost(s,0,h),can=open&&cost<=a.mana&&(card.type==='spell'||a.board.length<7);
+  for(const h of a.hand){const card=D.byId[h.id],cost=E.cost(s,0,h),can=open&&cost<=a.mana&&(card.type==='spell'||a.board.length<7)&&(!card.ambush||E.canSet(a,card));
    const formation=[...(card.battle||[]),...(card.effects||[])].some(e=>e.type==='ifMinions'&&army+(card.type==='minion'&&!card.building?1:0)>=e.n);
    out[h.uid]={cost,can,boost:can&&(formation||cost<card.cost)};}
   return out;}
@@ -105,6 +105,7 @@ class Match extends Screen{
   if(hit.id==='chronicle')return this.chronicle();
   if(hit.kind==='log'){if(hit.idCard)this.inspect(hit.idCard);else this.chronicle();return;}
   if(hit.kind==='grave')return this.grave(+hit.id.slice(-1));
+  if(hit.kind==='ambush')return this.ambush(hit);
   if(hit.kind==='deck'){ui.toast('Deck: '+s.players[+hit.id.slice(-1)].deck.length+' Karten. Die Reihenfolge bleibt verborgen.');return;}
   if(s.phase!=='play'||s.active!==0||this.board.busy())return;
   const v=this.view;
@@ -153,6 +154,11 @@ class Match extends Screen{
  cancelDrag(){if(this.view.drag?.cardId&&this.game)this.board.rebound(this.view.drag,this.game);this.endDrag();}
 
  // ---------- Dialogs around the game ----------
+ // Hinterhalte (AP 5.6): your own roll shows its card; the rival's stays sealed – only what can set it off is told.
+ ambush(hit){if(hit.idCard){this.inspect(hit.idCard);return;}
+  this.ui.dialog('message',new Dialog(this.ctx,{title:'Versiegelter Hinterhalt',close:false,
+   text:'Der Gegner hat einen Hinterhalt gelegt. Er schnappt in Deinem Zug zu – wenn ein Diener angreift, ein Diener ausgespielt oder ein Zauber gewirkt wird oder einer seiner Diener stirbt. Welcher es ist, zeigt erst das brechende Siegel.',
+   buttons:[{label:'Zurück',style:'gold'}]}));}
  inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:D.eraOf(c)}));}
  // What this game added to the stats while this view model ran (for the reward bars).
  tallied(s=this.game){if(this.tallyFor!==s){this.tallyFor=s;this.tally={played:0,attacks:0};}return this.tally;}

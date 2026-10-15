@@ -10,6 +10,20 @@ const START='Card illustration for a mobile card game, hand-painted stylized fan
  'warm golden light, rich detail, clean readable silhouette centred for a round portrait crop, painterly background, no text, no frame';
 // Bildidee je Karte (englisch, für die Bild-KI). Fehlt sie, nennt der Prompt Name und Kartentext.
 const IDEA={
+ // AP 5.6 (1.25.0): Hinterhalte und der Träger der Kaiserstandarte
+ neutral_50:'iron caltrops with four spikes lying in trampled grass, a Roman soldier scattering more from a leather bag, cavalry approaching in the distance',
+ neutral_51:'Roman foragers stopping two Numidian riders on a dusty road in southern Italy, a legionary holding up a sealed letter, 207 BC',
+ steppe_7:'two Bedouin scouts kneeling before pharaoh Ramesses II in his camp, pointing north, Hittite chariots hidden behind the walls of Kadesh in the distance, around 1274 BC',
+ griechen_7:'a Greek slave in a small rowing boat at night approaching the anchored Persian fleet, lanterns on the warships, the strait of Salamis, 480 BC',
+ rom_7:'Germanic warriors waiting behind a long turf wall at the foot of a wooded hill, a Roman legion column marching on a narrow path beside a bog in the rain, 9 AD',
+ mittelalter_7:'the iron-clad oak portcullis of a medieval castle gate crashing down, armed horsemen pulling up their horses in front of it',
+ byzanz_7:'Seljuk horse archers on rocky slopes attacking a long Byzantine army column, its baggage train stuck in a narrow mountain pass, 1176',
+ ostasien_7:'defenders of a Baroque star fortress digging a candle-lit countermine tunnel under the rampart, one listening at the earth wall, powder barrels, around 1700',
+ khan_13:'Frankish horsemen charging hastily up a forested mountain slope toward a Saxon camp, Saxon warriors closing in from the trees on both sides, 782',
+ fabius_10:'the old Roman general Fabius Maximus leading his legions over a hill to rescue embattled Roman troops surrounded by Carthaginians in a valley, 217 BC',
+ anna_12:'a Byzantine army drawn up under imperial banners and a gilded standard before the walls of Larissa, Norman knights charging toward it, 1083',
+ leonidas_12:'Spartan hoplites fighting fiercely in the narrow pass of Thermopylae to shield the body of their fallen king, Persian soldiers driven back, 480 BC',
+ standard:'a Byzantine standard-bearer in lamellar armour holding a tall imperial banner with a golden cross, 11th century',
  // AP L.2 (1.15.0): Karten der elf Lehrplan-Helden – Bildideen aus der Lebenswelt der neuen Person
  khan_0:'a Saxon scout from Engern in a woollen cloak crouching at the edge of a dark beech forest, spear in hand, 8th century',
  khan_1:'a Saxon warrior from Westphalia hurling a spear, round wooden shield on his back, misty forest clearing',

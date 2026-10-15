@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (48 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (50 Teile)
 
-*Stand 1.22.0 (11. 10. 2026). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
+*Stand 1.25.0 (15. 10. 2026; seit 1.22.0 dazu die zwei Teile der Hinterhalte, AP 5.6). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 48 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 50 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -71,7 +71,7 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `goldglanz` | `goldglanz.png` | 160 × 800 | Weicher, schräger Lichtstreifen (Blattgold-Schimmer) mit transparenten Rändern; läuft über Goldene Karten – auch im Basar (`goldglanz-basar`, dieselbe Datei). |
 | `diener-plakette` | `diener-plakette-diener.png`, `diener-plakette-bauwerk.png` | 204 × 272 | Ovale Truppensiegel-Plakette auf dem Feld: Bronze-/Steinrahmen, **Mitte transparent** für das Kartenbild, unten links Platz für Angriff, unten rechts für Leben bzw. Turm; Bauwerk mit Zinnenrand. |
 
-### Paket 3 – Schlüsselwörter und Effekte (10 Teile, 15 Dateien)
+### Paket 3 – Schlüsselwörter und Effekte (12 Teile, 18 Dateien)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
@@ -85,6 +85,8 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `steinrisse` | `steinrisse-1.png`, `-2.png`, `-3.png` | 440 × 240 | Risse im hellen Steintisch, flach von oben, transparent außerhalb der Risse; drei Varianten. |
 | `tintenspritzer` | `tintenspritzer-1.png`, `-2.png`, `-3.png` | 220 × 220 | Getrocknete dunkelrote Tintenspritzer hinter einer Schadenszahl; Mitte etwas dichter. |
 | `marschroute` | `marschroute-winkel.png`, `marschroute-spitze.png` | 64 × 64 | Rote Tintenwinkel (Chevron) und Pfeilspitze für den Angriffspfeil, gemalt wie mit der Feder. |
+| `hinterhalt-rolle` | `hinterhalt-rolle-eigen.png`, `hinterhalt-rolle-gegner.png` | 72 × 128 | Kurze Pergamentrolle mit Schnur und großem Wachssiegel, leicht schräg liegend – ein gelegter Hinterhalt (AP 5.6) neben der Heldenmünze. Eigen: Siegel mit Goldrand; Gegner: dunkelrotes Siegel. Muss sich klar von den versiegelten Befehlen der Hand unterscheiden. |
+| `hinterhalt-enthuellung` | `hinterhalt-band.png`, `hinterhalt-siegelsplitter.png` | 600 × 160, Splitter 32 × 32 | Pergamentband mit eingerollten Enden, Fläche frei für „Hinterhalt!“ (steht über der aufgedeckten Karte); dazu ein Splitter des brechenden roten Wachssiegels (Partikel). |
 
 ### Paket 4 – Inszenierung: Anfang und Ende (6 Teile mit `faehigkeits-effekt`, 30 Dateien)
 

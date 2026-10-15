@@ -24,7 +24,8 @@ M.begin=(before,after,action,origin,impact,done)=>{
  const card=h?CHD.byId[h.id]:null,weight=M.weight(card),line=type==='attack'?ATTACK:card?(card.type==='minion'?PLAY(weight>=.7):SPELL):null;
  const hitAt=line?line.start(type==='attack'?'contact':card.type==='minion'?'settle':'after'):type==='power'?260:160;
  const duration=line?line.duration:type==='power'?570:660;
- const to=card?.type==='minion'?M.position(after,after.events.find(e=>e.type==='summon'&&e.id===card.id)?.target):action.target?M.position(before,action.target):type==='power'?M.position(before,(after.events.find(e=>e.type==='damage'||e.type==='heal'||e.type==='summon')||after.events.find(e=>e.type==='power'))?.target||'h'+p):{x:800,y:350};
+ // A Hinterhalt (AP 5.6) flies to its roll beside the hero – the rival's face down.
+ const to=card?.ambush?L.ambush(p,Math.min(2,(before.players[p].ambush||[]).length)):card?.type==='minion'?M.position(after,after.events.find(e=>e.type==='summon'&&e.id===card.id)?.target):action.target?M.position(before,action.target):type==='power'?M.position(before,(after.events.find(e=>e.type==='damage'||e.type==='heal'||e.type==='summon')||after.events.find(e=>e.type==='power'))?.target||'h'+p):{x:800,y:350};
  const from=origin||(card&&p===1?M.orderPosition(Math.max(0,before.players[1].hand.findIndex(x=>x.uid===action.uid))):M.position(before,action.uid||'power'+p));
  M.transition={id:++M.serial,before,after,action,card,p,weight,line,from,to,origin,at,hitAt,duration,hit:false,impact,done};
  if(type==='attack')CHA.play('swing',{x:M.position(before,action.uid).x,gain:.62});
@@ -44,7 +45,7 @@ function impact(x,t){const {action,card,weight,after,before}=x;
  if(action.type==='attack'){const n=Math.max(0,...after.events.filter(e=>e.type==='damage'&&e.target===action.target).map(e=>e.n));
   T.clock.stop(50+Math.min(30,n*6));T.shake.add(.3+Math.min(.35,n*.05));}
  // AP 3.6: a spell bursts in the colours of its element, a hero power in its own effect, where they land.
- if(card?.type==='spell'||action.type==='power')window.CHF.cast(x,t);
+ if(card?.ambush)CHA.play('seal',{x:x.to.x,gain:.45});else if(card?.type==='spell'||action.type==='power')window.CHF.cast(x,t);
  for(const p of [0,1]){const known=new Set(before.players[p].hand.map(h=>h.uid));
   after.players[p].hand.forEach((h,slot)=>{if(!known.has(h.uid))M.draws.push({uid:h.uid,id:h.id,p,slot,at:t+M.draws.filter(f=>f.p===p&&f.at>=t).length*110,duration:560});});
   if(after.players[p].fatigue>(before.players[p].fatigue||0))M.drains.push({p,n:after.players[p].fatigue,at:t,duration:1150});}
@@ -99,17 +100,17 @@ function morph(c,id,x,y,q,gold){const card=CHD.byId[id],w=mix(200,128,q),h=w*1.4
  if(q>0){c.beginPath();c.roundRect(-pw/2,-ph/2,pw,ph,r);c.lineWidth=5*q;c.strokeStyle='#b08a4a';c.stroke();}c.restore();}
 M.overlay=(c,s,t,gold)=>{
  const x=M.transition;
- if(x?.card&&!x.hit){const e=t-x.at,ph=x.line.at(e),from=x.from,to=x.to,mine=x.p===0,minion=x.card.type==='minion',heavy=x.weight>=.7,g=mine&&gold;
+ if(x?.card&&!x.hit){const e=t-x.at,ph=x.line.at(e),from=x.from,to=x.to,mine=x.p===0,minion=x.card.type==='minion',heavy=x.weight>=.7,g=mine&&gold,hidden=!mine&&!!x.card.ambush;
   const startW=x.origin?.w||(mine?L.handWidth:46),liftW=heavy?226:210;
   const lifted={x:mix(from.x,to.x,.25),y:mine?Math.min(from.y-110,to.y+60):Math.max(from.y+150,to.y-260)};
   const above={x:to.x,y:minion?to.y-(heavy?150:120):to.y-110};
   if(ph.name==='lift'){const q=ph.q,turn=mine?null:clamp(ph.raw*1.4);M.floatCard(c,x.card.id,mix(from.x,lifted.x,q),mix(from.y,lifted.y,q),mix(startW,liftW,q),mix(x.origin?.angle||-.06,0,q),1,
-   {lift:q,back:turn!=null&&turn<.5,sx:turn==null?null:Math.abs(Math.cos(turn*Math.PI)),gold:g});}
-  else if(ph.name==='hover'){const q=ph.q,bob=Math.sin(ph.raw*Math.PI*(heavy?2:1))*(heavy?7:4);M.floatCard(c,x.card.id,mix(lifted.x,above.x,q),mix(lifted.y,above.y,q)-bob,liftW,Math.sin(ph.raw*Math.PI)*.03,1,{lift:1,gold:g});}
+   {lift:q,back:hidden||turn!=null&&turn<.5,sx:turn==null||hidden?null:Math.abs(Math.cos(turn*Math.PI)),gold:g});}
+  else if(ph.name==='hover'){const q=ph.q,bob=Math.sin(ph.raw*Math.PI*(heavy?2:1))*(heavy?7:4);M.floatCard(c,x.card.id,mix(lifted.x,above.x,q),mix(lifted.y,above.y,q)-bob,liftW,Math.sin(ph.raw*Math.PI)*.03,1,{lift:1,gold:g,back:hidden});}
   else if(minion)morph(c,x.card.id,above.x,mix(above.y,to.y,ph.q),ph.q,g);
-  else M.floatCard(c,x.card.id,mix(above.x,to.x,ph.q),mix(above.y,to.y,ph.q),mix(liftW,70,ph.q),0,1-ph.q*.85,{lift:1-ph.q,gold:g});}
+  else M.floatCard(c,x.card.id,mix(above.x,to.x,ph.q),mix(above.y,to.y,ph.q),mix(liftW,70,ph.q),0,1-ph.q*.85,{lift:1-ph.q,gold:g,back:hidden});}
  // The ether orb of a power or a spell on its way to the target.
- const orb=x&&!x.hit&&(x.action.type==='power'||x.card?.type==='spell');
+ const orb=x&&!x.hit&&(x.action.type==='power'||x.card?.type==='spell'&&!x.card.ambush);
  // AP 3.6: its colours come from the element of the spell or the power of the hero, the path from the power (fx.js).
  if(orb&&(x.action.type==='power'||x.line.at(t-x.at).name==='cast')){const q=x.card?x.line.at(t-x.at).q:clamp((t-x.at)/x.hitAt),from=x.card?{x:x.to.x,y:x.to.y-110}:M.position(x.before,'power'+x.p);window.CHF.orb(c,x,q,from,x.to);}
  for(const f of M.returns){const q=ease.outCubic(clamp((t-f.at)/f.duration)),to=M.handPose(s,f.uid);M.floatCard(c,f.id,mix(f.from.x,to.x,q),mix(f.from.y,to.y,q),mix(f.from.w,L.handWidth,q),mix(f.from.angle,to.angle,q),1,{lift:1-q,gold});}

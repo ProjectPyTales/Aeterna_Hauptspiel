@@ -108,6 +108,25 @@ test('Match: Ergründen öffnet die Wahl, die sich nicht wegklicken lässt; auch
  assert.equal(store.profile.game.choice,null);assert.ok(store.profile.game.players[0].hand.some(h=>h.id===id));
 });
 
+test('Hinterhalte (AP 5.6): eigene Rolle zeigt die Karte, die fremde bleibt versiegelt – auch in Hand und Chronik-Leiste',()=>{
+ const {ctx,store,log}=setup('game'),match=new Match(ctx);ctx.match=match;
+ ctx.board={busy:()=>false,begin:(b,s,a,o,impact,done)=>{impact();done();},rebound(){},cancel(){},events(){},effect(){}};
+ const s=E.create({hero:'khan',foe:'fabius',seed:11,first:0});E.mulligan(s,[]);store.profile.game=s;store.profile.matchChronicle=[];
+ const a=s.players[0],b=s.players[1];a.mana=a.maxMana=10;a.hand=[{id:'khan_13',uid:'h1'},{id:'khan_13',uid:'h2'}];
+ assert.ok(match.action({type:'play',uid:'h1'}));assert.equal(match.hand().h2.can,false,'keine Rolle doppelt');
+ assert.deepEqual(match.strip(s,99).at(0),{...match.strip(s,99).at(0),type:'ambush',p:0,kind:'card',id:'khan_13'},'die eigene sieht man');
+ match.tap({id:'ambush0_0',kind:'ambush',p:0,idCard:'khan_13'});assert.equal(log.open.kind,'zoom');assert.equal(log.open.vm.state.card.id,'khan_13');
+ // Die KI legt Fabius' Rettung bei Gerunium: in der Leiste nur „legt einen Hinterhalt“, ohne Karte.
+ const mine=E.summon(s,0,'neutral_2');mine.ready=true;delete mine.fresh;const theirs=E.summon(s,1,'neutral_0');
+ s.active=1;b.mana=10;b.hand=[{id:'fabius_10',uid:'k1'}];assert.ok(match.action({type:'play',uid:'k1'}));
+ const hidden=match.strip(s,99).at(0);assert.equal(hidden.type,'ambush');assert.equal(hidden.p,1);assert.equal(hidden.kind,'event');assert.ok(!JSON.stringify(match.strip(s,99)).includes('fabius_10'));
+ assert.ok(!JSON.stringify(store.profile.matchChronicle).includes('fabius_10'),'auch nicht im gespeicherten Seitenstreifen');
+ match.tap({id:'ambush1_0',kind:'ambush',p:1,idCard:null});assert.equal(log.open.kind,'message');assert.equal(log.open.vm.state.title,'Versiegelter Hinterhalt');
+ // Er schnappt zu: jetzt steht er mit Bild in der Leiste.
+ s.active=0;assert.ok(match.action({type:'attack',uid:mine.uid,target:theirs.uid}));
+ const sprung=match.strip(s,99).at(0);assert.equal(sprung.type,'sprung');assert.equal(sprung.id,'fabius_10');assert.equal(sprung.p,1);
+});
+
 test('Chronik-Leiste (AP 1.8 Teil 2): neueste Einträge oben, Seite auch im Spiegelduell, Abschnitte je Zug, Antippen',()=>{
  const {ctx,store,log}=setup('game'),match=new Match(ctx);ctx.match=match;
  ctx.board={busy:()=>false,begin:(b,s,a,o,impact,done)=>{impact();done();},rebound(){},cancel(){},events(){},effect(){}};

@@ -11,13 +11,14 @@ const C={entries(s,saved=[]){
   return {hero,name:i===1&&s.mission!=null?D.missions[s.mission].boss:hero.name};});
  for(const {hero,name} of heroes){
   put(name+' nutzt '+hero.power+'.','power',hero.id);
-  put(name+' greift an.','hero',hero.id);put(name+' gewinnt.','hero',hero.id);put(name+' ergründet eine Karte.','event','chronicle');
+  put(name+' greift an.','hero',hero.id);put(name+' gewinnt.','hero',hero.id);put(name+' ergründet eine Karte.','event','chronicle');put(name+' legt einen Hinterhalt.','event','chronicle');
  }
  for(const card of Object.values(D.byId)){
   for(const {name} of heroes)put(name+' spielt '+card.name+'.','card',card.id);
   for(const suffix of [' greift an.',' wurde besiegt.',' stürzt ein.',' verbrannt (Hand voll).'])put(card.name+suffix,'card',card.id);
   for(const {name} of heroes)put(name+' übernimmt '+card.name+'.','card',card.id);
   put('Theon wirkt '+card.name+' erneut.','card',card.id);
+  if(card.type==='spell'){put('Hinterhalt: '+card.name+'.','card',card.id);put(card.name+' wird vereitelt.','card',card.id);}
  }
  return s.log.map((text,i)=>{
   const prior=Array.isArray(saved)&&saved[i];
@@ -34,7 +35,11 @@ const C={entries(s,saved=[]){
  const after=profile.game,queues=new Map();let count=0;
  const add=(text,kind,id,p)=>{if(!queues.has(text))queues.set(text,[]);queues.get(text).push({text,kind,id,...(p!=null?{p}:{})});count++;};
  for(const e of after.events){
-  if(e.type==='play')add(name(after,e.p)+' spielt '+D.byId[e.id].name+'.','card',e.id,e.p);
+  // A laid Hinterhalt (AP 5.6) stays hidden in the chronicle – your own shows its card to you.
+  if(e.type==='play'&&e.ambush)add(name(after,e.p)+' legt einen Hinterhalt.',e.p===0?'card':'event',e.p===0?e.id:'chronicle',e.p);
+  else if(e.type==='play')add(name(after,e.p)+' spielt '+D.byId[e.id].name+'.','card',e.id,e.p);
+  else if(e.type==='ambush')add('Hinterhalt: '+D.byId[e.id].name+'.','card',e.id,e.p);
+  else if(e.type==='counter')add(D.byId[e.id].name+' wird vereitelt.','card',e.id,e.p);
   else if(e.type==='power'){const h=D.heroes.find(h=>h.id===after.players[e.p].hero);add(name(after,e.p)+' nutzt '+h.power+'.','power',h.id,e.p);}
   else if(e.type==='attack'&&!e.pincer&&!e.duel){const u=CHE.unit(before,e.source);if(u)add((u.hero?name(before,u.p):D.byId[u.obj.id].name)+' greift an.',u.hero?'hero':'card',u.hero?u.obj.hero:u.obj.id,u.p);}
   else if(e.type==='death'||e.type==='burn')add(D.byId[e.id].name+(e.type==='burn'?' verbrannt (Hand voll).':e.building?' stürzt ein.':' wurde besiegt.'),'card',e.id,e.p);
