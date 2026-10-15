@@ -389,7 +389,7 @@ werden ersetzt, Unsicheres wird als unsicher erzählt (AP L.5, AP L.6).
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
 | APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,5 % (1.13.0: 53,0 %), einzeln 45,8 (Nezahualpilli) bis 58,6 % (Lagertha)² |
 | Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
 
@@ -400,7 +400,7 @@ werden ersetzt, Unsicheres wird als unsicher erzählt (AP L.5, AP L.6).
 kommt das Lesen aus der APK dazu – dort wirkt der Unterschied 51 MB PNG ↔ 9,4 MB WebP stärker als am Desktop.
 
 ² KI gegen KI, `node werkzeuge/balance.js` (200 Partien je Paarung, Startwert 20261006), Bericht
-[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,5 Punkte je Held (21 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 22 Helden und 350 Karten 27–36 min auf 4 Kernen.
+[`balance/BERICHT.md`](balance/BERICHT.md). Zufallsfehler (95 %): ±1,5 Punkte je Held (21 Gegner), ±6,9 je Paarung. Der volle Lauf dauert mit 22 Helden und 350 Karten 27–36 min auf 4 Kernen, mit den 362 Karten von 1.25.0 rund 47 min.
 
 ---
 
@@ -2466,7 +2466,11 @@ Zeitalterkarte, zwei neutrale, dazu Widukinds Hinterhalt am Süntel, Fabius’ R
 Leonidas’ Kampf um den Leichnam. Die **KI** legt eigene Hinterhalte, kennt die fremden aber nicht (ihre Vorausschau sieht sie nicht
 auslösen) und greift, solange Rollen liegen, zuerst mit billigen Dienern an. Rollen, verdeckter Flug und Enthüllung „Hinterhalt!“
 sind gekennzeichnete Platzhalter; der Astra-Auftrag wächst um 13 Motive (165 → 178) und 2 Oberflächenteile (48 → 50).
-BALANCE_PLATZHALTER Weil ich ohne Deine Rückmeldung weitergemacht habe, sind die zwölf Karten **mein Vorschlag** – Namen, Wirkungen
+**Voller Balance-Lauf** (101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0 (dort liegen keine Hinterhalte – die Regeln
+ohne Hinterhalt sind unverändert); Zufallsdecks **21 von 22 Helden im Ziel** (vorher 19), 223 von 231 Paarungen innerhalb 40/60
+(vorher 220), Beginner 51,2 %. Offen: **Nezahualcóyotl** fällt in Zufallsdecks auf 45,6 % (vorher 48,5 %); die meisten Hinterhalte
+sind in der Hand der KI eher schwach (−1 bis −5 Punkte „gewinnt, wenn gezogen“, die KI legt sie nur in 29–54 % der Fälle), die
+Täuschung bei Larissa eher stark (+6,5) – Feinschliff nach Deinem Test. Weil ich ohne Deine Rückmeldung weitergemacht habe, sind die zwölf Karten **mein Vorschlag** – Namen, Wirkungen
 und Kosten lassen sich jederzeit ändern, die IDs bleiben. **Entscheidung 22 ist weiter offen.** Davor: Sitzung 20 (1.24.0) AP L.6
 Teil 1; Sitzungen 1–19 (1.4.0–1.23.0).
 
@@ -2485,7 +2489,7 @@ Teil 1; Sitzungen 1–19 (1.4.0–1.23.0).
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.25.0 | Hinterhalte nach Deinem Test: Namen, Werte, Rollen, Enthüllung | kleine Nacharbeit, falls nötig |
+| Rückmeldung 1.25.0 und Feinschliff | Hinterhalte nach Deinem Test: Namen, Werte, Rollen, Enthüllung; Balance: Nezahualcóyotl (45,6 % in Zufallsdecks) und die eher schwachen Hinterhalte (Varianten erst mit `AETERNA_MODELL` vergleichen) | kleine Nacharbeit, bevor neue Karten die Zufallsdecks wieder verschieben |
 | Entscheidung 22 | Umfang des fertigen Spiels festhalten (README, Reihenfolge, Astra-Auftrag) | danach steht fest, welche Bilder Astra am Ende liefern muss |
 | AP 5.7 Teil 1 | Prüftabelle für die Erweiterung (je Held Karten aus seiner Lebenswelt mit Quelle, neutrale Weltwunder und Bauwerke, ein paar Hinterhalte), dann nach Deiner Entscheidung die erste Hälfte umsetzen – mit den vorhandenen Regeln, Platzhaltern, Chronikzeilen und Bildideen für Astra | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
 
