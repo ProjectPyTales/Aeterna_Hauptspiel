@@ -13,6 +13,10 @@ Die Zeitleiste ist dieselbe wie in quellcode/assets/game/view/intro.js (Konstant
             ein Glöckchen für jeden Buchstaben von AETERNA, ab 7,30 s ein Glitzern zum Lichtstreif über dem Titel
 Pegel: Spitzen −3 dBFS; im Spiel läuft die Datei über die Gruppe „Geräusche“ (Lautstärke der Einstellungen).
 
+Seit 1.27.0 außerdem assets/audio/pytales.ogg (2,8 s) für den Entwickler-Splash PY'TALES – das Originalvideo hat keine
+Tonspur: ein leiser Schwertklang (die Figur trägt ein Schwert), drei warme Marimba-Töne „Py – Ta – les“ aufwärts in G-Dur,
+darunter ein weicher Akkord und ein Glöckchen; Spitzen −8 dBFS, freundlich statt episch, damit das Intro danach wächst.
+
 Aufruf: python3 werkzeuge/intro_klang.py   (benötigt numpy und ffmpeg)
 """
 import os, subprocess, tempfile, wave
@@ -22,6 +26,7 @@ SR = 44100
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 AUDIO = os.path.join(ROOT, 'quellcode/assets/game/assets/audio')
 TARGET = os.path.join(AUDIO, 'intro.ogg')
+SPLASH = os.path.join(AUDIO, 'pytales.ogg')
 
 # Zeitleiste wie view/intro.js
 T = dict(seam=.55, montage=1, beat=.48, flip=3.88, edge=4.03, formed=4.5, collapse=5.55, point=5.92, impact=6.05,
@@ -250,24 +255,62 @@ def compose():
     return bus
 
 
-def main():
-    bus = compose()
-    # Etwas Raum: zwei kurze Echos, leise, stereo vertauscht.
+def marimba(freq, length=1.2):
+    """Marimba: Grundton mit den Teiltönen 3,9 und 9,2 (klingen schnell ab) und einem kurzen Schlägelgeräusch."""
+    n = at(length); t = np.arange(n) / SR
+    s = (np.sin(2 * np.pi * freq * t) * np.exp(-t / .55) + .3 * np.sin(2 * np.pi * freq * 3.9 * t) * np.exp(-t / .09)
+         + .08 * np.sin(2 * np.pi * freq * 9.2 * t) * np.exp(-t / .03))
+    click = stft_filter(rng.standard_normal(n), lambda x, fr: band(fr, 3000, 1.2)) * np.exp(-t / .004) * .2
+    return (s + click) * np.minimum(1, t / .002)
+
+
+def pytales():
+    """Entwickler-Splash: Schwertklang, „Py – Ta – les“, weicher Akkord (2,8 s)."""
+    length = 2.8; bus = np.zeros((at(length), 2))
+    # Schwertklang: unharmonische Teiltöne, die leicht nach oben gleiten, dazu ein heller Wisch.
+    n = at(1.1); t = np.arange(n) / SR
+    shing = sum(a * np.sin(2 * np.pi * np.cumsum(np.full(n, f) * (1 + .015 * t)) / SR) * np.exp(-t / d)
+                for f, a, d in [(2210, 1, .5), (3170, .7, .35), (4630, .5, .25), (6020, .3, .16)])
+    shing *= np.minimum(1, t / .006)
+    mix(bus, shing, .02, .2, .35)
+    glint = whoosh(.3, 2000, 9000, .8) * np.hanning(at(.3))
+    mix(bus, glint, 0, .1, .2)
+    # „Py – Ta – les“: drei Marimba-Töne aufwärts, der letzte länger, mit Oktave darüber.
+    for i, (note, at_s, g) in enumerate([('B4', .2, .5), ('D5', .38, .55), ('G5', .56, .7)]):
+        mix(bus, marimba(hz(note), 1.6 if i == 2 else 1.0), at_s, g, (i - 1) * .3)
+    mix(bus, marimba(hz('G6'), .9), .565, .12, .25)
+    # Weicher Akkord G-Dur und ein tiefer Grundton, die bis zum Ausblenden tragen.
+    n = at(length - .5); t = np.arange(n) / SR
+    pad = saw_pad([hz('G3'), hz('D4'), hz('B4')], n, 900 + 600 * np.exp(-t * 2), .08, seed=27)
+    shape = np.minimum(1, t / .35) * np.exp(-t / 1.4)
+    bus[at(.5):at(.5) + n] += pad * shape[:, None] * .35
+    mix(bus, np.sin(2 * np.pi * hz('G2') * t) * np.minimum(1, t / .05) * np.exp(-t / .9), .56, .14)
+    mix(bus, bell(hz('D7'), 1.4), .62, .05, -.3)
+    bus *= np.clip((length - np.arange(len(bus)) / SR) / .5, 0, 1)[:, None]
+    return bus
+
+
+def write(bus, target, peak_db=-3.0):
+    """Zwei kurze Echos als Raum, Pegel auf peak_db, als Ogg Vorbis speichern."""
     for delay, g in ((.083, .18), (.131, .12)):
         d = at(delay)
         bus[d:, 0] += bus[:-d, 1] * g
         bus[d:, 1] += bus[:-d, 0] * g
     bus -= bus.mean(axis=0)
-    peak = np.abs(bus).max()
-    bus *= 10 ** (-3 / 20) / peak
+    bus *= 10 ** (peak_db / 20) / np.abs(bus).max()
     rms = 20 * np.log10(np.sqrt((bus ** 2).mean()))
     with tempfile.TemporaryDirectory() as tmp:
-        raw = os.path.join(tmp, 'intro.wav')
+        raw = os.path.join(tmp, 'x.wav')
         with wave.open(raw, 'w') as w:
             w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
             w.writeframes((bus * 32767).astype(np.int16).tobytes())
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', raw, '-c:a', 'libvorbis', '-q:a', '5', TARGET], check=True)
-    print(TARGET, os.path.getsize(TARGET), 'Bytes, RMS', round(rms, 1), 'dBFS')
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', raw, '-c:a', 'libvorbis', '-q:a', '5', target], check=True)
+    print(target, os.path.getsize(target), 'Bytes, RMS', round(rms, 1), 'dBFS')
+
+
+def main():
+    write(compose(), TARGET)
+    write(pytales(), SPLASH, -8.0)
 
 
 if __name__ == '__main__':

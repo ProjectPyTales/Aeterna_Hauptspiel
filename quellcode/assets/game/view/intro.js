@@ -12,7 +12,7 @@
 (function(){'use strict';
 // ---------- Timeline (seconds of the intro; werkzeuge/intro_klang.py uses the same numbers) ----------
 const T={seam:.55,montage:1,beat:.48,flip:3.88,edge:4.03,formed:4.5,collapse:5.55,point:5.92,impact:6.05,handoff:7.95,end:9.6};
-const DEV={hold:2.3,out:.45,wait:1.6};          // splash: shown, fade to black, longest wait for the intro's pictures
+const DEV={hold:2.35,out:.75,wait:1.6,sound:.45}; // splash: shown, fade to black, longest waits for pictures and sound
 const REVEAL={match:.9,fast:.32,arrive:.42};     // match cut into the hall (arrive = the seal reaches the star)
 // Six epochs (the order of the curriculum), three heroes each, and the year the counter shows.
 const EPOCHS=[['steppe',-2650,['imhotep','amanirenas','fuhao']],['griechen',-480,['leonidas','perikles','hypatia']],
@@ -44,18 +44,27 @@ function start(o={}){
  const size=()=>{layer.style.width=innerWidth+'px';layer.style.height=innerHeight+'px';};size();addEventListener('resize',size);
  const full=!!o.full,D=o.data,A=o.audio;
  state='dev';
- // ---------- 1. Developer splash ----------
- requestAnimationFrame(()=>layer.classList.add('dev-on'));
- const t0=performance.now();let devTimer=0,introStarted=false;
+ // ---------- Sound (only in the app: the browser blocks it before the first tap) ----------
+ // The menu music waits in the silent mode 'intro' until the hall is shown (app.js → CHA.track('menu')).
+ const ctx=o.sound&&A?(A.track('intro'),A.init().catch(()=>{}),A.ctx):null;
+ const decode=name=>ctx?fetch('assets/audio/'+name+'.ogg').then(r=>r.arrayBuffer()).then(b=>ctx.decodeAudioData(b)).catch(e=>{console.warn('Intro-Klang',name,e);return null;}):Promise.resolve(null);
+ const once=(buf,gain=1)=>{if(!buf||!ctx)return null;const node=ctx.createBufferSource(),g=ctx.createGain();node.buffer=buf;g.gain.value=gain;node.connect(g);g.connect(A.fx||ctx.destination);
+  const go=()=>{try{node.start();}catch{}};if(ctx.state==='running')go();else ctx.resume?.().then(go,()=>{});return {node,gain:g};};
+ const fade=(v,s=.2)=>{if(!v||!ctx)return;const now=ctx.currentTime;v.gain.gain.cancelScheduledValues(now);v.gain.gain.setTargetAtTime(0,now,s/3);setTimeout(()=>{try{v.node.stop();}catch{}},s*1000+200);};
+ // ---------- 1. Developer splash: PY'TALES fades in with its sound (pytales.ogg, at most 0.45 s waiting for it) ----------
+ let t0=performance.now(),devTimer=0,devShown=false,splashVoice=null,introStarted=false;
+ const showDev=buf=>{if(devShown||state!=='dev')return;devShown=true;t0=performance.now();
+  requestAnimationFrame(()=>{layer.classList.add('dev-on');splashVoice=once(buf);});devEnd();};
+ decode('pytales').then(showDev);setTimeout(()=>showDev(null),DEV.sound*1000);
+ // The logo fades out on its grey, then the grey darkens (intro.css) – the picture is transparent around the figure.
  const toIntro=()=>{if(state!=='dev')return;clearTimeout(devTimer);
   if(!full){state='done';resolveHandoff();fadeLayer(()=>{});return;}
-  state='dev-out';layer.classList.add('dev-out');setTimeout(()=>{layer.querySelector('.dev')?.remove();begin();},DEV.out*1000+200);};
+  state='dev-out';layer.classList.add('dev-out');setTimeout(()=>{layer.querySelector('.dev')?.remove();begin();},DEV.out*1000);};
  // ---------- 2. Intro: pictures and sound load during the splash ----------
  const art={},sprites={},cards=[];let prepared=null;
  if(full)prepared=prepare();
  const devEnd=()=>{const wait=Math.max(0,DEV.hold*1000-(performance.now()-t0));
   devTimer=setTimeout(()=>{if(!full){toIntro();return;}Promise.race([prepared,new Promise(r=>setTimeout(r,DEV.wait*1000))]).then(toIntro);},wait);};
- devEnd();
 
  function prepare(){
   const heroes=['heroes','heroes2'].map(n=>picture('assets/art/'+n+'.webp').then(im=>art[n]=im,()=>null));
@@ -71,17 +80,13 @@ function start(o={}){
 
  // ---------- Sound: one recorded track, started in sync with the picture ----------
  const sound={buffer:null,node:null,gain:null,at:null};
- function prepareSound(){
-  if(!A||!o.sound)return Promise.resolve();
-  A.track('intro');A.init().catch(()=>{});const ctx=A.ctx;if(!ctx)return Promise.resolve();
-  return fetch('assets/audio/intro.ogg').then(r=>r.arrayBuffer()).then(b=>ctx.decodeAudioData(b)).then(buf=>{sound.buffer=buf;if(introStarted)playSound();}).catch(e=>console.warn('Intro-Klang',e));}
- function playSound(){const ctx=A?.ctx;if(!ctx||!sound.buffer||sound.node||ctx.state!=='running'||clock.t>T.impact-.2)return;
+ function prepareSound(){return decode('intro').then(buf=>{sound.buffer=buf;if(introStarted)playSound();});}
+ function playSound(){if(!ctx||!sound.buffer||sound.node||ctx.state!=='running'||clock.t>T.impact-.2)return;
   const node=ctx.createBufferSource(),gain=ctx.createGain();node.buffer=sound.buffer;gain.gain.value=1;node.connect(gain);gain.connect(A.fx||ctx.destination);
   const when=ctx.currentTime+.03;node.start(when,clock.t);sound.node=node;sound.gain=gain;sound.at=when-clock.t;}
- function audioTime(){const ctx=A?.ctx;if(!sound.node||!ctx||ctx.state!=='running')return null;return ctx.currentTime-sound.at-(ctx.outputLatency||ctx.baseLatency||0);}
+ function audioTime(){if(!sound.node||!ctx||ctx.state!=='running')return null;return ctx.currentTime-sound.at-(ctx.outputLatency||ctx.baseLatency||0);}
  // Skipped: the track fades out and no longer drives the clock (it would pull the picture back to its own time).
- function fadeSound(s=.25){const ctx=A?.ctx,node=sound.node,gain=sound.gain;sound.node=null;sound.buffer=null;if(!gain||!ctx)return;const now=ctx.currentTime;
-  gain.gain.cancelScheduledValues(now);gain.gain.setTargetAtTime(0,now,s/3);setTimeout(()=>{try{node.stop();}catch{}},s*1000+200);}
+ function fadeSound(s=.25){const node=sound.node,gain=sound.gain;sound.node=null;sound.buffer=null;if(gain)fade({node,gain},s);}
 
  // ---------- Canvas ----------
  let cv=null,g=null,W=0,H=0,K=1,S=1,OX=0,OY=0,raf=0,frozen=null,frozenR=null,vignette=null;
@@ -325,7 +330,7 @@ function start(o={}){
    g.globalCompositeOperation='lighter';for(const l of sprites.letters)put(l.hot,800+l.x,y,.96,.8*a);g.restore();g.globalCompositeOperation='source-over';}}
 
  // ---------- Control ----------
- function skip(){if(state==='dev'){toIntro();return;}
+ function skip(){if(state==='dev'){fade(splashVoice,.25);toIntro();return;}
   if(state==='intro'||state==='hold'){fadeSound(.3);reveal.fast=true;clock.t=Math.max(clock.t,T.handoff);if(state==='intro'){state='hold';resolveHandoff();}}}
  layer.addEventListener('pointerdown',ev=>{ev.preventDefault();skip();});
  api.skip=skip;

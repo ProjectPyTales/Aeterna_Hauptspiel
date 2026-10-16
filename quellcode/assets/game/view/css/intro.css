@@ -1,10 +1,11 @@
 /* Start (1.26.0): developer splash PY'TALES and the Aeterna intro (view/intro.js). Above everything, the full screen.
- * The splash picture is the centre 480 × 480 of the 1920 × 1080 video: sized like the video shown fullscreen (contain). */
-#intro{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:1000;background:#2c2c2c;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;transition:background-color .45s ease-in .15s,opacity .42s ease-out}
-#intro .dev{position:absolute;left:50%;top:50%;width:min(44.444vh,25vw);height:min(44.444vh,25vw);transform:translate(-50%,-50%);opacity:0;transition:opacity .5s ease-out}
-#intro.dev-on .dev{opacity:1}
+ * The splash picture is the centre 480 × 480 of the 1920 × 1080 video: sized like the video shown fullscreen (contain), transparent
+ * around the figure (1.27.0). Fading out, the logo goes first and the grey darkens after it, so no square is left standing. */
+#intro{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:1000;background:#2c2c2c;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;transition:background-color .4s ease-in .32s,opacity .42s ease-out}
+#intro .dev{position:absolute;left:50%;top:50%;width:min(44.444vh,25vw);height:min(44.444vh,25vw);transform:translate(-50%,-50%) scale(.97);opacity:0;transition:opacity .6s ease-out,transform 1.2s cubic-bezier(.2,.7,.3,1)}
+#intro.dev-on .dev{opacity:1;transform:translate(-50%,-50%) scale(1)}
 #intro.dev-out{background-color:#070504}
-#intro.dev-out .dev{opacity:0;transition:opacity .4s ease-in}
+#intro.dev-out .dev{opacity:0;transform:translate(-50%,-50%) scale(1.025);transition:opacity .4s ease-in,transform .5s ease-in}
 #intro canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s}
 #intro.playing canvas{opacity:1}
 #intro .skip{position:absolute;right:max(24px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));font:500 15px 'Aeterna Text',sans-serif;letter-spacing:2px;color:#e9d3a3;opacity:0;transition:opacity .8s ease-out .9s;pointer-events:none;text-shadow:0 1px 3px #000}

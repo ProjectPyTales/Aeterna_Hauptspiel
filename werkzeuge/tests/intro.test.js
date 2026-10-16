@@ -23,6 +23,24 @@ test('Dateien: Splash als animiertes WebP (Schleife A B C B), Musik, Originalvid
  for(const tool of ['entwicklersplash.py','intro_klang.py'])assert.ok(fs.existsSync(path.join(root,'werkzeuge',tool)),tool);
 });
 
+test('Rückmeldung zu 1.26.0: Splash ohne grauen Kasten und mit eigenem Klang',()=>{
+ // Kasten: Das Bild ist um die Figur durchsichtig (VP8X-Kopf mit Alpha-Bit), und das Grau wird erst dunkel, wenn das Logo weg ist.
+ const webp=fs.readFileSync(path.join(game,'assets/intro/pytales.webp'));
+ assert.equal(webp.toString('ascii',12,16),'VP8X');assert.ok(webp[20]&0x10,'Alpha');
+ const css=read('view/css/intro.css'),bgDelay=Number(css.match(/#intro\{[^}]*transition:background-color [\d.]+s ease-in ([\d.]+)s/)[1]);
+ const logoOut=Number(css.match(/#intro\.dev-out \.dev\{[^}]*transition:opacity ([\d.]+)s/)[1]);
+ assert.ok(bgDelay>=logoOut*.75,'Grau verdunkelt sich erst, wenn das Logo fast weg ist');
+ // Klang: Das Video hat keine Tonspur – pytales.ogg kommt aus intro_klang.py und startet mit dem Einblenden.
+ const ogg=fs.readFileSync(path.join(game,'assets/audio/pytales.ogg'));
+ assert.equal(ogg.toString('ascii',0,4),'OggS');assert.ok(ogg.length<120000,'klein: '+ogg.length);
+ assert.ok(!Object.values(JSON.parse(read('assets/audio/manifest.json'))).flat().includes('pytales'),'eigene Spur');
+ assert.match(fs.readFileSync(path.join(root,'werkzeuge/intro_klang.py'),'utf8'),/SPLASH = os\.path\.join\(AUDIO, 'pytales\.ogg'\)/);
+ const js=read('view/intro.js');
+ assert.match(js,/decode\('pytales'\)\.then\(showDev\)/,'Logo wartet kurz auf seinen Klang');
+ assert.match(js,/layer\.classList\.add\('dev-on'\);splashVoice=once\(buf\)/,'Klang und Einblenden im selben Bild');
+ assert.match(js,/const ctx=o\.sound&&A\?\(A\.track\('intro'\)/,'Menümusik wartet auch ohne Intro');
+});
+
 test('Seite: Splash ist das erste Element und ohne Skript sichtbar, intro.js vor app.js',()=>{
  const html=read('index.html'),body=html.slice(html.indexOf('<body>'));
  assert.match(body,/^<body><div id="intro"><img class="dev" src="assets\/intro\/pytales\.webp"/);
