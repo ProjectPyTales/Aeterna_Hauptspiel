@@ -12,10 +12,10 @@
 | Eingebaut, Korrektur nötig | 1 | 0 | **1** |
 | Altes Bild bleibt (AP L.6) – nicht erzeugen | 36 | 3 | **39** |
 | Im Spiel nie gerufen – nicht erzeugen | 0 | 1 | **1** |
-| Neu erzeugen | 159 | 19 | **178** |
+| Neu erzeugen | 186 | 19 | **205** |
 | Teil 4 beschädigt – Original suchen, sonst neu | 3 | 3 | **6** |
 | Gesperrt – Zuordnung klären | 0 | 0 | **0** |
-| **Gesamt** | **362** | **29** | **391** |
+| **Gesamt** | **389** | **29** | **418** |
 
 Im Spiel: 167 Karten und Spielsteine in 14 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
 
@@ -119,7 +119,7 @@ Die technischen IDs bleiben wegen bestehender Spielstände erhalten. Der aktuell
 | `totem_*` | Grenzsteine | Fantasy-Totempfähle |
 
 
-## 5. Kartenillustrationen: 163
+## 5. Kartenillustrationen: 190
 
 Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
@@ -420,6 +420,38 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 | `fabius_10` | Rettung bei Gerunium | neu | Der alte Fabius Maximus führt seine Legionen über einen Hügel, um im Tal umzingelte Römer vor den Karthagern zu retten (217 v. Chr.). |
 | `anna_12` | Täuschung bei Larissa | neu | Ein byzantinisches Heer steht mit den kaiserlichen Feldzeichen vor den Mauern von Larissa, normannische Ritter stürmen darauf zu (1083). |
 | `leonidas_12` | Kampf um den Leichnam | neu | Spartanische Hopliten kämpfen im Engpass der Thermopylen um den Leichnam ihres gefallenen Königs und drängen die Perser zurück (480 v. Chr.). |
+
+### Wunder der Welt (AP 5.7)
+
+| ID | Name | Status | Konkretes Motiv und Komposition |
+|---|---|---|---|
+| `leonidas_13` | Eiren der Agoge | neu | Ein junger Spartaner von etwa zwanzig Jahren im roten Umhang führt eine Gruppe barfüßiger Jungen mit kurzgeschorenem Haar über einen steinigen Übungsplatz, Schilfrohre in den Händen (5. Jh. v. Chr.). |
+| `hypatia_12` | Astrolab für Synesios | neu | Ein silbernes Astrolab mit Sternennetz liegt auf einem Tisch mit Papyrusrollen, eine Gelehrtenhand zeigt auf die Skala, Säulenhalle in Alexandria (um 400 n. Chr.). Kein Leuchten. |
+| `imhotep_13` | Pilger im Asklepieion von Saqqara | neu | Kranke Pilger mit Opfergaben und Tonfiguren steigen im Morgenlicht zum Heiligtum des Imhotep bei der Stufenpyramide von Saqqara hinauf (Spätzeit, um 300 v. Chr.). |
+| `dandolo_13` | Eroberung von Zara | neu | Venezianische Galeeren und Kreuzfahrer vor den Mauern der Hafenstadt Zara an der Adria, Leitern an den Mauern, Wappen mit dem Markuslöwen (1202). |
+| `khan_14` | Irminsul | neu | Ein hoher, aufgerichteter Baumstamm als Heiligtum in einer Lichtung, mit Opfergaben und Schnitzereien, Sachsen in Wollmänteln davor, Dämmerung (8. Jh.). |
+| `boudicca_13` | Stater des Vercingetorix | neu | Gallische Goldmünze mit dem Kopf eines jungen Mannes und der Umschrift VERCINGETORIXS, daneben ein Lederbeutel mit weiteren Münzen auf einem Holztisch (52 v. Chr.). |
+| `nostradamus_13` | Manufaktur auf der Albrechtsburg | neu | Die spätgotische Albrechtsburg über Meißen an der Elbe, aus den Fenstern Rauch der Brennöfen, im Vordergrund Arbeiter mit Körben voll weißer Gefäße (1710). |
+| `jeanne_12` | Volmar, Schreiber Hildegards | neu | Ein Benediktinermönch mit Tonsur sitzt am Schreibpult und schreibt auf Pergament, durch eine Öffnung blickt er zu einer Nonne mit Wachstafeln (12. Jh.). |
+| `ragnar_14` | Kloster Pegau | neu | Romanische Klosterkirche aus Bruchstein an der Weißen Elster, Mönche bei der Feldarbeit, ein Ritter im Kettenhemd kniet vor dem Portal (um 1100). |
+| `musashi_13` | Gefährte der Artusfahrt | neu | Ein Ritter mit Topfhelm und Wappenrock bricht im Tjost seine Lanze, im Hintergrund ein Zelt mit dem Banner König Artus’ und Zuschauer (1240). |
+| `perikles_12` | Aspasia von Milet | neu | Eine Frau im feinen Chiton spricht im Säulenhof eines athenischen Hauses zu Männern, die ihr zuhören, eine Schriftrolle in der Hand (5. Jh. v. Chr.). |
+| `agrippa_12` | Aqua Virgo | neu | Römische Bogenleitung und Bauarbeiter mit Kran und Lot, im Vordergrund strömt klares Wasser in ein Becken (19 v. Chr.). |
+| `amanirenas_12` | Stele von Karnak | neu | Eine hohe Kalksteinstele mit Hieroglyphen und dem Bild einer Königin im Tempelhof von Karnak, Priester lesen davor (um 1540 v. Chr.). |
+| `anna_13` | Kloster Kecharitomene | neu | Byzantinisches Frauenkloster mit Kuppelkirche in Konstantinopel, im Garten schreibt eine ältere Frau in Purpur an einem Pult (12. Jh.). |
+| `nezahualcoyotl_12` | Gesänge des Dichterkönigs | neu | Ein Fürst aus Texcoco mit Federschmuck trägt in einem Garten Verse vor, Musiker mit Trommel (huehuetl) und Flöte, Blüten (15. Jh.). |
+| `masako_12` | Heiratsurkunde der Theophanu | neu | Eine prachtvolle Urkunde auf purpurrotem Pergament mit Goldschrift und runden Medaillons mit Tieren, ausgerollt auf einem Tisch (972). |
+| `epaminondas_10` | Scheinlager bei Mantineia | neu | Thebanische Hopliten legen ihre Schilde und Speere ab, als wollten sie lagern, im Hintergrund lösen die Gegner ihre Schlachtreihe (362 v. Chr.). |
+| `fabius_11` | Quintus Fabius, der Sohn | neu | Ein römischer Konsul mit Liktoren befiehlt einem alten Feldherrn, vom Pferd zu steigen; der Alte steigt lächelnd ab (213 v. Chr.). |
+| `mandukhai_10` | Thumelicus | neu | Ein kleiner germanischer Junge an der Hand seiner Mutter in einem römischen Triumphzug, Zuschauer und Feldzeichen (17 n. Chr.). |
+| `baibars_10` | Brief an die Besatzung von Krak | neu | Ein Bote reicht Johanniterrittern auf der Mauer der Burg Krak des Chevaliers einen gesiegelten Brief, davor das Mamlukenheer (1271). |
+| `zizka_10` | Neuf-Brisach | neu | Vogelschau auf eine achteckige Festungsstadt mit Bastionen, Wassergräben und schnurgeraden Straßen am Rhein (um 1700). |
+| `fuhao_10` | Goldener Halsring von Vix | neu | Ein massiver goldener Halsring mit kugeligen Enden und kleinen geflügelten Pferden auf dunklem Tuch (um 500 v. Chr.). |
+| `neutral_52` | Koloss von Rhodos | neu | Die riesige Bronzestatue des Helios am Hafen von Rhodos, Schiffe zu ihren Füßen, Abendlicht (um 280 v. Chr.). |
+| `neutral_53` | Zeus des Phidias | neu | Der sitzende Zeus aus Gold und Elfenbein im Tempel von Olympia, so groß, dass sein Kopf fast das Dach berührt, Besucher klein davor (5. Jh. v. Chr.). |
+| `neutral_54` | Himmelsscheibe von Nebra | neu | Eine grün patinierte Bronzescheibe mit goldener Sonne, Mondsichel und Sternen auf Erde und Stein, Nachthimmel darüber (um 1600 v. Chr.). |
+| `neutral_55` | Gänse des Kapitols | neu | Weiße Gänse schnattern nachts auf dem Kapitol, ein römischer Krieger erwacht mit dem Schwert, Gallier klettern die Felsen herauf (um 387 v. Chr.). |
+| `neutral_56` | Skytale | neu | Ein Holzstab, um den spiralförmig ein beschriebener Lederstreifen gewickelt ist, in der Hand eines spartanischen Boten (5. Jh. v. Chr.). |
 
 ## 6. Spielsteine: 22
 

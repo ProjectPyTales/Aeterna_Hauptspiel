@@ -28,7 +28,8 @@ test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schl�
  // Spielsteine („Steppenreiter (1/1, Sturmangriff)“), die Pyramiden von Gizeh verdoppeln fremde Vermächtnisse (AP 5.11).
  for(const c0 of D.cards){const c={...c0,text:c0.text.replace(/\([^)]*\)/g,'')};
   assert.equal(c.text.includes('Schildwall'),!!c.taunt||c.id==='leonidas_9'||grants(c,'taunt'),c.name);
-  assert.equal(/Segen\./.test(c.text)&&!c.target&&!grants(c,'shield'),!!c.shield,c.name);
+  // Eigener Segen steht als Satz für sich („Segen.“); „Diener mit Segen“ (AP 5.7) verleiht ihn nicht.
+  assert.equal(/(^|\. )Segen\./.test(c.text),!!c.shield,c.name);
   assert.equal(c.text.startsWith('Einmarsch')||c.text.includes(' Einmarsch:'),!!c.battle,c.name);
   assert.equal(c.text.includes('Vermächtnis'),!!c.death||!!c.doubleDeath,c.name);
   assert.equal(c.text.includes('Sturmangriff'),!!c.charge,c.name);

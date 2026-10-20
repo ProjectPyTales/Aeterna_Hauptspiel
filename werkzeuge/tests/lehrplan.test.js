@@ -39,7 +39,7 @@ test('Zeitalterkarten (AP L.2): Frühzeit und Frühe Neuzeit ohne Steppe und Ost
   for(const e of [...(c.effects||[]),...(c.battle||[]),...(c.death||[]),...(c.start||[])])if(e.token)assert.ok(!far.test(D.tokens[e.token].name),c.id+' ruft '+D.tokens[e.token].name);}
  assert.deepEqual(['steppe_0','steppe_6','ostasien_0','ostasien_6'].map(id=>D.byId[id].name),['Wagenbauer','Festung Buhen','Landsknecht','Sternschanze']);
  assert.equal(D.byId.ostasien_6.wall,true);assert.equal(D.tokens.chariot.attack,D.tokens.rider.attack);assert.equal(D.tokens.chariot.charge,true);
- assert.equal(D.cards.filter(c=>!c.ambush).length,350,'ohne die Hinterhalte von 1.25.0 (AP 5.6)');
+ assert.equal(D.cards.filter(c=>!c.ambush&&!c.set).length,350,'ohne die Hinterhalte von 1.25.0 (AP 5.6) und die Erweiterung (AP 5.7)');
 });
 
 test('Alte Spielstände (1.13.0): Sammlung und Decks bleiben, alte Decknamen bekommen die neue Epoche',()=>{
@@ -77,7 +77,7 @@ const texts=c=>[c.name,c.text||'',...['effects','battle','death','start','end'].
 
 test('Heldenkarten (AP L.2): 132 Karten der elf Lehrplan-Helden aus ihrer Lebenswelt, Wirkungen und IDs unverändert',()=>{
  const set=D.cards.filter(c=>D.replaced.includes(c.hero));
- assert.equal(set.filter(c=>!c.ambush).length,132,'dazu seit 1.25.0 der Hinterhalt am Süntel (AP 5.6)');
+ assert.equal(set.filter(c=>!c.ambush&&!c.set).length,132,'dazu seit 1.25.0 der Hinterhalt am Süntel (AP 5.6), seit 1.27.0 die Erweiterung (AP 5.7)');
  for(const c of set){assert.ok(!OLD.test(texts(c))&&!FAR.test(texts(c)),c.id+': '+texts(c));}
  for(const h of D.replaced)assert.ok(!FAR.test(D.heroById[h].powerText),h+': '+D.heroById[h].powerText);
  // Spielsteine: Novizinnen, Grenzsteine, Schanzkörbe, Füsiliere, Sippenbruder

@@ -1,7 +1,20 @@
-# Aeterna 1.26.0 – Bauen & Prüfen
+# Aeterna 1.27.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.27.0 (AP 5.7 Erweiterung „Wunder der Welt“ Teil 1, Entscheidung 22, Rückmeldung zu 1.25.0)
+
+- **Karten** (`model/data.js`, Liste `wonders`): 27 Karten mit Feld `set:'wunder'`, hinten angehängt – je Held eine
+  (`<held>_<n>`) und fünf neutrale (`neutral_52`–`56`), darunter drei Hinterhalte (`epaminondas_10`, `neutral_55`, `neutral_56`).
+  Nur vorhandene Regeln; keine neue Legendäre, keine Zeitalterkarten. Chronikzeilen in `AELORE.cards`, Bildideen in `motive.js`
+  (`IDEA`) und `astra_bilder.py` (`NEW_MOTIFS`) – der Astra-Auftrag wächst von 178 auf 205 Motive, die Atlanten bleiben gleich.
+- **Hinterhalt-Erklärung** (Rückmeldung zu 1.25.0): `Match.lesson(events)` erkennt den ersten gelegten oder zuschnappenden
+  Hinterhalt, `Match.teach` zeigt einmal je Spielstand ein Fenster („Ein Hinterhalt liegt bereit“ bzw. „Hinterhalt!“) und setzt
+  das neue Feld `profile.ambushSeen` (`P.parse` ergänzt es für alte Spielstände). Fremde Karten bleiben dabei verdeckt.
+- Tests: neu `tests/wunder.test.js`; angepasst `hinterhalte.test.js`, `lehrplan.test.js`, `welle2.test.js`,
+  `schluesselwoerter2.test.js` (Kartenzahlen ohne Erweiterung) und `schluesselwoerter.test.js` (eigener Segen steht als Satz für
+  sich). Voller Balance-Lauf, alter Bericht als `balance/BERICHT-1.26.0.md`. Version 1.27.0 / versionCode 30.
 
 ## Neu in 1.26.0 (Bonus: Entwickler-Splash und Intro)
 

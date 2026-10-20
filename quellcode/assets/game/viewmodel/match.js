@@ -66,12 +66,23 @@ class Match extends Screen{
  action(act,origin=null){const s=this.game,p=this.profile;if(!s||s.phase!=='play'||this.board.busy())return false;
   const before=E.clone(s),result=E.apply(s,act);
   if(!result.ok){this.ui.toast(result.error);return false;}
+  const lesson=p.ambushSeen?null:this.lesson(s.events);
   chronicle()?.record(p,before);
   if(before.active===0){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}}
   this.view=idle();if(s.phase==='over')P.reward(p,s);this.commit();
   this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);if(before.active===0)this.ui.haptic(act.type==='attack'?1:0);},
-   ()=>{if(s.phase==='over')this.showResult();else if(!this.discover())this.scheduleAI();});
+   ()=>{if(s.phase==='over')this.showResult();else if(!this.discover()&&!this.teach(lesson))this.scheduleAI();});
   return true;}
+ // Rückmeldung zu 1.25.0 („etwas verwirrend“, kaum begegnet): Beim ersten Hinterhalt, der gelegt wird oder zuschnappt –
+ // gleich von welcher Seite –, erklärt ein Fenster einmal je Spielstand, was die Wachsrolle ist. {kind, p, name, text}
+ lesson(events){const e=(events||[]).find(x=>x.type==='ambush'||x.type==='play'&&x.ambush);if(!e)return null;
+  const c=D.byId[e.id];return {kind:e.type==='ambush'?'sprung':'set',p:e.p,name:c?.name||'',text:(c?.text||'').replace(/^Hinterhalt: /,'')};}
+ teach(l){const p=this.profile;if(!l||p.ambushSeen||this.ui.screen()!=='game'||this.ui.dialogOpen())return false;p.ambushSeen=true;this.commit();
+  const first=l.kind==='set'?(l.p===0?'Deine Karte liegt jetzt verdeckt als versiegelte Wachsrolle neben Deiner Münze.':'Der Gegner hat eine Karte verdeckt als versiegelte Wachsrolle neben seine Münze gelegt.')
+   :(l.p===0?'Dein Hinterhalt „'+l.name+'“ hat zugeschnappt: '+l.text:'Ein Hinterhalt des Gegners hat zugeschnappt – „'+l.name+'“: '+l.text);
+  this.ui.dialog('message',new Dialog(this.ctx,{title:l.kind==='set'?'Ein Hinterhalt liegt bereit':'Hinterhalt!',close:false,
+   text:first+' Ein Hinterhalt ist ein Zauber, der '+(l.p===0?'erst im Zug des Gegners':'erst in Deinem Zug')+' zuschnappt – von selbst, sobald geschieht, was auf der Karte steht: ein Angriff, ein ausgespielter Diener, ein Zauber oder der Tod eines Dieners seines Besitzers. Im Zug seines Besitzers ruht er. Höchstens drei liegen je Seite bereit. Tippe eine Rolle an, um mehr zu erfahren.',
+   buttons:[{label:'Verstanden',style:'gold'}]}));return true;}
  // Your Ergründen is open (also after resuming a saved game): show the three cards.
  discover(){const c=this.game?.choice;if(!c||c.p!==0||this.ui.screen()!=='game'||this.ui.dialogOpen())return false;
   this.ui.dialog('discover',new Choice(this.ctx,{close:false,cards:c.options.map(id=>D.byId[id]),mod:c.mod||0,left:c.left,run:i=>this.action({type:'choose',index:i})}));return true;}

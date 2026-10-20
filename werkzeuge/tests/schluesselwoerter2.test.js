@@ -19,7 +19,7 @@ const id=name=>D.cards.find(c=>c.name===name).id;
 // Karten, die ein Schlüsselwort verleihen oder danach filtern (AP 5.10: Testudo, Treueschwur, Löwentempel …).
 const grants=(c,key)=>[...(c.effects||[]),...(c.battle||[]),...(c.death||[]),...(c.start||[])].some(e=>e.key===key||e.only===key||key==='shield'&&e.type==='shield');
 test('Neue Karten: feste IDs hinten angehängt, Text nennt das Schlüsselwort, Glossar erklärt es',()=>{
- assert.equal(D.cards.length,153+60+56+60+21+12,'153 bis 1.8.0, 6 × 10 Karten der neuen Helden (AP 5.10), 56 aus Kartenwelle 1 (AP 5.11), Welle 2: 6 × 10 und 21 Zeitalterkarten, 12 Hinterhalte (AP 5.6)');
+ assert.equal(D.cards.length,153+60+56+60+21+12+27,'153 bis 1.8.0, 6 × 10 Karten der neuen Helden (AP 5.10), 56 aus Kartenwelle 1 (AP 5.11), Welle 2: 6 × 10 und 21 Zeitalterkarten, 12 Hinterhalte (AP 5.6), 27 aus der Erweiterung Teil 1 (AP 5.7)');
  for(const [k,word] of [['plunder','Plünderung'],['stealth','Tarnung'],['poison','Tödliches Gift']])
   for(const c of D.cards)assert.equal(c.text.includes(word),!!c[k]||grants(c,k),c.id);
  for(const c of D.cards)assert.equal(/Belastung \d/.test(c.text),!!c.overload,c.id);

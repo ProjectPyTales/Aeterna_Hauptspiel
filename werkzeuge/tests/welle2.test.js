@@ -15,7 +15,7 @@ const end=s=>act(s,{type:'end'});
 
 test('Welle 2: sechs Helden mit 10 Karten, Chronik, Startdeck, Mission 17–22 und Zeitalter mit je zwei Helden',()=>{
  assert.deepEqual(D.heroes.slice(16).map(h=>h.id),NEW);
- for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id&&!c.ambush);
+ for(const id of NEW){const h=D.heroById[id],set=D.cards.filter(c=>c.hero===id&&!c.ambush&&!c.set);
   assert.deepEqual(set.map(c=>c.rarity),['basic','basic','basic','basic','common','common','rare','rare','epic','legendary'],id);
   assert.ok(set.every(c=>D.missingArt(c)||B.cards[c.id]),id+': Platzhalter oder Astra-Motiv');assert.deepEqual([h.art,h.cell],B.heroes[id],id+': Astra-Porträt');assert.ok(D.personalities[h.ai],id+': KI-Persönlichkeit');
   assert.ok(L.of(id),id);assert.equal(P.validateDeck(P.fresh(),id,E.starter(id)),null,id);}
