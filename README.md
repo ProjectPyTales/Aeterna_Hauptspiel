@@ -1,8 +1,12 @@
 # Aeterna
 
-*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 362 Karten,
+*Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 389 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.26.0** (Bonus: **Start mit Deinem Entwickler-Splash PY'TALES und einem Intro** – sechs
+Aktueller Stand im Code: **Version 1.27.0** (**Erweiterung „Wunder der Welt“ Teil 1** nach AP 5.7 und Entscheidung 22: 27 neue Karten
+aus der Geschichte – je Held eine aus seiner Lebenswelt, etwa die **Irminsul**, das **Kloster Pegau**, die **Heiratsurkunde der
+Theophanu** oder **Neuf-Brisach**, dazu **Koloss von Rhodos**, **Zeus des Phidias**, die **Himmelsscheibe von Nebra** und die Hinterhalte
+**Gänse des Kapitols** und **Skytale**; jede mit Quelle, alle als Platzhalter für Astra; beim ersten Hinterhalt erklärt ein Fenster die
+Wachsrolle); davor 1.26.0 (Bonus: **Start mit Deinem Entwickler-Splash PY'TALES und einem Intro** – sechs
 Epochen im Takt, Karten im Wirbel, Einschlag mit Siegel und Titel, Match-Cut ins Hauptmenü; siehe
 [Notiz](#notiz-start-mit-entwickler-splash-und-intro-1260)); davor 1.25.0 (**Taktische Hinterhalte** nach AP 5.6: zwölf Zauber, die verdeckt als versiegelte
 Wachsrolle neben dem Helden liegen und im Zug des Gegners zuschnappen – vom **Hinterhalt am Süntel** über das **Fallgatter** bis zur
@@ -118,7 +122,8 @@ bleiben).
 | `AETERNA` | 500 Gold |
 | `KARTENPAKETE` | 10 Kartenpakete – im Basar mit „Alle öffnen“ auf einmal aufdecken (seit 1.12.0 alle, vorher höchstens 50) |
 | `ZEITALTER` | 1 000 Staub |
-| `CHRONIK` | jede Karte in voller Zahl (zwei, Legendäre eine) – zum Ausprobieren aller 362 Karten |
+| `CHRONIK` | jede Karte in voller Zahl (zwei, Legendäre eine) – zum Ausprobieren aller 389 Karten |
+| `WUNDER` | seit 1.27.0: jede Karte der Erweiterung „Wunder der Welt“ in voller Zahl – für Spielstände, die `CHRONIK` schon eingelöst haben |
 
 ---
 
@@ -139,7 +144,7 @@ aufs Spiel macht. Ablauf beim Start der App:
    - *Sechs Epochen im Takt* – je drei gemalte Helden auf schrägen Tafeln mit Namen, im Schlag gewischt, darüber die Epoche des
      Lehrplans, darunter ein Jahreszähler, der von 2650 v. Chr. bis 1708 n. Chr. rollt, dahinter das Farblicht der Epoche;
    - *Karten* – die Porträts kippen zu Karten (die echten Karten des Spiels mit Astras Rahmen, Legendäre in Gold), sieben weitere
-     fliegen ein, ein Ring wirbelt immer schneller („22 Helden · 362 Karten · 6 Epochen“) und stürzt in einen Lichtpunkt;
+     fliegen ein, ein Ring wirbelt immer schneller („22 Helden · 389 Karten · 6 Epochen“, gezählt aus den Daten) und stürzt in einen Lichtpunkt;
    - *Einschlag* – ein Atemzug Stille, dann Blitz, Druckwelle, Funken, Lichtstrahlen und Kamerawackeln: das Aeterna-Siegel
      schlägt ein, AETERNA erscheint Buchstabe für Buchstabe, „Die Geschichte erwacht“, ein Lichtstreif läuft über den Titel;
    - *Match-Cut* – das Hauptmenü baut sich darunter auf, das Siegel fliegt in den Stern über dem Ring, der aufblitzt.
@@ -193,7 +198,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
 | `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`, seit 1.26.0 `intro_klang.py`), Entwickler-Splash `entwicklersplash.py`, Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, seit 1.26.0 Start-Messung `intromessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 362 Karten), `BERICHT-1.24.0.md` (vor AP 5.6), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 389 Karten), `BERICHT-1.26.0.md` (vor AP 5.7), `BERICHT-1.24.0.md` (vor AP 5.6), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 48 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
@@ -250,6 +255,8 @@ Sponheim stärkt Novizinnen, die Rekruten (`recruit`) bleiben Dandolo und Caesar
 Seit 1.25.0 (AP 5.6) **Hinterhalte**: Zauber mit Feld `ambush` (Auslöser `attack`, `hero`, `defend`, `minion`, `spell`, `death`),
 höchstens drei verdeckt je Spieler (`player.ambush`), keiner doppelt; sie schnappen nur im Zug des Gegners zu, neue Effekte `cancel`
 (Angriff fällt aus), `counter` (Zauber vereitelt), `decoy` (Spielstein fängt den Angriff ab) und `copySpell`.
+Seit 1.27.0 (AP 5.7 Teil 1) Karten der Erweiterung mit Feld `set:'wunder'` – nur vorhandene Regeln; das Feld `profile.ambushSeen`
+merkt sich, dass die Hinterhalt-Erklärung schon kam.
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -257,7 +264,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
@@ -274,7 +281,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
   `chroniken.profile` bleiben trotz Umbenennung bestehen.
 - **Regeländerungen nur bewusst:** `data.js`/`engine.js` nur in Arbeitspaketen anfassen, die das
   ausdrücklich vorsehen (Phase 5), und dann mit neuen Tests und vollem Balance-Lauf `node werkzeuge/balance.js`
-  (mit 22 Helden und 362 Karten ≈ 30 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
+  (mit 22 Helden und 389 Karten ≈ 35 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
   vergleichen: Kopie von `model/` anlegen und `AETERNA_MODELL=<Ordner> node werkzeuge/balance.js --partien 40`.
 - **Sichtprüfung:** Jede optische Änderung per Playwright-Screenshot im Handyformat
   (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen –
@@ -430,9 +437,9 @@ werden ersetzt, Unsicheres wird als unsicher erzählt (AP L.5, AP L.6).
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
 | APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.27.0 (AP 5.7 Teil 1, 101 200 Partien, zwei volle Läufe): Startdecks Zahl für Zahl wie in 1.25.0** (keine neue Karte im Startdeck); **Zufallsdecks 18 von 22 im Ziel** (vorher 21): Imhotep und Agrippa 54,2 %, Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %); 218 von 231 Paarungen innerhalb 40/60 (vorher 223), Beginner 50,2 %; Nezahualcóyotl steigt von 45,6 auf 49,9 %; alter Bericht `BERICHT-1.26.0.md`. Davor **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,5 % (1.13.0: 53,0 %), einzeln 45,8 (Nezahualpilli) bis 58,6 % (Lagertha)² |
-| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
+| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | **1.27.0:** keine der 27 neuen Karten über 60 % (höchste: Thumelicus 56,7 %, Pilger im Asklepieion 55,0 %); darüber nur Phalanxveteran 62,2 % und Balsamierer 60,3 % (Zufallsfehler ±2,5). Davor knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
@@ -1981,16 +1988,85 @@ Du jederzeit ändern lassen, die IDs bleiben)*
   | **Täuschung bei Larissa** (1, Anna Komnene) | ein feindlicher Diener greift Euren Helden an → ein Träger der Kaiserstandarte (2/2) fängt ihn ab | Alexios lässt sein Heer mit den Feldzeichen aufziehen und fällt über Bohemunds Lager her, 1083 (Alexiade V 5–6) |
   | **Kampf um den Leichnam** (2, Leonidas) | einer Eurer Diener stirbt → Eure übrigen Diener erhalten +1/+1 | Viermal schlagen die Griechen die Perser um Leonidas’ Leichnam zurück (Herodot VII 225) |
 
-**AP 5.7 – Erweiterung „Wunder der Welt“ (L)**
-- [ ] Rund 90 neue Karten: je Held 6 (davon 1 Legendäre), 20 neutrale, 10 Bauwerke, dazu Hinterhalte; nutzt die neuen
-  Schlüsselwörter. Kostenkurve und Werte-Budget nach einer festen Formel (z. B. Grundwerte = 2 × Kosten + 1,
-  Schlüsselwörter kosten Werte), Feinschliff per Simulation.
-- [ ] Ideen für neue Legendäre: Kleopatra (verführt feindliche Diener), Hannibal (Elefanten ignorieren einmal
-  Schildwall), Alexander der Große (wächst mit jedem eroberten Diener), Archimedes (Erfindungen, stärkt Bauwerke),
-  Qin Shi Huang (Terrakotta-Armee kehrt zurück), Mansa Musa (Reichtum: Karten kosten weniger), Sun Tzu
-  (Hinterhalte kosten 0), Hammurabi (Gesetz: alle Karten kosten 3), Leonardo da Vinci (verwandelt Zauber in
-  Erfindungen), Hatschepsut, Saladin, Wu Zetian, Spartacus (Aufstand: Angriff und Leben aller Diener tauschen).
-- [ ] Jede neue Karte mit Motiv aus dem Bild-Atlas (Grafiken über AP 1.2).
+**AP 5.7 – Erweiterung „Wunder der Welt“ (L)** – *Umfang nach Entscheidung 22 (20. 10. 2026): klein – je Held zwei Karten und
+zehn neutrale, zusammen 54 statt rund 90; Teil 1 (27 Karten) ✓ in 1.27.0*
+- [ ] **54 neue Karten aus der Geschichte** statt rund 90: je Held zwei Karten aus seiner Lebenswelt, zehn neutrale (Weltwunder,
+  Funde und Hinterhalte). Nur vorhandene Regeln und Schlüsselwörter, keine neue Legendäre. Werte-Budget wie bisher: Grundwerte
+  ≈ 2 × Kosten + 1, jedes Schlüsselwort und jede Wirkung kostet Werte; Feinschliff per Simulation. Jede Karte mit Chronikzeile
+  und Quelle („Aus der Chronik“), alle zuerst als gekennzeichnete Platzhalter mit Bildidee für Astra (AP 5.12, AP L.4).
+- [x] **Teil 1:** je Held die erste Karte der Tabelle und fünf neutrale (27 Karten, darunter drei neue Hinterhalte – auch als
+  Antwort auf Deine Rückmeldung zu 1.25.0, dass man ihnen bislang kaum begegnet). *✓ in 1.27.0 (Sitzung 22).*
+- [ ] **Teil 2:** die übrigen 27 Karten (je Held die zweite, fünf neutrale).
+- *Gestrichen mit Entscheidung 22:* die Ideen für neue Legendäre (Kleopatra, Hannibal, Alexander, Archimedes, Qin Shi Huang,
+  Mansa Musa, Sun Tzu, Hammurabi, Leonardo, Hatschepsut, Saladin, Wu Zetian, Spartacus) – Hammurabi kommt als Gesetzesstele
+  ohne eigene Regel, die anderen bleiben in den [Weiteren Ideen](#weitere-ideen), falls das Spiel später wächst.
+
+**Prüftabelle Teil 1** – *✓ gebaut in 1.27.0 als mein Vorschlag (Namen, Werte und Auswahl lassen sich jederzeit ändern, die IDs bleiben).
+Die Werte stehen nach zwei Balance-Vorläufen: Koloss (5 Mana, 3 Schaden), Volmar (2/4), Eiren (+1/+1) und der Brief an Krak (3 Mana)
+waren zu stark, Zeus (5), Neuf-Brisach (4), Irminsul (ohne Aura ließ die KI sie einfach stehen), Kecharitomene (4) und die Manufaktur
+(Böttger litt unter dem Selbstschaden) zu schwach; das Astrolab verbilligt jetzt die gewählte Karte.*
+
+| Karte (Held, Art, Kosten, Werte) | Wirkung | Bezug und Quelle |
+|---|---|---|
+| **Eiren der Agoge** (Leonidas, Diener, 2: 2/2) | Einmarsch: Gebt einem befreundeten Diener +1 Leben und Schildwall. | In Sparta lebten die Jungen ab sieben in Gruppen; ein Zwanzigjähriger, der Eiren, führte sie (Plutarch, Lykurgos 16–17; Xenophon, Staat der Lakedaimonier 2) |
+| **Astrolab für Synesios** (Hypatia, Zauber, 1) | Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand. Sie kostet 1 weniger. | Synesios baute nach Hypatias Unterricht ein Astrolab und verschenkte es (Synesios, Über das Geschenk des Astrolabs) |
+| **Pilger im Asklepieion von Saqqara** (Imhotep, Diener, 3: 2/4) | Einmarsch: Stellt bei allen eigenen Charakteren 2 Leben wieder her. | Zwei Jahrtausende nach seinem Tod verehrte man Imhotep als Gott der Heilkunst, die Griechen setzten ihn Asklepios gleich (Papyrus Oxyrhynchos 1381) |
+| **Eroberung von Zara** (Dandolo, Zauber, 3) | Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu. Zieht 1 Karte. | 1202 zahlten die Kreuzfahrer ihre Schuld bei Venedig mit der Eroberung der christlichen Stadt Zara – der Papst bannte sie dafür (Villehardouin, Eroberung von Konstantinopel) |
+| **Irminsul** (Widukind, Bauwerk, 3: 0/5) | Eure Diener haben +1 Angriff. Vermächtnis: Gebt Euren Dienern +2 Angriff. | 772 zerstörte Karl der Große das Heiligtum der Sachsen bei der Eresburg – wie es aussah (Baumstamm oder Säule), ist unsicher (Reichsannalen zu 772) |
+| **Stater des Vercingetorix** (Vercingetorix, Zauber, 1) | Gebt einem befreundeten Diener +1/+1. Zieht 1 Karte. | Goldmünzen mit der Aufschrift VERCINGETORIXS – neben Caesars Bericht das einzige Zeugnis von ihm (Münzfunde, Cabinet des Médailles Paris) |
+| **Manufaktur auf der Albrechtsburg** (Böttger, Bauwerk, 3: 0/5) | Am Ende Eures Zuges: Zieht 1 Karte. Sie kostet 1 weniger. | 1710 gründete August der Starke in der Albrechtsburg Meißen die erste Porzellanmanufaktur Europas, Böttger leitete sie (Gründungsdekret vom 23. 1. 1710) |
+| **Volmar, Schreiber Hildegards** (Hildegard, Diener, 3: 2/3) | Einmarsch: Gebt einem befreundeten Diener Segen. Zieht 1 Karte. | Der Mönch Volmar schrieb ins Reine, was Hildegard auf Wachstafeln festhielt – das Bild im Rupertsberger Scivias zeigt beide (Scivias, Vorrede) |
+| **Kloster Pegau** (Wiprecht, Bauwerk, 4: 0/5) | Zu Beginn Eures Zuges: Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. | Wiprecht stiftete 1091 zur Buße das Kloster Pegau; dessen Annalen erzählen sein Leben (Pegauer Annalen) |
+| **Gefährte der Artusfahrt** (Ulrich, Diener, 4: 3/4) | Segen. Einmarsch: Eure anderen Diener mit Segen erhalten +1/+1. | 1240 zog Ulrich als König Artus durchs Land; wer mit ihm drei Speere brach, kam in seine Tafelrunde (Ulrich von Liechtenstein, Frauendienst) |
+| **Aspasia von Milet** (Perikles, Diener, 3: 2/4) | Einmarsch: Ergründet einen Zauber. | Perikles’ Lebensgefährtin galt als klug und redegewandt; dass sie Reden schrieb, behaupten nur spätere, teils spöttische Quellen (Plutarch, Perikles 24; Platon, Menexenos) |
+| **Aqua Virgo** (Agrippa, Bauwerk, 2: 0/5) | Am Ende Eures Zuges: Stellt bei allen eigenen Charakteren 1 Leben wieder her. | Agrippa ließ 19 v. Chr. die Wasserleitung bauen; sie speist bis heute den Trevi-Brunnen (Frontinus, Über die Wasserleitungen 10) |
+| **Stele von Karnak** (Ahhotep, Zauber, 3) | Gebt Euren Dienern +1/+1. Stellt bei Eurem Helden 3 Leben wieder her. | Ihr Sohn Ahmose rühmt sie auf einer Stele: Sie habe für Ägyptens Soldaten gesorgt und Oberägypten befriedet (Stele des Ahmose, Kairo CG 34001) |
+| **Kloster Kecharitomene** (Anna, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Ergründet eine Karte, die in dieser Partie schon gespielt wurde. | Das Kloster ihrer Mutter Irene in Konstantinopel; in seiner Nähe schrieb Anna im Alter die Alexiade (Typikon des Klosters; Alexiade, Prolog) |
+| **Gesänge des Dichterkönigs** (Nezahualcóyotl, Zauber, 2) | Stellt bei allen eigenen Charakteren 2 Leben wieder her. Zieht 1 Karte. | Aztekische Liedersammlungen des 16. Jh. schreiben ihm Gedichte zu – ob sie wirklich von ihm sind, ist unsicher (Cantares Mexicanos; Romances de los Señores) |
+| **Heiratsurkunde der Theophanu** (Theophanu, Zauber, 2) | Gebt einem befreundeten Diener +1/+3 und Schildwall. | Die Urkunde zur Hochzeit mit Otto II. (14. 4. 972) ist auf purpurgefärbtes Pergament geschrieben, wie in Byzanz (Niedersächsisches Landesarchiv Wolfenbüttel) |
+| **Scheinlager bei Mantineia** (Epaminondas, Hinterhalt, 2) | Wenn ein feindlicher Diener angreift, erhält Euer Diener ganz links +2/+2. | 362 v. Chr. ließ Epaminondas die Waffen ablegen, als wolle er lagern – dann griff er an (Xenophon, Hellenika VII 5,21–22) |
+| **Quintus Fabius, der Sohn** (Fabius, Diener, 4: 3/5) | Einmarsch: Versetzt einen feindlichen Diener in Starre. Erhaltet 2 Rüstung. | Als Konsul ließ der Sohn 213 v. Chr. seinen Vater vom Pferd steigen – und der Vater war stolz darauf (Livius XXIV 44) |
+| **Thumelicus** (Thusnelda, Diener, 3: 3/2) | Vorstoß. Vermächtnis: Ruft einen Stammeskrieger (1/2). | Thusneldas Sohn, in Gefangenschaft geboren, ging 17 n. Chr. mit ihr im Triumphzug des Germanicus (Strabon VII 1,4; Tacitus, Annalen I 58) |
+| **Brief an die Besatzung von Krak** (Baibars, Zauber, 4) | Schickt einen feindlichen Diener auf die Hand seines Besitzers zurück. Zieht 1 Karte. | 1271 gab die Besatzung des Krak des Chevaliers auf und zog nach Tripolis ab – arabische Chronisten erzählen von einem gefälschten Brief ihres Großmeisters (Ibn al-Furat) |
+| **Neuf-Brisach** (Vauban, Bauwerk, 3: 0/6) | Schildwall. Zu Beginn Eures Zuges: Ruft einen Schanzkorb (1/2, Schildwall). | 1698 plante Vauban die achteckige Festungsstadt am Rhein, heute UNESCO-Welterbe (Festungsanlagen Vaubans, 2008) |
+| **Goldener Halsring von Vix** (Fürstin von Vix, Zauber, 2) | Euer Held erhält in diesem Zug +2 Angriff. Erhaltet 2 Rüstung. Zieht 1 Karte. | Grabfund von 1953: ein Halsring aus fast einem halben Kilo Gold (Musée du Pays Châtillonnais) |
+| **Koloss von Rhodos** (neutral, Bauwerk, 6: 0/8) | Schildwall. Vermächtnis: Fügt allen feindlichen Dienern 2 Schaden zu. | Ein Weltwunder: die 70 Ellen hohe Bronzestatue des Helios stürzte bei einem Erdbeben, die Trümmer bestaunte man noch Jahrhunderte (Plinius, Naturgeschichte XXXIV 41) |
+| **Zeus des Phidias** (neutral, Bauwerk, 4: 0/7) | Eure Diener haben +1 Angriff. Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her. | Ein Weltwunder in Olympia aus Gold und Elfenbein: Stünde Zeus auf, durchstieße er das Dach (Strabon VIII 3,30; Pausanias V 11) |
+| **Himmelsscheibe von Nebra** (neutral, Zauber, 2) | Ergründet eine Karte. Sie kostet 1 weniger. | Gefunden 1999 auf dem Mittelberg in Sachsen-Anhalt, um 1600 v. Chr. – die älteste bekannte Darstellung des Himmels (Landesmuseum für Vorgeschichte Halle) |
+| **Gänse des Kapitols** (neutral, Hinterhalt, 1) | Wenn ein feindlicher Diener Euren Helden angreift, erhaltet Ihr 4 Rüstung. | Nachts erklommen Gallier das Kapitol; die heiligen Gänse der Juno schnatterten und weckten die Römer (Livius V 47) |
+| **Skytale** (neutral, Hinterhalt, 2) | Wenn der Gegner einen Zauber wirkt, zieht Ihr 2 Karten. | Spartas Geheimschrift: ein Lederband, nur auf einem Stab gleicher Dicke lesbar (Plutarch, Lysander 19; Gellius XVII 9) |
+
+**Prüftabelle Teil 2** (Entwurf für die nächste Sitzung – noch nicht gebaut):
+
+| Karte (Held, Art, Kosten, Werte) | Wirkung | Bezug und Quelle |
+|---|---|---|
+| **„Mit ihm oder auf ihm“** (Leonidas, Diener, 2: 1/3) | Einmarsch: Gebt einem befreundeten Diener mit Schildwall +2 Angriff. | Eine Spartanerin reicht dem Sohn den Schild (Plutarch, Sprüche spartanischer Frauen 241F) |
+| **Orestes, Präfekt von Ägypten** (Hypatia, Diener, 4: 3/5) | Einmarsch: Ruft einen Schüler der Hypatia (1/1). | Der Präfekt suchte Hypatias Rat, sein Streit mit Bischof Kyrill wurde ihr zum Verhängnis (Sokrates Scholastikos VII 13–15) |
+| **Sockel der Djoser-Statue** (Imhotep, Bauwerk, 2: 0/4) | Am Ende Eures Zuges: Euer schwächster Diener erhält +1/+1. | Der wichtigste Beleg, dass Imhotep lebte: seine Titel auf dem Sockel einer Statue des Djoser (Kairo JE 49889) |
+| **Quadriga von San Marco** (Dandolo, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Eure Waffe erhält +1 Angriff und +1 Haltbarkeit. | 1204 aus dem Hippodrom von Konstantinopel nach Venedig gebracht (Original im Museo di San Marco) |
+| **Taufe in Attigny** (Widukind, Zauber, 2) | Zieht 2 Karten. Stellt bei Eurem Helden 3 Leben wieder her. | 785 ließ sich Widukind taufen, Karl der Große war sein Pate (Reichsannalen zu 785) |
+| **Murus Gallicus** (Vercingetorix, Bauwerk, 3: 0/6) | Schildwall. Wann immer dieses Bauwerk Schaden erleidet, fügt es einem zufälligen Feind 1 Schaden zu. | Mauer aus Holzbalken, Steinen und Erde – Feuer und Rammbock konnten ihr wenig anhaben (Caesar, Gallischer Krieg VII 23) |
+| **Weiße Erde aus Aue** (Böttger, Zauber, 2) | Gebt einem befreundeten Diener +2/+2. Euer Held erleidet 1 Schaden. | Kaolin aus der Grube „Weißer Andreas“ bei Aue machte das Meißner Porzellan möglich |
+| **Lingua ignota** (Hildegard, Zauber, 1) | Gebt einem befreundeten Diener Tarnung. Zieht 1 Karte. | Hildegards erfundene Sprache mit 1011 Wörtern (Riesencodex, Hochschul- und Landesbibliothek Wiesbaden) |
+| **Pilgerfahrt nach Santiago** (Wiprecht, Zauber, 3) | Stellt bei Eurem Helden 5 Leben wieder her. Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. | Zur Buße pilgerte Wiprecht nach Rom und Santiago de Compostela (Pegauer Annalen) |
+| **Turnier zu Friesach** (Ulrich, Zauber, 3) | Gebt einem befreundeten Diener Doppelschlag und Segen. | Das große Turnier von 1224, das Ulrich im Frauendienst schildert |
+| **Bauabrechnung des Parthenon** (Perikles, Zauber, 2) | Euer schwächstes Bauwerk erhält +2 Haltbarkeit. Zieht 1 Karte. | Athen ließ die Baukosten jedes Jahr in Stein meißeln (Inschriften IG I³ 436–451) |
+| **Weltkarte des Agrippa** (Agrippa, Zauber, 2) | Ergründet eine Karte eines anderen Helden. Sie kostet 1 weniger. | Agrippas Weltkarte hing in einer Säulenhalle in Rom (Plinius, Naturgeschichte III 17) |
+| **Kamose** (Ahhotep, Diener, 4: 4/3) | Vorstoß. Einmarsch: Fügt einem zufälligen feindlichen Diener 2 Schaden zu. | Ihr Sohn oder Schwager führte den Krieg gegen die Hyksos weiter (Kamose-Stelen aus Karnak) |
+| **Irene Dukaina** (Anna, Diener, 3: 2/4) | Einmarsch: Stellt bei Eurem Helden 3 Leben wieder her. Zieht 1 Karte. | Annas Mutter begleitete Alexios auf Feldzügen und pflegte ihn (Alexiade XII 3) |
+| **Bäder von Tetzcotzinco** (Nezahualcóyotl, Bauwerk, 3: 0/5) | Wann immer ein eigener Charakter geheilt wird, erhaltet 1 Rüstung. | In den Fels gehauene Bäder und Gärten auf dem Hügel bei Texcoco (Fundstätte; Fernando de Alva Ixtlilxóchitl) |
+| **Theophanius imperator augustus** (Theophanu, Zauber, 3) | Eure Diener mit Schildwall erhalten +1/+1 und Segen. | 990 nennt sie sich in einer Urkunde „Kaiser“ in männlicher Form (Urkunde vom 1. 4. 990) |
+| **Mauern von Messene** (Epaminondas, Bauwerk, 3: 0/6) | Schildwall. Zu Beginn Eures Zuges: Euer Diener ganz links erhält +1 Leben. | Epaminondas gründete Messene neu, die Mauern stehen noch (Pausanias IV 27) |
+| **Schatten auf den Höhen** (Fabius, Zauber, 2) | Versetzt einen feindlichen Diener in Starre. Erhaltet 3 Rüstung. | Fabius folgte Hannibal stets auf den Hügeln und mied die Ebene (Polybios III 89–90) |
+| **Stolz im Triumphzug** (Thusnelda, Zauber, 2) | Gebt Euren Dienern +1 Leben. Zieht 1 Karte. | Sie ging schweigend und stolz im Triumph mit (Strabon VII 1,4) |
+| **Moschee des Baibars** (Baibars, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält Vorstoß. | Seine große Moschee in Kairo, 1266–1269 |
+| **Projet d’une dîme royale** (Vauban, Zauber, 3) | Zieht 2 Karten. Erhaltet 3 Rüstung. | Vaubans Plan einer gerechten Steuer für alle Stände wurde 1707 verboten |
+| **Krater von Vix** (Fürstin von Vix, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Euer Held erhält in diesem Zug +2 Angriff. | Das größte erhaltene Bronzegefäß der Antike, 1,64 m hoch, aus einer griechischen Werkstatt |
+| **Artemistempel von Ephesos** (neutral, Bauwerk, 2: 0/6) | Schildwall. Vermächtnis: Ergründet ein Bauwerk. | Ein Weltwunder, 356 v. Chr. von Herostratos angezündet und neu gebaut (Strabon XIV 1,22) |
+| **Mausoleum von Halikarnassos** (neutral, Bauwerk, 4: 0/6) | Vermächtnis: Holt die zwei zuletzt gestorbenen eigenen Diener zurück. | Ein Weltwunder, das Grab des Mausolos – daher das Wort „Mausoleum“ (Plinius XXXVI 30) |
+| **Ischtar-Tor** (neutral, Bauwerk, 3: 0/6) | Schildwall. Eure Diener haben +1 Angriff. | Babylons blaues Tor steht heute im Pergamonmuseum Berlin |
+| **Stele des Hammurapi** (neutral, Bauwerk, 3: 0/6) | Wann immer dieses Bauwerk Schaden erleidet, fügt es einem zufälligen Feind 2 Schaden zu. | „Auge um Auge“ – eine der ältesten Gesetzessammlungen (§ 196, Louvre) |
+| **Feuerpost** (neutral, Hinterhalt, 1) | Wenn der Gegner einen Diener ausspielt, zieht Ihr 1 Karte und erhaltet 2 Rüstung. | Feuerzeichen von Berg zu Berg meldeten den Fall Trojas (Aischylos, Agamemnon 281–316; Polybios X 43–47) |
 
 **AP 5.8 – KI erweitern (M)**
 - [x] **Persönlichkeit je Held (aggressiv, defensiv, kombinierend)** – *Teil 2 in 1.10.0*, siehe unten.
@@ -2298,7 +2374,7 @@ So, dass es im Spiel nicht kaputt aussieht:
 
 - [ ] **AP 6.1 Kolosseum als echter Draft:** Held aus 3, dann 30-mal 1 aus 3 Karten; Lauf endet bei 3 Niederlagen
   oder 12 Siegen; Belohnung nach Siegen. Nur App-Ebene.
-- [ ] **AP 6.2 Schlacht mit Offline-Rangliste:** Ränge aus Stein, Bronze, Silber, Gold und Lapis mit Sternen; Saisonbelohnungen.
+- ~~**AP 6.2 Schlacht mit Offline-Rangliste**~~ – *entfällt (Entscheidung 22): kein Ranglistenmodus, Aeterna ist offline zuerst.*
 - [ ] **AP 6.3 Aufgaben:** tägliche Aufgaben mit Rotation und einmal Neuwürfeln pro Tag, Login-Bonus, Heldenstufen
   mit Belohnungen (Gold, Skins, goldene Karten).
 - [ ] **AP 6.4 Kampagne 2.0:** Kapitel mit kurzen Story-Szenen und Sprechblasen, Bosse mit eigenen Fähigkeiten,
@@ -2327,7 +2403,8 @@ einen Browser-Ersatz). Eine itch.io-Fassung ist derselbe Code als ZIP – gepfle
   Regeln stehen (nach AP L.5 und dem Balance-Lauf), Engine deterministisch mit festem Startwert, Züge als
   kleine Befehle statt Zustandsabgleich. Danach Verbindung (WebRTC mit Einladungscode oder kleiner Relay-Server),
   Abbruch und Wiederverbinden, gleiche Version auf beiden Seiten. **Erst nach Phase 3/5**, weil jede Regeländerung
-  beide Seiten trifft.
+  beide Seiten trifft. *Entscheidung 22:* eine kleine Variante für wenige Spieler, zum Vorführen unter Freunden – keine Konten,
+  keine Rangliste, kein Matchmaking; das Spiel bleibt offline zuerst.
 
 ---
 
@@ -2348,6 +2425,8 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 8. **Komfort:** Hinweis beim Zug beenden, wenn noch Mana oder Angriffe übrig sind (abschaltbar); Rückgängig beim Sortieren der Hand.
 9. **Tagesduell mit festem Startwert:** Jeden Tag dieselbe Ausgangslage, Bestwert lokal speichern.
 10. **Handwerk inszenieren:** Herstellen und Entzaubern als Schmiede-Animation mit Funken statt Text-Bestätigung.
+11. **Legendäre mit eigener Regel aus AP 5.7** (mit Entscheidung 22 zurückgestellt): Kleopatra, Hannibal, Alexander, Archimedes,
+    Qin Shi Huang, Mansa Musa, Sun Tzu (Hinterhalte kosten 0), Leonardo, Hatschepsut, Saladin, Wu Zetian, Spartacus.
 
 ---
 
@@ -2357,7 +2436,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 |---|---|
 | Name „Aeterna“ | AP 0.3 |
 | Textfreies Hauptmenü-Bild mit interaktiven Knöpfen und Animationen | AP 1.3 (Bild liegt in `ungenutzte_assets/ui/`) |
-| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) – Welle 1 ✓ in 1.10.0 (56 Karten), mit Welle 2 der Helden ✓ in 1.11.0 350 Karten |
+| Mehr Karten | AP 5.7, AP 5.11 (Wellen bis ≈ 300 Karten) – Welle 1 ✓ in 1.10.0 (56 Karten), mit Welle 2 der Helden ✓ in 1.11.0 350 Karten; Erweiterung „Wunder der Welt“ klein (Entscheidung 22), Teil 1 ✓ in 1.27.0 (389 Karten) |
 | Legendäre aufwerten | AP 5.3 – ✓ in 1.7.0 |
 | Hintergründe der Helden ausarbeiten | AP 5.9 – ✓ in 1.8.0 |
 | Neue Helden (wichtig, echt, nicht weltbekannt; Zeitalter mit mehreren Helden) | AP 5.10 – Welle 1 ✓ in 1.9.0, Zeitalterkarten ✓ in 1.10.0, Welle 2 ✓ in 1.11.0 (22 Helden, sechs Zeitalter mit Zeitalterkarten) |
@@ -2384,7 +2463,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Äther-Runen unten rechts, versiegelte KI-Befehle, Chronik-Leiste, Pergament-Deck, Stundenglas | AP 1.8, AP 3.4 – ✓ in 1.17.0 (Mana nach Deiner Rückmeldung als Äther-Uhr links); Stundenglas, das Leben entzieht, ✓ in 1.18.0 |
 | Schlachtfelder außer Standard entfernen, Platzhalter bauen (Rückmeldung zu 1.15.0) | ✓ in 1.16.0 – 100 Gold zurück, vier Platzhalter-Tische (Athen, Kapitol, Skriptorium, Porzellan) |
 | Münzwurf, Startkarten-Tausch, „Gunst der Stunde“, Mana bis 10, Handlimit, gleichzeitiger Schaden, Aufmarsch-Verzögerung, freie Zielwahl, KI-Zug ohne Unterbrechung | vorhanden; Inszenierung in AP 3.4, AP 3.8; Umbenennung ✓ (1.7.0) |
-| Taktische Hinterhalte | AP 5.6 ✓ in 1.25.0, AP 1.8 |
+| Taktische Hinterhalte | AP 5.6 ✓ in 1.25.0, AP 1.8; Rückmeldung zu 1.25.0 (verwirrend, selten) ✓ in 1.27.0: Erklärung beim ersten Hinterhalt, drei weitere in der Erweiterung |
 | Kartenwerte-Symbole, Lorbeerkranz, Archiv-Siegel der Seltenheit | AP 1.5 – ✓ in 1.18.0 (Platzhalter), dazu Goldene Karten |
 | Historische Schlüsselwörter (Schildwall bis Bannung) | AP 5.4 (Teil 1 ✓ in 1.7.0, Teil 2 ✓ in 1.8.0), AP 3.6 |
 | Bauwerke und Denkmäler mit Haltbarkeit | AP 5.5 – ✓ in 1.10.0 (Weltwunder, KI belagert oder ignoriert, Turm-Abzeichen) |
@@ -2453,11 +2532,16 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     Karten-Vorschläge der Prüftabelle (Namen nach den vorhandenen Bildern, Platzhalter für Ordensritter und Grabwächter, zwei alte
     Bilder wiederverwendet), Göttliche Gunst → **Segen**, Arkaner Fokus → **Weisheit**, **„Zauber“ bleibt** und wird als Glaube der
     Zeit erklärt; 39 alte Bilder bleiben und fallen aus dem Astra-Auftrag (205 → 165).
-22. **Was gehört zum fertigen Spiel?** (Dein Hinweis vom 13. 10.: erst fertig bauen, dann Assets): Welche offenen Inhalts-Pakete
-    kommen noch vor der großen Astra-Bestellung? Kandidaten mit neuen Bildern: AP 5.6 Hinterhalte (Mechanik und Karten), AP 5.7
-    Erweiterung „Wunder der Welt“ (rund 90 Karten), AP 6.1–6.4 Modi (Draft, Rangliste, Aufgaben, Kampagne 2.0 mit Belagerung und
-    Lunte), AP 3.9 Eck-Dioramen; ohne neue Bilder: AP L.6 Teil 2 (Chronikzeilen), Phase 4 (Klang). Vorschlag unten.
-    *Stand 1.25.0:* Die Hinterhalte sind gebaut (Sitzung 21, wie vorgeschlagen) – offen ist der Rest: Erweiterung, Modi, Dioramen.
+22. ~~**Was gehört zum fertigen Spiel?**~~ – *entschieden (20. 10. 2026: „erstmal nicht mehr als du auflistest geplant, zusätzlich
+    soll es keinen Ranglistenmodus geben, ist ein Offline-First-Game mit Multiplayer-Variante für wenige Spieler, mehr zu Demo-Zwecken
+    unter Freunden“):* Vor der großen Astra-Bestellung kommen nur noch
+    - **AP 5.7 Erweiterung klein:** je Held zwei Karten und zehn neutrale (54 statt rund 90 Karten), Teil 1 ✓ in 1.27.0;
+    - **AP 6.1 Draft** und **AP 6.3 Aufgaben** (kaum neue Bilder);
+    - **AP 6.4 Kampagne 2.0** und **AP 3.9 Eck-Dioramen** bleiben im Plan wie aufgelistet – schlank, ohne neue Ideen obendrauf;
+    - **kein Ranglistenmodus:** AP 6.2 entfällt. Aeterna bleibt offline zuerst; Crossplay (AP 8.2) ist eine kleine Variante für
+      ein paar Freunde (Einladungscode, keine Konten, keine Wertung).
+    Nach dem letzten dieser Pakete bestellst Du den dann vollständigen Astra-Auftrag (AP A.3). Wenn Du Kampagne 2.0 oder die
+    Dioramen doch streichen willst, genügt ein Satz.
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
@@ -2488,9 +2572,10 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 20 ✓ | Rückmeldung 1.23.0, AP L.6 Teil 1, Teil 2 begonnen | erledigt in 1.24.0 – elf Karten nach ihren vorhandenen Bildern umbenannt, Segen und Weisheit, „Zauber“ als Glaube erklärt, 16 Chronikzeilen mit Quelle, Astra-Auftrag 205 → 165 ohne ein neues Bild |
 | 21 ✓ | Rückmeldung 1.24.0, AP 5.6 Hinterhalte | erledigt in 1.25.0 – zwölf Hinterhalte aus der Geschichte als versiegelte Wachsrollen, Auslöser im Zug des Gegners, ehrliche KI, die sie legt und fürchtet; Entscheidung 22 noch offen |
 | Bonus ✓ | Entwickler-Splash und Intro | erledigt in 1.26.0 – PY'TALES vor dem Spiel, Intro mit sechs Epochen, Kartenring, Einschlag und Match-Cut ins Hauptmenü, eigene Musik, abschaltbar |
-| 22 | Entscheidung 22, AP 5.7 Erweiterung „Wunder der Welt“ Teil 1 (falls gewählt) | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
-| 23 | Phase 6 Modi mit AP 3.7 (Lunte in Belagerungsmissionen) | Draft, Rangliste, Aufgaben, Kampagne 2.0 – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
-| 24+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
+| 22 ✓ | Rückmeldung 1.25.0, Entscheidung 22, AP 5.7 Teil 1 | erledigt in 1.27.0 – Erweiterung klein, kein Ranglistenmodus; 27 Karten aus der Geschichte mit Quelle, drei neue Hinterhalte, Hinterhalt-Erklärung beim ersten Kontakt |
+| 23 | AP 5.7 Teil 2 | die übrigen 27 Karten der Prüftabelle – danach stehen alle Kartenmotive für Astra fest |
+| 24–25 | Phase 6 Modi mit AP 3.7 (Lunte in Belagerungsmissionen) | Draft, Aufgaben, Kampagne 2.0 (ohne Rangliste, Entscheidung 22) – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
+| 26+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
 | nach dem letzten Inhalts-Paket | AP A.3 (Du), dann ein Einbau-Lauf | den dann vollständigen `ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md` bei Astra bestellen, 10–12 je ZIP; jede Lieferung baut eine Sitzung mit dem Werkzeug ein |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
@@ -2500,55 +2585,50 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 21 (Version 1.25.0):** Rückmeldung zu 1.24.0 („alles läuft gut“) – nichts nachzuarbeiten. **AP 5.6 Taktische
-Hinterhalte**, die letzte große Mechanik: Zauber, die verdeckt als versiegelte Wachsrolle neben dem Helden liegen (höchstens drei)
-und **nur im Zug des Gegners** zuschnappen – bei einem Angriff, einem ausgespielten Diener, einem Zauber oder dem Tod eines eigenen
-Dieners. **Zwölf Karten aus der Geschichte** mit Quelle (Prüftabelle in [AP 5.6](#phase-5--regeln-karten-und-balance-l)): je eine
-Zeitalterkarte, zwei neutrale, dazu Widukinds Hinterhalt am Süntel, Fabius’ Rettung bei Gerunium, Annas Täuschung bei Larissa und
-Leonidas’ Kampf um den Leichnam. Die **KI** legt eigene Hinterhalte, kennt die fremden aber nicht (ihre Vorausschau sieht sie nicht
-auslösen) und greift, solange Rollen liegen, zuerst mit billigen Dienern an. Rollen, verdeckter Flug und Enthüllung „Hinterhalt!“
-sind gekennzeichnete Platzhalter; der Astra-Auftrag wächst um 13 Motive (165 → 178) und 2 Oberflächenteile (48 → 50).
-**Voller Balance-Lauf** (101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0 (dort liegen keine Hinterhalte – die Regeln
-ohne Hinterhalt sind unverändert); Zufallsdecks **21 von 22 Helden im Ziel** (vorher 19), 223 von 231 Paarungen innerhalb 40/60
-(vorher 220), Beginner 51,2 %. Offen: **Nezahualcóyotl** fällt in Zufallsdecks auf 45,6 % (vorher 48,5 %); die meisten Hinterhalte
-sind in der Hand der KI eher schwach (−1 bis −5 Punkte „gewinnt, wenn gezogen“, die KI legt sie nur in 29–54 % der Fälle), die
-Täuschung bei Larissa eher stark (+6,5) – Feinschliff nach Deinem Test. Weil ich ohne Deine Rückmeldung weitergemacht habe, sind die zwölf Karten **mein Vorschlag** – Namen, Wirkungen
-und Kosten lassen sich jederzeit ändern, die IDs bleiben. **Entscheidung 22 ist weiter offen.** Davor: Sitzung 20 (1.24.0) AP L.6
-Teil 1; Sitzungen 1–19 (1.4.0–1.23.0).
+**Erledigt in Sitzung 22 (Version 1.27.0):** Deine Rückmeldung zu 1.25.0 – die Hinterhalte sind bislang etwas verwirrend und
+begegnen einem selten (in sechs Partien einmal, bei Hypatia): Beim **ersten Hinterhalt**, der gelegt wird oder zuschnappt, erklärt
+jetzt ein Fenster einmal je Spielstand, was die Wachsrolle ist und wann sie zuschnappt (fremde Karten bleiben verdeckt); drei neue
+Hinterhalte in der Erweiterung machen sie häufiger. **Entscheidung 22:** Erweiterung klein (je Held zwei Karten, zehn neutrale – 54
+statt rund 90), Draft und Aufgaben ja, Kampagne 2.0 und Dioramen bleiben schlank im Plan, **kein Ranglistenmodus** (AP 6.2 gestrichen;
+Crossplay nur als kleine Variante unter Freunden). **AP 5.7 Teil 1:** Prüftabelle mit allen 54 Karten aus der Geschichte, davon
+**27 gebaut** (je Held eine, dazu Koloss von Rhodos, Zeus des Phidias, Himmelsscheibe von Nebra, Gänse des Kapitols, Skytale) – nur
+vorhandene Regeln, jede mit Chronikzeile und Quelle, alle als gekennzeichnete Platzhalter; der Astra-Auftrag wächst um 27 Motive
+(178 → 205). Neuer Code **`WUNDER`** für die neuen Karten (`CHRONIK` hast Du schon eingelöst). **Voller Balance-Lauf** (101 200 Partien):
+Startdecks Zahl für Zahl wie vorher; in Zufallsdecks liegen **18 von 22 Helden im Ziel** (vorher 21) – Imhotep und Agrippa 54,2 %,
+Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %, nach einem zweiten Lauf mit stärkerer Manufaktur); Nezahualcóyotl steigt von 45,6 auf
+49,9 %, 218 von 231 Paarungen innerhalb 40/60, keine neue Karte über 60 %. Wie in Sitzung 21 sind die Karten **mein Vorschlag**, weil ich ohne Deine Auswahl weitergemacht habe – Namen,
+Wirkungen und Kosten lassen sich jederzeit ändern, die IDs bleiben. Davor: Sitzung 21 (1.25.0) AP 5.6 Hinterhalte, Bonus 1.26.0
+Splash und Intro; Sitzungen 1–20 (1.4.0–1.24.0).
 
 **Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.25.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. Hinterhalte ausprobieren: In der **Sammlung** stehen sie unter „Zauber · Hinterhalt“ (mit dem Code `CHRONIK` hast Du alle). Ein
-   Deck mit zwei, drei Hinterhalten bauen (z. B. Widukind: Hinterhalt am Süntel, Fallgatter, Krähenfüße) und eine Schlacht spielen:
-   Sind die Wachsrollen links neben Deiner Münze gut zu sehen und anzutippen? Bleibt die Enthüllung lange genug lesbar? Fühlen sich
-   die Hinterhalte der KI fair an?
-3. Die **Prüftabelle in AP 5.6** ansehen: Passen Namen, Wirkungen und Quellen – oder soll eine Karte anders heißen oder wirken?
-4. **Entscheidung 22** (siehe [Offene Entscheidungen](#offene-entscheidungen)): Was gehört noch zum fertigen Spiel? *Mein Vorschlag:*
-   **Erweiterung klein** – je Held zwei Karten und zehn neutrale (≈ 54 statt 90 neue Bilder); **Draft und Aufgaben ja** (kaum neue
-   Bilder); **Rangliste und Kampagne 2.0 mit Belagerung und Lunte** nach Deinem Geschmack.
+1. `Aeterna-1.27.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. *Einstellungen → Code einlösen:* `WUNDER` – dann stehen die 27 neuen Karten in der Sammlung (Filter Seltenheit oder Suche, z. B.
+   „Koloss“). Ein, zwei Partien mit einem Deck, das zwei, drei davon enthält: Lesen sich Name, Wirkung und „Aus der Chronik“ gut?
+3. **Hinterhalte:** Erscheint die Erklärung beim ersten Hinterhalt, und ist danach klar, was die Wachsrolle tut? (Die Erklärung kommt
+   nur einmal je Spielstand – Du siehst sie also genau einmal.)
+4. Die **Prüftabelle Teil 2** in [AP 5.7](#phase-5--regeln-karten-und-balance-l) ansehen: Passen die 27 Karten – oder soll eine
+   anders heißen, wirken oder durch eine andere Geschichte ersetzt werden?
 
-**Sitzung 22 – Entscheidung 22 und Erweiterung „Wunder der Welt“ Teil 1 (AP 5.7)**
+**Sitzung 23 – Erweiterung „Wunder der Welt“ Teil 2 (AP 5.7)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.25.0 und Feinschliff | Hinterhalte nach Deinem Test: Namen, Werte, Rollen, Enthüllung; Balance: Nezahualcóyotl (45,6 % in Zufallsdecks) und die eher schwachen Hinterhalte (Varianten erst mit `AETERNA_MODELL` vergleichen) | kleine Nacharbeit, bevor neue Karten die Zufallsdecks wieder verschieben |
-| Entscheidung 22 | Umfang des fertigen Spiels festhalten (README, Reihenfolge, Astra-Auftrag) | danach steht fest, welche Bilder Astra am Ende liefern muss |
-| AP 5.7 Teil 1 | Prüftabelle für die Erweiterung (je Held Karten aus seiner Lebenswelt mit Quelle, neutrale Weltwunder und Bauwerke, ein paar Hinterhalte), dann nach Deiner Entscheidung die erste Hälfte umsetzen – mit den vorhandenen Regeln, Platzhaltern, Chronikzeilen und Bildideen für Astra | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
+| Rückmeldung 1.27.0 und Feinschliff | neue Karten und Hinterhalt-Erklärung nach Deinem Test; Balance: Imhotep und Agrippa (je 54,2 %) etwas bremsen, Böttger (45,8 %) und Vauban (46,8 %) stärken (Varianten erst mit `AETERNA_MODELL` vergleichen) | kleine Nacharbeit, bevor Teil 2 die Zufallsdecks wieder verschiebt |
+| AP 5.7 Teil 2 | die übrigen 27 Karten der Prüftabelle (je Held die zweite, dazu Artemistempel, Mausoleum, Ischtar-Tor, Stele des Hammurapi, Feuerpost) mit Chronikzeilen, Platzhaltern und Bildideen; danach voller Balance-Lauf | danach stehen alle Kartenmotive für die große Astra-Bestellung fest |
+| Ausblick | Reihenfolge nach Entscheidung 22: Draft und Aufgaben (Phase 6), Kampagne 2.0 mit Lunte, Dioramen; dann AP A.3 | – |
 
-Risiko: mittel – viele neue Karten verschieben die Zufallsdecks; voller Balance-Lauf (≈ 30 min), Spielstände bleiben (neue Karten-IDs
-nur hinten anhängen).
+Risiko: mittel – 27 weitere Karten verschieben die Zufallsdecks; zwei volle Balance-Läufe einplanen (≈ 50 min je Lauf), Spielstände
+bleiben (neue Karten-IDs nur hinten anhängen).
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.25.0:
-> *(hier Feedback zu den Hinterhalten einfügen)* und meine **Entscheidung 22** *(was zum fertigen Spiel gehört)*.
-> Arbeite dann **AP 5.7 (Erweiterung „Wunder der Welt“) Teil 1** ab: erst eine Prüftabelle mit Kartenvorschlägen aus der Geschichte,
-> dann nach meiner Entscheidung umsetzen. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die
-> MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass
-> die Tests, den Klickpfad und den vollen Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab.
-> Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
-> Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.27.0:
+> *(hier Feedback zu den neuen Karten und zur Hinterhalt-Erklärung einfügen)* und meine Anmerkungen zur **Prüftabelle Teil 2**
+> *(oder „wie vorgeschlagen“)*. Arbeite dann **AP 5.7 (Erweiterung „Wunder der Welt“) Teil 2** ab. Halte dich an die „Regeln für
+> jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter,
+> prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den Klickpfad und den vollen Balance-Lauf laufen und
+> sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main` und schreibe unten
+> in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Keine neue Mechanik, aber viele Karten mit Quellen und ein voller Balance-Lauf.
-*xhigh* lohnt, wenn die Erweiterung neue Legendäre mit eigenen Regeln bekommen soll (etwa Hannibals Elefanten, die einmal Schildwall
-ignorieren, oder Sun Tzu, bei dem Hinterhalte nichts kosten).
+**Empfohlener Effort für den nächsten Prompt: high.** Keine neue Mechanik, aber 27 Karten mit Quellen, Werte-Feinschliff über
+mehrere Balance-Läufe. *medium* genügt, wenn Du die Tabelle unverändert übernimmst und nur kleine Rückmeldungen hast.

@@ -249,6 +249,38 @@ const ambushCards=[
  ['anna_12','rare',H('Täuschung bei Larissa',1,'hero','Wenn ein feindlicher Diener Euren Helden angreift, ruft Ihr einen Träger der Kaiserstandarte (2/2), der den Angriff abfängt.',E('decoy',1,{token:'standard'}))],
  ['leonidas_12','rare',H('Kampf um den Leichnam',2,'death','Wenn einer Eurer Diener stirbt, erhalten Eure übrigen Diener +1/+1.',E('buffAll',1,{health:1}))]];
 for(const [id,rarity,c] of ambushCards){const owner=id.slice(0,id.lastIndexOf('_')),age=ages.some(a=>a.id===owner)?owner:null;cards.push({...c,id,hero:owner,...(age?{age}:{}),rarity,art:null,cell:0});}
+// Erweiterung „Wunder der Welt“ Teil 1 (AP 5.7, 1.27.0, Entscheidung 22): je Held eine Karte aus seiner Lebenswelt und fünf
+// neutrale – Weltwunder, ein Fund und zwei Hinterhalte. Nur vorhandene Regeln; jede Karte mit Quelle (AELORE.cards), noch
+// ohne Motiv (Platzhalter, AP 5.12). Feld set:'wunder' kennzeichnet die Erweiterung. IDs nur hinten anhängen.
+const wonders=[
+ ['leonidas_13','common',M('Eiren der Agoge',2,2,2,'Einmarsch: Gebt einem befreundeten Diener +1 Leben und Schildwall.',{target:'friendlyMinion',battle:[E('buff',0,{health:1}),E('grant',1,{key:'taunt'})]})],
+ ['hypatia_12','common',S('Astrolab für Synesios',1,'Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand. Sie kostet 1 weniger.',E('discover',1,{pool:'deck',mod:-1}))],
+ ['imhotep_13','common',M('Pilger im Asklepieion von Saqqara',3,2,4,'Einmarsch: Stellt bei allen eigenen Charakteren 2 Leben wieder her.',{battle:[E('healAll',2)]})],
+ ['dandolo_13','rare',S('Eroberung von Zara',3,'Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu. Zieht 1 Karte.',[E('randomDamage',3,{board:true}),E('draw',1)])],
+ ['khan_14','rare',M('Irminsul',3,0,5,'Bauwerk. Eure Diener haben +1 Angriff. Vermächtnis: Gebt Euren Dienern +2 Angriff.',{building:true,buffAura:{attack:1},death:[E('buffAll',2)]})],
+ ['boudicca_13','common',S('Stater des Vercingetorix',1,'Gebt einem befreundeten Diener +1/+1. Zieht 1 Karte.',[E('buff',1,{health:1}),E('draw',1)],'friendlyMinion')],
+ ['nostradamus_13','rare',M('Manufaktur auf der Albrechtsburg',3,0,5,'Bauwerk. Am Ende Eures Zuges: Zieht 1 Karte. Sie kostet 1 weniger.',{building:true,end:[E('draw',1,{mod:-1})]})],
+ ['jeanne_12','rare',M('Volmar, Schreiber Hildegards',3,2,3,'Einmarsch: Gebt einem befreundeten Diener Segen. Zieht 1 Karte.',{target:'friendlyMinion',battle:[E('shield',1),E('draw',1)]})],
+ ['ragnar_14','epic',M('Kloster Pegau',4,0,5,'Bauwerk. Zu Beginn Eures Zuges: Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt.',{building:true,start:[E('summonNew',1,{tokens:RUNES})]})],
+ ['musashi_13','rare',M('Gefährte der Artusfahrt',4,3,4,'Segen. Einmarsch: Eure anderen Diener mit Segen erhalten +1/+1.',{shield:true,battle:[E('buffAll',1,{health:1,excludeSelf:true,only:'shield'})]})],
+ ['perikles_12','rare',M('Aspasia von Milet',3,2,4,'Einmarsch: Ergründet einen Zauber.',{battle:[E('discover',1,{pool:'spell'})]})],
+ ['agrippa_12','common',M('Aqua Virgo',2,0,5,'Bauwerk. Am Ende Eures Zuges: Stellt bei allen eigenen Charakteren 1 Leben wieder her.',{building:true,end:[E('healAll',1)]})],
+ ['amanirenas_12','rare',S('Stele von Karnak',3,'Gebt Euren Dienern +1/+1. Stellt bei Eurem Helden 3 Leben wieder her.',[E('buffAll',1,{health:1}),E('healHero',3)])],
+ ['anna_13','epic',M('Kloster Kecharitomene',3,0,5,'Bauwerk. Zu Beginn Eures Zuges: Ergründet eine Karte, die in dieser Partie schon gespielt wurde.',{building:true,start:[E('discover',1,{pool:'played'})]})],
+ ['nezahualcoyotl_12','common',S('Gesänge des Dichterkönigs',2,'Stellt bei allen eigenen Charakteren 2 Leben wieder her. Zieht 1 Karte.',[E('healAll',2),E('draw',1)])],
+ ['masako_12','common',S('Heiratsurkunde der Theophanu',2,'Gebt einem befreundeten Diener +1/+3 und Schildwall.',[E('buff',1,{health:3}),E('grant',1,{key:'taunt'})],'friendlyMinion')],
+ ['epaminondas_10','rare',H('Scheinlager bei Mantineia',2,'attack','Wenn ein feindlicher Diener angreift, erhält Euer Diener ganz links +2/+2.',E('buffLeft',2,{health:2}))],
+ ['fabius_11','common',M('Quintus Fabius, der Sohn',4,3,5,'Einmarsch: Versetzt einen feindlichen Diener in Starre. Erhaltet 2 Rüstung.',{target:'enemyMinion',battle:[E('freeze',1),E('armor',2)]})],
+ ['mandukhai_10','common',M('Thumelicus',3,3,2,'Vorstoß. Vermächtnis: Ruft einen Stammeskrieger (1/2).',{rush:true,death:[E('summon',1,{token:'tribesman'})]})],
+ ['baibars_10','rare',S('Brief an die Besatzung von Krak',4,'Schickt einen feindlichen Diener auf die Hand seines Besitzers zurück. Zieht 1 Karte.',[E('bounce',1),E('draw',1)],'enemyMinion')],
+ ['zizka_10','epic',M('Neuf-Brisach',3,0,6,'Bauwerk. Schildwall. Zu Beginn Eures Zuges: Ruft einen Schanzkorb (1/2, Schildwall).',{building:true,taunt:true,start:[E('summon',1,{token:'wagon'})]})],
+ ['fuhao_10','rare',S('Goldener Halsring von Vix',2,'Euer Held erhält in diesem Zug +2 Angriff. Erhaltet 2 Rüstung. Zieht 1 Karte.',[E('heroAttack',2),E('armor',2),E('draw',1)])],
+ ['neutral_52','epic',M('Koloss von Rhodos',6,0,8,'Bauwerk. Schildwall. Vermächtnis: Fügt allen feindlichen Dienern 2 Schaden zu.',{building:true,taunt:true,death:[E('aoe',2)]})],
+ ['neutral_53','epic',M('Zeus des Phidias',4,0,7,'Bauwerk. Eure Diener haben +1 Angriff. Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her.',{building:true,buffAura:{attack:1},end:[E('healHero',2)]})],
+ ['neutral_54','rare',S('Himmelsscheibe von Nebra',2,'Ergründet eine Karte. Sie kostet 1 weniger.',E('discover',1,{pool:'any',mod:-1}))],
+ ['neutral_55','common',H('Gänse des Kapitols',1,'hero','Wenn ein feindlicher Diener Euren Helden angreift, erhaltet Ihr 4 Rüstung.',E('armor',4))],
+ ['neutral_56','rare',H('Skytale',2,'spell','Wenn der Gegner einen Zauber wirkt, zieht Ihr 2 Karten.',E('draw',2))]];
+for(const [id,rarity,c] of wonders)cards.push({...c,id,hero:id.slice(0,id.lastIndexOf('_')),set:'wunder',rarity,art:null,cell:0});
 const tokens={recruit:M('Rekrut',1,1,1),novice:M('Novizin',1,1,1),warrior:M('Krieger',2,2,2),eagle:M('Habicht',1,2,1),stoneguard:M('Pyramidenwächter',3,2,5,'Schildwall.',{taunt:true}),totem_heal:M('Grenzstein des Klosters',1,0,2,'Am Ende Eures Zuges: Heilt Eure Diener um 1.',{passive:'heal'}),totem_fire:M('Grenzstein der Mark',1,0,2,'Am Ende Eures Zuges: Fügt dem feindlichen Helden 1 Schaden zu.',{passive:'fire'}),totem_guard:M('Grenzstein der Burg',1,0,2,'Schildwall.',{taunt:true}),totem_strength:M('Grenzstein des Dorfes',1,0,2,'Am Ende Eures Zuges: Ein anderer zufälliger Diener erhält +1 Angriff.',{passive:'strength'}),coin:S('Gunst der Stunde',0,'Erhaltet nur in diesem Zug 2 Mana.',E('mana',2)),
  hoplite:M('Hoplit',1,1,2,'Schildwall.',{taunt:true}),citizen:M('Bürger',1,1,2),pioneer:M('Pionier',1,1,3,'Eure Bauwerke kosten 1 weniger.',{buildingDiscount:1}),
  rider:M('Reiter',1,1,1,'Sturmangriff.',{charge:true}),chariot:M('Streitwagen',1,1,1,'Sturmangriff.',{charge:true}),terracotta:M('Musketier',2,2,2,'Schildwall.',{taunt:true}),

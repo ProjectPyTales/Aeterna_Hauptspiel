@@ -6,7 +6,7 @@ const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
 const D=need('model/data.js'),E=need('model/engine.js'),L=need('model/lore.js');
 const TRIGGERS=['attack','hero','defend','minion','spell','death'];
-const AMBUSH=D.cards.filter(c=>c.ambush);
+const AMBUSH=D.cards.filter(c=>c.ambush&&!c.set);
 
 function ready(hero='leonidas',foe='khan'){const s=E.create({hero,foe,seed:4242,first:0});E.mulligan(s,[]);for(const a of s.players){a.hand=[];a.mana=a.maxMana=10;}return s;}
 const give=(s,p,id)=>{const h={id,uid:'t'+s.nextId++};s.players[p].hand.push(h);return h;};
@@ -18,8 +18,8 @@ const minion=(s,p,id='attrappe_23')=>{const u=E.summon(s,p,id);u.ready=true;dele
 const sprung=s=>s.events.filter(e=>e.type==='ambush').map(e=>e.id);
 
 test('Zwölf Hinterhalte: Zauber mit Auslöser, „Hinterhalt:“ im Text, Glossar, Chronikzeile mit Quelle, IDs hinten angehängt',()=>{
- assert.equal(AMBUSH.length,12);assert.equal(D.cards.length,362);
- assert.deepEqual(D.cards.slice(350).map(c=>c.id),['neutral_50','neutral_51','steppe_7','griechen_7','rom_7','mittelalter_7','byzanz_7','ostasien_7','khan_13','fabius_10','anna_12','leonidas_12']);
+ assert.equal(AMBUSH.length,12);assert.equal(D.cards.filter(c=>!c.set).length,362,'ohne die Erweiterung (AP 5.7)');
+ assert.deepEqual(D.cards.slice(350,362).map(c=>c.id),['neutral_50','neutral_51','steppe_7','griechen_7','rom_7','mittelalter_7','byzanz_7','ostasien_7','khan_13','fabius_10','anna_12','leonidas_12']);
  for(const c of AMBUSH){assert.equal(c.type,'spell',c.id);assert.ok(TRIGGERS.includes(c.ambush),c.id);assert.ok(c.text.startsWith('Hinterhalt: Wenn '),c.id);
   assert.equal(c.target,null,c.id+': kein Ziel beim Ausspielen');assert.ok(D.missingArt(c),c.id+': Platzhalter bis Astra');
   assert.ok(D.keywordsOf(c.text).some(k=>k.name==='Hinterhalt'),c.id);
