@@ -1981,16 +1981,82 @@ Du jederzeit ändern lassen, die IDs bleiben)*
   | **Täuschung bei Larissa** (1, Anna Komnene) | ein feindlicher Diener greift Euren Helden an → ein Träger der Kaiserstandarte (2/2) fängt ihn ab | Alexios lässt sein Heer mit den Feldzeichen aufziehen und fällt über Bohemunds Lager her, 1083 (Alexiade V 5–6) |
   | **Kampf um den Leichnam** (2, Leonidas) | einer Eurer Diener stirbt → Eure übrigen Diener erhalten +1/+1 | Viermal schlagen die Griechen die Perser um Leonidas’ Leichnam zurück (Herodot VII 225) |
 
-**AP 5.7 – Erweiterung „Wunder der Welt“ (L)**
-- [ ] Rund 90 neue Karten: je Held 6 (davon 1 Legendäre), 20 neutrale, 10 Bauwerke, dazu Hinterhalte; nutzt die neuen
-  Schlüsselwörter. Kostenkurve und Werte-Budget nach einer festen Formel (z. B. Grundwerte = 2 × Kosten + 1,
-  Schlüsselwörter kosten Werte), Feinschliff per Simulation.
-- [ ] Ideen für neue Legendäre: Kleopatra (verführt feindliche Diener), Hannibal (Elefanten ignorieren einmal
-  Schildwall), Alexander der Große (wächst mit jedem eroberten Diener), Archimedes (Erfindungen, stärkt Bauwerke),
-  Qin Shi Huang (Terrakotta-Armee kehrt zurück), Mansa Musa (Reichtum: Karten kosten weniger), Sun Tzu
-  (Hinterhalte kosten 0), Hammurabi (Gesetz: alle Karten kosten 3), Leonardo da Vinci (verwandelt Zauber in
-  Erfindungen), Hatschepsut, Saladin, Wu Zetian, Spartacus (Aufstand: Angriff und Leben aller Diener tauschen).
-- [ ] Jede neue Karte mit Motiv aus dem Bild-Atlas (Grafiken über AP 1.2).
+**AP 5.7 – Erweiterung „Wunder der Welt“ (L)** – *Umfang nach Entscheidung 22 (20. 10. 2026): klein – je Held zwei Karten und
+zehn neutrale, zusammen 54 statt rund 90; Teil 1 (27 Karten) in Sitzung 22*
+- [ ] **54 neue Karten aus der Geschichte** statt rund 90: je Held zwei Karten aus seiner Lebenswelt, zehn neutrale (Weltwunder,
+  Funde und Hinterhalte). Nur vorhandene Regeln und Schlüsselwörter, keine neue Legendäre. Werte-Budget wie bisher: Grundwerte
+  ≈ 2 × Kosten + 1, jedes Schlüsselwort und jede Wirkung kostet Werte; Feinschliff per Simulation. Jede Karte mit Chronikzeile
+  und Quelle („Aus der Chronik“), alle zuerst als gekennzeichnete Platzhalter mit Bildidee für Astra (AP 5.12, AP L.4).
+- [ ] **Teil 1:** je Held die erste Karte der Tabelle und fünf neutrale (27 Karten, darunter drei neue Hinterhalte – auch als
+  Antwort auf Deine Rückmeldung zu 1.25.0, dass man ihnen bislang kaum begegnet).
+- [ ] **Teil 2:** die übrigen 27 Karten (je Held die zweite, fünf neutrale).
+- *Gestrichen mit Entscheidung 22:* die Ideen für neue Legendäre (Kleopatra, Hannibal, Alexander, Archimedes, Qin Shi Huang,
+  Mansa Musa, Sun Tzu, Hammurabi, Leonardo, Hatschepsut, Saladin, Wu Zetian, Spartacus) – Hammurabi kommt als Gesetzesstele
+  ohne eigene Regel, die anderen bleiben in den [Weiteren Ideen](#weitere-ideen), falls das Spiel später wächst.
+
+**Prüftabelle Teil 1** (Vorschlag – Namen, Werte und Auswahl lassen sich jederzeit ändern, die IDs bleiben):
+
+| Karte (Held, Art, Kosten, Werte) | Wirkung | Bezug und Quelle |
+|---|---|---|
+| **Eiren der Agoge** (Leonidas, Diener, 2: 2/2) | Einmarsch: Gebt einem befreundeten Diener +1/+1 und Schildwall. | In Sparta lebten die Jungen ab sieben in Gruppen; ein Zwanzigjähriger, der Eiren, führte sie (Plutarch, Lykurgos 16–17; Xenophon, Staat der Lakedaimonier 2) |
+| **Astrolab für Synesios** (Hypatia, Zauber, 1) | Seht die obersten drei Karten Eures Decks an und nehmt eine davon auf die Hand. | Synesios baute nach Hypatias Unterricht ein Astrolab und verschenkte es (Synesios, Über das Geschenk des Astrolabs) |
+| **Pilger im Asklepieion von Saqqara** (Imhotep, Diener, 3: 2/4) | Einmarsch: Stellt bei allen eigenen Charakteren 2 Leben wieder her. | Zwei Jahrtausende nach seinem Tod verehrte man Imhotep als Gott der Heilkunst, die Griechen setzten ihn Asklepios gleich (Papyrus Oxyrhynchos 1381) |
+| **Eroberung von Zara** (Dandolo, Zauber, 3) | Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu. Zieht 1 Karte. | 1202 zahlten die Kreuzfahrer ihre Schuld bei Venedig mit der Eroberung der christlichen Stadt Zara – der Papst bannte sie dafür (Villehardouin, Eroberung von Konstantinopel) |
+| **Irminsul** (Widukind, Bauwerk, 2: 0/4) | Vermächtnis: Gebt Euren Dienern +2 Angriff. | 772 zerstörte Karl der Große das Heiligtum der Sachsen bei der Eresburg – wie es aussah (Baumstamm oder Säule), ist unsicher (Reichsannalen zu 772) |
+| **Stater des Vercingetorix** (Vercingetorix, Zauber, 1) | Gebt einem befreundeten Diener +1/+1. Zieht 1 Karte. | Goldmünzen mit der Aufschrift VERCINGETORIXS – neben Caesars Bericht das einzige Zeugnis von ihm (Münzfunde, Cabinet des Médailles Paris) |
+| **Manufaktur auf der Albrechtsburg** (Böttger, Bauwerk, 4: 0/6) | Am Ende Eures Zuges: Zieht 1 Karte. Euer Held erleidet 1 Schaden. | 1710 gründete August der Starke in der Albrechtsburg Meißen die erste Porzellanmanufaktur Europas, Böttger leitete sie (Gründungsdekret vom 23. 1. 1710) |
+| **Volmar, Schreiber Hildegards** (Hildegard, Diener, 3: 2/4) | Einmarsch: Gebt einem befreundeten Diener Segen. Zieht 1 Karte. | Der Mönch Volmar schrieb ins Reine, was Hildegard auf Wachstafeln festhielt – das Bild im Rupertsberger Scivias zeigt beide (Scivias, Vorrede) |
+| **Kloster Pegau** (Wiprecht, Bauwerk, 4: 0/5) | Zu Beginn Eures Zuges: Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. | Wiprecht stiftete 1091 zur Buße das Kloster Pegau; dessen Annalen erzählen sein Leben (Pegauer Annalen) |
+| **Gefährte der Artusfahrt** (Ulrich, Diener, 4: 3/4) | Segen. Einmarsch: Eure anderen Diener mit Segen erhalten +1/+1. | 1240 zog Ulrich als König Artus durchs Land; wer mit ihm drei Speere brach, kam in seine Tafelrunde (Ulrich von Liechtenstein, Frauendienst) |
+| **Aspasia von Milet** (Perikles, Diener, 3: 2/4) | Einmarsch: Ergründet einen Zauber. | Perikles’ Lebensgefährtin galt als klug und redegewandt; dass sie Reden schrieb, behaupten nur spätere, teils spöttische Quellen (Plutarch, Perikles 24; Platon, Menexenos) |
+| **Aqua Virgo** (Agrippa, Bauwerk, 2: 0/5) | Am Ende Eures Zuges: Stellt bei allen eigenen Charakteren 1 Leben wieder her. | Agrippa ließ 19 v. Chr. die Wasserleitung bauen; sie speist bis heute den Trevi-Brunnen (Frontinus, Über die Wasserleitungen 10) |
+| **Stele von Karnak** (Ahhotep, Zauber, 3) | Gebt Euren Dienern +1/+1. Stellt bei Eurem Helden 3 Leben wieder her. | Ihr Sohn Ahmose rühmt sie auf einer Stele: Sie habe für Ägyptens Soldaten gesorgt und Oberägypten befriedet (Stele des Ahmose, Kairo CG 34001) |
+| **Kloster Kecharitomene** (Anna, Bauwerk, 4: 0/5) | Zu Beginn Eures Zuges: Ergründet eine Karte, die in dieser Partie schon gespielt wurde. | Das Kloster ihrer Mutter Irene in Konstantinopel; in seiner Nähe schrieb Anna im Alter die Alexiade (Typikon des Klosters; Alexiade, Prolog) |
+| **Gesänge des Dichterkönigs** (Nezahualcóyotl, Zauber, 2) | Stellt bei allen eigenen Charakteren 2 Leben wieder her. Zieht 1 Karte. | Aztekische Liedersammlungen des 16. Jh. schreiben ihm Gedichte zu – ob sie wirklich von ihm sind, ist unsicher (Cantares Mexicanos; Romances de los Señores) |
+| **Heiratsurkunde der Theophanu** (Theophanu, Zauber, 2) | Gebt einem befreundeten Diener +1/+3 und Schildwall. | Die Urkunde zur Hochzeit mit Otto II. (14. 4. 972) ist auf purpurgefärbtes Pergament geschrieben, wie in Byzanz (Niedersächsisches Landesarchiv Wolfenbüttel) |
+| **Scheinlager bei Mantineia** (Epaminondas, Hinterhalt, 2) | Wenn ein feindlicher Diener angreift, erhält Euer Diener ganz links +2/+2. | 362 v. Chr. ließ Epaminondas die Waffen ablegen, als wolle er lagern – dann griff er an (Xenophon, Hellenika VII 5,21–22) |
+| **Quintus Fabius, der Sohn** (Fabius, Diener, 4: 3/5) | Einmarsch: Versetzt einen feindlichen Diener in Starre. Erhaltet 2 Rüstung. | Als Konsul ließ der Sohn 213 v. Chr. seinen Vater vom Pferd steigen – und der Vater war stolz darauf (Livius XXIV 44) |
+| **Thumelicus** (Thusnelda, Diener, 3: 3/2) | Vorstoß. Vermächtnis: Ruft einen Stammeskrieger (1/2). | Thusneldas Sohn, in Gefangenschaft geboren, ging 17 n. Chr. mit ihr im Triumphzug des Germanicus (Strabon VII 1,4; Tacitus, Annalen I 58) |
+| **Brief an die Besatzung von Krak** (Baibars, Zauber, 3) | Schickt einen feindlichen Diener auf die Hand seines Besitzers zurück. Zieht 1 Karte. | 1271 gab die Besatzung des Krak des Chevaliers auf und zog nach Tripolis ab – arabische Chronisten erzählen von einem gefälschten Brief ihres Großmeisters (Ibn al-Furat) |
+| **Neuf-Brisach** (Vauban, Bauwerk, 4: 0/6) | Schildwall. Zu Beginn Eures Zuges: Ruft einen Schanzkorb (1/2, Schildwall). | 1698 plante Vauban die achteckige Festungsstadt am Rhein, heute UNESCO-Welterbe (Festungsanlagen Vaubans, 2008) |
+| **Goldener Halsring von Vix** (Fürstin von Vix, Zauber, 2) | Euer Held erhält in diesem Zug +2 Angriff. Erhaltet 2 Rüstung. Zieht 1 Karte. | Grabfund von 1953: ein Halsring aus fast einem halben Kilo Gold (Musée du Pays Châtillonnais) |
+| **Koloss von Rhodos** (neutral, Bauwerk, 5: 0/8) | Schildwall. Vermächtnis: Fügt allen feindlichen Dienern 3 Schaden zu. | Ein Weltwunder: die 70 Ellen hohe Bronzestatue des Helios stürzte bei einem Erdbeben, die Trümmer bestaunte man noch Jahrhunderte (Plinius, Naturgeschichte XXXIV 41) |
+| **Zeus des Phidias** (neutral, Bauwerk, 5: 0/7) | Eure Diener haben +1 Angriff. Am Ende Eures Zuges: Stellt bei Eurem Helden 2 Leben wieder her. | Ein Weltwunder in Olympia aus Gold und Elfenbein: Stünde Zeus auf, durchstieße er das Dach (Strabon VIII 3,30; Pausanias V 11) |
+| **Himmelsscheibe von Nebra** (neutral, Zauber, 2) | Ergründet eine Karte. Sie kostet 1 weniger. | Gefunden 1999 auf dem Mittelberg in Sachsen-Anhalt, um 1600 v. Chr. – die älteste bekannte Darstellung des Himmels (Landesmuseum für Vorgeschichte Halle) |
+| **Gänse des Kapitols** (neutral, Hinterhalt, 1) | Wenn ein feindlicher Diener Euren Helden angreift, erhaltet Ihr 4 Rüstung. | Nachts erklommen Gallier das Kapitol; die heiligen Gänse der Juno schnatterten und weckten die Römer (Livius V 47) |
+| **Skytale** (neutral, Hinterhalt, 2) | Wenn der Gegner einen Zauber wirkt, zieht Ihr 2 Karten. | Spartas Geheimschrift: ein Lederband, nur auf einem Stab gleicher Dicke lesbar (Plutarch, Lysander 19; Gellius XVII 9) |
+
+**Prüftabelle Teil 2** (Entwurf für die nächste Sitzung – noch nicht gebaut):
+
+| Karte (Held, Art, Kosten, Werte) | Wirkung | Bezug und Quelle |
+|---|---|---|
+| **„Mit ihm oder auf ihm“** (Leonidas, Diener, 2: 1/3) | Einmarsch: Gebt einem befreundeten Diener mit Schildwall +2 Angriff. | Eine Spartanerin reicht dem Sohn den Schild (Plutarch, Sprüche spartanischer Frauen 241F) |
+| **Orestes, Präfekt von Ägypten** (Hypatia, Diener, 4: 3/5) | Einmarsch: Ruft einen Schüler der Hypatia (1/1). | Der Präfekt suchte Hypatias Rat, sein Streit mit Bischof Kyrill wurde ihr zum Verhängnis (Sokrates Scholastikos VII 13–15) |
+| **Sockel der Djoser-Statue** (Imhotep, Bauwerk, 2: 0/4) | Am Ende Eures Zuges: Euer schwächster Diener erhält +1/+1. | Der wichtigste Beleg, dass Imhotep lebte: seine Titel auf dem Sockel einer Statue des Djoser (Kairo JE 49889) |
+| **Quadriga von San Marco** (Dandolo, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Eure Waffe erhält +1 Angriff und +1 Haltbarkeit. | 1204 aus dem Hippodrom von Konstantinopel nach Venedig gebracht (Original im Museo di San Marco) |
+| **Taufe in Attigny** (Widukind, Zauber, 2) | Zieht 2 Karten. Stellt bei Eurem Helden 3 Leben wieder her. | 785 ließ sich Widukind taufen, Karl der Große war sein Pate (Reichsannalen zu 785) |
+| **Murus Gallicus** (Vercingetorix, Bauwerk, 3: 0/6) | Schildwall. Wann immer dieses Bauwerk Schaden erleidet, fügt es einem zufälligen Feind 1 Schaden zu. | Mauer aus Holzbalken, Steinen und Erde – Feuer und Rammbock konnten ihr wenig anhaben (Caesar, Gallischer Krieg VII 23) |
+| **Weiße Erde aus Aue** (Böttger, Zauber, 2) | Gebt einem befreundeten Diener +2/+2. Euer Held erleidet 1 Schaden. | Kaolin aus der Grube „Weißer Andreas“ bei Aue machte das Meißner Porzellan möglich |
+| **Lingua ignota** (Hildegard, Zauber, 1) | Gebt einem befreundeten Diener Tarnung. Zieht 1 Karte. | Hildegards erfundene Sprache mit 1011 Wörtern (Riesencodex, Hochschul- und Landesbibliothek Wiesbaden) |
+| **Pilgerfahrt nach Santiago** (Wiprecht, Zauber, 3) | Stellt bei Eurem Helden 5 Leben wieder her. Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. | Zur Buße pilgerte Wiprecht nach Rom und Santiago de Compostela (Pegauer Annalen) |
+| **Turnier zu Friesach** (Ulrich, Zauber, 3) | Gebt einem befreundeten Diener Doppelschlag und Segen. | Das große Turnier von 1224, das Ulrich im Frauendienst schildert |
+| **Bauabrechnung des Parthenon** (Perikles, Zauber, 2) | Euer schwächstes Bauwerk erhält +2 Haltbarkeit. Zieht 1 Karte. | Athen ließ die Baukosten jedes Jahr in Stein meißeln (Inschriften IG I³ 436–451) |
+| **Weltkarte des Agrippa** (Agrippa, Zauber, 2) | Ergründet eine Karte eines anderen Helden. Sie kostet 1 weniger. | Agrippas Weltkarte hing in einer Säulenhalle in Rom (Plinius, Naturgeschichte III 17) |
+| **Kamose** (Ahhotep, Diener, 4: 4/3) | Vorstoß. Einmarsch: Fügt einem zufälligen feindlichen Diener 2 Schaden zu. | Ihr Sohn oder Schwager führte den Krieg gegen die Hyksos weiter (Kamose-Stelen aus Karnak) |
+| **Irene Dukaina** (Anna, Diener, 3: 2/4) | Einmarsch: Stellt bei Eurem Helden 3 Leben wieder her. Zieht 1 Karte. | Annas Mutter begleitete Alexios auf Feldzügen und pflegte ihn (Alexiade XII 3) |
+| **Bäder von Tetzcotzinco** (Nezahualcóyotl, Bauwerk, 3: 0/5) | Wann immer ein eigener Charakter geheilt wird, erhaltet 1 Rüstung. | In den Fels gehauene Bäder und Gärten auf dem Hügel bei Texcoco (Fundstätte; Fernando de Alva Ixtlilxóchitl) |
+| **Theophanius imperator augustus** (Theophanu, Zauber, 3) | Eure Diener mit Schildwall erhalten +1/+1 und Segen. | 990 nennt sie sich in einer Urkunde „Kaiser“ in männlicher Form (Urkunde vom 1. 4. 990) |
+| **Mauern von Messene** (Epaminondas, Bauwerk, 3: 0/6) | Schildwall. Zu Beginn Eures Zuges: Euer Diener ganz links erhält +1 Leben. | Epaminondas gründete Messene neu, die Mauern stehen noch (Pausanias IV 27) |
+| **Schatten auf den Höhen** (Fabius, Zauber, 2) | Versetzt einen feindlichen Diener in Starre. Erhaltet 3 Rüstung. | Fabius folgte Hannibal stets auf den Hügeln und mied die Ebene (Polybios III 89–90) |
+| **Stolz im Triumphzug** (Thusnelda, Zauber, 2) | Gebt Euren Dienern +1 Leben. Zieht 1 Karte. | Sie ging schweigend und stolz im Triumph mit (Strabon VII 1,4) |
+| **Moschee des Baibars** (Baibars, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält Vorstoß. | Seine große Moschee in Kairo, 1266–1269 |
+| **Projet d’une dîme royale** (Vauban, Zauber, 3) | Zieht 2 Karten. Erhaltet 3 Rüstung. | Vaubans Plan einer gerechten Steuer für alle Stände wurde 1707 verboten |
+| **Krater von Vix** (Fürstin von Vix, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Euer Held erhält in diesem Zug +2 Angriff. | Das größte erhaltene Bronzegefäß der Antike, 1,64 m hoch, aus einer griechischen Werkstatt |
+| **Artemistempel von Ephesos** (neutral, Bauwerk, 2: 0/6) | Schildwall. Vermächtnis: Ergründet ein Bauwerk. | Ein Weltwunder, 356 v. Chr. von Herostratos angezündet und neu gebaut (Strabon XIV 1,22) |
+| **Mausoleum von Halikarnassos** (neutral, Bauwerk, 4: 0/6) | Vermächtnis: Holt die zwei zuletzt gestorbenen eigenen Diener zurück. | Ein Weltwunder, das Grab des Mausolos – daher das Wort „Mausoleum“ (Plinius XXXVI 30) |
+| **Ischtar-Tor** (neutral, Bauwerk, 3: 0/6) | Schildwall. Eure Diener haben +1 Angriff. | Babylons blaues Tor steht heute im Pergamonmuseum Berlin |
+| **Stele des Hammurapi** (neutral, Bauwerk, 3: 0/6) | Wann immer dieses Bauwerk Schaden erleidet, fügt es einem zufälligen Feind 2 Schaden zu. | „Auge um Auge“ – eine der ältesten Gesetzessammlungen (§ 196, Louvre) |
+| **Feuerpost** (neutral, Hinterhalt, 1) | Wenn der Gegner einen Diener ausspielt, zieht Ihr 1 Karte und erhaltet 2 Rüstung. | Feuerzeichen von Berg zu Berg meldeten den Fall Trojas (Aischylos, Agamemnon 281–316; Polybios X 43–47) |
 
 **AP 5.8 – KI erweitern (M)**
 - [x] **Persönlichkeit je Held (aggressiv, defensiv, kombinierend)** – *Teil 2 in 1.10.0*, siehe unten.
@@ -2298,7 +2364,7 @@ So, dass es im Spiel nicht kaputt aussieht:
 
 - [ ] **AP 6.1 Kolosseum als echter Draft:** Held aus 3, dann 30-mal 1 aus 3 Karten; Lauf endet bei 3 Niederlagen
   oder 12 Siegen; Belohnung nach Siegen. Nur App-Ebene.
-- [ ] **AP 6.2 Schlacht mit Offline-Rangliste:** Ränge aus Stein, Bronze, Silber, Gold und Lapis mit Sternen; Saisonbelohnungen.
+- ~~**AP 6.2 Schlacht mit Offline-Rangliste**~~ – *entfällt (Entscheidung 22): kein Ranglistenmodus, Aeterna ist offline zuerst.*
 - [ ] **AP 6.3 Aufgaben:** tägliche Aufgaben mit Rotation und einmal Neuwürfeln pro Tag, Login-Bonus, Heldenstufen
   mit Belohnungen (Gold, Skins, goldene Karten).
 - [ ] **AP 6.4 Kampagne 2.0:** Kapitel mit kurzen Story-Szenen und Sprechblasen, Bosse mit eigenen Fähigkeiten,
@@ -2327,7 +2393,8 @@ einen Browser-Ersatz). Eine itch.io-Fassung ist derselbe Code als ZIP – gepfle
   Regeln stehen (nach AP L.5 und dem Balance-Lauf), Engine deterministisch mit festem Startwert, Züge als
   kleine Befehle statt Zustandsabgleich. Danach Verbindung (WebRTC mit Einladungscode oder kleiner Relay-Server),
   Abbruch und Wiederverbinden, gleiche Version auf beiden Seiten. **Erst nach Phase 3/5**, weil jede Regeländerung
-  beide Seiten trifft.
+  beide Seiten trifft. *Entscheidung 22:* eine kleine Variante für wenige Spieler, zum Vorführen unter Freunden – keine Konten,
+  keine Rangliste, kein Matchmaking; das Spiel bleibt offline zuerst.
 
 ---
 
@@ -2453,11 +2520,16 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     Karten-Vorschläge der Prüftabelle (Namen nach den vorhandenen Bildern, Platzhalter für Ordensritter und Grabwächter, zwei alte
     Bilder wiederverwendet), Göttliche Gunst → **Segen**, Arkaner Fokus → **Weisheit**, **„Zauber“ bleibt** und wird als Glaube der
     Zeit erklärt; 39 alte Bilder bleiben und fallen aus dem Astra-Auftrag (205 → 165).
-22. **Was gehört zum fertigen Spiel?** (Dein Hinweis vom 13. 10.: erst fertig bauen, dann Assets): Welche offenen Inhalts-Pakete
-    kommen noch vor der großen Astra-Bestellung? Kandidaten mit neuen Bildern: AP 5.6 Hinterhalte (Mechanik und Karten), AP 5.7
-    Erweiterung „Wunder der Welt“ (rund 90 Karten), AP 6.1–6.4 Modi (Draft, Rangliste, Aufgaben, Kampagne 2.0 mit Belagerung und
-    Lunte), AP 3.9 Eck-Dioramen; ohne neue Bilder: AP L.6 Teil 2 (Chronikzeilen), Phase 4 (Klang). Vorschlag unten.
-    *Stand 1.25.0:* Die Hinterhalte sind gebaut (Sitzung 21, wie vorgeschlagen) – offen ist der Rest: Erweiterung, Modi, Dioramen.
+22. ~~**Was gehört zum fertigen Spiel?**~~ – *entschieden (20. 10. 2026: „erstmal nicht mehr als du auflistest geplant, zusätzlich
+    soll es keinen Ranglistenmodus geben, ist ein Offline-First-Game mit Multiplayer-Variante für wenige Spieler, mehr zu Demo-Zwecken
+    unter Freunden“):* Vor der großen Astra-Bestellung kommen nur noch
+    - **AP 5.7 Erweiterung klein:** je Held zwei Karten und zehn neutrale (54 statt rund 90 Karten), Teil 1 ✓ in 1.27.0;
+    - **AP 6.1 Draft** und **AP 6.3 Aufgaben** (kaum neue Bilder);
+    - **AP 6.4 Kampagne 2.0** und **AP 3.9 Eck-Dioramen** bleiben im Plan wie aufgelistet – schlank, ohne neue Ideen obendrauf;
+    - **kein Ranglistenmodus:** AP 6.2 entfällt. Aeterna bleibt offline zuerst; Crossplay (AP 8.2) ist eine kleine Variante für
+      ein paar Freunde (Einladungscode, keine Konten, keine Wertung).
+    Nach dem letzten dieser Pakete bestellst Du den dann vollständigen Astra-Auftrag (AP A.3). Wenn Du Kampagne 2.0 oder die
+    Dioramen doch streichen willst, genügt ein Satz.
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
