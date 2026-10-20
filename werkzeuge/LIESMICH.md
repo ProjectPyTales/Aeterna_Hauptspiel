@@ -12,6 +12,8 @@ das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle
 - **Hinterhalt-Erklärung** (Rückmeldung zu 1.25.0): `Match.lesson(events)` erkennt den ersten gelegten oder zuschnappenden
   Hinterhalt, `Match.teach` zeigt einmal je Spielstand ein Fenster („Ein Hinterhalt liegt bereit“ bzw. „Hinterhalt!“) und setzt
   das neue Feld `profile.ambushSeen` (`P.parse` ergänzt es für alte Spielstände). Fremde Karten bleiben dabei verdeckt.
+- **Code `WUNDER`** (`model/profile.js`, `codes`): jede Karte mit `set:'wunder'` in voller Zahl – für Spielstände, die `CHRONIK`
+  schon vor 1.27.0 eingelöst haben.
 - Tests: neu `tests/wunder.test.js`; angepasst `hinterhalte.test.js`, `lehrplan.test.js`, `welle2.test.js`,
   `schluesselwoerter2.test.js` (Kartenzahlen ohne Erweiterung) und `schluesselwoerter.test.js` (eigener Segen steht als Satz für
   sich). Voller Balance-Lauf, alter Bericht als `balance/BERICHT-1.26.0.md`. Version 1.27.0 / versionCode 30.

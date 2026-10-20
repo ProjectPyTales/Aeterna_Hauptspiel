@@ -9,10 +9,10 @@ function roll(p){p.packs--;p.opened++;p.sinceLegend++;const tiers=['common','rar
 function openPack(p){if(p.packs<=0||p.pendingPack)return null;return p.pendingPack=roll(p);}
 function openPacks(p,n=p.packs){if(p.packs<=0||p.pendingPack)return null;const k=Math.max(1,Math.min(n,p.packs)),cards=[];for(let i=0;i<k;i++)cards.push(...roll(p));return {packs:k,cards};}
 // Codes (Rückmeldung zu 1.10.0): offline, einmal je Spielstand; Groß-/Kleinschreibung, Leer- und Bindestriche zählen nicht.
-const codes={AETERNA:{text:'500 Gold',gold:500},KARTENPAKETE:{text:'10 Kartenpakete',packs:10},ZEITALTER:{text:'1000 Staub',dust:1000},CHRONIK:{text:'jede Karte in voller Zahl für Deine Sammlung',all:true}};
+const codes={AETERNA:{text:'500 Gold',gold:500},KARTENPAKETE:{text:'10 Kartenpakete',packs:10},ZEITALTER:{text:'1000 Staub',dust:1000},CHRONIK:{text:'jede Karte in voller Zahl für Deine Sammlung',all:true},WUNDER:{text:'jede Karte der Erweiterung „Wunder der Welt“ in voller Zahl',set:'wunder'}};
 const codeOf=raw=>String(raw??'').toUpperCase().replace(/[\s\-_.]/g,'').slice(0,32);
 function redeem(p,raw){const code=codeOf(raw),c=codes[code];if(!code)return {error:'Bitte gib einen Code ein.'};if(!c)return {error:'Diesen Code kennt die Chronik nicht.'};if(p.redeemed.includes(code))return {error:'Diesen Code hast Du schon eingelöst.'};
- p.redeemed.push(code);p.gold+=c.gold||0;p.packs+=c.packs||0;p.dust+=c.dust||0;if(c.all)for(const k of D.cards)p.collection[k.id]=Math.max(p.collection[k.id]||0,k.rarity==='legendary'?1:2);return {code,text:c.text};}
+ p.redeemed.push(code);p.gold+=c.gold||0;p.packs+=c.packs||0;p.dust+=c.dust||0;if(c.all||c.set)for(const k of D.cards)if(c.all||k.set===c.set)p.collection[k.id]=Math.max(p.collection[k.id]||0,k.rarity==='legendary'?1:2);return {code,text:c.text};}
 function craft(p,id){const c=D.byId[id];if(!c||!price[c.rarity]||p.dust<price[c.rarity]||(p.collection[id]||0)>=(c.rarity==='legendary'?1:2))return false;p.dust-=price[c.rarity];p.collection[id]=(p.collection[id]||0)+1;return true;}
 function disenchant(p,id){const c=D.byId[id];if(!c||!dust[c.rarity]||!p.collection[id])return false;const used=Math.max(0,...p.decks.map(d=>d.cards.filter(x=>x===id).length));if(p.collection[id]<=used)return false;p.collection[id]--;p.dust+=dust[c.rarity];return true;}
 function extras(p){let gain=0;for(const c of D.cards){if(!dust[c.rarity])continue;const n=Math.max(0,(p.collection[c.id]||0)-(c.rarity==='legendary'?1:2));gain+=n*dust[c.rarity];p.collection[c.id]-=n;}p.dust+=gain;return gain;}

@@ -37,6 +37,9 @@ test('Alte Spielstände (1.26.0): die neuen Karten fehlen in der Sammlung und ko
  const p=P.fresh();for(const c of SET)delete p.collection[c.id];delete p.ambushSeen;
  const back=P.parse(JSON.stringify(p));assert.ok(SET.every(c=>back.collection[c.id]===0));assert.equal(back.ambushSeen,false);
  assert.equal(back.decks.length,p.decks.length);
+ // Code WUNDER: wer CHRONIK schon eingelöst hat, bekommt so auch die neuen Karten – und nur diese.
+ back.redeemed=['CHRONIK'];const before=back.collection.neutral_0;assert.ok(P.redeem(back,'wunder').code);
+ assert.ok(SET.every(c=>back.collection[c.id]===2));assert.equal(back.collection.neutral_0,before);assert.ok(P.redeem(back,'WUNDER').error);
 });
 
 test('Weltwunder: Koloss stürzt auf die Feinde, Zeus stärkt und heilt, Irminsul treibt die Sachsen an',()=>{
@@ -51,7 +54,7 @@ test('Bauwerke der Helden: Pegau ruft Grenzsteine, Neuf-Brisach Schanzkörbe, Al
  let s=ready('ragnar');play(s,'ragnar_14');turn(s);turn(s);assert.equal(s.players[0].board.filter(u=>u.id.startsWith('totem_')).length,1);
  s=ready('zizka');play(s,'zizka_10');turn(s);turn(s);assert.ok(placed(s,0,'wagon'));
  s=ready('nostradamus');play(s,'nostradamus_13');const n=s.players[0].hand.length,hp=s.players[0].health;turn(s);
- assert.equal(s.players[0].hand.length,n+1,'am Ende des Zuges 1 Karte');assert.equal(s.players[0].health,hp);
+ assert.equal(s.players[0].hand.length,n+1,'am Ende des Zuges 1 Karte');assert.equal(s.players[0].hand.at(-1).mod,-1,'sie kostet 1 weniger');assert.equal(s.players[0].health,hp);
  s=ready('anna');play(s,'neutral_18',{target:'h1'});play(s,'anna_13');turn(s);turn(s);assert.ok(s.choice&&s.choice.p===0,'Wahl aus gespielten Karten');
 });
 

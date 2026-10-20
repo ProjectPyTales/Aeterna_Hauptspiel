@@ -123,6 +123,7 @@ bleiben).
 | `KARTENPAKETE` | 10 Kartenpakete – im Basar mit „Alle öffnen“ auf einmal aufdecken (seit 1.12.0 alle, vorher höchstens 50) |
 | `ZEITALTER` | 1 000 Staub |
 | `CHRONIK` | jede Karte in voller Zahl (zwei, Legendäre eine) – zum Ausprobieren aller 389 Karten |
+| `WUNDER` | seit 1.27.0: jede Karte der Erweiterung „Wunder der Welt“ in voller Zahl – für Spielstände, die `CHRONIK` schon eingelöst haben |
 
 ---
 
@@ -436,9 +437,9 @@ werden ersetzt, Unsicheres wird als unsicher erzählt (AP L.5, AP L.6).
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
 | APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.27.0 (AP 5.7 Teil 1, 101 200 Partien, zwei volle Läufe): Startdecks Zahl für Zahl wie in 1.25.0** (keine neue Karte im Startdeck); **Zufallsdecks 18 von 22 im Ziel** (vorher 21): Imhotep und Agrippa 54,2 %, Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %); 218 von 231 Paarungen innerhalb 40/60 (vorher 223), Beginner 50,2 %; Nezahualcóyotl steigt von 45,6 auf 49,9 %; alter Bericht `BERICHT-1.26.0.md`. Davor **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,5 % (1.13.0: 53,0 %), einzeln 45,8 (Nezahualpilli) bis 58,6 % (Lagertha)² |
-| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
+| Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | **1.27.0:** keine der 27 neuen Karten über 60 % (höchste: Thumelicus 56,7 %, Pilger im Asklepieion 55,0 %); darüber nur Phalanxveteran 62,2 % und Balsamierer 60,3 % (Zufallsfehler ±2,5). Davor knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
 
 ¹ Playwright-Emulation im Handyformat (915 × 412, Pixeldichte 2,6), `node werkzeuge/sichtpruefung.js` und
 `node werkzeuge/klickpfad.js`; Werte auf einem echten Handy können abweichen.
@@ -2013,7 +2014,7 @@ waren zu stark, Zeus (5), Neuf-Brisach (4), Irminsul (ohne Aura ließ die KI sie
 | **Eroberung von Zara** (Dandolo, Zauber, 3) | Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu. Zieht 1 Karte. | 1202 zahlten die Kreuzfahrer ihre Schuld bei Venedig mit der Eroberung der christlichen Stadt Zara – der Papst bannte sie dafür (Villehardouin, Eroberung von Konstantinopel) |
 | **Irminsul** (Widukind, Bauwerk, 3: 0/5) | Eure Diener haben +1 Angriff. Vermächtnis: Gebt Euren Dienern +2 Angriff. | 772 zerstörte Karl der Große das Heiligtum der Sachsen bei der Eresburg – wie es aussah (Baumstamm oder Säule), ist unsicher (Reichsannalen zu 772) |
 | **Stater des Vercingetorix** (Vercingetorix, Zauber, 1) | Gebt einem befreundeten Diener +1/+1. Zieht 1 Karte. | Goldmünzen mit der Aufschrift VERCINGETORIXS – neben Caesars Bericht das einzige Zeugnis von ihm (Münzfunde, Cabinet des Médailles Paris) |
-| **Manufaktur auf der Albrechtsburg** (Böttger, Bauwerk, 3: 0/5) | Am Ende Eures Zuges: Zieht 1 Karte. | 1710 gründete August der Starke in der Albrechtsburg Meißen die erste Porzellanmanufaktur Europas, Böttger leitete sie (Gründungsdekret vom 23. 1. 1710) |
+| **Manufaktur auf der Albrechtsburg** (Böttger, Bauwerk, 3: 0/5) | Am Ende Eures Zuges: Zieht 1 Karte. Sie kostet 1 weniger. | 1710 gründete August der Starke in der Albrechtsburg Meißen die erste Porzellanmanufaktur Europas, Böttger leitete sie (Gründungsdekret vom 23. 1. 1710) |
 | **Volmar, Schreiber Hildegards** (Hildegard, Diener, 3: 2/3) | Einmarsch: Gebt einem befreundeten Diener Segen. Zieht 1 Karte. | Der Mönch Volmar schrieb ins Reine, was Hildegard auf Wachstafeln festhielt – das Bild im Rupertsberger Scivias zeigt beide (Scivias, Vorrede) |
 | **Kloster Pegau** (Wiprecht, Bauwerk, 4: 0/5) | Zu Beginn Eures Zuges: Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. | Wiprecht stiftete 1091 zur Buße das Kloster Pegau; dessen Annalen erzählen sein Leben (Pegauer Annalen) |
 | **Gefährte der Artusfahrt** (Ulrich, Diener, 4: 3/4) | Segen. Einmarsch: Eure anderen Diener mit Segen erhalten +1/+1. | 1240 zog Ulrich als König Artus durchs Land; wer mit ihm drei Speere brach, kam in seine Tafelrunde (Ulrich von Liechtenstein, Frauendienst) |
@@ -2584,55 +2585,50 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 21 (Version 1.25.0):** Rückmeldung zu 1.24.0 („alles läuft gut“) – nichts nachzuarbeiten. **AP 5.6 Taktische
-Hinterhalte**, die letzte große Mechanik: Zauber, die verdeckt als versiegelte Wachsrolle neben dem Helden liegen (höchstens drei)
-und **nur im Zug des Gegners** zuschnappen – bei einem Angriff, einem ausgespielten Diener, einem Zauber oder dem Tod eines eigenen
-Dieners. **Zwölf Karten aus der Geschichte** mit Quelle (Prüftabelle in [AP 5.6](#phase-5--regeln-karten-und-balance-l)): je eine
-Zeitalterkarte, zwei neutrale, dazu Widukinds Hinterhalt am Süntel, Fabius’ Rettung bei Gerunium, Annas Täuschung bei Larissa und
-Leonidas’ Kampf um den Leichnam. Die **KI** legt eigene Hinterhalte, kennt die fremden aber nicht (ihre Vorausschau sieht sie nicht
-auslösen) und greift, solange Rollen liegen, zuerst mit billigen Dienern an. Rollen, verdeckter Flug und Enthüllung „Hinterhalt!“
-sind gekennzeichnete Platzhalter; der Astra-Auftrag wächst um 13 Motive (165 → 178) und 2 Oberflächenteile (48 → 50).
-**Voller Balance-Lauf** (101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0 (dort liegen keine Hinterhalte – die Regeln
-ohne Hinterhalt sind unverändert); Zufallsdecks **21 von 22 Helden im Ziel** (vorher 19), 223 von 231 Paarungen innerhalb 40/60
-(vorher 220), Beginner 51,2 %. Offen: **Nezahualcóyotl** fällt in Zufallsdecks auf 45,6 % (vorher 48,5 %); die meisten Hinterhalte
-sind in der Hand der KI eher schwach (−1 bis −5 Punkte „gewinnt, wenn gezogen“, die KI legt sie nur in 29–54 % der Fälle), die
-Täuschung bei Larissa eher stark (+6,5) – Feinschliff nach Deinem Test. Weil ich ohne Deine Rückmeldung weitergemacht habe, sind die zwölf Karten **mein Vorschlag** – Namen, Wirkungen
-und Kosten lassen sich jederzeit ändern, die IDs bleiben. **Entscheidung 22 ist weiter offen.** Davor: Sitzung 20 (1.24.0) AP L.6
-Teil 1; Sitzungen 1–19 (1.4.0–1.23.0).
+**Erledigt in Sitzung 22 (Version 1.27.0):** Deine Rückmeldung zu 1.25.0 – die Hinterhalte sind bislang etwas verwirrend und
+begegnen einem selten (in sechs Partien einmal, bei Hypatia): Beim **ersten Hinterhalt**, der gelegt wird oder zuschnappt, erklärt
+jetzt ein Fenster einmal je Spielstand, was die Wachsrolle ist und wann sie zuschnappt (fremde Karten bleiben verdeckt); drei neue
+Hinterhalte in der Erweiterung machen sie häufiger. **Entscheidung 22:** Erweiterung klein (je Held zwei Karten, zehn neutrale – 54
+statt rund 90), Draft und Aufgaben ja, Kampagne 2.0 und Dioramen bleiben schlank im Plan, **kein Ranglistenmodus** (AP 6.2 gestrichen;
+Crossplay nur als kleine Variante unter Freunden). **AP 5.7 Teil 1:** Prüftabelle mit allen 54 Karten aus der Geschichte, davon
+**27 gebaut** (je Held eine, dazu Koloss von Rhodos, Zeus des Phidias, Himmelsscheibe von Nebra, Gänse des Kapitols, Skytale) – nur
+vorhandene Regeln, jede mit Chronikzeile und Quelle, alle als gekennzeichnete Platzhalter; der Astra-Auftrag wächst um 27 Motive
+(178 → 205). Neuer Code **`WUNDER`** für die neuen Karten (`CHRONIK` hast Du schon eingelöst). **Voller Balance-Lauf** (101 200 Partien):
+Startdecks Zahl für Zahl wie vorher; in Zufallsdecks liegen **18 von 22 Helden im Ziel** (vorher 21) – Imhotep und Agrippa 54,2 %,
+Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %, nach einem zweiten Lauf mit stärkerer Manufaktur); Nezahualcóyotl steigt von 45,6 auf
+49,9 %, 218 von 231 Paarungen innerhalb 40/60, keine neue Karte über 60 %. Wie in Sitzung 21 sind die Karten **mein Vorschlag**, weil ich ohne Deine Auswahl weitergemacht habe – Namen,
+Wirkungen und Kosten lassen sich jederzeit ändern, die IDs bleiben. Davor: Sitzung 21 (1.25.0) AP 5.6 Hinterhalte, Bonus 1.26.0
+Splash und Intro; Sitzungen 1–20 (1.4.0–1.24.0).
 
 **Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.25.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. Hinterhalte ausprobieren: In der **Sammlung** stehen sie unter „Zauber · Hinterhalt“ (mit dem Code `CHRONIK` hast Du alle). Ein
-   Deck mit zwei, drei Hinterhalten bauen (z. B. Widukind: Hinterhalt am Süntel, Fallgatter, Krähenfüße) und eine Schlacht spielen:
-   Sind die Wachsrollen links neben Deiner Münze gut zu sehen und anzutippen? Bleibt die Enthüllung lange genug lesbar? Fühlen sich
-   die Hinterhalte der KI fair an?
-3. Die **Prüftabelle in AP 5.6** ansehen: Passen Namen, Wirkungen und Quellen – oder soll eine Karte anders heißen oder wirken?
-4. **Entscheidung 22** (siehe [Offene Entscheidungen](#offene-entscheidungen)): Was gehört noch zum fertigen Spiel? *Mein Vorschlag:*
-   **Erweiterung klein** – je Held zwei Karten und zehn neutrale (≈ 54 statt 90 neue Bilder); **Draft und Aufgaben ja** (kaum neue
-   Bilder); **Rangliste und Kampagne 2.0 mit Belagerung und Lunte** nach Deinem Geschmack.
+1. `Aeterna-1.27.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. *Einstellungen → Code einlösen:* `WUNDER` – dann stehen die 27 neuen Karten in der Sammlung (Filter Seltenheit oder Suche, z. B.
+   „Koloss“). Ein, zwei Partien mit einem Deck, das zwei, drei davon enthält: Lesen sich Name, Wirkung und „Aus der Chronik“ gut?
+3. **Hinterhalte:** Erscheint die Erklärung beim ersten Hinterhalt, und ist danach klar, was die Wachsrolle tut? (Die Erklärung kommt
+   nur einmal je Spielstand – Du siehst sie also genau einmal.)
+4. Die **Prüftabelle Teil 2** in [AP 5.7](#phase-5--regeln-karten-und-balance-l) ansehen: Passen die 27 Karten – oder soll eine
+   anders heißen, wirken oder durch eine andere Geschichte ersetzt werden?
 
-**Sitzung 22 – Entscheidung 22 und Erweiterung „Wunder der Welt“ Teil 1 (AP 5.7)**
+**Sitzung 23 – Erweiterung „Wunder der Welt“ Teil 2 (AP 5.7)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.25.0 und Feinschliff | Hinterhalte nach Deinem Test: Namen, Werte, Rollen, Enthüllung; Balance: Nezahualcóyotl (45,6 % in Zufallsdecks) und die eher schwachen Hinterhalte (Varianten erst mit `AETERNA_MODELL` vergleichen) | kleine Nacharbeit, bevor neue Karten die Zufallsdecks wieder verschieben |
-| Entscheidung 22 | Umfang des fertigen Spiels festhalten (README, Reihenfolge, Astra-Auftrag) | danach steht fest, welche Bilder Astra am Ende liefern muss |
-| AP 5.7 Teil 1 | Prüftabelle für die Erweiterung (je Held Karten aus seiner Lebenswelt mit Quelle, neutrale Weltwunder und Bauwerke, ein paar Hinterhalte), dann nach Deiner Entscheidung die erste Hälfte umsetzen – mit den vorhandenen Regeln, Platzhaltern, Chronikzeilen und Bildideen für Astra | die meisten neuen Motive – je früher sie feststehen, desto früher kann Astra in einem Rutsch liefern |
+| Rückmeldung 1.27.0 und Feinschliff | neue Karten und Hinterhalt-Erklärung nach Deinem Test; Balance: Imhotep und Agrippa (je 54,2 %) etwas bremsen, Böttger (45,8 %) und Vauban (46,8 %) stärken (Varianten erst mit `AETERNA_MODELL` vergleichen) | kleine Nacharbeit, bevor Teil 2 die Zufallsdecks wieder verschiebt |
+| AP 5.7 Teil 2 | die übrigen 27 Karten der Prüftabelle (je Held die zweite, dazu Artemistempel, Mausoleum, Ischtar-Tor, Stele des Hammurapi, Feuerpost) mit Chronikzeilen, Platzhaltern und Bildideen; danach voller Balance-Lauf | danach stehen alle Kartenmotive für die große Astra-Bestellung fest |
+| Ausblick | Reihenfolge nach Entscheidung 22: Draft und Aufgaben (Phase 6), Kampagne 2.0 mit Lunte, Dioramen; dann AP A.3 | – |
 
-Risiko: mittel – viele neue Karten verschieben die Zufallsdecks; voller Balance-Lauf (≈ 30 min), Spielstände bleiben (neue Karten-IDs
-nur hinten anhängen).
+Risiko: mittel – 27 weitere Karten verschieben die Zufallsdecks; zwei volle Balance-Läufe einplanen (≈ 50 min je Lauf), Spielstände
+bleiben (neue Karten-IDs nur hinten anhängen).
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.25.0:
-> *(hier Feedback zu den Hinterhalten einfügen)* und meine **Entscheidung 22** *(was zum fertigen Spiel gehört)*.
-> Arbeite dann **AP 5.7 (Erweiterung „Wunder der Welt“) Teil 1** ab: erst eine Prüftabelle mit Kartenvorschlägen aus der Geschichte,
-> dann nach meiner Entscheidung umsetzen. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die
-> MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass
-> die Tests, den Klickpfad und den vollen Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab.
-> Öffne am Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
-> Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.27.0:
+> *(hier Feedback zu den neuen Karten und zur Hinterhalt-Erklärung einfügen)* und meine Anmerkungen zur **Prüftabelle Teil 2**
+> *(oder „wie vorgeschlagen“)*. Arbeite dann **AP 5.7 (Erweiterung „Wunder der Welt“) Teil 2** ab. Halte dich an die „Regeln für
+> jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter,
+> prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den Klickpfad und den vollen Balance-Lauf laufen und
+> sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main` und schreibe unten
+> in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Keine neue Mechanik, aber viele Karten mit Quellen und ein voller Balance-Lauf.
-*xhigh* lohnt, wenn die Erweiterung neue Legendäre mit eigenen Regeln bekommen soll (etwa Hannibals Elefanten, die einmal Schildwall
-ignorieren, oder Sun Tzu, bei dem Hinterhalte nichts kosten).
+**Empfohlener Effort für den nächsten Prompt: high.** Keine neue Mechanik, aber 27 Karten mit Quellen, Werte-Feinschliff über
+mehrere Balance-Läufe. *medium* genügt, wenn Du die Tabelle unverändert übernimmst und nur kleine Rückmeldungen hast.

@@ -1,6 +1,6 @@
 # Balance-Bericht
 
-Erzeugt mit `node werkzeuge/balance.js` (AP 5.1). KI gegen KI, jede Paarung 200 Partien, je zur Hälfte mit jedem Helden als Beginner; Startwert 20261006, Regelstand `95e577ad9f` (Prüfsumme von `data.js` und `engine.js`). Gleicher Startwert und Regelstand ergeben genau diesen Bericht.
+Erzeugt mit `node werkzeuge/balance.js` (AP 5.1). KI gegen KI, jede Paarung 200 Partien, je zur Hälfte mit jedem Helden als Beginner; Startwert 20261006, Regelstand `6f1004b44e` (Prüfsumme von `data.js` und `engine.js`). Gleicher Startwert und Regelstand ergeben genau diesen Bericht.
 
 Beide Seiten tauschen beim Start Karten ab 4 Mana. Unentschieden zählen halb. „Gegen das Feld“ ist der Mittelwert der Siegquoten gegen die 21 anderen Helden (Spiegelduelle zählen nicht). Zufallsfehler (95 %): je Paarung etwa ±6,9 Prozentpunkte, gegen das Feld etwa ±1,5.
 
@@ -9,7 +9,7 @@ Beide Seiten tauschen beim Start Karten ab 4 Mana. Unentschieden zählen halb. �
 | Deckart | Partien | Helden 47–53 % | Paarungen ≥ 40/60 | Beginner gewinnt | Legendäre, wenn gezogen | Unentschieden | Züge je Partie (Median) |
 |---|---|---|---|---|---|---|---|
 | Startdecks | 50600 | ✗ 21/22 | ✗ 198/231 | ✓ 47,3 % | – | 0 | 24 |
-| Zufallsdecks | 50600 | ✗ 21/22 | ✗ 223/231 | ✓ 51,2 % | ✓ 53,1 % (+3,1) | 0 | 21 |
+| Zufallsdecks | 50600 | ✗ 18/22 | ✗ 218/231 | ✓ 50,2 % | ✓ 52,9 % (+2,9) | 0 | 22 |
 
 ## Startdecks
 
@@ -98,109 +98,109 @@ Jede Partie mit neu gemischten Zufallsdecks (`E.randomDeck`, wie die KI im freie
 
 | Held | gegen das Feld | als Beginner | als Zweiter | schwerste Paarung | leichteste Paarung | KI-Spielweise: Angriffe aufs Gesicht | Ziel |
 |---|---|---|---|---|---|---|---|
-| Wiprecht von Groitzsch | **52,8 %** | 53,9 % | 51,2 % | Imhotep 48,0 % | Dandolo 62,5 % | Aggressiv: 47,9 % | ✓ |
-| Imhotep | **52,4 %** | 51,6 % | 52,8 % | Vix 47,0 % | Nezahualcóyotl 60,0 % | Defensiv: 39,8 % | ✓ |
-| Ahhotep I. | **52,0 %** | 52,2 % | 51,5 % | Theophanu 47,0 % | Leonidas 60,0 % | Aggressiv: 49,8 % | ✓ |
-| Epaminondas | **51,5 %** | 52,2 % | 50,5 % | Perikles 42,0 % | Nezahualcóyotl 61,0 % | Aggressiv: 47,0 % | ✓ |
-| Fürstin von Vix | **51,5 %** | 53,0 % | 49,7 % | Epaminondas 43,5 % | Dandolo 61,0 % | Kombinierend: 45,0 % | ✓ |
-| Marcus Agrippa | **51,1 %** | 49,4 % | 52,7 % | Imhotep 44,0 % | Nezahualcóyotl 59,0 % | Kombinierend: 47,0 % | ✓ |
-| Theophanu | **51,1 %** | 52,9 % | 49,0 % | Agrippa 44,5 % | Nezahualcóyotl 61,0 % | Defensiv: 39,7 % | ✓ |
-| Vercingetorix | **51,0 %** | 50,9 % | 50,9 % | Wiprecht 43,0 % | Böttger 58,5 % | Aggressiv: 49,4 % | ✓ |
-| Ulrich von Liechtenstein | **51,0 %** | 51,6 % | 50,2 % | Vauban 39,0 % | Baibars 60,5 % | Aggressiv: 53,7 % | ✓ |
-| Fabius Maximus | **50,3 %** | 52,3 % | 48,2 % | Vix 44,5 % | Leonidas 58,0 % | Defensiv: 41,3 % | ✓ |
-| Perikles | **50,3 %** | 52,8 % | 47,7 % | Ahhotep 43,0 % | Epaminondas 58,0 % | Defensiv: 41,3 % | ✓ |
-| Baibars | **50,2 %** | 51,3 % | 49,1 % | Ulrich 39,5 % | Vercingetorix 56,0 % | Aggressiv: 42,6 % | ✓ |
-| Hypatia | **50,2 %** | 51,8 % | 48,5 % | Epaminondas 43,0 % | Vauban 59,5 % | Kombinierend: 45,4 % | ✓ |
-| Leonidas I. | **50,1 %** | 50,8 % | 49,3 % | Ahhotep 40,0 % | Widukind 59,5 % | Defensiv: 38,2 % | ✓ |
-| Johann Friedrich Böttger | **49,8 %** | 52,4 % | 47,2 % | Ahhotep 41,5 % | Hildegard 57,5 % | Kombinierend: 44,0 % | ✓ |
-| Anna Komnene | **49,3 %** | 52,3 % | 46,5 % | Theophanu 45,0 % | Vauban 60,5 % | Kombinierend: 41,0 % | ✓ |
-| Thusnelda | **48,4 %** | 48,7 % | 48,4 % | Vix 41,5 % | Böttger 54,0 % | Kombinierend: 45,6 % | ✓ |
-| Hildegard von Bingen | **48,3 %** | 51,4 % | 45,6 % | Ulrich 42,5 % | Vauban 53,5 % | Aggressiv: 51,0 % | ✓ |
-| Enrico Dandolo | **48,0 %** | 49,7 % | 46,7 % | Wiprecht 37,5 % | Nezahualcóyotl 55,0 % | Kombinierend: 42,1 % | ✓ |
-| Vauban | **47,9 %** | 49,4 % | 46,8 % | Anna 39,5 % | Ulrich 61,0 % | Defensiv: 42,6 % | ✓ |
-| Widukind | **47,3 %** | 48,1 % | 46,9 % | Wiprecht 40,0 % | Hildegard 56,0 % | Aggressiv: 48,8 % | ✓ |
-| Nezahualcóyotl | **45,6 %** | 47,9 % | 44,0 % | Theophanu 39,0 % | Widukind 56,0 % | Defensiv: 38,4 % | ✗ |
+| Imhotep | **54,2 %** | 53,1 % | 54,6 % | Perikles 47,0 % | Hypatia 66,0 % | Defensiv: 37,0 % | ✗ |
+| Marcus Agrippa | **54,2 %** | 52,3 % | 55,3 % | Imhotep 48,0 % | Vauban 64,0 % | Kombinierend: 42,8 % | ✗ |
+| Leonidas I. | **52,1 %** | 52,0 % | 51,8 % | Dandolo 45,0 % | Vauban 65,5 % | Defensiv: 35,4 % | ✓ |
+| Theophanu | **51,9 %** | 51,6 % | 51,9 % | Fabius 43,5 % | Widukind 60,5 % | Defensiv: 35,6 % | ✓ |
+| Thusnelda | **51,7 %** | 49,9 % | 53,3 % | Nezahualcóyotl 43,5 % | Hypatia 58,0 % | Kombinierend: 42,6 % | ✓ |
+| Ahhotep I. | **50,9 %** | 50,4 % | 51,2 % | Fabius 46,0 % | Widukind 60,5 % | Aggressiv: 45,6 % | ✓ |
+| Fabius Maximus | **50,9 %** | 51,0 % | 50,7 % | Ulrich 46,0 % | Theophanu 56,5 % | Defensiv: 37,8 % | ✓ |
+| Ulrich von Liechtenstein | **50,7 %** | 52,2 % | 49,0 % | Leonidas 45,0 % | Hypatia 56,0 % | Aggressiv: 49,6 % | ✓ |
+| Epaminondas | **50,3 %** | 48,8 % | 51,8 % | Ahhotep 45,0 % | Dandolo 58,0 % | Aggressiv: 43,8 % | ✓ |
+| Baibars | **50,2 %** | 50,8 % | 49,5 % | Imhotep 44,0 % | Dandolo 61,5 % | Aggressiv: 39,5 % | ✓ |
+| Perikles | **50,1 %** | 51,6 % | 48,7 % | Thusnelda 42,0 % | Nezahualcóyotl 63,0 % | Defensiv: 37,7 % | ✓ |
+| Hildegard von Bingen | **49,9 %** | 51,2 % | 48,7 % | Agrippa 43,0 % | Anna 60,5 % | Aggressiv: 47,3 % | ✓ |
+| Nezahualcóyotl | **49,9 %** | 51,5 % | 48,3 % | Perikles 37,0 % | Vauban 62,0 % | Defensiv: 35,6 % | ✓ |
+| Anna Komnene | **49,7 %** | 51,4 % | 48,0 % | Hildegard 39,5 % | Böttger 60,5 % | Kombinierend: 37,7 % | ✓ |
+| Wiprecht von Groitzsch | **49,3 %** | 50,1 % | 48,7 % | Thusnelda 43,5 % | Widukind 55,5 % | Aggressiv: 43,4 % | ✓ |
+| Vercingetorix | **49,1 %** | 48,3 % | 50,1 % | Theophanu 40,5 % | Perikles 57,5 % | Aggressiv: 45,0 % | ✓ |
+| Fürstin von Vix | **49,0 %** | 50,0 % | 48,0 % | Agrippa 38,5 % | Hypatia 56,0 % | Kombinierend: 41,3 % | ✓ |
+| Enrico Dandolo | **48,4 %** | 50,1 % | 46,9 % | Baibars 38,5 % | Hildegard 55,5 % | Kombinierend: 38,3 % | ✓ |
+| Hypatia | **47,9 %** | 48,3 % | 47,9 % | Imhotep 34,0 % | Böttger 57,5 % | Kombinierend: 41,3 % | ✓ |
+| Widukind | **47,0 %** | 45,8 % | 48,8 % | Imhotep 38,0 % | Dandolo 58,0 % | Aggressiv: 45,0 % | ✓ |
+| Vauban | **46,8 %** | 46,3 % | 47,7 % | Leonidas 34,5 % | Hypatia 53,0 % | Defensiv: 37,9 % | ✗ |
+| Johann Friedrich Böttger | **45,8 %** | 48,0 % | 44,3 % | Leonidas 37,5 % | Vix 53,0 % | Kombinierend: 39,6 % | ✗ |
 
 **Siegquoten-Matrix** (Zeile gegen Spalte, in %; fett = außerhalb 40–60):
 
 | | Leon. | Hypa. | Imho. | Dand. | Widu. | Verc. | Bött. | Hild. | Wipr. | Ulri. | Peri. | Agri. | Ahho. | Anna. | Neza. | Theo. | Epam. | Fabi. | Thus. | Baib. | Vaub. | Vix. |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Leonidas | · | 48 | 45 | 53 | 60 | 53 | 47 | 49 | 49 | 54 | 54 | 56 | 40 | 51 | 57 | 46 | 47 | 42 | 56 | 50 | 56 | 42 |
-| Hypatia | 52 | · | 46 | 49 | 54 | 47 | 45 | 53 | 52 | 50 | 50 | 46 | 47 | 52 | 55 | 50 | 43 | 53 | 51 | 52 | 60 | 52 |
-| Imhotep | 55 | 54 | · | 52 | 52 | 51 | 50 | 53 | 52 | 49 | 51 | 56 | 53 | 52 | 60 | 54 | 53 | 53 | 56 | 49 | 53 | 47 |
-| Dandolo | 48 | 52 | 49 | · | 54 | 44 | 51 | 48 | **38** | 51 | 50 | 48 | 44 | 49 | 55 | 48 | **40** | 50 | 53 | 50 | 53 | **39** |
-| Widukind | 41 | 47 | 48 | 46 | · | 49 | 53 | 56 | 40 | 53 | 51 | 45 | 47 | 50 | 44 | 47 | 50 | 46 | 49 | 46 | 42 | 45 |
-| Vercingetorix | 48 | 53 | 50 | 56 | 51 | · | 59 | 57 | 43 | 49 | 50 | 55 | 47 | 54 | 49 | 51 | 54 | 50 | 53 | 44 | 53 | 48 |
-| Böttger | 53 | 55 | 51 | 49 | 47 | 42 | · | 57 | 49 | 51 | 45 | 49 | 42 | 52 | 57 | 51 | 44 | 54 | 46 | 49 | 56 | 49 |
-| Hildegard | 51 | 48 | 48 | 52 | 44 | 43 | 43 | · | 52 | 43 | 51 | 44 | 52 | 45 | 51 | 53 | 43 | 52 | 48 | 52 | 54 | 52 |
-| Wiprecht | 51 | 49 | 48 | **63** | 60 | 57 | 51 | 49 | · | 55 | 51 | 51 | 50 | 49 | 58 | 51 | 56 | 50 | 51 | 55 | 52 | 54 |
-| Ulrich | 46 | 51 | 52 | 50 | 48 | 52 | 49 | 57 | 45 | · | 51 | 47 | 50 | 55 | 56 | 51 | 52 | 54 | 53 | **61** | **39** | 55 |
-| Perikles | 46 | 50 | 50 | 51 | 49 | 50 | 55 | 50 | 49 | 49 | · | 49 | 43 | 55 | 55 | 47 | 58 | 44 | 50 | 56 | 48 | 55 |
-| Agrippa | 44 | 54 | 44 | 52 | 55 | 45 | 51 | 56 | 50 | 53 | 52 | · | 52 | 52 | 59 | 56 | 51 | 50 | 50 | 46 | 54 | 49 |
-| Ahhotep | 60 | 53 | 48 | 56 | 53 | 53 | 59 | 48 | 50 | 50 | 57 | 48 | · | 54 | 48 | 47 | 57 | 50 | 51 | 49 | 51 | 52 |
-| Anna | 49 | 48 | 48 | 51 | 50 | 46 | 48 | 55 | 51 | 45 | 45 | 48 | 46 | · | 58 | 45 | 46 | 53 | 49 | 49 | **61** | 46 |
-| Nezahualcóyotl | 43 | 45 | 40 | 45 | 56 | 51 | 43 | 49 | 42 | 44 | 45 | 41 | 52 | 42 | · | **39** | **39** | 46 | 49 | 48 | 55 | 45 |
-| Theophanu | 54 | 51 | 46 | 53 | 53 | 50 | 50 | 47 | 49 | 49 | 53 | 44 | 53 | 55 | **61** | · | 51 | 49 | 57 | 51 | 51 | 48 |
-| Epaminondas | 53 | 57 | 47 | **61** | 50 | 46 | 56 | 57 | 44 | 48 | 42 | 49 | 43 | 54 | **61** | 50 | · | 45 | 59 | 50 | 53 | 56 |
-| Fabius | 58 | 47 | 47 | 50 | 54 | 50 | 46 | 48 | 50 | 47 | 56 | 50 | 50 | 48 | 54 | 52 | 55 | · | 52 | 46 | 52 | 45 |
-| Thusnelda | 44 | 49 | 44 | 48 | 51 | 48 | 54 | 52 | 49 | 47 | 50 | 50 | 50 | 51 | 51 | 43 | 42 | 48 | · | 54 | 54 | 42 |
-| Baibars | 51 | 49 | 52 | 51 | 54 | 56 | 52 | 49 | 45 | **40** | 44 | 54 | 51 | 52 | 53 | 49 | 51 | 54 | 47 | · | 51 | 55 |
-| Vauban | 44 | 41 | 48 | 48 | 59 | 48 | 44 | 47 | 48 | **61** | 52 | 46 | 49 | **40** | 45 | 50 | 47 | 48 | 47 | 49 | · | 49 |
-| Vix | 59 | 49 | 53 | **61** | 55 | 53 | 51 | 49 | 46 | 45 | 45 | 52 | 48 | 54 | 55 | 52 | 44 | 55 | 59 | 45 | 52 | · |
+| Leonidas | · | 53 | 47 | 45 | 60 | 57 | **63** | 53 | 46 | 55 | 57 | 50 | 46 | 46 | 52 | 50 | 50 | 50 | 49 | 52 | **66** | 51 |
+| Hypatia | 47 | · | **34** | 49 | 47 | 52 | 57 | 49 | 45 | 44 | 48 | 46 | 53 | 48 | 56 | 47 | 50 | 50 | 42 | 53 | 47 | 44 |
+| Imhotep | 53 | **66** | · | 56 | **62** | 59 | 59 | 50 | 50 | 54 | 47 | 52 | 53 | 53 | 52 | 55 | 49 | 52 | 54 | 56 | 52 | 59 |
+| Dandolo | 55 | 52 | 44 | · | 42 | 53 | 53 | 56 | 51 | 54 | 51 | 44 | 46 | 46 | 47 | 51 | 42 | 45 | 48 | **39** | 51 | 49 |
+| Widukind | 41 | 53 | **38** | 58 | · | 44 | 56 | 45 | 45 | 44 | 48 | 40 | **40** | 50 | 49 | **40** | 49 | 48 | 51 | 52 | 53 | 49 |
+| Vercingetorix | 43 | 48 | 41 | 47 | 56 | · | 50 | 55 | 45 | 51 | 57 | 46 | 50 | 52 | 44 | 41 | 55 | 53 | 50 | 51 | 53 | 49 |
+| Böttger | **38** | 43 | 41 | 48 | 44 | 51 | · | 52 | 47 | 51 | 42 | 46 | 44 | **40** | 46 | 43 | 52 | 45 | 48 | 45 | 49 | 53 |
+| Hildegard | 48 | 51 | 51 | 44 | 55 | 45 | 49 | · | 52 | 50 | 49 | 43 | 48 | **61** | 51 | 53 | 51 | 52 | 47 | 55 | 50 | 46 |
+| Wiprecht | 54 | 55 | 51 | 49 | 55 | 55 | 53 | 48 | · | 45 | 46 | 45 | 53 | 48 | 47 | 48 | 46 | 46 | 44 | 47 | 52 | 51 |
+| Ulrich | 45 | 56 | 47 | 46 | 56 | 49 | 49 | 50 | 55 | · | 54 | 46 | 51 | 51 | 48 | 46 | 53 | 54 | 51 | 52 | 54 | 54 |
+| Perikles | 43 | 53 | 53 | 49 | 53 | 43 | 59 | 51 | 54 | 47 | · | 51 | 54 | 48 | **63** | 47 | 50 | 48 | 42 | 49 | 50 | 51 |
+| Agrippa | 51 | 54 | 48 | 56 | 60 | 54 | 54 | 57 | 55 | 54 | 50 | · | 52 | 52 | 55 | 55 | 53 | 51 | 51 | 52 | **64** | **62** |
+| Ahhotep | 54 | 48 | 48 | 54 | **61** | 51 | 56 | 52 | 47 | 49 | 47 | 49 | · | 54 | 51 | 52 | 55 | 46 | 47 | 50 | 47 | 53 |
+| Anna | 54 | 52 | 48 | 54 | 51 | 49 | **61** | **40** | 52 | 49 | 52 | 48 | 46 | · | 56 | 45 | 44 | 50 | 43 | 50 | 55 | 47 |
+| Nezahualcóyotl | 49 | 44 | 48 | 53 | 51 | 56 | 54 | 50 | 53 | 53 | **37** | 45 | 49 | 44 | · | 43 | 51 | 52 | 56 | 48 | **62** | 50 |
+| Theophanu | 51 | 53 | 45 | 50 | **61** | 60 | 57 | 48 | 52 | 54 | 53 | 45 | 49 | 55 | 57 | · | 48 | 44 | 54 | 51 | 53 | 52 |
+| Epaminondas | 51 | 50 | 51 | 58 | 51 | 45 | 48 | 49 | 54 | 48 | 51 | 47 | 45 | 56 | 49 | 52 | · | 49 | 52 | 49 | 52 | 52 |
+| Fabius | 51 | 50 | 48 | 55 | 52 | 48 | 55 | 48 | 54 | 46 | 52 | 49 | 54 | 50 | 48 | 56 | 52 | · | 46 | 53 | 52 | 51 |
+| Thusnelda | 51 | 58 | 47 | 52 | 49 | 51 | 53 | 53 | 56 | 50 | 58 | 50 | 53 | 57 | 44 | 46 | 49 | 54 | · | 48 | 55 | 56 |
+| Baibars | 49 | 47 | 44 | **62** | 49 | 50 | 55 | 45 | 53 | 48 | 51 | 49 | 50 | 50 | 52 | 50 | 51 | 48 | 52 | · | 53 | 50 |
+| Vauban | **35** | 53 | 48 | 49 | 48 | 47 | 52 | 51 | 48 | 46 | 51 | **36** | 53 | 45 | **38** | 47 | 48 | 48 | 45 | 48 | · | 49 |
+| Vix | 49 | 56 | 42 | 51 | 52 | 52 | 47 | 54 | 49 | 46 | 50 | **39** | 48 | 53 | 51 | 48 | 49 | 50 | 44 | 51 | 51 | · |
 
-**KI-Persönlichkeit** (AP 5.8 Teil 2) – Anteil der Angriffe: **Aggressiv** (8 Helden) 48,8 % aufs Gesicht, 8,1 % auf Bauwerke · **Defensiv** (7 Helden) 40,2 % aufs Gesicht, 10,1 % auf Bauwerke · **Kombinierend** (7 Helden) 44,3 % aufs Gesicht, 9,3 % auf Bauwerke.
+**KI-Persönlichkeit** (AP 5.8 Teil 2) – Anteil der Angriffe: **Aggressiv** (8 Helden) 44,9 % aufs Gesicht, 13,3 % auf Bauwerke · **Defensiv** (7 Helden) 36,7 % aufs Gesicht, 15,7 % auf Bauwerke · **Kombinierend** (7 Helden) 40,5 % aufs Gesicht, 14,8 % auf Bauwerke.
 
-**Partielänge** (Züge beider Seiten zusammen): Mittel 22,1, Median 21, 10–90 %: 15–31, kürzeste 8, längste 70. Beginner gewinnt 51,2 %, Unentschieden (Zuglimit 120): 0.
+**Partielänge** (Züge beider Seiten zusammen): Mittel 24,0, Median 22, 10–90 %: 15–36, kürzeste 8, längste 71. Beginner gewinnt 50,2 %, Unentschieden (Zuglimit 120): 0.
 
 **Auffällige Karten** – „gewinnt, wenn gezogen“ im Vergleich zur Siegquote des eigenen Helden (Δ in Prozentpunkten):
 
 | Karte | Held | Mana | gewinnt, wenn gezogen | Δ | gespielt |
 |---|---|---:|---:|---:|---:|
-| Griechisches Feuer | Anna | 4 | 63,1 % | +13,7 | 48,3 % |
-| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | 57,6 % | +11,6 | 55,5 % |
-| Phalanxveteran | Leonidas | 5 | 61,2 % | +11,2 | 55,3 % |
-| Burgbesatzung | neutral | 8 | 58,8 % | +8,7 | 45,5 % |
-| Warägergardist | Anna | 3 | 57,8 % | +8,4 | 55,7 % |
-| Kämpfer der Heiligen Schar | Epaminondas | 5 | 59,6 % | +8,2 | 48,5 % |
-| Synesios von Kyrene | Hypatia | 3 | 58,4 % | +8,2 | 56,6 % |
-| Chronist am Kaiserhof | Anna | 6 | 57,6 % | +8,2 | 56,0 % |
-| Pyramiden von Gizeh | neutral | 4 | 43,9 % | −6,1 | 29,3 % |
-| Odeion | Perikles | 4 | 44,0 % | −6,2 | 39,6 % |
-| Heerlager an der Weser | Widukind | 3 | 41,3 % | −6,2 | 42,6 % |
-| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | 39,1 % | −6,8 | 52,0 % |
-| Vorgetäuschte Flucht | Baibars | 1 | 43,1 % | −7,1 | 18,1 % |
-| Letzter Ritt vor Alesia | Vercingetorix | 5 | 43,2 % | −7,7 | 33,7 % |
-| Burgfried | Mittelalter im Reich | 2 | 42,3 % | −7,8 | 56,9 % |
-| Zitadelle von Lille | Vauban | 4 | 38,4 % | −9,7 | 55,4 % |
+| Phalanxveteran | Leonidas | 5 | 62,2 % | +10,3 | 61,4 % |
+| Griechisches Feuer | Anna | 4 | 59,4 % | +9,7 | 52,9 % |
+| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | 59,5 % | +9,6 | 59,5 % |
+| Kataphrakt | Anna | 5 | 59,0 % | +9,2 | 50,7 % |
+| Chronist am Kaiserhof | Anna | 6 | 58,5 % | +8,8 | 60,6 % |
+| Botin der Cherusker | Thusnelda | 1 | 59,9 % | +8,4 | 55,6 % |
+| Gorgo, Stimme Spartas | Leonidas | 7 | 59,9 % | +8,0 | 54,8 % |
+| Kämpfer der Heiligen Schar | Epaminondas | 5 | 57,8 % | +7,5 | 53,6 % |
+| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | 43,9 % | −5,9 | 55,3 % |
+| Weißes Gold | Böttger | 3 | 40,2 % | −5,9 | 3,9 % |
+| Sternschanze | Frühe Neuzeit | 2 | 41,4 % | −6,2 | 65,4 % |
+| Odeion | Perikles | 4 | 43,9 % | −6,2 | 42,2 % |
+| Burgfried | Mittelalter im Reich | 2 | 43,6 % | −6,2 | 59,3 % |
+| Vorgetäuschte Flucht | Baibars | 1 | 43,5 % | −6,7 | 20,5 % |
+| Zitadelle von Lille | Vauban | 4 | 40,3 % | −6,7 | 60,5 % |
+| Ka-Statue | Imhotep | 2 | 46,6 % | −7,3 | 60,2 % |
 
-**Legendäre** (AP 5.3) – als Gruppe 53,1 % „gewinnt, wenn gezogen“ (+3,1 gegenüber ihrem Helden, 62135 Partien):
+**Legendäre** (AP 5.3) – als Gruppe 52,9 % „gewinnt, wenn gezogen“ (+2,9 gegenüber ihrem Helden, 62468 Partien):
 
 | Karte | Held | Mana | gewinnt, wenn gezogen | Δ | gespielt |
 |---|---|---:|---:|---:|---:|
-| Judith von Böhmen | Wiprecht | 7 | 59,2 % | +6,7 | 46,2 % |
-| Gorgo, Stimme Spartas | Leonidas | 7 | 57,5 % | +7,4 | 50,8 % |
-| Qalawun, Emir der Bahriya | Baibars | 6 | 56,5 % | +6,3 | 46,8 % |
-| Gesandter aus Massalia | Vix | 6 | 56,1 % | +4,8 | 49,1 % |
-| Djoser, der Erbauer | Imhotep | 6 | 55,4 % | +3,2 | 50,6 % |
-| Zenobia, Rebellin von Palmyra | neutral | 8 | 55,0 % | +5,0 | 44,5 % |
-| Ludwig XIV., der Sonnenkönig | Vauban | 5 | 54,0 % | +5,9 | 43,4 % |
-| Friedrich der Streitbare | Ulrich | 6 | 53,3 % | +2,4 | 45,0 % |
-| Zeremonialaxt des Ahmose | Ahhotep | 6 | 53,1 % | +1,2 | 47,5 % |
-| Theon von Alexandria | Hypatia | 5 | 52,9 % | +2,7 | 50,2 % |
-| Phidias, Meister der Akropolis | Perikles | 7 | 52,4 % | +2,2 | 53,1 % |
-| Herodot, Vater der Geschichte | neutral | 4 | 52,4 % | +2,4 | 43,8 % |
-| Pelopidas, Führer der Heiligen Schar | Epaminondas | 6 | 52,4 % | +1,0 | 44,2 % |
-| Marco Polo, der Weltenfahrer | Dandolo | 6 | 51,9 % | +3,7 | 46,4 % |
-| Commius, Führer des Entsatzheers | Vercingetorix | 8 | 51,1 % | +0,2 | 44,6 % |
-| Otto II., Kaiser | Theophanu | 6 | 51,1 % | +0,2 | 52,2 % |
-| Bund der Stämme | Thusnelda | 8 | 50,9 % | +2,4 | 43,0 % |
-| Tschirnhaus, Naturforscher | Böttger | 5 | 50,6 % | +0,8 | 55,2 % |
-| Alexios I. Komnenos | Anna | 6 | 49,8 % | +0,4 | 48,4 % |
-| Abbi, Gefährte Widukinds | Widukind | 6 | 49,7 % | +2,2 | 45,2 % |
-| Vitruv, Baumeister Roms | Agrippa | 5 | 49,7 % | −1,4 | 45,2 % |
-| Marcellus, Schwert Roms | Fabius | 6 | 48,6 % | −1,7 | 47,7 % |
-| Jutta von Sponheim, Magistra | Hildegard | 7 | 48,5 % | −0,0 | 43,4 % |
-| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | 43,0 % | −2,9 | 47,2 % |
+| Gorgo, Stimme Spartas | Leonidas | 7 | 59,9 % | +8,0 | 54,8 % |
+| Djoser, der Erbauer | Imhotep | 6 | 58,6 % | +4,7 | 54,1 % |
+| Vitruv, Baumeister Roms | Agrippa | 5 | 55,2 % | +1,4 | 51,5 % |
+| Bund der Stämme | Thusnelda | 8 | 55,1 % | +3,5 | 48,1 % |
+| Zenobia, Rebellin von Palmyra | neutral | 8 | 54,8 % | +4,8 | 49,6 % |
+| Qalawun, Emir der Bahriya | Baibars | 6 | 54,4 % | +4,2 | 52,5 % |
+| Marco Polo, der Weltenfahrer | Dandolo | 6 | 54,3 % | +5,8 | 50,3 % |
+| Phidias, Meister der Akropolis | Perikles | 7 | 54,1 % | +4,0 | 57,5 % |
+| Otto II., Kaiser | Theophanu | 6 | 54,1 % | +2,4 | 59,6 % |
+| Judith von Böhmen | Wiprecht | 7 | 53,6 % | +4,2 | 51,1 % |
+| Pelopidas, Führer der Heiligen Schar | Epaminondas | 6 | 53,3 % | +3,0 | 49,2 % |
+| Friedrich der Streitbare | Ulrich | 6 | 52,2 % | +1,6 | 49,0 % |
+| Abbi, Gefährte Widukinds | Widukind | 6 | 52,1 % | +4,8 | 48,0 % |
+| Theon von Alexandria | Hypatia | 5 | 52,0 % | +3,9 | 55,6 % |
+| Herodot, Vater der Geschichte | neutral | 4 | 51,4 % | +1,4 | 48,3 % |
+| Alexios I. Komnenos | Anna | 6 | 51,3 % | +1,6 | 51,5 % |
+| Gesandter aus Massalia | Vix | 6 | 51,1 % | +2,1 | 55,0 % |
+| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | 50,9 % | +1,0 | 51,1 % |
+| Zeremonialaxt des Ahmose | Ahhotep | 6 | 50,3 % | −0,5 | 51,3 % |
+| Marcellus, Schwert Roms | Fabius | 6 | 50,1 % | −0,7 | 53,2 % |
+| Commius, Führer des Entsatzheers | Vercingetorix | 8 | 49,5 % | +0,3 | 49,7 % |
+| Ludwig XIV., der Sonnenkönig | Vauban | 5 | 49,4 % | +2,4 | 51,4 % |
+| Jutta von Sponheim, Magistra | Hildegard | 7 | 49,2 % | −0,7 | 46,1 % |
+| Tschirnhaus, Naturforscher | Böttger | 5 | 46,6 % | +0,4 | 59,9 % |
 
 ## Alle Karten
 
@@ -208,365 +208,392 @@ Jede Partie mit neu gemischten Zufallsdecks (`E.randomDeck`, wie die KI im freie
 
 | Karte | Held | Mana | Seltenheit | Startdecks: im Deck | gespielt | gewinnt, wenn gezogen | Δ | Zufallsdecks: im Deck | gespielt | gewinnt, wenn gezogen | Δ |
 |---|---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Spartanischer Rekrut | Leonidas | 1 | Basis | 4600 | 81,0 % | 54,1 % | +0,7 | 1086 | 56,4 % | 50,7 % | +0,6 |
-| Wächter der Thermopylen | Leonidas | 2 | Basis | 4600 | 82,3 % | 54,2 % | +0,8 | 1570 | 57,3 % | 52,9 % | +2,8 |
-| Bronzener Wall | Leonidas | 2 | Basis | 4600 | 82,5 % | 54,7 % | +1,3 | 1466 | 53,1 % | 50,3 % | +0,3 |
-| Hoplitenhauptmann | Leonidas | 4 | Basis | 4600 | 77,2 % | 55,7 % | +2,3 | 1626 | 50,3 % | 49,2 % | −0,8 |
-| Speerträger | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1668 | 59,1 % | 53,0 % | +2,9 |
-| Schildstoß | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1678 | 57,6 % | 51,2 % | +1,1 |
-| Phalanxveteran | Leonidas | 5 | Selten | – | – | – | – | 1928 | 55,3 % | 61,2 % | +11,2 |
-| Spartas Erbe | Leonidas | 4 | Selten | – | – | – | – | 1574 | 45,4 % | 51,2 % | +1,2 |
-| Dienekes | Leonidas | 6 | Episch | – | – | – | – | 2448 | 54,1 % | 46,8 % | −3,3 |
-| Gorgo, Stimme Spartas | Leonidas | 7 | Legendär | – | – | – | – | 2060 | 50,8 % | 57,5 % | +7,4 |
-| Bibliothekslehrling | Hypatia | 1 | Basis | 4600 | 82,5 % | 51,3 % | −1,3 | 1058 | 55,5 % | 47,9 % | −2,2 |
-| Erdmessung des Eratosthenes | Hypatia | 2 | Basis | 4600 | 87,2 % | 52,8 % | +0,3 | 1530 | 59,0 % | 51,5 % | +1,4 |
-| Sternenkundiger | Hypatia | 3 | Basis | 4600 | 82,1 % | 54,4 % | +1,8 | 1856 | 52,1 % | 52,8 % | +2,6 |
-| Sternkatalog des Hipparchos | Hypatia | 4 | Basis | 4600 | 79,3 % | 56,4 % | +3,8 | 1562 | 47,2 % | 57,6 % | +7,4 |
-| Synesios von Kyrene | Hypatia | 3 | Gewöhnlich | – | – | – | – | 1698 | 56,6 % | 58,4 % | +8,2 |
-| Lehrsatz | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1554 | 30,2 % | 48,5 % | −1,6 |
-| Museionshüterin | Hypatia | 5 | Selten | – | – | – | – | 1874 | 49,6 % | 53,3 % | +3,2 |
-| Brennspiegel des Archimedes | Hypatia | 6 | Selten | – | – | – | – | 2536 | 56,6 % | 48,4 % | −1,7 |
-| Klaudios Ptolemaios | Hypatia | 5 | Episch | – | – | – | – | 1908 | 54,5 % | 49,1 % | −1,1 |
-| Theon von Alexandria | Hypatia | 5 | Legendär | – | – | – | – | 1970 | 50,2 % | 52,9 % | +2,7 |
-| Nilschülerin | Imhotep | 1 | Basis | 4600 | 82,9 % | 51,6 % | −0,3 | 1110 | 53,0 % | 53,2 % | +1,0 |
-| Heilender Balsam | Imhotep | 1 | Basis | 4600 | 83,7 % | 53,8 % | +2,0 | 1018 | 58,4 % | 53,1 % | +0,9 |
-| Pyramidenwächter | Imhotep | 3 | Basis | 4600 | 84,2 % | 53,2 % | +1,3 | 1654 | 56,3 % | 55,5 % | +3,3 |
-| Tempelärztin | Imhotep | 4 | Basis | 4600 | 80,7 % | 52,5 % | +0,6 | 1638 | 52,6 % | 52,8 % | +0,6 |
-| Brot und Bier | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1452 | 53,7 % | 55,8 % | +3,6 |
-| Balsamierer | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1674 | 57,0 % | 58,6 % | +6,4 |
-| Nilschwemme | Imhotep | 3 | Selten | – | – | – | – | 1666 | 49,3 % | 51,9 % | −0,3 |
-| Goldener Skarabäus | Imhotep | 5 | Selten | – | – | – | – | 1996 | 54,9 % | 58,0 % | +5,8 |
-| Urteil nach der Maat | Imhotep | 5 | Episch | – | – | – | – | 1946 | 56,8 % | 50,8 % | −1,4 |
-| Djoser, der Erbauer | Imhotep | 6 | Legendär | – | – | – | – | 2530 | 50,6 % | 55,4 % | +3,2 |
-| Lagunenbote | Dandolo | 1 | Basis | 4600 | 80,3 % | 52,5 % | +2,7 | 1054 | 52,7 % | 49,4 % | +1,2 |
-| Arsenalarbeiter | Dandolo | 2 | Basis | 4600 | 79,7 % | 48,9 % | −0,9 | 1518 | 51,0 % | 45,7 % | −2,5 |
-| Präziser Stich | Dandolo | 2 | Basis | 4600 | 85,1 % | 51,3 % | +1,5 | 1564 | 56,2 % | 50,3 % | +2,1 |
-| Handelsgesandter | Dandolo | 4 | Basis | 4600 | 79,2 % | 53,3 % | +3,5 | 1546 | 50,8 % | 50,1 % | +1,9 |
-| Dogenklinge | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1610 | 44,7 % | 49,5 % | +1,3 |
-| Nachtwache am Kanal | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1586 | 52,9 % | 49,3 % | +1,2 |
-| Geheimer Vertrag | Dandolo | 2 | Selten | – | – | – | – | 1554 | 48,0 % | 49,6 % | +1,4 |
-| Admiral der Galeeren | Dandolo | 5 | Selten | – | – | – | – | 1834 | 51,7 % | 51,8 % | +3,6 |
-| Arsenal von Venedig | Dandolo | 5 | Episch | – | – | – | – | 1858 | 36,5 % | 49,3 % | +1,1 |
-| Marco Polo, der Weltenfahrer | Dandolo | 6 | Legendär | – | – | – | – | 2380 | 46,4 % | 51,9 % | +3,7 |
-| Späher aus Engern | Widukind | 1 | Basis | 4600 | 75,4 % | 49,1 % | −1,1 | 1130 | 50,9 % | 45,6 % | −1,9 |
-| Speerwerfer aus Westfalen | Widukind | 2 | Basis | 4600 | 77,0 % | 49,3 % | −0,9 | 1602 | 52,7 % | 50,8 % | +3,3 |
-| Pfeilschuss | Widukind | 2 | Basis | 4600 | 76,1 % | 47,8 % | −2,4 | 1604 | 56,7 % | 47,0 % | −0,5 |
-| Reiter der Edelinge | Widukind | 4 | Basis | 4600 | 70,7 % | 54,8 % | +4,7 | 1518 | 48,7 % | 53,3 % | +5,8 |
-| Falknerin | Widukind | 3 | Gewöhnlich | – | – | – | – | 1652 | 44,3 % | 49,0 % | +1,5 |
-| Sachsenaufstand | Widukind | 3 | Gewöhnlich | – | – | – | – | 1618 | 48,0 % | 47,4 % | −0,1 |
-| Schildträger aus Ostfalen | Widukind | 5 | Selten | – | – | – | – | 1780 | 48,3 % | 49,6 % | +2,1 |
-| Sturm auf die Eresburg | Widukind | 6 | Selten | – | – | – | – | 2294 | 50,0 % | 49,1 % | +1,6 |
-| Gefolgschaft Widukinds | Widukind | 6 | Episch | – | – | – | – | 2366 | 46,2 % | 44,1 % | −3,4 |
-| Abbi, Gefährte Widukinds | Widukind | 6 | Legendär | – | – | – | – | 2262 | 45,2 % | 49,7 % | +2,2 |
-| Hüterin des Hains | Vercingetorix | 1 | Basis | 4600 | 82,4 % | 47,2 % | −1,6 | 1186 | 52,0 % | 53,5 % | +2,6 |
-| Schild aus Eichenholz | Vercingetorix | 2 | Basis | 4600 | 75,3 % | 47,5 % | −1,4 | 1576 | 43,1 % | 48,2 % | −2,7 |
-| Krieger der Arverner | Vercingetorix | 3 | Basis | 4600 | 85,4 % | 50,1 % | +1,3 | 1608 | 56,3 % | 55,1 % | +4,2 |
-| Hieb mit dem Langschwert | Vercingetorix | 3 | Basis | 4600 | 84,8 % | 48,0 % | −0,8 | 1638 | 59,2 % | 50,3 % | −0,6 |
-| Reiter der Arverner | Vercingetorix | 4 | Gewöhnlich | – | – | – | – | 1524 | 48,3 % | 51,5 % | +0,6 |
-| Heilkundige mit der Mistel | Vercingetorix | 3 | Gewöhnlich | – | – | – | – | 1648 | 52,9 % | 50,2 % | −0,8 |
-| Erhebung der Gallier | Vercingetorix | 3 | Selten | – | – | – | – | 1648 | 53,6 % | 52,0 % | +1,1 |
-| Verteidiger von Gergovia | Vercingetorix | 6 | Selten | – | – | – | – | 2468 | 52,6 % | 50,7 % | −0,2 |
-| Letzter Ritt vor Alesia | Vercingetorix | 5 | Episch | – | – | – | – | 1878 | 33,7 % | 43,2 % | −7,7 |
-| Commius, Führer des Entsatzheers | Vercingetorix | 8 | Legendär | – | – | – | – | 1404 | 44,6 % | 51,1 % | +0,2 |
-| Apothekerlehrling | Böttger | 1 | Basis | 4600 | 85,5 % | 53,8 % | +2,8 | 1100 | 60,1 % | 51,3 % | +1,5 |
-| Verpuffung im Laboratorium | Böttger | 2 | Basis | 4600 | 89,3 % | 53,9 % | +2,9 | 1564 | 66,2 % | 53,8 % | +4,0 |
-| Bergmann aus Aue | Böttger | 3 | Basis | 4600 | 85,4 % | 52,1 % | +1,0 | 1716 | 53,0 % | 47,7 % | −2,1 |
-| Rezept des Goldmachers | Böttger | 4 | Basis | 4600 | 67,0 % | 51,5 % | +0,4 | 1504 | 27,7 % | 46,1 % | −3,7 |
-| Pestarzt | Böttger | 4 | Gewöhnlich | – | – | – | – | 1582 | 60,2 % | 57,4 % | +7,7 |
-| Befehl des Kurfürsten | Böttger | 2 | Gewöhnlich | – | – | – | – | 1626 | 59,9 % | 56,7 % | +6,9 |
-| Schreiber der Manufaktur | Böttger | 5 | Selten | – | – | – | – | 1770 | 53,0 % | 49,0 % | −0,8 |
-| Glut des Brennofens | Böttger | 5 | Selten | – | – | – | – | 1752 | 44,3 % | 54,2 % | +4,4 |
-| Wache auf dem Königstein | Böttger | 6 | Episch | – | – | – | – | 2404 | 60,7 % | 52,8 % | +3,1 |
-| Tschirnhaus, Naturforscher | Böttger | 5 | Legendär | – | – | – | – | 1850 | 55,2 % | 50,6 % | +0,8 |
-| Pförtnerin vom Rupertsberg | Hildegard | 1 | Basis | 4600 | 78,7 % | 49,9 % | −0,6 | 1196 | 57,6 % | 54,1 % | +5,6 |
-| Grünkraft | Hildegard | 2 | Basis | 4600 | 79,0 % | 50,5 % | −0,1 | 1556 | 48,7 % | 49,7 % | +1,2 |
-| Klostervogt | Hildegard | 3 | Basis | 4600 | 78,8 % | 51,4 % | +0,9 | 1710 | 55,9 % | 53,3 % | +4,8 |
-| Einkleidung der Novizinnen | Hildegard | 2 | Basis | 4600 | 77,1 % | 49,1 % | −1,4 | 1534 | 54,0 % | 53,8 % | +5,3 |
-| Pilger am Rhein | Hildegard | 4 | Gewöhnlich | – | – | – | – | 1548 | 39,5 % | 47,6 % | −0,9 |
-| Segen der Äbtissin | Hildegard | 2 | Gewöhnlich | – | – | – | – | 1520 | 46,8 % | 47,5 % | −0,9 |
-| Vorsängerin im Chor | Hildegard | 5 | Selten | – | – | – | – | 1824 | 48,5 % | 48,3 % | −0,2 |
-| Spiel der Tugenden | Hildegard | 6 | Selten | – | – | – | – | 2276 | 43,0 % | 48,3 % | −0,2 |
-| Ritter mit dem Schutzbrief | Hildegard | 7 | Episch | – | – | – | – | 2108 | 41,0 % | 47,5 % | −1,0 |
-| Jutta von Sponheim, Magistra | Hildegard | 7 | Legendär | – | – | – | – | 2004 | 43,4 % | 48,5 % | −0,0 |
-| Siedler aus Franken | Wiprecht | 1 | Basis | 4600 | 77,3 % | 47,3 % | −2,3 | 1150 | 50,5 % | 54,5 % | +1,9 |
-| Fehde | Wiprecht | 2 | Basis | 4600 | 81,6 % | 48,8 % | −0,8 | 1558 | 60,2 % | 52,7 % | +0,1 |
-| Burgmann von Groitzsch | Wiprecht | 3 | Basis | 4600 | 80,7 % | 50,8 % | +1,2 | 1662 | 54,5 % | 57,3 % | +4,8 |
-| Lokator | Wiprecht | 4 | Basis | 4600 | 76,2 % | 51,5 % | +1,9 | 1568 | 50,3 % | 50,6 % | −2,0 |
-| Verhau | Wiprecht | 3 | Gewöhnlich | – | – | – | – | 1706 | 57,9 % | 51,7 % | −0,9 |
-| Panzerreiter | Wiprecht | 4 | Gewöhnlich | – | – | – | – | 1554 | 47,0 % | 53,0 % | +0,5 |
-| Rodung | Wiprecht | 3 | Selten | – | – | – | – | 1590 | 52,4 % | 56,4 % | +3,8 |
-| Grenzwächter der Mark | Wiprecht | 5 | Selten | – | – | – | – | 1908 | 46,1 % | 49,6 % | −3,0 |
-| Heerfahrt nach Italien | Wiprecht | 5 | Episch | – | – | – | – | 1904 | 52,7 % | 53,5 % | +1,0 |
-| Judith von Böhmen | Wiprecht | 7 | Legendär | – | – | – | – | 2232 | 46,2 % | 59,2 % | +6,7 |
-| Edelknabe | Ulrich | 1 | Basis | 4600 | 80,9 % | 48,5 % | −0,4 | 1132 | 53,0 % | 53,7 % | +2,8 |
-| Lanzenstoß | Ulrich | 1 | Basis | 4600 | 84,0 % | 49,6 % | +0,8 | 1060 | 51,0 % | 53,9 % | +3,0 |
-| Fahrender Ritter | Ulrich | 3 | Basis | 4600 | 83,3 % | 49,5 % | +0,7 | 1702 | 49,6 % | 52,3 % | +1,4 |
-| Minnebrief | Ulrich | 2 | Basis | 4600 | 74,1 % | 50,8 % | +1,9 | 1564 | 42,1 % | 47,8 % | −3,1 |
-| Minneritter | Ulrich | 3 | Gewöhnlich | – | – | – | – | 1726 | 53,2 % | 51,7 % | +0,8 |
-| Mit eingelegter Lanze | Ulrich | 3 | Gewöhnlich | – | – | – | – | 1694 | 37,8 % | 50,7 % | −0,2 |
-| Kämpe im Buhurt | Ulrich | 4 | Selten | – | – | – | – | 1580 | 41,8 % | 50,1 % | −0,8 |
-| Venusfahrt | Ulrich | 5 | Selten | – | – | – | – | 1878 | 41,3 % | 56,4 % | +5,5 |
-| Landrichter der Steiermark | Ulrich | 6 | Episch | – | – | – | – | 2496 | 51,1 % | 50,9 % | −0,0 |
-| Friedrich der Streitbare | Ulrich | 6 | Legendär | – | – | – | – | 2310 | 45,0 % | 53,3 % | +2,4 |
-| Dorfwache | neutral | 1 | Basis | 101200 | 80,7 % | 49,2 % | −0,8 | 24912 | 53,8 % | 50,5 % | +0,5 |
-| Wandernder Händler | neutral | 2 | Basis | 101200 | 80,9 % | 49,0 % | −1,0 | 34094 | 53,2 % | 48,5 % | −1,4 |
-| Steinschleuderer | neutral | 2 | Basis | 101200 | 80,9 % | 49,7 % | −0,3 | 34266 | 53,0 % | 50,9 % | +0,9 |
-| Wilderin | neutral | 3 | Basis | 101200 | 83,3 % | 49,8 % | −0,3 | 36660 | 55,1 % | 49,9 % | −0,1 |
-| Torwache der Burg | neutral | 4 | Basis | 101200 | 76,9 % | 51,3 % | +1,2 | 35428 | 47,3 % | 50,1 % | +0,1 |
-| Kavallerist | neutral | 4 | Basis | 101200 | 78,3 % | 51,3 % | +1,3 | 35006 | 47,4 % | 51,4 % | +1,4 |
-| Feldheilerin | neutral | 3 | Basis | 101200 | 80,8 % | 49,6 % | −0,5 | 36874 | 52,3 % | 48,7 % | −1,3 |
-| Archivarin | neutral | 4 | Basis | 101200 | 74,7 % | 52,6 % | +2,6 | 35810 | 46,3 % | 50,4 % | +0,4 |
-| Wachhund | neutral | 2 | Basis | 101200 | 78,3 % | 48,9 % | −1,1 | 34220 | 50,6 % | 48,8 % | −1,2 |
-| Veteran | neutral | 5 | Basis | 101200 | 79,3 % | 52,5 % | +2,5 | 42778 | 50,6 % | 49,3 % | −0,7 |
-| Belagerungsturm | neutral | 6 | Basis | 101200 | 76,8 % | 55,2 % | +5,2 | 55208 | 52,2 % | 50,7 % | +0,7 |
-| Schmied | neutral | 3 | Basis | – | – | – | – | 37064 | 51,1 % | 50,7 % | +0,7 |
-| Wüstenspäherin | neutral | 1 | Basis | – | – | – | – | 24934 | 53,2 % | 52,3 % | +2,3 |
-| Gebirgswache | neutral | 5 | Basis | – | – | – | – | 42918 | 51,5 % | 54,4 % | +4,3 |
-| Verwegener Bote | neutral | 3 | Basis | – | – | – | – | 37210 | 50,6 % | 50,2 % | +0,2 |
-| Nachtwächter | neutral | 2 | Basis | – | – | – | – | 34538 | 49,9 % | 50,6 % | +0,7 |
-| Versorgung | neutral | 2 | Basis | – | – | – | – | 33996 | 41,3 % | 49,0 % | −1,0 |
-| Heilkräuter | neutral | 1 | Basis | – | – | – | – | 24510 | 49,9 % | 48,0 % | −2,0 |
-| Wurfmesser | neutral | 2 | Basis | – | – | – | – | 34110 | 56,5 % | 49,5 % | −0,5 |
-| Kriegselefant | neutral | 7 | Basis | – | – | – | – | 49168 | 53,1 % | 53,8 % | +3,7 |
-| Ordensritter | neutral | 3 | Gewöhnlich | – | – | – | – | 37118 | 53,7 % | 51,6 % | +1,6 |
-| Söldnerhauptmann | neutral | 4 | Gewöhnlich | – | – | – | – | 35532 | 48,3 % | 49,2 % | −0,9 |
-| Adler der Berge | neutral | 2 | Gewöhnlich | – | – | – | – | 34184 | 54,2 % | 52,0 % | +2,0 |
-| Grabwächter | neutral | 4 | Gewöhnlich | – | – | – | – | 35382 | 48,9 % | 52,7 % | +2,7 |
-| Sammelruf | neutral | 3 | Gewöhnlich | – | – | – | – | 37040 | 56,8 % | 53,2 % | +3,2 |
-| Feldration | neutral | 2 | Gewöhnlich | – | – | – | – | 34334 | 29,9 % | 45,4 % | −4,6 |
-| Bogenmeisterin | neutral | 4 | Gewöhnlich | – | – | – | – | 35494 | 48,8 % | 47,2 % | −2,8 |
-| Prätorianer | neutral | 5 | Gewöhnlich | – | – | – | – | 42664 | 48,1 % | 51,5 % | +1,5 |
-| Silberner Bannerträger | neutral | 4 | Selten | – | – | – | – | 35436 | 52,9 % | 54,4 % | +4,4 |
-| Flammenkrug | neutral | 4 | Selten | – | – | – | – | 35362 | 47,3 % | 54,1 % | +4,1 |
-| Löwin der Arena | neutral | 5 | Selten | – | – | – | – | 43042 | 52,6 % | 52,2 % | +2,1 |
-| Seidenkarawanenführer | neutral | 5 | Selten | – | – | – | – | 42762 | 50,0 % | 50,3 % | +0,2 |
-| Schlachtruf | neutral | 4 | Selten | – | – | – | – | 35604 | 42,8 % | 48,5 % | −1,5 |
-| Trojanisches Pferd | neutral | 6 | Selten | – | – | – | – | 55462 | 54,9 % | 51,3 % | +1,3 |
-| Brander | neutral | 7 | Episch | – | – | – | – | 49490 | 47,8 % | 52,8 % | +2,8 |
-| Mercators Atlas | neutral | 4 | Episch | – | – | – | – | 35638 | 25,7 % | 48,6 % | −1,4 |
-| Burgbesatzung | neutral | 8 | Episch | – | – | – | – | 34340 | 45,5 % | 58,8 % | +8,7 |
-| Donnernde Legion | neutral | 7 | Episch | – | – | – | – | 49232 | 55,4 % | 52,7 % | +2,6 |
-| Herodot, Vater der Geschichte | neutral | 4 | Legendär | – | – | – | – | 35252 | 43,8 % | 52,4 % | +2,4 |
-| Zenobia, Rebellin von Palmyra | neutral | 8 | Legendär | – | – | – | – | 34062 | 44,5 % | 55,0 % | +5,0 |
-| Spitzel im Venezianerviertel | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1708 | 58,1 % | 49,9 % | +1,7 |
-| Plünderer am Rhein | Widukind | 3 | Gewöhnlich | – | – | – | – | 1640 | 50,7 % | 46,8 % | −0,7 |
-| Kobra des Nils | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1562 | 52,4 % | 54,2 % | +2,0 |
-| Zwanzig Städte in Flammen | Vercingetorix | 3 | Selten | – | – | – | – | 1618 | 51,4 % | 52,0 % | +1,1 |
-| Eid der Arkanisten | Böttger | 1 | Selten | – | – | – | – | 1082 | 60,1 % | 51,7 % | +1,9 |
-| Böhmischer Söldner | Wiprecht | 4 | Gewöhnlich | – | – | – | – | 1594 | 46,4 % | 52,1 % | −0,4 |
-| Brandschatzung | Wiprecht | 1 | Gewöhnlich | – | – | – | – | 1148 | 59,3 % | 54,9 % | +2,3 |
-| Heimlicher Bote | Ulrich | 2 | Gewöhnlich | – | – | – | – | 1546 | 54,4 % | 54,4 % | +3,6 |
-| Freibeuterin | neutral | 2 | Gewöhnlich | – | – | – | – | 34028 | 51,6 % | 48,5 % | −1,5 |
-| Späherin im Unterholz | neutral | 1 | Gewöhnlich | – | – | – | – | 24690 | 54,3 % | 51,9 % | +2,0 |
-| Wandermönch | neutral | 2 | Gewöhnlich | – | – | – | – | 33902 | 57,2 % | 53,1 % | +3,1 |
-| Giftmischerin | neutral | 3 | Selten | – | – | – | – | 37420 | 52,2 % | 53,5 % | +3,5 |
-| Condottiere | neutral | 3 | Gewöhnlich | – | – | – | – | 37116 | 55,1 % | 50,8 % | +0,8 |
-| Ruderer der Triere | Perikles | 1 | Basis | 4600 | 79,4 % | 50,4 % | +1,5 | 1154 | 56,9 % | 53,1 % | +2,9 |
-| Lange Mauern | Perikles | 2 | Basis | 4600 | 79,5 % | 45,5 % | −3,5 | 1492 | 58,4 % | 46,7 % | −3,5 |
-| Rede auf die Gefallenen | Perikles | 3 | Basis | 4600 | 81,7 % | 52,3 % | +3,4 | 1612 | 57,6 % | 55,2 % | +5,0 |
-| Strategos | Perikles | 3 | Basis | 4600 | 79,8 % | 51,7 % | +2,8 | 1666 | 59,9 % | 58,2 % | +8,0 |
-| Pnyx | Perikles | 3 | Gewöhnlich | – | – | – | – | 1642 | 50,5 % | 48,3 % | −2,0 |
-| Scherbengericht | Perikles | 2 | Gewöhnlich | – | – | – | – | 1452 | 62,0 % | 55,7 % | +5,5 |
-| Triere von Salamis | Perikles | 4 | Selten | – | – | – | – | 1566 | 55,0 % | 57,3 % | +7,1 |
-| Pest von Athen | Perikles | 4 | Selten | – | – | – | – | 1580 | 38,7 % | 51,5 % | +1,3 |
-| Odeion | Perikles | 4 | Episch | – | – | – | – | 1588 | 39,6 % | 44,0 % | −6,2 |
-| Phidias, Meister der Akropolis | Perikles | 7 | Legendär | – | – | – | – | 2422 | 53,1 % | 52,4 % | +2,2 |
-| Pilumwerfer | Agrippa | 1 | Basis | 4600 | 77,6 % | 52,3 % | +4,0 | 1100 | 56,6 % | 55,4 % | +4,4 |
-| Legionär der Zehnten | Agrippa | 2 | Basis | 4600 | 72,9 % | 49,9 % | +1,5 | 1580 | 45,3 % | 53,7 % | +2,6 |
-| Castra | Agrippa | 3 | Basis | 4600 | 83,2 % | 50,1 % | +1,8 | 1638 | 58,8 % | 49,1 % | −2,0 |
-| Testudo | Agrippa | 2 | Basis | 4600 | 74,6 % | 50,4 % | +2,1 | 1634 | 48,0 % | 55,1 % | +4,1 |
-| Ballista | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1706 | 53,3 % | 53,4 % | +2,4 |
-| Liburnen bei Actium | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1640 | 50,2 % | 54,8 % | +3,7 |
-| Primus Pilus | Agrippa | 5 | Selten | – | – | – | – | 1946 | 50,9 % | 57,3 % | +6,2 |
-| Thermen des Agrippa | Agrippa | 2 | Selten | – | – | – | – | 1560 | 55,3 % | 49,1 % | −2,0 |
-| Pantheon | Agrippa | 4 | Episch | – | – | – | – | 1572 | 40,4 % | 50,1 % | −1,0 |
-| Vitruv, Baumeister Roms | Agrippa | 5 | Legendär | – | – | – | – | 1946 | 45,2 % | 49,7 % | −1,4 |
-| Bogenschütze aus Elkab | Ahhotep | 1 | Basis | 4600 | 82,4 % | 51,3 % | −0,2 | 1092 | 56,2 % | 53,1 % | +1,2 |
-| Krieger der Nilflotte | Ahhotep | 2 | Basis | 4600 | 80,9 % | 51,1 % | −0,4 | 1554 | 50,5 % | 51,4 % | −0,5 |
-| Pfeilregen vor Auaris | Ahhotep | 2 | Basis | 4600 | 78,8 % | 52,4 % | +0,9 | 1574 | 43,3 % | 51,2 % | −0,7 |
-| Speerträger aus Theben | Ahhotep | 3 | Basis | 4600 | 83,9 % | 52,3 % | +0,8 | 1642 | 51,9 % | 52,3 % | +0,4 |
-| Priester der Selket | Ahhotep | 3 | Gewöhnlich | – | – | – | – | 1676 | 54,7 % | 53,8 % | +1,9 |
-| Medjai-Kundschafter | Ahhotep | 3 | Gewöhnlich | – | – | – | – | 1590 | 54,5 % | 49,6 % | −2,2 |
-| Erbeuteter Streitwagen | Ahhotep | 6 | Selten | – | – | – | – | 2530 | 53,3 % | 54,1 % | +2,2 |
-| Überfall auf Nefrusi | Ahhotep | 3 | Selten | – | – | – | – | 1618 | 54,4 % | 49,8 % | −2,1 |
-| Ahmose, Befreier Ägyptens | Ahhotep | 5 | Episch | – | – | – | – | 2008 | 55,9 % | 48,3 % | −3,5 |
-| Zeremonialaxt des Ahmose | Ahhotep | 6 | Legendär | – | – | – | – | 2396 | 47,5 % | 53,1 % | +1,2 |
-| Kopistin der Chronik | Anna | 1 | Basis | 4600 | 81,5 % | 53,6 % | +3,0 | 1128 | 55,8 % | 54,4 % | +5,0 |
-| Pantokrator-Spital | Anna | 3 | Basis | 4600 | 73,1 % | 51,6 % | +1,0 | 1720 | 33,7 % | 49,0 % | −0,4 |
-| Warägergardist | Anna | 3 | Basis | 4600 | 82,7 % | 55,1 % | +4,5 | 1662 | 55,7 % | 57,8 % | +8,4 |
-| Hofärztin | Anna | 3 | Basis | 4600 | 81,8 % | 50,7 % | +0,1 | 1656 | 41,2 % | 47,7 % | −1,7 |
-| Griechisches Feuer | Anna | 4 | Gewöhnlich | – | – | – | – | 1494 | 48,3 % | 63,1 % | +13,7 |
-| Bibliothekar von Konstantinopel | Anna | 4 | Gewöhnlich | – | – | – | – | 1562 | 49,3 % | 56,8 % | +7,4 |
-| Kataphrakt | Anna | 5 | Selten | – | – | – | – | 1878 | 48,5 % | 56,5 % | +7,1 |
-| Chrysobull | Anna | 3 | Selten | – | – | – | – | 1630 | 41,4 % | 50,1 % | +0,7 |
-| Nikephoros Bryennios | Anna | 5 | Episch | – | – | – | – | 1858 | 50,3 % | 51,8 % | +2,4 |
-| Alexios I. Komnenos | Anna | 6 | Legendär | – | – | – | – | 2366 | 48,4 % | 49,8 % | +0,4 |
-| Gärtner von Tetzcotzinco | Nezahualcóyotl | 1 | Basis | 4600 | 82,5 % | 48,7 % | +0,0 | 1084 | 59,6 % | 50,0 % | +4,0 |
-| Adlerkrieger | Nezahualcóyotl | 2 | Basis | 4600 | 81,7 % | 48,9 % | +0,2 | 1580 | 55,1 % | 48,7 % | +2,7 |
-| Blumenkrieg | Nezahualcóyotl | 2 | Basis | 4600 | 83,3 % | 49,3 % | +0,7 | 1542 | 60,5 % | 47,4 % | +1,5 |
-| Jaguarkrieger | Nezahualcóyotl | 3 | Basis | 4600 | 82,8 % | 47,9 % | −0,7 | 1718 | 60,1 % | 47,0 % | +1,1 |
-| Aquädukt von Chapultepec | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1486 | 55,1 % | 40,3 % | −5,7 |
-| Gesetze von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1426 | 51,4 % | 47,6 % | +1,6 |
-| Quetzal-Hauptmann | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1640 | 54,0 % | 49,9 % | +3,9 |
-| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1744 | 52,0 % | 39,1 % | −6,8 |
-| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | Episch | – | – | – | – | 2494 | 55,5 % | 57,6 % | +11,6 |
-| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | Legendär | – | – | – | – | 1904 | 47,2 % | 43,0 % | −2,9 |
-| Lehnsmann | Theophanu | 1 | Basis | 4600 | 82,1 % | 45,2 % | −2,6 | 1106 | 57,9 % | 53,1 % | +2,1 |
-| Bogenschütze der Pfalz | Theophanu | 2 | Basis | 4600 | 82,6 % | 46,2 % | −1,6 | 1462 | 61,7 % | 52,6 % | +1,6 |
-| Treueschwur | Theophanu | 1 | Basis | 4600 | 82,5 % | 49,4 % | +1,6 | 1068 | 51,8 % | 53,0 % | +2,0 |
-| Stiftsdame aus Quedlinburg | Theophanu | 2 | Basis | 4600 | 82,8 % | 46,0 % | −1,8 | 1456 | 56,8 % | 52,9 % | +1,9 |
-| Späher an der Elbe | Theophanu | 2 | Gewöhnlich | – | – | – | – | 1464 | 58,0 % | 53,6 % | +2,6 |
-| Heerbann | Theophanu | 4 | Gewöhnlich | – | – | – | – | 1636 | 55,6 % | 55,6 % | +4,6 |
-| St. Pantaleon in Köln | Theophanu | 2 | Selten | – | – | – | – | 1522 | 55,6 % | 50,2 % | −0,8 |
-| Haft in Utrecht | Theophanu | 3 | Selten | – | – | – | – | 1718 | 51,9 % | 49,9 % | −1,1 |
-| Willigis, Erzbischof von Mainz | Theophanu | 5 | Episch | – | – | – | – | 2000 | 53,9 % | 54,9 % | +3,9 |
-| Otto II., Kaiser | Theophanu | 6 | Legendär | – | – | – | – | 2650 | 52,2 % | 51,1 % | +0,2 |
-| Spartiat der Dreihundert | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1616 | 55,4 % | 53,8 % | +3,7 |
-| Engpass der Thermopylen | Leonidas | 3 | Selten | – | – | – | – | 1684 | 56,9 % | 45,5 % | −4,6 |
-| Astronomin des Museions | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1480 | 55,6 % | 52,0 % | +1,8 |
-| Kommentar zu Diophant | Hypatia | 2 | Selten | – | – | – | – | 1516 | 51,3 % | 51,7 % | +1,6 |
-| Priesterin der Sachmet | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1612 | 59,6 % | 53,4 % | +1,2 |
-| Ka-Statue | Imhotep | 2 | Selten | – | – | – | – | 1512 | 57,9 % | 47,8 % | −4,4 |
-| Galeerenschmied | Dandolo | 2 | Gewöhnlich | – | – | – | – | 1574 | 49,1 % | 48,8 % | +0,6 |
-| Plünderung Konstantinopels | Dandolo | 6 | Selten | – | – | – | – | 2394 | 46,0 % | 51,1 % | +3,0 |
-| Heerlager an der Weser | Widukind | 3 | Gewöhnlich | – | – | – | – | 1574 | 42,6 % | 41,3 % | −6,2 |
-| Versammlung in Marklo | Widukind | 4 | Selten | – | – | – | – | 1536 | 30,6 % | 45,5 % | −2,0 |
-| Barde der Arverner | Vercingetorix | 2 | Gewöhnlich | – | – | – | – | 1570 | 53,4 % | 53,7 % | +2,8 |
-| Gallische Reiterei | Vercingetorix | 5 | Selten | – | – | – | – | 1844 | 51,8 % | 48,4 % | −2,6 |
-| Laborbuch | Böttger | 1 | Gewöhnlich | – | – | – | – | 1156 | 56,6 % | 54,0 % | +4,3 |
-| Weißes Gold | Böttger | 3 | Selten | – | – | – | – | 1682 | 3,0 % | 45,5 % | −4,2 |
-| Adlige Stifterin | Hildegard | 1 | Gewöhnlich | – | – | – | – | 1156 | 53,1 % | 53,4 % | +4,9 |
-| Weihe der Klosterkirche | Hildegard | 4 | Selten | – | – | – | – | 1640 | 31,3 % | 47,8 % | −0,7 |
-| Feldmesser | Wiprecht | 2 | Gewöhnlich | – | – | – | – | 1546 | 55,6 % | 53,2 % | +0,7 |
-| Beuterecht | Wiprecht | 1 | Selten | – | – | – | – | 1148 | 58,2 % | 53,2 % | +0,7 |
-| Ritter aus Murau | Ulrich | 4 | Selten | – | – | – | – | 1572 | 46,7 % | 48,4 % | −2,4 |
-| Frische Lanze | Ulrich | 2 | Gewöhnlich | – | – | – | – | 1574 | 50,4 % | 47,7 % | −3,2 |
-| Steinmetz vom Pentelikon | Perikles | 2 | Gewöhnlich | – | – | – | – | 1456 | 51,0 % | 53,3 % | +3,0 |
-| Schatz des Seebunds | Perikles | 3 | Selten | – | – | – | – | 1658 | 31,2 % | 47,0 % | −3,2 |
-| Aquilifer | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1624 | 47,8 % | 51,0 % | +0,0 |
-| Harpax | Agrippa | 4 | Selten | – | – | – | – | 1530 | 37,1 % | 53,5 % | +2,5 |
-| Pfeilmacher aus Edfu | Ahhotep | 2 | Gewöhnlich | – | – | – | – | 1524 | 57,3 % | 53,7 % | +1,8 |
-| Gift der Hornviper | Ahhotep | 3 | Selten | – | – | – | – | 1632 | 42,5 % | 53,4 % | +1,6 |
-| Spitalarzt des Pantokrator | Anna | 2 | Gewöhnlich | – | – | – | – | 1574 | 56,9 % | 50,6 % | +1,2 |
-| Chronist am Kaiserhof | Anna | 6 | Selten | – | – | – | – | 2364 | 56,0 % | 57,6 % | +8,2 |
-| Dichter von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1460 | 57,1 % | 45,3 % | −0,7 |
-| Chinampa | Nezahualcóyotl | 2 | Selten | – | – | – | – | 1518 | 55,9 % | 44,5 % | −1,5 |
-| Kanzler der Kaiserin | Theophanu | 2 | Gewöhnlich | – | – | – | – | 1476 | 58,5 % | 51,4 % | +0,4 |
-| Siegel der Kaiserin | Theophanu | 2 | Selten | – | – | – | – | 1576 | 47,4 % | 51,4 % | +0,4 |
-| Olympionike | Griechenland und Hellenismus | 4 | Gewöhnlich | – | – | – | – | 6464 | 53,4 % | 55,7 % | +5,2 |
-| Rhapsode | Griechenland und Hellenismus | 2 | Gewöhnlich | – | – | – | – | 6324 | 52,5 % | 53,9 % | +3,4 |
-| Marathonläufer | Griechenland und Hellenismus | 2 | Gewöhnlich | – | – | – | – | 6084 | 53,7 % | 54,5 % | +4,0 |
-| Orakel von Delphi | Griechenland und Hellenismus | 3 | Selten | – | – | – | – | 6768 | 27,8 % | 49,2 % | −1,3 |
-| Leuchtturm von Pharos | Griechenland und Hellenismus | 3 | Selten | – | – | – | – | 6704 | 53,8 % | 44,6 % | −5,8 |
-| Akropolis | Griechenland und Hellenismus | 2 | Selten | – | – | – | – | 6274 | 56,7 % | 48,9 % | −1,5 |
-| Bibliothek von Alexandria | Griechenland und Hellenismus | 3 | Episch | – | – | – | – | 6710 | 50,4 % | 48,6 % | −1,8 |
-| Knappe | Mittelalter im Reich | 1 | Gewöhnlich | – | – | – | – | 5598 | 52,8 % | 51,3 % | +1,3 |
-| Armbrustschütze | Mittelalter im Reich | 3 | Gewöhnlich | – | – | – | – | 8434 | 58,0 % | 55,3 % | +5,2 |
-| Mönch von Cluny | Mittelalter im Reich | 3 | Gewöhnlich | – | – | – | – | 8390 | 49,6 % | 53,2 % | +3,0 |
-| Hansekogge | Mittelalter im Reich | 4 | Gewöhnlich | – | – | – | – | 7902 | 46,9 % | 49,3 % | −0,8 |
-| Turnierritter | Mittelalter im Reich | 4 | Selten | – | – | – | – | 7874 | 49,0 % | 53,7 % | +3,6 |
-| Burgfried | Mittelalter im Reich | 2 | Selten | – | – | – | – | 7810 | 56,9 % | 42,3 % | −7,8 |
-| Tribok | Mittelalter im Reich | 4 | Episch | – | – | – | – | 7852 | 32,0 % | 46,4 % | −3,7 |
-| Landsknecht | Frühe Neuzeit | 1 | Gewöhnlich | – | – | – | – | 3456 | 56,6 % | 50,6 % | +2,6 |
-| Buchdrucker aus Mainz | Frühe Neuzeit | 3 | Gewöhnlich | – | – | – | – | 5070 | 54,9 % | 52,4 % | +4,4 |
-| Leipziger Kaffeehaus | Frühe Neuzeit | 2 | Gewöhnlich | – | – | – | – | 4780 | 47,3 % | 46,5 % | −1,6 |
-| Kartaunen-Salve | Frühe Neuzeit | 3 | Selten | – | – | – | – | 5076 | 57,7 % | 48,7 % | +0,7 |
-| Kriegsgaleone | Frühe Neuzeit | 5 | Selten | – | – | – | – | 5640 | 57,5 % | 48,2 % | +0,2 |
-| Stehendes Heer | Frühe Neuzeit | 5 | Episch | – | – | – | – | 5672 | 59,1 % | 48,8 % | +0,8 |
-| Sternschanze | Frühe Neuzeit | 2 | Episch | – | – | – | – | 4758 | 63,1 % | 42,6 % | −5,4 |
-| Kolosseum | neutral | 3 | Selten | – | – | – | – | 36806 | 34,9 % | 44,5 % | −5,5 |
-| Hängende Gärten | neutral | 2 | Selten | – | – | – | – | 34106 | 57,0 % | 45,2 % | −4,8 |
-| Pyramiden von Gizeh | neutral | 4 | Episch | – | – | – | – | 35650 | 29,3 % | 43,9 % | −6,1 |
-| Thebanischer Plänkler | Epaminondas | 1 | Basis | 4600 | 78,2 % | 47,6 % | −0,3 | 1116 | 53,5 % | 52,5 % | +1,1 |
-| Böotischer Hoplit | Epaminondas | 2 | Basis | 4600 | 78,9 % | 47,7 % | −0,1 | 1690 | 50,0 % | 54,9 % | +3,6 |
-| Fünfzig Schilde tief | Epaminondas | 2 | Basis | 4600 | 74,4 % | 47,7 % | −0,1 | 1594 | 48,9 % | 50,6 % | −0,7 |
-| Böotarch | Epaminondas | 3 | Basis | 4600 | 78,2 % | 47,5 % | −0,3 | 1732 | 52,8 % | 56,8 % | +5,5 |
-| Kämpfer der Heiligen Schar | Epaminondas | 5 | Gewöhnlich | – | – | – | – | 1928 | 48,5 % | 59,6 % | +8,2 |
-| Schlacht bei Leuktra | Epaminondas | 4 | Gewöhnlich | – | – | – | – | 1602 | 43,6 % | 51,8 % | +0,5 |
-| Befreiung Messeniens | Epaminondas | 5 | Selten | – | – | – | – | 1910 | 50,1 % | 50,4 % | −0,9 |
-| Thebanischer Phalangit | Epaminondas | 4 | Selten | – | – | – | – | 1584 | 45,4 % | 53,3 % | +2,0 |
-| Megalopolis | Epaminondas | 3 | Episch | – | – | – | – | 1754 | 45,8 % | 46,9 % | −4,4 |
-| Pelopidas, Führer der Heiligen Schar | Epaminondas | 6 | Legendär | – | – | – | – | 2586 | 44,2 % | 52,4 % | +1,0 |
-| Veles | Fabius | 1 | Basis | 4600 | 88,3 % | 48,4 % | −0,2 | 1182 | 59,4 % | 55,2 % | +4,9 |
-| Triarier | Fabius | 2 | Basis | 4600 | 86,7 % | 48,7 % | +0,2 | 1530 | 57,0 % | 53,5 % | +3,3 |
-| Hinhalten | Fabius | 2 | Basis | 4600 | 85,5 % | 48,4 % | −0,1 | 1576 | 60,0 % | 52,0 % | +1,8 |
-| Konsul der Republik | Fabius | 4 | Basis | 4600 | 84,6 % | 49,1 % | +0,6 | 1544 | 48,5 % | 51,4 % | +1,1 |
-| Verbrannte Erde | Fabius | 3 | Gewöhnlich | – | – | – | – | 1688 | 60,5 % | 51,4 % | +1,1 |
-| Späher am Volturnus | Fabius | 2 | Gewöhnlich | – | – | – | – | 1530 | 57,8 % | 53,4 % | +3,1 |
-| Minucius, der Reiteroberst | Fabius | 4 | Selten | – | – | – | – | 1708 | 53,3 % | 51,7 % | +1,5 |
-| Rückeroberung von Tarent | Fabius | 6 | Selten | – | – | – | – | 2458 | 45,4 % | 56,5 % | +6,2 |
-| Lager auf den Höhen | Fabius | 3 | Episch | – | – | – | – | 1690 | 60,4 % | 48,3 % | −2,0 |
-| Marcellus, Schwert Roms | Fabius | 6 | Legendär | – | – | – | – | 2468 | 47,7 % | 48,6 % | −1,7 |
-| Botin der Cherusker | Thusnelda | 1 | Basis | 4600 | 77,6 % | 53,1 % | +2,6 | 1124 | 52,0 % | 55,6 % | +7,0 |
-| Hüterin des Herdfeuers | Thusnelda | 2 | Basis | 4600 | 79,1 % | 51,3 % | +0,8 | 1624 | 52,5 % | 46,4 % | −2,2 |
-| Ruf zum Thing | Thusnelda | 3 | Basis | 4600 | 72,6 % | 48,9 % | −1,6 | 1752 | 43,9 % | 47,5 % | −1,1 |
-| Krieger im Keil | Thusnelda | 3 | Basis | 4600 | 80,5 % | 52,5 % | +2,0 | 1618 | 54,9 % | 52,6 % | +4,0 |
-| Varusschlacht | Thusnelda | 4 | Gewöhnlich | – | – | – | – | 1562 | 46,8 % | 48,9 % | +0,3 |
-| Krieger der Sippe | Thusnelda | 3 | Gewöhnlich | – | – | – | – | 1744 | 55,8 % | 49,8 % | +1,2 |
-| Heiliger Hain | Thusnelda | 2 | Selten | – | – | – | – | 1674 | 57,7 % | 43,1 % | −5,5 |
-| Seitenwechsel | Thusnelda | 5 | Selten | – | – | – | – | 2046 | 43,5 % | 48,5 % | −0,1 |
-| Arminius, Fürst der Cherusker | Thusnelda | 4 | Episch | – | – | – | – | 1596 | 45,4 % | 49,9 % | +1,3 |
-| Bund der Stämme | Thusnelda | 8 | Legendär | – | – | – | – | 1622 | 43,0 % | 50,9 % | +2,4 |
-| Mamlukenrekrut | Baibars | 1 | Basis | 4600 | 83,2 % | 49,0 % | −1,6 | 1192 | 54,4 % | 52,5 % | +2,3 |
-| Barid-Kurier | Baibars | 2 | Basis | 4600 | 79,3 % | 51,5 % | +0,9 | 1624 | 51,7 % | 47,6 % | −2,6 |
-| Ain Dschalut | Baibars | 3 | Basis | 4600 | 85,2 % | 51,6 % | +1,0 | 1726 | 54,7 % | 55,2 % | +5,0 |
-| Bogenreiter der Bahriya | Baibars | 3 | Basis | 4600 | 83,2 % | 49,6 % | −1,0 | 1756 | 47,7 % | 50,5 % | +0,3 |
-| Manjaniq-Meister | Baibars | 4 | Gewöhnlich | – | – | – | – | 1616 | 51,2 % | 53,4 % | +3,2 |
-| Vorgetäuschte Flucht | Baibars | 1 | Gewöhnlich | – | – | – | – | 1194 | 18,1 % | 43,1 % | −7,1 |
-| Qutuz, Sultan von Ägypten | Baibars | 5 | Selten | – | – | – | – | 2020 | 43,6 % | 55,2 % | +5,0 |
-| Sturm auf Antiochia | Baibars | 2 | Selten | – | – | – | – | 1494 | 48,0 % | 47,1 % | −3,1 |
-| Zitadelle von Kairo | Baibars | 4 | Episch | – | – | – | – | 1690 | 37,8 % | 47,0 % | −3,2 |
-| Qalawun, Emir der Bahriya | Baibars | 6 | Legendär | – | – | – | – | 2734 | 46,8 % | 56,5 % | +6,3 |
-| Schanzarbeiter | Vauban | 2 | Basis | 4600 | 76,6 % | 47,8 % | −1,1 | 1582 | 39,4 % | 44,4 % | −3,7 |
-| Grenadier | Vauban | 2 | Basis | 4600 | 84,0 % | 49,9 % | +1,0 | 1688 | 59,8 % | 50,4 % | +2,3 |
-| Salve von der Bastion | Vauban | 2 | Basis | 4600 | 78,1 % | 47,8 % | −1,1 | 1618 | 35,4 % | 43,7 % | −4,5 |
-| Ingenieur des Königs | Vauban | 3 | Basis | 4600 | 83,9 % | 50,5 % | +1,6 | 1718 | 60,4 % | 56,1 % | +8,0 |
-| Festungsgeschütz | Vauban | 3 | Gewöhnlich | – | – | – | – | 1718 | 57,7 % | 47,9 % | −0,3 |
-| Faschinen | Vauban | 2 | Gewöhnlich | – | – | – | – | 1680 | 48,3 % | 49,0 % | +0,9 |
-| Minengang | Vauban | 3 | Selten | – | – | – | – | 1680 | 51,7 % | 47,9 % | −0,2 |
-| Zitadelle von Lille | Vauban | 4 | Selten | – | – | – | – | 1730 | 55,4 % | 38,4 % | −9,7 |
-| Louvois, Kriegsminister | Vauban | 6 | Episch | – | – | – | – | 2494 | 54,0 % | 45,6 % | −2,5 |
-| Ludwig XIV., der Sonnenkönig | Vauban | 5 | Legendär | – | – | – | – | 1898 | 43,4 % | 54,0 % | +5,9 |
-| Speerwerfer vom Mont Lassois | Vix | 1 | Basis | 4600 | 83,5 % | 53,6 % | +2,6 | 1122 | 55,4 % | 55,7 % | +4,4 |
-| Prunkdolch | Vix | 2 | Basis | 4600 | 76,7 % | 53,9 % | +2,9 | 1556 | 40,0 % | 54,1 % | +2,8 |
-| Reiter an der Seine | Vix | 3 | Basis | 4600 | 82,9 % | 52,9 % | +1,9 | 1710 | 46,1 % | 51,9 % | +0,5 |
-| Seherin | Vix | 3 | Basis | 4600 | 81,8 % | 52,9 % | +1,9 | 1716 | 45,6 % | 50,0 % | −1,3 |
-| Aufgebot des Fürstensitzes | Vix | 4 | Gewöhnlich | – | – | – | – | 1682 | 50,9 % | 54,3 % | +3,0 |
-| Trankopfer | Vix | 1 | Gewöhnlich | – | – | – | – | 1034 | 55,5 % | 51,8 % | +0,5 |
-| Gelage am Krater | Vix | 1 | Selten | – | – | – | – | 1078 | 58,7 % | 55,9 % | +4,6 |
-| Schleuderer am Wall | Vix | 4 | Selten | – | – | – | – | 1672 | 56,2 % | 58,5 % | +7,2 |
-| Halle auf dem Mont Lassois | Vix | 1 | Episch | – | – | – | – | 1112 | 57,8 % | 50,4 % | −1,0 |
-| Gesandter aus Massalia | Vix | 6 | Legendär | – | – | – | – | 2662 | 49,1 % | 56,1 % | +4,8 |
-| Gladiator | Rom und Germanien | 3 | Gewöhnlich | – | – | – | – | 6704 | 58,4 % | 54,7 % | +4,5 |
-| Senator der Kurie | Rom und Germanien | 3 | Gewöhnlich | – | – | – | – | 6470 | 51,1 % | 51,0 % | +0,7 |
-| Centurio | Rom und Germanien | 2 | Gewöhnlich | – | – | – | – | 6226 | 54,7 % | 54,8 % | +4,6 |
-| Triumphzug | Rom und Germanien | 3 | Selten | – | – | – | – | 6694 | 44,3 % | 48,1 % | −2,1 |
-| Via Appia | Rom und Germanien | 2 | Selten | – | – | – | – | 6318 | 55,6 % | 47,5 % | −2,7 |
-| Vestalin am ewigen Feuer | Rom und Germanien | 3 | Selten | – | – | – | – | 6582 | 57,1 % | 48,4 % | −1,8 |
-| Pax Romana | Rom und Germanien | 5 | Episch | – | – | – | – | 7950 | 52,9 % | 44,8 % | −5,4 |
-| Wagenbauer | Frühzeit und Ägypten | 2 | Gewöhnlich | – | – | – | – | 4522 | 49,6 % | 54,6 % | +2,9 |
-| Schreiber im Lebenshaus | Frühzeit und Ägypten | 3 | Gewöhnlich | – | – | – | – | 4910 | 52,6 % | 53,5 % | +1,8 |
-| Schuss vom Streitwagen | Frühzeit und Ägypten | 2 | Gewöhnlich | – | – | – | – | 4674 | 59,6 % | 58,3 % | +6,6 |
-| Wache der Medjai | Frühzeit und Ägypten | 4 | Selten | – | – | – | – | 5026 | 46,4 % | 52,9 % | +1,1 |
-| Angriff der Streitwagen | Frühzeit und Ägypten | 3 | Selten | – | – | – | – | 5056 | 55,3 % | 53,7 % | +2,0 |
-| Bernsteinstraße | Frühzeit und Ägypten | 2 | Selten | – | – | – | – | 4554 | 54,6 % | 50,3 % | −1,4 |
-| Festung Buhen | Frühzeit und Ägypten | 3 | Episch | – | – | – | – | 5054 | 50,1 % | 53,5 % | +1,7 |
-| Akrit der Grenzmark | Kreuzzüge | 2 | Gewöhnlich | – | – | – | – | 4794 | 54,7 % | 52,5 % | +3,2 |
-| Gelehrter im Haus der Weisheit | Kreuzzüge | 3 | Gewöhnlich | – | – | – | – | 4946 | 50,4 % | 51,4 % | +2,1 |
-| Tribut in Goldbyzantinern | Kreuzzüge | 2 | Gewöhnlich | – | – | – | – | 4634 | 30,2 % | 48,1 % | −1,2 |
-| Arzt des Bimaristan | Kreuzzüge | 3 | Selten | – | – | – | – | 5036 | 58,9 % | 55,3 % | +6,1 |
-| Theodosianische Mauern | Kreuzzüge | 2 | Selten | – | – | – | – | 4730 | 59,3 % | 47,1 % | −2,2 |
-| Hagia Sophia | Kreuzzüge | 3 | Episch | – | – | – | – | 4994 | 61,7 % | 44,8 % | −4,5 |
-| Ibn an-Nafis, Arzt von Kairo | Kreuzzüge | 4 | Episch | – | – | – | – | 4742 | 52,8 % | 52,0 % | +2,8 |
-| Krähenfüße | neutral | 1 | Gewöhnlich | – | – | – | – | 24858 | 52,2 % | 52,1 % | +2,1 |
-| Abgefangene Botschaft | neutral | 2 | Selten | – | – | – | – | 34482 | 35,0 % | 45,1 % | −4,9 |
-| Falsche Kundschafter von Kadesch | Frühzeit und Ägypten | 2 | Selten | – | – | – | – | 4464 | 34,5 % | 49,2 % | −2,6 |
-| Botschaft des Sikinnos | Griechenland und Hellenismus | 1 | Gewöhnlich | – | – | – | – | 4354 | 53,9 % | 53,1 % | +2,7 |
-| Wall am Kalkrieser Berg | Rom und Germanien | 3 | Selten | – | – | – | – | 6552 | 29,3 % | 47,9 % | −2,3 |
-| Fallgatter | Mittelalter im Reich | 2 | Gewöhnlich | – | – | – | – | 7904 | 37,6 % | 46,2 % | −3,9 |
-| Engpass von Myriokephalon | Kreuzzüge | 3 | Selten | – | – | – | – | 4982 | 37,6 % | 47,5 % | −1,7 |
-| Gegenmine | Frühe Neuzeit | 3 | Selten | – | – | – | – | 5122 | 36,4 % | 44,7 % | −3,3 |
-| Hinterhalt am Süntel | Widukind | 3 | Selten | – | – | – | – | 1700 | 32,8 % | 43,0 % | −4,5 |
-| Rettung bei Gerunium | Fabius | 2 | Selten | – | – | – | – | 1564 | 48,0 % | 49,4 % | −0,9 |
-| Täuschung bei Larissa | Anna | 1 | Selten | – | – | – | – | 1132 | 49,2 % | 55,9 % | +6,5 |
-| Kampf um den Leichnam | Leonidas | 2 | Selten | – | – | – | – | 1524 | 47,0 % | 46,6 % | −3,5 |
+| Spartanischer Rekrut | Leonidas | 1 | Basis | 4600 | 81,0 % | 54,1 % | +0,7 | 972 | 56,5 % | 57,1 % | +5,2 |
+| Wächter der Thermopylen | Leonidas | 2 | Basis | 4600 | 82,3 % | 54,2 % | +0,8 | 1400 | 61,2 % | 57,9 % | +6,0 |
+| Bronzener Wall | Leonidas | 2 | Basis | 4600 | 82,5 % | 54,7 % | +1,3 | 1348 | 55,4 % | 53,4 % | +1,5 |
+| Hoplitenhauptmann | Leonidas | 4 | Basis | 4600 | 77,2 % | 55,7 % | +2,3 | 1570 | 52,2 % | 51,0 % | −0,9 |
+| Speerträger | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1574 | 65,1 % | 53,4 % | +1,5 |
+| Schildstoß | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1568 | 59,6 % | 52,5 % | +0,6 |
+| Phalanxveteran | Leonidas | 5 | Selten | – | – | – | – | 1846 | 61,4 % | 62,2 % | +10,3 |
+| Spartas Erbe | Leonidas | 4 | Selten | – | – | – | – | 1478 | 51,6 % | 54,4 % | +2,6 |
+| Dienekes | Leonidas | 6 | Episch | – | – | – | – | 2266 | 58,3 % | 51,1 % | −0,8 |
+| Gorgo, Stimme Spartas | Leonidas | 7 | Legendär | – | – | – | – | 1878 | 54,8 % | 59,9 % | +8,0 |
+| Bibliothekslehrling | Hypatia | 1 | Basis | 4600 | 82,5 % | 51,3 % | −1,3 | 970 | 53,9 % | 46,3 % | −1,8 |
+| Erdmessung des Eratosthenes | Hypatia | 2 | Basis | 4600 | 87,2 % | 52,8 % | +0,3 | 1364 | 61,5 % | 50,7 % | +2,6 |
+| Sternenkundiger | Hypatia | 3 | Basis | 4600 | 82,1 % | 54,4 % | +1,8 | 1780 | 57,4 % | 48,8 % | +0,7 |
+| Sternkatalog des Hipparchos | Hypatia | 4 | Basis | 4600 | 79,3 % | 56,4 % | +3,8 | 1516 | 53,4 % | 52,8 % | +4,7 |
+| Synesios von Kyrene | Hypatia | 3 | Gewöhnlich | – | – | – | – | 1638 | 61,2 % | 54,1 % | +6,0 |
+| Lehrsatz | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1420 | 38,6 % | 43,7 % | −4,4 |
+| Museionshüterin | Hypatia | 5 | Selten | – | – | – | – | 1788 | 55,0 % | 51,5 % | +3,4 |
+| Brennspiegel des Archimedes | Hypatia | 6 | Selten | – | – | – | – | 2336 | 60,7 % | 45,0 % | −3,1 |
+| Klaudios Ptolemaios | Hypatia | 5 | Episch | – | – | – | – | 1812 | 59,7 % | 48,8 % | +0,7 |
+| Theon von Alexandria | Hypatia | 5 | Legendär | – | – | – | – | 1884 | 55,6 % | 52,0 % | +3,9 |
+| Nilschülerin | Imhotep | 1 | Basis | 4600 | 82,9 % | 51,6 % | −0,3 | 1016 | 55,7 % | 57,8 % | +4,0 |
+| Heilender Balsam | Imhotep | 1 | Basis | 4600 | 83,7 % | 53,8 % | +2,0 | 926 | 62,9 % | 57,0 % | +3,1 |
+| Pyramidenwächter | Imhotep | 3 | Basis | 4600 | 84,2 % | 53,2 % | +1,3 | 1578 | 60,3 % | 56,4 % | +2,6 |
+| Tempelärztin | Imhotep | 4 | Basis | 4600 | 80,7 % | 52,5 % | +0,6 | 1520 | 55,6 % | 54,0 % | +0,1 |
+| Brot und Bier | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1364 | 57,1 % | 54,4 % | +0,5 |
+| Balsamierer | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1572 | 60,6 % | 60,3 % | +6,4 |
+| Nilschwemme | Imhotep | 3 | Selten | – | – | – | – | 1578 | 53,4 % | 51,7 % | −2,1 |
+| Goldener Skarabäus | Imhotep | 5 | Selten | – | – | – | – | 1950 | 58,0 % | 58,3 % | +4,4 |
+| Urteil nach der Maat | Imhotep | 5 | Episch | – | – | – | – | 1810 | 60,8 % | 48,6 % | −5,3 |
+| Djoser, der Erbauer | Imhotep | 6 | Legendär | – | – | – | – | 2306 | 54,1 % | 58,6 % | +4,7 |
+| Lagunenbote | Dandolo | 1 | Basis | 4600 | 80,3 % | 52,5 % | +2,7 | 970 | 54,4 % | 55,7 % | +7,2 |
+| Arsenalarbeiter | Dandolo | 2 | Basis | 4600 | 79,7 % | 48,9 % | −0,9 | 1416 | 57,9 % | 46,6 % | −1,9 |
+| Präziser Stich | Dandolo | 2 | Basis | 4600 | 85,1 % | 51,3 % | +1,5 | 1412 | 57,9 % | 48,7 % | +0,2 |
+| Handelsgesandter | Dandolo | 4 | Basis | 4600 | 79,2 % | 53,3 % | +3,5 | 1480 | 55,1 % | 52,0 % | +3,5 |
+| Dogenklinge | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1502 | 49,4 % | 50,2 % | +1,7 |
+| Nachtwache am Kanal | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1494 | 55,4 % | 47,4 % | −1,1 |
+| Geheimer Vertrag | Dandolo | 2 | Selten | – | – | – | – | 1356 | 54,3 % | 50,4 % | +1,9 |
+| Admiral der Galeeren | Dandolo | 5 | Selten | – | – | – | – | 1762 | 55,6 % | 50,9 % | +2,4 |
+| Arsenal von Venedig | Dandolo | 5 | Episch | – | – | – | – | 1726 | 41,9 % | 46,9 % | −1,6 |
+| Marco Polo, der Weltenfahrer | Dandolo | 6 | Legendär | – | – | – | – | 2288 | 50,3 % | 54,3 % | +5,8 |
+| Späher aus Engern | Widukind | 1 | Basis | 4600 | 75,4 % | 49,1 % | −1,1 | 1020 | 51,4 % | 50,4 % | +3,1 |
+| Speerwerfer aus Westfalen | Widukind | 2 | Basis | 4600 | 77,0 % | 49,3 % | −0,9 | 1444 | 56,1 % | 47,3 % | −0,0 |
+| Pfeilschuss | Widukind | 2 | Basis | 4600 | 76,1 % | 47,8 % | −2,4 | 1452 | 54,8 % | 47,5 % | +0,2 |
+| Reiter der Edelinge | Widukind | 4 | Basis | 4600 | 70,7 % | 54,8 % | +4,7 | 1480 | 49,7 % | 53,7 % | +6,4 |
+| Falknerin | Widukind | 3 | Gewöhnlich | – | – | – | – | 1528 | 48,6 % | 46,4 % | −0,9 |
+| Sachsenaufstand | Widukind | 3 | Gewöhnlich | – | – | – | – | 1484 | 49,7 % | 43,1 % | −4,2 |
+| Schildträger aus Ostfalen | Widukind | 5 | Selten | – | – | – | – | 1646 | 51,1 % | 49,4 % | +2,1 |
+| Sturm auf die Eresburg | Widukind | 6 | Selten | – | – | – | – | 2178 | 51,6 % | 51,0 % | +3,7 |
+| Gefolgschaft Widukinds | Widukind | 6 | Episch | – | – | – | – | 2234 | 48,0 % | 46,6 % | −0,7 |
+| Abbi, Gefährte Widukinds | Widukind | 6 | Legendär | – | – | – | – | 2140 | 48,0 % | 52,1 % | +4,8 |
+| Hüterin des Hains | Vercingetorix | 1 | Basis | 4600 | 82,4 % | 47,2 % | −1,6 | 1060 | 57,1 % | 49,9 % | +0,7 |
+| Schild aus Eichenholz | Vercingetorix | 2 | Basis | 4600 | 75,3 % | 47,5 % | −1,4 | 1448 | 46,2 % | 48,2 % | −1,0 |
+| Krieger der Arverner | Vercingetorix | 3 | Basis | 4600 | 85,4 % | 50,1 % | +1,3 | 1568 | 60,3 % | 54,6 % | +5,4 |
+| Hieb mit dem Langschwert | Vercingetorix | 3 | Basis | 4600 | 84,8 % | 48,0 % | −0,8 | 1566 | 62,2 % | 45,6 % | −3,6 |
+| Reiter der Arverner | Vercingetorix | 4 | Gewöhnlich | – | – | – | – | 1450 | 51,6 % | 49,2 % | +0,0 |
+| Heilkundige mit der Mistel | Vercingetorix | 3 | Gewöhnlich | – | – | – | – | 1618 | 57,8 % | 49,3 % | +0,1 |
+| Erhebung der Gallier | Vercingetorix | 3 | Selten | – | – | – | – | 1512 | 58,3 % | 54,4 % | +5,2 |
+| Verteidiger von Gergovia | Vercingetorix | 6 | Selten | – | – | – | – | 2308 | 56,0 % | 51,0 % | +1,7 |
+| Letzter Ritt vor Alesia | Vercingetorix | 5 | Episch | – | – | – | – | 1792 | 40,3 % | 44,1 % | −5,1 |
+| Commius, Führer des Entsatzheers | Vercingetorix | 8 | Legendär | – | – | – | – | 1268 | 49,7 % | 49,5 % | +0,3 |
+| Apothekerlehrling | Böttger | 1 | Basis | 4600 | 85,5 % | 53,8 % | +2,8 | 992 | 66,5 % | 48,4 % | +2,3 |
+| Verpuffung im Laboratorium | Böttger | 2 | Basis | 4600 | 89,3 % | 53,9 % | +2,9 | 1450 | 69,1 % | 48,6 % | +2,4 |
+| Bergmann aus Aue | Böttger | 3 | Basis | 4600 | 85,4 % | 52,1 % | +1,0 | 1630 | 55,8 % | 43,6 % | −2,6 |
+| Rezept des Goldmachers | Böttger | 4 | Basis | 4600 | 67,0 % | 51,5 % | +0,4 | 1402 | 31,5 % | 43,6 % | −2,6 |
+| Pestarzt | Böttger | 4 | Gewöhnlich | – | – | – | – | 1456 | 63,7 % | 53,6 % | +7,5 |
+| Befehl des Kurfürsten | Böttger | 2 | Gewöhnlich | – | – | – | – | 1480 | 64,5 % | 50,9 % | +4,7 |
+| Schreiber der Manufaktur | Böttger | 5 | Selten | – | – | – | – | 1654 | 58,5 % | 42,8 % | −3,4 |
+| Glut des Brennofens | Böttger | 5 | Selten | – | – | – | – | 1652 | 49,2 % | 47,5 % | +1,4 |
+| Wache auf dem Königstein | Böttger | 6 | Episch | – | – | – | – | 2220 | 65,2 % | 46,0 % | −0,2 |
+| Tschirnhaus, Naturforscher | Böttger | 5 | Legendär | – | – | – | – | 1726 | 59,9 % | 46,6 % | +0,4 |
+| Pförtnerin vom Rupertsberg | Hildegard | 1 | Basis | 4600 | 78,7 % | 49,9 % | −0,6 | 1072 | 57,7 % | 57,0 % | +7,1 |
+| Grünkraft | Hildegard | 2 | Basis | 4600 | 79,0 % | 50,5 % | −0,1 | 1448 | 54,5 % | 52,5 % | +2,6 |
+| Klostervogt | Hildegard | 3 | Basis | 4600 | 78,8 % | 51,4 % | +0,9 | 1592 | 57,9 % | 50,3 % | +0,4 |
+| Einkleidung der Novizinnen | Hildegard | 2 | Basis | 4600 | 77,1 % | 49,1 % | −1,4 | 1448 | 57,0 % | 52,9 % | +3,0 |
+| Pilger am Rhein | Hildegard | 4 | Gewöhnlich | – | – | – | – | 1422 | 45,4 % | 47,5 % | −2,4 |
+| Segen der Äbtissin | Hildegard | 2 | Gewöhnlich | – | – | – | – | 1434 | 50,3 % | 49,2 % | −0,7 |
+| Vorsängerin im Chor | Hildegard | 5 | Selten | – | – | – | – | 1700 | 52,2 % | 51,9 % | +2,0 |
+| Spiel der Tugenden | Hildegard | 6 | Selten | – | – | – | – | 2140 | 48,6 % | 52,8 % | +2,9 |
+| Ritter mit dem Schutzbrief | Hildegard | 7 | Episch | – | – | – | – | 1940 | 47,2 % | 48,5 % | −1,4 |
+| Jutta von Sponheim, Magistra | Hildegard | 7 | Legendär | – | – | – | – | 1878 | 46,1 % | 49,2 % | −0,7 |
+| Siedler aus Franken | Wiprecht | 1 | Basis | 4600 | 77,3 % | 47,3 % | −2,3 | 1052 | 53,6 % | 50,6 % | +1,2 |
+| Fehde | Wiprecht | 2 | Basis | 4600 | 81,6 % | 48,8 % | −0,8 | 1456 | 64,0 % | 47,7 % | −1,7 |
+| Burgmann von Groitzsch | Wiprecht | 3 | Basis | 4600 | 80,7 % | 50,8 % | +1,2 | 1580 | 58,4 % | 54,2 % | +4,8 |
+| Lokator | Wiprecht | 4 | Basis | 4600 | 76,2 % | 51,5 % | +1,9 | 1482 | 55,0 % | 47,0 % | −2,4 |
+| Verhau | Wiprecht | 3 | Gewöhnlich | – | – | – | – | 1574 | 62,5 % | 48,7 % | −0,7 |
+| Panzerreiter | Wiprecht | 4 | Gewöhnlich | – | – | – | – | 1492 | 52,2 % | 51,8 % | +2,4 |
+| Rodung | Wiprecht | 3 | Selten | – | – | – | – | 1572 | 55,2 % | 52,4 % | +3,0 |
+| Grenzwächter der Mark | Wiprecht | 5 | Selten | – | – | – | – | 1822 | 53,7 % | 46,4 % | −3,0 |
+| Heerfahrt nach Italien | Wiprecht | 5 | Episch | – | – | – | – | 1744 | 56,5 % | 50,6 % | +1,2 |
+| Judith von Böhmen | Wiprecht | 7 | Legendär | – | – | – | – | 2052 | 51,1 % | 53,6 % | +4,2 |
+| Edelknabe | Ulrich | 1 | Basis | 4600 | 80,9 % | 48,5 % | −0,4 | 1032 | 55,6 % | 49,4 % | −1,2 |
+| Lanzenstoß | Ulrich | 1 | Basis | 4600 | 84,0 % | 49,6 % | +0,8 | 966 | 56,4 % | 50,9 % | +0,3 |
+| Fahrender Ritter | Ulrich | 3 | Basis | 4600 | 83,3 % | 49,5 % | +0,7 | 1606 | 52,1 % | 52,9 % | +2,3 |
+| Minnebrief | Ulrich | 2 | Basis | 4600 | 74,1 % | 50,8 % | +1,9 | 1464 | 46,7 % | 53,5 % | +2,9 |
+| Minneritter | Ulrich | 3 | Gewöhnlich | – | – | – | – | 1678 | 56,4 % | 54,3 % | +3,7 |
+| Mit eingelegter Lanze | Ulrich | 3 | Gewöhnlich | – | – | – | – | 1516 | 43,5 % | 47,9 % | −2,7 |
+| Kämpe im Buhurt | Ulrich | 4 | Selten | – | – | – | – | 1464 | 42,8 % | 46,8 % | −3,8 |
+| Venusfahrt | Ulrich | 5 | Selten | – | – | – | – | 1760 | 45,2 % | 55,3 % | +4,7 |
+| Landrichter der Steiermark | Ulrich | 6 | Episch | – | – | – | – | 2250 | 54,7 % | 49,0 % | −1,6 |
+| Friedrich der Streitbare | Ulrich | 6 | Legendär | – | – | – | – | 2148 | 49,0 % | 52,2 % | +1,6 |
+| Dorfwache | neutral | 1 | Basis | 101200 | 80,7 % | 49,2 % | −0,8 | 22648 | 57,1 % | 50,6 % | +0,7 |
+| Wandernder Händler | neutral | 2 | Basis | 101200 | 80,9 % | 49,0 % | −1,0 | 31518 | 56,5 % | 49,3 % | −0,7 |
+| Steinschleuderer | neutral | 2 | Basis | 101200 | 80,9 % | 49,7 % | −0,3 | 31460 | 56,4 % | 50,9 % | +0,9 |
+| Wilderin | neutral | 3 | Basis | 101200 | 83,3 % | 49,8 % | −0,3 | 34646 | 58,9 % | 50,1 % | +0,2 |
+| Torwache der Burg | neutral | 4 | Basis | 101200 | 76,9 % | 51,3 % | +1,2 | 33338 | 51,3 % | 50,3 % | +0,3 |
+| Kavallerist | neutral | 4 | Basis | 101200 | 78,3 % | 51,3 % | +1,3 | 33108 | 51,8 % | 51,4 % | +1,4 |
+| Feldheilerin | neutral | 3 | Basis | 101200 | 80,8 % | 49,6 % | −0,5 | 34882 | 56,1 % | 49,8 % | −0,1 |
+| Archivarin | neutral | 4 | Basis | 101200 | 74,7 % | 52,6 % | +2,6 | 33654 | 50,1 % | 50,0 % | −0,0 |
+| Wachhund | neutral | 2 | Basis | 101200 | 78,3 % | 48,9 % | −1,1 | 31400 | 54,7 % | 49,4 % | −0,6 |
+| Veteran | neutral | 5 | Basis | 101200 | 79,3 % | 52,5 % | +2,5 | 40484 | 54,5 % | 49,3 % | −0,7 |
+| Belagerungsturm | neutral | 6 | Basis | 101200 | 76,8 % | 55,2 % | +5,2 | 51260 | 55,8 % | 50,4 % | +0,4 |
+| Schmied | neutral | 3 | Basis | – | – | – | – | 35080 | 54,6 % | 50,6 % | +0,6 |
+| Wüstenspäherin | neutral | 1 | Basis | – | – | – | – | 22210 | 56,2 % | 51,9 % | +1,9 |
+| Gebirgswache | neutral | 5 | Basis | – | – | – | – | 40388 | 55,2 % | 53,1 % | +3,1 |
+| Verwegener Bote | neutral | 3 | Basis | – | – | – | – | 34772 | 54,3 % | 49,8 % | −0,2 |
+| Nachtwächter | neutral | 2 | Basis | – | – | – | – | 31498 | 54,3 % | 50,4 % | +0,4 |
+| Versorgung | neutral | 2 | Basis | – | – | – | – | 31480 | 46,7 % | 49,6 % | −0,4 |
+| Heilkräuter | neutral | 1 | Basis | – | – | – | – | 22658 | 53,5 % | 47,6 % | −2,3 |
+| Wurfmesser | neutral | 2 | Basis | – | – | – | – | 31294 | 60,1 % | 49,3 % | −0,6 |
+| Kriegselefant | neutral | 7 | Basis | – | – | – | – | 45324 | 56,4 % | 54,0 % | +4,0 |
+| Ordensritter | neutral | 3 | Gewöhnlich | – | – | – | – | 34970 | 57,0 % | 51,5 % | +1,5 |
+| Söldnerhauptmann | neutral | 4 | Gewöhnlich | – | – | – | – | 33672 | 52,3 % | 49,7 % | −0,3 |
+| Adler der Berge | neutral | 2 | Gewöhnlich | – | – | – | – | 31360 | 56,4 % | 52,0 % | +2,1 |
+| Grabwächter | neutral | 4 | Gewöhnlich | – | – | – | – | 33362 | 52,9 % | 51,6 % | +1,6 |
+| Sammelruf | neutral | 3 | Gewöhnlich | – | – | – | – | 34962 | 60,4 % | 52,7 % | +2,7 |
+| Feldration | neutral | 2 | Gewöhnlich | – | – | – | – | 31402 | 35,9 % | 46,6 % | −3,3 |
+| Bogenmeisterin | neutral | 4 | Gewöhnlich | – | – | – | – | 33510 | 52,8 % | 48,6 % | −1,3 |
+| Prätorianer | neutral | 5 | Gewöhnlich | – | – | – | – | 40482 | 52,2 % | 50,3 % | +0,3 |
+| Silberner Bannerträger | neutral | 4 | Selten | – | – | – | – | 33220 | 56,0 % | 53,9 % | +4,0 |
+| Flammenkrug | neutral | 4 | Selten | – | – | – | – | 33472 | 51,7 % | 53,3 % | +3,3 |
+| Löwin der Arena | neutral | 5 | Selten | – | – | – | – | 40770 | 56,4 % | 51,8 % | +1,8 |
+| Seidenkarawanenführer | neutral | 5 | Selten | – | – | – | – | 40566 | 54,3 % | 49,6 % | −0,4 |
+| Schlachtruf | neutral | 4 | Selten | – | – | – | – | 33324 | 47,9 % | 49,0 % | −1,0 |
+| Trojanisches Pferd | neutral | 6 | Selten | – | – | – | – | 51584 | 58,5 % | 50,8 % | +0,8 |
+| Brander | neutral | 7 | Episch | – | – | – | – | 45190 | 52,0 % | 52,9 % | +2,9 |
+| Mercators Atlas | neutral | 4 | Episch | – | – | – | – | 33644 | 33,2 % | 50,2 % | +0,2 |
+| Burgbesatzung | neutral | 8 | Episch | – | – | – | – | 30752 | 50,6 % | 57,2 % | +7,2 |
+| Donnernde Legion | neutral | 7 | Episch | – | – | – | – | 45404 | 59,3 % | 52,8 % | +2,8 |
+| Herodot, Vater der Geschichte | neutral | 4 | Legendär | – | – | – | – | 33370 | 48,3 % | 51,4 % | +1,4 |
+| Zenobia, Rebellin von Palmyra | neutral | 8 | Legendär | – | – | – | – | 30730 | 49,6 % | 54,8 % | +4,8 |
+| Spitzel im Venezianerviertel | Dandolo | 3 | Gewöhnlich | – | – | – | – | 1406 | 64,0 % | 50,4 % | +1,9 |
+| Plünderer am Rhein | Widukind | 3 | Gewöhnlich | – | – | – | – | 1608 | 53,6 % | 44,3 % | −3,0 |
+| Kobra des Nils | Imhotep | 2 | Gewöhnlich | – | – | – | – | 1376 | 56,4 % | 54,9 % | +1,0 |
+| Zwanzig Städte in Flammen | Vercingetorix | 3 | Selten | – | – | – | – | 1532 | 55,1 % | 49,6 % | +0,4 |
+| Eid der Arkanisten | Böttger | 1 | Selten | – | – | – | – | 1024 | 67,4 % | 49,7 % | +3,6 |
+| Böhmischer Söldner | Wiprecht | 4 | Gewöhnlich | – | – | – | – | 1374 | 51,1 % | 45,1 % | −4,3 |
+| Brandschatzung | Wiprecht | 1 | Gewöhnlich | – | – | – | – | 1018 | 62,3 % | 48,9 % | −0,5 |
+| Heimlicher Bote | Ulrich | 2 | Gewöhnlich | – | – | – | – | 1434 | 53,8 % | 54,6 % | +3,9 |
+| Freibeuterin | neutral | 2 | Gewöhnlich | – | – | – | – | 31358 | 55,9 % | 48,8 % | −1,2 |
+| Späherin im Unterholz | neutral | 1 | Gewöhnlich | – | – | – | – | 22622 | 57,2 % | 52,0 % | +2,0 |
+| Wandermönch | neutral | 2 | Gewöhnlich | – | – | – | – | 31310 | 60,6 % | 55,4 % | +5,4 |
+| Giftmischerin | neutral | 3 | Selten | – | – | – | – | 34858 | 55,6 % | 53,0 % | +3,1 |
+| Condottiere | neutral | 3 | Gewöhnlich | – | – | – | – | 34804 | 58,8 % | 50,5 % | +0,6 |
+| Ruderer der Triere | Perikles | 1 | Basis | 4600 | 79,4 % | 50,4 % | +1,5 | 1058 | 59,2 % | 52,6 % | +2,4 |
+| Lange Mauern | Perikles | 2 | Basis | 4600 | 79,5 % | 45,5 % | −3,5 | 1376 | 57,3 % | 48,1 % | −2,0 |
+| Rede auf die Gefallenen | Perikles | 3 | Basis | 4600 | 81,7 % | 52,3 % | +3,4 | 1614 | 62,8 % | 54,3 % | +4,1 |
+| Strategos | Perikles | 3 | Basis | 4600 | 79,8 % | 51,7 % | +2,8 | 1506 | 60,1 % | 53,4 % | +3,3 |
+| Pnyx | Perikles | 3 | Gewöhnlich | – | – | – | – | 1628 | 51,5 % | 45,9 % | −4,2 |
+| Scherbengericht | Perikles | 2 | Gewöhnlich | – | – | – | – | 1432 | 64,0 % | 55,2 % | +5,1 |
+| Triere von Salamis | Perikles | 4 | Selten | – | – | – | – | 1474 | 58,7 % | 57,0 % | +6,8 |
+| Pest von Athen | Perikles | 4 | Selten | – | – | – | – | 1436 | 43,7 % | 48,9 % | −1,2 |
+| Odeion | Perikles | 4 | Episch | – | – | – | – | 1532 | 42,2 % | 43,9 % | −6,2 |
+| Phidias, Meister der Akropolis | Perikles | 7 | Legendär | – | – | – | – | 2174 | 57,5 % | 54,1 % | +4,0 |
+| Pilumwerfer | Agrippa | 1 | Basis | 4600 | 77,6 % | 52,3 % | +4,0 | 1048 | 59,8 % | 55,3 % | +1,5 |
+| Legionär der Zehnten | Agrippa | 2 | Basis | 4600 | 72,9 % | 49,9 % | +1,5 | 1386 | 52,8 % | 55,3 % | +1,5 |
+| Castra | Agrippa | 3 | Basis | 4600 | 83,2 % | 50,1 % | +1,8 | 1460 | 65,2 % | 53,8 % | −0,0 |
+| Testudo | Agrippa | 2 | Basis | 4600 | 74,6 % | 50,4 % | +2,1 | 1420 | 54,8 % | 57,0 % | +3,2 |
+| Ballista | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1624 | 57,1 % | 53,8 % | +0,0 |
+| Liburnen bei Actium | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1588 | 54,4 % | 57,4 % | +3,5 |
+| Primus Pilus | Agrippa | 5 | Selten | – | – | – | – | 1790 | 57,1 % | 56,4 % | +2,5 |
+| Thermen des Agrippa | Agrippa | 2 | Selten | – | – | – | – | 1448 | 57,0 % | 51,0 % | −2,8 |
+| Pantheon | Agrippa | 4 | Episch | – | – | – | – | 1496 | 45,5 % | 54,4 % | +0,5 |
+| Vitruv, Baumeister Roms | Agrippa | 5 | Legendär | – | – | – | – | 1802 | 51,5 % | 55,2 % | +1,4 |
+| Bogenschütze aus Elkab | Ahhotep | 1 | Basis | 4600 | 82,4 % | 51,3 % | −0,2 | 1014 | 58,1 % | 52,6 % | +1,8 |
+| Krieger der Nilflotte | Ahhotep | 2 | Basis | 4600 | 80,9 % | 51,1 % | −0,4 | 1432 | 51,7 % | 50,3 % | −0,5 |
+| Pfeilregen vor Auaris | Ahhotep | 2 | Basis | 4600 | 78,8 % | 52,4 % | +0,9 | 1316 | 52,7 % | 50,9 % | +0,1 |
+| Speerträger aus Theben | Ahhotep | 3 | Basis | 4600 | 83,9 % | 52,3 % | +0,8 | 1578 | 57,6 % | 55,4 % | +4,6 |
+| Priester der Selket | Ahhotep | 3 | Gewöhnlich | – | – | – | – | 1580 | 59,1 % | 51,7 % | +0,9 |
+| Medjai-Kundschafter | Ahhotep | 3 | Gewöhnlich | – | – | – | – | 1570 | 55,6 % | 50,0 % | −0,9 |
+| Erbeuteter Streitwagen | Ahhotep | 6 | Selten | – | – | – | – | 2328 | 59,8 % | 54,6 % | +3,8 |
+| Überfall auf Nefrusi | Ahhotep | 3 | Selten | – | – | – | – | 1554 | 56,4 % | 49,7 % | −1,1 |
+| Ahmose, Befreier Ägyptens | Ahhotep | 5 | Episch | – | – | – | – | 1850 | 59,5 % | 46,1 % | −4,7 |
+| Zeremonialaxt des Ahmose | Ahhotep | 6 | Legendär | – | – | – | – | 2338 | 51,3 % | 50,3 % | −0,5 |
+| Kopistin der Chronik | Anna | 1 | Basis | 4600 | 81,5 % | 53,6 % | +3,0 | 1048 | 59,0 % | 55,0 % | +5,2 |
+| Pantokrator-Spital | Anna | 3 | Basis | 4600 | 73,1 % | 51,6 % | +1,0 | 1532 | 36,7 % | 49,5 % | −0,2 |
+| Warägergardist | Anna | 3 | Basis | 4600 | 82,7 % | 55,1 % | +4,5 | 1650 | 59,1 % | 56,1 % | +6,4 |
+| Hofärztin | Anna | 3 | Basis | 4600 | 81,8 % | 50,7 % | +0,1 | 1472 | 48,0 % | 46,9 % | −2,8 |
+| Griechisches Feuer | Anna | 4 | Gewöhnlich | – | – | – | – | 1524 | 52,9 % | 59,4 % | +9,7 |
+| Bibliothekar von Konstantinopel | Anna | 4 | Gewöhnlich | – | – | – | – | 1472 | 49,1 % | 56,6 % | +6,9 |
+| Kataphrakt | Anna | 5 | Selten | – | – | – | – | 1770 | 50,7 % | 59,0 % | +9,2 |
+| Chrysobull | Anna | 3 | Selten | – | – | – | – | 1566 | 44,0 % | 49,8 % | +0,1 |
+| Nikephoros Bryennios | Anna | 5 | Episch | – | – | – | – | 1736 | 53,8 % | 51,6 % | +1,9 |
+| Alexios I. Komnenos | Anna | 6 | Legendär | – | – | – | – | 2216 | 51,5 % | 51,3 % | +1,6 |
+| Gärtner von Tetzcotzinco | Nezahualcóyotl | 1 | Basis | 4600 | 82,5 % | 48,7 % | +0,0 | 1000 | 60,7 % | 53,6 % | +3,7 |
+| Adlerkrieger | Nezahualcóyotl | 2 | Basis | 4600 | 81,7 % | 48,9 % | +0,2 | 1410 | 58,2 % | 53,4 % | +3,5 |
+| Blumenkrieg | Nezahualcóyotl | 2 | Basis | 4600 | 83,3 % | 49,3 % | +0,7 | 1402 | 61,3 % | 49,5 % | −0,4 |
+| Jaguarkrieger | Nezahualcóyotl | 3 | Basis | 4600 | 82,8 % | 47,9 % | −0,7 | 1654 | 63,1 % | 52,4 % | +2,5 |
+| Aquädukt von Chapultepec | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1428 | 60,8 % | 47,8 % | −2,1 |
+| Gesetze von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1400 | 59,1 % | 49,1 % | −0,8 |
+| Quetzal-Hauptmann | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1596 | 56,1 % | 55,8 % | +5,9 |
+| Damm von Nezahualcóyotl | Nezahualcóyotl | 4 | Selten | – | – | – | – | 1564 | 55,3 % | 43,9 % | −5,9 |
+| Itzcoatl, Herr von Tenochtitlan | Nezahualcóyotl | 6 | Episch | – | – | – | – | 2380 | 59,5 % | 59,5 % | +9,6 |
+| Nezahualpilli, Sohn des Dichters | Nezahualcóyotl | 5 | Legendär | – | – | – | – | 1746 | 51,1 % | 50,9 % | +1,0 |
+| Lehnsmann | Theophanu | 1 | Basis | 4600 | 82,1 % | 45,2 % | −2,6 | 972 | 61,3 % | 52,5 % | +0,8 |
+| Bogenschütze der Pfalz | Theophanu | 2 | Basis | 4600 | 82,6 % | 46,2 % | −1,6 | 1368 | 63,3 % | 53,5 % | +1,8 |
+| Treueschwur | Theophanu | 1 | Basis | 4600 | 82,5 % | 49,4 % | +1,6 | 974 | 60,2 % | 55,2 % | +3,5 |
+| Stiftsdame aus Quedlinburg | Theophanu | 2 | Basis | 4600 | 82,8 % | 46,0 % | −1,8 | 1346 | 63,4 % | 54,5 % | +2,7 |
+| Späher an der Elbe | Theophanu | 2 | Gewöhnlich | – | – | – | – | 1446 | 64,7 % | 53,3 % | +1,6 |
+| Heerbann | Theophanu | 4 | Gewöhnlich | – | – | – | – | 1548 | 62,0 % | 57,3 % | +5,6 |
+| St. Pantaleon in Köln | Theophanu | 2 | Selten | – | – | – | – | 1288 | 60,9 % | 51,4 % | −0,3 |
+| Haft in Utrecht | Theophanu | 3 | Selten | – | – | – | – | 1656 | 57,9 % | 50,0 % | −1,8 |
+| Willigis, Erzbischof von Mainz | Theophanu | 5 | Episch | – | – | – | – | 1930 | 60,7 % | 54,9 % | +3,2 |
+| Otto II., Kaiser | Theophanu | 6 | Legendär | – | – | – | – | 2458 | 59,6 % | 54,1 % | +2,4 |
+| Spartiat der Dreihundert | Leonidas | 3 | Gewöhnlich | – | – | – | – | 1580 | 63,0 % | 58,2 % | +6,3 |
+| Engpass der Thermopylen | Leonidas | 3 | Selten | – | – | – | – | 1558 | 59,0 % | 52,3 % | +0,4 |
+| Astronomin des Museions | Hypatia | 2 | Gewöhnlich | – | – | – | – | 1398 | 62,1 % | 48,3 % | +0,2 |
+| Kommentar zu Diophant | Hypatia | 2 | Selten | – | – | – | – | 1376 | 56,8 % | 50,5 % | +2,4 |
+| Priesterin der Sachmet | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1558 | 60,5 % | 55,0 % | +1,2 |
+| Ka-Statue | Imhotep | 2 | Selten | – | – | – | – | 1416 | 60,2 % | 46,6 % | −7,3 |
+| Galeerenschmied | Dandolo | 2 | Gewöhnlich | – | – | – | – | 1342 | 54,7 % | 51,0 % | +2,5 |
+| Plünderung Konstantinopels | Dandolo | 6 | Selten | – | – | – | – | 2196 | 51,8 % | 51,6 % | +3,1 |
+| Heerlager an der Weser | Widukind | 3 | Gewöhnlich | – | – | – | – | 1520 | 42,6 % | 44,4 % | −2,9 |
+| Versammlung in Marklo | Widukind | 4 | Selten | – | – | – | – | 1402 | 38,7 % | 46,9 % | −0,4 |
+| Barde der Arverner | Vercingetorix | 2 | Gewöhnlich | – | – | – | – | 1472 | 55,2 % | 51,4 % | +2,2 |
+| Gallische Reiterei | Vercingetorix | 5 | Selten | – | – | – | – | 1742 | 53,5 % | 48,2 % | −1,0 |
+| Laborbuch | Böttger | 1 | Gewöhnlich | – | – | – | – | 1024 | 61,9 % | 44,9 % | −1,3 |
+| Weißes Gold | Böttger | 3 | Selten | – | – | – | – | 1584 | 3,9 % | 40,2 % | −5,9 |
+| Adlige Stifterin | Hildegard | 1 | Gewöhnlich | – | – | – | – | 1078 | 54,2 % | 56,2 % | +6,3 |
+| Weihe der Klosterkirche | Hildegard | 4 | Selten | – | – | – | – | 1472 | 39,9 % | 46,6 % | −3,3 |
+| Feldmesser | Wiprecht | 2 | Gewöhnlich | – | – | – | – | 1454 | 58,0 % | 53,2 % | +3,8 |
+| Beuterecht | Wiprecht | 1 | Selten | – | – | – | – | 1080 | 60,4 % | 50,4 % | +1,1 |
+| Ritter aus Murau | Ulrich | 4 | Selten | – | – | – | – | 1516 | 50,6 % | 48,7 % | −1,9 |
+| Frische Lanze | Ulrich | 2 | Gewöhnlich | – | – | – | – | 1438 | 54,0 % | 47,9 % | −2,7 |
+| Steinmetz vom Pentelikon | Perikles | 2 | Gewöhnlich | – | – | – | – | 1392 | 55,5 % | 54,3 % | +4,2 |
+| Schatz des Seebunds | Perikles | 3 | Selten | – | – | – | – | 1548 | 37,1 % | 45,5 % | −4,7 |
+| Aquilifer | Agrippa | 3 | Gewöhnlich | – | – | – | – | 1520 | 54,2 % | 51,8 % | −2,0 |
+| Harpax | Agrippa | 4 | Selten | – | – | – | – | 1490 | 40,2 % | 56,3 % | +2,4 |
+| Pfeilmacher aus Edfu | Ahhotep | 2 | Gewöhnlich | – | – | – | – | 1360 | 58,4 % | 54,3 % | +3,4 |
+| Gift der Hornviper | Ahhotep | 3 | Selten | – | – | – | – | 1502 | 49,9 % | 52,3 % | +1,5 |
+| Spitalarzt des Pantokrator | Anna | 2 | Gewöhnlich | – | – | – | – | 1442 | 54,2 % | 50,6 % | +0,9 |
+| Chronist am Kaiserhof | Anna | 6 | Selten | – | – | – | – | 2298 | 60,6 % | 58,5 % | +8,8 |
+| Dichter von Texcoco | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1366 | 59,4 % | 51,6 % | +1,8 |
+| Chinampa | Nezahualcóyotl | 2 | Selten | – | – | – | – | 1318 | 58,4 % | 50,3 % | +0,4 |
+| Kanzler der Kaiserin | Theophanu | 2 | Gewöhnlich | – | – | – | – | 1372 | 63,4 % | 54,8 % | +3,0 |
+| Siegel der Kaiserin | Theophanu | 2 | Selten | – | – | – | – | 1408 | 55,2 % | 55,4 % | +3,7 |
+| Olympionike | Griechenland und Hellenismus | 4 | Gewöhnlich | – | – | – | – | 6094 | 54,5 % | 56,1 % | +6,0 |
+| Rhapsode | Griechenland und Hellenismus | 2 | Gewöhnlich | – | – | – | – | 5564 | 55,8 % | 52,8 % | +2,7 |
+| Marathonläufer | Griechenland und Hellenismus | 2 | Gewöhnlich | – | – | – | – | 5658 | 55,0 % | 55,5 % | +5,4 |
+| Orakel von Delphi | Griechenland und Hellenismus | 3 | Selten | – | – | – | – | 6402 | 35,6 % | 48,5 % | −1,6 |
+| Leuchtturm von Pharos | Griechenland und Hellenismus | 3 | Selten | – | – | – | – | 6442 | 56,8 % | 46,0 % | −4,0 |
+| Akropolis | Griechenland und Hellenismus | 2 | Selten | – | – | – | – | 5738 | 58,5 % | 49,6 % | −0,5 |
+| Bibliothek von Alexandria | Griechenland und Hellenismus | 3 | Episch | – | – | – | – | 6462 | 53,6 % | 48,1 % | −1,9 |
+| Knappe | Mittelalter im Reich | 1 | Gewöhnlich | – | – | – | – | 5012 | 57,1 % | 51,4 % | +1,6 |
+| Armbrustschütze | Mittelalter im Reich | 3 | Gewöhnlich | – | – | – | – | 7894 | 60,0 % | 54,1 % | +4,3 |
+| Mönch von Cluny | Mittelalter im Reich | 3 | Gewöhnlich | – | – | – | – | 7990 | 54,1 % | 53,2 % | +3,4 |
+| Hansekogge | Mittelalter im Reich | 4 | Gewöhnlich | – | – | – | – | 7476 | 51,3 % | 50,0 % | +0,1 |
+| Turnierritter | Mittelalter im Reich | 4 | Selten | – | – | – | – | 7512 | 54,0 % | 53,9 % | +4,0 |
+| Burgfried | Mittelalter im Reich | 2 | Selten | – | – | – | – | 6818 | 59,3 % | 43,6 % | −6,2 |
+| Tribok | Mittelalter im Reich | 4 | Episch | – | – | – | – | 7496 | 38,2 % | 47,8 % | −2,1 |
+| Landsknecht | Frühe Neuzeit | 1 | Gewöhnlich | – | – | – | – | 3130 | 60,4 % | 53,1 % | +5,6 |
+| Buchdrucker aus Mainz | Frühe Neuzeit | 3 | Gewöhnlich | – | – | – | – | 5038 | 59,1 % | 51,0 % | +3,3 |
+| Leipziger Kaffeehaus | Frühe Neuzeit | 2 | Gewöhnlich | – | – | – | – | 4428 | 51,5 % | 46,8 % | −0,8 |
+| Kartaunen-Salve | Frühe Neuzeit | 3 | Selten | – | – | – | – | 4774 | 61,3 % | 48,7 % | +1,0 |
+| Kriegsgaleone | Frühe Neuzeit | 5 | Selten | – | – | – | – | 5390 | 60,3 % | 49,4 % | +1,8 |
+| Stehendes Heer | Frühe Neuzeit | 5 | Episch | – | – | – | – | 5338 | 62,4 % | 48,3 % | +0,6 |
+| Sternschanze | Frühe Neuzeit | 2 | Episch | – | – | – | – | 4330 | 65,4 % | 41,4 % | −6,2 |
+| Kolosseum | neutral | 3 | Selten | – | – | – | – | 34836 | 39,1 % | 45,6 % | −4,4 |
+| Hängende Gärten | neutral | 2 | Selten | – | – | – | – | 31412 | 60,1 % | 46,1 % | −3,8 |
+| Pyramiden von Gizeh | neutral | 4 | Episch | – | – | – | – | 33286 | 33,7 % | 45,9 % | −4,0 |
+| Thebanischer Plänkler | Epaminondas | 1 | Basis | 4600 | 78,2 % | 47,6 % | −0,3 | 1056 | 56,6 % | 53,2 % | +2,9 |
+| Böotischer Hoplit | Epaminondas | 2 | Basis | 4600 | 78,9 % | 47,7 % | −0,1 | 1428 | 52,3 % | 53,0 % | +2,7 |
+| Fünfzig Schilde tief | Epaminondas | 2 | Basis | 4600 | 74,4 % | 47,7 % | −0,1 | 1408 | 49,8 % | 46,9 % | −3,5 |
+| Böotarch | Epaminondas | 3 | Basis | 4600 | 78,2 % | 47,5 % | −0,3 | 1686 | 55,7 % | 56,0 % | +5,7 |
+| Kämpfer der Heiligen Schar | Epaminondas | 5 | Gewöhnlich | – | – | – | – | 1894 | 53,6 % | 57,8 % | +7,5 |
+| Schlacht bei Leuktra | Epaminondas | 4 | Gewöhnlich | – | – | – | – | 1522 | 47,6 % | 51,0 % | +0,7 |
+| Befreiung Messeniens | Epaminondas | 5 | Selten | – | – | – | – | 1754 | 51,4 % | 50,7 % | +0,4 |
+| Thebanischer Phalangit | Epaminondas | 4 | Selten | – | – | – | – | 1524 | 45,7 % | 52,2 % | +1,9 |
+| Megalopolis | Epaminondas | 3 | Episch | – | – | – | – | 1640 | 49,1 % | 45,9 % | −4,4 |
+| Pelopidas, Führer der Heiligen Schar | Epaminondas | 6 | Legendär | – | – | – | – | 2304 | 49,2 % | 53,3 % | +3,0 |
+| Veles | Fabius | 1 | Basis | 4600 | 88,3 % | 48,4 % | −0,2 | 1022 | 63,6 % | 54,4 % | +3,6 |
+| Triarier | Fabius | 2 | Basis | 4600 | 86,7 % | 48,7 % | +0,2 | 1404 | 62,3 % | 54,4 % | +3,6 |
+| Hinhalten | Fabius | 2 | Basis | 4600 | 85,5 % | 48,4 % | −0,1 | 1486 | 62,1 % | 52,6 % | +1,8 |
+| Konsul der Republik | Fabius | 4 | Basis | 4600 | 84,6 % | 49,1 % | +0,6 | 1456 | 56,0 % | 49,7 % | −1,1 |
+| Verbrannte Erde | Fabius | 3 | Gewöhnlich | – | – | – | – | 1586 | 64,4 % | 51,3 % | +0,5 |
+| Späher am Volturnus | Fabius | 2 | Gewöhnlich | – | – | – | – | 1384 | 60,8 % | 52,7 % | +1,9 |
+| Minucius, der Reiteroberst | Fabius | 4 | Selten | – | – | – | – | 1524 | 57,4 % | 51,2 % | +0,4 |
+| Rückeroberung von Tarent | Fabius | 6 | Selten | – | – | – | – | 2196 | 52,7 % | 57,2 % | +6,4 |
+| Lager auf den Höhen | Fabius | 3 | Episch | – | – | – | – | 1586 | 63,6 % | 48,8 % | −2,0 |
+| Marcellus, Schwert Roms | Fabius | 6 | Legendär | – | – | – | – | 2316 | 53,2 % | 50,1 % | −0,7 |
+| Botin der Cherusker | Thusnelda | 1 | Basis | 4600 | 77,6 % | 53,1 % | +2,6 | 1098 | 55,6 % | 59,9 % | +8,4 |
+| Hüterin des Herdfeuers | Thusnelda | 2 | Basis | 4600 | 79,1 % | 51,3 % | +0,8 | 1544 | 55,9 % | 51,7 % | +0,1 |
+| Ruf zum Thing | Thusnelda | 3 | Basis | 4600 | 72,6 % | 48,9 % | −1,6 | 1544 | 47,4 % | 48,1 % | −3,4 |
+| Krieger im Keil | Thusnelda | 3 | Basis | 4600 | 80,5 % | 52,5 % | +2,0 | 1526 | 56,3 % | 52,3 % | +0,7 |
+| Varusschlacht | Thusnelda | 4 | Gewöhnlich | – | – | – | – | 1454 | 53,0 % | 54,6 % | +3,0 |
+| Krieger der Sippe | Thusnelda | 3 | Gewöhnlich | – | – | – | – | 1588 | 59,3 % | 51,9 % | +0,3 |
+| Heiliger Hain | Thusnelda | 2 | Selten | – | – | – | – | 1462 | 58,1 % | 50,3 % | −1,3 |
+| Seitenwechsel | Thusnelda | 5 | Selten | – | – | – | – | 1922 | 47,5 % | 53,3 % | +1,7 |
+| Arminius, Fürst der Cherusker | Thusnelda | 4 | Episch | – | – | – | – | 1524 | 46,3 % | 48,8 % | −2,8 |
+| Bund der Stämme | Thusnelda | 8 | Legendär | – | – | – | – | 1448 | 48,1 % | 55,1 % | +3,5 |
+| Mamlukenrekrut | Baibars | 1 | Basis | 4600 | 83,2 % | 49,0 % | −1,6 | 1040 | 56,4 % | 49,7 % | −0,5 |
+| Barid-Kurier | Baibars | 2 | Basis | 4600 | 79,3 % | 51,5 % | +0,9 | 1458 | 55,8 % | 50,7 % | +0,5 |
+| Ain Dschalut | Baibars | 3 | Basis | 4600 | 85,2 % | 51,6 % | +1,0 | 1630 | 60,2 % | 50,7 % | +0,5 |
+| Bogenreiter der Bahriya | Baibars | 3 | Basis | 4600 | 83,2 % | 49,6 % | −1,0 | 1688 | 52,5 % | 49,5 % | −0,7 |
+| Manjaniq-Meister | Baibars | 4 | Gewöhnlich | – | – | – | – | 1592 | 54,5 % | 51,8 % | +1,7 |
+| Vorgetäuschte Flucht | Baibars | 1 | Gewöhnlich | – | – | – | – | 1060 | 20,5 % | 43,5 % | −6,7 |
+| Qutuz, Sultan von Ägypten | Baibars | 5 | Selten | – | – | – | – | 1888 | 49,5 % | 52,0 % | +1,8 |
+| Sturm auf Antiochia | Baibars | 2 | Selten | – | – | – | – | 1468 | 52,6 % | 47,9 % | −2,3 |
+| Zitadelle von Kairo | Baibars | 4 | Episch | – | – | – | – | 1490 | 42,1 % | 46,9 % | −3,3 |
+| Qalawun, Emir der Bahriya | Baibars | 6 | Legendär | – | – | – | – | 2454 | 52,5 % | 54,4 % | +4,2 |
+| Schanzarbeiter | Vauban | 2 | Basis | 4600 | 76,6 % | 47,8 % | −1,1 | 1478 | 44,0 % | 44,9 % | −2,2 |
+| Grenadier | Vauban | 2 | Basis | 4600 | 84,0 % | 49,9 % | +1,0 | 1482 | 62,8 % | 50,2 % | +3,1 |
+| Salve von der Bastion | Vauban | 2 | Basis | 4600 | 78,1 % | 47,8 % | −1,1 | 1416 | 41,7 % | 43,2 % | −3,9 |
+| Ingenieur des Königs | Vauban | 3 | Basis | 4600 | 83,9 % | 50,5 % | +1,6 | 1568 | 64,3 % | 50,4 % | +3,4 |
+| Festungsgeschütz | Vauban | 3 | Gewöhnlich | – | – | – | – | 1678 | 63,2 % | 48,6 % | +1,5 |
+| Faschinen | Vauban | 2 | Gewöhnlich | – | – | – | – | 1516 | 54,2 % | 49,2 % | +2,2 |
+| Minengang | Vauban | 3 | Selten | – | – | – | – | 1640 | 55,9 % | 47,9 % | +0,9 |
+| Zitadelle von Lille | Vauban | 4 | Selten | – | – | – | – | 1598 | 60,5 % | 40,3 % | −6,7 |
+| Louvois, Kriegsminister | Vauban | 6 | Episch | – | – | – | – | 2304 | 61,2 % | 45,6 % | −1,5 |
+| Ludwig XIV., der Sonnenkönig | Vauban | 5 | Legendär | – | – | – | – | 1768 | 51,4 % | 49,4 % | +2,4 |
+| Speerwerfer vom Mont Lassois | Vix | 1 | Basis | 4600 | 83,5 % | 53,6 % | +2,6 | 972 | 59,5 % | 50,5 % | +1,4 |
+| Prunkdolch | Vix | 2 | Basis | 4600 | 76,7 % | 53,9 % | +2,9 | 1418 | 47,7 % | 47,9 % | −1,2 |
+| Reiter an der Seine | Vix | 3 | Basis | 4600 | 82,9 % | 52,9 % | +1,9 | 1636 | 50,5 % | 49,8 % | +0,8 |
+| Seherin | Vix | 3 | Basis | 4600 | 81,8 % | 52,9 % | +1,9 | 1602 | 49,4 % | 49,4 % | +0,4 |
+| Aufgebot des Fürstensitzes | Vix | 4 | Gewöhnlich | – | – | – | – | 1582 | 54,7 % | 51,0 % | +2,0 |
+| Trankopfer | Vix | 1 | Gewöhnlich | – | – | – | – | 970 | 56,7 % | 48,6 % | −0,5 |
+| Gelage am Krater | Vix | 1 | Selten | – | – | – | – | 992 | 62,1 % | 48,5 % | −0,6 |
+| Schleuderer am Wall | Vix | 4 | Selten | – | – | – | – | 1618 | 58,6 % | 53,4 % | +4,3 |
+| Halle auf dem Mont Lassois | Vix | 1 | Episch | – | – | – | – | 986 | 61,1 % | 48,5 % | −0,6 |
+| Gesandter aus Massalia | Vix | 6 | Legendär | – | – | – | – | 2542 | 55,0 % | 51,1 % | +2,1 |
+| Gladiator | Rom und Germanien | 3 | Gewöhnlich | – | – | – | – | 6342 | 61,7 % | 54,4 % | +3,0 |
+| Senator der Kurie | Rom und Germanien | 3 | Gewöhnlich | – | – | – | – | 6436 | 55,1 % | 53,8 % | +2,5 |
+| Centurio | Rom und Germanien | 2 | Gewöhnlich | – | – | – | – | 5766 | 58,9 % | 54,1 % | +2,7 |
+| Triumphzug | Rom und Germanien | 3 | Selten | – | – | – | – | 6236 | 50,8 % | 50,2 % | −1,1 |
+| Via Appia | Rom und Germanien | 2 | Selten | – | – | – | – | 5706 | 57,5 % | 49,8 % | −1,6 |
+| Vestalin am ewigen Feuer | Rom und Germanien | 3 | Selten | – | – | – | – | 6102 | 59,6 % | 50,1 % | −1,2 |
+| Pax Romana | Rom und Germanien | 5 | Episch | – | – | – | – | 7368 | 56,0 % | 47,2 % | −4,2 |
+| Wagenbauer | Frühzeit und Ägypten | 2 | Gewöhnlich | – | – | – | – | 4226 | 55,4 % | 52,5 % | +1,3 |
+| Schreiber im Lebenshaus | Frühzeit und Ägypten | 3 | Gewöhnlich | – | – | – | – | 4730 | 56,6 % | 53,6 % | +2,4 |
+| Schuss vom Streitwagen | Frühzeit und Ägypten | 2 | Gewöhnlich | – | – | – | – | 4142 | 63,9 % | 53,7 % | +2,5 |
+| Wache der Medjai | Frühzeit und Ägypten | 4 | Selten | – | – | – | – | 4648 | 50,3 % | 52,2 % | +1,0 |
+| Angriff der Streitwagen | Frühzeit und Ägypten | 3 | Selten | – | – | – | – | 4728 | 59,4 % | 53,2 % | +2,1 |
+| Bernsteinstraße | Frühzeit und Ägypten | 2 | Selten | – | – | – | – | 4158 | 57,6 % | 46,9 % | −4,2 |
+| Festung Buhen | Frühzeit und Ägypten | 3 | Episch | – | – | – | – | 4832 | 53,5 % | 54,3 % | +3,2 |
+| Akrit der Grenzmark | Kreuzzüge | 2 | Gewöhnlich | – | – | – | – | 4328 | 56,4 % | 53,2 % | +3,7 |
+| Gelehrter im Haus der Weisheit | Kreuzzüge | 3 | Gewöhnlich | – | – | – | – | 4640 | 56,3 % | 53,0 % | +3,6 |
+| Tribut in Goldbyzantinern | Kreuzzüge | 2 | Gewöhnlich | – | – | – | – | 4340 | 36,2 % | 48,1 % | −1,3 |
+| Arzt des Bimaristan | Kreuzzüge | 3 | Selten | – | – | – | – | 4704 | 61,2 % | 56,1 % | +6,6 |
+| Theodosianische Mauern | Kreuzzüge | 2 | Selten | – | – | – | – | 4324 | 59,9 % | 47,1 % | −2,4 |
+| Hagia Sophia | Kreuzzüge | 3 | Episch | – | – | – | – | 4788 | 64,1 % | 46,9 % | −2,5 |
+| Ibn an-Nafis, Arzt von Kairo | Kreuzzüge | 4 | Episch | – | – | – | – | 4432 | 56,9 % | 52,2 % | +2,7 |
+| Krähenfüße | neutral | 1 | Gewöhnlich | – | – | – | – | 22334 | 56,7 % | 52,6 % | +2,7 |
+| Abgefangene Botschaft | neutral | 2 | Selten | – | – | – | – | 31618 | 41,9 % | 46,6 % | −3,4 |
+| Falsche Kundschafter von Kadesch | Frühzeit und Ägypten | 2 | Selten | – | – | – | – | 4136 | 41,7 % | 48,6 % | −2,5 |
+| Botschaft des Sikinnos | Griechenland und Hellenismus | 1 | Gewöhnlich | – | – | – | – | 4030 | 54,9 % | 52,9 % | +2,8 |
+| Wall am Kalkrieser Berg | Rom und Germanien | 3 | Selten | – | – | – | – | 6318 | 36,6 % | 51,6 % | +0,2 |
+| Fallgatter | Mittelalter im Reich | 2 | Gewöhnlich | – | – | – | – | 7248 | 43,4 % | 45,2 % | −4,6 |
+| Engpass von Myriokephalon | Kreuzzüge | 3 | Selten | – | – | – | – | 4732 | 44,3 % | 48,6 % | −0,8 |
+| Gegenmine | Frühe Neuzeit | 3 | Selten | – | – | – | – | 4850 | 44,9 % | 44,4 % | −3,2 |
+| Hinterhalt am Süntel | Widukind | 3 | Selten | – | – | – | – | 1512 | 37,7 % | 45,4 % | −2,0 |
+| Rettung bei Gerunium | Fabius | 2 | Selten | – | – | – | – | 1442 | 52,1 % | 49,4 % | −1,4 |
+| Täuschung bei Larissa | Anna | 1 | Selten | – | – | – | – | 1020 | 52,4 % | 54,7 % | +4,9 |
+| Kampf um den Leichnam | Leonidas | 2 | Selten | – | – | – | – | 1374 | 52,2 % | 49,2 % | −2,6 |
+| Eiren der Agoge | Leonidas | 2 | Gewöhnlich | – | – | – | – | 1386 | 57,3 % | 53,3 % | +1,4 |
+| Astrolab für Synesios | Hypatia | 1 | Gewöhnlich | – | – | – | – | 950 | 53,8 % | 51,1 % | +3,0 |
+| Pilger im Asklepieion von Saqqara | Imhotep | 3 | Gewöhnlich | – | – | – | – | 1534 | 60,2 % | 54,7 % | +0,9 |
+| Eroberung von Zara | Dandolo | 3 | Selten | – | – | – | – | 1602 | 54,7 % | 50,5 % | +2,0 |
+| Irminsul | Widukind | 3 | Selten | – | – | – | – | 1546 | 56,5 % | 43,2 % | −4,1 |
+| Stater des Vercingetorix | Vercingetorix | 1 | Gewöhnlich | – | – | – | – | 1020 | 58,0 % | 53,4 % | +4,2 |
+| Manufaktur auf der Albrechtsburg | Böttger | 3 | Selten | – | – | – | – | 1682 | 57,1 % | 47,8 % | +1,7 |
+| Volmar, Schreiber Hildegards | Hildegard | 3 | Selten | – | – | – | – | 1672 | 55,4 % | 54,8 % | +4,9 |
+| Kloster Pegau | Wiprecht | 4 | Episch | – | – | – | – | 1422 | 38,3 % | 44,9 % | −4,5 |
+| Gefährte der Artusfahrt | Ulrich | 4 | Selten | – | – | – | – | 1452 | 49,1 % | 51,7 % | +1,0 |
+| Aspasia von Milet | Perikles | 3 | Selten | – | – | – | – | 1528 | 58,2 % | 54,9 % | +4,8 |
+| Aqua Virgo | Agrippa | 2 | Gewöhnlich | – | – | – | – | 1396 | 58,2 % | 50,3 % | −3,5 |
+| Stele von Karnak | Ahhotep | 3 | Selten | – | – | – | – | 1608 | 57,3 % | 48,4 % | −2,4 |
+| Kloster Kecharitomene | Anna | 3 | Episch | – | – | – | – | 1620 | 49,8 % | 47,6 % | −2,2 |
+| Gesänge des Dichterkönigs | Nezahualcóyotl | 2 | Gewöhnlich | – | – | – | – | 1322 | 56,1 % | 47,3 % | −2,6 |
+| Heiratsurkunde der Theophanu | Theophanu | 2 | Gewöhnlich | – | – | – | – | 1410 | 61,8 % | 54,1 % | +2,4 |
+| Scheinlager bei Mantineia | Epaminondas | 2 | Selten | – | – | – | – | 1478 | 35,2 % | 46,8 % | −3,5 |
+| Quintus Fabius, der Sohn | Fabius | 4 | Gewöhnlich | – | – | – | – | 1494 | 59,6 % | 52,6 % | +1,7 |
+| Thumelicus | Thusnelda | 3 | Gewöhnlich | – | – | – | – | 1612 | 54,8 % | 56,8 % | +5,2 |
+| Brief an die Besatzung von Krak | Baibars | 4 | Selten | – | – | – | – | 1482 | 53,0 % | 52,2 % | +2,0 |
+| Neuf-Brisach | Vauban | 3 | Episch | – | – | – | – | 1584 | 65,0 % | 45,6 % | −1,4 |
+| Goldener Halsring von Vix | Vix | 2 | Selten | – | – | – | – | 1370 | 45,5 % | 49,4 % | +0,3 |
+| Koloss von Rhodos | neutral | 6 | Episch | – | – | – | – | 51984 | 45,4 % | 51,6 % | +1,5 |
+| Zeus des Phidias | neutral | 4 | Episch | – | – | – | – | 33254 | 57,6 % | 45,6 % | −4,4 |
+| Himmelsscheibe von Nebra | neutral | 2 | Selten | – | – | – | – | 31538 | 32,3 % | 48,1 % | −1,8 |
+| Gänse des Kapitols | neutral | 1 | Gewöhnlich | – | – | – | – | 22648 | 55,0 % | 46,7 % | −3,3 |
+| Skytale | neutral | 2 | Selten | – | – | – | – | 31524 | 42,2 % | 47,4 % | −2,5 |

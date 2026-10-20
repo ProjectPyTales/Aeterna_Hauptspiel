@@ -259,7 +259,7 @@ const wonders=[
  ['dandolo_13','rare',S('Eroberung von Zara',3,'Fügt einem zufälligen feindlichen Diener oder Bauwerk 3 Schaden zu. Zieht 1 Karte.',[E('randomDamage',3,{board:true}),E('draw',1)])],
  ['khan_14','rare',M('Irminsul',3,0,5,'Bauwerk. Eure Diener haben +1 Angriff. Vermächtnis: Gebt Euren Dienern +2 Angriff.',{building:true,buffAura:{attack:1},death:[E('buffAll',2)]})],
  ['boudicca_13','common',S('Stater des Vercingetorix',1,'Gebt einem befreundeten Diener +1/+1. Zieht 1 Karte.',[E('buff',1,{health:1}),E('draw',1)],'friendlyMinion')],
- ['nostradamus_13','rare',M('Manufaktur auf der Albrechtsburg',3,0,5,'Bauwerk. Am Ende Eures Zuges: Zieht 1 Karte.',{building:true,end:[E('draw',1)]})],
+ ['nostradamus_13','rare',M('Manufaktur auf der Albrechtsburg',3,0,5,'Bauwerk. Am Ende Eures Zuges: Zieht 1 Karte. Sie kostet 1 weniger.',{building:true,end:[E('draw',1,{mod:-1})]})],
  ['jeanne_12','rare',M('Volmar, Schreiber Hildegards',3,2,3,'Einmarsch: Gebt einem befreundeten Diener Segen. Zieht 1 Karte.',{target:'friendlyMinion',battle:[E('shield',1),E('draw',1)]})],
  ['ragnar_14','epic',M('Kloster Pegau',4,0,5,'Bauwerk. Zu Beginn Eures Zuges: Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt.',{building:true,start:[E('summonNew',1,{tokens:RUNES})]})],
  ['musashi_13','rare',M('Gefährte der Artusfahrt',4,3,4,'Segen. Einmarsch: Eure anderen Diener mit Segen erhalten +1/+1.',{shield:true,battle:[E('buffAll',1,{health:1,excludeSelf:true,only:'shield'})]})],
