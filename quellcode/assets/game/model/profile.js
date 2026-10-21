@@ -9,7 +9,9 @@ function roll(p){p.packs--;p.opened++;p.sinceLegend++;const tiers=['common','rar
 function openPack(p){if(p.packs<=0||p.pendingPack)return null;return p.pendingPack=roll(p);}
 function openPacks(p,n=p.packs){if(p.packs<=0||p.pendingPack)return null;const k=Math.max(1,Math.min(n,p.packs)),cards=[];for(let i=0;i<k;i++)cards.push(...roll(p));return {packs:k,cards};}
 // Codes (Rückmeldung zu 1.10.0): offline, einmal je Spielstand; Groß-/Kleinschreibung, Leer- und Bindestriche zählen nicht.
-const codes={AETERNA:{text:'500 Gold',gold:500},KARTENPAKETE:{text:'10 Kartenpakete',packs:10},ZEITALTER:{text:'1000 Staub',dust:1000},CHRONIK:{text:'jede Karte in voller Zahl für Deine Sammlung',all:true},WUNDER:{text:'jede Karte der Erweiterung „Wunder der Welt“ in voller Zahl',set:'wunder'}};
+const codes={AETERNA:{text:'500 Gold',gold:500},KARTENPAKETE:{text:'10 Kartenpakete',packs:10},ZEITALTER:{text:'1000 Staub',dust:1000},CHRONIK:{text:'jede Karte in voller Zahl für Deine Sammlung',all:true},WUNDER:{text:'jede Karte der Erweiterung „Wunder der Welt“ in voller Zahl',set:'wunder'},
+ // 1.28.0: Teil 2 der Erweiterung – für Spielstände, die WUNDER schon eingelöst haben.
+ WELTWUNDER:{text:'jede Karte der Erweiterung „Wunder der Welt“ (Teil 1 und 2) in voller Zahl',set:'wunder'}};
 const codeOf=raw=>String(raw??'').toUpperCase().replace(/[\s\-_.]/g,'').slice(0,32);
 function redeem(p,raw){const code=codeOf(raw),c=codes[code];if(!code)return {error:'Bitte gib einen Code ein.'};if(!c)return {error:'Diesen Code kennt die Chronik nicht.'};if(p.redeemed.includes(code))return {error:'Diesen Code hast Du schon eingelöst.'};
  p.redeemed.push(code);p.gold+=c.gold||0;p.packs+=c.packs||0;p.dust+=c.dust||0;if(c.all||c.set)for(const k of D.cards)if(c.all||k.set===c.set)p.collection[k.id]=Math.max(p.collection[k.id]||0,k.rarity==='legendary'?1:2);return {code,text:c.text};}

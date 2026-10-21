@@ -1,7 +1,22 @@
-# Aeterna 1.27.0 – Bauen & Prüfen
+# Aeterna 1.28.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.28.0 (AP 5.7 Erweiterung „Wunder der Welt“ Teil 2, Rückmeldung zu 1.27.0)
+
+- **Karten** (`model/data.js`, `wonders.push(…)`): die übrigen 27 Karten der Prüftabelle Teil 2 – je Held die zweite und fünf
+  neutrale (`neutral_57`–`61`: Artemistempel, Mausoleum, Ischtar-Tor, Stele des Hammurapi, Hinterhalt Feuerpost). Die Erweiterung
+  hat damit 54 Karten, das Spiel 416. Chronikzeilen in `AELORE.cards`, Bildideen in `motive.js` und `astra_bilder.py`.
+- **Engine, zwei kleine Ergänzungen:** `targetTaunt` beschränkt ein Ziel „befreundeter Diener“ auf Diener mit Schildwall
+  („Mit ihm oder auf ihm“); Ergründen im Zug des Gegners (Vermächtnis des Artemistempels) wählt der Zufall, sonst stünde der
+  Zug still (`discover`); dasselbe, wenn die Wahl am Ende des eigenen Zuges aufgeht (`endTurn` – der volle Balance-Lauf blieb
+  daran hängen, ein Test in `wunder.test.js` hält es fest).
+- **Wachsrollen** (Rückmeldung „sehr unscheinbar“): `ambushArt` ein Viertel größer auf einer dunklen Mulde, dazu ein langsames,
+  schwaches Glimmen am Siegel (`ambushGlow`, Astra-Kennung `hinterhalt-glimmen`); `L.ambush` mit größeren Abständen.
+- **Code `WELTWUNDER`** für Spielstände, die `WUNDER` schon eingelöst haben.
+- Tests: `tests/wunder.test.js` erweitert; angepasst `schluesselwoerter.test.js` (Ziel „Diener mit Schildwall“, Lehrsatz bietet
+  auch Zeitalterzauber) und `schluesselwoerter2.test.js` (Kartenzahl). Referenzbild der Sammlung. Version 1.28.0 / versionCode 31.
 
 ## Neu in 1.27.0 (AP 5.7 Erweiterung „Wunder der Welt“ Teil 1, Entscheidung 22, Rückmeldung zu 1.25.0)
 

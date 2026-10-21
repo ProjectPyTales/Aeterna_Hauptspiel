@@ -1,4 +1,4 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (50 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (51 Teile)
 
 *Stand 1.25.0 (15. 10. 2026; seit 1.22.0 dazu die zwei Teile der Hinterhalte, AP 5.6). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
@@ -71,7 +71,7 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `goldglanz` | `goldglanz.png` | 160 × 800 | Weicher, schräger Lichtstreifen (Blattgold-Schimmer) mit transparenten Rändern; läuft über Goldene Karten – auch im Basar (`goldglanz-basar`, dieselbe Datei). |
 | `diener-plakette` | `diener-plakette-diener.png`, `diener-plakette-bauwerk.png` | 204 × 272 | Ovale Truppensiegel-Plakette auf dem Feld: Bronze-/Steinrahmen, **Mitte transparent** für das Kartenbild, unten links Platz für Angriff, unten rechts für Leben bzw. Turm; Bauwerk mit Zinnenrand. |
 
-### Paket 3 – Schlüsselwörter und Effekte (12 Teile, 18 Dateien)
+### Paket 3 – Schlüsselwörter und Effekte (13 Teile, 20 Dateien)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
@@ -85,7 +85,8 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `steinrisse` | `steinrisse-1.png`, `-2.png`, `-3.png` | 440 × 240 | Risse im hellen Steintisch, flach von oben, transparent außerhalb der Risse; drei Varianten. |
 | `tintenspritzer` | `tintenspritzer-1.png`, `-2.png`, `-3.png` | 220 × 220 | Getrocknete dunkelrote Tintenspritzer hinter einer Schadenszahl; Mitte etwas dichter. |
 | `marschroute` | `marschroute-winkel.png`, `marschroute-spitze.png` | 64 × 64 | Rote Tintenwinkel (Chevron) und Pfeilspitze für den Angriffspfeil, gemalt wie mit der Feder. |
-| `hinterhalt-rolle` | `hinterhalt-rolle-eigen.png`, `hinterhalt-rolle-gegner.png` | 72 × 128 | Kurze Pergamentrolle mit Schnur und großem Wachssiegel, leicht schräg liegend – ein gelegter Hinterhalt (AP 5.6) neben der Heldenmünze. Eigen: Siegel mit Goldrand; Gegner: dunkelrotes Siegel. Muss sich klar von den versiegelten Befehlen der Hand unterscheiden. |
+| `hinterhalt-rolle` | `hinterhalt-rolle-eigen.png`, `hinterhalt-rolle-gegner.png` | 90 × 160 | Kurze Pergamentrolle mit Schnur und großem Wachssiegel, leicht schräg liegend – ein gelegter Hinterhalt (AP 5.6) neben der Heldenmünze. Eigen: Siegel mit Goldrand; Gegner: dunkelrotes Siegel. Muss sich klar von den versiegelten Befehlen der Hand unterscheiden und auf dem hellen Pergament gut sichtbar sein, ohne zu leuchten (Rückmeldung zu 1.27.0: „sehr unscheinbar“, aber nicht aufdringlich). |
+| `hinterhalt-glimmen` | `hinterhalt-glimmen-eigen.png`, `hinterhalt-glimmen-gegner.png` | 64 × 64 | Weicher, runder Lichthof mit Transparenz, der langsam um das Siegel einer Wachsrolle glimmt (seit 1.28.0). Eigen: warmes Gold; Gegner: Glutrot. Nur Licht, keine Form, keine Strahlen. |
 | `hinterhalt-enthuellung` | `hinterhalt-band.png`, `hinterhalt-siegelsplitter.png` | 600 × 160, Splitter 32 × 32 | Pergamentband mit eingerollten Enden, Fläche frei für „Hinterhalt!“ (steht über der aufgedeckten Karte); dazu ein Splitter des brechenden roten Wachssiegels (Partikel). |
 
 ### Paket 4 – Inszenierung: Anfang und Ende (6 Teile mit `faehigkeits-effekt`, 30 Dateien)

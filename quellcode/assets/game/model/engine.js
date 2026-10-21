@@ -82,7 +82,8 @@ function pool(s,p,kind){const own=s.players[p].hero,age=D.heroById[own].age;
   :D.playable(c,own)&&(kind==='spell'?c.type==='spell':kind==='building'?!!c.building:true)).map(c=>c.id);}
 function offer(s,p,kind){const list=pool(s,p,kind).slice(),out=[];while(out.length<3&&list.length)out.push(list.splice(Math.floor(rand(s)*list.length),1)[0]);return out;}
 function discover(s,p,e,auto){const left=e.n||1;for(let i=0;i<left;i++){const options=offer(s,p,e.pool);if(!options.length)return;
-  if(auto||s.choice){take(s,p,pick(s,options),e.mod,e.pool);continue;}
+  // AP 5.7 Teil 2: Ergründen im fremden Zug (Vermächtnis des Artemistempels) wählt der Zufall – sonst stünde der Zug still.
+  if(auto||s.choice||s.active!==p){take(s,p,pick(s,options),e.mod,e.pool);continue;}
   s.choice={p,pool:e.pool,options,left:left-i,mod:e.mod||0};emit(s,'choice',{p});return;}}
 function take(s,p,id,mod,kind){const a=s.players[p];if(kind==='deck'){const i=a.deck.indexOf(id);if(i>=0)a.deck.splice(i,1);}if(a.hand.length>=10){a.grave.push(id);emit(s,'burn',{p,id});log(s,D.byId[id].name+' verbrannt (Hand voll).');return;}
  const h={id,uid:'c'+s.nextId++};if(mod)h.mod=mod;a.hand.push(h);emit(s,'discover',{p,id});log(s,heroName(s,p)+' ergründet eine Karte.');}
@@ -174,7 +175,7 @@ function settle(s){let loops=0;while(loops++<40){const dead=[];for(let p=0;p<2;p
  for(const {u} of dead)if(!u.building)for(let q=0;q<2;q++)for(const b of [...s.players[q].board])if(rule(b).anyDeath&&b.health>0)effects(s,q,rule(b).anyDeath,null,b.uid);
  for(const {p,u} of dead)if(!u.building)spring(s,p,['death'],{});}
 const a=s.players[0].health<=0,b=s.players[1].health<=0;if(a||b){s.phase='over';s.winner=a&&b?-1:a?1:0;s.choice=null;emit(s,'over',{winner:s.winner});log(s,s.winner===-1?'Unentschieden.':heroName(s,s.winner)+' gewinnt.');}}
-function validTargets(s,p,kind,card){const all=['h0','h1',...s.players[0].board.map(u=>u.uid),...s.players[1].board.map(u=>u.uid)];return all.filter(id=>{const t=unit(s,id);if(!t.hero&&t.p!==p&&t.obj.stealth)return false;if(kind==='any')return true;if(kind==='minion')return !t.hero;if(kind==='friendlyMinion')return !t.hero&&t.p===p&&!t.obj.building;if(kind==='enemy')return t.p!==p;
+function validTargets(s,p,kind,card){const all=['h0','h1',...s.players[0].board.map(u=>u.uid),...s.players[1].board.map(u=>u.uid)];return all.filter(id=>{const t=unit(s,id);if(!t.hero&&t.p!==p&&t.obj.stealth)return false;if(kind==='any')return true;if(kind==='minion')return !t.hero;if(kind==='friendlyMinion')return !t.hero&&t.p===p&&!t.obj.building&&(!card?.targetTaunt||!!t.obj.taunt);if(kind==='enemy')return t.p!==p;
  if(kind==='enemyMinion')return !t.hero&&t.p!==p&&!t.obj.building&&(card?.targetMax==null||t.obj.attack<=card.targetMax)&&(!card?.targetFrozen||!!t.obj.frozen);return false;});}
 function targetKind(s,p,action){if(action.type==='play'){const h=s.players[p].hand.find(c=>c.uid===action.uid),c=h&&D.byId[h.id];if(!c||!c.target)return null;
   // A minion whose Einmarsch finds no target is still played (without it).
@@ -224,7 +225,11 @@ function endTurn(s,p){const a=s.players[p];for(const u of [...a.board]){if(u.hea
   if(passive==='regent'){for(const h of draw(s,p))h.mod=(h.mod||0)-2;hurt(s,'h'+p,1);}
   if(rule(u).end)effects(s,p,rule(u).end,null,u.uid,{auto:true});}
  for(const u of a.board)if(u.frozen&&!--u.frozen)delete u.frozen;
- a.tempAttack=0;settle(s);if(s.phase!=='over'){if(s.turn>=120){s.phase='over';s.winner=-1;emit(s,'over',{winner:-1});}else startTurn(s,1-p);}}
+ a.tempAttack=0;settle(s);
+ // AP 5.7 Teil 2: Ergründen, das am Zugende aufgeht (ein Artemistempel fällt), wählt der Zufall – eine offene Wahl im Zug des
+ // Gegners hielte das Spiel an.
+ while(s.choice)choose(s,Math.floor(rand(s)*s.choice.options.length));
+ if(s.phase!=='over'){if(s.turn>=120){s.phase='over';s.winner=-1;emit(s,'over',{winner:-1});}else startTurn(s,1-p);}}
 // Subutai's pincer: another own minion joins the attack on the same target (without spending its own attack).
 function pincer(s,p,attacker,target){const a=s.players[p];if(!has(a,'khan_9')||attacker.id==='khan_9')return;const t=unit(s,target);if(!t||t.obj.health<=0)return;
  const list=minions(a).filter(u=>u!==attacker&&u.id!=='khan_9'&&u.health>0&&u.attack>0&&!u.frozen);if(!list.length)return;const u=pick(s,list);

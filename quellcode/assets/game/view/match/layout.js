@@ -16,7 +16,8 @@ L.strip={x:44,y:96,w:70,h:548,top:160,step:78,rows:6};
 L.stripRow=i=>({x:L.strip.x+L.strip.w/2,y:L.strip.top+i*L.strip.step,size:54});
 // Hinterhalte (AP 5.6): up to three sealed rolls beside the hero coin – yours in a column left of your coin, the rival's
 // in a row left of his (below his sealed orders).
-L.ambush=(p,i)=>p===0?{x:668,y:694-i*54}:{x:684-i*38,y:104};
+// Seit 1.28.0 ein Viertel größer: die eigenen Rollen stehen 62 statt 54, die fremden 44 statt 38 auseinander.
+L.ambush=(p,i)=>p===0?{x:668,y:694-i*62}:{x:682-i*44,y:104};
 // AUSSPIELEN below your ether dial; the rival's sealed orders (hand) along the top edge.
 L.confirm={x:120,y:584,w:140,h:56};
 L.powerPosition=(p,x=L.center,y=L.heroY[p])=>({x:x+L.powerOffset.x*L.heroScale(p),y:y+L.powerOffset.y*L.heroScale(p)});

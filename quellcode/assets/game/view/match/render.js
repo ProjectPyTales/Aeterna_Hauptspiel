@@ -427,17 +427,25 @@ function deck(c,s,p,now){const pp=s.players[p],yy=p===0?590:158,x=1448;
  round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');touch('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
 // Hinterhalte (AP 5.6): a laid ambush is a short roll tied with a cord and closed by a big wax seal – dark red for the
 // rival (its face stays hidden), gold-rimmed for your own, which you can tap to read.
-// ASTRA: hinterhalt-rolle – versiegelte Wachsrolle eines Hinterhalts neben der Heldenmünze (eigene mit Goldrand, fremde rot), 72 × 128
-function ambushArt(g,mine){g.save();g.rotate(-.18);g.shadowColor='#160e09aa';g.shadowBlur=7;g.shadowOffsetY=3;
+// Rückmeldung zu 1.27.0 („sehr unscheinbar“, aber nicht aufdringlich): ein Viertel größer, auf einer dunklen Mulde, damit sie
+// sich vom hellen Pergament abhebt, und ein langsames, schwaches Glimmen am Siegel (ambushGlow) – kein Blinken, kein Text.
+// ASTRA: hinterhalt-rolle – versiegelte Wachsrolle eines Hinterhalts neben der Heldenmünze (eigene mit Goldrand, fremde rot), 90 × 160
+function ambushArt(g,mine){g.save();g.scale(1.25,1.25);g.save();g.rotate(-.18);ellipse(g,1,3,23,38,'#24170d4d',null);g.restore();
+ g.save();g.rotate(-.18);g.shadowColor='#160e09cc';g.shadowBlur=8;g.shadowOffsetY=3;
  round(g,-15,-30,30,60,7,grad(g,-15,0,30,0,'#8d6f45','#ead6a6'),'#4a3420',1.5);g.restore();g.save();g.rotate(-.18);
  for(const y of [-30,30])ellipse(g,0,y,15,4.6,'#d2b780','#4a3420',1.2);
  g.strokeStyle='#5a3a1c';g.lineWidth=2.2;g.beginPath();g.moveTo(-15,-4);g.lineTo(15,-4);g.moveTo(-15,4);g.lineTo(15,4);g.stroke();
  ellipse(g,0,0,13,13,grad(g,-13,-13,26,26,mine?'#6b1d14':'#4a0f0b',mine?'#d4573f':'#b2362a'),mine?'#e2bf6a':'#3a0a07',mine?2.4:1.5);
- ellipse(g,0,0,7.5,7.5,null,mine?'#f3d79a99':'#ffb4a055',1.2);txt(g,'⚔',0,.5,10,mine?'#ffe8b8':'#ffcfc4');g.restore();}
+ ellipse(g,0,0,7.5,7.5,null,mine?'#f3d79a99':'#ffb4a055',1.2);txt(g,'⚔',0,.5,10,mine?'#ffe8b8':'#ffcfc4');g.restore();g.restore();}
+// ASTRA: hinterhalt-glimmen – weicher Lichthof um das Siegel einer Wachsrolle (eigene golden, fremde glutrot), 64 × 64
+function ambushGlow(g,mine){const r=g.createRadialGradient(0,0,4,0,0,30);r.addColorStop(0,mine?'#ffe3a0cc':'#ff6a46bb');r.addColorStop(.45,mine?'#f0b85a55':'#d23a2455');r.addColorStop(1,'#00000000');
+ g.fillStyle=r;g.beginPath();g.arc(0,0,30,0,Math.PI*2);g.fill();}
 function rolls(c,s,p,now){const list=E.ambushes(s.players[p]);
  list.forEach((x,i)=>{const pos=L.ambush(p,i),mine=p===0,lift=mine&&motion()?Math.sin(now/520+i)*1.5:0;R.positions['ambush'+p+'_'+i]=pos;
-  R.blit(c,R.sprite('ambush:'+mine,-36,-44,72,88,g=>ambushArt(g,mine)),pos.x,pos.y+lift);
-  touch('ambush'+p+'_'+i,pos.x-17,pos.y-32,34,64,{kind:'ambush',p,idCard:mine?x.id:null});});}
+  R.blit(c,R.sprite('ambush:'+mine,-45,-55,90,110,g=>ambushArt(g,mine)),pos.x,pos.y+lift);
+  const glow=motion()?.32+.22*Math.sin(now/1100+i*2.1):.4;c.save();c.globalAlpha=Math.max(0,glow);c.globalCompositeOperation='lighter';
+  R.blit(c,R.sprite('ambushGlow:'+mine,-32,-32,64,64,g=>ambushGlow(g,mine)),pos.x,pos.y+lift);c.restore();
+  touch('ambush'+p+'_'+i,pos.x-22,pos.y-40,44,80,{kind:'ambush',p,idCard:mine?x.id:null});});}
 // AP 1.8 Teil 2: the rival's hand as sealed orders – rolled scrolls with a red wax seal.
 // Astra-Bild (AP A.2): versiegelte-befehle – verdeckte Karte der KI-Hand als gerollter Befehl mit rotem Wachssiegel, 80 × 160
 function orderArt(g){if(pic(g,'versiegelte-befehle',0,-16,40,80))return;g.save();g.shadowColor='#160e09aa';g.shadowBlur=6;g.shadowOffsetY=3;round(g,-14,-52,28,72,6,grad(g,-14,0,28,0,'#a88a58','#f3e3bb'),'#5b4326',1.5);g.restore();
