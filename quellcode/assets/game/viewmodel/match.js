@@ -181,15 +181,18 @@ class Match extends Screen{
  // After the close the war horns have sounded; without it (reduced motion, a resumed game) the fanfare plays here.
  result(staged=false){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over'||this.ui.dialogOpen())return;
   if(!staged)this.ui.play(s.winner===0?'victory':'defeat');
-  const to=s.mode==='campaign'?'campaign':'menu';
+  const to=s.mode==='campaign'?'campaign':s.mode==='draft'?'draft':'menu';
   this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
-   buttons:[{label:to==='campaign'?'Zur Kampagne':'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
+   buttons:[{label:{campaign:'Zur Kampagne',draft:'Zum Kolosseum'}[to]||'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
  // Rewards with progress bars (AP 3.8): the gold won, every open quest from its value before this game to now (a reached
  // goal can be claimed in the menu), and in the campaign the missions completed. {key, label, from, to, goal, note}
  rewardBars(s=this.game){const p=this.profile,st=p.stats,n=this.tallyFor===s?this.tally:{played:0,attacks:0},win=s.winner===0,r=s.reward||{gold:0,packs:0};
-  const gained={wins:win?1:0,played:n.played,attacks:n.attacks},bars=[{key:'gold',label:'Gold',from:0,to:r.gold,goal:Math.max(40,r.gold),note:'◉ '+p.gold}];
+  const gained={wins:win?1:0,played:n.played,attacks:n.attacks},bars=s.mode==='draft'?[]:[{key:'gold',label:'Gold',from:0,to:r.gold,goal:Math.max(40,r.gold),note:'◉ '+p.gold}];
   for(const q of P.quests){if(p.claimed.includes(q.id))continue;const to=Math.min(q.goal,st[q.stat]||0),from=Math.min(to,Math.max(0,(st[q.stat]||0)-gained[q.stat]));
    bars.push({key:q.id,label:q.text,from,to,goal:q.goal,note:to>=q.goal?'Belohnung bereit: '+q.gold+' Gold':q.gold+' Gold'});}
+  // Kolosseum (AP 6.1): Siege und Niederlagen des Laufs, die Belohnung erst am Ende.
+  const d=r.draft;if(d){bars.push({key:'draft-wins',label:'Kolosseum · Siege',from:d.wins-(win?1:0),to:d.wins,goal:12,note:d.over?'Lauf beendet – Belohnung im Kolosseum':''},
+   {key:'draft-losses',label:'Kolosseum · Niederlagen',from:d.losses-(s.winner===1?1:0),to:d.losses,goal:3,note:''});}
   if(s.mode==='campaign'){const done=p.campaign.length;bars.push({key:'campaign',label:'Kampagne',from:done-(r.first?1:0),to:done,goal:D.missions.length,note:r.first?'Mission erstmals vollendet':''});}
   return bars;}
  pause(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,

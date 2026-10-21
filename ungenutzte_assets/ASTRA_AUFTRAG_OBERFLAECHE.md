@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (51 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (56 Teile)
 
-*Stand 1.25.0 (15. 10. 2026; seit 1.22.0 dazu die zwei Teile der Hinterhalte, AP 5.6). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
+*Stand 1.29.0 (21. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, und seit 1.29.0 die fünf des Kolosseums, AP 6.1). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 50 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 55 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -115,6 +115,16 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `weltkarte` | `weltkarte.png` | 2160 × 1280 | Gemalte Karte Europa und Mittelmeer (Pergament, Küsten, Meere, keine Beschriftung), Kästchen „Neue Welt“ unten links frei. Küstenverlauf wie `quellcode/assets/game/assets/art/weltkarte.svg` (beilegen). |
 | `feldherrentisch` | `feldherrentisch-gravur.png` | 3200 × 1600 | Nur die eingeritzte Karte über den Tischen: Kompassrose in der Mitte, Loxodromen, Gradnetz, sehr zart; alles andere transparent. |
 | `stufenpyramide` | – | – | Ist der Spielstein `pyramid` – steht im Kartenauftrag `ASTRA_AUFTRAG.md`. |
+
+### Paket 6 – Kolosseum als Draft (5 Teile, 9 Dateien, seit 1.29.0)
+
+| Kennung | Dateien | Größe | Motiv und Vorgaben |
+|---|---|---|---|
+| `kolosseum-arena` | `kolosseum-arena.png` | 1100 × 620 | Blick vom oberen Rang in das Kolosseum im Abendlicht: Ränge mit Bögen, Sandboden, ein Teil des Velariums; keine Menschen im Vordergrund, keine Schrift. Liegt über dem Eintritt. |
+| `kolosseum-sand` | `kolosseum-sand.png` | 700 × 620 | Arenaboden aus hellem Sand mit Fuß- und Radspuren, Ränder weich ins Dunkle; ruhig genug für Schrift und Lorbeeren davor. |
+| `kolosseum-lorbeer` | `kolosseum-lorbeer-leer.png`, `kolosseum-lorbeer-gewonnen.png` | 96 × 96 | Lorbeerkranz für einen Sieg: leer als graue Ritzung im Stein, gewonnen in Gold mit leichtem Glanz; Mitte frei. |
+| `kolosseum-schild` | `kolosseum-schild-heil.png`, `kolosseum-schild-gebrochen.png` | 96 × 96 | Runder Gladiatorenschild (parma) für eine Niederlage: heil als dunkler Umriss, verloren gebrochen mit Riss und roter Bemalung. |
+| `draft-wahl` | `draft-wahl-gewoehnlich.png`, `-selten.png`, `-episch.png` | 380 × 120 | Steinsockel unter einer angebotenen Karte, von unten in der Farbe der Seltenheit beleuchtet (Bronze, Silber, Gold); Legendär nutzt `-episch` mit violettem Ton des Spiels. |
 
 ## Abnahme
 

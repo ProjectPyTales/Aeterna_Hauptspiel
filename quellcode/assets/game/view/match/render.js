@@ -716,7 +716,7 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,'#f5473b',4);}
  // The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
  if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
- button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':'SCHLACHT',368,55,13,'#f3dab0');
+ button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':'SCHLACHT',368,55,13,'#f3dab0');
  CHM.overlay(c,s,t,gold);
  if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
   if(d.target&&d.target!=='h0')pulse(c,d.target,t);

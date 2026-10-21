@@ -57,7 +57,7 @@ test('Agrippa: Pionier verbilligt Bauwerke (nicht gestapelt), Vitruv um 2; Castr
  assert.equal(E.cost(s,0,castra),2,'ein Pionier: 1 weniger');act(s,{type:'power'});assert.equal(E.cost(s,0,castra),2,'zwei Pioniere: nicht gestapelt');
  play(s,'agrippa_9');assert.equal(E.cost(s,0,castra),1,'Vitruv: 2 weniger');assert.equal(s.choice?.p,0,'Vitruv ergründet');
  assert.ok(s.choice.options.every(id=>D.byId[id].building),'nur Bauwerke');act(s,{type:'choose',index:0});
- act(s,{type:'play',uid:castra.uid});const pioneer=s.players[0].board.find(u=>u.id==='pioneer');assert.deepEqual([pioneer.attack,pioneer.health],[2,4],'Pionier 1/3 mit Castra +1/+1');
+ act(s,{type:'play',uid:castra.uid});const pioneer=s.players[0].board.find(u=>u.id==='pioneer');assert.deepEqual([pioneer.attack,pioneer.health],[2,3],'Pionier 1/2 (seit 1.29.0) mit Castra +1/+1');
 });
 
 test('Ballista und Aquädukt wirken am Zugende, Odeion ruft zu Zugbeginn',()=>{

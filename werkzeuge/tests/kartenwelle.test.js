@@ -66,7 +66,7 @@ test('Hängende Gärten verdoppeln die Heilung eigener Diener, Große Mauer häl
 test('Neue Regeln der Heldenkarten: Spartiat, Thermopylen, Galeerenschmied, Seebund, Harpax, Chronist, Shikken, Tribok',()=>{
  const s=ready('leonidas');const sp=E.summon(s,0,'leonidas_10');E.hurt(s,sp.uid,1);assert.equal(sp.attack,3,'+1 Angriff nach Schaden');
  const t=ready('leonidas');const big=E.summon(t,1,'neutral_9'),small=E.summon(t,1,'neutral_0');play(t,'leonidas_11');assert.ok(big.frozen&&!small.frozen);
- const d=ready('dandolo');act(d,{type:'power'});play(d,'dandolo_11');assert.deepEqual([d.players[0].weapon.attack,d.players[0].weapon.durability],[2,3]);
+ const d=ready('dandolo');act(d,{type:'power'});play(d,'dandolo_11');assert.deepEqual([d.players[0].weapon.attack,d.players[0].weapon.durability],[2,4],'Rammsporn 1/3 (seit 1.29.0), Galeerenschmied +1/+1');
  const pe=ready('perikles');E.summon(pe,0,'perikles_1');E.summon(pe,0,'perikles_4');const n=pe.players[0].hand.length;play(pe,'perikles_11');assert.equal(pe.players[0].hand.length,n+3);
  const ag=ready('agrippa');const weak=E.summon(ag,1,'attrappe_23'),strong=E.summon(ag,1,'neutral_9');
  const harpax=give(ag,0,'agrippa_11');
