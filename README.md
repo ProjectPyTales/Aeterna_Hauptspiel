@@ -263,7 +263,7 @@ höchstens drei verdeckt je Spieler (`player.ambush`), keiner doppelt; sie schna
 (Angriff fällt aus), `counter` (Zauber vereitelt), `decoy` (Spielstein fängt den Angriff ab) und `copySpell`.
 Seit 1.27.0 (AP 5.7 Teil 1) Karten der Erweiterung mit Feld `set:'wunder'` – nur vorhandene Regeln; das Feld `profile.ambushSeen`
 merkt sich, dass die Hinterhalt-Erklärung schon kam. Seit 1.28.0 (AP 5.7 Teil 2) beschränkt `targetTaunt` ein Ziel auf Diener
-mit Schildwall, und Ergründen im Zug des Gegners (Vermächtnis) wählt der Zufall.
+mit Schildwall, und Ergründen im Zug des Gegners oder am Ende des eigenen Zuges (Vermächtnis) wählt der Zufall.
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -444,7 +444,9 @@ werden ersetzt, Unsicheres wird als unsicher erzählt (AP L.5, AP L.6).
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
 | APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.27.0 (AP 5.7 Teil 1, 101 200 Partien, zwei volle Läufe): Startdecks Zahl für Zahl wie in 1.25.0** (keine neue Karte im Startdeck); **Zufallsdecks 18 von 22 im Ziel** (vorher 21): Imhotep und Agrippa 54,2 %, Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %); 218 von 231 Paarungen innerhalb 40/60 (vorher 223), Beginner 50,2 %; Nezahualcóyotl steigt von 45,6 auf 49,9 %; alter Bericht `BERICHT-1.26.0.md`. Davor **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.28.0 (AP 5.7 Teil 2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.27.0; Zufallsdecks 18 von 22 im Ziel** (wie vorher):
+Agrippa 56,4 %, Imhotep 54,4 %, Böttger 46,5 %, Dandolo 45,2 % (vorher 48,4 %); Vauban steigt von 46,8 auf 47,4 % ins Ziel;
+219 von 231 Paarungen innerhalb 40/60 (vorher 218), Beginner 50,7 %, keine neue Karte über +7 Punkte; alter Bericht `BERICHT-1.27.0.md`. Davor **1.27.0 (AP 5.7 Teil 1, 101 200 Partien, zwei volle Läufe): Startdecks Zahl für Zahl wie in 1.25.0** (keine neue Karte im Startdeck); **Zufallsdecks 18 von 22 im Ziel** (vorher 21): Imhotep und Agrippa 54,2 %, Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %); 218 von 231 Paarungen innerhalb 40/60 (vorher 223), Beginner 50,2 %; Nezahualcóyotl steigt von 45,6 auf 49,9 %; alter Bericht `BERICHT-1.26.0.md`. Davor **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,5 % (1.13.0: 53,0 %), einzeln 45,8 (Nezahualpilli) bis 58,6 % (Lagertha)² |
 | Karten (AP 5.11) | keine Karte über 60 % „gewinnt, wenn gezogen“ | **1.27.0:** keine der 27 neuen Karten über 60 % (höchste: Thumelicus 56,7 %, Pilger im Asklepieion 55,0 %); darüber nur Phalanxveteran 62,2 % und Balsamierer 60,3 % (Zufallsfehler ±2,5). Davor knapp verfehlt: **348 von 350** Karten unter 60 % (1.13.0: 349), darüber Itzcoatl (Nezahualcóyotl) 60,6 % und Phalanxveteran (Leonidas) 60,2 % – beide im Zufallsfehler; der Goldene Reiter fällt von 61,2 auf 53,8 %² |
 
@@ -2603,50 +2605,53 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 22 (Version 1.27.0):** Deine Rückmeldung zu 1.25.0 – die Hinterhalte sind bislang etwas verwirrend und
-begegnen einem selten (in sechs Partien einmal, bei Hypatia): Beim **ersten Hinterhalt**, der gelegt wird oder zuschnappt, erklärt
-jetzt ein Fenster einmal je Spielstand, was die Wachsrolle ist und wann sie zuschnappt (fremde Karten bleiben verdeckt); drei neue
-Hinterhalte in der Erweiterung machen sie häufiger. **Entscheidung 22:** Erweiterung klein (je Held zwei Karten, zehn neutrale – 54
-statt rund 90), Draft und Aufgaben ja, Kampagne 2.0 und Dioramen bleiben schlank im Plan, **kein Ranglistenmodus** (AP 6.2 gestrichen;
-Crossplay nur als kleine Variante unter Freunden). **AP 5.7 Teil 1:** Prüftabelle mit allen 54 Karten aus der Geschichte, davon
-**27 gebaut** (je Held eine, dazu Koloss von Rhodos, Zeus des Phidias, Himmelsscheibe von Nebra, Gänse des Kapitols, Skytale) – nur
-vorhandene Regeln, jede mit Chronikzeile und Quelle, alle als gekennzeichnete Platzhalter; der Astra-Auftrag wächst um 27 Motive
-(178 → 205). Neuer Code **`WUNDER`** für die neuen Karten (`CHRONIK` hast Du schon eingelöst). **Voller Balance-Lauf** (101 200 Partien):
-Startdecks Zahl für Zahl wie vorher; in Zufallsdecks liegen **18 von 22 Helden im Ziel** (vorher 21) – Imhotep und Agrippa 54,2 %,
-Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %, nach einem zweiten Lauf mit stärkerer Manufaktur); Nezahualcóyotl steigt von 45,6 auf
-49,9 %, 218 von 231 Paarungen innerhalb 40/60, keine neue Karte über 60 %. Wie in Sitzung 21 sind die Karten **mein Vorschlag**, weil ich ohne Deine Auswahl weitergemacht habe – Namen,
-Wirkungen und Kosten lassen sich jederzeit ändern, die IDs bleiben. Davor: Sitzung 21 (1.25.0) AP 5.6 Hinterhalte, Bonus 1.26.0
-Splash und Intro; Sitzungen 1–20 (1.4.0–1.24.0).
+**Erledigt in Sitzung 23 (Version 1.28.0):** Deine Rückmeldung zu 1.27.0 – sonst kein Feedback, nur die Hinterhalte sehen sehr
+unscheinbar aus (kleine Rolle), dürfen aber nicht aufdringlich sein: Die **Wachsrolle** ist jetzt ein Viertel größer, liegt auf einer
+dunklen Mulde und ihr Siegel **glimmt langsam und schwach** (eigene golden, fremde glutrot) – kein Blinken, kein Text. Für Astra steht
+die Rolle in neuer Größe und das Glimmen als eigene Kennung (`hinterhalt-glimmen`) im Oberflächen-Auftrag, damit die gemalte Fassung
+später genau so wirken kann. **AP 5.7 Teil 2** nach der Prüftabelle („wie vorgeschlagen“): die übrigen **27 Karten** – je Held die
+zweite, dazu Artemistempel, Mausoleum, Ischtar-Tor, Stele des Hammurapi und der Hinterhalt **Feuerpost**; die Erweiterung ist damit
+mit 54 Karten fertig, das Spiel hat **416 Karten**. Jede mit Chronikzeile und Quelle, alle als Platzhalter (Astra-Auftrag 205 → 232
+Motive) – **damit stehen alle Kartenmotive für die große Astra-Bestellung fest.** Zwei Abweichungen von der Tabelle (die Moschee
+verleiht +1/+1 statt eines wirkungslosen Vorstoßes, der Artemistempel 0/5 wegen des Werte-Budgets) und sieben Werte nach dem
+Balance-Vorlauf, alle in der Tabelle nachgetragen. Der volle Lauf fand einen echten Fehler: Fiel ein Artemistempel am Ende des eigenen
+Zuges, blieb seine Ergründen-Wahl in den Zug des Gegners hängen – jetzt wählt dort der Zufall, ein Test hält es fest. **Voller
+Balance-Lauf** (101 200 Partien): Startdecks Zahl für Zahl wie vorher; Zufallsdecks **18 von 22 im Ziel** (wie in 1.27.0) – Agrippa
+56,4 %, Imhotep 54,4 %, Böttger 46,5 %, Dandolo 45,2 %; Vauban jetzt im Ziel, 219 von 231 Paarungen innerhalb 40/60, keine neue
+Karte mehr als 7 Punkte über ihrem Helden. Neuer Code **`WELTWUNDER`** für die 27 neuen Karten (`WUNDER` hast Du schon eingelöst).
+Davor: Sitzung 22 (1.27.0) AP 5.7 Teil 1, Sitzung 21 (1.25.0) Hinterhalte, Bonus 1.26.0 Splash und Intro; Sitzungen 1–20 (1.4.0–1.24.0).
 
 **Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.27.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. *Einstellungen → Code einlösen:* `WUNDER` – dann stehen die 27 neuen Karten in der Sammlung (Filter Seltenheit oder Suche, z. B.
-   „Koloss“). Ein, zwei Partien mit einem Deck, das zwei, drei davon enthält: Lesen sich Name, Wirkung und „Aus der Chronik“ gut?
-3. **Hinterhalte:** Erscheint die Erklärung beim ersten Hinterhalt, und ist danach klar, was die Wachsrolle tut? (Die Erklärung kommt
-   nur einmal je Spielstand – Du siehst sie also genau einmal.)
-4. Die **Prüftabelle Teil 2** in [AP 5.7](#phase-5--regeln-karten-und-balance-l) ansehen: Passen die 27 Karten – oder soll eine
-   anders heißen, wirken oder durch eine andere Geschichte ersetzt werden?
+1. `Aeterna-1.28.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. *Einstellungen → Code einlösen:* `WELTWUNDER` – dann stehen die 27 neuen Karten in der Sammlung (Suche, z. B. „Mausoleum“ oder
+   „Lingua“). Ein, zwei Partien mit zwei, drei davon: Lesen sich Name, Wirkung und „Aus der Chronik“ gut?
+3. **Wachsrollen:** Fallen die Hinterhalte jetzt auf, ohne zu stören? (Ein Hinterhalt im Deck, z. B. die Feuerpost, genügt.)
+4. Für Sitzung 24: Soll das **Kolosseum (Draft)** wie in AP 6.1 laufen – Held aus 3, dann 30-mal 1 aus 3 Karten, Ende bei 3
+   Niederlagen oder 12 Siegen –, oder kürzer (etwa 15 Karten, Ende bei 3 Niederlagen oder 7 Siegen), damit ein Lauf an einem
+   Nachmittag fertig wird?
 
-**Sitzung 23 – Erweiterung „Wunder der Welt“ Teil 2 (AP 5.7)**
+**Sitzung 24 – Kolosseum als Draft (AP 6.1) und Feinschliff der Zufallsdecks**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.27.0 und Feinschliff | neue Karten und Hinterhalt-Erklärung nach Deinem Test; Balance: Imhotep und Agrippa (je 54,2 %) etwas bremsen, Böttger (45,8 %) und Vauban (46,8 %) stärken (Varianten erst mit `AETERNA_MODELL` vergleichen) | kleine Nacharbeit, bevor Teil 2 die Zufallsdecks wieder verschiebt |
-| AP 5.7 Teil 2 | die übrigen 27 Karten der Prüftabelle (je Held die zweite, dazu Artemistempel, Mausoleum, Ischtar-Tor, Stele des Hammurapi, Feuerpost) mit Chronikzeilen, Platzhaltern und Bildideen; danach voller Balance-Lauf | danach stehen alle Kartenmotive für die große Astra-Bestellung fest |
-| Ausblick | Reihenfolge nach Entscheidung 22: Draft und Aufgaben (Phase 6), Kampagne 2.0 mit Lunte, Dioramen; dann AP A.3 | – |
+| Rückmeldung 1.28.0 | neue Karten und Wachsrollen nach Deinem Test | kleine Nacharbeit |
+| Balance-Feinschliff | Zufallsdecks: Agrippa (56,4 %) und Imhotep (54,4 %) bremsen, Dandolo (45,2 %) und Böttger (46,5 %) stärken; die schwächsten Bauwerke (Mauern von Messene, Murus Gallicus, Mausoleum, je 7–8 Punkte unter ihrem Helden) etwas besser; Varianten erst mit `AETERNA_MODELL` vergleichen, dann ein voller Lauf | die Erweiterung ist komplett – jetzt lohnt sich der Feinschliff, ohne dass neue Karten ihn wieder verschieben |
+| AP 6.1 Kolosseum (Draft) | Model: Draft-Lauf im Spielstand (über `normalize`, alte Saves bleiben), Auswahl aus 3 nach Seltenheit, Lauf mit Siegen und Niederlagen, Belohnung; ViewModel `draft` mit Test; View mit `view/kit.js`, Platzhalter als `ASTRA:` gekennzeichnet; Klickpfad um den Draft erweitern | Entscheidung 22: Draft und Aufgaben kommen vor der großen Astra-Bestellung, ihre Bildschirme brauchen ihre Platzhalter |
+| Ausblick | Sitzung 25: AP 6.3 Aufgaben; danach Kampagne 2.0 mit Lunte (AP 6.4, AP 3.7), Dioramen (AP 3.9), dann AP A.3 | – |
 
-Risiko: mittel – 27 weitere Karten verschieben die Zufallsdecks; zwei volle Balance-Läufe einplanen (≈ 50 min je Lauf), Spielstände
-bleiben (neue Karten-IDs nur hinten anhängen).
+Risiko: mittel – ein neuer Bildschirm mit eigenem Spielstand-Feld (Kompatibilität alter Saves prüfen) und ein voller Balance-Lauf
+(≈ 45 min); die Regeln der Engine bleiben unverändert.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.27.0:
-> *(hier Feedback zu den neuen Karten und zur Hinterhalt-Erklärung einfügen)* und meine Anmerkungen zur **Prüftabelle Teil 2**
-> *(oder „wie vorgeschlagen“)*. Arbeite dann **AP 5.7 (Erweiterung „Wunder der Welt“) Teil 2** ab. Halte dich an die „Regeln für
-> jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter,
-> prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den Klickpfad und den vollen Balance-Lauf laufen und
-> sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main` und schreibe unten
-> in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.28.0:
+> *(hier Feedback zu den neuen Karten und den Wachsrollen einfügen)* und meine Antwort zur **Länge des Kolosseums**
+> *(oder „wie vorgeschlagen“)*. Arbeite dann den **Balance-Feinschliff der Zufallsdecks** und **AP 6.1 (Kolosseum als Draft)** ab.
+> Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, baue neue Grafiken als
+> gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den Klickpfad und den vollen
+> Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach
+> `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Keine neue Mechanik, aber 27 Karten mit Quellen, Werte-Feinschliff über
-mehrere Balance-Läufe. *medium* genügt, wenn Du die Tabelle unverändert übernimmst und nur kleine Rückmeldungen hast.
+**Empfohlener Effort für den nächsten Prompt: high.** Ein neuer Spielmodus mit Model, ViewModel, View, Spielstand-Feld und Klickpfad
+plus Balance-Varianten über mehrere Läufe. *medium* genügt, wenn Du den Draft auf den kleinen Umfang ohne Belohnungsstufen beschränkst
+und den Balance-Feinschliff verschiebst.

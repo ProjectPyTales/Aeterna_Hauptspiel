@@ -225,7 +225,11 @@ function endTurn(s,p){const a=s.players[p];for(const u of [...a.board]){if(u.hea
   if(passive==='regent'){for(const h of draw(s,p))h.mod=(h.mod||0)-2;hurt(s,'h'+p,1);}
   if(rule(u).end)effects(s,p,rule(u).end,null,u.uid,{auto:true});}
  for(const u of a.board)if(u.frozen&&!--u.frozen)delete u.frozen;
- a.tempAttack=0;settle(s);if(s.phase!=='over'){if(s.turn>=120){s.phase='over';s.winner=-1;emit(s,'over',{winner:-1});}else startTurn(s,1-p);}}
+ a.tempAttack=0;settle(s);
+ // AP 5.7 Teil 2: Ergründen, das am Zugende aufgeht (ein Artemistempel fällt), wählt der Zufall – eine offene Wahl im Zug des
+ // Gegners hielte das Spiel an.
+ while(s.choice)choose(s,Math.floor(rand(s)*s.choice.options.length));
+ if(s.phase!=='over'){if(s.turn>=120){s.phase='over';s.winner=-1;emit(s,'over',{winner:-1});}else startTurn(s,1-p);}}
 // Subutai's pincer: another own minion joins the attack on the same target (without spending its own attack).
 function pincer(s,p,attacker,target){const a=s.players[p];if(!has(a,'khan_9')||attacker.id==='khan_9')return;const t=unit(s,target);if(!t||t.obj.health<=0)return;
  const list=minions(a).filter(u=>u!==attacker&&u.id!=='khan_9'&&u.health>0&&u.attack>0&&!u.frozen);if(!list.length)return;const u=pick(s,list);

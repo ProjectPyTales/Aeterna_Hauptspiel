@@ -104,6 +104,9 @@ test('Teil 2: Weltwunder – Artemistempel ergründet auch im fremden Zug, Mauso
  let s=ready();play(s,'neutral_57');turn(s);const t=placed(s,0,'neutral_57');t.health=1;const n=s.players[0].hand.length;E.hurt(s,t.uid,1);E.settle(s);
  assert.ok(!s.choice,'im Zug des Gegners wählt der Zufall – kein offenes Ergründen');assert.equal(s.players[0].hand.length,n+1);
  assert.ok(D.byId[s.players[0].hand.at(-1).id].building,'ein Bauwerk');
+ // Fällt er am Ende des eigenen Zuges (Balance-Lauf: Vergeltung der Stele), bleibt keine Wahl in den Zug des Gegners hängen.
+ s=ready();play(s,'neutral_57');placed(s,0,'neutral_57').health=0;const k=s.players[0].hand.length;act(s,{type:'end'});
+ assert.ok(!s.choice);assert.equal(s.active,1);assert.equal(s.players[0].hand.length,k+1);assert.ok(E.legal(s,1).length);
  s=ready();const a=minion(s,0,'neutral_3'),b=minion(s,0,'neutral_8');play(s,'neutral_58');a.health=0;b.health=0;E.settle(s);
  const m=placed(s,0,'neutral_58');m.health=0;E.settle(s);assert.deepEqual(s.players[0].board.map(u=>u.id).sort(),['neutral_3','neutral_8'].sort());
  s=ready();play(s,'neutral_60');const st=placed(s,0,'neutral_60'),hp=s.players[1].health;E.hurt(s,st.uid,1);assert.equal(s.players[1].health,hp-2,'Auge um Auge');

@@ -10,7 +10,8 @@ das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle
   hat damit 54 Karten, das Spiel 416. Chronikzeilen in `AELORE.cards`, Bildideen in `motive.js` und `astra_bilder.py`.
 - **Engine, zwei kleine Ergänzungen:** `targetTaunt` beschränkt ein Ziel „befreundeter Diener“ auf Diener mit Schildwall
   („Mit ihm oder auf ihm“); Ergründen im Zug des Gegners (Vermächtnis des Artemistempels) wählt der Zufall, sonst stünde der
-  Zug still (`discover`).
+  Zug still (`discover`); dasselbe, wenn die Wahl am Ende des eigenen Zuges aufgeht (`endTurn` – der volle Balance-Lauf blieb
+  daran hängen, ein Test in `wunder.test.js` hält es fest).
 - **Wachsrollen** (Rückmeldung „sehr unscheinbar“): `ambushArt` ein Viertel größer auf einer dunklen Mulde, dazu ein langsames,
   schwaches Glimmen am Siegel (`ambushGlow`, Astra-Kennung `hinterhalt-glimmen`); `L.ambush` mit größeren Abständen.
 - **Code `WELTWUNDER`** für Spielstände, die `WUNDER` schon eingelöst haben.
