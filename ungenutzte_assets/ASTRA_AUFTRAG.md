@@ -12,10 +12,10 @@
 | Eingebaut, Korrektur nötig | 1 | 0 | **1** |
 | Altes Bild bleibt (AP L.6) – nicht erzeugen | 36 | 3 | **39** |
 | Im Spiel nie gerufen – nicht erzeugen | 0 | 1 | **1** |
-| Neu erzeugen | 186 | 19 | **205** |
+| Neu erzeugen | 213 | 19 | **232** |
 | Teil 4 beschädigt – Original suchen, sonst neu | 3 | 3 | **6** |
 | Gesperrt – Zuordnung klären | 0 | 0 | **0** |
-| **Gesamt** | **389** | **29** | **418** |
+| **Gesamt** | **416** | **29** | **445** |
 
 Im Spiel: 167 Karten und Spielsteine in 14 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
 
@@ -119,7 +119,7 @@ Die technischen IDs bleiben wegen bestehender Spielstände erhalten. Der aktuell
 | `totem_*` | Grenzsteine | Fantasy-Totempfähle |
 
 
-## 5. Kartenillustrationen: 190
+## 5. Kartenillustrationen: 217
 
 Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
@@ -452,6 +452,33 @@ Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 | `neutral_54` | Himmelsscheibe von Nebra | neu | Eine grün patinierte Bronzescheibe mit goldener Sonne, Mondsichel und Sternen auf Erde und Stein, Nachthimmel darüber (um 1600 v. Chr.). |
 | `neutral_55` | Gänse des Kapitols | neu | Weiße Gänse schnattern nachts auf dem Kapitol, ein römischer Krieger erwacht mit dem Schwert, Gallier klettern die Felsen herauf (um 387 v. Chr.). |
 | `neutral_56` | Skytale | neu | Ein Holzstab, um den spiralförmig ein beschriebener Lederstreifen gewickelt ist, in der Hand eines spartanischen Boten (5. Jh. v. Chr.). |
+| `leonidas_14` | „Mit ihm oder auf ihm“ | neu | Eine spartanische Mutter im Peplos reicht ihrem jungen Sohn in Rüstung den runden Bronzeschild mit dem Lambda, im Hof eines Hauses, ernster Blick (5. Jh. v. Chr.). |
+| `hypatia_13` | Orestes, Präfekt von Ägypten | neu | Ein römischer Präfekt in Toga mit Purpursaum hört in einer Säulenhalle in Alexandria einer Gelehrten zu, Schreiber und Wachen im Hintergrund (um 414 n. Chr.). |
+| `imhotep_14` | Sockel der Djoser-Statue | neu | Ein Statuensockel aus Kalkstein mit Hieroglyphen und den Füßen einer Königsstatue, darauf der eingemeißelte Name des Imhotep, im Hintergrund die Stufenpyramide (um 2650 v. Chr.). |
+| `dandolo_14` | Quadriga von San Marco | neu | Vier vergoldete Bronzepferde auf der Loggia über dem Portal des Markusdoms in Venedig, Tauben und Abendlicht (13. Jh.). |
+| `khan_15` | Taufe in Attigny | neu | Ein sächsischer Anführer mit langem Haar steigt in ein steinernes Taufbecken in einer Pfalzkapelle, Karl der Große mit Krone steht als Pate daneben, Priester mit Kreuz (785). |
+| `boudicca_14` | Murus Gallicus | neu | Eine gallische Stadtmauer aus Holzbalken und Steinen auf einem Hügel, römische Soldaten mit Rammbock und Fackeln scheitern davor (52 v. Chr.). |
+| `nostradamus_14` | Weiße Erde aus Aue | neu | Bergleute mit Grubenlampen tragen Körbe voll weißer Tonerde aus einem Stollen im Erzgebirge, ein Fuhrwerk wartet im Schnee (um 1710). |
+| `jeanne_13` | Lingua ignota | neu | Eine aufgeschlagene Pergamentseite mit fremden, erfundenen Buchstaben und einer Wortliste, daneben Feder und Tintenhorn auf einem Klosterpult (12. Jh.). |
+| `ragnar_15` | Pilgerfahrt nach Santiago | neu | Ein Ritter im Pilgermantel mit Jakobsmuschel und Stab kniet vor der romanischen Kathedrale von Santiago de Compostela, andere Pilger ziehen vorbei (um 1100). |
+| `musashi_14` | Turnier zu Friesach | neu | Zwei Ritter mit Topfhelmen prallen mit Lanzen im Tjost aufeinander, bunte Zelte und eine Burg auf dem Hügel, Zuschauer auf Tribünen (1224). |
+| `perikles_13` | Bauabrechnung des Parthenon | neu | Ein Steinmetz meißelt Zahlen in eine Marmorplatte, im Hintergrund der eingerüstete Parthenon auf der Akropolis, Bürger lesen eine fertige Tafel (um 440 v. Chr.). |
+| `agrippa_13` | Weltkarte des Agrippa | neu | Eine große gemalte Weltkarte mit Mittelmeer, Küsten und Provinzen an der Wand einer römischen Säulenhalle, Bürger betrachten sie (um 7 v. Chr.). |
+| `amanirenas_13` | Kamose | neu | Ein ägyptischer König mit blauer Krone steht am Bug eines Kriegsschiffs auf dem Nil, Bogenschützen neben ihm, Flotte dahinter (um 1550 v. Chr.). |
+| `anna_14` | Irene Dukaina | neu | Eine byzantinische Kaiserin in Purpur und Perlen wacht im Feldzelt am Lager eines kranken Kaisers, eine Öllampe brennt (um 1112). |
+| `nezahualcoyotl_13` | Bäder von Tetzcotzinco | neu | In den Fels gehauene Wasserbecken und Treppen auf einem bewaldeten Hügel, Wasser fließt aus einer Rinne, Gärten mit Blüten, Blick auf den See von Texcoco (15. Jh.). |
+| `masako_13` | Theophanius imperator augustus | neu | Eine Kaiserin mit Krone und Zepter sitzt auf dem Thron und siegelt eine Urkunde, Schreiber und Bischöfe stehen daneben (990). |
+| `epaminondas_11` | Mauern von Messene | neu | Mächtige Quadermauern mit einem viereckigen Turm und Tor in hügeliger Landschaft unter dem Berg Ithome, Bauleute setzen Steine (369 v. Chr.). |
+| `fabius_12` | Schatten auf den Höhen | neu | Ein römisches Heer zieht auf einem Hügelkamm entlang und blickt hinab auf das Lager Hannibals mit Elefanten in der Ebene (217 v. Chr.). |
+| `mandukhai_11` | Stolz im Triumphzug | neu | Eine germanische Frau mit erhobenem Kopf geht gefasst in einem römischen Triumphzug, Zuschauer, Feldzeichen und Lorbeer (17 n. Chr.). |
+| `baibars_11` | Moschee des Baibars | neu | Eine große Moschee mit weitem Hof, Arkaden und monumentalem Tor in Kairo, Gläubige und Händler davor (1269). |
+| `zizka_11` | Projet d’une dîme royale | neu | Ein gealterter Marschall in Perücke schreibt im Kerzenschein an einem Tisch voller Zahlenlisten und Karten Frankreichs (1707). |
+| `fuhao_11` | Krater von Vix | neu | Ein riesiges bronzenes Mischgefäß mit Henkeln in Gorgonenform und einem Fries aus Kriegern und Wagen, ein Mensch daneben wirkt klein (um 500 v. Chr.). |
+| `neutral_57` | Artemistempel von Ephesos | neu | Ein riesiger Marmortempel mit doppelten Säulenreihen, Pilger auf den Stufen, im Hintergrund Rauch der alten Brandstelle (4. Jh. v. Chr.). |
+| `neutral_58` | Mausoleum von Halikarnassos | neu | Ein hohes Grabmal mit Sockel, Säulenkranz, Stufenpyramide und Viergespann auf der Spitze über einer Hafenstadt (um 350 v. Chr.). |
+| `neutral_59` | Ischtar-Tor | neu | Ein Stadttor aus blau glasierten Ziegeln mit goldenen Stieren und Drachen, Zinnen und eine Prozessionsstraße davor (um 575 v. Chr.). |
+| `neutral_60` | Stele des Hammurapi | neu | Eine hohe Stele aus schwarzem Stein mit Keilschrift, oben ein König vor dem thronenden Sonnengott, in einem Tempelhof (um 1750 v. Chr.). |
+| `neutral_61` | Feuerpost | neu | Ein großes Signalfeuer brennt auf einem Berggipfel in der Nacht, auf fernen Gipfeln antworten weitere Feuer, ein Wächter blickt in die Ferne (um 1200 v. Chr.). |
 
 ## 6. Spielsteine: 22
 

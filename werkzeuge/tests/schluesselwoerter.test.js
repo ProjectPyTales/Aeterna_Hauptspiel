@@ -27,7 +27,8 @@ test('Umbenennung: keine Hearthstone-Begriffe mehr, Glossar erklärt jedes Schl�
  // Kartentexte nennen die neuen Namen genau dort, wo die Engine-Felder gesetzt sind. Klammern beschreiben gerufene
  // Spielsteine („Steppenreiter (1/1, Sturmangriff)“), die Pyramiden von Gizeh verdoppeln fremde Vermächtnisse (AP 5.11).
  for(const c0 of D.cards){const c={...c0,text:c0.text.replace(/\([^)]*\)/g,'')};
-  assert.equal(c.text.includes('Schildwall'),!!c.taunt||c.id==='leonidas_9'||grants(c,'taunt'),c.name);
+  // „einem befreundeten Diener mit Schildwall“ (AP 5.7 Teil 2) nennt das Ziel (targetTaunt).
+  assert.equal(c.text.includes('Schildwall'),!!c.taunt||c.id==='leonidas_9'||grants(c,'taunt')||!!c.targetTaunt,c.name);
   // Eigener Segen steht als Satz für sich („Segen.“); „Diener mit Segen“ (AP 5.7) verleiht ihn nicht.
   assert.equal(/(^|\. )Segen\./.test(c.text),!!c.shield,c.name);
   assert.equal(c.text.startsWith('Einmarsch')||c.text.includes(' Einmarsch:'),!!c.battle,c.name);
@@ -69,7 +70,7 @@ test('Ergründen: Lehrsatz bietet drei Zauber an, bis zur Wahl gibt es nur die W
  const s=ready('hypatia','khan');const deck=s.players[0].deck.length;
  const h=give(s,0,'hypatia_5');act(s,{type:'play',uid:h.uid});
  assert.equal(s.choice.options.length,3);assert.equal(new Set(s.choice.options).size,3);
- for(const id of s.choice.options){const c=D.byId[id];assert.equal(c.type,'spell');assert.ok(['hypatia','neutral'].includes(c.hero));assert.notEqual(id,'coin');}
+ for(const id of s.choice.options){const c=D.byId[id];assert.equal(c.type,'spell');assert.ok(D.playable(c,'hypatia'));assert.notEqual(id,'coin');}
  assert.equal(s.players[0].deck.length,deck-1,'zieht zusätzlich 1 Karte');
  assert.deepEqual(E.legal(s,0).map(a=>a.type),['choose','choose','choose']);
  assert.equal(E.apply(s,{type:'end'}).ok,false);
