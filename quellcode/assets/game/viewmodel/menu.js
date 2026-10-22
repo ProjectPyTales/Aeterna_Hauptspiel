@@ -1,8 +1,8 @@
 /* Main-menu view model: what the painted hall shows and what its plates, rails and knob do.
- * The fourth plate resumes a running game, otherwise it offers the daily duel. */
+ * The fourth plate resumes a running game, otherwise it offers the daily duel. The colosseum plate opens the draft (AP 6.1). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,P=node?require('../model/profile.js'):root.CHP;
+const D=node?require('../model/data.js'):root.CHD,P=node?require('../model/profile.js'):root.CHP,DR=node?require('../model/draft.js'):root.AEDR;
 const {Screen}=node?require('./base.js'):root.AEVM;
 const name=id=>D.heroes.find(h=>h.id===id).name;
 
@@ -12,7 +12,7 @@ class Menu extends Screen{
   return {gold:p.gold,packs:p.packs,version:this.version,intro:this.state.intro,pressed:this.state.pressed,lit:this.state.lit,knob:this.state.knob,
    quests:P.quests.filter(q=>!p.claimed.includes(q.id)&&p.stats[q.stat]>=q.goal).length,
    plates:[{go:'free',title:'Schlacht',sub:'Freies Duell gegen die KI'},{go:'campaign',title:'Kampagne',sub:D.missions.length+' historische Missionen'},
-    {go:'random',title:'Kolosseum',sub:'Zufällige Helden & Decks'},
+    {go:'draft',title:'Kolosseum',sub:p.draft?(p.draft.over?'Lauf beendet – Belohnung abholen':DR.phase(p.draft)==='play'?`Lauf: ${p.draft.wins} Siege · ${p.draft.losses} Niederlagen`:`Draft: ${p.draft.picks.length} von ${DR.PICKS} Karten`):'Draft: Held aus 3, dann 30 Karten'},
     playing?{go:'resume',title:'Partie fortsetzen',sub:'Deine gespeicherte Partie',gold:true}:{go:'daily',title:'Herausforderung',sub:`Tagesduell: ${name(day.hero)} gegen ${name(day.foe)}`}]};}
  enter(intro=false){this.state.intro=intro;this.state.pressed=null;}
  introDone(){this.state.intro=false;}
@@ -25,7 +25,7 @@ class Menu extends Screen{
   setTimeout(()=>{this.set({pressed:null});this.go(target);},100);
  }
  go(target){const ui=this.ui;
-  ({free:()=>this.setup('free'),random:()=>this.setup('random'),daily:()=>this.setup('daily'),campaign:()=>ui.go('campaign'),
+  ({free:()=>this.setup('free'),random:()=>this.setup('random'),draft:()=>ui.go('draft'),daily:()=>this.setup('daily'),campaign:()=>ui.go('campaign'),
     collection:()=>ui.go('collection'),packs:()=>ui.go('packs','packs'),bazaar:()=>ui.go('packs','backs'),
     quests:()=>this.ctx.dialogs.quests(),settings:()=>this.ctx.dialogs.settings(),resume:()=>ui.go('game')})[target]?.();
  }

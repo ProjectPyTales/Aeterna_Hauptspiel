@@ -1,6 +1,6 @@
 // Automatische Sichtprüfung (AP 2.6) und Abnahme von AP 2.3 / AP 0.1, im Handyformat (915 × 412, Pixeldichte 2,6).
 // Klickpfad wie ein Spieler: Hauptmenü → Basar (Reiter, Schaufenster, Kauf, Ausrüsten) → Sammlung (Suche) → Herausforderung →
-// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü → Kampagnenkarte (seit 1.19.0).
+// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü → Kampagnenkarte (seit 1.19.0) → Kolosseum als Draft (seit 1.29.0).
 // Jeder Schritt wird fotografiert (sichtpruefung/klickpfad/) und verkleinert mit werkzeuge/referenz/*.webp verglichen.
 // Der Lauf schlägt fehl bei JavaScript-Fehlern, nicht erfüllten Prüfungen oder starken Bildabweichungen.
 //
@@ -147,6 +147,21 @@ async function basar(page,cmpPage,cdp){
    await page.locator('.station',{hasText:'02'}).click();await settle(page,100);
    check('Station öffnet ihre Mission',await page.evaluate(()=>document.querySelector('.mission-panel h2')?.textContent.trim()===CHD.missions[1].title));
    await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
+   // Kolosseum als Draft (AP 6.1, seit 1.29.0): Eintritt → Probelauf → Held aus drei Epochen → erste Kartenwahl.
+   await tapHall(page,C(996,661));await waitScreen(page,'draft');
+   check('Kolosseum: Eintritt mit Probelauf und Belohnungstafel',await page.evaluate(()=>!!document.querySelector('.arena-gate')&&document.querySelectorAll('.prize-table tr').length===4));
+   await shot(page,cmpPage,'14-kolosseum');
+   await page.locator('#ui button',{hasText:'Probelauf beginnen'}).click();await settle(page,100);
+   const held=await page.evaluate(()=>({helden:document.querySelectorAll('.hero-pick').length,epochen:new Set(App.profile.draft.heroes.map(h=>CHD.heroById[h].age)).size}));
+   check('Kolosseum: drei Helden aus drei Epochen',held.helden===3&&held.epochen===3,held);
+   await shot(page,cmpPage,'15-kolosseum-held');
+   await page.locator('.hero-pick').first().click();await settle(page,100);
+   await page.locator('.option-card').nth(1).click();await settle(page,100);
+   const wahl=await page.evaluate(()=>({karten:document.querySelectorAll('.option-card').length,gewaehlt:App.profile.draft.picks.length,deck:document.querySelectorAll('.draft-deck .deckrow').length}));
+   check('Kolosseum: Wahl aus drei, die Karte liegt im Deck',wahl.karten===3&&wahl.gewaehlt===1&&wahl.deck===1,wahl);
+   await shot(page,cmpPage,'16-kolosseum-wahl');
+   await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
+   check('Hauptmenü zeigt den Stand des Laufs',await page.evaluate(()=>/1 von 30 Karten/.test(App.vm.menu.view.plates[2].sub)));
   }
  }catch(e){check('Klickpfad vollständig',false,e.message.split('\n')[0]);}
  check('Keine JavaScript-Fehler',errors.length===0,errors);

@@ -2,7 +2,11 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 416 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.28.0** (**Erweiterung „Wunder der Welt“ Teil 2** nach AP 5.7 – die übrigen 27 Karten,
+Aktueller Stand im Code: **Version 1.29.0** (**Kolosseum als Draft** nach AP 6.1 – Held aus drei Epochen, dann 30-mal eine von drei
+Karten, Lauf bis 12 Siege oder 3 Niederlagen, Belohnung nach Siegen, der erste Lauf als Probelauf; unter jeder angebotenen Karte ihre
+Zeile „Aus der Chronik“; dazu der **Balance-Feinschliff der Zufallsdecks**: Agrippa, Imhotep, Dandolo und Böttger jetzt im Ziel,
+Mauern von Messene, Murus Gallicus und Mausoleum stärker);
+davor 1.28.0 (**Erweiterung „Wunder der Welt“ Teil 2** nach AP 5.7 – die übrigen 27 Karten,
 damit 54: je Held die zweite, etwa **„Mit ihm oder auf ihm“**, die **Lingua ignota**, der **Murus Gallicus** oder
 **Theophanius imperator augustus**, dazu **Artemistempel von Ephesos**, **Mausoleum von Halikarnassos**, **Ischtar-Tor**,
 **Stele des Hammurapi** und der Hinterhalt **Feuerpost**; jede mit Quelle, alle als Platzhalter für Astra; nach Deiner Rückmeldung
@@ -185,10 +189,12 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `model/engine.js` | Model | Regel-Engine und KI (`CHE`); `E.copy` ist die schnelle Zustandskopie der KI-Vorausschau; seit 1.25.0 Hinterhalte (`player.ambush`, `E.canSet`, `E.ambushes`; `s.blind` verbirgt der KI-Vorausschau die fremden Rollen) |
 | `model/profile.js` | Model | Spielstand-Regeln, Packs (auch mehrere auf einmal, `openPacks`), Codes (`codes`, `redeem`), Aufgaben, Import-Prüfung (`CHP`) |
 | `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`); seit 1.16.0 sind Schlachtfelder die Tische unter den Epochenhälften, Tische ohne `image` Platzhalter mit CSS-Farbfilter `tint`, alte Felder werden über `refund` erstattet; seit 1.18.0 Kartenrahmen `frames` (Tempeltor, Goldene Karten, ausgerüstet in `equipped.frame`) |
+| `model/draft.js` | Model | Seit 1.29.0 (AP 6.1): Kolosseum als Draft (`AEDR`) – Lauf im Spielstand `profile.draft` (über `normalize`, alte Saves bleiben), Heldenwahl aus drei Epochen, Wahl aus drei Karten gleicher Seltenheit (`options`, je Lauf und Wahl fest), Gegner und Partie (`foe`, `game`, Modus `draft`), Ergebnis aus `CHP.reward` (`record`), Belohnung (`reward`, `claim`), Statistik `profile.draftStats` |
 | `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
 | `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` (seit 1.17.0 auch in Node, Einträge mit Seite `p`; `Match.strip` liefert die Chronik-Leiste; seit 1.18.0 `Match.press`/`release` für die gedrückte Handkarte und `Match.hand` mit Kosten, spielbar und erfüllter Bedingung je Handkarte; seit 1.19.0 Schaufenster `Shop.showcase`/`select` und Kauf-Zeichen `bought`, Kartenbuch mit Blätterrichtung `turn`, Steinknöpfen `pick`, Kurve `curveHint` und Flug `flight`, Heldengalerie `GALLERY`, Kampagnenkarte `MAP`/`STATIONS` mit Projektion; seit 1.20.0 Intro `Match.opening`, Schriftrollen `rolling`, Finale und Belohnungsbalken `rewardBars`, Blatt `view.leaf` im Kartenbuch) – **ohne DOM, in Node testbar** |
+| `viewmodel/draft.js` | ViewModel | Seit 1.29.0: Bildschirm „Kolosseum“ (`AEVM.Draft`) – Eintritt mit Rückfrage, Heldenwahl, Kartenwahl mit Manakurve und „Aus der Chronik“, Kampf, Lauf beenden, Belohnung abholen |
 | `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
-| `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`), seit 1.26.0 Start mit Entwickler-Splash und Intro `intro.js` (`AEI`, Zeitleiste `AEI.T`, Stil `css/intro.css`) |
+| `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`), seit 1.26.0 Start mit Entwickler-Splash und Intro `intro.js` (`AEI`, Zeitleiste `AEI.T`, Stil `css/intro.css`), seit 1.29.0 Kolosseum `draft.js` (Stil `css/draft.css`, fünf Astra-Platzhalter) |
 | `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Heldenmünze `coinArt`, Siegel `seal`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`; seit 1.17.0 Äther-Uhr `dial`, Chronik-Leiste `strip`, Pergament-Deck und Stundenglas `deck`, versiegelte Befehle `orderArt`, Zugtafel `turnPlate`; seit 1.18.0 Kartenrahmen `R.card` als Tempeltor, Hand mit Federn `hand`, Marschroute `route`, Effekte `effects` mit Tinte, Pumpen, Splittern, Staub und Rissen), seit 1.20.0 `fx.js` (`CHF`: Schlüsselwort-Bilder und -Effekte, Elemente und Heldenfähigkeiten, Intro mit Münzwurf und Finale), `anim.js` (`CHT`, seit 1.18.0: Kurven, Zeitleisten, Federn, Match-Uhr mit Tempo und Treffer-Stopp, Kamerawackeln), `motion.js` (`CHM`, Zeitleisten je Aktion, Ziehen, Verbrennen, Stundenglas), `layout.js` (`CHL`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel auf der Match-Uhr, Bildraten-Anzeige) |
 | `view/css/` | View | seit 1.22.0 `astra.css` (zuletzt geladen: Astras gemalte Bilder für Paket, Podest, Kartenbuch, Startbefehle, Steinplatten, Hintergründe, Währungen), `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte) |
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`) |
@@ -204,7 +210,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
 | `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`, seit 1.26.0 `intro_klang.py`), Entwickler-Splash `entwicklersplash.py`, Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, seit 1.26.0 Start-Messung `intromessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
-| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 416 Karten), `BERICHT-1.27.0.md` (vor AP 5.7 Teil 2), `BERICHT-1.26.0.md` (vor AP 5.7), `BERICHT-1.24.0.md` (vor AP 5.6), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
+| `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 416 Karten), `BERICHT-1.28.0.md` (vor dem Feinschliff in 1.29.0), `BERICHT-1.27.0.md` (vor AP 5.7 Teil 2), `BERICHT-1.26.0.md` (vor AP 5.7), `BERICHT-1.24.0.md` (vor AP 5.6), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
 | `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 48 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
@@ -264,6 +270,8 @@ höchstens drei verdeckt je Spieler (`player.ambush`), keiner doppelt; sie schna
 Seit 1.27.0 (AP 5.7 Teil 1) Karten der Erweiterung mit Feld `set:'wunder'` – nur vorhandene Regeln; das Feld `profile.ambushSeen`
 merkt sich, dass die Hinterhalt-Erklärung schon kam. Seit 1.28.0 (AP 5.7 Teil 2) beschränkt `targetTaunt` ein Ziel auf Diener
 mit Schildwall, und Ergründen im Zug des Gegners oder am Ende des eigenen Zuges (Vermächtnis) wählt der Zufall.
+Seit 1.29.0 (AP 6.1) der Spielmodus `draft` (Kolosseum): keine neue Regel in der Engine, nur das Feld `s.draft` (Nummer des Laufs);
+`CHP.reward` gibt dort kein Gold je Partie und meldet das Ergebnis an `AEDR.record`.
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -288,7 +296,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
   `chroniken.profile` bleiben trotz Umbenennung bestehen.
 - **Regeländerungen nur bewusst:** `data.js`/`engine.js` nur in Arbeitspaketen anfassen, die das
   ausdrücklich vorsehen (Phase 5), und dann mit neuen Tests und vollem Balance-Lauf `node werkzeuge/balance.js`
-  (mit 22 Helden und 416 Karten ≈ 40 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
+  (mit 22 Helden und 416 Karten ≈ 50 min auf 4 Kernen; `balance/BERICHT.md` mit committen, Ziele aus AP 5.2 und AP 5.3 halten). Varianten erst ohne Änderung am Spiel
   vergleichen: Kopie von `model/` anlegen und `AETERNA_MODELL=<Ordner> node werkzeuge/balance.js --partien 40`.
 - **Sichtprüfung:** Jede optische Änderung per Playwright-Screenshot im Handyformat
   (915 × 412, Pixeldichte 2,6) und im Tabletformat (1600 × 800) prüfen –
@@ -444,7 +452,7 @@ werden ersetzt, Unsicheres wird als unsicher erzählt (AP L.5, AP L.6).
 | Oberfläche | keine Komplett-Neuaufbauten, Scrollposition und Fokus bleiben | ✓ alle Bildschirme und Dialoge über den MVVM-Binder (AP 2.3), geprüft im Klickpfad der CI |
 | Start bis Hauptmenü | < 2,5 s (kalt), < 1 s (warm) | auf dem Gerät noch nicht gemessen (bitte mit 1.12.0 stoppen). Emulation im Handyformat: **171–225 ms** (1.11.0: 307–371 ms), CPU 4×: 520–617 ms (1.11.0: 572–626 ms); alle Atlanten danach im Hintergrund fertig nach 0,54–0,59 s (CPU 4×: 0,92–1,06 s) – 1.11.0 dekodierte sie erst beim ersten Zeichnen³ |
 | APK-Größe | < 25 MB | **✓ 12,1 MB** (1.11.0: 55,9 MB; Bilder 53,1 → 9,4 MB als WebP) |
-| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.28.0 (AP 5.7 Teil 2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.27.0; Zufallsdecks 18 von 22 im Ziel** (wie vorher):
+| Heldenbalance | jeder Held 47–53 % Siegquote gegen das Feld (Simulation, ≥ 200 Partien je Paarung) | **1.29.0 (Feinschliff der Zufallsdecks, 101 200 Partien): Zufallsdecks 19 von 22 im Ziel** (vorher 18): Agrippa 56,4 → 48,2 %, Imhotep 54,4 → 51,1 %, Dandolo 45,2 → 50,7 %, Böttger 46,5 → 49,6 %; knapp außerhalb jetzt Thusnelda 53,8 %, Leonidas 53,4 %, Vix 46,6 %; 223 von 231 Paarungen innerhalb 40/60 (vorher 219), Beginner 50,9 %. **Startdecks 21 von 22** wie vorher (Leonidas 53,4 %, vorher 53,7 %), 200 von 231 Paarungen (vorher 198); alter Bericht `BERICHT-1.28.0.md`. Davor **1.28.0 (AP 5.7 Teil 2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.27.0; Zufallsdecks 18 von 22 im Ziel** (wie vorher):
 Agrippa 56,4 %, Imhotep 54,4 %, Böttger 46,5 %, Dandolo 45,2 % (vorher 48,4 %); Vauban steigt von 46,8 auf 47,4 % ins Ziel;
 219 von 231 Paarungen innerhalb 40/60 (vorher 218), Beginner 50,7 %, keine neue Karte über +7 Punkte; alter Bericht `BERICHT-1.27.0.md`. Davor **1.27.0 (AP 5.7 Teil 1, 101 200 Partien, zwei volle Läufe): Startdecks Zahl für Zahl wie in 1.25.0** (keine neue Karte im Startdeck); **Zufallsdecks 18 von 22 im Ziel** (vorher 21): Imhotep und Agrippa 54,2 %, Vauban 46,8 %, Böttger 45,8 % (vorher 49,8 %); 218 von 231 Paarungen innerhalb 40/60 (vorher 223), Beginner 50,2 %; Nezahualcóyotl steigt von 45,6 auf 49,9 %; alter Bericht `BERICHT-1.26.0.md`. Davor **1.25.0 (AP 5.6, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.24.0; Zufallsdecks 21 von 22 im Ziel** (vorher 19) – nur Nezahualcóyotl 45,6 %; 223 von 231 Paarungen innerhalb 40/60; alter Bericht `BERICHT-1.24.0.md`. Davor **1.15.0 (AP L.2, 101 200 Partien): Startdecks Zahl für Zahl wie in 1.14.0**; Zufallsdecks bis auf eine Paarung gleich – Dandolo gegen Hildegard 49 → 48 %, weil Jutta Rekruten aus fremden Karten nicht mehr stärkt (nur noch Novizinnen); Dandolo damit 47,0 % knapp unter der Grenze (20 statt 21 von 22 im Ziel, im Zufallsfehler), Theophanu unverändert 54,4 %. Bericht `balance/BERICHT.md`, der alte `BERICHT-1.14.0.md`. Davor **22 Helden, 350 Karten** (1.14.0, 101 200 Partien): **Startdecks unverändert** – alle 22 Siegquoten und Paarungen genau wie in 1.13.0 (Startdecks enthalten keine Zeitalterkarten, nur Namen geändert): 46,5–54,3 % (20 von 22: Leonidas 54,3 %, Vercingetorix 46,5 %), 199 von 231 Paarungen innerhalb 40/60. **Zufallsdecks** ändern sich, weil zwölf Helden andere Zeitalterkarten bekommen: 47,0–54,4 % (21 von 22: Theophanu 54,4 %, +1,4 – im Zufallsfehler ±1,5; Hypatia jetzt 47,9 %), 223 von 231 Paarungen innerhalb 40/60 – Ausreißer vor allem um die Fürstin von Vix (gegen Dandolo und Nezahualcóyotl 64/36) und Fabius (Perikles 37/63, Anna 63/37). Beginner gewinnt 47,3 / 50,7 % (1.13.0: 46,5–54,3 % bzw. 46,5–53,0 %, 199/224 Paarungen; 1.11.0: 46,6–53,9 % bzw. 46,5–52,8 %; 1.6.0: 47,8–51,9 % bzw. 47,9–51,6 %; 1.5.0: 15,4–80,2 % bzw. 42,1–57,6 %)² |
 | Legendäre | jede Legendäre hat einen einzigartigen Effekt, der eine Partie sichtbar verändert; als Gruppe ≤ 55 % „gewinnt, wenn gezogen“ | ✓ 24 Legendäre mit eigener Regel (12 aus AP 5.3, 12 aus AP 5.10, darunter zwei legendäre Zauber); Gruppe 53,5 % (1.13.0: 53,0 %), einzeln 45,8 (Nezahualpilli) bis 58,6 % (Lagertha)² |
@@ -651,7 +659,7 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
   | Wiprecht von Groitzsch | ließ Wald roden, siedelte Bauern aus Franken an, gründete Kloster Pegau, erhielt 1123 die Mark Meißen (Pegauer Annalen) | Grenzsteine setzen: ruft einen fehlenden Grenzstein | *passt* – die vier Steine stehen für Kloster, Mark, Burg und Dorf seines Landesausbaus | – |
   | Ulrich von Liechtenstein | forderte auf der Venusfahrt 1227 jeden Ritter zur Tjost (Frauendienst, 1255) | Tjost: +1 Angriff für diesen Zug (1 Mana) | *passt* | – |
   | Perikles | bezahlte aus der Kasse des Seebunds das Bauprogramm der Akropolis (Plutarch, Perikles 12–13), lenkte die Bürger auf der Pnyx | Bauherr der Akropolis: Bürger (1/2), Bauwerk +2 | *passt* | – |
-  | Marcus Agrippa | Feldherr und Bauherr: Aquädukte, Thermen, Pantheon (Cassius Dio 49,43), Straßen in Gallien (Strabon IV 6,11) | Legionspioniere: Pionier (1/3), Bauwerke −1 | *passt* | – |
+  | Marcus Agrippa | Feldherr und Bauherr: Aquädukte, Thermen, Pantheon (Cassius Dio 49,43), Straßen in Gallien (Strabon IV 6,11) | Legionspioniere: Pionier (1/3, seit 1.29.0 1/2), Bauwerke −1 | *passt* | – |
   | Ahhotep I. | hielt Ägypten im Krieg gegen die Hyksos zusammen und „sorgte für seine Soldaten“ (Ahmose-Stele, Karnak); im Königinnengrab von 1859 lagen drei Goldene Fliegen, eine Auszeichnung für Tapferkeit (Zuordnung umstritten) | Goldene Fliegen: 1 Schaden an einem zufälligen Feind, stirbt dadurch ein echter Diener, zieht 1 Karte | *passt* – ihre Truppen schlagen zu, Erfolg wird belohnt wie mit der Goldenen Fliege; Chronik und Glossar erklären die Auszeichnung | – |
   | Anna Komnene | schrieb die Alexiade, damit die Taten ihres Vaters nicht vergessen werden (Vorwort der Alexiade) | Alexiade: ergründet eine schon gespielte Karte | *passt* | – |
   | Nezahualcóyotl | Dichter und Gesetzgeber; leitete um 1450 nach einer Flut den Bau des Damms durch den Texcoco-See und später den des Aquädukts von Chapultepec, das Tenochtitlan mit Quellwasser versorgte (Ixtlilxochitl) | Blumenlied: alle eigenen Charaktere +2 Leben | *Name ändern* – Lieder heilen nicht, frisches Wasser schon | **Quellwasser von Chapultepec:** Wirkung bleibt. Das Blumenlied bleibt in der Chronik |
@@ -687,7 +695,7 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
   | Leonidas I. | Phalanx | Erhaltet 1 Rüstung. Eure Diener erhalten +1 Leben. |
   | Hypatia | Sternenfunke | Verursacht 1 Schaden an einem zufälligen Feind. |
   | Imhotep | Heilkunst | Stellt bei einem Ziel 3 Leben wieder her. |
-  | Enrico Dandolo | Rammsporn der Galeeren | Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus. |
+  | Enrico Dandolo | Rammsporn der Galeeren | Rüstet eine Waffe mit 1 Angriff und 2 Haltbarkeit aus (seit 1.29.0: 3 Haltbarkeit). |
   | Widukind | Überfall aus dem Wald | Fügt dem feindlichen Helden 2 Schaden zu. |
   | Vercingetorix | Schild der Arverner | +1 Angriff für diesen Zug und +2 Rüstung. |
   | Johann Friedrich Böttger | Arkanum | Zieht 1 Karte. Euer Held erleidet 1 Schaden. |
@@ -695,7 +703,7 @@ Ersatzhelden die Wirkung ihrer Vorgänger geerbt – dort ist der Abgleich am dr
   | Wiprecht von Groitzsch | Grenzsteine setzen | Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. |
   | Ulrich von Liechtenstein | Tjost | +1 Angriff für diesen Zug. |
   | Perikles | Bauherr der Akropolis | Ruft einen Bürger (1/2). Euer schwächstes Bauwerk erhält +2 Haltbarkeit. |
-  | Marcus Agrippa | Legionspioniere | Ruft einen Pionier (1/3). Solange er lebt, kosten Eure Bauwerke 1 weniger. |
+  | Marcus Agrippa | Legionspioniere | Ruft einen Pionier (1/3; seit 1.29.0 1/2). Solange er lebt, kosten Eure Bauwerke 1 weniger. |
   | Ahhotep I. | Goldene Fliegen | Verursacht 1 Schaden an einem zufälligen Feind. Stirbt dadurch ein Diener, der nicht beschworen wurde, zieht 1 Karte. |
   | Anna Komnene | Alexiade | Ergründet eine Karte, die in dieser Partie schon gespielt wurde. |
   | Nezahualcóyotl | Blumenlied | Stellt bei allen eigenen Charakteren 2 Leben wieder her. |
@@ -2058,14 +2066,29 @@ Balance-Vorlauf (40 Partien je Paarung, Zufallsdecks) stärker: **Weiße Erde au
 5 statt 3 Rüstung, **Bäder von Tetzcotzinco** und **Stele des Hammurapi** kosten 2, das **Mausoleum** 3, das **Ischtar-Tor** hat
 0/7 – sie lagen 5–8 Punkte unter ihrem Helden; dazu **Neuf-Brisach** (Teil 1) 0/7 für Vauban.*
 
+**Balance-Feinschliff der Zufallsdecks** – *✓ in 1.29.0 (Sitzung 24).* Mit der fertigen Erweiterung lagen vier Helden mit Zufallsdecks
+außerhalb 47–53 %. Varianten zuerst ohne Änderung am Spiel verglichen (`AETERNA_MODELL`, drei Runden; die erste – schwächere
+Heldenfähigkeiten für Imhotep und Böttger – schoss weit übers Ziel, Imhotep fiel mit Startdecks auf 40 %), dann ein voller Lauf:
+
+| Held oder Karte | Änderung | Warum so |
+|---|---|---|
+| Marcus Agrippa | Pionier der Heldenfähigkeit 1/2 statt 1/3; **Legionär der Zehnten** (Basis) 3/3 statt 3/2 | Die Fähigkeit trägt ihn in Zufallsdecks voller Bauwerke; der Basis-Legionär liegt zweimal im Startdeck und hält es bei 49,5 % |
+| Imhotep | **Goldener Skarabäus** 4/4 (4/5), **Balsamierer** 3/3 (3/4), **Sockel der Djoser-Statue** 3 Mana (2) | nur Karten außerhalb des Startdecks – das Startdeck (52,0 %) bleibt, wie es ist |
+| Enrico Dandolo | Rammsporn der Galeeren 1/3 statt 1/2; **Arsenal von Venedig** und **Dogenklinge** 1 Mana billiger, **Quadriga** 2 Mana, **Nachtwache am Kanal** 3/4 | die Waffe allein hob vor allem das Startdeck; die Karten nur das Zufallsdeck |
+| Johann Friedrich Böttger | **Weißes Gold** 1 statt 2 Schaden, **Laborbuch** verbilligt um 2, **Schreiber der Manufaktur** 4 Mana 4/5, **Manufaktur auf der Albrechtsburg** 2 Mana, **Glut des Brennofens** 4 Mana | ebenso nur außerhalb des Startdecks |
+| Bauwerke | **Mauern von Messene** geben +1/+1 statt +1 Leben (−8,2 → −5,0 Punkte unter ihrem Helden), **Murus Gallicus** 2 Mana 0/5 (−7,8 → −5,5), **Mausoleum** mit Schildwall (−6,8 → +3,2) | Das Mausoleum stand oft unbeachtet; mit Schildwall greift der Gegner es an und löst sein Vermächtnis aus |
+
+Ergebnis siehe [Qualitätsziele](#qualitätsziele) und `balance/BERICHT.md`. Offen für den nächsten Feinschliff: Thusnelda (53,8 %),
+Leonidas (53,4 %, mit Startdecks ebenso) und die Fürstin von Vix (46,6 %); auffällige Karten Griechisches Feuer (+10,3), Phalanxveteran (+9,9).
+
 | Karte (Held, Art, Kosten, Werte) | Wirkung | Bezug und Quelle |
 |---|---|---|
 | **„Mit ihm oder auf ihm“** (Leonidas, Diener, 2: 1/3) | Einmarsch: Gebt einem befreundeten Diener mit Schildwall +2 Angriff. | Eine Spartanerin reicht dem Sohn den Schild (Plutarch, Sprüche spartanischer Frauen 241F) |
 | **Orestes, Präfekt von Ägypten** (Hypatia, Diener, 4: 3/5) | Einmarsch: Ruft einen Schüler der Hypatia (1/1). | Der Präfekt suchte Hypatias Rat, sein Streit mit Bischof Kyrill wurde ihr zum Verhängnis (Sokrates Scholastikos VII 13–15) |
-| **Sockel der Djoser-Statue** (Imhotep, Bauwerk, 2: 0/4) | Am Ende Eures Zuges: Euer schwächster Diener erhält +1/+1. | Der wichtigste Beleg, dass Imhotep lebte: seine Titel auf dem Sockel einer Statue des Djoser (Kairo JE 49889) |
-| **Quadriga von San Marco** (Dandolo, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Eure Waffe erhält +1 Angriff und +1 Haltbarkeit. | 1204 aus dem Hippodrom von Konstantinopel nach Venedig gebracht (Original im Museo di San Marco) |
+| **Sockel der Djoser-Statue** (Imhotep, Bauwerk, 2: 0/4; seit 1.29.0 3 Mana) | Am Ende Eures Zuges: Euer schwächster Diener erhält +1/+1. | Der wichtigste Beleg, dass Imhotep lebte: seine Titel auf dem Sockel einer Statue des Djoser (Kairo JE 49889) |
+| **Quadriga von San Marco** (Dandolo, Bauwerk, 3: 0/5; seit 1.29.0 2 Mana) | Zu Beginn Eures Zuges: Eure Waffe erhält +1 Angriff und +1 Haltbarkeit. | 1204 aus dem Hippodrom von Konstantinopel nach Venedig gebracht (Original im Museo di San Marco) |
 | **Taufe in Attigny** (Widukind, Zauber, 2) | Zieht 2 Karten. Stellt bei Eurem Helden 3 Leben wieder her. | 785 ließ sich Widukind taufen, Karl der Große war sein Pate (Reichsannalen zu 785) |
-| **Murus Gallicus** (Vercingetorix, Bauwerk, 3: 0/6) | Schildwall. Wann immer dieses Bauwerk Schaden erleidet, fügt es einem zufälligen Feind 1 Schaden zu. | Mauer aus Holzbalken, Steinen und Erde – Feuer und Rammbock konnten ihr wenig anhaben (Caesar, Gallischer Krieg VII 23) |
+| **Murus Gallicus** (Vercingetorix, Bauwerk, 3: 0/6; seit 1.29.0 2: 0/5) | Schildwall. Wann immer dieses Bauwerk Schaden erleidet, fügt es einem zufälligen Feind 1 Schaden zu. | Mauer aus Holzbalken, Steinen und Erde – Feuer und Rammbock konnten ihr wenig anhaben (Caesar, Gallischer Krieg VII 23) |
 | **Weiße Erde aus Aue** (Böttger, Zauber, 2) | Gebt einem befreundeten Diener +2/+2. Euer Held erleidet 1 Schaden. Zieht 1 Karte. | Kaolin aus der Grube „Weißer Andreas“ bei Aue machte das Meißner Porzellan möglich |
 | **Lingua ignota** (Hildegard, Zauber, 1) | Gebt einem befreundeten Diener Tarnung. Zieht 1 Karte. | Hildegards erfundene Sprache mit 1011 Wörtern (Riesencodex, Hochschul- und Landesbibliothek Wiesbaden) |
 | **Pilgerfahrt nach Santiago** (Wiprecht, Zauber, 3) | Stellt bei Eurem Helden 5 Leben wieder her. Ruft einen zufälligen Grenzstein, den Ihr noch nicht habt. | Zur Buße pilgerte Wiprecht nach Rom und Santiago de Compostela (Pegauer Annalen) |
@@ -2076,14 +2099,14 @@ Balance-Vorlauf (40 Partien je Paarung, Zufallsdecks) stärker: **Weiße Erde au
 | **Irene Dukaina** (Anna, Diener, 3: 2/4) | Einmarsch: Stellt bei Eurem Helden 3 Leben wieder her. Zieht 1 Karte. | Annas Mutter begleitete Alexios auf Feldzügen und pflegte ihn (Alexiade XII 3) |
 | **Bäder von Tetzcotzinco** (Nezahualcóyotl, Bauwerk, 2: 0/5) | Wann immer ein eigener Charakter geheilt wird, erhaltet 1 Rüstung. | In den Fels gehauene Bäder und Gärten auf dem Hügel bei Texcoco (Fundstätte; Fernando de Alva Ixtlilxóchitl) |
 | **Theophanius imperator augustus** (Theophanu, Zauber, 3) | Eure Diener mit Schildwall erhalten +1/+1 und Segen. | 990 nennt sie sich in einer Urkunde „Kaiser“ in männlicher Form (Urkunde vom 1. 4. 990) |
-| **Mauern von Messene** (Epaminondas, Bauwerk, 3: 0/6) | Schildwall. Zu Beginn Eures Zuges: Euer Diener ganz links erhält +1 Leben. | Epaminondas gründete Messene neu, die Mauern stehen noch (Pausanias IV 27) |
+| **Mauern von Messene** (Epaminondas, Bauwerk, 3: 0/6) | Schildwall. Zu Beginn Eures Zuges: Euer Diener ganz links erhält +1 Leben (seit 1.29.0 +1/+1). | Epaminondas gründete Messene neu, die Mauern stehen noch (Pausanias IV 27) |
 | **Schatten auf den Höhen** (Fabius, Zauber, 2) | Versetzt einen feindlichen Diener in Starre. Erhaltet 3 Rüstung. | Fabius folgte Hannibal stets auf den Hügeln und mied die Ebene (Polybios III 89–90) |
 | **Stolz im Triumphzug** (Thusnelda, Zauber, 2) | Gebt Euren Dienern +1 Leben. Zieht 1 Karte. | Sie ging schweigend und stolz im Triumph mit (Strabon VII 1,4) |
 | **Moschee des Baibars** (Baibars, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Ein zufälliger eigener Diener erhält +1/+1. | Seine große Moschee in Kairo, 1266–1269 |
 | **Projet d’une dîme royale** (Vauban, Zauber, 3) | Zieht 2 Karten. Erhaltet 5 Rüstung. | Vaubans Plan einer gerechten Steuer für alle Stände wurde 1707 verboten |
 | **Krater von Vix** (Fürstin von Vix, Bauwerk, 3: 0/5) | Zu Beginn Eures Zuges: Euer Held erhält in diesem Zug +2 Angriff. | Das größte erhaltene Bronzegefäß der Antike, 1,64 m hoch, aus einer griechischen Werkstatt |
 | **Artemistempel von Ephesos** (neutral, Bauwerk, 2: 0/5) | Schildwall. Vermächtnis: Ergründet ein Bauwerk. | Ein Weltwunder, 356 v. Chr. von Herostratos angezündet und neu gebaut (Strabon XIV 1,22) |
-| **Mausoleum von Halikarnassos** (neutral, Bauwerk, 3: 0/6) | Vermächtnis: Holt die zwei zuletzt gestorbenen eigenen Diener zurück. | Ein Weltwunder, das Grab des Mausolos – daher das Wort „Mausoleum“ (Plinius XXXVI 30) |
+| **Mausoleum von Halikarnassos** (neutral, Bauwerk, 3: 0/6) | Seit 1.29.0 Schildwall. Vermächtnis: Holt die zwei zuletzt gestorbenen eigenen Diener zurück. | Ein Weltwunder, das Grab des Mausolos – daher das Wort „Mausoleum“ (Plinius XXXVI 30) |
 | **Ischtar-Tor** (neutral, Bauwerk, 3: 0/7) | Schildwall. Eure Diener haben +1 Angriff. | Babylons blaues Tor steht heute im Pergamonmuseum Berlin |
 | **Stele des Hammurapi** (neutral, Bauwerk, 2: 0/5) | Wann immer dieses Bauwerk Schaden erleidet, fügt es einem zufälligen Feind 2 Schaden zu. | „Auge um Auge“ – eine der ältesten Gesetzessammlungen (§ 196, Louvre) |
 | **Feuerpost** (neutral, Hinterhalt, 1) | Wenn der Gegner einen Diener ausspielt, zieht Ihr 1 Karte und erhaltet 2 Rüstung. | Feuerzeichen von Berg zu Berg meldeten den Fall Trojas (Aischylos, Agamemnon 281–316; Polybios X 43–47) |
@@ -2202,7 +2225,7 @@ Schlüsselwort aus AP 5.4/5.5):
   | Held | Zeitalter | Heldenfähigkeit (2 Mana) | Spielstil | Legendäre | Mission (Boss) |
   |---|---|---|---|---|---|
   | **Perikles** (um 495–429 v. Chr.) | Griechische Antike | *Bauherr der Akropolis:* Ruft einen Bürger (1/2), Euer schwächstes Bauwerk erhält +2 Haltbarkeit | Bauwerke (Lange Mauern, Pnyx zieht, Odeion ruft Bürger), breites Feld, *Scherbengericht* | Phidias errichtet die Athena Parthenos (Bauwerk, Eure Diener +1/+1) | Die Langen Mauern (Archidamos von Sparta) |
-  | **Marcus Agrippa** (63–12 v. Chr.) | Rom | *Legionspioniere:* Ruft einen Pionier (1/3); solange er lebt, kosten Bauwerke 1 weniger | Legion und Ingenieure: Castra (+1/+1), Ballista, Thermen, Pantheon ergründet fremde Karten, *Testudo* | Vitruv: Bauwerke kosten 2 weniger, ergründet ein Bauwerk | Actium (die Flotte des Antonius) |
+  | **Marcus Agrippa** (63–12 v. Chr.) | Rom | *Legionspioniere:* Ruft einen Pionier (1/3, seit 1.29.0 1/2); solange er lebt, kosten Bauwerke 1 weniger | Legion und Ingenieure: Castra (+1/+1), Ballista, Thermen, Pantheon ergründet fremde Karten, *Testudo* | Vitruv: Bauwerke kosten 2 weniger, ergründet ein Bauwerk | Actium (die Flotte des Antonius) |
   | **Amanirenas** (1. Jh. v. Chr.) | Afrika | *Kandake:* 1 Schaden an einem zufälligen Feind; stirbt dadurch ein Diener, zieht eine Karte | Pfeile, Gift und Raubzüge: Bogenschützen mit Vermächtnis-Treffer, Tödliches Gift verleihen, Plünderung | Bronzekopf des Augustus (Zauber): vernichtet einen Diener, Gegner 2 Mana weniger | Die Tore von Syene (Gaius Petronius) |
   | **Anna Komnene** (1083–um 1153) | Byzanz & islamische Welt | *Alexiade:* Ergründet eine Karte, die in dieser Partie schon gespielt wurde | Chronik und Heilkunst: Warägergarde, Pantokrator-Spital, Griechisches Feuer, Chrysobull verbilligt | Alexios I. Komnenos: am Zugende eine zufällige schon gespielte Karte | Purpur und Pergament (der Kaisersohn Johannes) |
   | **Nezahualcóyotl** (1402–1472) | Amerika | *Blumenlied:* 2 Heilung für alle eigenen Charaktere | Heilen und Wachsen: Gärtner wird bei Heilung stärker, Aquädukt und Damm heilen, Adler- und Jaguarkrieger | Nezahualpilli: jede Heilung gibt einem Diener +1 Angriff | Der Damm im See (Maxtla von Azcapotzalco) |
@@ -2392,8 +2415,30 @@ So, dass es im Spiel nicht kaputt aussieht:
 
 ### Phase 6 – Spielmodi und Motivation (fortlaufend)
 
-- [ ] **AP 6.1 Kolosseum als echter Draft:** Held aus 3, dann 30-mal 1 aus 3 Karten; Lauf endet bei 3 Niederlagen
-  oder 12 Siegen; Belohnung nach Siegen. Nur App-Ebene.
+- [x] **AP 6.1 Kolosseum als echter Draft:** Held aus 3, dann 30-mal 1 aus 3 Karten; Lauf endet bei 3 Niederlagen
+  oder 12 Siegen; Belohnung nach Siegen. Nur App-Ebene. *✓ in 1.29.0, Länge „wie vorgeschlagen“ (Deine Antwort zu Sitzung 24):*
+  - **Ablauf:** Die Platte „Kolosseum“ im Hauptmenü öffnet den neuen Bildschirm (das alte Zufalls-Duell entfällt im Menü; eine
+    gespeicherte Partie im Modus `random` läuft weiter). Eintritt → **drei Helden aus drei verschiedenen Epochen** (Münze, Epoche,
+    Lehrplan, Fähigkeit, KI-Spielweise) → **30 Wahlen aus je drei Karten derselben Seltenheit** (70 % gewöhnlich, 22 % selten,
+    6 % episch, 2 % legendär; die 1., 10., 20. und 30. Wahl mindestens selten; Karten des Helden dreifach, Zeitalterkarten doppelt
+    gewichtet; eine Legendäre höchstens einmal) → Kämpfe gegen zufällige Helden mit Zufallsdeck, bis **12 Siege oder 3 Niederlagen**;
+    ein Unentschieden wird wiederholt. Rechts wächst das Deck mit der Manakurve aus dem Deckbau (AP 1.6) und ihrem Hinweis.
+  - **Halb Lernen:** Unter jeder angebotenen Karte steht ihre Zeile „Aus der Chronik“, sonst die Erklärung ihrer Schlüsselwörter;
+    „Ansehen“ öffnet die Großansicht mit Quelle. Der Eintritt erzählt vom Amphitheatrum Flavium.
+  - **Eintritt und Belohnung:** Der erste Lauf ist ein **Probelauf ohne Eintritt**, danach 150 Gold (mit Rückfrage). Partien im
+    Kolosseum geben kein Gold je Partie, die Belohnung kommt am Ende: 0 Siege 10 Gold und 1 Paket, 3 Siege 50 Gold und 2 Pakete
+    (mehr als der Eintritt), 7 Siege 130 Gold, 3 Pakete und 60 Staub, 12 Siege 300 Gold, 4 Pakete und 160 Staub; dazwischen
+    steigt sie mit jedem Sieg (`AEDR.GOLD`). „Lauf beenden“ (mit Rückfrage) endet mit den Siegen, die er hat. Siege zählen wie
+    bisher für die Aufgaben; das Ergebnisfenster zeigt zwei Balken für Siege und Niederlagen des Laufs und führt zurück ins Kolosseum.
+  - **Spielstand:** `profile.draft` (Lauf) und `profile.draftStats` (begonnene und abgeschlossene Läufe, bester Lauf) kommen über
+    `AEDR.normalize` in alte Spielstände; ein kaputter Lauf fällt weg, der Spielstand bleibt. Die Wahl hängt nur am Startwert des
+    Laufs – nach einem Neustart der App liegen dieselben drei Karten da. Eine Partie trägt die Nummer ihres Laufs (`s.draft`),
+    damit ein altes Ergebnis nie zählt.
+  - **Platzhalter für Astra** (Paket 6 in `ASTRA_AUFTRAG_OBERFLAECHE.md`): `kolosseum-arena`, `kolosseum-sand`, `kolosseum-lorbeer`,
+    `kolosseum-schild`, `draft-wahl`.
+  - **Prüfung:** zwei Tests in `viewmodel.test.js` (ganzer Lauf vom Probelauf bis zur Belohnung, Seltenheit, Sonderwahlen, Eintritt
+    mit Rückfrage, alte und kaputte Spielstände, Menüplatte), Klickpfad mit drei neuen Referenzbildern (Eintritt, Heldenwahl,
+    erste Wahl) und vier Prüfungen.
 - ~~**AP 6.2 Schlacht mit Offline-Rangliste**~~ – *entfällt (Entscheidung 22): kein Ranglistenmodus, Aeterna ist offline zuerst.*
 - [ ] **AP 6.3 Aufgaben:** tägliche Aufgaben mit Rotation und einmal Neuwürfeln pro Tag, Login-Bonus, Heldenstufen
   mit Belohnungen (Gold, Skins, goldene Karten).
@@ -2556,7 +2601,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     soll es keinen Ranglistenmodus geben, ist ein Offline-First-Game mit Multiplayer-Variante für wenige Spieler, mehr zu Demo-Zwecken
     unter Freunden“):* Vor der großen Astra-Bestellung kommen nur noch
     - **AP 5.7 Erweiterung klein:** je Held zwei Karten und zehn neutrale (54 statt rund 90 Karten), ✓ in 1.27.0 und 1.28.0;
-    - **AP 6.1 Draft** und **AP 6.3 Aufgaben** (kaum neue Bilder);
+    - **AP 6.1 Draft** (✓ in 1.29.0) und **AP 6.3 Aufgaben** (kaum neue Bilder);
     - **AP 6.4 Kampagne 2.0** und **AP 3.9 Eck-Dioramen** bleiben im Plan wie aufgelistet – schlank, ohne neue Ideen obendrauf;
     - **kein Ranglistenmodus:** AP 6.2 entfällt. Aeterna bleibt offline zuerst; Crossplay (AP 8.2) ist eine kleine Variante für
       ein paar Freunde (Einladungscode, keine Konten, keine Wertung).
@@ -2594,8 +2639,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | Bonus ✓ | Entwickler-Splash und Intro | erledigt in 1.26.0 – PY'TALES vor dem Spiel, Intro mit sechs Epochen, Kartenring, Einschlag und Match-Cut ins Hauptmenü, eigene Musik, abschaltbar |
 | 22 ✓ | Rückmeldung 1.25.0, Entscheidung 22, AP 5.7 Teil 1 | erledigt in 1.27.0 – Erweiterung klein, kein Ranglistenmodus; 27 Karten aus der Geschichte mit Quelle, drei neue Hinterhalte, Hinterhalt-Erklärung beim ersten Kontakt |
 | 23 ✓ | Rückmeldung 1.27.0, AP 5.7 Teil 2 | erledigt in 1.28.0 – die übrigen 27 Karten mit Quelle (54 von 54), Feuerpost als vierter neuer Hinterhalt, auffälligere Wachsrollen mit leisem Glimmen; alle Kartenmotive für Astra stehen fest |
-| 24–25 | Phase 6 Modi mit AP 3.7 (Lunte in Belagerungsmissionen) | Draft, Aufgaben, Kampagne 2.0 (ohne Rangliste, Entscheidung 22) – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
-| 26+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
+| 24 ✓ | Rückmeldung 1.28.0, Balance-Feinschliff, AP 6.1 | erledigt in 1.29.0 – Kolosseum als Draft mit Probelauf, Lorbeeren und Belohnung nach Siegen; Agrippa, Imhotep, Dandolo und Böttger mit Zufallsdecks im Ziel (19 von 22) |
+| 25–26 | AP 6.3 Aufgaben, dann AP 6.4 Kampagne 2.0 mit AP 3.7 (Lunte in Belagerungsmissionen) | ohne Rangliste (Entscheidung 22) – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
+| 27+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
 | nach dem letzten Inhalts-Paket | AP A.3 (Du), dann ein Einbau-Lauf | den dann vollständigen `ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md` bei Astra bestellen, 10–12 je ZIP; jede Lieferung baut eine Sitzung mit dem Werkzeug ein |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
@@ -2605,53 +2651,49 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 23 (Version 1.28.0):** Deine Rückmeldung zu 1.27.0 – sonst kein Feedback, nur die Hinterhalte sehen sehr
-unscheinbar aus (kleine Rolle), dürfen aber nicht aufdringlich sein: Die **Wachsrolle** ist jetzt ein Viertel größer, liegt auf einer
-dunklen Mulde und ihr Siegel **glimmt langsam und schwach** (eigene golden, fremde glutrot) – kein Blinken, kein Text. Für Astra steht
-die Rolle in neuer Größe und das Glimmen als eigene Kennung (`hinterhalt-glimmen`) im Oberflächen-Auftrag, damit die gemalte Fassung
-später genau so wirken kann. **AP 5.7 Teil 2** nach der Prüftabelle („wie vorgeschlagen“): die übrigen **27 Karten** – je Held die
-zweite, dazu Artemistempel, Mausoleum, Ischtar-Tor, Stele des Hammurapi und der Hinterhalt **Feuerpost**; die Erweiterung ist damit
-mit 54 Karten fertig, das Spiel hat **416 Karten**. Jede mit Chronikzeile und Quelle, alle als Platzhalter (Astra-Auftrag 205 → 232
-Motive) – **damit stehen alle Kartenmotive für die große Astra-Bestellung fest.** Zwei Abweichungen von der Tabelle (die Moschee
-verleiht +1/+1 statt eines wirkungslosen Vorstoßes, der Artemistempel 0/5 wegen des Werte-Budgets) und sieben Werte nach dem
-Balance-Vorlauf, alle in der Tabelle nachgetragen. Der volle Lauf fand einen echten Fehler: Fiel ein Artemistempel am Ende des eigenen
-Zuges, blieb seine Ergründen-Wahl in den Zug des Gegners hängen – jetzt wählt dort der Zufall, ein Test hält es fest. **Voller
-Balance-Lauf** (101 200 Partien): Startdecks Zahl für Zahl wie vorher; Zufallsdecks **18 von 22 im Ziel** (wie in 1.27.0) – Agrippa
-56,4 %, Imhotep 54,4 %, Böttger 46,5 %, Dandolo 45,2 %; Vauban jetzt im Ziel, 219 von 231 Paarungen innerhalb 40/60, keine neue
-Karte mehr als 7 Punkte über ihrem Helden. Neuer Code **`WELTWUNDER`** für die 27 neuen Karten (`WUNDER` hast Du schon eingelöst).
-Davor: Sitzung 22 (1.27.0) AP 5.7 Teil 1, Sitzung 21 (1.25.0) Hinterhalte, Bonus 1.26.0 Splash und Intro; Sitzungen 1–20 (1.4.0–1.24.0).
+**Erledigt in Sitzung 24 (Version 1.29.0):** Deine Rückmeldung zu 1.28.0 – kein Feedback, also keine Nacharbeit; das Kolosseum
+„wie vorgeschlagen“, also in voller Länge nach AP 6.1. **AP 6.1 Kolosseum als Draft:** Die Platte im Hauptmenü öffnet einen eigenen
+Bildschirm – Eintritt mit Belohnungstafel, **Held aus drei Epochen**, **30 Wahlen aus je drei Karten** derselben Seltenheit (jede
+zehnte mindestens selten, Karten des Helden öfter), daneben das wachsende Deck mit Manakurve; unter jeder Karte ihre Zeile **„Aus der
+Chronik“** oder die Erklärung ihrer Schlüsselwörter. Dann Kämpfe bis **12 Siege oder 3 Niederlagen**, Lorbeeren und gebrochene Schilde
+zählen mit, die Belohnung (10 Gold und 1 Paket bis 300 Gold, 4 Pakete und 160 Staub) holst Du am Ende ab. Der **erste Lauf ist ein
+Probelauf**, danach kostet der Eintritt 150 Gold; schon ab 3 Siegen gibt es mehr zurück. Der Lauf steht im Spielstand (alte Saves
+laden weiter), fünf neue Astra-Platzhalter stehen im Oberflächen-Auftrag. **Balance-Feinschliff:** voller Lauf (101 200 Partien) –
+Zufallsdecks **19 von 22 im Ziel** (vorher 18): Agrippa 48,2 %, Imhotep 51,1 %, Dandolo 50,7 %, Böttger 49,6 %, alle vier jetzt im
+Ziel; dafür knapp außerhalb Thusnelda 53,8 %, Leonidas 53,4 % und Vix 46,6 %; 223 von 231 Paarungen innerhalb 40/60 (vorher 219).
+Startdecks 21 von 22 wie vorher. Die drei schwachen Bauwerke liegen nur noch 5 Punkte unter ihrem Helden, das Mausoleum darüber.
+Davor: Sitzung 23 (1.28.0) AP 5.7 Teil 2, Sitzung 22 (1.27.0) AP 5.7 Teil 1; Sitzungen 1–21 (1.4.0–1.26.0).
 
-**Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.28.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. *Einstellungen → Code einlösen:* `WELTWUNDER` – dann stehen die 27 neuen Karten in der Sammlung (Suche, z. B. „Mausoleum“ oder
-   „Lingua“). Ein, zwei Partien mit zwei, drei davon: Lesen sich Name, Wirkung und „Aus der Chronik“ gut?
-3. **Wachsrollen:** Fallen die Hinterhalte jetzt auf, ohne zu stören? (Ein Hinterhalt im Deck, z. B. die Feuerpost, genügt.)
-4. Für Sitzung 24: Soll das **Kolosseum (Draft)** wie in AP 6.1 laufen – Held aus 3, dann 30-mal 1 aus 3 Karten, Ende bei 3
-   Niederlagen oder 12 Siegen –, oder kürzer (etwa 15 Karten, Ende bei 3 Niederlagen oder 7 Siegen), damit ein Lauf an einem
-   Nachmittag fertig wird?
+**Vorher bitte von dir (15–20 Minuten):**
+1. `Aeterna-1.29.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
+2. **Kolosseum:** Probelauf beginnen, Held wählen, 30 Karten wählen, zwei, drei Kämpfe. Liest sich die Wahl gut (Karte, Chronikzeile,
+   „Ansehen“)? Ist die Belohnung zu knapp oder zu reich? Fühlt sich der Gegner zu leicht an (er spielt ein Zufallsdeck)?
+3. Für Sitzung 25 (**AP 6.3 Aufgaben**): Sollen die **Heldenstufen** nur Gold, Pakete und Staub geben – oder auch **Skins und Goldene
+   Karten**, die dann Astra malen muss (jeder Skin ein neues Porträt im großen Auftrag)? Mein Vorschlag: Stufen 1–10 je Held mit Gold,
+   Paketen und Staub, auf Stufe 10 die **Goldene Fassung einer Heldenkarte** (Kartenrahmen gibt es schon) – keine neuen Bilder.
 
-**Sitzung 24 – Kolosseum als Draft (AP 6.1) und Feinschliff der Zufallsdecks**
+**Sitzung 25 – Aufgaben und Heldenstufen (AP 6.3)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.28.0 | neue Karten und Wachsrollen nach Deinem Test | kleine Nacharbeit |
-| Balance-Feinschliff | Zufallsdecks: Agrippa (56,4 %) und Imhotep (54,4 %) bremsen, Dandolo (45,2 %) und Böttger (46,5 %) stärken; die schwächsten Bauwerke (Mauern von Messene, Murus Gallicus, Mausoleum, je 7–8 Punkte unter ihrem Helden) etwas besser; Varianten erst mit `AETERNA_MODELL` vergleichen, dann ein voller Lauf | die Erweiterung ist komplett – jetzt lohnt sich der Feinschliff, ohne dass neue Karten ihn wieder verschieben |
-| AP 6.1 Kolosseum (Draft) | Model: Draft-Lauf im Spielstand (über `normalize`, alte Saves bleiben), Auswahl aus 3 nach Seltenheit, Lauf mit Siegen und Niederlagen, Belohnung; ViewModel `draft` mit Test; View mit `view/kit.js`, Platzhalter als `ASTRA:` gekennzeichnet; Klickpfad um den Draft erweitern | Entscheidung 22: Draft und Aufgaben kommen vor der großen Astra-Bestellung, ihre Bildschirme brauchen ihre Platzhalter |
-| Ausblick | Sitzung 25: AP 6.3 Aufgaben; danach Kampagne 2.0 mit Lunte (AP 6.4, AP 3.7), Dioramen (AP 3.9), dann AP A.3 | – |
+| Rückmeldung 1.29.0 | Kolosseum nach Deinem Test: Belohnung, Gegner, Lesbarkeit der Wahl | kleine Nacharbeit |
+| AP 6.3 Aufgaben | Model: tägliche Aufgaben mit Rotation (drei je Tag aus einem Pool, einmal Neuwürfeln), Login-Bonus, Heldenstufen mit Erfahrung je Partie – alles über `normalize` (die vier alten Aufgaben gehen in den Pool über, eingelöste bleiben eingelöst); ViewModel mit Test; neuer Aufgaben-Dialog oder -Bildschirm mit `view/kit.js`, Heldenstufe in Heldenwahl und Ergebnisfenster (Balken gibt es schon); Platzhalter als `ASTRA:`; Klickpfad um die Aufgaben erweitern; „halb Lernen“: Aufgaben wie „Spiele drei Karten aus der Frühzeit“ oder „Lies zwei Chronikseiten“ | Entscheidung 22: Aufgaben kommen vor der großen Astra-Bestellung, ihr Bildschirm braucht seine Platzhalter |
+| Balance (klein) | Thusnelda und Leonidas leicht bremsen, Vix stärken, nur über Karten außerhalb des Startdecks; Griechisches Feuer und Phalanxveteran prüfen; Varianten mit `AETERNA_MODELL`, dann ein voller Lauf | kleiner Rest aus Sitzung 24 |
+| Ausblick | Sitzung 26: AP 6.4 Kampagne 2.0 mit Lunte (AP 3.7), danach Dioramen (AP 3.9), dann AP A.3 | – |
 
-Risiko: mittel – ein neuer Bildschirm mit eigenem Spielstand-Feld (Kompatibilität alter Saves prüfen) und ein voller Balance-Lauf
-(≈ 45 min); die Regeln der Engine bleiben unverändert.
+Risiko: mittel – neue Spielstand-Felder (alte Saves und die bisherigen Aufgaben müssen übergehen) und ein voller Balance-Lauf
+(≈ 50 min); die Regeln der Engine bleiben unverändert.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.28.0:
-> *(hier Feedback zu den neuen Karten und den Wachsrollen einfügen)* und meine Antwort zur **Länge des Kolosseums**
-> *(oder „wie vorgeschlagen“)*. Arbeite dann den **Balance-Feinschliff der Zufallsdecks** und **AP 6.1 (Kolosseum als Draft)** ab.
+> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.29.0:
+> *(hier Feedback zum Kolosseum einfügen)* und meine Antwort zu den **Belohnungen der Heldenstufen**
+> *(oder „wie vorgeschlagen“)*. Arbeite dann **AP 6.3 (Aufgaben und Heldenstufen)** und den **kleinen Balance-Feinschliff** ab.
 > Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, baue neue Grafiken als
 > gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den Klickpfad und den vollen
 > Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach
 > `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Ein neuer Spielmodus mit Model, ViewModel, View, Spielstand-Feld und Klickpfad
-plus Balance-Varianten über mehrere Läufe. *medium* genügt, wenn Du den Draft auf den kleinen Umfang ohne Belohnungsstufen beschränkst
-und den Balance-Feinschliff verschiebst.
+**Empfohlener Effort für den nächsten Prompt: high.** Ein Modell mit drei neuen Spielstand-Teilen (Tagesaufgaben, Login-Bonus,
+Heldenstufen), Übergang der alten Aufgaben, ein neuer Dialog mit Klickpfad und ein voller Balance-Lauf. *medium* genügt, wenn Du die
+Heldenstufen auf eine spätere Sitzung schiebst und nur die täglichen Aufgaben baust.

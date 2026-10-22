@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.28.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.29.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -47,6 +47,7 @@ const screens={
  menu:{vm:new VM.Menu(ctx,VERSION),view:H.view},
  setup:{vm:new VM.Setup(ctx),view:V.screens.setup},
  campaign:{vm:new VM.Campaign(ctx),view:V.screens.campaign},
+ draft:{vm:new VM.Draft(ctx),view:V.screens.draft},
  collection:{vm:new VM.Collection(ctx),view:V.screens.collection},
  packs:{vm:new VM.Shop(ctx),view:V.screens.packs},
  game:{vm:new VM.Match(ctx),view:null}};

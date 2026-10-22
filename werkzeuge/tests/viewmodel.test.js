@@ -207,3 +207,57 @@ test('AP 0.2: Klangprobe in den Einstellungen spielt nur die angebotenen Geräus
  assert.deepEqual(vm.samples.map(([g])=>g),['stone','scrape','slam','grind','draw','hit']);
  vm.sample('slam');vm.sample('victory');vm.sample('stone');assert.deepEqual(played,['slam','stone']);
 });
+
+// Kolosseum als Draft (AP 6.1): Lauf im Spielstand, Heldenwahl aus drei Epochen, 30 Wahlen gleicher Seltenheit,
+// Ende bei 12 Siegen oder 3 Niederlagen, Belohnung nach Siegen; alte Spielstände ohne Feld laden weiter.
+test('Kolosseum (AP 6.1): Draft-Lauf vom Eintritt bis zur Belohnung',()=>{
+ const DR=need('model/draft.js'),{Draft}=need('viewmodel/draft.js');
+ const {ctx,store,log}=setup('draft'),vm=new Draft(ctx),p=store.profile;
+ assert.equal(vm.view.phase,null);assert.equal(vm.view.fee,0,'der erste Lauf ist ein Probelauf');
+ vm.start();assert.equal(p.gold,300);assert.equal(vm.view.phase,'hero');
+ const heroes=vm.view.heroes;assert.equal(heroes.length,3);assert.equal(new Set(heroes.map(x=>x.hero.age)).size,3,'drei Epochen');
+ vm.chooseHero('nicht-da');assert.equal(vm.view.phase,'hero');
+ vm.chooseHero(heroes[1].hero.id);assert.equal(vm.view.phase,'pick');
+ const seen=[];
+ for(let i=0;i<DR.PICKS;i++){const v=vm.view,ids=v.options.map(o=>o.card.id);
+  assert.equal(new Set(ids).size,3,'drei verschiedene Karten');
+  assert.equal(new Set(v.options.map(o=>o.card.rarity==='basic'?'common':o.card.rarity)).size,1,'gleiche Seltenheit');
+  assert.ok(v.options.every(o=>D.playable(o.card,p.draft.hero)&&o.card.rarity!=='token'));
+  if([0,9,19,29].includes(i))assert.notEqual(v.rarity,'common','Sonderwahl mindestens selten');
+  seen.push(ids);vm.pick(i%3);}
+ assert.equal(p.draft.picks.length,30);assert.equal(vm.view.phase,'play');assert.equal(vm.view.rows.reduce((n,r)=>n+r.count,0),30);
+ assert.ok(p.draft.picks.filter(id=>D.byId[id].rarity==='legendary').length===new Set(p.draft.picks.filter(id=>D.byId[id].rarity==='legendary')).size,'Legendäre höchstens einmal');
+ // Gleicher Lauf, gleiche Wahl: Neu geladen bleibt alles, wie es war.
+ const again=P.parse(JSON.stringify(p));assert.deepEqual(again.draft.picks,p.draft.picks);assert.equal(again.draftStats.started,1);
+ // Kampf: Partie im Modus draft mit dem gewählten Deck, ohne Gold je Partie.
+ vm.fight();assert.deepEqual(log.go.at(-1),['game',undefined]);assert.equal(p.game.mode,'draft');assert.equal(p.game.draft,p.draft.id);
+ assert.equal(p.game.players[0].hero,p.draft.hero);
+ const gold=p.gold;p.game.phase='over';p.game.winner=0;const r=P.reward(p,p.game);assert.equal(r.gold,0);assert.equal(p.gold,gold);assert.equal(p.draft.wins,1);
+ assert.equal(P.reward(p,p.game),null,'ein Ergebnis zählt nur einmal');
+ // Ein Ergebnis aus einem anderen Lauf zählt nicht.
+ const old=DR.game(p);old.draft=99;old.phase='over';old.winner=1;P.reward(p,old);assert.equal(p.draft.losses,0);
+ for(let k=0;k<3;k++){const g=DR.game(p);g.phase='over';g.winner=1;P.reward(p,g);}
+ assert.equal(p.draft.losses,3);assert.equal(vm.view.phase,'done');assert.deepEqual(vm.view.reward,DR.reward(1));
+ const before={gold:p.gold,packs:p.packs};vm.claim();
+ assert.equal(p.gold,before.gold+DR.reward(1).gold);assert.equal(p.packs,before.packs+1);assert.equal(p.draft,null);
+ assert.deepEqual(p.draftStats,{started:1,runs:1,best:1});
+ // Der zweite Lauf kostet Eintritt – mit Rückfrage.
+ assert.equal(vm.view.fee,DR.FEE);vm.start();assert.equal(log.open.kind,'message');assert.equal(p.draft,null);
+ choose(log,'Für 150 Gold eintreten');assert.equal(p.gold,before.gold+DR.reward(1).gold-150);assert.equal(vm.view.phase,'hero');
+ vm.retire();choose(log,'Lauf beenden');assert.equal(vm.view.phase,'done');assert.deepEqual(vm.view.reward,DR.reward(0));
+});
+
+test('Kolosseum (AP 6.1): Belohnung wächst mit den Siegen, alte und kaputte Spielstände bleiben ladbar',()=>{
+ const DR=need('model/draft.js');
+ for(let w=1;w<=DR.WINS;w++){const a=DR.reward(w-1),b=DR.reward(w);assert.ok(b.gold>=a.gold&&b.packs>=a.packs&&b.dust>=a.dust);}
+ assert.ok(DR.reward(3).gold+100*DR.reward(3).packs>DR.FEE,'ab 3 Siegen mehr zurück als der Eintritt');
+ const old=P.fresh();delete old.draft;delete old.draftStats;
+ const p=P.parse(JSON.stringify(old));assert.equal(p.draft,null);assert.deepEqual(p.draftStats,{started:0,runs:0,best:0});
+ const bad=P.parse(JSON.stringify({...P.fresh(),draft:{id:1,seed:5,heroes:['leonidas','x','y'],picks:[]}}));assert.equal(bad.draft,null,'kaputter Lauf fällt weg, der Spielstand bleibt');
+ const done=P.parse(JSON.stringify({...P.fresh(),draft:{id:1,seed:5,heroes:['leonidas','perikles','anna'],hero:'anna',picks:[],wins:12,losses:0}}));
+ assert.equal(DR.phase(done.draft),'done');assert.deepEqual(done.draft.reward,DR.reward(12));
+ // Hauptmenü: Die Platte des Kolosseums öffnet den Draft und zeigt den Stand des Laufs.
+ const {ctx,store,log}=setup('menu'),menu=new Menu(ctx,'test');
+ assert.match(menu.view.plates[2].sub,/Draft/);menu.go('draft');assert.deepEqual(log.go.at(-1),['draft',undefined]);
+ DR.start(store.profile);DR.chooseHero(store.profile,store.profile.draft.heroes[0]);assert.match(menu.view.plates[2].sub,/0 von 30 Karten/);
+});
