@@ -2441,8 +2441,33 @@ So, dass es im Spiel nicht kaputt aussieht:
     mit Rückfrage, alte und kaputte Spielstände, Menüplatte), Klickpfad mit drei neuen Referenzbildern (Eintritt, Heldenwahl,
     erste Wahl) und vier Prüfungen.
 - ~~**AP 6.2 Schlacht mit Offline-Rangliste**~~ – *entfällt (Entscheidung 22): kein Ranglistenmodus, Aeterna ist offline zuerst.*
-- [ ] **AP 6.3 Aufgaben:** tägliche Aufgaben mit Rotation und einmal Neuwürfeln pro Tag, Login-Bonus, Heldenstufen
-  mit Belohnungen (Gold, Skins, goldene Karten).
+- [x] **AP 6.3 Aufgaben:** tägliche Aufgaben mit Rotation und einmal Neuwürfeln pro Tag, Login-Bonus, Heldenstufen
+  mit Belohnungen (Gold, Skins, goldene Karten). *✓ in 1.30.0 (Sitzung 25); die offene Frage zu den Stufenbelohnungen nach meinem
+  Vorschlag entschieden (Deine Antwort: „nach eigenem Ermessen“) – Gold, Pakete und Staub, auf Stufe 10 die Goldene Fassung, keine
+  neuen Bilder und keine Skins:*
+  - **Tagesaufgaben:** Die Menüleiste „Aufgaben“ öffnet ein neues Fenster. Jeden Tag liegen **drei Aufgaben** bereit, fest je Tag und
+    Spielstand: **eine zum Lernen** – „Lies 2 Chronikseiten“, „Lies bei 4 Karten ‚Aus der Chronik‘“ oder „Spiele 3 Karten der Epoche …“
+    (je Epoche des Lehrplans eine, mit ihren Helden als Hinweis) – und zwei zum Spielen aus acht (Partien gewinnen oder bestreiten,
+    Karten, Zauber, Diener, Angriffe, ein Sieg im Kolosseum, eine Mission). 40–60 Gold je Aufgabe. **Einmal am Tag neu würfeln**
+    tauscht eine offene Aufgabe gegen eine derselben Art. Lesen zählt je Held und Karte einmal am Tag und meldet eine erledigte
+    Aufgabe sofort. Am nächsten Tag wird Erledigtes, aber nicht Abgeholtes gutgeschrieben – nichts geht verloren.
+  - **Tagesgeschenk (Login-Bonus):** einmal je Kalendertag im Aufgaben-Fenster abholen; die Serie über sieben Siegel wächst an
+    Folgetagen (20 Gold, 30 Gold, 25 Staub, 40 Gold, 1 Paket, 50 Gold, 1 Paket und 50 Staub) und beginnt nach einer Lücke neu.
+    Die Menüleiste zählt, was abzuholen ist.
+  - **Heldenstufen:** Jede Partie gibt dem eigenen Helden Erfahrung wie das Gold (Sieg 100, Unentschieden 60, Niederlage nach 4 Zügen
+    40, Aufgeben davor nichts), auch im Kolosseum und in der Kampagne. Zehn Stufen (bis 2200 EP, ≈ 22 Siege), jede mit Belohnung, die
+    sofort gutgeschrieben wird: Stufe 2 50 Gold, 3 1 Paket, 4 40 Staub, 5 100 Gold, 6 1 Paket, 7 80 Staub, 8 150 Gold, 9 2 Pakete,
+    **Stufe 10 die Goldene Fassung der Legendären des Helden** (Gorgo für Leonidas …; die Karte kommt dazu, falls sie fehlt) – mit dem
+    goldenen Rahmen, der schon gemalt ist, in Hand, Sammlung und Basar. Die Heldenwahl zeigt Stufe, Erfahrung und die nächste
+    Belohnung, die Galerie die Stufe an der Münze, das Ergebnisfenster den Balken „Stufe N · Held“.
+  - **Die vier alten Aufgaben** (Gewinnt 3 Duelle …) bleiben als dauerhafte **Erfolge** im selben Fenster; eingelöste bleiben eingelöst.
+    Das Ergebnisfenster zeigt statt ihrer jetzt die Tagesaufgaben.
+  - **Spielstand:** `profile.daily`, `profile.login` und `profile.heroXp` kommen über `AEQ.normalize` in alte Spielstände; Kaputtes
+    fällt weg, der Rest bleibt.
+  - **Platzhalter für Astra** (Paket 7 in `ASTRA_AUFTRAG_OBERFLAECHE.md`): `tagesgeschenk`, `aufgabe-tafel`, `heldenstufe`.
+  - **Prüfung:** sechs Tests in `aufgaben.test.js` (Pool und Lernaufgabe, Zählen, Abholen, Würfeln, Tageswechsel, Serie über den
+    Monatswechsel, Stufen bis zur Goldenen Fassung, alte und kaputte Spielstände), einer in `viewmodel.test.js` (Fenster, Menüzähler,
+    Lesen, Heldenwahl), Klickpfad mit neuem Referenzbild `17-aufgaben` und drei Prüfungen.
 - [ ] **AP 6.4 Kampagne 2.0:** Kapitel mit kurzen Story-Szenen und Sprechblasen, Bosse mit eigenen Fähigkeiten,
   **Belagerungsmissionen mit Lunten-Countdown**, gelegentliche Kartenrätsel.
 - [ ] **AP 6.5 Tutorial:** die ersten drei Partien geführt.
@@ -2602,7 +2627,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     soll es keinen Ranglistenmodus geben, ist ein Offline-First-Game mit Multiplayer-Variante für wenige Spieler, mehr zu Demo-Zwecken
     unter Freunden“):* Vor der großen Astra-Bestellung kommen nur noch
     - **AP 5.7 Erweiterung klein:** je Held zwei Karten und zehn neutrale (54 statt rund 90 Karten), ✓ in 1.27.0 und 1.28.0;
-    - **AP 6.1 Draft** (✓ in 1.29.0) und **AP 6.3 Aufgaben** (kaum neue Bilder);
+    - **AP 6.1 Draft** (✓ in 1.29.0) und **AP 6.3 Aufgaben** (✓ in 1.30.0, kaum neue Bilder);
     - **AP 6.4 Kampagne 2.0** und **AP 3.9 Eck-Dioramen** bleiben im Plan wie aufgelistet – schlank, ohne neue Ideen obendrauf;
     - **kein Ranglistenmodus:** AP 6.2 entfällt. Aeterna bleibt offline zuerst; Crossplay (AP 8.2) ist eine kleine Variante für
       ein paar Freunde (Einladungscode, keine Konten, keine Wertung).
