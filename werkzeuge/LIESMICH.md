@@ -1,7 +1,22 @@
-# Aeterna 1.28.0 – Bauen & Prüfen
+# Aeterna 1.30.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.30.0 (AP 6.3 Aufgaben und Heldenstufen, Balance-Feinschliff)
+
+- **Modell** `model/quests.js` (`AEQ`, vor `profile.js` geladen): Tagesaufgaben (`profile.daily`), Tagesgeschenk (`profile.login`),
+  Erfahrung je Held (`profile.heroXp`), alles über `AEQ.normalize`. Jede Funktion nimmt das Datum als letzten Wert; ViewModels
+  geben `ctx.now?.()` weiter (Tests setzen `ctx.now`, der Klickpfad hat eine feste Uhr). `CHP.reward(p, s, aufgeben, datum)` ruft
+  `AEQ.finish` und liefert `r.xp` und `r.quests`.
+- **Oberfläche:** Aufgaben-Fenster in `view/dialogs.js` (Stil `view/css/quests.css`), Heldenstufe in `view/setup.js`, Balken
+  „Stufe N · Held“ im Ergebnis; Großansichten laufen über `ctx.dialogs.zoom(id)`, damit Chronikzeilen für die Lernaufgabe zählen.
+  Goldene Fassung: `CHR.gilded(id)` (goldener Rahmen oder `R.look.golden`).
+- **Balance** (nur Karten außerhalb der Startdecks): Thumelicus 2/2, Varusschlacht 5 Mana, Phalanxveteran 4/5, Griechisches Feuer
+  Belastung 3, Quintus Fabius 3/4, Krater von Vix 2 Mana, Schleuderer am Wall 3/5, Halle auf dem Mont Lassois 0/4, Gesandter aus
+  Massalia 5 Mana. Varianten vorher mit `AETERNA_MODELL=<Kopie> node werkzeuge/balance.js --partien 100 --decks zufall`.
+- Tests: neu `tests/aufgaben.test.js`, ein Test mehr in `viewmodel.test.js`; angepasst `schluessel.test.js` (Ergebnisbalken),
+  `spielgefuehl.test.js` (Glanz je Karte). Klickpfad: neues Referenzbild `17-aufgaben`, neu `01`, `08`, `12`.
 
 ## Neu in 1.28.0 (AP 5.7 Erweiterung „Wunder der Welt“ Teil 2, Rückmeldung zu 1.27.0)
 

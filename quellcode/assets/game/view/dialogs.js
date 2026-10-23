@@ -9,8 +9,20 @@ const option=(value,label,selected)=>html`<option value="${value}"${V.attr('sele
 D_.message={render:vm=>{const s=vm.state;
  return V.modal({close:s.close,width:s.width,body:html`<h2>${s.title}</h2>${[].concat(s.text||[]).map(t=>html`<p>${t}</p>`)}${s.buttons?.length?V.buttons(choose(s.buttons),s.wrap&&'wrap'):''}`});}};
 
-D_.quests={render:vm=>V.modal({body:html`<h2>Deine Aufträge</h2><p>Erfolge werden dauerhaft gespeichert. Gold gibt es auch für jedes gewonnene Duell.</p>${vm.rows.map(r=>
- html`<div class="quest-row" data-key="${r.quest.id}"><div>${r.quest.text}<br><small>${r.progress}/${r.quest.goal} · ${r.quest.gold} Gold</small></div>${V.button({label:r.claimed?'Erledigt':'Abholen',cmd:'claim',a:r.quest.id,disabled:!r.ready})}</div>`)}`})};
+// Aufgaben (AP 6.3): Tagesgeschenk mit Serie, drei Tagesaufgaben (eine zum Lernen) und die dauerhaften Erfolge.
+const bar=(n,goal)=>html`<span class="quest-track" role="progressbar" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${n}"><i style="width:${pct(n,goal)}"></i></span>`;
+// ASTRA: tagesgeschenk – sieben Wachssiegel der Serie: offen, heute leuchtend, abgeholt gebrochen, je 96 × 96
+const gift=g=>html`<section class="quest-gift"><div class="eyebrow">Tagesgeschenk · ${g.ready?'Tag '+((g.streak-1)%7+1)+' der Serie':'Serie: '+g.streak+(g.streak===1?' Tag':' Tage')}</div><div class="gift-days">${
+ g.slots.map(s=>html`<div class="${V.cls('gift-day',s.done&&'done',s.today&&'today',s.today&&g.ready&&'ready')}" data-key="g${s.day}"><span class="gift-seal" aria-hidden="true">${s.day}</span><small>${s.text}</small></div>`)}</div>${
+ V.button({label:g.ready?'Abholen':'Morgen wieder',cmd:'claimLogin',style:g.ready?'gold':'',disabled:!g.ready})}</section>`;
+// ASTRA: aufgabe-tafel – Wachstafel einer Tagesaufgabe mit Griffel, die zum Lernen mit Eule und Schriftrolle, 360 × 210
+const task=(x,rerolled)=>html`<article class="${V.cls('quest-card',x.learn&&'learn',x.ready&&'ready',x.claimed&&'claimed')}" data-key="${x.quest.id}"><div class="eyebrow">${x.learn?'Lernen':'Spielen'} · ${x.quest.gold} Gold</div><h3>${x.quest.text}</h3><p>${x.quest.hint}</p>${
+ bar(x.n,x.goal)}<div class="quest-foot"><b>${x.n} / ${x.goal}</b>${x.claimed?html`<span class="muted">Abgeholt</span>`:x.ready?V.button({label:'Abholen',cmd:'claim',a:x.quest.id,style:'gold',small:true}):
+ V.button({label:'Neu würfeln',cmd:'reroll',a:x.quest.id,small:true,disabled:rerolled,aria:'Andere Aufgabe statt „'+x.quest.text+'“'})}</div></article>`;
+D_.quests={render:vm=>{const g=vm.login,d=vm.daily;
+ return V.modal({width:1240,extra:'quests',labelledby:'quests-title',body:html`<h2 id="quests-title">Aufgaben</h2>${gift(g)}<section class="quest-daily"><div class="eyebrow">Heute · ${d.rerolled?'neu gewürfelt – morgen wieder':'einmal neu würfeln möglich'}${
+  d.credit?' · '+d.credit+' Gold von gestern gutgeschrieben':''}</div><div class="quest-cards">${d.list.map(x=>task(x,d.rerolled))}</div></section><section class="quest-feats"><div class="eyebrow">Erfolge · dauerhaft</div><div class="feat-grid">${
+  vm.rows.map(r=>html`<div class="quest-row" data-key="${r.quest.id}"><div>${r.quest.text}<br><small>${r.progress}/${r.quest.goal} · ${r.quest.gold} Gold</small></div>${V.button({label:r.claimed?'Erledigt':'Abholen',cmd:'claim',a:r.quest.id,disabled:!r.ready,small:true})}</div>`)}</div></section>`});}};
 
 D_.settings={render:vm=>{const s=vm.settings,row=(label,control)=>html`<div class="settings-row"><label>${label}</label>${control}</div>`;
  const range=k=>html`<input type="range" min="0" max="1" step=".05" value="${s[k]}" data-input="setting" data-a="${k}" aria-label="${k==='music'?'Musik':'Geräusche'}">`;
@@ -75,7 +87,7 @@ D_.discover={render:vm=>{const s=vm.state;
 const pct=(n,goal)=>Math.round(Math.max(0,Math.min(1,goal?n/goal:0))*100)+'%';
 D_.result={render:vm=>{const s=vm.state,win=s.winner===0,r=s.reward,kind=win?'win':s.winner===-1?'draw':'loss',bars=s.bars||[];
  return html`<div class="scrim"><div class="${V.cls('result','panel',kind)}" role="dialog" aria-modal="true" aria-label="Ergebnis"><div class="result-banner"><span>${win?'TRIUMPH':s.winner===-1?'UNENTSCHIEDEN':'NIEDERLAGE'}</span></div><div class="eyebrow">${s.mode==='campaign'?'Die historische Kampagne':s.mode==='draft'?'Das Kolosseum':'Die Chronik des Duells'}</div><p>${win?'Eine neue Seite Deiner Geschichte.':'Jede Schlacht lehrt einen neuen Weg.'}</p><div class="rewards">${
-  bars.map((b,i)=>html`<div class="${V.cls('reward-bar',b.key==='gold'&&'gain',b.to>=b.goal&&b.key!=='gold'&&'full')}" data-key="${b.key}" style="--i:${i};--from:${pct(b.from,b.goal)};--to:${pct(b.to,b.goal)}"><span class="label">${b.label}</span><span class="track"><i></i></span><b>${b.key==='gold'?'+'+b.to:b.to+' / '+b.goal}</b><small>${b.note}</small>${b.key==='gold'&&b.to?html`<span class="coin-rain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>`:''}</div>`)}${
+  bars.map((b,i)=>html`<div class="${V.cls('reward-bar',b.key==='gold'&&'gain',b.ep&&'xp',b.to>=b.goal&&b.key!=='gold'&&'full')}" data-key="${b.key}" style="--i:${i};--from:${pct(b.from,b.goal)};--to:${pct(b.to,b.goal)}"><span class="label">${b.label}</span><span class="track"><i></i></span><b>${b.key==='gold'?'+'+b.to:b.to+' / '+b.goal}</b><small>${b.note}</small>${b.key==='gold'&&b.to?html`<span class="coin-rain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>`:''}</div>`)}${
   r.packs?html`<div class="reward-pack">▣ +${r.packs} Kartenpaket</div>`:''}</div>${choose(s.buttons)}</div></div>`;}};
 
 D_.grave={render:vm=>{const s=vm.state;

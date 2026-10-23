@@ -2,7 +2,7 @@
  * The fourth plate resumes a running game, otherwise it offers the daily duel. The colosseum plate opens the draft (AP 6.1). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,P=node?require('../model/profile.js'):root.CHP,DR=node?require('../model/draft.js'):root.AEDR;
+const D=node?require('../model/data.js'):root.CHD,P=node?require('../model/profile.js'):root.CHP,DR=node?require('../model/draft.js'):root.AEDR,Q=node?require('../model/quests.js'):root.AEQ;
 const {Screen}=node?require('./base.js'):root.AEVM;
 const name=id=>D.heroes.find(h=>h.id===id).name;
 
@@ -10,7 +10,8 @@ class Menu extends Screen{
  constructor(ctx,version){super(ctx,{pressed:null,lit:null,knob:0,intro:false});this.version=version;}
  get view(){const p=this.profile,playing=p.game&&p.game.phase!=='over',day=P.daily();
   return {gold:p.gold,packs:p.packs,version:this.version,intro:this.state.intro,pressed:this.state.pressed,lit:this.state.lit,knob:this.state.knob,
-   quests:P.quests.filter(q=>!p.claimed.includes(q.id)&&p.stats[q.stat]>=q.goal).length,
+   // Was auf Abholung wartet (AP 6.3): Tagesgeschenk, erledigte Tagesaufgaben und Erfolge.
+   quests:Q.ready(p,this.ctx.now?.())+P.quests.filter(q=>!p.claimed.includes(q.id)&&p.stats[q.stat]>=q.goal).length,
    plates:[{go:'free',title:'Schlacht',sub:'Freies Duell gegen die KI'},{go:'campaign',title:'Kampagne',sub:D.missions.length+' historische Missionen'},
     {go:'draft',title:'Kolosseum',sub:p.draft?(p.draft.over?'Lauf beendet – Belohnung abholen':DR.phase(p.draft)==='play'?`Lauf: ${p.draft.wins} Siege · ${p.draft.losses} Niederlagen`:`Draft: ${p.draft.picks.length} von ${DR.PICKS} Karten`):'Draft: Held aus 3, dann 30 Karten'},
     playing?{go:'resume',title:'Partie fortsetzen',sub:'Deine gespeicherte Partie',gold:true}:{go:'daily',title:'Herausforderung',sub:`Tagesduell: ${name(day.hero)} gegen ${name(day.foe)}`}]};}

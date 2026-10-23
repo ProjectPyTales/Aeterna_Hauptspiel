@@ -232,7 +232,9 @@ test('Kolosseum (AP 6.1): Draft-Lauf vom Eintritt bis zur Belohnung',()=>{
  // Kampf: Partie im Modus draft mit dem gewählten Deck, ohne Gold je Partie.
  vm.fight();assert.deepEqual(log.go.at(-1),['game',undefined]);assert.equal(p.game.mode,'draft');assert.equal(p.game.draft,p.draft.id);
  assert.equal(p.game.players[0].hero,p.draft.hero);
- const gold=p.gold;p.game.phase='over';p.game.winner=0;const r=P.reward(p,p.game);assert.equal(r.gold,0);assert.equal(p.gold,gold);assert.equal(p.draft.wins,1);
+ const gold=p.gold;p.game.phase='over';p.game.winner=0;const r=P.reward(p,p.game);assert.equal(r.gold,0);
+ // Kein Gold je Partie – nur die Belohnung der neuen Heldenstufe (AP 6.3).
+ assert.equal(p.gold,gold+r.xp.rewards.reduce((n,w)=>n+(w.gold||0),0));assert.equal(p.draft.wins,1);
  assert.equal(P.reward(p,p.game),null,'ein Ergebnis zählt nur einmal');
  // Ein Ergebnis aus einem anderen Lauf zählt nicht.
  const old=DR.game(p);old.draft=99;old.phase='over';old.winner=1;P.reward(p,old);assert.equal(p.draft.losses,0);
@@ -260,4 +262,26 @@ test('Kolosseum (AP 6.1): Belohnung wächst mit den Siegen, alte und kaputte Spi
  const {ctx,store,log}=setup('menu'),menu=new Menu(ctx,'test');
  assert.match(menu.view.plates[2].sub,/Draft/);menu.go('draft');assert.deepEqual(log.go.at(-1),['draft',undefined]);
  DR.start(store.profile);DR.chooseHero(store.profile,store.profile.draft.heroes[0]);assert.match(menu.view.plates[2].sub,/0 von 30 Karten/);
+});
+
+test('Aufgaben (AP 6.3): Dialog mit Tagesgeschenk, Tagesaufgaben und Erfolgen; Menü zählt, Lesen zählt, Heldenwahl zeigt die Stufe',()=>{
+ const Q=need('model/quests.js'),{Setup}=need('viewmodel/setup.js');
+ const {ctx,store,log}=setup('menu'),p=store.profile,now=new Date(2026,9,6,12);ctx.now=()=>now;
+ const menu=new Menu(ctx,'test');assert.equal(menu.view.quests,1,'das Tagesgeschenk wartet');
+ ctx.dialogs.quests();const vm=log.open.vm;assert.equal(log.open.kind,'quests');assert.equal(p.daily.day,20261006,'der Tag beginnt beim Öffnen');
+ assert.equal(vm.daily.list.length,3);assert.equal(vm.daily.list.filter(x=>x.learn).length,1);
+ assert.equal(vm.login.slots.length,7);assert.ok(vm.login.ready&&vm.login.slots[0].today&&!vm.login.slots[0].done);
+ const gold=p.gold;vm.claimLogin();assert.equal(p.gold,gold+20);assert.ok(vm.login.slots[0].done&&!vm.login.ready);assert.match(log.toasts.at(-1),/Tag 1 der Serie: 20 Gold/);
+ vm.claimLogin();assert.equal(p.gold,gold+20,'einmal am Tag');assert.equal(menu.view.quests,0);
+ // Lernen: Chronikseite und Karte mit Chronikzeile zählen, Abholen im Dialog.
+ p.daily.list=[{id:'lore2',n:0,claimed:false},{id:'chronicle4',n:0,claimed:false},{id:'win2',n:0,claimed:false}];
+ ctx.dialogs.lore('leonidas');ctx.dialogs.lore('hypatia');assert.equal(log.open.kind,'lore');assert.match(log.toasts.at(-1),/Aufgabe erledigt: Lies 2 Chronikseiten/);
+ const withLine=D.cards.find(c=>need('model/lore.js').card(c.id)).id;ctx.dialogs.zoom(withLine);ctx.dialogs.zoom(withLine);assert.equal(log.open.kind,'zoom');assert.equal(p.daily.list[1].n,1,'jede Karte einmal');
+ assert.equal(menu.view.quests,1);
+ ctx.dialogs.quests();const q=log.open.vm;q.claim('lore2');assert.equal(p.gold,gold+20+40);assert.ok(q.daily.list[0].claimed);
+ q.reroll('win2');assert.notEqual(p.daily.list[2].id,'win2');assert.ok(q.daily.rerolled);const id=p.daily.list[2].id;q.reroll(id);assert.equal(p.daily.list[2].id,id,'einmal je Tag');
+ // Die Erfolge bis 1.29.0 bleiben im selben Fenster.
+ p.stats.wins=3;q.claim('win3');assert.ok(p.claimed.includes('win3'));assert.equal(q.rows.find(r=>r.quest.id==='win3').claimed,true);
+ // Heldenwahl: Stufe, Erfahrung und nächste Belohnung; Stufen der Galerie.
+ Q.gain(p,'leonidas',130);const v=new Setup(ctx).view;assert.equal(v.level.level,2);assert.equal(v.level.into,30);assert.equal(v.level.span,140);assert.equal(v.level.next,'1 Kartenpaket');assert.equal(v.levels.leonidas,2);assert.equal(v.levels.hypatia,1);
 });

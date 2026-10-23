@@ -98,18 +98,23 @@ test('AP 3.8: Intro mit Münzwurf vor der Starthand; getauschte Befehle rollen z
 test('AP 3.8: Sieg mit Relief und Banner, danach Belohnungen mit Fortschrittsbalken',()=>{
  const {store,log,match,pending,open}=setup();const p=store.profile;
  const s=p.game=E.create({hero:'leonidas',foe:'hypatia',seed:7,first:0});E.mulligan(s,[]);match.opened=s;
- match.tallied(s).played=3;match.tally.attacks=2;p.stats.played+=3;p.stats.attacks+=2;
+ // Tagesaufgaben (AP 6.3) fest vorgeben; der Stand vor der ersten eigenen Aktion ist der Anfang der Balken.
+ const Q=require(path.join(game,'model/quests.js')),fix=(q,ids,n=[0,0,0])=>{Q.sync(q);q.daily.list=ids.map((id,i)=>({id,n:n[i],claimed:false}));};
+ fix(p,['win2','play20','attack15']);
+ match.tallied(s).played=3;match.tally.attacks=2;p.stats.played+=3;p.stats.attacks+=2;p.daily.list[1].n=3;p.daily.list[2].n=2;
  s.phase='over';s.winner=0;match.showResult();assert.deepEqual(log.present.at(-1),['finale',{winner:0}]);assert.equal(open(),null,'erst das Finale');
  pending.shift()();assert.equal(open().kind,'result');assert.ok(!log.sounds.includes('victory'),'die Kriegshörner ersetzen die Fanfare');
  const bars=open().vm.state.bars,by=k=>bars.find(b=>b.key===k);
- assert.equal(by('gold').to,40);assert.deepEqual([by('win3').from,by('win3').to,by('win3').goal],[0,1,3]);
- assert.deepEqual([by('play30').from,by('play30').to],[0,3]);assert.deepEqual([by('attack40').from,by('attack40').to],[0,2]);
+ assert.equal(by('gold').to,40);assert.deepEqual([by('win2').from,by('win2').to,by('win2').goal],[0,1,2]);
+ assert.deepEqual([by('play20').from,by('play20').to],[0,3]);assert.deepEqual([by('attack15').from,by('attack15').to],[0,2]);
+ // Heldenstufe: der erste Sieg hebt Leonidas auf Stufe 2 und nennt die Belohnung.
+ assert.equal(by('xp').label,'Stufe 2 · Leonidas I.');assert.deepEqual([by('xp').from,by('xp').to,by('xp').goal],[0,0,140]);assert.match(by('xp').note,/Stufe 2: 50 Gold/);
  match.showResult();assert.equal(log.present.filter(([k])=>k==='finale').length,1,'Finale nur einmal');
  // Kampagne: Balken der vollendeten Missionen; erfüllte Aufgaben melden „Belohnung bereit“.
- const c=setup(),q=c.store.profile;q.stats.wins=2;const g=q.game=E.create({hero:'leonidas',foe:'hypatia',mode:'campaign',mission:0,seed:9,first:0});E.mulligan(g,[]);
+ const c=setup(),q=c.store.profile;fix(q,['win2','play20','attack15'],[1,0,0]);const g=q.game=E.create({hero:'leonidas',foe:'hypatia',mode:'campaign',mission:0,seed:9,first:0});E.mulligan(g,[]);
  g.phase='over';g.winner=0;c.match.showResult();c.pending.shift()();const cb=c.open().vm.state.bars;
  assert.deepEqual(cb.find(b=>b.key==='campaign'),{key:'campaign',label:'Kampagne',from:0,to:1,goal:D.missions.length,note:'Mission erstmals vollendet'});
- assert.match(cb.find(b=>b.key==='win3').note,/Belohnung bereit/);
+ assert.match(cb.find(b=>b.key==='win2').note,/Belohnung bereit/);
  // Aufgeben schließt die Rückfrage, dann Finale und Ergebnis.
  const d=setup();const h=d.store.profile.game=E.create({hero:'leonidas',foe:'hypatia',seed:4,first:0});E.mulligan(h,[]);d.match.surrender();
  assert.equal(d.log.closed,1);assert.equal(d.log.present.at(-1)[1].winner,1);

@@ -6,7 +6,7 @@
  * deck while its bar grows (state.flight, a new token each time). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP;
+const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,LORE=node?require('../model/lore.js'):root.AELORE;
 const {Screen,Dialog,LiveDialog}=node?require('./base.js'):root.AEVM;
 const PER_PAGE=8,cap=c=>c.rarity==='legendary'?1:2,era=hero=>D.heroes.find(h=>h.id===hero).era;
 // Mana curve: eight bars (0 … 7+), three phases. bucket(cost) is the bar of a card.
@@ -117,7 +117,7 @@ class Collection extends Screen{
 
 // One card from the collection: details, add to the deck being edited, craft or disenchant.
 class CardDialog extends LiveDialog{
- constructor(coll,id,slot){super(coll.ctx,{id,slot:slot==null||slot===''?null:+slot});this.coll=coll;}
+ constructor(coll,id,slot){super(coll.ctx,{id,slot:slot==null||slot===''?null:+slot});this.coll=coll;if(LORE.card(id))coll.ctx.dialogs?.learned({type:'chronicle',card:id});}
  get view(){const p=this.profile,c=D.byId[this.state.id],owned=p.collection[c.id]||0;
   return {card:c,owned,editing:!!this.coll.state.edit,era:D.eraOf(c),
    price:P.price[c.rarity],dust:P.dust[c.rarity],canCraft:p.dust>=(P.price[c.rarity]||Infinity)&&owned<cap(c),canDust:owned>0};}
