@@ -1,0 +1,56 @@
+/* Aufgaben und Heldenstufen (AP 6.3, view/dialogs.js, view/setup.js). Platzhalter für Astra: tagesgeschenk, aufgabe-tafel,
+ * heldenstufe (MOTIVE.md). Farben nach stil/STILBIBEL.md. */
+.modal.quests{padding:26px 34px}
+.modal.quests h2{margin-bottom:10px}
+.quests .eyebrow{margin-bottom:8px}
+.quests section{margin-top:14px}
+
+/* ---------- Tagesgeschenk: sieben Siegel der Serie (ASTRA tagesgeschenk) ---------- */
+.quest-gift{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;column-gap:18px;align-items:center}
+.quest-gift .eyebrow{grid-column:1/3}
+.gift-days{display:flex;gap:10px}
+.gift-day{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.gift-day small{font-size:12.5px;line-height:1.25;color:#b7aa91}
+.gift-seal{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font:20px Title,serif;color:#f0d9b0;
+ background:radial-gradient(circle at 40% 35%,#8a3a2a,#561b12 70%);box-shadow:inset 0 0 0 3px #0004,0 0 0 2px #2a1810,0 3px 6px #0008;opacity:.55}
+.gift-day.done .gift-seal{opacity:.9;background:radial-gradient(circle at 40% 35%,#5e4a36,#2e241a 70%);color:#a3916f}
+.gift-day .gift-seal{position:relative}
+.gift-day.done .gift-seal:after{content:'✓';position:absolute;right:-4px;bottom:-4px;font-size:16px;color:#9fd06a;text-shadow:0 1px 2px #000}
+.gift-day.today .gift-seal{opacity:1}
+.gift-day.today small{color:#f4ddb0}
+.gift-day.ready .gift-seal{background:radial-gradient(circle at 40% 35%,#ffd36a,#c8901e 70%);color:#3a2408;box-shadow:inset 0 0 0 3px #fff3,0 0 0 2px #5a3a10,0 0 16px #ffd36a99;animation:gift-glow 1.8s ease-in-out infinite alternate}
+@keyframes gift-glow{to{box-shadow:inset 0 0 0 3px #fff3,0 0 0 2px #5a3a10,0 0 26px #ffd36acc}}
+
+/* ---------- Tagesaufgaben als Wachstafeln (ASTRA aufgabe-tafel) ---------- */
+.quest-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.quest-card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:12px;border:2px solid #7a6038;
+ background:linear-gradient(160deg,#3a3126,#22201c);box-shadow:inset 0 0 0 4px #2c241b,0 6px 14px #0006}
+.quest-card.learn{border-color:#5f7fd0;background:linear-gradient(160deg,#2c3346,#1f2129)}
+.quest-card.ready{border-color:#e0a830;box-shadow:inset 0 0 0 4px #2c241b,0 0 18px #ffd36a55}
+.quest-card.claimed{opacity:.6}
+.quest-card h3{margin:0;font-size:19px;line-height:1.3;color:#f4ddb0}
+.quest-card p{margin:0;font-size:14.5px;line-height:1.45;color:#c2b18b;flex:1}
+.quest-track,.level-track{display:block;height:12px;border-radius:6px;background:#0f1518;box-shadow:inset 0 2px 4px #000a,0 0 0 1px #7a6038;overflow:hidden}
+.quest-track i,.level-track i{display:block;height:100%;border-radius:6px;background:linear-gradient(#9fd06a,#4f8a2a)}
+.quest-card.ready .quest-track i{background:linear-gradient(#ffe9a0,#e0a830)}
+.quest-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
+.quest-foot b{font:18px Title,serif;color:#f4ddb0}
+
+/* ---------- Erfolge (die Aufgaben bis 1.29.0) ---------- */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+.quests .quest-row{padding:8px 0;gap:12px}
+.quests .quest-row>div{font-size:16px;line-height:1.4}
+
+/* ---------- Heldenstufe in der Heldenwahl (ASTRA heldenstufe) ---------- */
+.hero-level{display:flex;align-items:center;gap:12px;margin:8px 0 2px}
+.hero-level>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.hero-level b{font:17px Title,serif;color:#f4ddb0}
+.hero-level small{font-size:13.5px;color:#c2b18b}
+.level-badge{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:20px Title,serif;color:#3a2408;
+ background:radial-gradient(circle at 40% 35%,#ffe08a,#b07a1e 72%);box-shadow:0 0 0 2px #5a3a10,0 0 0 4px #c9a25a55,0 3px 6px #0008}
+.hero-level.max .level-badge{box-shadow:0 0 0 2px #5a3a10,0 0 14px #ffd36a}
+.hero-coin{position:relative}
+.coin-level{position:absolute;top:38px;right:6px;min-width:22px;height:22px;padding:0 4px;border-radius:11px;font:normal 13px/22px Title,serif;color:#3a2408;
+ background:linear-gradient(#ffe08a,#c8901e);box-shadow:0 0 0 2px #2a1f14}
+.reward-bar.xp .track i{background:linear-gradient(#b9c8ff,#5f7fd0)}
+@media(prefers-reduced-motion:reduce){.gift-day.ready .gift-seal{animation:none}}

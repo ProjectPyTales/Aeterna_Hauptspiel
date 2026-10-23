@@ -22,13 +22,17 @@ const SHORT={agrippa:'Agrippa',nostradamus:'Böttger',fuhao:'Vix',dandolo:'Dando
 const short=h=>SHORT[h.id]||h.name.replace(/ [IVX]+\.$/,'').split(' ')[0];
 const coin=(h,v)=>{const fixed=v.mode==='daily'||v.mode==='random';
  return html`<button class="${V.cls('hero-coin',h.id===v.selected&&v.mode!=='random'&&'selected',v.day&&h.id===v.day.foe&&'foe')}" data-key="${h.id}" aria-label="${h.name}" aria-pressed="${h.id===v.selected}"${
-  fixed?V.attr('tabindex','-1'):V.data({cmd:'chooseHero',a:h.id})}><span class="coin-face" style="${R.heroStyle(h.id,true)}"></span><small>${short(h)}</small></button>`;};
+  fixed?V.attr('tabindex','-1'):V.data({cmd:'chooseHero',a:h.id})}><span class="coin-face" style="${R.heroStyle(h.id,true)}"></span>${v.levels[h.id]>1?html`<em class="coin-level" aria-label="Stufe ${v.levels[h.id]}">${v.levels[h.id]}</em>`:''}<small>${short(h)}</small></button>`;};
 const gallery=v=>html`<div class="${V.cls('hero-gallery',(v.mode==='daily'||v.mode==='random')&&'fixed')}">${v.gallery.map(({age,heroes})=>
  html`<div class="age-row" data-key="${age.id}" style="--age:${age.color}"><div class="age-label"><span>${age.icon}</span>${age.name}</div><div class="age-heroes">${heroes.map(h=>coin(h,v))}</div></div>`)}</div>`;
 
+// Heldenstufe (AP 6.3): Abzeichen, Erfahrung in der Stufe und die Belohnung der nächsten.
+// ASTRA: heldenstufe – Stufenabzeichen als Lorbeerkranz mit Zahl an der Heldenmünze, 64 × 64
+const level=l=>html`<div class="${V.cls('hero-level',l.max&&'max')}"><span class="level-badge" aria-hidden="true">${l.level}</span><div><b>Stufe ${l.level}</b>${
+ l.max?html`<small>Höchste Stufe – die Goldene Fassung seiner Legendären gehört Dir.</small>`:html`<span class="level-track"><i style="width:${Math.round(100*l.into/l.span)}%"></i></span><small>${l.into} / ${l.span} EP · Stufe ${l.level+1}: ${l.next}</small>`}</div></div>`;
 function show(v){const h=v.hero;
  if(v.mode==='random')return html`<section class="hero-show random"><div class="hero-medal"><span class="coin-rim"></span><span class="coin-face mystery">?</span></div><div class="show-info"><div class="eyebrow">Kolosseum</div><h2>Ein Held aus der Chronik</h2><p>Erst in der Arena entscheidet das Los, wer für Dich kämpft – und gegen wen.</p></div></section>`;
- return html`<section class="hero-show" data-key="show-${h.id}" style="--age:${v.age.color}"><div class="hero-medal"><span class="coin-rim"></span><span class="coin-face" style="${R.heroStyle(h.id,true)}"></span></div><div class="show-info"><div class="age-badge"><span>${v.age.icon}</span>${v.age.name}</div><h2>${h.name}</h2><div class="show-meta">${h.era}${v.life?' · '+v.life:''}</div>${
+ return html`<section class="hero-show" data-key="show-${h.id}" style="--age:${v.age.color}"><div class="hero-medal"><span class="coin-rim"></span><span class="coin-face" style="${R.heroStyle(h.id,true)}"></span></div><div class="show-info"><div class="age-badge"><span>${v.age.icon}</span>${v.age.name}</div><h2>${h.name}</h2><div class="show-meta">${h.era}${v.life?' · '+v.life:''}</div>${level(v.level)}${
   v.school?html`<div class="show-school">Lehrplan Sachsen · Klasse ${v.school.grade} · ${v.school.topic}</div>`:''}<div class="show-power"><span class="power-cost">${h.cost}</span><div><b>${h.power}</b><p>${h.powerText}</p>${v.deed?html`<p class="power-deed">${v.deed}</p>`:''}</div></div>${
   v.style?html`<p class="show-style">Spielweise der KI: <b>${v.style.name}</b></p>`:''}</div><div class="show-favorites"><div class="eyebrow">Lieblingskarten</div><div class="fav-row">${
   v.favorites.map(c=>html`<button class="fav-card" data-key="${c.id}" data-cmd="inspect" data-a="${c.id}" aria-label="${c.name}"><img src="${R.thumb(c.id)}" alt="${c.name}"></button>`)}</div>${

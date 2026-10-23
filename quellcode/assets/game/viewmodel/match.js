@@ -11,7 +11,7 @@
  * reward bars (finale, rewardBars). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP;
+const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,Q=node?require('../model/quests.js'):root.AEQ;
 const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 const chronicle=()=>node?require('./chronicle.js'):root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
@@ -68,8 +68,10 @@ class Match extends Screen{
   if(!result.ok){this.ui.toast(result.error);return false;}
   const lesson=p.ambushSeen?null:this.lesson(s.events);
   chronicle()?.record(p,before);
-  if(before.active===0){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}}
-  this.view=idle();if(s.phase==='over')P.reward(p,s);this.commit();
+  if(before.active===0){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}
+   // Tagesaufgaben (AP 6.3): ausgespielte Karten (mit Art und Epoche) und Angriffe.
+   if(act.type==='play'||act.type==='attack')Q.track(p,{type:act.type,card:act.type==='play'?before.players[0].hand.find(h=>h.uid===act.uid)?.id:null},this.now);}
+  this.view=idle();if(s.phase==='over')P.reward(p,s,false,this.now);this.commit();
   this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);if(before.active===0)this.ui.haptic(act.type==='attack'?1:0);},
    ()=>{if(s.phase==='over')this.showResult();else if(!this.discover()&&!this.teach(lesson))this.scheduleAI();});
   return true;}
@@ -170,12 +172,14 @@ class Match extends Screen{
   this.ui.dialog('message',new Dialog(this.ctx,{title:'Versiegelter Hinterhalt',close:false,
    text:'Der Gegner hat einen Hinterhalt gelegt. Er schnappt in Deinem Zug zu – wenn ein Diener angreift, ein Diener ausgespielt oder ein Zauber gewirkt wird oder einer seiner Diener stirbt. Welcher es ist, zeigt erst das brechende Siegel.',
    buttons:[{label:'Zurück',style:'gold'}]}));}
- inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:D.eraOf(c)}));}
- // What this game added to the stats while this view model ran (for the reward bars).
- tallied(s=this.game){if(this.tallyFor!==s){this.tallyFor=s;this.tally={played:0,attacks:0};}return this.tally;}
+ inspect(id){this.ctx.dialogs.zoom(id);}
+ // What this game added to the stats while this view model ran (for the reward bars); daily: the progress of the day's
+ // quests before the first own action (AP 6.3).
+ tallied(s=this.game){if(this.tallyFor!==s){this.tallyFor=s;this.tally={played:0,attacks:0,daily:Object.fromEntries((Q.today(this.profile,this.now).list).map(x=>[x.id,x.n]))};}return this.tally;}
+ get now(){return this.ctx.now?.();}
  // AP 3.8: the close first – the loser's relief breaks, the banner unrolls with war horns –, then the result.
  showResult(){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over')return;
-  if(!s.rewarded){P.reward(this.profile,s);this.commit();}
+  if(!s.rewarded){P.reward(this.profile,s,false,this.now);this.commit();}
   if(this.closing===s){this.result();return;}this.closing=s;
   this.present('finale',{winner:s.winner},()=>this.result(true));}
  // After the close the war horns have sounded; without it (reduced motion, a resumed game) the fanfare plays here.
@@ -184,15 +188,22 @@ class Match extends Screen{
   const to=s.mode==='campaign'?'campaign':s.mode==='draft'?'draft':'menu';
   this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
    buttons:[{label:{campaign:'Zur Kampagne',draft:'Zum Kolosseum'}[to]||'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
- // Rewards with progress bars (AP 3.8): the gold won, every open quest from its value before this game to now (a reached
- // goal can be claimed in the menu), and in the campaign the missions completed. {key, label, from, to, goal, note}
- rewardBars(s=this.game){const p=this.profile,st=p.stats,n=this.tallyFor===s?this.tally:{played:0,attacks:0},win=s.winner===0,r=s.reward||{gold:0,packs:0};
-  const gained={wins:win?1:0,played:n.played,attacks:n.attacks},bars=s.mode==='draft'?[]:[{key:'gold',label:'Gold',from:0,to:r.gold,goal:Math.max(40,r.gold),note:'◉ '+p.gold}];
-  for(const q of P.quests){if(p.claimed.includes(q.id))continue;const to=Math.min(q.goal,st[q.stat]||0),from=Math.min(to,Math.max(0,(st[q.stat]||0)-gained[q.stat]));
+ // Rewards with progress bars (AP 3.8): the gold won, the hero level and every open quest of the day from its value before
+ // this game to now (AP 6.3; a reached goal can be claimed in the menu), and in the campaign the missions completed.
+ // {key, label, from, to, goal, note, ep}
+ rewardBars(s=this.game){const p=this.profile,win=s.winner===0,r=s.reward||{gold:0,packs:0};
+  const bars=s.mode==='draft'?[]:[{key:'gold',label:'Gold',from:0,to:r.gold,goal:Math.max(40,r.gold),note:'◉ '+p.gold}];
+  // Heldenstufe (AP 6.3): die Erfahrung dieser Partie innerhalb der erreichten Stufe; eine neue Stufe nennt ihre Belohnung.
+  const x=r.xp;if(x){const h=D.heroById[x.hero],l=Q.level(x.after),up=x.rewards.map(w=>'Stufe '+w.level+': '+Q.rewardText(Q.levelReward(x.hero,w.level))).join(' · ');
+   bars.push({key:'xp',label:'Stufe '+l.level+' · '+h.name,from:l.max?1:Math.max(0,x.before-l.start),to:l.max?1:l.into,goal:l.max?1:l.span,ep:true,
+    note:up?up:l.max?'Höchste Stufe':(l.span-l.into)+' EP bis Stufe '+(l.level+1)+(x.gained?' · +'+x.gained+' EP':'')});}
+  // Die Tagesaufgaben vom Stand vor der Partie bis jetzt (abgeholt wird im Menü); die Erfolge stehen im Aufgaben-Fenster.
+  const d=p.daily,start=this.tallyFor===s?this.tally.daily:null;
+  if(d)for(const y of d.list){if(y.claimed)continue;const q=Q.byId[y.id],to=Math.min(q.goal,y.n),from=Math.min(to,start?.[y.id]??to);
    bars.push({key:q.id,label:q.text,from,to,goal:q.goal,note:to>=q.goal?'Belohnung bereit: '+q.gold+' Gold':q.gold+' Gold'});}
   // Kolosseum (AP 6.1): Siege und Niederlagen des Laufs, die Belohnung erst am Ende.
-  const d=r.draft;if(d){bars.push({key:'draft-wins',label:'Kolosseum · Siege',from:d.wins-(win?1:0),to:d.wins,goal:12,note:d.over?'Lauf beendet – Belohnung im Kolosseum':''},
-   {key:'draft-losses',label:'Kolosseum · Niederlagen',from:d.losses-(s.winner===1?1:0),to:d.losses,goal:3,note:''});}
+  const run=r.draft;if(run){bars.push({key:'draft-wins',label:'Kolosseum · Siege',from:run.wins-(win?1:0),to:run.wins,goal:12,note:run.over?'Lauf beendet – Belohnung im Kolosseum':''},
+   {key:'draft-losses',label:'Kolosseum · Niederlagen',from:run.losses-(s.winner===1?1:0),to:run.losses,goal:3,note:''});}
   if(s.mode==='campaign'){const done=p.campaign.length;bars.push({key:'campaign',label:'Kampagne',from:done-(r.first?1:0),to:done,goal:D.missions.length,note:r.first?'Mission erstmals vollendet':''});}
   return bars;}
  pause(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,
@@ -212,7 +223,7 @@ class Match extends Screen{
  chronicle(){this.ui.dialog('chronicle',new Dialog(this.ctx,{entries:chronicle()?.entries(this.game,this.profile.matchChronicle)||[]}));}
  confirmSurrender(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Wirklich aufgeben?',close:false,text:'Die Partie endet als Niederlage. Für das Aufgeben erhältst Du kein Gold.',
   buttons:[{label:'Weiterspielen'},{label:'Aufgeben',style:'danger',keep:true,run:()=>this.surrender()}]}));}
- surrender(){const s=this.game;s.phase='over';s.winner=1;P.reward(this.profile,s,true);this.commit();this.ui.close();this.showResult();}
+ surrender(){const s=this.game;s.phase='over';s.winner=1;P.reward(this.profile,s,true,this.now);this.commit();this.ui.close();this.showResult();}
 
  // ---------- App lifecycle and back key ----------
  pauseApp(){this.cancelDrag();this.board.cancel();clearTimeout(this.aiTimer);}

@@ -3,7 +3,7 @@
  * epoch, curriculum, hero power and favourite cards from the chronicle (model/lore.js), deck and opponent on the right. */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,LORE=node?require('../model/lore.js'):root.AELORE;
+const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,LORE=node?require('../model/lore.js'):root.AELORE,Q=node?require('../model/quests.js'):root.AEQ;
 const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 
 // Hero tiles grouped by age (AP 5.10); within an age the order of D.heroes.
@@ -17,11 +17,14 @@ class Setup extends Screen{
   return {mode:s.mode,day,hero,foe:day?D.heroes.find(h=>h.id===day.foe):null,heroes:HEROES,gallery:GALLERY,
    age:D.ageById[hero.age],school:LORE.school(heroId),deed:LORE.deed(heroId),life:page?.life||'',style:D.personalities[hero.ai]||null,
    favorites:(page?.favorites||[]).map(id=>D.byId[id]).filter(Boolean),
+   level:this.level(heroId),levels:Object.fromEntries(D.heroes.map(h=>[h.id,Q.of(p,h.id).level])),
    selected:heroId,decks,deckId:s.deckId,foeId:s.foe,foeStyle:D.personalities[D.heroById[s.foe]?.ai]||null,mission:s.mode==='campaign'?D.missions[s.mission]:null};}
+ // Heldenstufe (AP 6.3): Stufe, Erfahrung in der Stufe und was die nächste bringt.
+ level(id){const l=Q.of(this.profile,id),w=l.max?null:Q.levelReward(id,l.level+1);return {...l,next:w?Q.rewardText(w):null};}
  chooseHero(id){if(this.session.mode==='daily'||this.session.mode==='random'||!D.heroes.some(h=>h.id===id)||this.session.hero===id)return;
   this.session.hero=id;this.notify();this.ui.play('stone',{gain:.6});this.ui.haptic(0);}
  // A favourite card from the gallery opens in the card zoom of the match (same dialog as in the chronicle).
- inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:D.eraOf(c)}));}
+ inspect(id){this.ctx.dialogs.zoom(id);}
  chooseFoe(id){this.session.foe=id;this.notify();}
  chooseDeck(id){this.session.deckId=id;}
  help(){this.ctx.dialogs.help();}

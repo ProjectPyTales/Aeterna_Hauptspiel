@@ -100,7 +100,7 @@ function morph(c,id,x,y,q,gold){const card=CHD.byId[id],w=mix(200,128,q),h=w*1.4
  if(q>0){c.beginPath();c.roundRect(-pw/2,-ph/2,pw,ph,r);c.lineWidth=5*q;c.strokeStyle='#b08a4a';c.stroke();}c.restore();}
 M.overlay=(c,s,t,gold)=>{
  const x=M.transition;
- if(x?.card&&!x.hit){const e=t-x.at,ph=x.line.at(e),from=x.from,to=x.to,mine=x.p===0,minion=x.card.type==='minion',heavy=x.weight>=.7,g=mine&&gold,hidden=!mine&&!!x.card.ambush;
+ if(x?.card&&!x.hit){const e=t-x.at,ph=x.line.at(e),from=x.from,to=x.to,mine=x.p===0,minion=x.card.type==='minion',heavy=x.weight>=.7,g=mine&&(gold||CHR.gilded(x.card.id)),hidden=!mine&&!!x.card.ambush;
   const startW=x.origin?.w||(mine?L.handWidth:46),liftW=heavy?226:210;
   const lifted={x:mix(from.x,to.x,.25),y:mine?Math.min(from.y-110,to.y+60):Math.max(from.y+150,to.y-260)};
   const above={x:to.x,y:minion?to.y-(heavy?150:120):to.y-110};
@@ -113,7 +113,7 @@ M.overlay=(c,s,t,gold)=>{
  const orb=x&&!x.hit&&(x.action.type==='power'||x.card?.type==='spell'&&!x.card.ambush);
  // AP 3.6: its colours come from the element of the spell or the power of the hero, the path from the power (fx.js).
  if(orb&&(x.action.type==='power'||x.line.at(t-x.at).name==='cast')){const q=x.card?x.line.at(t-x.at).q:clamp((t-x.at)/x.hitAt),from=x.card?{x:x.to.x,y:x.to.y-110}:M.position(x.before,'power'+x.p);window.CHF.orb(c,x,q,from,x.to);}
- for(const f of M.returns){const q=ease.outCubic(clamp((t-f.at)/f.duration)),to=M.handPose(s,f.uid);M.floatCard(c,f.id,mix(f.from.x,to.x,q),mix(f.from.y,to.y,q),mix(f.from.w,L.handWidth,q),mix(f.from.angle,to.angle,q),1,{lift:1-q,gold});}
+ for(const f of M.returns){const q=ease.outCubic(clamp((t-f.at)/f.duration)),to=M.handPose(s,f.uid);M.floatCard(c,f.id,mix(f.from.x,to.x,q),mix(f.from.y,to.y,q),mix(f.from.w,L.handWidth,q),mix(f.from.angle,to.angle,q),1,{lift:1-q,gold:gold||CHR.gilded(f.id)});}
  // AP 3.4: a drawn card leaves the parchment pile face down, turns over at the top of its arc and settles into the hand;
  // the rival's flies into his row of sealed orders and stays hidden.
  for(const f of M.draws){const e=t-f.at;if(e<0)continue;const q=clamp(e/f.duration),deck=M.deckPosition(f.p);

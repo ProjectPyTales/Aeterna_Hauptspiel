@@ -132,7 +132,7 @@ test('AP 1.5: Kartenrahmen als Tempeltor mit Werte-Symbolen, Archiv-Siegel und L
  assert.match(render,/archiveSeal\(c,100,258,11\.5,card\.rarity\);\n if\(legend\)laurel\(c\);/,'Siegel je Seltenheit, Lorbeer für Legendäre');
  assert.doesNotMatch(render,/legendary-frame/,'der alte Adlerrahmen entfällt');
  assert.match(render,/key=card\.id\+':'\+cw\+\(gold\?':gold':''\)/,'Goldene Karten haben ein eigenes Bild');
- assert.match(render,/if\(gold&&motion\(\)\)glint\(c,w,hh,t,i\)/,'Glanz läuft nur mit Bewegung');
+ assert.match(render,/if\(g&&motion\(\)\)glint\(c,w,hh,t,i\)/,'Glanz läuft nur mit Bewegung');
 });
 
 test('Rückmeldung zu 1.17.0: Die Umschrift der Heldenmünze liegt frei und wird zuletzt geprägt',()=>{

@@ -162,6 +162,16 @@ async function basar(page,cmpPage,cdp){
    await shot(page,cmpPage,'16-kolosseum-wahl');
    await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
    check('Hauptmenü zeigt den Stand des Laufs',await page.evaluate(()=>/1 von 30 Karten/.test(App.vm.menu.view.plates[2].sub)));
+   // Aufgaben (AP 6.3, seit 1.30.0): Tagesgeschenk mit sieben Siegeln, drei Tagesaufgaben – eine zum Lernen –, Erfolge.
+   check('Hauptmenü: Aufgaben melden das Tagesgeschenk',await page.evaluate(()=>App.vm.menu.view.quests>=1));
+   await tapHall(page,C(537,716));await page.waitForSelector('#overlay .quests');await settle(page,150);
+   const auf=await page.evaluate(()=>({karten:document.querySelectorAll('.quest-card').length,lernen:document.querySelectorAll('.quest-card.learn').length,siegel:document.querySelectorAll('.gift-day').length,bereit:!!document.querySelector('.gift-day.ready'),erfolge:document.querySelectorAll('.feat-grid .quest-row').length}));
+   check('Aufgaben: Tagesgeschenk, drei Tagesaufgaben (eine zum Lernen) und vier Erfolge',auf.karten===3&&auf.lernen===1&&auf.siegel===7&&auf.bereit&&auf.erfolge===4,auf);
+   await shot(page,cmpPage,'17-aufgaben');
+   const vorher=await page.evaluate(()=>App.profile.gold);await page.locator('.quest-gift button',{hasText:'Abholen'}).click();await settle(page,100);
+   const geschenk=await page.evaluate(v=>({gold:App.profile.gold-v,knopf:document.querySelector('.quest-gift button')?.textContent.trim(),serie:App.profile.login.streak}),vorher);
+   check('Tagesgeschenk: Tag 1 bringt 20 Gold, dann „Morgen wieder“',geschenk.gold===20&&geschenk.knopf==='Morgen wieder'&&geschenk.serie===1,geschenk);
+   await page.keyboard.press('Escape');await settle(page,100);
   }
  }catch(e){check('Klickpfad vollständig',false,e.message.split('\n')[0]);}
  check('Keine JavaScript-Fehler',errors.length===0,errors);

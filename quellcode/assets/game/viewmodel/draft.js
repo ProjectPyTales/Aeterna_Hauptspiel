@@ -39,7 +39,7 @@ class Draft extends Screen{
  // Eine Karte wählen: Sie fliegt in die Kurve (flash: neuer Schlüssel je Wahl), dann kommen die nächsten drei.
  pick(i){const p=this.profile,id=DR.pick(p,+i);if(!id)return;this.state.flash={id,n:++this.flashes};this.commit();this.ui.play('draw');this.ui.haptic(0);
   if(DR.phase(p.draft)==='play'){this.ui.play('seal');this.ui.toast('Dein Deck steht – auf in die Arena!');}}
- inspect(id){const c=D.byId[id];if(c)this.ui.dialog('zoom',new Dialog(this.ctx,{card:c,era:D.eraOf(c)}));}
+ inspect(id){this.ctx.dialogs.zoom(id);}
  // Kampf: eine laufende Partie dieses Laufs wird fortgesetzt; eine andere gespeicherte Partie ersetzt sie nur nach Rückfrage.
  fight(force=false){const p=this.profile,r=this.run;if(DR.phase(r)!=='play')return;
   const g=p.game;if(g&&g.mode==='draft'&&g.draft===r.id&&g.phase!=='over'){this.ui.go('game');return;}

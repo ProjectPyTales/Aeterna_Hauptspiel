@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (56 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (59 Teile)
 
-*Stand 1.29.0 (21. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, und seit 1.29.0 die fünf des Kolosseums, AP 6.1). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
+*Stand 1.30.0 (23. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, und seit 1.30.0 die drei der Aufgaben, AP 6.3). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 55 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 58 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -125,6 +125,14 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `kolosseum-lorbeer` | `kolosseum-lorbeer-leer.png`, `kolosseum-lorbeer-gewonnen.png` | 96 × 96 | Lorbeerkranz für einen Sieg: leer als graue Ritzung im Stein, gewonnen in Gold mit leichtem Glanz; Mitte frei. |
 | `kolosseum-schild` | `kolosseum-schild-heil.png`, `kolosseum-schild-gebrochen.png` | 96 × 96 | Runder Gladiatorenschild (parma) für eine Niederlage: heil als dunkler Umriss, verloren gebrochen mit Riss und roter Bemalung. |
 | `draft-wahl` | `draft-wahl-gewoehnlich.png`, `-selten.png`, `-episch.png` | 380 × 120 | Steinsockel unter einer angebotenen Karte, von unten in der Farbe der Seltenheit beleuchtet (Bronze, Silber, Gold); Legendär nutzt `-episch` mit violettem Ton des Spiels. |
+
+### Paket 7 – Aufgaben und Heldenstufen (3 Teile, 6 Dateien, seit 1.30.0)
+
+| Kennung | Dateien | Größe | Motiv und Vorgaben |
+|---|---|---|---|
+| `tagesgeschenk` | `tagesgeschenk-offen.png`, `-heute.png`, `-abgeholt.png` | 96 × 96 | Wachssiegel für einen Tag der Serie: offen dunkelrot und matt, heute golden leuchtend, abgeholt gebrochen und grau; Mitte frei für die Zahl des Tages. |
+| `aufgabe-tafel` | `aufgabe-tafel.png`, `aufgabe-tafel-lernen.png` | 360 × 210 | Römische Wachstafel mit Holzrahmen und Griffel für eine Tagesaufgabe; die Tafel zum Lernen mit Eule und Schriftrolle am Rand in Lapisblau. Innenfläche ruhig für Text und Balken. |
+| `heldenstufe` | `heldenstufe.png` | 64 × 64 | Kleiner goldener Lorbeerkranz als Stufenabzeichen an der Heldenmünze; Mitte frei für die Zahl. |
 
 ## Abnahme
 

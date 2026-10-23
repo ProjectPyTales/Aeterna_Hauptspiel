@@ -217,7 +217,9 @@ const blobURL=canvas=>{const data=canvas.toDataURL('image/png'),bin=atob(data.sl
 R.frameSamples={};R.frameSample=id=>{const card=D.byId.leonidas_3;if(R.frameSamples[id])return R.frameSamples[id];
  const c=document.createElement('canvas');c.width=240;c.height=338;R.card(c.getContext('2d'),card,0,0,240,338,{gold:id==='gold'});const url=blobURL(c);if(R.images[card.art])R.frameSamples[id]=url;return url;};
 // Golden cards (AP 1.5) show in the collection, the packs and the dialogs too.
-R.thumb=id=>{const gold=R.look.frame==='gold',key=id+(gold?':gold':'');if(!R.thumbs[key]){const c=document.createElement('canvas');c.width=240;c.height=338;R.card(c.getContext('2d'),D.byId[id],0,0,240,338,{gold});R.thumbs[key]=blobURL(c);}return R.thumbs[key];};
+// Goldene Fassung (AP 6.3): alle eigenen Karten mit dem goldenen Rahmen, sonst die Legendären der Helden auf Stufe 10 (R.look.golden).
+R.gilded=id=>R.look.frame==='gold'||!!R.look.golden?.includes(id);
+R.thumb=id=>{const gold=R.gilded(id),key=id+(gold?':gold':'');if(!R.thumbs[key]){const c=document.createElement('canvas');c.width=240;c.height=338;R.card(c.getContext('2d'),D.byId[id],0,0,240,338,{gold});R.thumbs[key]=blobURL(c);}return R.thumbs[key];};
 // The detail view gets the entire atlas cell, without the portrait crop.
 R.artworks={};R.artwork=id=>{if(!R.artworks[id]){const card=D.byId[id],im=R.images[card.art];
  if(card.art==='@pyramid'||!card.art){const c=document.createElement('canvas');c.width=362;c.height=362;R.tile(c.getContext('2d'),card.art,0,0,0,362,362,card);R.artworks[id]=blobURL(c);return R.artworks[id];}
@@ -602,15 +604,15 @@ function hand(c,s,view,handInfo,t,gold){const a=s.players[0];let cards=a.hand;
   else if(h.uid===selected)pose=L.raisedHandPose(rest);
   else if(fi>=0&&(i<left)===(fi<left)){const d=i-fi;pose={...rest,x:rest.x+Math.sign(d)*SPREAD[Math.min(3,Math.abs(d))]};}
   const f=handSpring(h.uid,rest),x=f.x.to(pose.x).step(dt),y=f.y.to(pose.y).step(dt),an=f.a.to(pose.angle).step(dt),sc=f.k.to(k).step(dt);
-  const info=handInfo[h.uid]||{},card=D.byId[h.id],w=L.handWidth,hh=w*1.41;
-  c.save();c.translate(x,y);c.rotate(an);c.scale(sc,sc);R.fastCard(c,card,-w/2,-hh/2,w,hh,{glow:info.can?(info.boost?'boost':true):false,selected:h.uid===selected,cost:info.cost,gold});
-  if(gold&&motion())glint(c,w,hh,t,i);c.restore();
+  const info=handInfo[h.uid]||{},card=D.byId[h.id],w=L.handWidth,hh=w*1.41,g=gold||R.gilded(h.id);
+  c.save();c.translate(x,y);c.rotate(an);c.scale(sc,sc);R.fastCard(c,card,-w/2,-hh/2,w,hh,{glow:info.can?(info.boost?'boost':true):false,selected:h.uid===selected,cost:info.cost,gold:g});
+  if(g&&motion())glint(c,w,hh,t,i);c.restore();
   hit(h.uid,x-w*sc/2,y-hh*sc/2,w*sc,hh*sc,{kind:'hand',idCard:h.id,cx:x,cy:y,angle:an});R.positions[h.uid]={x,y,w:w*sc,angle:an};}}
 // The dragged card tilts with the speed of the finger on a soft spring and swings out when it stops.
 function dragged(c,d,t,gold){const p=L.dragPose(d,t);let f=R.dragTilt;
  if(!f||f.uid!==d.uid)f=R.dragTilt={uid:d.uid,last:p.x,s:new T.Spring(0,{stiffness:150,damping:11})};
  const v=(p.x-f.last)/Math.max(4,T.clock.realDt||16);f.last=p.x;d.angle=f.s.to(clamp(v*.16,-.26,.26)).step(T.clock.dt||T.clock.realDt);
- d.x=p.x;d.y=p.y;d.w=p.w;CHM.floatCard(c,d.cardId,p.x,p.y,p.w,d.angle,1,{lift:.6,gold});}
+ d.x=p.x;d.y=p.y;d.w=p.w;CHM.floatCard(c,d.cardId,p.x,p.y,p.w,d.angle,1,{lift:.6,gold:gold||R.gilded(d.cardId)});}
 // AP 3.5: the march route – chevrons of red ink like on a campaign map, marching towards the finger, and a bold head.
 // ASTRA: marschroute – Marschrouten-Pfeil aus roten Tintenwinkeln mit Pfeilspitze, 64 × 64 je Winkel
 const chevron=()=>R.sprite('chevron',-14,-14,28,28,g=>{g.lineCap='round';g.lineJoin='round';g.beginPath();g.moveTo(-6,-8);g.lineTo(5,0);g.lineTo(-6,8);g.strokeStyle='#3b0d0a';g.lineWidth=8;g.stroke();g.strokeStyle='#d8352a';g.lineWidth=4.5;g.stroke();});
