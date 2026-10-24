@@ -2,7 +2,12 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 416 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Aktueller Stand im Code: **Version 1.30.0** (**Aufgaben und Heldenstufen** nach AP 6.3 – drei Tagesaufgaben, eine davon zum Lernen,
+Seit 24. 10. 2026 liegt das Projekt in `ProjectPyTales/Aeterna_Copy` (Kopie von `thepytales/Aeterna` mit der ganzen Historie).
+Aktueller Stand im Code: **Version 1.31.0** (**Kampagne 2.0** nach AP 6.4 mit der **Lunte** aus AP 3.7 – die 22 Missionen in
+sechs Kapiteln nach den Epochen des Lehrplans und einem Epilog, vor jedem Kapitel eine kurze **Story-Szene** mit Sprechblasen über
+den Porträts und Quelle, am Ende jedes Kapitels eine **Belagerung mit Lunte**: 12 eigene Züge, Alesia und Auaris 14, dann ist die
+Mission verloren; alte Spielstände behalten ihre Missionen);
+davor 1.30.0 (**Aufgaben und Heldenstufen** nach AP 6.3 – drei Tagesaufgaben, eine davon zum Lernen,
 einmal neu würfeln, Tagesgeschenk mit Serie über sieben Tage, zehn Heldenstufen mit Gold, Paketen, Staub und auf Stufe 10 der Goldenen
 Fassung der Legendären; dazu ein **Balance-Feinschliff**: Zufallsdecks erstmals **22 von 22 im Ziel**);
 davor 1.29.0 (**Kolosseum als Draft** nach AP 6.1 – Held aus drei Epochen, dann 30-mal eine von drei
@@ -194,8 +199,9 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `model/cosmetics.js` | Model | Kosmetik-Katalog, Kaufen/Ausrüsten (`CHK`); seit 1.16.0 sind Schlachtfelder die Tische unter den Epochenhälften, Tische ohne `image` Platzhalter mit CSS-Farbfilter `tint`, alte Felder werden über `refund` erstattet; seit 1.18.0 Kartenrahmen `frames` (Tempeltor, Goldene Karten, ausgerüstet in `equipped.frame`) |
 | `model/draft.js` | Model | Seit 1.29.0 (AP 6.1): Kolosseum als Draft (`AEDR`) – Lauf im Spielstand `profile.draft` (über `normalize`, alte Saves bleiben), Heldenwahl aus drei Epochen, Wahl aus drei Karten gleicher Seltenheit (`options`, je Lauf und Wahl fest), Gegner und Partie (`foe`, `game`, Modus `draft`), Ergebnis aus `CHP.reward` (`record`), Belohnung (`reward`, `claim`), Statistik `profile.draftStats` |
 | `model/quests.js` | Model | Seit 1.30.0 (AP 6.3): Aufgaben und Heldenstufen (`AEQ`) – drei Tagesaufgaben aus einem Pool, eine davon zum Lernen (`profile.daily`, einmal Neuwürfeln, Tageswechsel schreibt Erledigtes gut), Tagesgeschenk mit Serie über sieben Tage (`profile.login`), Erfahrung je Held mit zehn Stufen (`profile.heroXp`, `level`, `gain`), Stufe 10 gibt die Goldene Fassung der Legendären des Helden (`golden`, gezeichnet über `R.gilded`); Ende einer Partie über `finish` aus `CHP.reward`; alles über `normalize` |
+| `model/campaign.js` | Model | Seit 1.31.0 (AP 6.4): Kampagne 2.0 (`AEKA`) – sechs Kapitel nach den Epochen des Lehrplans und ein Epilog über den 22 Missionen (`CHAPTERS`, Reihenfolge `ORDER`, angezeigte Nummer `number`), Story-Szenen mit Sprechern und Quelle, Grund und Quelle der Lunte (`fuse`), Freischalten in der neuen Reihenfolge (`unlocked`, alter Fortschritt bleibt), gesehene Szenen `profile.scenes` (über `normalize`) |
 | `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
-| `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` (seit 1.17.0 auch in Node, Einträge mit Seite `p`; `Match.strip` liefert die Chronik-Leiste; seit 1.18.0 `Match.press`/`release` für die gedrückte Handkarte und `Match.hand` mit Kosten, spielbar und erfüllter Bedingung je Handkarte; seit 1.19.0 Schaufenster `Shop.showcase`/`select` und Kauf-Zeichen `bought`, Kartenbuch mit Blätterrichtung `turn`, Steinknöpfen `pick`, Kurve `curveHint` und Flug `flight`, Heldengalerie `GALLERY`, Kampagnenkarte `MAP`/`STATIONS` mit Projektion; seit 1.20.0 Intro `Match.opening`, Schriftrollen `rolling`, Finale und Belohnungsbalken `rewardBars`, Blatt `view.leaf` im Kartenbuch) – **ohne DOM, in Node testbar** |
+| `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` (seit 1.17.0 auch in Node, Einträge mit Seite `p`; `Match.strip` liefert die Chronik-Leiste; seit 1.18.0 `Match.press`/`release` für die gedrückte Handkarte und `Match.hand` mit Kosten, spielbar und erfüllter Bedingung je Handkarte; seit 1.19.0 Schaufenster `Shop.showcase`/`select` und Kauf-Zeichen `bought`, Kartenbuch mit Blätterrichtung `turn`, Steinknöpfen `pick`, Kurve `curveHint` und Flug `flight`, Heldengalerie `GALLERY`, Kampagnenkarte `MAP`/`STATIONS` mit Projektion, seit 1.31.0 mit Kapiteln `chapters`, Routen je Kapitel `routes` und der Szene `AEVM.Scene`; seit 1.20.0 Intro `Match.opening`, Schriftrollen `rolling`, Finale und Belohnungsbalken `rewardBars`, Blatt `view.leaf` im Kartenbuch) – **ohne DOM, in Node testbar** |
 | `viewmodel/draft.js` | ViewModel | Seit 1.29.0: Bildschirm „Kolosseum“ (`AEVM.Draft`) – Eintritt mit Rückfrage, Heldenwahl, Kartenwahl mit Manakurve und „Aus der Chronik“, Kampf, Lauf beenden, Belohnung abholen |
 | `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
 | `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`), seit 1.26.0 Start mit Entwickler-Splash und Intro `intro.js` (`AEI`, Zeitleiste `AEI.T`, Stil `css/intro.css`), seit 1.29.0 Kolosseum `draft.js` (Stil `css/draft.css`, fünf Astra-Platzhalter), seit 1.30.0 Aufgaben-Fenster in `dialogs.js` und Heldenstufe in `setup.js` (Stil `css/quests.css`, drei Astra-Platzhalter) |
@@ -276,6 +282,8 @@ merkt sich, dass die Hinterhalt-Erklärung schon kam. Seit 1.28.0 (AP 5.7 Teil 2
 mit Schildwall, und Ergründen im Zug des Gegners oder am Ende des eigenen Zuges (Vermächtnis) wählt der Zufall.
 Seit 1.29.0 (AP 6.1) der Spielmodus `draft` (Kolosseum): keine neue Regel in der Engine, nur das Feld `s.draft` (Nummer des Laufs);
 `CHP.reward` gibt dort kein Gold je Partie und meldet das Ergebnis an `AEDR.record`.
+Seit 1.31.0 (AP 6.4, AP 3.7) die **Lunte**: Missionen mit Feld `fuse` (eigene Züge) enden verloren, wenn der letzte eigene Zug
+ohne Sieg vorbei ist (`CHE.fuse(s)` → `{turns, left}`, Feld `s.burnt`); sonst gilt kein Zugtimer.
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -283,7 +291,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Kampagne 2.0 mit Lunte (AP 6.4), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
@@ -1650,7 +1658,10 @@ bitte mit dem Overlay gegenprüfen (Entscheidung 18).*
   *1.20.0 (Rückmeldung zu 1.19.0: Uhr „immer noch etwas viel“): Die Glocke des Uhrwerks ist leiser und kürzer, das Tick-Tack
   trägt; Pegel 0,22 statt 0,35 (rund 4 dB leiser), im Zug des Gegners nochmals 4 dB leiser.*
 - [x] Heldenfähigkeits-Siegel dreht sich nach Benutzung um (siehe AP 1.8). *✓ in 1.16.0*
-- [ ] Kein Zugtimer im normalen Spiel; nur Belagerungsmissionen zeigen eine glühende Lunte als Countdown.
+- [x] Kein Zugtimer im normalen Spiel; nur Belagerungsmissionen zeigen eine glühende Lunte als Countdown. *✓ in 1.31.0 (mit AP 6.4):
+  Oben rechts am Rahmen glimmt eine Zündschnur auf einer dunklen Tafel zum Pulverfass; jeder eigene Zug brennt ein Stück ab (die Glut
+  wandert in 600 ms weiter, Asche bleibt zurück), die Zahl nennt die Züge, die bleiben, die letzten drei glühen rot. Ohne Bewegung
+  ohne Flackern und Funken (`fuse` in `render.js`, `ASTRA: lunte`).*
 
 **AP 3.8 – Match-Anfang und -Ende (S)** – *✓ in 1.20.0*
 - [x] **Feldzug-Initiative:** Eine geworfene Bronzemünze entscheidet, wer beginnt; der Zweite erhält die Karte
@@ -2478,8 +2489,29 @@ So, dass es im Spiel nicht kaputt aussieht:
   - **Prüfung:** sechs Tests in `aufgaben.test.js` (Pool und Lernaufgabe, Zählen, Abholen, Würfeln, Tageswechsel, Serie über den
     Monatswechsel, Stufen bis zur Goldenen Fassung, alte und kaputte Spielstände), einer in `viewmodel.test.js` (Fenster, Menüzähler,
     Lesen, Heldenwahl), Klickpfad mit neuem Referenzbild `17-aufgaben` und drei Prüfungen.
-- [ ] **AP 6.4 Kampagne 2.0:** Kapitel mit kurzen Story-Szenen und Sprechblasen, Bosse mit eigenen Fähigkeiten,
-  **Belagerungsmissionen mit Lunten-Countdown**, gelegentliche Kartenrätsel.
+- [x] **AP 6.4 Kampagne 2.0:** Kapitel mit kurzen Story-Szenen und Sprechblasen, Bosse mit eigenen Fähigkeiten,
+  **Belagerungsmissionen mit Lunten-Countdown**. *✓ in 1.31.0, Kapitel „wie vorgeschlagen“ (kein Feedback zu Sitzung 25):*
+  - **Kapitel** (`model/campaign.js`): I Frühzeit und Ägypten (Mont Lassois, Pyramide, Auaris), II Griechenland (Thermopylen, Leuktra,
+    Bibliothek, Lange Mauern), III Rom und Germanien (Zauderer, Actium, Germanicus, Alesia), IV Mittelalter im Reich (Theophanu,
+    Mark Meißen, Rupertsberg, Eresburg), V Kreuzzüge (Anna Komnene, Ain Dschalut, Venedig), VI Frühe Neuzeit (Azcapotzalco,
+    Königstein, Namur), Epilog „Der letzte Horizont“. Die Missionen behalten ihre Kennungen; das Spiel zählt sie in der neuen
+    Reihenfolge (Mission 01 ist der Mont Lassois). Alte Spielstände: Gewonnenes bleibt gewonnen und spielbar, dazu öffnet jede
+    Mission, deren Vorgängerin in der neuen Reihenfolge gewonnen ist.
+  - **Story-Szenen** (halb Lernen): vor der ersten Mission eines Kapitels einmal, danach über „Szene“. Der Chronist eröffnet, dann
+    sprechen die Helden der Epoche (zwei bis fünf Zeilen), jede Szene mit Quelle (Herodot, Thukydides, Caesar, Tacitus, Reichsannalen,
+    Villehardouin, Ixtlilxóchitl …). Sprechblase über dem Porträt dessen, der spricht; keine neuen Bilder.
+  - **Bosse:** Die vorhandenen Bossfähigkeiten stehen jetzt als „Fähigkeit des Bosses“ im Panel der Karte.
+  - **Lunte** (mit AP 3.7): die letzte Mission jedes Kapitels, mit historischem Grund und Quelle (Auaris – Ahmose, Sohn der Ebana;
+    Athen – die Seuche 430 v. Chr.; Alesia – Korn für dreißig Tage; Eresburg – 772; Venedig – der Vertrag von 1201; Namur 1692).
+    12 eigene Züge, Alesia und Auaris 14: Die KI gewinnt Missionen im Median nach 11 eigenen Zügen, 73 % ihrer Siege fallen in die
+    ersten 12 (Simulation über alle 22 Missionen); diese beiden halten länger stand. Verloren durch die Lunte zählt wie eine
+    Niederlage. Heldenwahl, Eröffnungssatz und Ergebnis nennen die Lunte.
+  - **Platzhalter für Astra** (Paket 8 in `ASTRA_AUFTRAG_OBERFLAECHE.md`): `kapitelsiegel`, `szene-buehne`, `sprechblase`, `chronist`,
+    `lunte`.
+  - **Prüfung:** sieben Tests in `kampagne.test.js` (Kapitel und Epochen, Lunte nur am Kapitelende, Sprecher und Quellen, Freischalten
+    mit altem Spielstand, Lunte in der Engine bis zum letzten Zug, Kampagnenkarte und Szene, Platzhalter); Klickpfad mit Szene und
+    neuem Referenzbild `18-szene`. Balance: Kurzlauf mit altem und neuem Modell gleich, voller Lauf in `balance/BERICHT.md`.
+- [ ] **AP 6.4 Teil 2 – Kartenrätsel:** gelegentliche Rätselmissionen mit fester Hand und festem Brett („Gewinne in diesem Zug“).
 - [ ] **AP 6.5 Tutorial:** die ersten drei Partien geführt.
 - [ ] **AP 6.6 Eigenständige Mechaniken:** Epochen-Synergien (Bonus bei drei Karten derselben Ära), Relikte als
   Kartentyp (Atlasfelder für Spartanerschild und Astrolabium sind schon gemalt), Chronik-Ereignisse für beide Spieler.
@@ -2555,7 +2587,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Angriffe mit Rückzug, Aufprall und Einheiten-Treffersounds | AP 3.5 – ✓ in 1.18.0 (Klingen, Hufe, Lanze), AP 4.1 |
 | Schadenszahlen mit Tintenspritzern, Tod als Gesteinssplitter | AP 3.5 – ✓ in 1.18.0 |
 | Chronometer bzw. Sanduhr als „Zug beenden“ mit Gong | AP 1.8 – ✓ in 1.16.0 |
-| Kein Timer, Lunte nur in Belagerungsmissionen | AP 3.7, AP 6.4 |
+| Kein Timer, Lunte nur in Belagerungsmissionen | AP 3.7, AP 6.4 – ✓ in 1.31.0 |
 | Eck-Dioramen | AP 1.2, AP 1.8, AP 3.9 |
 | Reaktive KI-Dialoge | AP 4.3 |
 | Chronist der Zeiten (Erzähler) | AP 4.2 |
@@ -2677,8 +2709,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 23 ✓ | Rückmeldung 1.27.0, AP 5.7 Teil 2 | erledigt in 1.28.0 – die übrigen 27 Karten mit Quelle (54 von 54), Feuerpost als vierter neuer Hinterhalt, auffälligere Wachsrollen mit leisem Glimmen; alle Kartenmotive für Astra stehen fest |
 | 24 ✓ | Rückmeldung 1.28.0, Balance-Feinschliff, AP 6.1 | erledigt in 1.29.0 – Kolosseum als Draft mit Probelauf, Lorbeeren und Belohnung nach Siegen; Agrippa, Imhotep, Dandolo und Böttger mit Zufallsdecks im Ziel (19 von 22) |
 | 25 ✓ | AP 6.3, kleiner Balance-Feinschliff | erledigt in 1.30.0 – Tagesaufgaben mit Lernaufgabe und Neuwürfeln, Tagesgeschenk mit Serie, zehn Heldenstufen bis zur Goldenen Fassung; Zufallsdecks 22 von 22 im Ziel |
-| 26 | AP 6.4 Kampagne 2.0 mit AP 3.7 (Lunte in Belagerungsmissionen) | ohne Rangliste (Entscheidung 22) – neue Bildschirme brauchen ihre Platzhalter vor der Bestellung |
-| 27+ | AP 3.9, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
+| 26 ✓ | AP 6.4 Kampagne 2.0 mit AP 3.7 (Lunte in Belagerungsmissionen) | erledigt in 1.31.0 – sechs Kapitel und Epilog, Story-Szenen mit Quelle, Lunte am Ende jedes Kapitels; Umzug nach `ProjectPyTales/Aeterna_Copy` |
+| 27 | AP 3.9 Eck-Dioramen, Rückmeldung 1.31.0 | ohne Rangliste (Entscheidung 22) – letzte Oberfläche vor der Astra-Bestellung |
+| 28+ | AP 6.4 Teil 2 (Kartenrätsel), AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
 | nach dem letzten Inhalts-Paket | AP A.3 (Du), dann ein Einbau-Lauf | den dann vollständigen `ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md` bei Astra bestellen, 10–12 je ZIP; jede Lieferung baut eine Sitzung mit dem Werkzeug ein |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
@@ -2688,47 +2721,45 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 25 (Version 1.30.0):** Deine Rückmeldung zu 1.29.0 – kein Feedback, also keine Nacharbeit am Kolosseum; die
-offene Frage zu den Heldenstufen habe ich wie vorgeschlagen entschieden (Gold, Pakete, Staub, Stufe 10 die Goldene Fassung – keine
-Skins, keine neuen Bilder). **AP 6.3 Aufgaben und Heldenstufen:** Die Leiste „Aufgaben“ öffnet ein neues Fenster mit dem
-**Tagesgeschenk** (sieben Siegel, Serie an Folgetagen), **drei Tagesaufgaben** – immer eine zum Lernen: Chronikseiten lesen, Karten
-„Aus der Chronik“ lesen oder Karten einer Epoche spielen –, **einmal Neuwürfeln** je Tag und den vier alten Aufgaben als dauerhafte
-**Erfolge**. Jede Partie gibt dem Helden Erfahrung; **zehn Stufen** mit Belohnung, auf Stufe 10 die **Goldene Fassung seiner
-Legendären**. Heldenwahl und Ergebnisfenster zeigen die Stufe. Alte Spielstände laden weiter, drei neue Astra-Platzhalter (Paket 7).
-**Balance:** neun Karten außerhalb der Startdecks angepasst, voller Lauf (101 200 Partien) – **Zufallsdecks 22 von 22 im Ziel**
-(vorher 19), 225 von 231 Paarungen innerhalb 40/60; Startdecks 21 von 22 wie vorher (Leonidas 53,4 %).
-Davor: Sitzung 24 (1.29.0) Kolosseum, Sitzung 23 (1.28.0) AP 5.7 Teil 2; Sitzungen 1–22 (1.4.0–1.27.0).
+**Erledigt in Sitzung 26 (Version 1.31.0):** Umzug nach `ProjectPyTales/Aeterna_Copy` mit der ganzen Historie; Deine Rückmeldung zu
+1.30.0 – kein Feedback, also keine Nacharbeit an Aufgaben und Heldenstufen; die Kapitel wie vorgeschlagen. **AP 6.4 Kampagne 2.0
+mit der Lunte aus AP 3.7:** sechs Kapitel nach den Epochen des Lehrplans und ein Epilog, die Missionen neu gezählt (Mission 01 ist
+der Mont Lassois); vor jedem Kapitel eine **Story-Szene** mit Sprechblasen über den Porträts und Quelle; am Ende jedes Kapitels eine
+**Belagerung mit Lunte** (12 eigene Züge, Alesia und Auaris 14), die oben rechts im Match abbrennt. Bossfähigkeiten stehen im Panel
+der Karte. Alte Spielstände behalten alle gewonnenen Missionen. Fünf neue Astra-Platzhalter (Paket 8). Balance unverändert (die
+Lunte wirkt nur in Missionen). Ein **Ranglistensystem** gibt es weiterhin nicht (Entscheidung 22, Deine Bestätigung vom 24. 10.).
+Davor: Sitzung 25 (1.30.0) Aufgaben und Heldenstufen, Sitzung 24 (1.29.0) Kolosseum; Sitzungen 1–23 (1.4.0–1.28.0).
 
 **Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.30.0-Test.apk` aus dem Release „Test-APK“ als Update installieren.
-2. **Aufgaben:** im Hauptmenü „Aufgaben“ öffnen, das Tagesgeschenk abholen, eine Aufgabe neu würfeln, eine Lernaufgabe erledigen
-   (z. B. zwei Chronikseiten in der Heldenwahl). Sind 40–60 Gold je Aufgabe zu viel oder zu wenig? Sind die Hinweise verständlich?
-3. **Heldenstufe:** nach einer Partie den Balken „Stufe N · Held“ ansehen. Ist der Weg zur Stufe 10 (≈ 22 Siege je Held) zu lang?
-4. Für Sitzung 26 (**AP 6.4 Kampagne 2.0**): Sollen die 22 Missionen zu **Kapiteln je Epoche** (sechs) zusammengefasst werden – mit je
-   einer kurzen Story-Szene vor der ersten Mission und einer **Belagerungsmission mit Lunte** am Ende? Mein Vorschlag: ja, sechs Kapitel
-   in der Reihenfolge des Lehrplans, Szenen als Sprechblasen über den vorhandenen Porträts (keine neuen Bilder), Lunte = 12 eigene Züge.
+1. `Aeterna-1.31.0-Test.apk` aus dem Release „Test-APK“ von `ProjectPyTales/Aeterna_Copy` als Update installieren.
+2. **Kampagne:** Kapitel I öffnen – die Szene vor der ersten Mission lesen. Sind die Sprechblasen gut lesbar und kurz genug?
+3. **Lunte:** Die Belagerung von Auaris (Mission 03) spielen. Sind 14 Züge zu knapp oder zu großzügig? Ist die Lunte oben rechts
+   gut zu sehen?
+4. Für Sitzung 27 (**AP 3.9**): Sollen die vier Eck-Dioramen des Spielbretts beim Antippen reagieren (kleine Animation und Klang,
+   z. B. Efeu raschelt, Sanduhr dreht sich) und lange gedrückte Schlüsselwörter eine Sprechblase zeigen – wie in der Szene? Mein
+   Vorschlag: ja, beides als Platzhalter, dazu die Angriffsvorschau (erwarteter Schaden über dem Ziel).
 
-**Sitzung 26 – Kampagne 2.0 mit Lunte (AP 6.4, AP 3.7)**
+**Sitzung 27 – Lebendige Schlachtfelder und Lesbarkeit (AP 3.9)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.30.0 | Aufgaben und Heldenstufen nach Deinem Test: Gold je Aufgabe, Länge der Stufen, Hinweise | kleine Nacharbeit |
-| AP 6.4 Kampagne 2.0 | Model: Kapitel je Epoche über den 22 Missionen (Reihenfolge bleibt, Fortschritt `profile.campaign` bleibt gültig), Story-Szenen als Daten mit Quelle („halb Lernen“), Bossfähigkeiten aus den vorhandenen Missionsdaten; Belagerungsmission mit **Lunte** (AP 3.7): Countdown in eigenen Zügen, bei Ablauf verloren – als Feld der Mission, Engine nur um die Prüfung am Zugende ergänzt (mit Tests); ViewModel und Kampagnenkarte mit Kapiteln, Szenen-Dialog mit Sprechblasen über den Porträts; Lunte im Match als Astra-Platzhalter `lunte`; Klickpfad um eine Szene erweitern | Entscheidung 22: Kampagne 2.0 kommt vor der großen Astra-Bestellung, ihre Szenen brauchen Platzhalter |
-| Balance (Prüfung) | nur, falls die Lunte die Engine berührt: voller Lauf (die Missionen selbst laufen nicht im Balance-Werkzeug) | Regel bewusst ändern |
-| Ausblick | danach AP 3.9 Eck-Dioramen, dann AP A.3 (Deine große Astra-Bestellung) | – |
+| Rückmeldung 1.31.0 | Szenen und Lunte nach Deinem Test: Länge der Zeilen, Zahl der Züge, Sichtbarkeit der Lunte | kleine Nacharbeit |
+| AP 3.9 Eck-Dioramen | Vier Ecken des Tisches reagieren auf Antippen (Treffer-Ziele ≥ 48 dp, kurze Animation, eigener Klang), nur View; Astra-Platzhalter je Ecke | letzte Oberfläche vor der großen Astra-Bestellung |
+| AP 3.9 Lesbarkeit | Langer Druck auf ein Schlüsselwort zeigt die Erklärung als Sprechblase (Baustein aus der Szene); Angriffsvorschau mit erwartetem Schaden an Ziel und Angreifer (aus `E.apply` auf einer Kopie, ohne Regeländerung) | hilft beim Lernen der Regeln |
+| Ausblick | danach AP 6.4 Teil 2 (Kartenrätsel) oder direkt AP A.3 (Deine große Astra-Bestellung) | – |
 
-Risiko: mittel – neue Missionsfelder und eine kleine Regel am Zugende (Lunte); alte Spielstände mit vollendeten Missionen müssen ihren
-Fortschritt behalten.
+Risiko: gering – nur View und ViewModel, keine Regeländerung (kein Balance-Lauf nötig).
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `thepytales/Aeterna`. Übernimm mein Feedback zu Version 1.30.0:
-> *(hier Feedback zu Aufgaben und Heldenstufen einfügen)* und meine Antwort zu den **Kapiteln der Kampagne**
-> *(oder „wie vorgeschlagen“)*. Arbeite dann **AP 6.4 (Kampagne 2.0) mit der Lunte aus AP 3.7** ab.
+> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Copy`. Übernimm mein Feedback zu Version 1.31.0:
+> *(hier Feedback zu Szenen und Lunte einfügen)* und meine Antwort zu den **Eck-Dioramen**
+> *(oder „wie vorgeschlagen“)*. Arbeite dann **AP 3.9 (Lebendige Schlachtfelder und Lesbarkeit)** ab.
 > Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, baue neue Grafiken als
-> gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests, den Klickpfad und – falls die
-> Engine berührt wird – den vollen Balance-Lauf laufen und sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am
-> Ende einen Pull Request nach `main` und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests und den Klickpfad laufen und
+> sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main`, merge ihn bei grüner
+> CI und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Kapitel und Szenen als Daten, eine kleine Regel in der Engine mit Tests, ein
-neuer Szenen-Dialog und die überarbeitete Kampagnenkarte. *medium* genügt, wenn Du die Lunte auf eine spätere Sitzung schiebst.
+**Empfohlener Effort für den nächsten Prompt: medium.** Nur Oberfläche ohne Regeländerung: vier Treffer-Ziele mit Animation, eine
+Sprechblase als Baustein und die Angriffsvorschau auf einer Zustandskopie. *high*, wenn Du zusätzlich die Kartenrätsel (AP 6.4 Teil 2)
+in dieselbe Sitzung nehmen willst.

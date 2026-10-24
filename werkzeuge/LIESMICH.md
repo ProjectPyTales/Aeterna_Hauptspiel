@@ -1,7 +1,25 @@
-# Aeterna 1.30.0 – Bauen & Prüfen
+# Aeterna 1.31.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.31.0 (AP 6.4 Kampagne 2.0 mit der Lunte aus AP 3.7)
+
+- **Modell** `model/campaign.js` (`AEKA`, vor `quests.js` und `profile.js` geladen): sechs Kapitel nach den Epochen des Lehrplans
+  und ein Epilog über den 22 Missionen (`CHAPTERS`, Reihenfolge `ORDER`, angezeigte Nummer `number(id)`), Story-Szenen mit
+  Sprechern und Quelle, Grund und Quelle der Lunte je Kapitel (`fuse(id)`). Freigeschaltet ist eine Mission, wenn sie gewonnen
+  ist oder ihre Vorgängerin in `ORDER` (`unlocked`) – `profile.campaign` behält seine Kennungen. Neu `profile.scenes` (gesehene
+  Szenen, `AEKA.normalize` in `CHP.parse`).
+- **Lunte** (Regel): Feld `fuse` an sechs Missionen in `model/data.js` (letzte Mission jedes Kapitels, 12 eigene Züge, Alesia und
+  Auaris 14). `CHE.fuse(s)` → `{turns, left}`; endet der letzte eigene Zug ohne Sieg, ist die Partie verloren (`s.burnt`, Ereignis
+  `fuse`, Zeile „Die Lunte ist abgebrannt …“). Außerhalb dieser Missionen ändert sich nichts: Ein Balance-Kurzlauf mit altem und
+  neuem Modell (`AETERNA_MODELL`) ergibt dieselben Zahlen.
+- **Oberfläche:** Kampagnenkarte mit Kapitel-Leiste, Routen je Kapitel, Bossfähigkeit und Lunte im Panel (`view/campaign.js`,
+  Stil `view/css/campaign.css`); Szene als Dialog `scene` (`AEVM.Scene`, `view/dialogs.js`) vor der ersten Mission eines Kapitels
+  und über „Szene“; Lunte im Match oben rechts (`fuse` in `render.js`), in der Heldenwahl, im Eröffnungssatz und im Ergebnis.
+  Fünf Astra-Platzhalter (Paket 8): `kapitelsiegel`, `szene-buehne`, `sprechblase`, `chronist`, `lunte`.
+- Tests: neu `tests/kampagne.test.js`; angepasst `oberflaeche.test.js` (Reihenfolge der Kapitel). Klickpfad: neues Referenzbild
+  `18-szene`, neu `13-kampagne`. Version 1.31.0 / versionCode 34.
 
 ## Neu in 1.30.0 (AP 6.3 Aufgaben und Heldenstufen, Balance-Feinschliff)
 

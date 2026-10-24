@@ -1,6 +1,6 @@
 // Automatische Sichtprüfung (AP 2.6) und Abnahme von AP 2.3 / AP 0.1, im Handyformat (915 × 412, Pixeldichte 2,6).
 // Klickpfad wie ein Spieler: Hauptmenü → Basar (Reiter, Schaufenster, Kauf, Ausrüsten) → Sammlung (Suche) → Herausforderung →
-// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü → Kampagnenkarte (seit 1.19.0) → Kolosseum als Draft (seit 1.29.0).
+// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü → Kampagnenkarte (seit 1.19.0) mit Szene (seit 1.31.0) → Kolosseum als Draft (seit 1.29.0).
 // Jeder Schritt wird fotografiert (sichtpruefung/klickpfad/) und verkleinert mit werkzeuge/referenz/*.webp verglichen.
 // Der Lauf schlägt fehl bei JavaScript-Fehlern, nicht erfüllten Prüfungen oder starken Bildabweichungen.
 //
@@ -144,8 +144,20 @@ async function basar(page,cmpPage,cdp){
    const map=await page.evaluate(()=>({stationen:document.querySelectorAll('.station').length,karte:document.querySelector('.map-art')?.naturalWidth||0}));
    check('Kampagnenkarte: 22 Stationen auf der Karte',map.stationen===22&&map.karte>0,map);
    await shot(page,cmpPage,'13-kampagne');
+   check('Kampagne 2.0: Kapitel-Leiste mit sechs Kapiteln und Epilog, Kapitel I offen',await page.evaluate(()=>document.querySelectorAll('.chapter-seal').length===7&&document.querySelector('.chapter-seal.current')?.dataset.a==='steppe'));
    await page.locator('.station',{hasText:'02'}).click();await settle(page,100);
-   check('Station öffnet ihre Mission',await page.evaluate(()=>document.querySelector('.mission-panel h2')?.textContent.trim()===CHD.missions[1].title));
+   check('Station öffnet ihre Mission',await page.evaluate(()=>document.querySelector('.mission-panel h2')?.textContent.trim()===CHD.missions[AEKA.ORDER[1]].title));
+   // Kampagne 2.0 (AP 6.4, seit 1.31.0): vor der ersten Mission eines Kapitels die Story-Szene mit Sprechblase und Quelle.
+   await page.locator('.station',{hasText:'01'}).click();await settle(page,100);
+   await page.locator('#ui button',{hasText:'Mission vorbereiten'}).click();await page.waitForSelector('#overlay .scene');await settle(page,150);
+   const szene=await page.evaluate(()=>({sprecher:document.querySelectorAll('.speaker').length,blase:document.querySelector('.speech b')?.textContent,quelle:!!document.querySelector('.scene-source')}));
+   check('Szene: Chronist spricht über vier Porträts, Quelle steht darunter',szene.sprecher===4&&szene.blase==='Der Chronist'&&szene.quelle,szene);
+   await shot(page,cmpPage,'18-szene');
+   await page.locator('#overlay button',{hasText:'Weiter'}).click();await settle(page,100);
+   check('Szene blättert zur Fürstin von Vix',await page.evaluate(()=>document.querySelector('.speech b')?.textContent==='Fürstin von Vix'));
+   await page.locator('#overlay button',{hasText:'Überspringen'}).click();await waitScreen(page,'setup');
+   check('Nach der Szene die Heldenwahl der Mission',await page.evaluate(()=>App.screen==='setup'&&App.profile.scenes.includes('steppe')));
+   await page.evaluate(()=>App.navigate('campaign'));await waitScreen(page,'campaign');
    await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
    // Kolosseum als Draft (AP 6.1, seit 1.29.0): Eintritt → Probelauf → Held aus drei Epochen → erste Kartenwahl.
    await tapHall(page,C(996,661));await waitScreen(page,'draft');

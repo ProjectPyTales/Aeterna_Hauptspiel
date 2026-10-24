@@ -47,7 +47,7 @@ test('Freischalten in der Reihenfolge der Kapitel; alte Spielstände behalten ih
  // Ein Spielstand von 1.30.0 mit den Missionen 1–10 (alte Reihenfolge): alle bleiben vollendet und spielbar, dazu öffnen ihre Nachfolger.
  const old=P.fresh();old.campaign=[0,1,2,3,4,5,6,7,8,9];delete old.scenes;const q=P.parse(JSON.stringify(old));
  assert.deepEqual(q.scenes,[]);assert.ok(q.campaign.every(id=>KA.unlocked(q,id)));
- assert.deepEqual(D.missions.filter(m=>!q.campaign.includes(m.id)&&KA.unlocked(q,m.id)).map(m=>m.id).sort((a,b)=>a-b),[10,12,13,14,15,16,17,21]);
+ assert.deepEqual(D.missions.filter(m=>!q.campaign.includes(m.id)&&KA.unlocked(q,m.id)).map(m=>m.id).sort((a,b)=>a-b),[10,12,13,14,15,16,20,21]);
  const bad=P.fresh();bad.scenes=['steppe','steppe','nirgendwo',3];assert.deepEqual(P.parse(JSON.stringify(bad)).scenes,['steppe']);
 });
 
