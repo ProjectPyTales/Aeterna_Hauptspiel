@@ -513,6 +513,31 @@ function chronometer(c,s,now){const {x,y,r}=L.chrono,mine=s.active===0,active=mi
  c.beginPath();c.moveTo(0,-(r-14));c.lineTo(-5,-(r-25));c.lineTo(5,-(r-25));c.closePath();c.fillStyle='#2a1c10';c.fill();c.restore();
  ellipse(c,x,y,5,5,'#c9a052','#2a1c10',1.5);
  hit('end',x-r-10,y-r-26,2*r+20,2*r+74);}
+// Lunte (AP 6.4 mit AP 3.7): In einer Belagerungsmission glimmt oben rechts am Rahmen eine Zündschnur zum Pulverfass. Jeder
+// eigene Zug brennt ein Stück ab (die Glut wandert in 600 ms weiter), Asche bleibt zurück; die Zahl nennt die eigenen Züge, die
+// bleiben, den laufenden mitgerechnet. Die letzten drei glühen rot. Ohne Bewegung ohne Flackern und Funken.
+// ASTRA: lunte – Zündschnur mit Glut und Funken, verbrannte Schnur als Asche, am Ende ein Pulverfass, 380 × 70
+const FUSE={x:1000,y:38,w:262,ms:600};R.fuse=null;
+function fuse(c,s,t){const f=E.fuse(s);if(!f){R.fuse=null;return;}const {x,y,w}=FUSE,k=f.left/f.turns,late=f.left<=3;
+ let a=R.fuse;if(!a||a.mission!==s.mission)a=R.fuse={mission:s.mission,from:k,to:k,at:-1e9};else if(a.to!==k){a.from=a.to;a.to=k;a.at=motion()?t:-1e9;}
+ const q=Math.min(1,(t-a.at)/FUSE.ms),now=a.from+(a.to-a.from)*(1-Math.pow(1-q,3)),gx=x+w*(1-now),wave=v=>y+Math.sin(v/17)*3.5;
+ const cord=(from,to,width,color,dash)=>{c.beginPath();for(let v=from;v<=to;v+=6)v===from?c.moveTo(v,wave(v)):c.lineTo(v,wave(v));c.lineTo(to,wave(to));c.lineWidth=width;c.strokeStyle=color;c.setLineDash(dash||[]);c.stroke();c.setLineDash([]);};
+ // Die Tafel: eine Mulde im Rahmen, damit Schnur und Glut auf dem dunklen Holz lesbar sind.
+ round(c,x-22,y-22,w+84,64,14,grad(c,x-22,y-22,0,64,'#3a2a1aee','#1e150dee'),late?'#e0703a':'#b08a52',2);
+ c.save();c.lineCap='round';
+ if(gx>x+2)cord(x,gx,3.5,'#8d8277',[2,6]);
+ if(gx<x+w-1){cord(gx,x+w,8,'#4a3018');cord(gx,x+w,6,late?'#d08a4a':'#d8b27a');cord(gx,x+w,2,'#fff1c8bb',[4,6]);}
+ // Pulverfass: Dauben, zwei Reifen, Spund.
+ const bx=x+w+26;round(c,bx-16,y-19,32,38,8,grad(c,bx-16,y-19,32,38,'#9a6232','#4a2c14'),'#24140a',2);
+ for(const yy of [y-9,y+9]){c.beginPath();c.moveTo(bx-16,yy);c.lineTo(bx+16,yy);c.lineWidth=3;c.strokeStyle='#b39a6a';c.stroke();}
+ ellipse(c,bx,y-19,8,3,'#2a1a0e','#24140a',1);
+ if(f.left>0){const flick=motion()?.8+.2*Math.sin(t/70)+.1*Math.sin(t/23):1,r=(late?12:10)*flick,gy=wave(gx),g=c.createRadialGradient(gx,gy,0,gx,gy,r*2.3);
+  g.addColorStop(0,'#fffbe0');g.addColorStop(.25,late?'#ff6a2a':'#ffc24a');g.addColorStop(1,'#ff5a1a00');c.fillStyle=g;c.beginPath();c.arc(gx,gy,r*2.3,0,Math.PI*2);c.fill();
+  if(motion())for(let i=0;i<6;i++){const life=(t/420+i/6)%1,an=i*2.4+Math.floor(t/420+i/6)*1.7,d=4+life*20;
+   c.globalAlpha=1-life;c.fillStyle=i%2?'#ffe08a':'#ff8a3a';c.fillRect(gx+Math.cos(an)*d*.7-1.5,gy-d*.8+Math.sin(an)*4-1.5,3,3);}
+  c.globalAlpha=1;}
+ c.restore();
+ txt(c,f.left===0?'DIE LUNTE IST ABGEBRANNT':f.left===1?'LUNTE · LETZTER ZUG':'LUNTE · NOCH '+f.left+' ZÜGE',x+w/2,y+26,15,late?'#ffb48a':'#f3dab0');}
 // Square chronicle images reuse the exact in-match artwork and ability glyphs.
 R.logIcons={};R.logIcon=(kind,id)=>{const key=kind+':'+id;if(!R.logIcons[key]){
  const el=document.createElement('canvas');el.width=el.height=96;const c=el.getContext('2d');
@@ -709,7 +734,7 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  const order=R.sprite('order',-24,-62,48,92,orderArt),orders=Math.max(0,b.hand.length-CHM.pendingOrders());
  for(let i=0;i<orders;i++){c.save();c.translate(490+i*34,12);c.rotate((i-(b.hand.length-1)/2)*.033);R.blit(c,order);c.restore();}
  deck(c,s,0,t);deck(c,s,1,t);rolls(c,s,0,t);rolls(c,s,1,t);
- chronometer(c,s,t);
+ chronometer(c,s,t);fuse(c,s,t);
  // Ether dials on the left (1.17.0) and the chronicle strip at the edge (AP 1.8 Teil 2).
  dial(c,0,a,t);dial(c,1,b,t);strip(c,log,t);
  hand(c,s,view,handInfo,t,gold);
@@ -718,7 +743,7 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,'#f5473b',4);}
  // The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
  if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
- button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':'SCHLACHT',368,55,13,'#f3dab0');
+ button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':'SCHLACHT',368,55,13,'#f3dab0');
  CHM.overlay(c,s,t,gold);
  if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
   if(d.target&&d.target!=='h0')pulse(c,d.target,t);
