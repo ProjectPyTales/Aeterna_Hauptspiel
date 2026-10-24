@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (59 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (64 Teile)
 
-*Stand 1.30.0 (23. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, und seit 1.30.0 die drei der Aufgaben, AP 6.3). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
+*Stand 1.31.0 (24. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, und seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 58 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 63 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -133,6 +133,16 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `tagesgeschenk` | `tagesgeschenk-offen.png`, `-heute.png`, `-abgeholt.png` | 96 × 96 | Wachssiegel für einen Tag der Serie: offen dunkelrot und matt, heute golden leuchtend, abgeholt gebrochen und grau; Mitte frei für die Zahl des Tages. |
 | `aufgabe-tafel` | `aufgabe-tafel.png`, `aufgabe-tafel-lernen.png` | 360 × 210 | Römische Wachstafel mit Holzrahmen und Griffel für eine Tagesaufgabe; die Tafel zum Lernen mit Eule und Schriftrolle am Rand in Lapisblau. Innenfläche ruhig für Text und Balken. |
 | `heldenstufe` | `heldenstufe.png` | 64 × 64 | Kleiner goldener Lorbeerkranz als Stufenabzeichen an der Heldenmünze; Mitte frei für die Zahl. |
+
+### Paket 8 – Kampagne 2.0 mit Lunte (5 Teile, 7 Dateien, seit 1.31.0)
+
+| Kennung | Dateien | Größe | Motiv und Vorgaben |
+|---|---|---|---|
+| `kapitelsiegel` | `kapitelsiegel-offen.png`, `-vollendet.png`, `-versiegelt.png` | 96 × 96 | Rundes Bronzemedaillon eines Kapitels der Kampagne, Mitte ruhig für Ziffer und Zeichen der Epoche; die Epochenfarbe färbt das Spiel darüber. Vollendet mit Blattgoldrand, versiegelt matt mit dunklem Wachs. |
+| `szene-buehne` | `szene-buehne.png` | 1200 × 520 | Bühne der Story-Szene: aufgerolltes Pergament auf dunklem Holz, oben ein schmales Band für die Farbe der Epoche, unten Platz für bis zu fünf Porträtmünzen nebeneinander. |
+| `sprechblase` | `sprechblase.png` | 1000 × 180 | Sprechblase als entrollte, helle Schriftrolle mit kleiner Spitze nach unten (Spitze als eigenes Stück in der unteren Mitte, das Spiel verschiebt sie); Innenfläche ruhig für zwei Zeilen Text. |
+| `chronist` | `chronist.png` | 256 × 256 | Porträt des Chronisten für die Szenen: älterer Schreiber mit Gänsefeder und aufgeschlagenem Buch, rund zugeschnitten wie die Heldenmünzen. |
+| `lunte` | `lunte-schnur.png`, `lunte-fass.png` | 380 × 70 | Glimmende Zündschnur als waagerechtes Seil (wiederholbar, ohne Glut) und ein kleines Pulverfass mit Eisenreifen für das rechte Ende; Glut, Funken und Asche zeichnet das Spiel. |
 
 ## Abnahme
 

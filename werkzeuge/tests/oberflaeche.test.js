@@ -113,10 +113,12 @@ test('AP 1.7 Kampagnenkarte: 22 Stationen auf der Karte, keine überdeckt eine a
  const tex=STATIONS[14];assert.equal(tex.place,'Azcapotzalco');assert.ok(tex.inset&&tex.x>I.x&&tex.x<I.x+I.w&&tex.y>I.y&&tex.y<I.y+I.h,'Neue Welt im Kästchen');
  assert.deepEqual(STATIONS.filter(s=>s.siege).map(s=>s.place),['Eresburg','Alesia','Athen','Auaris','Azcapotzalco','Namur']);
  const {ctx,store,log}=setup('campaign'),c=new Campaign(ctx);c.enter();
- assert.equal(c.picked.mission.id,0,'neu: Mission 1 liegt offen');store.profile.campaign=[0,1,2];assert.equal(c.picked.mission.id,3,'danach die erste nicht gewonnene');
- c.pick(9);assert.equal(c.picked.mission.id,9);assert.ok(c.picked.locked);c.start();assert.equal(log.go.length,0,'versiegelt: kein Start');
- c.pick(1);c.start();assert.deepEqual(log.go.at(-1),['setup',undefined]);assert.equal(ctx.session.mission,1);assert.equal(ctx.session.mode,'campaign');
- assert.equal(c.route.length,21,'die Marschroute verbindet die Stationen in Europa');
+ // Seit 1.31.0 (AP 6.4) in der Reihenfolge der Kapitel: zuerst die Fürstin von Vix am Mont Lassois (Mission 21).
+ assert.equal(c.picked.mission.id,21,'neu: die erste Mission von Kapitel I liegt offen');assert.equal(c.picked.number,1);
+ store.profile.campaign=[21,2];assert.equal(c.picked.mission.id,12,'danach die erste nicht gewonnene');
+ c.pick(0);assert.equal(c.picked.mission.id,0);assert.ok(c.picked.locked);c.start();assert.equal(log.go.length,0,'versiegelt: kein Start');
+ store.profile.scenes=['steppe'];c.pick(2);c.start();assert.deepEqual(log.go.at(-1),['setup',undefined]);assert.equal(ctx.session.mission,2);assert.equal(ctx.session.mode,'campaign');
+ assert.equal(c.routes.length,7,'eine Marschroute je Kapitel und Epilog');assert.deepEqual(c.routes[0].legs.map(l=>[l.a.place,l.b.place,l.won]),[['Mont Lassois','Sakkara',true],['Sakkara','Auaris',false]]);
  const svg=read('assets/art/weltkarte.svg');assert.match(svg,/Natural Earth/);assert.ok(svg.length<120*1024,'Karte klein: '+svg.length);
  assert.match(svg,new RegExp(`viewBox="0 0 ${MAP.w} ${MAP.h}"`),'gleiche Projektion wie die Stationen');
  const view=read('view/campaign.js');for(const k of ['weltkarte','missionssiegel'])assert.match(view,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);

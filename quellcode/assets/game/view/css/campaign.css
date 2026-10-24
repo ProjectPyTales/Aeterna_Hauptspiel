@@ -1,0 +1,62 @@
+/* Kampagne 2.0 (AP 6.4, view/campaign.js und Szene in view/dialogs.js): Kapitel-Leiste, Routen je Kapitel, Bossfähigkeit und
+ * Lunte im Panel, Story-Szene mit Sprechblasen. Platzhalter für Astra: kapitelsiegel, szene-buehne, sprechblase, chronist
+ * (MOTIVE.md). Farben nach stil/STILBIBEL.md. */
+
+/* ---------- Karte: Stationen und Routen anderer Kapitel treten zurück ---------- */
+.station.other:not(.picked){opacity:.5}
+.station.other:not(.picked) .st-seal{animation:none}
+.map-route .other{stroke-opacity:.3}
+.station .tower.fuse{color:#ffd27a;background:#5a1d10;border-color:#e0a830;text-shadow:0 0 6px #ff9a3a}
+
+/* ---------- Panel: Kapitel-Leiste (ASTRA kapitelsiegel), Kapitel, Bossfähigkeit, Lunte ---------- */
+.mission-panel{gap:6px;padding:14px 20px}
+.mission-panel h2{font-size:24px}
+.mission-panel .mission-foe .coin-face{width:54px;height:54px}
+.chapter-strip{display:flex;gap:6px;margin-bottom:2px}
+button.chapter-seal{flex:1;min-width:0;min-height:0;height:54px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+ border-radius:12px;border:2px solid var(--age);background:radial-gradient(circle at 50% 30%,#fff2,#0007 80%),var(--age);
+ box-shadow:inset 0 0 0 2px #0003,0 3px 6px #0007;color:#fbeccf;font:17px Title,serif;text-shadow:0 1px 2px #000a}
+.chapter-seal small{font:11px 'Aeterna Text',sans-serif;letter-spacing:.5px;color:#f0e2c4cc}
+.chapter-seal.complete{border-color:#d6a148}
+.chapter-seal.complete small{color:#f6dc93}
+.chapter-seal.locked{filter:grayscale(.85) brightness(.6)}
+.chapter-seal.current{border-color:#fff3c4;box-shadow:inset 0 0 0 2px #0003,0 0 14px #ffd77a88;transform:translateY(-2px)}
+.chapter-head{display:flex;flex-direction:column;padding-bottom:6px;border-bottom:1px solid #a8834a55}
+.chapter-head b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:11.5px Title,serif;letter-spacing:1px;text-transform:uppercase;color:#e8c36f}
+.chapter-head span{font:19px Title,serif;color:#f4ddb0}
+.mission-panel .boss-ability{font-size:14.5px;line-height:1.35}
+.boss-ability small,.fuse-note b{display:block;font:12px Title,serif;letter-spacing:2px;text-transform:uppercase;color:#c2b18b}
+.fuse-note{padding:6px 12px;border-radius:10px;border:1px solid #c0702a;background:linear-gradient(160deg,#4a2414cc,#2a1810cc);box-shadow:inset 0 0 12px #ff7a2a22}
+.fuse-note b{color:#ffc46a}
+.mission-panel .fuse-note p{font-size:13.5px;line-height:1.35;margin:2px 0}
+.fuse-note small{font-size:12px;color:#b7aa91}
+.mission-panel .reward{font-size:15px}
+.foot-buttons{display:flex;gap:8px}
+
+/* ---------- Story-Szene: Bühne (ASTRA szene-buehne), Sprechblase (ASTRA sprechblase), Porträts, Chronist (ASTRA chronist) ---------- */
+.modal.scene{padding:24px 34px}
+.modal.scene h2{margin-bottom:6px}
+.scene-stage{position:relative;margin-top:8px;padding:18px 18px 12px;border-radius:14px;border:2px solid var(--age);
+ background:linear-gradient(180deg,#2a2119d0,#1c1611 70%),var(--age);box-shadow:inset 0 0 30px #0008}
+.speech{position:relative;min-height:118px;padding:14px 22px;border-radius:16px;background:linear-gradient(180deg,#f3e6c8,#e2cfa6);color:#2e1a0f;
+ box-shadow:0 0 0 2px #8a6a3a,0 6px 14px #0007;animation:speech-in .28s ease-out}
+.speech:after{content:'';position:absolute;bottom:-14px;left:calc((var(--at) + .5) * 100% / var(--n) - 14px);border:14px solid transparent;border-bottom:0;border-top-color:#e2cfa6;
+ transition:left .3s ease}
+.speech b{display:block;font:14px Title,serif;letter-spacing:2px;text-transform:uppercase;color:#7a2a1c}
+.speech p{margin:4px 0 0;font-size:21px;line-height:1.42;color:#2e1a0f}
+@keyframes speech-in{from{opacity:.4;transform:translateY(6px)}}
+.cast{display:flex;margin-top:22px}
+.speaker{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.55;transition:opacity .3s,transform .3s}
+.speaker.speaking{opacity:1;transform:translateY(-4px)}
+.speaker .coin-face{display:grid;place-items:center;width:96px;height:96px;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 3px #8a6a3a,0 0 0 5px #2a1f14,0 4px 8px #0008}
+.speaker.speaking .coin-face{box-shadow:0 0 0 3px #f0d48c,0 0 0 5px #2a1f14,0 0 20px #f0d48caa}
+.coin-face.chronist{font-size:44px;color:#f4ddb0;background:radial-gradient(circle at 40% 35%,#6b5236,#2e2117 72%)}
+.speaker small{font:14px Title,serif;color:#e9d6ae;text-align:center}
+.scene-foot{display:flex;align-items:center;gap:16px;margin:12px 0 4px}
+.scene-steps{display:flex;gap:6px;flex:none}
+.scene-steps i{width:10px;height:10px;border-radius:50%;background:#5a4a36}
+.scene-steps i.read{background:#a8834a}
+.scene-steps i.now{background:#f0d48c;box-shadow:0 0 8px #f0d48c}
+.scene-source{font-size:13px;line-height:1.35;color:#b7aa91}
+@media(prefers-reduced-motion:reduce){.speech{animation:none}.speech:after,.speaker{transition:none}}
+.setup-side .fuse-line{font-size:15px;color:#ffc46a}

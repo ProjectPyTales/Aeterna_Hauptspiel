@@ -1,12 +1,15 @@
-/* Campaign view model: 22 missions (ten plus the new chronicles of AP 5.10); each victory unlocks the next.
+/* Campaign view model: 22 missions; each victory unlocks the next.
  * Kampagnenkarte (AP 1.7): every mission is a station on a map of Europe and the Mediterranean (the Aztec lake in an
- * inset „Neue Welt“), joined by a march route in mission order; sieges carry a tower. Places and the projection live
- * here, not in model/data.js – they only place the stations and do not touch the rules.
- * werkzeuge/weltkarte.js draws the coastlines (assets/art/weltkarte.svg) with the same projection. */
+ * inset „Neue Welt“); sieges carry a tower. Places and the projection live here, not in model/data.js – they only place the
+ * stations and do not touch the rules. werkzeuge/weltkarte.js draws the coastlines (assets/art/weltkarte.svg) with the same
+ * projection.
+ * Kampagne 2.0 (AP 6.4, 1.31.0): the missions follow the six chapters of model/campaign.js (AEKA) and the epilogue – a chapter
+ * strip on the panel, a march route per chapter, a story scene before the first mission of a chapter (dialog 'scene') and the
+ * Lunte of the last mission. */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD;
-const {Screen}=node?require('./base.js'):root.AEVM;
+const D=node?require('../model/data.js'):root.CHD,KA=node?require('../model/campaign.js'):root.AEKA;
+const {Screen}=node?require('./base.js'):root.AEVM,{ViewModel}=node?require('../core/mvvm.js'):root.AEM;
 
 // Equirectangular map, 1080 × 640 stage units: 28°–56° N, 18° W – 46.5° E (longitudes shrunk by cos 43°).
 const MAP={w:1080,h:640,lon0:-18,lat1:56,ky:640/28,kx:640/28*Math.cos(43*Math.PI/180),
@@ -51,17 +54,52 @@ const STATIONS=(()=>{const st=PLACES.map((p,id)=>{const at=p.inset?projectInset(
 class Campaign extends Screen{
  constructor(ctx){super(ctx,{pick:null});}
  enter(){this.state.pick=null;}
- get missions(){const done=this.profile.campaign;
-  return D.missions.map(m=>({mission:m,done:done.includes(m.id),locked:m.id>0&&!done.includes(m.id-1),station:STATIONS[m.id]}));}
+ // By mission id: {mission, number, chapter, done, locked, station, fuse}.
+ get missions(){const p=this.profile;
+  return D.missions.map(m=>({mission:m,number:KA.number(m.id),chapter:KA.chapterOf(m.id),done:p.campaign.includes(m.id),locked:!KA.unlocked(p,m.id),station:STATIONS[m.id],fuse:KA.fuse(m.id)}));}
+ // In campaign order, chapter by chapter.
+ get ordered(){const list=this.missions;return KA.ORDER.map(id=>list[id]);}
  // The open station: the picked one, else the first mission not yet won.
- get picked(){const list=this.missions,id=this.state.pick;return list.find(x=>x.mission.id===id)||list.find(x=>!x.done&&!x.locked)||list[list.length-1];}
- get route(){return this.missions.filter(x=>!x.station.inset).map(x=>x.station);}
+ get picked(){const list=this.ordered,id=this.state.pick;return list.find(x=>x.mission.id===id)||list.find(x=>!x.done&&!x.locked)||list[list.length-1];}
+ // The chapter strip: {chapter, open, done, total, complete, current}.
+ get chapters(){const p=this.profile,cur=this.picked.chapter;
+  return KA.CHAPTERS.map(c=>{const done=KA.done(p,c);return {chapter:c,open:KA.open(p,c),done,total:c.missions.length,complete:done===c.missions.length,current:c===cur};});}
+ // One march route per chapter, in mission order and only as far as the chronicle has come: [{chapter, current, legs:[{a, b, won}]}].
+ get routes(){const list=this.missions,cur=this.picked.chapter;
+  return KA.CHAPTERS.map(c=>{const st=c.missions.map(id=>list[id]).filter(x=>!x.station.inset),legs=[];
+   for(let i=1;i<st.length;i++){if(st[i].locked)break;legs.push({a:st[i-1].station,b:st[i].station,won:st[i].done});}
+   return {chapter:c,current:c===cur,legs};});}
  pick(id){id=Number(id);const m=this.missions[id];if(!m||m.mission.id===this.picked.mission.id)return;this.set({pick:id});this.ui.play('stone',{gain:.6});this.ui.haptic(0);}
+ // A chapter opens on its first mission not yet won (or its first one).
+ chapter(id){const c=KA.CHAPTERS.find(c=>c.id===id);if(!c)return;const list=this.missions,x=c.missions.map(i=>list[i]),to=(x.find(y=>!y.done&&!y.locked)||x[0]).mission.id;
+  if(to===this.picked.mission.id)return;this.set({pick:to});this.ui.play('parchment',{gain:.6});this.ui.haptic(0);}
  start(){this.mission(this.picked.mission.id);}
- mission(id){id=Number(id);const m=this.missions[id];if(!m||m.locked)return;Object.assign(this.session,{mission:id,mode:'campaign'});this.ui.go('setup');}
+ // Before the first mission of a chapter its story scene, once; then the hero choice.
+ mission(id){id=Number(id);const m=this.missions[id];if(!m||m.locked)return;Object.assign(this.session,{mission:id,mode:'campaign'});
+  const c=m.chapter;if(c&&!KA.seen(this.profile,c)){this.scene(c.id,()=>this.ui.go('setup'));return;}
+  this.ui.go('setup');}
+ // Story scene of a chapter; then runs after the last line. replay(): the scene of the picked chapter again (panel).
+ replay(){this.scene(this.picked.chapter.id);}
+ scene(id,then=null){const c=KA.CHAPTERS.find(c=>c.id===id);if(!c||!KA.open(this.profile,c))return;
+  if(KA.see(this.profile,c))this.commit();this.ui.dialog('scene',new Scene(this.ctx,{chapter:c,then}));this.ui.play('parchment');}
  quests(){this.ctx.dialogs.quests();}
 }
 
-const api={Campaign,MAP,STATIONS,PLACES,project,projectInset};
+// Story-Szene (AP 6.4): Zeile für Zeile eine Sprechblase über dem Porträt dessen, der spricht; am Ende die Quelle.
+// „Weiter“ blättert, „Überspringen“ und die letzte Zeile führen weiter (zur Heldenwahl, wenn die Szene vor einer Mission kam).
+class Scene extends ViewModel{
+ constructor(ctx,{chapter,then}){super({step:0});this.ctx=ctx;this.chapter=chapter;this.then=then;}
+ get lines(){return this.chapter.scene;}
+ get line(){return this.lines[this.state.step];}
+ get last(){return this.state.step>=this.lines.length-1;}
+ // Everyone who speaks, in order of appearance, once.
+ get cast(){return [...new Set(this.lines.map(l=>l.who))];}
+ next(){if(this.last){this.done();return;}this.set({step:this.state.step+1});this.ctx.ui.play('parchment',{gain:.5});}
+ prev(){if(this.state.step>0)this.set({step:this.state.step-1});}
+ done(){this.ctx.ui.close();this.then?.();}
+ close(){this.ctx.ui.close();}
+}
+
+const api={Campaign,Scene,MAP,STATIONS,PLACES,project,projectInset};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

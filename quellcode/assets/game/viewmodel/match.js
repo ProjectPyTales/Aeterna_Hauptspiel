@@ -11,7 +11,7 @@
  * reward bars (finale, rewardBars). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,Q=node?require('../model/quests.js'):root.AEQ;
+const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,Q=node?require('../model/quests.js'):root.AEQ,KA=node?require('../model/campaign.js'):root.AEKA;
 const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 const chronicle=()=>node?require('./chronicle.js'):root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
@@ -42,8 +42,8 @@ class Match extends Screen{
   this.present('opening',this.opening(s),()=>{if(this.ui.screen()==='game'&&this.game===s&&s.phase==='mulligan'&&!this.ui.dialogOpen())this.ui.dialog('mulligan',this);});}
  // Names, epochs and the chronicler's line; first is the side the coin chose (the engine decided it at creation).
  opening(s=this.game){const names=[0,1].map(p=>p===1&&s.mission!=null?D.missions[s.mission].boss:D.heroById[s.players[p].hero].name),m=s.mission!=null?D.missions[s.mission]:null;
-  const eras=[0,1].map(p=>p===1&&m?'Mission '+(s.mission+1):D.heroById[s.players[p].hero].era);
-  const line=m?'Mission '+(s.mission+1)+' · '+m.title+': '+names[0]+' stellt sich '+names[1]+'.':names[0]+' trifft auf '+names[1]+' – die Chronik schlägt eine neue Seite auf.';
+  const n=m?KA.number(s.mission):0,eras=[0,1].map(p=>p===1&&m?'Mission '+n:D.heroById[s.players[p].hero].era),f=m&&KA.fuse(s.mission);
+  const line=m?'Mission '+n+' · '+m.title+': '+names[0]+' stellt sich '+names[1]+'.'+(f?' Die Lunte brennt: '+f.turns+' eigene Züge.':''):names[0]+' trifft auf '+names[1]+' – die Chronik schlägt eine neue Seite auf.';
   return {names,eras,line,first:s.active,firstName:names[s.active]};}
  leave(){clearTimeout(this.aiTimer);this.cancelDrag();this.waiting=false;this.present('stop');}
  // The shell opened or closed a dialog: hold the AI while one is open.
@@ -186,7 +186,7 @@ class Match extends Screen{
  result(staged=false){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over'||this.ui.dialogOpen())return;
   if(!staged)this.ui.play(s.winner===0?'victory':'defeat');
   const to=s.mode==='campaign'?'campaign':s.mode==='draft'?'draft':'menu';
-  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
+  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,burnt:!!s.burnt,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
    buttons:[{label:{campaign:'Zur Kampagne',draft:'Zum Kolosseum'}[to]||'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
  // Rewards with progress bars (AP 3.8): the gold won, the hero level and every open quest of the day from its value before
  // this game to now (AP 6.3; a reached goal can be claimed in the menu), and in the campaign the missions completed.

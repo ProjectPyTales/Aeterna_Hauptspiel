@@ -229,7 +229,13 @@ function endTurn(s,p){const a=s.players[p];for(const u of [...a.board]){if(u.hea
  // AP 5.7 Teil 2: Ergründen, das am Zugende aufgeht (ein Artemistempel fällt), wählt der Zufall – eine offene Wahl im Zug des
  // Gegners hielte das Spiel an.
  while(s.choice)choose(s,Math.floor(rand(s)*s.choice.options.length));
+ // Lunte (AP 6.4, AP 3.7): in einer Belagerungsmission endet die Partie, wenn der letzte eigene Zug ohne Sieg vorbei ist.
+ if(s.phase!=='over'&&p===0&&fuse(s)&&s.players[0].turns>=fuse(s).turns){s.phase='over';s.winner=1;s.burnt=true;s.choice=null;emit(s,'fuse',{p:0,left:0});emit(s,'over',{winner:1});log(s,'Die Lunte ist abgebrannt – '+heroName(s,1)+' hält stand.');}
  if(s.phase!=='over'){if(s.turn>=120){s.phase='over';s.winner=-1;emit(s,'over',{winner:-1});}else startTurn(s,1-p);}}
+// Lunte einer Belagerungsmission: {turns, left} – left zählt die eigenen Züge, die noch bleiben, den laufenden mitgerechnet;
+// null außerhalb solcher Missionen.
+function fuse(s){const n=s.mission!=null&&D.missions[s.mission]?.fuse;if(!n)return null;const a=s.players[0],now=s.phase==='play'&&s.active===0&&a.turns>0?1:0;
+ return {turns:n,left:Math.max(0,n-a.turns+now)};}
 // Subutai's pincer: another own minion joins the attack on the same target (without spending its own attack).
 function pincer(s,p,attacker,target){const a=s.players[p];if(!has(a,'khan_9')||attacker.id==='khan_9')return;const t=unit(s,target);if(!t||t.obj.health<=0)return;
  const list=minions(a).filter(u=>u!==attacker&&u.id!=='khan_9'&&u.health>0&&u.attack>0&&!u.frozen);if(!list.length)return;const u=pick(s,list);
@@ -306,5 +312,5 @@ const HITS=['damage','face','heroAttack','weapon','randomDamage'];
 function lethalPlan(s,p,budget=200){let remaining=budget;function go(st,path,depth){if(st.phase==='over')return st.winner===p?path:null;if(depth<=0||remaining--<=0)return null;const a=st.players[p],b=st.players[1-p];const rough=a.board.filter(canAttack).reduce((v,u)=>v+u.attack*(u.double?2-u.attacks:1),0)+heroAttack(a)+a.mana*4+4;if(b.health+b.armor>rough)return null;
 let acts=legal(st,p).filter(x=>{if(x.type==='attack')return true;if(x.type==='power')return heroOf(a).ability.effects.some(e=>HITS.includes(e.type))&&(!x.target||x.target==='h'+(1-p)||unit(st,x.target).p!==p);if(x.type==='play'){const c=D.byId[a.hand.find(h=>h.uid===x.uid).id];return c.charge||c.rush||(c.effects||c.battle||[]).some(e=>['damage','face','buffAll','heroAttack','weapon','mana','duel','freeze','silence','randomDamage','destroy','bounce'].includes(e.type));}return false;});
 acts.sort((x,y)=>(y.target==='h'+(1-p)?1:0)-(x.target==='h'+(1-p)?1:0));for(const action of acts.slice(0,18)){const c=copy(st);apply(c,action);const r=go(c,[...path,action],depth-1);if(r)return r;}return null;}return go(s,[],7);}
-const api={STYLE,impact,silence,canSet,ambushes,AMBUSH_MAX,clone,copy,rand,shuffle,create,mulligan,legal,apply,unit,heroAttack,canPower,canAttack,targetKind,validTargets,attackTargets,starter,randomDeck,ai,value,lethalPlan,settle,summon,hurt,heal,effects,cost,focus,auras,cardWorth};if(typeof module!=='undefined')module.exports=api;else root.CHE=api;
+const api={STYLE,impact,fuse,silence,canSet,ambushes,AMBUSH_MAX,clone,copy,rand,shuffle,create,mulligan,legal,apply,unit,heroAttack,canPower,canAttack,targetKind,validTargets,attackTargets,starter,randomDeck,ai,value,lethalPlan,settle,summon,hurt,heal,effects,cost,focus,auras,cardWorth};if(typeof module!=='undefined')module.exports=api;else root.CHE=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

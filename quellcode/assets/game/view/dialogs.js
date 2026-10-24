@@ -1,6 +1,6 @@
 /* Dialog views. Each renders one dialog view model into #overlay through the shared modal (view/kit.js). */
 (function(){'use strict';
-const {html}=AEM,V=AEV,D=CHD,R=CHR;
+const {html,raw}=AEM,V=AEV,D=CHD,R=CHR;
 const D_=AEV.dialogs=AEV.dialogs||{};
 const choose=(buttons=[])=>buttons.map((b,i)=>V.button({label:b.label,style:b.style,cmd:'choose',a:i}));
 const option=(value,label,selected)=>html`<option value="${value}"${V.attr('selected',selected)}>${label}</option>`;
@@ -86,9 +86,22 @@ D_.discover={render:vm=>{const s=vm.state;
 // ASTRA: ergebnis-banner – Banner „TRIUMPH“ / „NIEDERLAGE“ / „UNENTSCHIEDEN“ über dem Ergebnis, 900 × 240
 const pct=(n,goal)=>Math.round(Math.max(0,Math.min(1,goal?n/goal:0))*100)+'%';
 D_.result={render:vm=>{const s=vm.state,win=s.winner===0,r=s.reward,kind=win?'win':s.winner===-1?'draw':'loss',bars=s.bars||[];
- return html`<div class="scrim"><div class="${V.cls('result','panel',kind)}" role="dialog" aria-modal="true" aria-label="Ergebnis"><div class="result-banner"><span>${win?'TRIUMPH':s.winner===-1?'UNENTSCHIEDEN':'NIEDERLAGE'}</span></div><div class="eyebrow">${s.mode==='campaign'?'Die historische Kampagne':s.mode==='draft'?'Das Kolosseum':'Die Chronik des Duells'}</div><p>${win?'Eine neue Seite Deiner Geschichte.':'Jede Schlacht lehrt einen neuen Weg.'}</p><div class="rewards">${
+ return html`<div class="scrim"><div class="${V.cls('result','panel',kind)}" role="dialog" aria-modal="true" aria-label="Ergebnis"><div class="result-banner"><span>${win?'TRIUMPH':s.winner===-1?'UNENTSCHIEDEN':'NIEDERLAGE'}</span></div><div class="eyebrow">${s.mode==='campaign'?'Die historische Kampagne':s.mode==='draft'?'Das Kolosseum':'Die Chronik des Duells'}</div><p>${win?'Eine neue Seite Deiner Geschichte.':s.burnt?'Die Lunte ist abgebrannt – die Belagerung ist gescheitert. Versuche es schneller.':'Jede Schlacht lehrt einen neuen Weg.'}</p><div class="rewards">${
   bars.map((b,i)=>html`<div class="${V.cls('reward-bar',b.key==='gold'&&'gain',b.ep&&'xp',b.to>=b.goal&&b.key!=='gold'&&'full')}" data-key="${b.key}" style="--i:${i};--from:${pct(b.from,b.goal)};--to:${pct(b.to,b.goal)}"><span class="label">${b.label}</span><span class="track"><i></i></span><b>${b.key==='gold'?'+'+b.to:b.to+' / '+b.goal}</b><small>${b.note}</small>${b.key==='gold'&&b.to?html`<span class="coin-rain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>`:''}</div>`)}${
   r.packs?html`<div class="reward-pack">▣ +${r.packs} Kartenpaket</div>`:''}</div>${choose(s.buttons)}</div></div>`;}};
+
+// Story-Szene eines Kapitels (AP 6.4): die Sprechblase steht über dem Porträt dessen, der spricht; darunter alle, die in der
+// Szene sprechen, und die Quelle.
+// ASTRA: szene-buehne – Pergamentbühne der Story-Szene mit Band in der Farbe der Epoche, 1200 × 520
+// ASTRA: sprechblase – Sprechblase als entrollte Schriftrolle mit Spitze nach unten, 1000 × 180
+// ASTRA: chronist – Porträt des Chronisten mit Feder und Buch für die Story-Szenen, 256 × 256
+const speaker=who=>who==='chronist'?'Der Chronist':D.heroById[who]?.name||who;
+D_.scene={render:vm=>{const c=vm.chapter,l=vm.line,cast=vm.cast,at=cast.indexOf(l.who),step=vm.state.step;
+ return V.modal({width:1200,extra:'scene',labelledby:'scene-title',body:html`<div class="eyebrow">${c.label}${c.epilogue?'':' · '+c.era}</div><h2 id="scene-title">${c.title}</h2><div class="scene-stage" style="--age:${c.color};--n:${cast.length};--at:${at}"><div class="speech" role="status" aria-live="polite"><b>${speaker(l.who)}</b><p>${l.text}</p></div><div class="cast">${
+  cast.map((who,i)=>html`<div class="${V.cls('speaker',i===at&&'speaking')}" data-key="${who}"><span class="${V.cls('coin-face',who==='chronist'&&'chronist')}"${who==='chronist'?'':raw(` style="${R.heroStyle(who)}"`)}>${who==='chronist'?'✒':''}</span><small>${speaker(who)}</small></div>`)}</div></div><div class="scene-foot"><span class="scene-steps" aria-label="Zeile ${step+1} von ${vm.lines.length}">${
+  vm.lines.map((_,i)=>html`<i class="${V.cls(i===step&&'now',i<step&&'read')}"></i>`)}</span><small class="scene-source">Quelle: ${c.source}</small></div>${
+  V.buttons([V.button({label:'Zurück',cmd:'prev',disabled:step===0}),...(vm.last?[]:[V.button({label:vm.then?'Überspringen':'Schließen',cmd:'done'})]),
+   V.button({label:vm.last?(vm.then?'Zur Mission ›':'Schließen'):'Weiter ›',cmd:'next',style:'gold'})])}`});}};
 
 D_.grave={render:vm=>{const s=vm.state;
  return V.modal({width:1000,body:html`<h2>${s.mine?'Dein':'Gegnerischer'} Friedhof · ${s.cards.length}</h2><div class="grave-grid">${

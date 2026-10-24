@@ -361,6 +361,10 @@ const missions=[
 ['Namur 1692','Menno van Coehoorn','zizka','Festungsbauer gegen Festungsbauer',42,'knights','Der Boss gibt zu Beginn seines Zuges einem zufälligen eigenen Diener Segen.',{effects:[E('grantRandom',1,{key:'shield'})]}],
 ['Der Fürstensitz am Mont Lassois','Der Fürst der Heuneburg','fuhao','Zinn, Wein und Bronze',44,'qiang','Der Boss ruft jeden dritten eigenen Zug einen Krieger (2/2).',{every:3,effects:[E('summon',1,{token:'warrior'})]}]
 ].map((m,i)=>({id:i,title:m[0],boss:m[1],hero:m[2],subtitle:m[3],health:m[4],ability:m[5],description:m[6],reward:100+i*15,...(m[7]||{})}));
+// Lunte (AP 6.4 mit AP 3.7, seit 1.31.0): Die letzte Mission jedes Kapitels der Kampagne ist eine Belagerung mit Zeitdruck. fuse =
+// eigene Züge, die bleiben; endet der letzte davon ohne Sieg, ist die Mission verloren (CHE.fuse, Prüfung am Zugende). Die KI
+// gewinnt Missionen im Median nach 11 eigenen Zügen; Alesia und Auaris halten länger stand und bekommen 14.
+for(const [id,turns] of [[12,14],[10,12],[5,14],[4,12],[3,12],[20,12]])missions[id].fuse=turns;
 // Schlüsselwörter (AP 5.4): Name auf der Karte und Erklärung für Hilfe und Großansicht. Die Engine-Felder bleiben
 // (taunt, shield, battle, death, charge); Spielstände sind davon unberührt. AP L.6 (1.24.0): Göttliche Gunst heißt Segen
 // (ein Ritual, das Menschen vollzogen), Arkaner Fokus heißt Weisheit; „Zauber“ bleibt und wird als Glaube der Zeit erklärt.
