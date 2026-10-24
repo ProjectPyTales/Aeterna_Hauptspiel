@@ -76,24 +76,32 @@ class Campaign extends Screen{
  start(){this.mission(this.picked.mission.id);}
  // Before the first mission of a chapter its story scene, once; then the hero choice.
  mission(id){id=Number(id);const m=this.missions[id];if(!m||m.locked)return;Object.assign(this.session,{mission:id,mode:'campaign'});
-  const c=m.chapter;if(c&&!KA.seen(this.profile,c)){this.scene(c.id,()=>this.ui.go('setup'));return;}
+  const c=m.chapter;if(c&&!KA.seen(this.profile,c)){this.scene(c.id,()=>this.ui.go('setup'),id);return;}
   this.ui.go('setup');}
  // Story scene of a chapter; then runs after the last line. replay(): the scene of the picked chapter again (panel).
  replay(){this.scene(this.picked.chapter.id);}
- scene(id,then=null){const c=KA.CHAPTERS.find(c=>c.id===id);if(!c||!KA.open(this.profile,c))return;
-  if(KA.see(this.profile,c))this.commit();this.ui.dialog('scene',new Scene(this.ctx,{chapter:c,then}));this.ui.play('parchment');}
+ scene(id,then=null,mission=null){const c=KA.CHAPTERS.find(c=>c.id===id);if(!c||!KA.open(this.profile,c))return;
+  if(KA.see(this.profile,c))this.commit();this.ui.dialog('scene',new Scene(this.ctx,{chapter:c,then,mission}));this.ui.play('parchment');}
  quests(){this.ctx.dialogs.quests();}
 }
 
 // Story-Szene (AP 6.4): Zeile für Zeile eine Sprechblase über dem Porträt dessen, der spricht; am Ende die Quelle.
 // „Weiter“ blättert, „Überspringen“ und die letzte Zeile führen weiter (zur Heldenwahl, wenn die Szene vor einer Mission kam).
+// Seit 1.32.0 (Rückmeldung zu 1.31.0): Der Chronist erzählt im Erzählkasten (ohne Porträt), die Helden stehen von Anfang an als
+// Schattenrisse auf der Bühne und treten ins Licht, sobald sie sprechen (stage); ihre Zeile trägt Ort und Zeit (cue).
 class Scene extends ViewModel{
- constructor(ctx,{chapter,then}){super({step:0});this.ctx=ctx;this.chapter=chapter;this.then=then;}
+ constructor(ctx,{chapter,then,mission=null}){super({step:0});this.ctx=ctx;this.chapter=chapter;this.then=then;this.mission=mission;}
  get lines(){return this.chapter.scene;}
  get line(){return this.lines[this.state.step];}
  get last(){return this.state.step>=this.lines.length-1;}
  // Everyone who speaks, in order of appearance, once.
  get cast(){return [...new Set(this.lines.map(l=>l.who))];}
+ // The heroes on the stage, in order of appearance: {who, speaking, spoke (already had a line), waiting (still in shadow)}.
+ get stage(){const step=this.state.step,now=this.line.who;
+  return this.cast.filter(w=>w!=='chronist').map(who=>{const first=this.lines.findIndex(l=>l.who===who);
+   return {who,speaking:who===now,spoke:first<step&&who!==now,waiting:first>step};});}
+ // The mission the last line leads to (the one being started, else the first of the chapter): {number, place}.
+ get goal(){const id=this.mission??this.chapter.missions[0];return {number:KA.number(id),place:STATIONS[id].place};}
  next(){if(this.last){this.done();return;}this.set({step:this.state.step+1});this.ctx.ui.play('parchment',{gain:.5});}
  prev(){if(this.state.step>0)this.set({step:this.state.step-1});}
  done(){this.ctx.ui.close();this.then?.();}

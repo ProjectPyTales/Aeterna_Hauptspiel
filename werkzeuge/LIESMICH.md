@@ -1,7 +1,26 @@
-# Aeterna 1.31.0 – Bauen & Prüfen
+# Aeterna 1.32.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.32.0 (AP 3.9 Lebendige Schlachtfelder und Lesbarkeit, Rückmeldung zu 1.31.0)
+
+- **Szenen neu erzählt** (Rückmeldung „aus dem Nichts, gewollt statt gekonnt“): Jede Szene folgt einer Leitfrage des Chronisten,
+  jeder Held antwortet mit Ort und Zeit (`cue` in `model/campaign.js`), der Chronist führt am Ende zur ersten Mission; Kapitel mit
+  Zeitspanne `years`. Ansicht: Kapitelsiegel, die Bühne entrollt sich, der Chronist erzählt im Erzählkasten (ohne Porträt), die
+  Helden warten als Schattenrisse (`AEVM.Scene.stage`) und treten ins Licht, die Worte erscheinen nacheinander, der letzte Knopf
+  nennt die Mission (`Scene.goal`).
+- **Eck-Dioramen:** `view/match/dioramen.js` (`AEDI`, nach `fx.js` geladen) zeichnet Astrolabium, Räuchergefäß, Säule und Katapult in
+  den Ecken (`L.dioramas`, Treffer-Ziele 96 × 96); Antippen → `Match.diorama`: Effekt `{type:'diorama'}`, eigener Klang
+  (`werkzeuge/diorama_klang.py` → `astrolab`, `incense`, `column`, `catapult`, je zwei Varianten), danach eine Zeile des Chronisten
+  mit Quelle als Sprechblase (`view.bubble`, Liste `DIORAMAS`). Ersetzt die alten Deko-Flächen `decor0–3`.
+- **Langer Druck** auf einen Diener: seine Schlüsselwörter (aus seinem Zustand, `keywordsOf`) als Sprechblase; Antippen der Blase
+  zeigt die Karte. Ohne Schlüsselwort, auf der Hand und am Helden bleibt es wie bisher.
+- **Angriffsvorschau:** `Match.preview(uid, ziel)` spielt den Angriff auf `E.copy` mit `blind` (Hinterhalte des Gegners bleiben
+  verdeckt) und liefert Verlust und Tod je Seite; beim Zielen in `view.preview`, gezeichnet als Marke über Ziel und Angreifer.
+- Sechs Astra-Platzhalter im Match, zwei in der Szene (Paket 9). Keine Regeländerung, kein Balance-Lauf.
+- Tests: neu `tests/lebendig.test.js`; angepasst `kampagne.test.js` (Szenen). Klickpfad: neue Prüfungen für Szene und Diorama, neue
+  Referenzbilder `10-match` und `18-szene`. Version 1.32.0 / versionCode 35.
 
 ## Neu in 1.31.0 (AP 6.4 Kampagne 2.0 mit der Lunte aus AP 3.7)
 

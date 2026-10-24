@@ -720,7 +720,9 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  const fieldName=R.images[R.look.board]?R.look.board:R.images.board?'board':null,tint=fieldName===R.look.board?R.look.tint||'':'';
  R.blit(c,R.sprite('field:'+[fieldName,tint],0,0,1600,800,g=>table(g,fieldName,tint)));
  R.fx=R.fx.filter(f=>t-f.start<f.life);effects(c,t,true);
- const a=s.players[0],b=s.players[1],targets=view.targets||[];hit('decor0',1485,0,112,145,{kind:'decor'});hit('decor1',0,0,110,142,{kind:'decor'});hit('decor2',0,710,120,90,{kind:'decor'});hit('decor3',1490,710,110,90,{kind:'decor'});
+ const a=s.players[0],b=s.players[1],targets=view.targets||[];
+ // AP 3.9: the corner dioramas (view/match/dioramen.js) lie on the frame; tapping one is a command of the view model.
+ L.dioramas.forEach((_,i)=>{const b=L.dioramaBox(i);hit('diorama'+i,b.x,b.y,b.w,b.h,{kind:'diorama'});});window.AEDI?.dioramas(c,t,R.fx);
  const insert=view.insertIndex??CHM.insertion();
  for(let p=0;p<2;p++){const yy=L.rows[p],board=s.players[p].board,hasGap=p===0&&insert!=null&&board.length<7;if(view.drag?.cardId&&p===0)for(let i=0;i<7;i++)ellipse(c,L.center+(i-3)*L.spacing,yy,56,76,'#49331a05','#67502e22',1);
   if(hasGap){const xx=L.center+(insert-board.length/2)*L.spacing;R.blit(c,R.sprite('gap',-110,-130,220,260,g=>{g.shadowColor='#aaf36a';g.shadowBlur=24;ellipse(g,0,0,60,78,'#91d55629','#d3ed9b',2);g.shadowBlur=0;txt(g,'↓',0,0,30,'#efffd3');}),xx,yy);}
@@ -754,7 +756,10 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  if(targets.includes('h0'))ellipse(c,ownHero.x,ownHero.y,74*L.heroScale(0),86*L.heroScale(0),null,'#f5473b',4);
  if(view.drag?.target==='h0')pulse(c,'h0',t);
  effects(c,t,false);
+ // AP 3.9: the attack preview over target and attacker, and the bubble (chronicler at a diorama, keywords of a unit).
+ window.AEDI?.preview(c,view,t);
  turnPlate(c,s,t);
+ window.AEDI?.bubble(c,view.bubble,t,hit);
  // AP 3.8: the opening (heroes, chronicler, coin) and the close (relief, banner) lie over everything.
  K.draw(c,s,t);
  c.restore();

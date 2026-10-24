@@ -33,24 +33,40 @@ button.chapter-seal{flex:1;min-width:0;min-height:0;height:54px;padding:0;displa
 .mission-panel .reward{font-size:15px}
 .foot-buttons{display:flex;gap:8px}
 
-/* ---------- Story-Szene: Bühne (ASTRA szene-buehne), Sprechblase (ASTRA sprechblase), Porträts, Chronist (ASTRA chronist) ---------- */
-.modal.scene{padding:24px 34px}
-.modal.scene h2{margin-bottom:6px}
-.scene-stage{position:relative;margin-top:8px;padding:18px 18px 12px;border-radius:14px;border:2px solid var(--age);
- background:linear-gradient(180deg,#2a2119d0,#1c1611 70%),var(--age);box-shadow:inset 0 0 30px #0008}
-.speech{position:relative;min-height:118px;padding:14px 22px;border-radius:16px;background:linear-gradient(180deg,#f3e6c8,#e2cfa6);color:#2e1a0f;
+/* ---------- Story-Szene: Bühne (ASTRA szene-buehne), Sprechblase (ASTRA sprechblase), Erzählkasten (ASTRA erzaehlkasten),
+   Porträts mit Schattenriss (ASTRA schattenriss); seit 1.32.0 entrollt sich die Bühne und die Worte erscheinen nacheinander ---------- */
+.modal.scene{padding:22px 34px;animation:scene-open .5s cubic-bezier(.2,.8,.3,1)}
+.scene-head{display:flex;align-items:center;gap:16px}
+.scene-seal{flex:none;display:grid;place-items:center;width:62px;height:62px;border-radius:50%;font:26px Title,serif;color:#fff1cf;
+ background:radial-gradient(circle at 38% 32%,#fff5,#fff0 45%),radial-gradient(circle,var(--age) 55%,#2a1a10);box-shadow:0 0 0 3px #c9a45a,0 0 0 5px #2a1f14,0 6px 12px #0009;
+ animation:seal-stamp .55s .15s cubic-bezier(.3,1.6,.5,1) backwards}
+.modal.scene h2{margin:0}
+.scene-years{display:block;font-size:14px;letter-spacing:1px;color:#c9b48a}
+.scene-stage{position:relative;margin-top:10px;padding:16px 18px 10px;border-radius:14px;border:2px solid var(--age);
+ background:linear-gradient(180deg,#2a2119d0,#1c1611 70%),var(--age);box-shadow:inset 0 0 30px #0008;transform-origin:top;animation:stage-unroll .55s .1s cubic-bezier(.2,.8,.3,1) backwards}
+.speech{position:relative;min-height:112px;padding:12px 22px;border-radius:16px;background:linear-gradient(180deg,#f3e6c8,#e2cfa6);color:#2e1a0f;
  box-shadow:0 0 0 2px #8a6a3a,0 6px 14px #0007;animation:speech-in .28s ease-out}
-.speech:after{content:'';position:absolute;bottom:-14px;left:calc((var(--at) + .5) * 100% / var(--n) - 14px);border:14px solid transparent;border-bottom:0;border-top-color:#e2cfa6;
- transition:left .3s ease}
+.speech:after{content:'';position:absolute;bottom:-14px;left:calc((var(--at) + .5) * 100% / var(--n) - 14px);border:14px solid transparent;border-bottom:0;border-top-color:#e2cfa6}
 .speech b{display:block;font:14px Title,serif;letter-spacing:2px;text-transform:uppercase;color:#7a2a1c}
 .speech p{margin:4px 0 0;font-size:21px;line-height:1.42;color:#2e1a0f}
+.speech p span{animation:word-in .32s calc(var(--w) * 32ms) ease-out backwards}
+.scene-cue{position:absolute;top:-13px;right:22px;padding:2px 12px;border-radius:9px;font-size:13px;letter-spacing:1px;color:#fff1cf;background:var(--age);box-shadow:0 0 0 1.5px #c9a45a,0 3px 6px #0007}
+/* Der Chronist erzählt: kein Porträt, keine Spitze, ein dunklerer Pergamentstreifen mit Feder und kursivem Text. */
+.speech.narration{background:linear-gradient(180deg,#e7d6b0,#cdb68a);box-shadow:0 0 0 2px #6b5236,inset 0 0 0 4px #e9dbb999,0 6px 14px #0007}
+.speech.narration:after{display:none}
+.speech.narration b{color:#4a3520}.speech.narration p{font-style:italic}
+.quill{font-style:normal;margin-right:8px;color:#6b4a26}
 @keyframes speech-in{from{opacity:.4;transform:translateY(6px)}}
+@keyframes word-in{from{opacity:0;filter:blur(2px)}}
+@keyframes scene-open{from{opacity:0;transform:scale(.96)}}
+@keyframes stage-unroll{from{transform:scaleY(.15);opacity:0}}
+@keyframes seal-stamp{from{transform:scale(1.8) rotate(-25deg);opacity:0}}
 .cast{display:flex;margin-top:22px}
-.speaker{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.55;transition:opacity .3s,transform .3s}
-.speaker.speaking{opacity:1;transform:translateY(-4px)}
+.speaker{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.7;transition:opacity .35s,transform .35s,filter .35s}
+.speaker.speaking{opacity:1;transform:translateY(-6px) scale(1.08)}
+.speaker.waiting{opacity:.85;filter:brightness(.18) sepia(1) saturate(.6)}
 .speaker .coin-face{display:grid;place-items:center;width:96px;height:96px;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 3px #8a6a3a,0 0 0 5px #2a1f14,0 4px 8px #0008}
-.speaker.speaking .coin-face{box-shadow:0 0 0 3px #f0d48c,0 0 0 5px #2a1f14,0 0 20px #f0d48caa}
-.coin-face.chronist{font-size:44px;color:#f4ddb0;background:radial-gradient(circle at 40% 35%,#6b5236,#2e2117 72%)}
+.speaker.speaking .coin-face{box-shadow:0 0 0 3px #f0d48c,0 0 0 5px #2a1f14,0 0 22px #f0d48caa}
 .speaker small{font:14px Title,serif;color:#e9d6ae;text-align:center}
 .scene-foot{display:flex;align-items:center;gap:16px;margin:12px 0 4px}
 .scene-steps{display:flex;gap:6px;flex:none}
@@ -58,5 +74,5 @@ button.chapter-seal{flex:1;min-width:0;min-height:0;height:54px;padding:0;displa
 .scene-steps i.read{background:#a8834a}
 .scene-steps i.now{background:#f0d48c;box-shadow:0 0 8px #f0d48c}
 .scene-source{font-size:13px;line-height:1.35;color:#b7aa91}
-@media(prefers-reduced-motion:reduce){.speech{animation:none}.speech:after,.speaker{transition:none}}
+@media(prefers-reduced-motion:reduce){.modal.scene,.scene-seal,.scene-stage,.speech,.speech p span{animation:none}.speaker{transition:none}}
 .setup-side .fuse-line{font-size:15px;color:#ffc46a}

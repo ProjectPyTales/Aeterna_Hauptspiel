@@ -7,6 +7,10 @@ const L=window.CHL={center:800,spacing:158,rows:[448,264],heroY:[656,91],heroSca
   minionScale:1.22*.85,handCenter:800,handY:764,handWidth:144,dragWidth:258,handTop:700,
   drop:{left:225,right:1370,top:365,bottom:551}};
 L.heroScale=p=>L.heroScales[p];
+// AP 3.9: the four corner dioramas of the table (astrolabe, incense burner, column, catapult) – each a touch target of
+// 96 × 96 units (≥ 48 dp) on the corner ornament, clear of pause, chronicle strip, decks and graveyards.
+L.dioramas=[{x:56,y:50,k:1.1},{x:1544,y:50,k:1.1},{x:56,y:748,k:1.1},{x:1544,y:748,k:1.1}];
+L.dioramaBox=i=>({x:L.dioramas[i].x-48,y:L.dioramas[i].y-48,w:96,h:96});
 // Mana (1.17.0, feedback on 1.16.0): an ether dial on the free left side beside the chronicle strip – yours in your
 // half, the rival's smaller one in his; ten crystals around the ring (L.crystal), the number in the middle.
 L.mana=[{x:184,y:470,r:58},{x:184,y:200,r:44}];

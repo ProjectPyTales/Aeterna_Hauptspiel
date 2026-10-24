@@ -159,5 +159,21 @@
   "horn": [
     "horn-1",
     "horn-2"
+  ],
+  "astrolab": [
+    "astrolab-1",
+    "astrolab-2"
+  ],
+  "incense": [
+    "incense-1",
+    "incense-2"
+  ],
+  "column": [
+    "column-1",
+    "column-2"
+  ],
+  "catapult": [
+    "catapult-1",
+    "catapult-2"
   ]
 }
