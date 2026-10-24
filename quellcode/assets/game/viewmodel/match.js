@@ -2,7 +2,7 @@
  * around a game (starting hand, result, pause, graveyards, chronicle). Rules stay in model/engine.js.
  *
  * this.view is the selection state the canvas renderer draws every frame:
- *   {selected, inspect, targets, hint, drag, insertIndex, handIndex, press}
+ *   {selected, inspect, targets, hint, drag, insertIndex, handIndex, press, bubble, preview}
  * and hand(state) says per hand card what it costs, whether it is playable and whether a condition is met (AP 3.2).
  * Geometry (where the finger is: hand, drop zone, slot) comes from view/match/input.js; the board
  * presenter ctx.board animates (busy, begin, rebound, events, effect, cancel, present). Since 1.20.0 (AP 3.8) a match
@@ -17,6 +17,19 @@ const chronicle=()=>node?require('./chronicle.js'):root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
 // Chronicle strip (AP 1.8 Teil 2): which log lines it shows and how they are marked.
 const STRIP=[[/ legt einen Hinterhalt\.$/,'ambush'],[/^Hinterhalt: /,'sprung'],[/ wird vereitelt\.$/,'counter'],[/ spielt /,'play'],[/ nutzt /,'power'],[/ (wurde besiegt|stürzt ein)\.$/,'death'],[/ verbrannt \(Hand voll\)\.$/,'burn'],[/ übernimmt /,'steal'],[/ erneut\.$/,'echo'],[/: Erschöpfung (\d+)\.$/,'fatigue']];
+
+// AP 3.9: the four corner dioramas of the table – each reacts to a tap with its own animation (view/match/dioramen.js) and
+// sound, and the chronicler adds one line from history („halb Lernen“). Decoration only; the rules never see them.
+const DIORAMAS=[
+ {id:'astrolab',name:'Astrolabium',sound:'astrolab',life:1700,text:'Mit dem Astrolabium maßen Gelehrte die Höhe der Sterne und bestimmten die Uhrzeit. Synesios ließ sich eines nach dem Unterricht bei Hypatia bauen.',source:'Synesios von Kyrene, Über das Geschenk eines Astrolabiums'},
+ {id:'incense',name:'Räuchergefäß',sound:'incense',life:2200,text:'Weihrauch kam über die Weihrauchstraße aus Südarabien. In den Tempeln Ägyptens stieg sein Rauch jeden Tag für die Götter auf.',source:'Plinius, Naturgeschichte XII 51–65'},
+ {id:'column',name:'Dorische Säule',sound:'column',life:1600,text:'Dorische Säulen tragen den Parthenon, gebaut 447–432 v. Chr. unter Perikles. Ihre Trommeln liegen ohne Mörtel aufeinander.',source:'Plutarch, Perikles 13; Bauinschriften des Parthenon'},
+ {id:'catapult',name:'Katapult',sound:'catapult',life:1500,text:'Das Katapult wurde 399 v. Chr. in Syrakus erfunden. Belagerer schossen damit Pfeile und Steine gegen Mauern und Türme.',source:'Diodor, Historische Bibliothek XIV 42'}];
+// AP 3.9: keywords a unit on the board carries right now (its state, not only its printed text), for the long-press bubble.
+const UNIT_WORDS=[['taunt','Schildwall'],['shield','Segen'],['stealth','Tarnung'],['frozen','Starre'],['poison','Tödliches Gift'],['rush','Vorstoß'],['charge','Sturmangriff'],['double','Doppelschlag'],['plunder','Plünderung'],['silenced','Bannung'],['building','Bauwerk']];
+const keywordsOf=(u,card)=>{const names=UNIT_WORDS.filter(([k])=>u[k]).map(([,n])=>n);
+ if(!u.silenced){if(card.death)names.push('Vermächtnis');if(card.focus)names.push('Weisheit');}
+ return [...new Set(names)].map(n=>D.keywords.find(k=>k.name===n)).filter(Boolean).map(k=>({name:k.name,text:k.text}));};
 
 // Ergründen: the choice has to be made – the back key and the scrim do not close it.
 class Choice extends Dialog{
@@ -111,8 +124,11 @@ class Match extends Screen{
    out[h.uid]={cost,can,boost:can&&(formation||cost<card.cost)};}
   return out;}
  tap(hit){const s=this.game,ui=this.ui;
+  // AP 3.9: any tap closes an open bubble; a tap on a keyword bubble of a unit shows its whole card.
+  const bubble=this.view.bubble;if(bubble)this.view.bubble=null;
+  if(hit?.kind==='bubble'){if(bubble?.card)this.inspect(bubble.card);return;}
   if(!hit){this.view=idle();return;}
-  if(hit.kind==='decor'){this.board.effect({type:'buff',x:hit.x+hit.w/2,y:hit.y+hit.h/2,start:performance.now(),life:1000});ui.play(hit.id==='decor0'?'fire':hit.id==='decor1'?'draw':hit.id==='decor2'?'sword':'gong');return;}
+  if(hit.kind==='diorama'){this.diorama(+hit.id.slice(-1),hit);return;}
   if(hit.id==='pause')return this.pause();
   if(hit.id==='help')return this.ctx.dialogs.help();
   if(hit.id==='chronicle')return this.chronicle();
@@ -134,12 +150,21 @@ class Match extends Screen{
     else{this.view=Object.assign(idle(),{inspect:t.hero?null:t.obj.id});ui.toast(t.hero?'Dein Held kann gerade nicht angreifen.':'Dieser Diener kann in diesem Zug nicht angreifen.');}}
    else if(hit.idCard)this.view.inspect=hit.idCard;return;}
   this.view=idle();}
- longPress(hit){if(hit?.idCard)this.inspect(hit.idCard);
+ // AP 3.9: a corner diorama plays, sounds and the chronicler tells its line in a bubble beside it.
+ diorama(i,hit){const d=DIORAMAS[i];if(!d)return;const x=hit.x+hit.w/2,y=hit.y+hit.h/2;
+  this.board.effect?.({type:'diorama',id:d.id,x,y,life:d.life});this.ui.play(d.sound,{x});this.ui.haptic(0);
+  this.view.bubble={x,top:hit.y,bottom:hit.y+hit.h,title:d.name,lines:[{text:d.text}],source:d.source,delay:Math.round(d.life*.45),life:7000};}
+ // AP 3.9: a long press on a unit explains the keywords it carries in a bubble above it (tap the bubble for the card).
+ keywords(hit){const t=E.unit(this.game,hit.id);if(!t||t.hero)return null;const card=D.byId[t.obj.id],lines=keywordsOf(t.obj,card);
+  return lines.length?{x:hit.x+hit.w/2,top:hit.y,bottom:hit.y+hit.h,title:card.name,lines,card:card.id,life:9000}:null;}
+ longPress(hit){const words=hit?.kind==='target'&&!/^h[01]$/.test(hit.id)?this.keywords(hit):null;
+  if(words){this.view.bubble=words;this.ui.play('parchment',{gain:.6});this.ui.haptic(0);}
+  else if(hit?.idCard)this.inspect(hit.idCard);
   else if(hit?.kind==='target'&&/^h[01]$/.test(hit.id))this.ctx.dialogs.lore(this.game.players[+hit.id[1]].hero);
   else if(hit?.kind==='power'){const h=D.heroes.find(h=>h.id===this.game.players[+hit.id.slice(-1)].hero);
    this.ui.dialog('message',new Dialog(this.ctx,{title:h.power+' · '+h.cost+' Mana',close:false,text:h.powerText,buttons:[{label:'Zurück',style:'gold'}]}));}}
  // The finger moved far enough: pick up a hand card, aim an attack or aim the hero power.
- pickUp(hit,x){const s=this.game,v=this.view;
+ pickUp(hit,x){const s=this.game,v=this.view;v.bubble=null;
   if(hit?.kind==='hand'){this.select({type:'play',uid:hit.id},hit.idCard);this.view.inspect=null;this.view.drag={uid:hit.id,cardId:hit.idCard,at:0,angle:0};
    this.ui.play('pickup',{x,gain:.6});return true;}
   if(s.active===0&&hit?.kind==='target'&&E.legal(s,0).some(a=>a.type==='attack'&&a.uid===hit.id)){this.select({type:'attack',uid:hit.id},hit.idCard);this.view.inspect=null;this.view.drag={at:0};return true;}
@@ -151,7 +176,18 @@ class Match extends Screen{
    v.handIndex=g.inHand?g.handSlot:null;
    v.insertIndex=s.active===0&&card.type==='minion'&&n<7&&card.cost<=s.players[0].mana&&g.inDrop?g.boardSlot:null;
    v.hint=v.handIndex!=null?'In der Hand ablegen, um Karten zu sortieren.':v.insertIndex!=null?'Loslassen, um den Diener hier auszuspielen.':v.targets.length?'Karte auf ein markiertes Ziel ziehen.':'Zurück in die Hand ziehen, um abzubrechen.';}
-  d.target=g.hitId&&v.targets.includes(g.hitId)?g.hitId:null;}
+  d.target=g.hitId&&v.targets.includes(g.hitId)?g.hitId:null;
+  // AP 3.9: aiming an attack at a target shows what it would cost both sides.
+  v.preview=v.selected?.type==='attack'&&d.target?(v.preview?.target===d.target?v.preview:this.preview(v.selected.uid,d.target)):null;}
+ // AP 3.9 Angriffsvorschau: the attack played on a copy of the game (E.copy, E.apply – no rule of its own). The rival's
+ // ambushes stay hidden there (s.blind, as for the AI), so the preview never gives one away; random effects may differ.
+ // → {attacker, target, sides:[{id, loss, dies}]} or null.
+ preview(uid,target){const s=this.game;if(!s||s.phase!=='play'||s.active!==0)return null;
+  const before=id=>{const t=E.unit(s,id);return t&&(t.hero?t.obj.health+t.obj.armor:t.obj.health);};
+  const c=Object.assign(E.copy(s),{blind:1});if(E.apply(c,{type:'attack',uid,target})?.ok===false)return null;
+  const side=id=>{const t=E.unit(c,id),was=before(id);if(was==null)return null;const now=t?(t.hero?t.obj.health+t.obj.armor:t.obj.health):0;
+   return {id,loss:Math.max(0,was-now),dies:!t||(t.hero?t.obj.health<=0:t.obj.health<=0)};};
+  return {attacker:uid,target,sides:[side(target),side(uid)].filter(Boolean)};}
  // Released: sort the hand, play on a target or on the board, use the power – or spring back.
  drop(g){const s=this.game,v=this.view,d=v.drag,selected=v.selected;let committed=false;
   if(!d||!selected)return;
@@ -163,7 +199,7 @@ class Match extends Screen{
   if(!committed&&d.cardId)this.board.rebound(d,s);
   if(!committed)this.view=idle();
   this.endDrag();}
- endDrag(){delete this.view.drag;delete this.view.insertIndex;delete this.view.handIndex;}
+ endDrag(){delete this.view.drag;delete this.view.insertIndex;delete this.view.handIndex;delete this.view.preview;}
  cancelDrag(){if(this.view.drag?.cardId&&this.game)this.board.rebound(this.view.drag,this.game);this.endDrag();}
 
  // ---------- Dialogs around the game ----------
@@ -231,6 +267,6 @@ class Match extends Screen{
  back(){this.pause();}
 }
 
-const api={Match,Choice};
+const api={DIORAMAS,keywordsOf,Match,Choice};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

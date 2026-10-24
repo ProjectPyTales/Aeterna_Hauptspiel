@@ -34,8 +34,11 @@ test('Lunte: genau die letzte Mission jedes Kapitels, mit Grund und Quelle; Bela
 });
 
 test('Story-Szenen: Sprecher aus der Epoche des Kapitels oder der Chronist, jede Szene mit Quelle',()=>{
- for(const c of KA.CHAPTERS){assert.ok(c.scene.length>=2&&c.scene.length<=5,c.label);assert.ok(c.source.length>20,c.label+' nennt eine Quelle');
-  assert.equal(c.scene[0].who,'chronist','der Chronist eröffnet');
+ for(const c of KA.CHAPTERS){assert.ok(c.scene.length>=3&&c.scene.length<=6,c.label);assert.ok(c.source.length>20,c.label+' nennt eine Quelle');
+  assert.equal(c.scene[0].who,'chronist','der Chronist eröffnet');assert.equal(c.scene.at(-1).who,'chronist','und führt zur Mission');
+  assert.match(c.years,/\d|Epochen/,c.label+' nennt die Zeitspanne');
+  // Rückmeldung zu 1.31.0: jeder Held spricht mit Ort und Zeit, kurz genug für zwei Zeilen im Handyformat.
+  for(const l of c.scene)if(l.who!=='chronist'){assert.match(l.cue||'',/ · /,l.who+' mit Ort und Zeit');assert.ok(l.text.length<=135,l.text);}
   for(const l of c.scene){assert.ok(l.who==='chronist'||D.heroById[l.who],l.who);assert.ok(l.text.length>20&&l.text.length<=200,l.text);
    if(l.who!=='chronist'&&!c.epilogue)assert.equal(D.heroById[l.who].age,c.id,l.who+' spricht in seiner Epoche');}}
 });
@@ -73,7 +76,11 @@ test('Kampagnenkarte: Kapitel-Leiste, Routen je Kapitel, Szene vor der ersten Mi
  assert.deepEqual(c.chapters.map(x=>[x.chapter.id,x.open,x.done,x.total,x.current]).slice(0,2),[['steppe',true,0,3,true],['griechen',false,0,4,false]]);
  c.start();assert.equal(log.open.kind,'scene','erst die Szene');assert.deepEqual(log.go,[]);assert.deepEqual(store.profile.scenes,['steppe']);
  const sc=log.open.vm;assert.ok(sc instanceof Scene);assert.equal(sc.line.who,'chronist');assert.deepEqual(sc.cast,['chronist','fuhao','imhotep','amanirenas']);
- sc.prev();assert.equal(sc.state.step,0);sc.next();sc.next();assert.equal(sc.line.who,'imhotep');sc.next();assert.ok(sc.last);sc.next();
+ sc.prev();assert.equal(sc.state.step,0);
+ assert.deepEqual(sc.stage.map(x=>[x.who,x.waiting]),[['fuhao',true],['imhotep',true],['amanirenas',true]],'Helden warten als Schattenrisse');
+ sc.next();sc.next();assert.equal(sc.line.who,'imhotep');assert.equal(sc.line.cue,'Sakkara · um 2650 v. Chr.');
+ assert.deepEqual(sc.stage.map(x=>[x.speaking,x.spoke,x.waiting]),[[false,true,false],[true,false,false],[false,false,true]]);
+ assert.deepEqual(sc.goal,{number:1,place:'Mont Lassois'});sc.next();sc.next();assert.ok(sc.last);assert.equal(sc.line.who,'chronist');sc.next();
  assert.deepEqual(log.go.at(-1),['setup',undefined],'nach der letzten Zeile zur Heldenwahl');assert.equal(ctx.session.mission,21);
  c.start();assert.equal(log.go.length,2,'die Szene kommt nur einmal');
  c.replay();assert.equal(log.open.kind,'scene');log.open.vm.done();assert.equal(log.go.length,2,'noch einmal ansehen führt nirgendwohin');

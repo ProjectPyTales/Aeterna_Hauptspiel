@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (64 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (72 Teile)
 
-*Stand 1.31.0 (24. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, und seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
+*Stand 1.32.0 (24. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, und seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 63 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 71 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -143,6 +143,19 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `sprechblase` | `sprechblase.png` | 1000 × 180 | Sprechblase als entrollte, helle Schriftrolle mit kleiner Spitze nach unten (Spitze als eigenes Stück in der unteren Mitte, das Spiel verschiebt sie); Innenfläche ruhig für zwei Zeilen Text. |
 | `chronist` | `chronist.png` | 256 × 256 | Porträt des Chronisten für die Szenen: älterer Schreiber mit Gänsefeder und aufgeschlagenem Buch, rund zugeschnitten wie die Heldenmünzen. |
 | `lunte` | `lunte-schnur.png`, `lunte-fass.png` | 380 × 70 | Glimmende Zündschnur als waagerechtes Seil (wiederholbar, ohne Glut) und ein kleines Pulverfass mit Eisenreifen für das rechte Ende; Glut, Funken und Asche zeichnet das Spiel. |
+
+### Paket 9 – Lebendige Schlachtfelder und Szene (8 Teile, 11 Dateien, seit 1.32.0)
+
+| Kennung | Dateien | Größe | Motiv und Vorgaben |
+|---|---|---|---|
+| `eck-astrolabium` | `eck-astrolabium.png` | 500 × 500 | Diorama für die Ecke oben links: Astrolabium aus Messing auf kleinem Sockel, von schräg vorn. Das Netz (Rete) mit Sternzeigern als eigene Datei `eck-astrolabium-netz.png` (gleiche Größe, mittig), das Spiel dreht es. |
+| `eck-raeuchergefaess` | `eck-raeuchergefaess.png` | 500 × 500 | Diorama für die Ecke oben rechts: bronzenes Räuchergefäß auf drei Füßen mit glimmender Glut; ohne Rauch – den zeichnet das Spiel. |
+| `eck-saeule` | `eck-saeule.png` | 500 × 500 | Diorama für die Ecke unten links: kurze dorische Säule aus hellem Marmor auf zwei Stufen; das Kapitell als eigene Datei `eck-saeule-kapitell.png`, Splitter und Staub zeichnet das Spiel. |
+| `eck-katapult` | `eck-katapult.png` | 500 × 500 | Diorama für die Ecke unten rechts: kleines hölzernes Katapult auf Rädern; der Wurfarm als eigene Datei `eck-katapult-arm.png` (Drehpunkt links, waagerecht), das Spiel schwenkt ihn. |
+| `sprechblase-match` | `sprechblase-match.png` | 920 × 360 | Sprechblase auf dem Spielbrett wie `sprechblase`, aber neunteilig dehnbar (ruhige Ränder, 40 px Ecken); Spitze als eigenes Stück. |
+| `angriffsvorschau` | `angriffsvorschau.png`, `-tod.png` | 160 × 100 | Kleine Marke über Ziel und Angreifer beim Zielen: rote Wachsplakette für den erwarteten Schaden; Variante mit Totenkopf, wenn die Einheit fällt. Mitte frei für die Zahl. |
+| `erzaehlkasten` | `erzaehlkasten.png` | 1000 × 160 | Erzählkasten des Chronisten in der Story-Szene: dunklerer Pergamentstreifen ohne Spitze, links eine kleine Feder im Tintenfass. |
+| `schattenriss` | `schattenriss.png` | 256 × 256 | Schleier für Helden, die in der Szene noch nicht gesprochen haben: dunkle, leicht transparente Rundscheibe mit Rand wie die Porträtmünzen. |
 
 ## Abnahme
 

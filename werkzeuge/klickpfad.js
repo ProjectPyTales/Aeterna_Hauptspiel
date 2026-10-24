@@ -130,6 +130,10 @@ async function basar(page,cmpPage,cdp){
    await page.locator('#overlay button',{hasText:'Beginnen'}).click();
    await page.waitForFunction(()=>App.profile.game.phase==='play'&&App.profile.game.active===0&&!CHM.busy()&&!document.querySelector('#overlay .scrim'),null,{timeout:30000});
    await settle(page,700);await shot(page,cmpPage,'10-match');
+   // AP 3.9 (seit 1.32.0): ein Eck-Diorama antippen – der Chronist erzählt mit Quelle; ein Tippen auf den Tisch schließt die Blase.
+   await tapHall(page,[56,50]);await settle(page,100);
+   check('Eck-Diorama: Astrolabium mit Zeile des Chronisten und Quelle',await page.evaluate(()=>App.view.bubble?.title==='Astrolabium'&&/Synesios/.test(App.view.bubble.source)));
+   await tapHall(page,[800,330]);await settle(page,60);check('Tippen schließt die Blase',await page.evaluate(()=>!App.view.bubble));
    await page.keyboard.press('Escape');await page.waitForSelector('#overlay .modal');await shot(page,cmpPage,'11-pause');
    await page.locator('#overlay button',{hasText:'Aufgeben'}).click();await page.waitForSelector('#overlay .modal');
    await page.locator('#overlay button',{hasText:'Aufgeben'}).click();await page.waitForSelector('#overlay .result');await settle(page,200);
@@ -150,11 +154,12 @@ async function basar(page,cmpPage,cdp){
    // Kampagne 2.0 (AP 6.4, seit 1.31.0): vor der ersten Mission eines Kapitels die Story-Szene mit Sprechblase und Quelle.
    await page.locator('.station',{hasText:'01'}).click();await settle(page,100);
    await page.locator('#ui button',{hasText:'Mission vorbereiten'}).click();await page.waitForSelector('#overlay .scene');await settle(page,150);
-   const szene=await page.evaluate(()=>({sprecher:document.querySelectorAll('.speaker').length,blase:document.querySelector('.speech b')?.textContent,quelle:!!document.querySelector('.scene-source')}));
-   check('Szene: Chronist spricht über vier Porträts, Quelle steht darunter',szene.sprecher===4&&szene.blase==='Der Chronist'&&szene.quelle,szene);
+   const szene=await page.evaluate(()=>({sprecher:document.querySelectorAll('.speaker').length,wartend:document.querySelectorAll('.speaker.waiting').length,blase:document.querySelector('.speech.narration b')?.textContent,jahre:document.querySelector('.scene-years')?.textContent,quelle:!!document.querySelector('.scene-source')}));
+   // Seit 1.32.0 (Rückmeldung zu 1.31.0): der Chronist erzählt, die drei Helden warten als Schattenrisse, Zeitspanne im Titel.
+   check('Szene: Chronist erzählt, drei Helden als Schattenrisse, Zeitspanne und Quelle',szene.sprecher===3&&szene.wartend===3&&/Der Chronist$/.test(szene.blase||'')&&szene.jahre==='um 2650 – 500 v. Chr.'&&szene.quelle,szene);
    await shot(page,cmpPage,'18-szene');
    await page.locator('#overlay button',{hasText:'Weiter'}).click();await settle(page,100);
-   check('Szene blättert zur Fürstin von Vix',await page.evaluate(()=>document.querySelector('.speech b')?.textContent==='Fürstin von Vix'));
+   check('Szene blättert zur Fürstin von Vix mit Ort und Zeit',await page.evaluate(()=>document.querySelector('.speech b')?.textContent==='Fürstin von Vix'&&document.querySelector('.scene-cue')?.textContent==='Mont Lassois · um 500 v. Chr.'&&document.querySelectorAll('.speaker.waiting').length===2));
    await page.locator('#overlay button',{hasText:'Überspringen'}).click();await waitScreen(page,'setup');
    check('Nach der Szene die Heldenwahl der Mission',await page.evaluate(()=>App.screen==='setup'&&App.profile.scenes.includes('steppe')));
    await page.evaluate(()=>App.navigate('campaign'));await waitScreen(page,'campaign');
