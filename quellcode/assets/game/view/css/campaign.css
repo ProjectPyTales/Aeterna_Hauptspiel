@@ -76,3 +76,21 @@ button.chapter-seal{flex:1;min-width:0;min-height:0;height:54px;padding:0;displa
 .scene-source{font-size:13px;line-height:1.35;color:#b7aa91}
 @media(prefers-reduced-motion:reduce){.modal.scene,.scene-seal,.scene-stage,.speech,.speech p span{animation:none}.speaker{transition:none}}
 .setup-side .fuse-line{font-size:15px;color:#ffc46a}
+
+/* ---------- Kartenrätsel (AP 6.4 Teil 2): Zeile im Panel (ASTRA raetsel-siegel) und Lage vor dem Brett (ASTRA raetsel-lage) ---------- */
+.riddle-note{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:10px;border:1px solid #a8834a66;background:#2a2119aa}
+.riddle-note>div{flex:1;min-width:0;display:flex;flex-direction:column}
+.riddle-note small{font:11.5px Title,serif;letter-spacing:2px;text-transform:uppercase;color:#c2b18b}
+.riddle-note b{font:16px Title,serif;color:#f4ddb0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.riddle-note span:not(.riddle-seal){font-size:12.5px;color:#b7aa91}
+.riddle-seal{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font:19px Title,serif;color:#2a1c10;
+ background:radial-gradient(circle at 38% 32%,#fff6,#fff0 50%),#8a7a62;box-shadow:0 0 0 2px #2a1f14,0 2px 4px #0008;filter:grayscale(.6) brightness(.7)}
+.riddle-note.open{border-color:#d6a148}
+.riddle-note.open .riddle-seal{background:radial-gradient(circle at 38% 32%,#fff8,#fff0 50%),#d9a84e;filter:none}
+.riddle-note.solved .riddle-seal{background:radial-gradient(circle at 38% 32%,#fff8,#fff0 50%),#e8c36f;box-shadow:0 0 0 2px #fff1c8,0 0 10px #f0d48c88}
+.modal.riddle{width:860px;padding:22px 34px;animation:scene-open .4s cubic-bezier(.2,.8,.3,1)}
+.modal.riddle h2{margin:0}
+.riddle-text{margin:14px 0 6px;font-size:19px;line-height:1.45}
+.riddle-goal{margin:6px 0;padding:8px 14px;border-radius:10px;border:1px solid #d6a148;background:#3a2a1acc;color:#ffe2a2;font-size:16px}
+.riddle-meta{margin:4px 0;font-size:14px;color:#e8c36f}
+@media(prefers-reduced-motion:reduce){.modal.riddle{animation:none}}

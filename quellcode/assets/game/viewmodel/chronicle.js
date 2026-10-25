@@ -3,12 +3,12 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined';
 const D=node?require('../model/data.js'):root.CHD,CHE=node?require('../model/engine.js'):root.CHE;
-const name=(s,p)=>p===1&&s.mission!=null?D.missions[s.mission].boss:D.heroes.find(h=>h.id===s.players[p].hero).name;
+const name=(s,p)=>p===1&&s.mission!=null?D.missions[s.mission].boss:p===1&&s.boss?s.boss:D.heroes.find(h=>h.id===s.players[p].hero).name;
 const valid=e=>e&&((e.kind==='card'&&Object.prototype.hasOwnProperty.call(D.byId,e.id))||(['hero','power'].includes(e.kind)&&D.heroes.some(h=>h.id===e.id))||(e.kind==='event'&&e.id==='chronicle'));
 const C={entries(s,saved=[]){
  const icons=new Map(),put=(line,kind,id)=>{if(!icons.has(line))icons.set(line,{kind,id});};
  const heroes=s.players.map((p,i)=>{const hero=D.heroes.find(h=>h.id===p.hero);
-  return {hero,name:i===1&&s.mission!=null?D.missions[s.mission].boss:hero.name};});
+  return {hero,name:i===1&&s.mission!=null?D.missions[s.mission].boss:i===1&&s.boss?s.boss:hero.name};});
  for(const {hero,name} of heroes){
   put(name+' nutzt '+hero.power+'.','power',hero.id);
   put(name+' greift an.','hero',hero.id);put(name+' gewinnt.','hero',hero.id);put(name+' ergründet eine Karte.','event','chronicle');put(name+' legt einen Hinterhalt.','event','chronicle');

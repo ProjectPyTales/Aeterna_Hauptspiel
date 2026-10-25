@@ -1,7 +1,21 @@
-# Aeterna 1.32.0 – Bauen & Prüfen
+# Aeterna 1.33.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.33.0 (AP 6.4 Teil 2 Kartenrätsel)
+
+- **Modell** `model/puzzles.js` (`AERA`, nach `campaign.js` und vor `profile.js` geladen): sechs Rätsel (`PUZZLES`, je Kapitel eines)
+  mit Lage, Tipp, Quelle, Brett und Hand; `AERA.state(z)` baut den festen Zustand (Modus `puzzle`, `s.puzzle`, Name des Gegners
+  `s.boss`, leere Decks, Dein Zug). `AERA.unlocked` (alle Missionen des Kapitels gewonnen), `profile.puzzles` über `AERA.normalize`.
+- **Regel** in `CHE.endTurn`: Endet Dein Zug in einem Rätsel ohne Sieg, ist es verloren (`s.missed`). `heroName`, Chronik und Match
+  nennen `s.boss`. `CHP.reward` gibt für Rätsel nur bei der ersten Lösung Gold (`z.reward`) und zählt sie nicht als Duell.
+- **Löser** `AERA.solve(s)`: Tiefensuche über `AERA.moves` (alle legalen Züge, Diener an jeder Stelle der Reihe) mit Zwischenspeicher;
+  liefert kürzeste Lösung, Zahl der guten ersten Schritte und der Lösungswege. Neue Rätsel immer damit prüfen (Test `raetsel.test.js`).
+- **Oberfläche:** Zeile „Kartenrätsel“ im Panel (`view/campaign.js`), Dialog `riddle` mit der Lage (`view/dialogs.js`, Stil in
+  `campaign.css`), `Match.riddle(id)` legt das Brett auf (auch „Noch einmal“ und „Neu beginnen“), Pause mit Tipp, Tafel im Match
+  (`riddle` in `render.js`). Drei Astra-Platzhalter (Paket 10). Klickpfad: neue Referenzbilder `19-raetsel`, `20-raetsel-brett`.
+  Version 1.33.0 / versionCode 36.
 
 ## Neu in 1.32.0 (AP 3.9 Lebendige Schlachtfelder und Lesbarkeit, Rückmeldung zu 1.31.0)
 

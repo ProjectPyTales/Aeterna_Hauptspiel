@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (72 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (75 Teile)
 
-*Stand 1.32.0 (24. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, und seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
+*Stand 1.33.0 (25. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9, und seit 1.33.0 die drei der Kartenrätsel, AP 6.4 Teil 2). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 71 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 75 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -156,6 +156,14 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `angriffsvorschau` | `angriffsvorschau.png`, `-tod.png` | 160 × 100 | Kleine Marke über Ziel und Angreifer beim Zielen: rote Wachsplakette für den erwarteten Schaden; Variante mit Totenkopf, wenn die Einheit fällt. Mitte frei für die Zahl. |
 | `erzaehlkasten` | `erzaehlkasten.png` | 1000 × 160 | Erzählkasten des Chronisten in der Story-Szene: dunklerer Pergamentstreifen ohne Spitze, links eine kleine Feder im Tintenfass. |
 | `schattenriss` | `schattenriss.png` | 256 × 256 | Schleier für Helden, die in der Szene noch nicht gesprochen haben: dunkle, leicht transparente Rundscheibe mit Rand wie die Porträtmünzen. |
+
+### Paket 10 – Kartenrätsel (3 Teile, 5 Dateien, seit 1.33.0)
+
+| Kennung | Dateien | Größe | Motiv und Vorgaben |
+|---|---|---|---|
+| `raetsel-siegel` | `raetsel-siegel-offen.png`, `-geloest.png`, `-versiegelt.png` | 96 × 96 | Rundes Wachssiegel eines Kartenrätsels im Panel der Kampagne: drei aufgefächerte Karten, die ein Fragezeichen andeuten (ohne Schrift); gelöst mit Blattgoldrand, versiegelt matt und dunkel. |
+| `raetsel-lage` | `raetsel-lage.png` | 1000 × 420 | Pergament für die Lage vor einem Rätsel: leicht eingerollte Ränder, oben links Platz für das Siegel in der Farbe der Epoche, Innenfläche ruhig für vier kurze Absätze Text. |
+| `raetsel-tafel` | `raetsel-tafel.png` | 380 × 70 | Schmale Wachstafel aus dunklem Holz oben rechts im Match, links eine runde Bronzemarke für das Fragezeichen; Innenfläche ruhig und dunkel für zwei Zeilen heller Schrift (Titel und Ziel). |
 
 ## Abnahme
 

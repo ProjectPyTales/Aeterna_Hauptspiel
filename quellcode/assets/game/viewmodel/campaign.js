@@ -5,11 +5,12 @@
  * projection.
  * Kampagne 2.0 (AP 6.4, 1.31.0): the missions follow the six chapters of model/campaign.js (AEKA) and the epilogue – a chapter
  * strip on the panel, a march route per chapter, a story scene before the first mission of a chapter (dialog 'scene') and the
- * Lunte of the last mission. */
+ * Lunte of the last mission. Kartenrätsel (AP 6.4 Teil 2, 1.33.0): each chapter's riddle opens on the panel once all its missions
+ * are won – first its situation (dialog 'riddle'), then the fixed board in the match (Match.riddle). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,KA=node?require('../model/campaign.js'):root.AEKA;
-const {Screen}=node?require('./base.js'):root.AEVM,{ViewModel}=node?require('../core/mvvm.js'):root.AEM;
+const D=node?require('../model/data.js'):root.CHD,KA=node?require('../model/campaign.js'):root.AEKA,RA=node?require('../model/puzzles.js'):root.AERA;
+const {Screen,Dialog}=node?require('./base.js'):root.AEVM,{ViewModel}=node?require('../core/mvvm.js'):root.AEM;
 
 // Equirectangular map, 1080 × 640 stage units: 28°–56° N, 18° W – 46.5° E (longitudes shrunk by cos 43°).
 const MAP={w:1080,h:640,lon0:-18,lat1:56,ky:640/28,kx:640/28*Math.cos(43*Math.PI/180),
@@ -83,6 +84,12 @@ class Campaign extends Screen{
  scene(id,then=null,mission=null){const c=KA.CHAPTERS.find(c=>c.id===id);if(!c||!KA.open(this.profile,c))return;
   if(KA.see(this.profile,c))this.commit();this.ui.dialog('scene',new Scene(this.ctx,{chapter:c,then,mission}));this.ui.play('parchment');}
  quests(){this.ctx.dialogs.quests();}
+ // Kartenrätsel des gewählten Kapitels: {puzzle, open, solved}; null im Epilog.
+ get riddle(){const z=RA.ofChapter(this.picked.chapter.id);return z?{puzzle:z,open:RA.unlocked(this.profile,z),solved:RA.solved(this.profile,z)}:null;}
+ // Erst die Lage mit Ort, Zeit, Ziel und Quelle, dann das Brett.
+ openRiddle(){const r=this.riddle;if(!r?.open)return;const z=r.puzzle;
+  this.ui.dialog('riddle',new Dialog(this.ctx,{puzzle:z,chapter:this.picked.chapter,solved:r.solved,
+   buttons:[{label:'Zurück'},{label:r.solved?'Noch einmal lösen':'Rätsel beginnen',style:'gold',keep:true,run:()=>this.ctx.match.riddle(z.id)}]}));this.ui.play('parchment');}
 }
 
 // Story-Szene (AP 6.4): Zeile für Zeile eine Sprechblase über dem Porträt dessen, der spricht; am Ende die Quelle.

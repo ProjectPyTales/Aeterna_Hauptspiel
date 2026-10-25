@@ -11,10 +11,12 @@
  * reward bars (finale, rewardBars). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,Q=node?require('../model/quests.js'):root.AEQ,KA=node?require('../model/campaign.js'):root.AEKA;
+const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,Q=node?require('../model/quests.js'):root.AEQ,KA=node?require('../model/campaign.js'):root.AEKA,RA=node?require('../model/puzzles.js'):root.AERA;
 const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 const chronicle=()=>node?require('./chronicle.js'):root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
+// The name of a side: the boss of a mission or a Kartenrätsel (s.boss), else the hero.
+const nameOf=(s,p)=>p===1&&s.mission!=null?D.missions[s.mission].boss:p===1&&s.boss?s.boss:D.heroById[s.players[p].hero].name;
 // Chronicle strip (AP 1.8 Teil 2): which log lines it shows and how they are marked.
 const STRIP=[[/ legt einen Hinterhalt\.$/,'ambush'],[/^Hinterhalt: /,'sprung'],[/ wird vereitelt\.$/,'counter'],[/ spielt /,'play'],[/ nutzt /,'power'],[/ (wurde besiegt|stürzt ein)\.$/,'death'],[/ verbrannt \(Hand voll\)\.$/,'burn'],[/ übernimmt /,'steal'],[/ erneut\.$/,'echo'],[/: Erschöpfung (\d+)\.$/,'fatigue']];
 
@@ -54,7 +56,7 @@ class Match extends Screen{
  open(){const s=this.game;if(this.opened===s){this.ui.dialog('mulligan',this);return;}this.opened=s;
   this.present('opening',this.opening(s),()=>{if(this.ui.screen()==='game'&&this.game===s&&s.phase==='mulligan'&&!this.ui.dialogOpen())this.ui.dialog('mulligan',this);});}
  // Names, epochs and the chronicler's line; first is the side the coin chose (the engine decided it at creation).
- opening(s=this.game){const names=[0,1].map(p=>p===1&&s.mission!=null?D.missions[s.mission].boss:D.heroById[s.players[p].hero].name),m=s.mission!=null?D.missions[s.mission]:null;
+ opening(s=this.game){const names=[0,1].map(p=>nameOf(s,p)),m=s.mission!=null?D.missions[s.mission]:null;
   const n=m?KA.number(s.mission):0,eras=[0,1].map(p=>p===1&&m?'Mission '+n:D.heroById[s.players[p].hero].era),f=m&&KA.fuse(s.mission);
   const line=m?'Mission '+n+' · '+m.title+': '+names[0]+' stellt sich '+names[1]+'.'+(f?' Die Lunte brennt: '+f.turns+' eigene Züge.':''):names[0]+' trifft auf '+names[1]+' – die Chronik schlägt eine neue Seite auf.';
   return {names,eras,line,first:s.active,firstName:names[s.active]};}
@@ -81,7 +83,8 @@ class Match extends Screen{
   if(!result.ok){this.ui.toast(result.error);return false;}
   const lesson=p.ambushSeen?null:this.lesson(s.events);
   chronicle()?.record(p,before);
-  if(before.active===0){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}
+  // Kartenrätsel zählen nicht für Statistik und Tagesaufgaben – sonst ließe sich ein gelöstes Rätsel immer wieder abspielen.
+  if(before.active===0&&s.mode!=='puzzle'){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}
    // Tagesaufgaben (AP 6.3): ausgespielte Karten (mit Art und Epoche) und Angriffe.
    if(act.type==='play'||act.type==='attack')Q.track(p,{type:act.type,card:act.type==='play'?before.players[0].hand.find(h=>h.uid===act.uid)?.id:null},this.now);}
   this.view=idle();if(s.phase==='over')P.reward(p,s,false,this.now);this.commit();
@@ -221,9 +224,10 @@ class Match extends Screen{
  // After the close the war horns have sounded; without it (reduced motion, a resumed game) the fanfare plays here.
  result(staged=false){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over'||this.ui.dialogOpen())return;
   if(!staged)this.ui.play(s.winner===0?'victory':'defeat');
-  const to=s.mode==='campaign'?'campaign':s.mode==='draft'?'draft':'menu';
-  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,burnt:!!s.burnt,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
-   buttons:[{label:{campaign:'Zur Kampagne',draft:'Zum Kolosseum'}[to]||'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
+  const to=s.mode==='campaign'||s.mode==='puzzle'?'campaign':s.mode==='draft'?'draft':'menu',z=RA.byId[s.puzzle];
+  // Kartenrätsel (AP 6.4 Teil 2): „Noch einmal“ legt dasselbe Brett neu auf.
+  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,burnt:!!s.burnt,missed:!!s.missed,puzzle:z?{title:z.title,place:z.place,year:z.year}:null,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
+   buttons:[...(z?[{label:'Noch einmal',keep:true,run:()=>this.riddle(z.id,true)}]:[]),{label:{campaign:'Zur Kampagne',draft:'Zum Kolosseum'}[to]||'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
  // Rewards with progress bars (AP 3.8): the gold won, the hero level and every open quest of the day from its value before
  // this game to now (AP 6.3; a reached goal can be claimed in the menu), and in the campaign the missions completed.
  // {key, label, from, to, goal, note, ep}
@@ -240,17 +244,30 @@ class Match extends Screen{
   // Kolosseum (AP 6.1): Siege und Niederlagen des Laufs, die Belohnung erst am Ende.
   const run=r.draft;if(run){bars.push({key:'draft-wins',label:'Kolosseum · Siege',from:run.wins-(win?1:0),to:run.wins,goal:12,note:run.over?'Lauf beendet – Belohnung im Kolosseum':''},
    {key:'draft-losses',label:'Kolosseum · Niederlagen',from:run.losses-(s.winner===1?1:0),to:run.losses,goal:3,note:''});}
+  if(s.mode==='puzzle'){const done=p.puzzles.length;bars.push({key:'puzzles',label:'Kartenrätsel',from:done-(r.first?1:0),to:done,goal:RA.PUZZLES.length,note:r.first?'Rätsel erstmals gelöst':win?'Schon gelöst – nur die Ehre':''});}
   if(s.mode==='campaign'){const done=p.campaign.length;bars.push({key:'campaign',label:'Kampagne',from:done-(r.first?1:0),to:done,goal:D.missions.length,note:r.first?'Mission erstmals vollendet':''});}
   return bars;}
- pause(){this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,
+ pause(){const z=RA.byId[this.game?.puzzle];if(z){this.riddlePause(z);return;}
+  this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,
   buttons:[{label:'Fortsetzen',style:'gold'},{label:'Einstellungen',run:()=>this.ctx.dialogs.settings()},{label:'Zum Hauptmenü',keep:true,run:()=>this.ui.go('menu')},{label:'Aufgeben',style:'danger',run:()=>this.confirmSurrender()}]}));}
+ // Kartenrätsel (AP 6.4 Teil 2): Lage und Ziel, ein Tipp ohne die Lösung, neu auflegen oder zurück zur Kampagne.
+ riddlePause(z){this.ui.dialog('message',new Dialog(this.ctx,{title:'Rätsel · '+z.title,close:false,text:[z.text,'Ziel: Gewinne in diesem Zug.'],wrap:true,
+  buttons:[{label:'Weiter',style:'gold'},{label:'Tipp',run:()=>this.hint(z)},{label:'Neu beginnen',keep:true,run:()=>this.riddle(z.id,true)},{label:'Zur Kampagne',keep:true,run:()=>this.ui.go('campaign')}]}));}
+ hint(z){this.ui.dialog('message',new Dialog(this.ctx,{title:'Tipp',close:false,text:z.hint,buttons:[{label:'Zurück zum Rätsel',style:'gold'}]}));}
+ // Ein Rätsel beginnt: sein fester Zustand ersetzt die gespeicherte Partie (eine echte Partie erst nach Rückfrage), dann das Match
+ // in Deinem Zug – ohne Starthand und Münzwurf. Auch „Noch einmal“ und „Neu beginnen“ kommen hierher.
+ riddle(id,force=false){const z=RA.byId[id],p=this.profile;if(!z)return;
+  if(p.game&&p.game.phase!=='over'&&p.game.puzzle==null&&force!==true){
+   this.ui.dialog('message',new Dialog(this.ctx,{title:'Laufende Partie',close:false,text:'Du hast noch eine gespeicherte Partie. Das Rätsel ersetzt sie.',
+    buttons:[{label:'Zurück'},{label:'Rätsel beginnen',style:'gold',keep:true,run:()=>this.riddle(id,true)}]}));return;}
+  p.game=RA.state(z);delete p.matchChronicle;this.commit();this.reset();this.ui.go('game');}
  grave(p){const a=this.game.players[p];this.ui.dialog('grave',Object.assign(new Dialog(this.ctx,{mine:p===0,cards:a.grave.map(id=>D.byId[id])}),{inspect:id=>this.inspect(id)}));}
  // The newest played cards, spells, powers and losses for the strip at the left edge, newest first: {key, kind, id,
  // type, p (side, null if unknown), turn, n (Erschöpfung)}. s is the state the board shows (before or after an action).
  // Cached per log length – the full chronicle is only rebuilt when a line is added.
  strip(s=this.game,rows=6){if(!s)return [];const saved=this.profile.matchChronicle||[],key=[s.log.length,s.log[s.log.length-1],saved.length].join('|');
   if(this.stripCache?.key===key)return this.stripCache.items;
-  const C=chronicle(),all=C?C.entries(s,saved):[],names=[0,1].map(p=>p===1&&s.mission!=null?D.missions[s.mission].boss:D.heroById[s.players[p].hero].name);
+  const C=chronicle(),all=C?C.entries(s,saved):[],names=[0,1].map(p=>nameOf(s,p));
   let turn=1;const items=[];
   all.forEach((e,i)=>{const t=/^Zug (\d+): /.exec(e.text);if(t){turn=+t[1];return;}const hit=STRIP.find(([re])=>re.test(e.text));if(!hit)return;
    let p=e.p??null;if(p==null&&names[0]!==names[1])p=e.text.startsWith(names[0])?0:e.text.startsWith(names[1])?1:null;
