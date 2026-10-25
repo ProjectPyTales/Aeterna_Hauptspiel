@@ -10,7 +10,8 @@
  * personality per hero (hero.ai) and buildings valued by what they do. New in 1.11.0 (AP 5.10 wave 2): buffLeft (the
  * leftmost minion), ifMinions, a granted Vorstoß that acts at once, random Starre, Ergründen from the top of the own deck
  * (pool 'deck'), auras for Schildwall minions only and targets in Starre. New in 1.25.0 (AP 5.6): Hinterhalte – spells that
- * lie hidden beside their hero (player.ambush) and spring in the rival's turn. Older saved games simply lack the new fields. */
+ * lie hidden beside their hero (player.ambush) and spring in the rival's turn. New in 1.33.0 (AP 6.4 Teil 2): Kartenrätsel (s.puzzle) end
+ * lost with the player's turn. Older saved games simply lack the new fields. */
 (function(root){'use strict';
 const D=typeof module!=='undefined'?require('./data.js'):root.CHD;
 const clone=x=>JSON.parse(JSON.stringify(x));
@@ -23,7 +24,8 @@ const pick=(s,list)=>list[Math.floor(rand(s)*list.length)];
 function emit(s,type,extra={}){s.events.push({type,...extra});if(s.events.length>70)s.events.shift();}
 function log(s,msg){s.log.push(msg);if(s.log.length>70)s.log.shift();}
 const heroOf=a=>D.heroById[a.hero];
-function heroName(s,p){return p===1&&s.mission!=null?D.missions[s.mission].boss:heroOf(s.players[p]).name;}
+// s.boss: the rival's name in a Kartenrätsel (AP 6.4 Teil 2).
+function heroName(s,p){return p===1&&s.mission!=null?D.missions[s.mission].boss:p===1&&s.boss?s.boss:heroOf(s.players[p]).name;}
 function unit(s,id){for(let p=0;p<2;p++){if(id==='h'+p)return {obj:s.players[p],p,hero:true};const u=s.players[p].board.find(u=>u.uid===id);if(u)return {obj:u,p,hero:false};}return null;}
 const maxHealth=t=>t.obj.maxHealth;
 // Minions in the narrow sense: buildings occupy a place but are no Diener.
@@ -229,6 +231,8 @@ function endTurn(s,p){const a=s.players[p];for(const u of [...a.board]){if(u.hea
  // AP 5.7 Teil 2: Ergründen, das am Zugende aufgeht (ein Artemistempel fällt), wählt der Zufall – eine offene Wahl im Zug des
  // Gegners hielte das Spiel an.
  while(s.choice)choose(s,Math.floor(rand(s)*s.choice.options.length));
+ // Kartenrätsel (AP 6.4 Teil 2): „Gewinne in diesem Zug“ – endet Dein Zug ohne Sieg, ist das Rätsel verloren.
+ if(s.phase!=='over'&&p===0&&s.puzzle!=null){s.phase='over';s.winner=1;s.missed=true;s.choice=null;emit(s,'over',{winner:1});log(s,'Der Zug ist vorbei – das Rätsel bleibt ungelöst.');}
  // Lunte (AP 6.4, AP 3.7): in einer Belagerungsmission endet die Partie, wenn der letzte eigene Zug ohne Sieg vorbei ist.
  if(s.phase!=='over'&&p===0&&fuse(s)&&s.players[0].turns>=fuse(s).turns){s.phase='over';s.winner=1;s.burnt=true;s.choice=null;emit(s,'fuse',{p:0,left:0});emit(s,'over',{winner:1});log(s,'Die Lunte ist abgebrannt – '+heroName(s,1)+' hält stand.');}
  if(s.phase!=='over'){if(s.turn>=120){s.phase='over';s.winner=-1;emit(s,'over',{winner:-1});}else startTurn(s,1-p);}}

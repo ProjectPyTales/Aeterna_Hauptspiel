@@ -3,7 +3,10 @@
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 416 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Seit 24. 10. 2026 liegt das Projekt in `ProjectPyTales/Aeterna_Copy` (Kopie von `thepytales/Aeterna` mit der ganzen Historie).
-Aktueller Stand im Code: **Version 1.32.0** (**Lebendige Schlachtfelder und Lesbarkeit** nach AP 3.9 – vier **Eck-Dioramen**
+Aktueller Stand im Code: **Version 1.33.0** (**Kartenrätsel** nach AP 6.4 Teil 2 – je Kapitel ein Rätsel „Gewinne in diesem
+Zug“ nach einer historischen Lage: Auaris, Leuktra, Naulochos, Süntel, Konstantinopel 1203 und Böttgers Brennofen; feste Hand,
+festes Brett, kein Zufall, offen nach dem Kapitel, Tipp und „Noch einmal“; ein Löser im Test beweist, dass jedes lösbar und nicht
+trivial ist); davor 1.32.0 (**Lebendige Schlachtfelder und Lesbarkeit** nach AP 3.9 – vier **Eck-Dioramen**
 auf dem Spielbrett, die beim Antippen spielen, klingen und eine Zeile Geschichte mit Quelle erzählen, **Schlüsselwörter** eines
 Dieners als Sprechblase nach langem Druck, **Angriffsvorschau** mit erwartetem Schaden; dazu die **Story-Szenen neu erzählt** nach
 Deiner Rückmeldung: Leitfrage des Chronisten, jede Stimme mit Ort und Zeit, Schattenrisse, die ins Licht treten);
@@ -204,6 +207,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `model/draft.js` | Model | Seit 1.29.0 (AP 6.1): Kolosseum als Draft (`AEDR`) – Lauf im Spielstand `profile.draft` (über `normalize`, alte Saves bleiben), Heldenwahl aus drei Epochen, Wahl aus drei Karten gleicher Seltenheit (`options`, je Lauf und Wahl fest), Gegner und Partie (`foe`, `game`, Modus `draft`), Ergebnis aus `CHP.reward` (`record`), Belohnung (`reward`, `claim`), Statistik `profile.draftStats` |
 | `model/quests.js` | Model | Seit 1.30.0 (AP 6.3): Aufgaben und Heldenstufen (`AEQ`) – drei Tagesaufgaben aus einem Pool, eine davon zum Lernen (`profile.daily`, einmal Neuwürfeln, Tageswechsel schreibt Erledigtes gut), Tagesgeschenk mit Serie über sieben Tage (`profile.login`), Erfahrung je Held mit zehn Stufen (`profile.heroXp`, `level`, `gain`), Stufe 10 gibt die Goldene Fassung der Legendären des Helden (`golden`, gezeichnet über `R.gilded`); Ende einer Partie über `finish` aus `CHP.reward`; alles über `normalize` |
 | `model/campaign.js` | Model | Seit 1.31.0 (AP 6.4): Kampagne 2.0 (`AEKA`) – sechs Kapitel nach den Epochen des Lehrplans und ein Epilog über den 22 Missionen (`CHAPTERS`, Reihenfolge `ORDER`, angezeigte Nummer `number`), Story-Szenen mit Sprechern und Quelle (seit 1.32.0 mit Ort und Zeit je Zeile `cue` und Zeitspanne `years`), Grund und Quelle der Lunte (`fuse`), Freischalten in der neuen Reihenfolge (`unlocked`, alter Fortschritt bleibt), gesehene Szenen `profile.scenes` (über `normalize`) |
+| `model/puzzles.js` | Model | Seit 1.33.0 (AP 6.4 Teil 2): Kartenrätsel (`AERA`) – sechs Rätsel je Kapitel (`PUZZLES`: Lage, Tipp, Quelle, Brett und Hand), fester Zustand `state(z)` im Modus `puzzle` (Feld `s.puzzle`, Name des Gegners `s.boss`), Freischalten nach dem Kapitel (`unlocked`), gelöste Rätsel `profile.puzzles` (über `normalize`), Löser `solve(s)` über alle Züge für die Tests |
 | `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
 | `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` (seit 1.17.0 auch in Node, Einträge mit Seite `p`; `Match.strip` liefert die Chronik-Leiste; seit 1.18.0 `Match.press`/`release` für die gedrückte Handkarte und `Match.hand` mit Kosten, spielbar und erfüllter Bedingung je Handkarte; seit 1.19.0 Schaufenster `Shop.showcase`/`select` und Kauf-Zeichen `bought`, Kartenbuch mit Blätterrichtung `turn`, Steinknöpfen `pick`, Kurve `curveHint` und Flug `flight`, Heldengalerie `GALLERY`, Kampagnenkarte `MAP`/`STATIONS` mit Projektion, seit 1.31.0 mit Kapiteln `chapters`, Routen je Kapitel `routes` und der Szene `AEVM.Scene`; seit 1.20.0 Intro `Match.opening`, Schriftrollen `rolling`, Finale und Belohnungsbalken `rewardBars`, Blatt `view.leaf` im Kartenbuch) – **ohne DOM, in Node testbar** |
 | `viewmodel/draft.js` | ViewModel | Seit 1.29.0: Bildschirm „Kolosseum“ (`AEVM.Draft`) – Eintritt mit Rückfrage, Heldenwahl, Kartenwahl mit Manakurve und „Aus der Chronik“, Kampf, Lauf beenden, Belohnung abholen |
@@ -295,7 +299,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Kampagne 2.0 mit Lunte (AP 6.4), Lebendige Schlachtfelder und Lesbarkeit (AP 3.9), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Kampagne 2.0 mit Lunte (AP 6.4), Lebendige Schlachtfelder und Lesbarkeit (AP 3.9), Kartenrätsel mit Löser (AP 6.4 Teil 2), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
@@ -2539,7 +2543,34 @@ So, dass es im Spiel nicht kaputt aussieht:
   - **Prüfung:** sieben Tests in `kampagne.test.js` (Kapitel und Epochen, Lunte nur am Kapitelende, Sprecher und Quellen, Freischalten
     mit altem Spielstand, Lunte in der Engine bis zum letzten Zug, Kampagnenkarte und Szene, Platzhalter); Klickpfad mit Szene und
     neuem Referenzbild `18-szene`. Balance: Kurzlauf mit altem und neuem Modell gleich, voller Lauf in `balance/BERICHT.md`.
-- [ ] **AP 6.4 Teil 2 – Kartenrätsel:** gelegentliche Rätselmissionen mit fester Hand und festem Brett („Gewinne in diesem Zug“).
+- [x] **AP 6.4 Teil 2 – Kartenrätsel:** gelegentliche Rätselmissionen mit fester Hand und festem Brett („Gewinne in diesem Zug“).
+  *✓ in 1.33.0 (Sitzung 28), ohne Rückmeldung zu 1.32.0 – die kommt in der nächsten Sitzung dran:*
+  - **Sechs Rätsel** (`model/puzzles.js`), je Kapitel eines, mit Lage, Ort, Jahr, Tipp und Quelle; die Einsicht steckt in der Geschichte:
+    I **Der Kanal von Auaris** (um 1550 v. Chr., Ahhotep): der Pfeilregen bricht den Segen der Leibwache, das Gift der Selket-Priester
+    macht Ahmoses ersten Hieb tödlich, der zweite trifft Auaris (Grabinschrift des Ahmose, Sohn der Ebana). II **Fünfzig Schilde tief**
+    (Leuktra 371 v. Chr., Epaminondas): alles stärkt den Diener ganz links – erst den Hopliten gegen den Spartiaten, dann den
+    Marathonläufer, der ganz links angreift (Xenophon, Hellenika VI 4, 12). III **Die Harpax** (Naulochos 36 v. Chr., Agrippa): der
+    Enterhaken zieht den Triarier mit Schildwall herüber, der Weg ist frei (Appian, Bürgerkriege V 118–121). IV **Am Süntel** (782,
+    Widukind): erst der Reiter, dann der Aufstand, jeder Schildwall vom richtigen Krieger (Reichsannalen zu 782). V **Das Banner von
+    San Marco** (Konstantinopel 1203, Dandolo): der Arbeiter bricht den Segen der Warägergarde, der Stich fällt sie, der Doge greift
+    mit Klinge und Schmied selbst an (Villehardouin). VI **Der Brennofen** (Dresden 1708, Böttger): erst zuschlagen, dann die Glut des
+    Ofens – und den Befehl des Kurfürsten liegen lassen, er kostet die letzten 2 Leben (Böttgers Laborbuch).
+  - **Regel:** Modus `puzzle`, Dein Zug läuft sofort (keine Starthand, kein Münzwurf), beide Decks leer, keine Karte mit Zufall oder
+    Ziehen; endet Dein Zug ohne Sieg, ist das Rätsel verloren (`s.missed`, kein Zug des Gegners). Wo die Heldenfähigkeit Zufall brächte,
+    ist sie gesperrt.
+  - **Freischalten und Belohnung:** offen, sobald alle Missionen des Kapitels gewonnen sind; die erste Lösung bringt 75 Gold, jede
+    weitere nur die Ehre. Rätsel zählen nicht als Duell (keine Statistik, Tagesaufgaben oder Heldenerfahrung) – sonst ließe sich ein
+    gelöstes Rätsel immer wieder abspielen. `profile.puzzles` über `AERA.normalize`, alte Spielstände bekommen `[]`.
+  - **Oberfläche:** im Panel der Kampagnenkarte eine Zeile „Kartenrätsel“ je Kapitel (versiegelt, „Lösen“, gelöst), davor die Lage
+    als Dialog (Siegel in der Farbe der Epoche, Ort und Jahr, Ziel, Belohnung, Quelle); im Match oben rechts eine Tafel mit Titel und
+    „Gewinne in diesem Zug“, die Pause bietet Tipp, „Neu beginnen“ und „Zur Kampagne“, das Ergebnis „GELÖST“/„UNGELÖST“ mit
+    „Noch einmal“ und dem Balken „Kartenrätsel n / 6“.
+  - **Löser** (`AERA.solve`): durchsucht alle Züge, auch jede Stelle in der Reihe (die Schiefe Schlachtordnung zählt von links). Für
+    jedes Rätsel: lösbar, mindestens drei Schritte (4–5), höchstens 70 % der ersten Schritte führen zum Ziel (Leuktra 2 von 5,
+    Naulochos 3 von 24, Brennofen 2 von 14), Ergebnis unabhängig vom Startwert, „nur angreifen“ verliert.
+  - **Platzhalter für Astra** (Paket 10): `raetsel-siegel`, `raetsel-lage`, `raetsel-tafel`.
+  - **Prüfung:** sieben Tests in `raetsel.test.js`; Klickpfad mit Rätsel (versiegelt, Lage, Brett) und zwei neuen Referenzbildern
+    `19-raetsel` und `20-raetsel-brett`. Keine Regeländerung für normale Partien, kein Balance-Lauf nötig.
 - [ ] **AP 6.5 Tutorial:** die ersten drei Partien geführt.
 - [ ] **AP 6.6 Eigenständige Mechaniken:** Epochen-Synergien (Bonus bei drei Karten derselben Ära), Relikte als
   Kartentyp (Atlasfelder für Spartanerschild und Astrolabium sind schon gemalt), Chronik-Ereignisse für beide Spieler.
@@ -2576,7 +2607,8 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 1. **Archiv der Zeiten (Lexikon):** Jede gesammelte Karte schaltet einen kurzen, echten Geschichtsfakt frei
    („Wusstest du …?“). Die Sammlung wird zum Nachschlagewerk; Sammel-Meilensteine belohnen mit Kartenrücken.
 2. **Historische Schlachten als Rätsel:** Thermopylen 480 v. Chr., Hastings 1066, Orléans 1429 – feste Aufstellung,
-   „Gewinne in diesem Zug“. Kurz, knifflig, lehrreich.
+   „Gewinne in diesem Zug“. Kurz, knifflig, lehrreich. *✓ in 1.33.0 als Kartenrätsel (AP 6.4 Teil 2): sechs Lagen von Auaris bis
+   Böttgers Brennofen, je Kapitel eine.*
 3. **Zwei Spieler an einem Gerät:** Hotseat-Modus mit verdeckter Hand beim Weitergeben – Mehrspieler ganz ohne Internet.
 4. **Zeitanomalie der Woche:** Jede Kalenderwoche eine Sonderregel offline (z. B. „Alle Diener kosten 1 weniger“,
    „Nur Bauwerke und Zauber“, „Zufällige Helden“) mit eigener Belohnung.
@@ -2739,7 +2771,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 25 ✓ | AP 6.3, kleiner Balance-Feinschliff | erledigt in 1.30.0 – Tagesaufgaben mit Lernaufgabe und Neuwürfeln, Tagesgeschenk mit Serie, zehn Heldenstufen bis zur Goldenen Fassung; Zufallsdecks 22 von 22 im Ziel |
 | 26 ✓ | AP 6.4 Kampagne 2.0 mit AP 3.7 (Lunte in Belagerungsmissionen) | erledigt in 1.31.0 – sechs Kapitel und Epilog, Story-Szenen mit Quelle, Lunte am Ende jedes Kapitels; Umzug nach `ProjectPyTales/Aeterna_Copy` |
 | 27 ✓ | AP 3.9 Eck-Dioramen, Rückmeldung 1.31.0 | erledigt in 1.32.0 – Szenen mit Leitfrage, Ort und Zeit, Schattenrissen; vier antippbare Eck-Dioramen mit Klang und Zeile des Chronisten, Schlüsselwort-Blase, Angriffsvorschau |
-| 28+ | AP 6.4 Teil 2 (Kartenrätsel), AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
+| 28 ✓ | AP 6.4 Teil 2 Kartenrätsel | erledigt in 1.33.0 – sechs Rätsel „Gewinne in diesem Zug“ nach historischen Lagen, offen nach dem Kapitel, Löser im Test |
+| 29+ | Rückmeldung 1.32.0/1.33.0, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
 | nach dem letzten Inhalts-Paket | AP A.3 (Du), dann ein Einbau-Lauf | den dann vollständigen `ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md` bei Astra bestellen, 10–12 je ZIP; jede Lieferung baut eine Sitzung mit dem Werkzeug ein |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
@@ -2749,44 +2782,39 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 27 (Version 1.32.0):** Deine Rückmeldung zu 1.31.0 – die **Szenen neu erzählt**: Leitfrage des Chronisten,
-jede Stimme antwortet mit Ort und Zeit, der Chronist führt zur ersten Mission; Kapitelsiegel mit Zeitspanne, Bühne, die sich
-entrollt, Erzählkasten statt Chronist-Porträt, Helden als Schattenrisse, die ins Licht treten. Zur Lunte kam kein Feedback, sie
-bleibt. **AP 3.9** „wie vorgeschlagen“: vier **Eck-Dioramen** (Astrolabium, Räuchergefäß, Säule, Katapult) mit Animation, eigenem
-Klang und einer Zeile Geschichte mit Quelle; **langer Druck** auf einen Diener erklärt seine Schlüsselwörter in einer Sprechblase;
-**Angriffsvorschau** über Ziel und Angreifer beim Zielen. Acht neue Astra-Platzhalter (Paket 9). Keine Regeländerung, Balance
-unverändert. Damit ist das letzte Inhalts-Paket vor Deiner Astra-Bestellung fertig (Entscheidung 22).
-Davor: Sitzung 26 (1.31.0) Kampagne 2.0, Sitzung 25 (1.30.0) Aufgaben; Sitzungen 1–24 (1.4.0–1.29.0).
+**Erledigt in Sitzung 28 (Version 1.33.0):** **AP 6.4 Teil 2 Kartenrätsel** – je Kapitel ein Rätsel „Gewinne in diesem Zug“ nach einer
+historischen Lage (Auaris, Leuktra, Naulochos, Süntel, Konstantinopel 1203, Böttgers Brennofen), feste Hand und festes Brett ohne
+Zufall, offen nach dem Kapitel, 75 Gold für die erste Lösung, Tipp und „Noch einmal“. Ein Löser im Test beweist für jedes Rätsel, dass
+es lösbar ist, mindestens drei Schritte braucht und die meisten Wege scheitern. Drei neue Astra-Platzhalter (Paket 10). Keine
+Regeländerung für normale Partien, Balance unverändert. Deine Rückmeldung zu 1.32.0 stand noch aus und ist nicht eingearbeitet.
+Davor: Sitzung 27 (1.32.0) Eck-Dioramen und neue Szenen, Sitzung 26 (1.31.0) Kampagne 2.0; Sitzungen 1–25 (1.4.0–1.30.0).
 
 **Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.32.0-Test.apk` aus dem Release „Test-APK“ von `ProjectPyTales/Aeterna_Copy` als Update installieren.
-2. **Szene:** In der Kampagne „Szene“ für Kapitel I und II ansehen. Hat sie jetzt einen roten Faden? Sind Tempo (Worte nacheinander)
-   und Länge gut, oder lieber noch kürzer?
-3. **Dioramen:** Im Match die vier Ecken antippen. Sind sie groß genug und gut zu treffen, ist die Zeile des Chronisten zu lang?
-4. **Lesbarkeit:** Einen Diener mit Schildwall lange drücken und einen Angriff ziehen – hilft die Vorschau, oder stört die Marke?
-5. **AP A.3:** Jetzt kannst Du den vollständigen Astra-Auftrag bestellen (`ungenutzte_assets/ASTRA_AUFTRAG.md` und
-   `ASTRA_AUFTRAG_OBERFLAECHE.md`, Pakete 1–9, 10–12 Dateien je ZIP). Jede Lieferung baut eine Sitzung ein.
+1. `Aeterna-1.33.0-Test.apk` aus dem Release „Test-APK“ von `ProjectPyTales/Aeterna_Copy` als Update installieren.
+2. **Noch offen von 1.32.0:** Szenen (roter Faden, Tempo), Eck-Dioramen (groß genug, Zeile zu lang?), Sprechblase und Angriffsvorschau.
+3. **Rätsel:** Kapitel I gewinnen (oder ein gewonnenes Kapitel öffnen), im Panel „Kartenrätsel · Lösen“. Sind die Rätsel zu leicht oder
+   zu schwer, hilft der Tipp, ist der Text der Lage zu lang?
+4. **AP A.3:** Der Astra-Auftrag ist vollständig (`ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md`, jetzt
+   Pakete 1–10). Jede Lieferung baut eine Sitzung ein.
 
-**Sitzung 28 – Kartenrätsel (AP 6.4 Teil 2), parallel zur Astra-Bestellung**
+**Sitzung 29 – Rückmeldungen und Chronikzeilen (AP L.6 Teil 2)**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.32.0 | Szenen, Dioramen, Blase und Vorschau nach Deinem Test | kleine Nacharbeit |
-| AP 6.4 Teil 2 Kartenrätsel | sechs Rätsel „Gewinne in diesem Zug“, je Epoche eines nach einer historischen Lage (z. B. Thermopylen: mit drei Dienern durch den Schildwall), feste Hand und festes Brett, Freischalten nach dem Kapitel; ein Löser prüft im Test, dass jedes Rätsel lösbar ist und nicht trivial | braucht keine neuen Bilder, passt neben die Astra-Bestellung |
-| Ausblick | danach AP L.6 Teil 2 (Chronikzeilen in Häppchen) oder der Einbau der ersten Astra-Lieferung | – |
+| Rückmeldung 1.32.0 und 1.33.0 | Szenen, Dioramen, Blase, Vorschau, Rätsel nach Deinem Test | kleine Nacharbeit |
+| AP L.6 Teil 2 Chronikzeilen | „Aus der Chronik“ für die nächsten rund 80 Karten (heute 82 von 416), zuerst die Basis- und Startdeck-Karten der 22 Helden, jede mit Quelle, Unsicheres als unsicher | braucht keine neuen Bilder, das Lernen steckt dann in jeder Karte, die man zuerst sieht |
+| Ausblick | danach der Rest der Chronikzeilen in Häppchen, AP 6.5 Tutorial oder der Einbau der ersten Astra-Lieferung | – |
 
-Risiko: mittel – Rätsel brauchen feste Zustände in der Engine (neuer Modus, keine neue Regel) und einen Löser, der Lösbarkeit beweist;
-kein Balance-Lauf nötig, weil normale Partien unberührt bleiben.
+Risiko: niedrig – nur Texte mit Quelle, keine Regel; der Aufwand steckt im sorgfältigen Prüfen der Quellen.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Copy`. Übernimm mein Feedback zu Version 1.32.0:
-> *(hier Feedback zu Szenen, Dioramen, Sprechblase und Angriffsvorschau einfügen)*. Arbeite dann **AP 6.4 Teil 2 (Kartenrätsel)** ab.
-> Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die MVVM-Struktur, baue neue Grafiken als
-> gekennzeichnete Platzhalter, prüfe optische Änderungen mit Screenshots im Handyformat, lass die Tests und den Klickpfad laufen und
-> sorge für eine grüne CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main`, merge ihn bei grüner
-> CI und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Copy`. Übernimm mein Feedback zu Version 1.32.0 und 1.33.0:
+> *(hier Feedback zu Szenen, Dioramen, Sprechblase, Angriffsvorschau und Rätseln einfügen)*. Arbeite dann **AP L.6 Teil 2
+> (Chronikzeilen, nächstes Häppchen)** ab. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die
+> MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter, lass die Tests und den Klickpfad laufen und sorge für eine grüne
+> CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main`, merge ihn bei grüner CI und schreibe unten
+> in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: high.** Die Rätsel selbst sind schnell geschrieben, aber jedes muss genau eine
-saubere Lösung haben – das braucht einen Löser über die Engine und sorgfältiges Prüfen der historischen Lagen. *medium*, wenn Du
-nur die Rückmeldung zu 1.32.0 einarbeiten willst.
+**Empfohlener Effort für den nächsten Prompt: medium.** Chronikzeilen sind kurze, belegte Sätze – *high*, wenn Du dazu größere
+Änderungen an Szenen oder Rätseln nach Deinem Test willst.

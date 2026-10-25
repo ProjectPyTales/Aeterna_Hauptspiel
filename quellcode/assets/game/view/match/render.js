@@ -732,11 +732,17 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
    if(ready&&p===0&&motion()&&view.selected?.uid!==u.uid){c.save();c.globalAlpha=.25+.25*Math.sin(t/320);c.translate(pos.x,pos.y);c.scale(L.minionScale,L.minionScale);R.blit(c,readyGlow());c.restore();}
    c.restore();});}
  for(const uid of Object.keys(R.units))if(t-R.units[uid].seen>4000)delete R.units[uid];
+// Kartenrätsel (AP 6.4 Teil 2): an der Stelle der Lunte eine Tafel mit Titel und Ziel – das Rätsel endet mit Deinem Zug.
+// ASTRA: raetsel-tafel – Wachstafel mit Fragezeichen aus Karten und Titel des Rätsels oben rechts im Match, 380 × 70
+function riddle(c,s){if(s.puzzle==null)return;const {x,y,w}=FUSE,z=window.AERA?.byId[s.puzzle];
+ round(c,x-22,y-22,w+84,64,14,grad(c,x-22,y-22,0,64,'#3a2a1aee','#1e150dee'),'#c9a052',2);
+ ellipse(c,x+4,y+10,19,19,grad(c,x-15,y-9,38,38,'#e8c36f','#a87a32'),'#2a1c10',2);txt(c,'?',x+4,y+11,24,'#2a1c10');
+ txt(c,(z?z.title:'Kartenrätsel').toUpperCase(),x+w/2+24,y,15,'#f3dab0',undefined,w+10);txt(c,'GEWINNE IN DIESEM ZUG',x+w/2+24,y+22,13,'#e8c36f',undefined,w+10);}
  // Rival's fanned hand as sealed orders (AP 1.8 Teil 2); orders still flying from his deck are not in the row yet.
  const order=R.sprite('order',-24,-62,48,92,orderArt),orders=Math.max(0,b.hand.length-CHM.pendingOrders());
  for(let i=0;i<orders;i++){c.save();c.translate(490+i*34,12);c.rotate((i-(b.hand.length-1)/2)*.033);R.blit(c,order);c.restore();}
  deck(c,s,0,t);deck(c,s,1,t);rolls(c,s,0,t);rolls(c,s,1,t);
- chronometer(c,s,t);fuse(c,s,t);
+ chronometer(c,s,t);fuse(c,s,t);riddle(c,s);
  // Ether dials on the left (1.17.0) and the chronicle strip at the edge (AP 1.8 Teil 2).
  dial(c,0,a,t);dial(c,1,b,t);strip(c,log,t);
  hand(c,s,view,handInfo,t,gold);
@@ -745,7 +751,7 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,'#f5473b',4);}
  // The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
  if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
- button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':'SCHLACHT',368,55,13,'#f3dab0');
+ button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':s.mode==='puzzle'?'RÄTSEL':'SCHLACHT',368,55,13,'#f3dab0');
  CHM.overlay(c,s,t,gold);
  if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
   if(d.target&&d.target!=='h0')pulse(c,d.target,t);

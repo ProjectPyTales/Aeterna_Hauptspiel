@@ -1,6 +1,6 @@
 // Automatische Sichtprüfung (AP 2.6) und Abnahme von AP 2.3 / AP 0.1, im Handyformat (915 × 412, Pixeldichte 2,6).
 // Klickpfad wie ein Spieler: Hauptmenü → Basar (Reiter, Schaufenster, Kauf, Ausrüsten) → Sammlung (Suche) → Herausforderung →
-// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü → Kampagnenkarte (seit 1.19.0) mit Szene (seit 1.31.0) → Kolosseum als Draft (seit 1.29.0).
+// Starthand → Match → Pause → Aufgeben → Ergebnis → Hauptmenü → Kampagnenkarte (seit 1.19.0) mit Szene (seit 1.31.0) und Kartenrätsel (seit 1.33.0) → Kolosseum als Draft (seit 1.29.0).
 // Jeder Schritt wird fotografiert (sichtpruefung/klickpfad/) und verkleinert mit werkzeuge/referenz/*.webp verglichen.
 // Der Lauf schlägt fehl bei JavaScript-Fehlern, nicht erfüllten Prüfungen oder starken Bildabweichungen.
 //
@@ -162,6 +162,17 @@ async function basar(page,cmpPage,cdp){
    check('Szene blättert zur Fürstin von Vix mit Ort und Zeit',await page.evaluate(()=>document.querySelector('.speech b')?.textContent==='Fürstin von Vix'&&document.querySelector('.scene-cue')?.textContent==='Mont Lassois · um 500 v. Chr.'&&document.querySelectorAll('.speaker.waiting').length===2));
    await page.locator('#overlay button',{hasText:'Überspringen'}).click();await waitScreen(page,'setup');
    check('Nach der Szene die Heldenwahl der Mission',await page.evaluate(()=>App.screen==='setup'&&App.profile.scenes.includes('steppe')));
+   await page.evaluate(()=>App.navigate('campaign'));await waitScreen(page,'campaign');
+   // Kartenrätsel (AP 6.4 Teil 2, seit 1.33.0): nach dem Kapitel die Lage, dann das feste Brett mit der Tafel „Gewinne in diesem Zug“.
+   check('Kartenrätsel: im Panel versiegelt, solange das Kapitel offen ist',await page.evaluate(()=>!!document.querySelector('.riddle-note')&&!document.querySelector('.riddle-note.open')));
+   await page.evaluate(()=>{App.profile.campaign.push(21,2,12);App.navigate('campaign');});await settle(page,150);
+   await page.locator('.chapter-seal[data-a="steppe"]').click();await settle(page,100);
+   await page.locator('.riddle-note button').click();await page.waitForSelector('#overlay .riddle');await settle(page,150);
+   check('Kartenrätsel: Lage mit Ort, Zeit, Ziel und Quelle',await page.evaluate(()=>document.querySelector('.riddle h2')?.textContent==='Der Kanal von Auaris'&&/Auaris · um 1550 v\. Chr\./.test(document.querySelector('.riddle .scene-years')?.textContent||'')&&!!document.querySelector('.riddle-goal')&&!!document.querySelector('.riddle .scene-source')));
+   await shot(page,cmpPage,'19-raetsel');
+   await page.locator('#overlay button',{hasText:'Rätsel beginnen'}).click();await waitScreen(page,'game');await settle(page,300);
+   check('Kartenrätsel: festes Brett, Dein Zug, keine Starthand',await page.evaluate(()=>{const s=App.profile.game;return s.puzzle==='auaris'&&s.phase==='play'&&s.active===0&&s.players[0].hand.length===3&&!document.querySelector('#overlay .mulligan');}));
+   await shot(page,cmpPage,'20-raetsel-brett');
    await page.evaluate(()=>App.navigate('campaign'));await waitScreen(page,'campaign');
    await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
    // Kolosseum als Draft (AP 6.1, seit 1.29.0): Eintritt → Probelauf → Held aus drei Epochen → erste Kartenwahl.
