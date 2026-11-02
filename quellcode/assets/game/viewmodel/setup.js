@@ -18,7 +18,7 @@ class Setup extends Screen{
    age:D.ageById[hero.age],school:LORE.school(heroId),deed:LORE.deed(heroId),life:page?.life||'',style:D.personalities[hero.ai]||null,
    favorites:(page?.favorites||[]).map(id=>D.byId[id]).filter(Boolean),
    level:this.level(heroId),levels:Object.fromEntries(D.heroes.map(h=>[h.id,Q.of(p,h.id).level])),
-   selected:heroId,decks,deckId:s.deckId,foeId:s.foe,foeStyle:D.personalities[D.heroById[s.foe]?.ai]||null,mission:s.mode==='campaign'?D.missions[s.mission]:null,fuse:s.mode==='campaign'?KA.fuse(s.mission):null};}
+   selected:heroId,decks,deckId:s.deckId,foeId:s.foe,foeStyle:D.personalities[D.heroById[s.foe]?.ai]||null,mission:s.mode==='campaign'?D.missions[s.mission]:null,fuse:s.mode==='campaign'?KA.fuse(s.mission):null,aiLevels:E.LEVELS,aiLevel:E.level(p.settings.level)};}
  // Heldenstufe (AP 6.3): Stufe, Erfahrung in der Stufe und was die nächste bringt.
  level(id){const l=Q.of(this.profile,id),w=l.max?null:Q.levelReward(id,l.level+1);return {...l,next:w?Q.rewardText(w):null};}
  chooseHero(id){if(this.session.mode==='daily'||this.session.mode==='random'||!D.heroes.some(h=>h.id===id)||this.session.hero===id)return;
@@ -27,6 +27,8 @@ class Setup extends Screen{
  inspect(id){this.ctx.dialogs.zoom(id);}
  chooseFoe(id){this.session.foe=id;this.notify();}
  chooseDeck(id){this.session.deckId=id;}
+ // Schwierigkeitsgrad der KI (AP 5.8): gilt für alle Duelle, gespeichert in den Einstellungen.
+ chooseLevel(id){const s=this.profile.settings,l=E.level(id);if(s.level===l)return;s.level=l;this.commit();}
  help(){this.ctx.dialogs.help();}
  lore(){const day=this.session.mode==='daily'?P.daily():null;this.ctx.dialogs.lore(day?day.hero:this.session.hero);}
  // A new game replaces a saved one only after asking.
@@ -40,7 +42,7 @@ class Setup extends Screen{
   else{const d=p.decks.find(d=>d.id===s.deckId&&d.hero===hero);if(!d){this.ui.toast('Erstelle zuerst ein vollständiges Deck für diesen Helden.');return;}
    const err=P.validateDeck(p,hero,d.cards);if(err){this.ui.toast(err);return;}
    deck=d.cards;if(s.mode==='campaign')foe=D.missions[s.mission].hero;}
-  p.game=E.create({hero,foe,deck,enemyDeck,mode:s.mode,mission:s.mode==='campaign'?s.mission:null,seed:seed||1,first:seed%2});
+  p.game=E.create({hero,foe,deck,enemyDeck,mode:s.mode,mission:s.mode==='campaign'?s.mission:null,seed:seed||1,first:seed%2,level:p.settings.level});
   delete p.matchChronicle;this.commit();this.ctx.match.reset();this.ui.go('game');}
 }
 

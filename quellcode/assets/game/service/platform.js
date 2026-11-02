@@ -15,7 +15,14 @@ window.AEP={
  exportSave(raw,name){if(native()){native().exportSave(raw);return;}
   const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=document.createElement('a');
   a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},
+ // Text file (Fehlerprotokoll, seit 1.34.0). Browser: download; native shell: clipboard (its file dialog only writes JSON saves).
+ // → Promise of 'file' | 'clipboard' | 'none'.
+ exportText(raw,name){if(!native()){const url=URL.createObjectURL(new Blob([raw],{type:'text/plain'})),a=document.createElement('a');
+   a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return Promise.resolve('file');}
+  return navigator.clipboard?.writeText?navigator.clipboard.writeText(raw).then(()=>'clipboard',()=>'none'):Promise.resolve('none');},
  // Native: the shell answers with App.importText(text). Browser: the hidden file input.
  pickImport(){if(native())native().importSave();else document.getElementById('import-file').click();},
- reducedMotion:()=>!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches};
+ // Ruhige Bewegung: die Einstellung (Phase 7, seit 1.34.0, AEP.calm aus app.js) oder die Vorgabe des Geräts.
+ calm:false,
+ reducedMotion:()=>window.AEP.calm||!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches};
 })();

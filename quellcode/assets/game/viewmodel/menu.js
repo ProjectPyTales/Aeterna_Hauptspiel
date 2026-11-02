@@ -1,8 +1,8 @@
 /* Main-menu view model: what the painted hall shows and what its plates, rails and knob do.
- * The fourth plate resumes a running game, otherwise it offers the daily duel. The colosseum plate opens the draft (AP 6.1). */
+ * The fourth plate resumes a running game, otherwise it offers the lessons (AP 6.5, until done or hidden), else the daily duel. The colosseum plate opens the draft (AP 6.1). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,P=node?require('../model/profile.js'):root.CHP,DR=node?require('../model/draft.js'):root.AEDR,Q=node?require('../model/quests.js'):root.AEQ;
+const D=node?require('../model/data.js'):root.CHD,P=node?require('../model/profile.js'):root.CHP,DR=node?require('../model/draft.js'):root.AEDR,Q=node?require('../model/quests.js'):root.AEQ,TU=node?require('../model/tutorial.js'):root.AETU;
 const {Screen}=node?require('./base.js'):root.AEVM;
 const name=id=>D.heroes.find(h=>h.id===id).name;
 
@@ -14,7 +14,7 @@ class Menu extends Screen{
    quests:Q.ready(p,this.ctx.now?.())+P.quests.filter(q=>!p.claimed.includes(q.id)&&p.stats[q.stat]>=q.goal).length,
    plates:[{go:'free',title:'Schlacht',sub:'Freies Duell gegen die KI'},{go:'campaign',title:'Kampagne',sub:D.missions.length+' historische Missionen'},
     {go:'draft',title:'Kolosseum',sub:p.draft?(p.draft.over?'Lauf beendet – Belohnung abholen':DR.phase(p.draft)==='play'?`Lauf: ${p.draft.wins} Siege · ${p.draft.losses} Niederlagen`:`Draft: ${p.draft.picks.length} von ${DR.PICKS} Karten`):'Draft: Held aus 3, dann 30 Karten'},
-    playing?{go:'resume',title:'Partie fortsetzen',sub:'Deine gespeicherte Partie',gold:true}:{go:'daily',title:'Herausforderung',sub:`Tagesduell: ${name(day.hero)} gegen ${name(day.foe)}`}]};}
+    playing?{go:'resume',title:'Partie fortsetzen',sub:'Deine gespeicherte Partie',gold:true}:TU.offered(p)?{go:'lesson',title:'Lehrstunde',sub:'Lehrstunde '+TU.next(p).n+' von '+TU.LESSONS.length+' mit dem Chronisten',gold:true}:{go:'daily',title:'Herausforderung',sub:`Tagesduell: ${name(day.hero)} gegen ${name(day.foe)}`}]};}
  enter(intro=false){this.state.intro=intro;this.state.pressed=null;}
  introDone(){this.state.intro=false;}
  // Pressure plate: it sinks (medallion presses in, rail lights up, knob turns) with a dull knock, then the ring takes over.
@@ -28,7 +28,7 @@ class Menu extends Screen{
  go(target){const ui=this.ui;
   ({free:()=>this.setup('free'),random:()=>this.setup('random'),draft:()=>ui.go('draft'),daily:()=>this.setup('daily'),campaign:()=>ui.go('campaign'),
     collection:()=>ui.go('collection'),packs:()=>ui.go('packs','packs'),bazaar:()=>ui.go('packs','backs'),
-    quests:()=>this.ctx.dialogs.quests(),settings:()=>this.ctx.dialogs.settings(),resume:()=>ui.go('game')})[target]?.();
+    quests:()=>this.ctx.dialogs.quests(),lesson:()=>this.ctx.dialogs.lessons(),settings:()=>this.ctx.dialogs.settings(),resume:()=>ui.go('game')})[target]?.();
  }
  setup(mode){this.session.mode=mode;this.ui.go('setup');}
  back(){this.ui.exit();}

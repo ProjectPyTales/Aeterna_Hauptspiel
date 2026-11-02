@@ -165,6 +165,13 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `raetsel-lage` | `raetsel-lage.png` | 1000 × 420 | Pergament für die Lage vor einem Rätsel: leicht eingerollte Ränder, oben links Platz für das Siegel in der Farbe der Epoche, Innenfläche ruhig für vier kurze Absätze Text. |
 | `raetsel-tafel` | `raetsel-tafel.png` | 380 × 70 | Schmale Wachstafel aus dunklem Holz oben rechts im Match, links eine runde Bronzemarke für das Fragezeichen; Innenfläche ruhig und dunkel für zwei Zeilen heller Schrift (Titel und Ziel). |
 
+### Paket 11 – Lehrstunden (2 Teile, 4 Dateien, seit 1.34.0)
+
+| Kennung | Dateien | Größe | Motiv und Vorgaben |
+|---|---|---|---|
+| `lehrstunde-chronist` | `lehrstunde-chronist.png` | 520 × 120 | Tafel des Chronisten oben rechts im Match: dunkles Holz mit Bronzerand, links ein rundes Medaillon mit Gänsefeder (Durchmesser 64), rechts eine ruhige, dunkle Fläche für vier Zeilen heller Schrift. Neunteilig dehnbar in der Breite (Ecken 24 px). |
+| `lehrstunde-siegel` | `lehrstunde-siegel-offen.png`, `-naechste.png`, `-geschafft.png` | 160 × 160 | Wachssiegel einer Lehrstunde mit eingeprägter Feder; offen dunkelrot und matt, die nächste golden leuchtend, geschafft mit Blattgoldrand. Mitte frei für die Zahl 1–3. |
+
 ## Abnahme
 
 - Datei als PNG mit Transparenz, doppelte Größe, exakt der Dateiname der Tabelle.
