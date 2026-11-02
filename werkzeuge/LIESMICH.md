@@ -1,7 +1,27 @@
-# Aeterna 1.33.0 – Bauen & Prüfen
+# Aeterna 1.34.0 – Bauen & Prüfen
 
 *Vormals „Chroniken der Helden“.* `android/` ist die native Hülle (Gradle, Kotlin), `quellcode/assets/game/` das Web-Spiel,
 das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle mit `signatur/chroniken-test.p12`.
+
+## Neu in 1.34.0 (AP 6.5 Lehrstunden, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 bestellfertig)
+
+- **Lehrstunden** `model/tutorial.js` (`AETU`, nach `puzzles.js` und vor `profile.js` geladen): `LESSONS` mit Händen, Decks und
+  Schritten (`text`, `focus`, `card`, `done(s, ev)`); `AETU.state(z)` legt mit der Engine auf und setzt dann Hände, Decks, Leben und
+  Diener fest (Modus `tutorial`, `s.lesson`, Gegner `level:'lehrling'`); `Match.action` ruft `AETU.advance` mit `{act, p, card}`,
+  ein langer Druck mit `{note:'inspect'}`. Tafel und Ring zeichnet `coach` in `render.js`. Dialog `lessons`, Knopf in den
+  Spielregeln (`Help`), Platte `lesson` im Hauptmenü, Belohnung über `CHP.reward` (Modus `tutorial`). Neue Lehrstunde: Schritte so
+  bauen, dass der Bot in `lehrstunden.test.js` jeden Schritt sieht und gewinnt.
+- **Schwierigkeitsgrade** in `CHE.ai`: Tabelle `LEVEL` (Tiefe, Kandidaten, Suchbudget, Furcht, Streuung). Ohne `s.level` spielt die
+  KI genau wie in 1.33.0 – Balance-Läufe ändern sich nicht. Gesetzt über `E.create({level})` aus `profile.settings.level`.
+- **Einstellungen:** `CHP.settings` normalisiert `text`, `colors`, `motion`, `quality` (`CHP.LOOK`) und `level`; `app.js` (`look`)
+  setzt Klassen am Wurzelelement, `AEP.calm`, `R.palette` und `R.quality`. `view/css/lesbar.css` erzeugt
+  `python3 werkzeuge/lesbar_css.py` aus den übrigen Stylesheets (`--pruefen` im Test).
+- **Sicherungen** in `AES.Store` (`snapshots`, `snapshot`, `snapshotProfile`; Uhr über die Option `now`), **Fehlerprotokoll**
+  `service/protokoll.js` (`AEF.create({storage, now, version}).attach(window)`), Text-Export `AEP.exportText`.
+- **Geräte-Testmatrix** `node werkzeuge/geraetematrix.js [Ziel]` – sieben Geräte, Screenshots in `sichtpruefung/geraete/`, läuft in der CI.
+- **Astra:** `python3 werkzeuge/astra_bilder.py --nur-auftrag` schreibt `ASTRA_STAND.csv`, `ASTRA_AUFTRAG.md` und die Pakete in
+  `ungenutzte_assets/astra_bestellung/` (K01–K32, U01–U11) ohne die Atlanten anzufassen. Lieferordner `Lieferung_K…` findet
+  `collect()` selbst. Ablauf: `ungenutzte_assets/ASTRA_START.md`. Version 1.34.0 / versionCode 37.
 
 ## Neu in 1.33.0 (AP 6.4 Teil 2 Kartenrätsel)
 

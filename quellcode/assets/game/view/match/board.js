@@ -44,8 +44,8 @@ window.AEMatchView=function(canvas,vm,ui){
  // Pixel density (AP 2.4): the canvas holds R.scale device pixels per stage unit, at most 2. Drawing and touch stay in
  // stage units (1600 × 800); only the backing store grows. Checked again whenever the canvas changes its size.
  let fitted=false;
- const fit=()=>{const w=canvas.getBoundingClientRect().width;if(!w)return;fitted=true;
-  const k=Math.round(Math.max(1,Math.min(2,w*(window.devicePixelRatio||1)/1600))*100)/100;
+ const fit=()=>{const w=canvas.getBoundingClientRect().width;if(!w)return;fitted=R.quality||'hoch';
+  const k=Math.round(Math.max(1,Math.min(R.quality==='sparsam'?1:2,w*(window.devicePixelRatio||1)/1600))*100)/100;
   if(canvas.width!==Math.round(1600*k)){canvas.width=Math.round(1600*k);canvas.height=Math.round(800*k);}R.scale=k;R.scaled(ctx,k);};
  if(window.ResizeObserver)new ResizeObserver(()=>{fitted=false;}).observe(canvas);
  window.addEventListener('resize',()=>{fitted=false;});
@@ -65,7 +65,7 @@ window.AEMatchView=function(canvas,vm,ui){
  // (gaps of 11 and 22 ms in turn); now the loop follows the display. Animations run on the match clock (anim.js, AP 3.1):
  // the tempo setting speeds it up, a hit stop holds it, reduced motion switches hit stop and shake off.
  const frame=now=>{const s=vm.game;
-  if(ui.screen()==='game'&&s){if(!fitted)fit();ctx.setTransform(R.scale,0,0,R.scale,0,0);
+  if(ui.screen()==='game'&&s){if(fitted!==(R.quality||'hoch'))fit();ctx.setTransform(R.scale,0,0,R.scale,0,0);
    T.clock.speed=vm.profile.settings.speed||1;T.clock.reduced=!!window.AEP?.reducedMotion?.();const t=T.clock.tick(now);
    const dev=vm.profile.settings.fps,t0=dev?performance.now():0;const shown=M.frame(s,t);R.draw(ctx,shown,vm.view,t,vm.strip(shown),vm.hand(shown));
    if(dev){stats.push({at:now,ms:performance.now()-t0});overlay(now);}else stats.length=0;

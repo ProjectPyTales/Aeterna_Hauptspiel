@@ -15,11 +15,17 @@ R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;p
 // afterwards only copied – shadowBlur on every frame was the most expensive part of a picture. The canvas matrix does
 // not scale shadows, so R.scaled multiplies blur and offset on a scaled context: everything keeps its old size.
 R.scale=1;
+// Farben der Hinweise (Phase 7, seit 1.34.0): bei Farbsehschwäche leuchtet „spielbar/bereit“ blau statt grün und Ziele orange
+// statt rot – Grün und Rot sind die häufigste Verwechslung. Ein Wechsel leert den Sprite-Speicher, die Schlüssel bleiben.
+const PALETTES={normal:{ready:'#71ff56',readyShadow:'#76ff4d',readyRing:'#8dff6a',glow:'#7dff55',glowRing:'#9dff7a',gap:'#aaf36a',gapFill:'#91d55629',gapRing:'#d3ed9b',aim:'#db403d',target:'#f5473b'},
+ klar:{ready:'#3da5ff',readyShadow:'#4aaeff',readyRing:'#7cc4ff',glow:'#52b2ff',glowRing:'#9ad2ff',gap:'#7cc4ff',gapFill:'#3da5ff29',gapRing:'#b9e0ff',aim:'#ff8a1e',target:'#ff8a1e'}};
+let P=PALETTES.normal;R.colors=()=>P;
+R.palette=id=>{const next=PALETTES[id]||PALETTES.normal;if(next===P)return;P=next;sprites?.clear();};
 const SHADOW=['shadowBlur','shadowOffsetX','shadowOffsetY'];
 R.scaled=(c,k)=>{if(!('__k' in c))for(const name of SHADOW){const d=Object.getOwnPropertyDescriptor(Object.getPrototypeOf(c),name);
  Object.defineProperty(c,name,{configurable:true,get(){return d.get.call(this)/this.__k;},set(v){d.set.call(this,v*this.__k);}});}c.__k=k;return c;};
 // A sprite covers the box x, y, w, h of its own coordinates; res is the extra scale it is drawn with (plaques, portraits).
-const sprites=new Map();
+var sprites=new Map();
 R.sprite=(key,x,y,w,h,paint,res=1)=>{const k=R.scale*res,id=key+'@'+k;let sp=sprites.get(id);
  if(!sp){const cv=document.createElement('canvas');cv.width=Math.max(1,Math.ceil(w*k));cv.height=Math.max(1,Math.ceil(h*k));
   const g=R.scaled(cv.getContext('2d'),R.scale);g.scale(k,k);g.translate(-x,-y);paint(g);
@@ -138,7 +144,7 @@ const PAINTED={'minion-normal':{plate:163,text:[182,244],star:28},'spell-normal'
  'minion-gold':{plate:167,text:[184,241],star:30},'spell-gold':{plate:183,text:[199,248],star:15},'building-gold':{plate:178,text:[192,245],star:24}};
 function paintedCard(c,card,opts,owner,legend){const kind=card.building?'building':card.type==='spell'?'spell':'minion',key=kind+'-'+(opts.gold?'gold':'normal'),
  frame=CHS.ui['kartenrahmen-'+key],box=window.CHB?.windows?.[key],P=PAINTED[key];if(!frame||!box)return false;
- if(opts.glow){c.save();c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=20;c.drawImage(frame,0,0,200,282);c.restore();}
+ if(opts.glow){c.save();c.shadowColor=opts.selected?'#ffc653':P.ready;c.shadowBlur=20;c.drawImage(frame,0,0,200,282);c.restore();}
  const [x0,y0,x1,y1]=box,side=Math.max(x1-x0,y1-y0)+4;
  c.save();c.beginPath();c.rect(x0-2,y0-2,x1-x0+4,y1-y0+4);c.clip();R.tile(c,card.art,card.cell,(x0+x1-side)/2,(y0+y1-side)/2,side,side,card);c.restore();
  c.drawImage(frame,0,0,200,282);
@@ -159,7 +165,7 @@ function paintedCard(c,card,opts,owner,legend){const kind=card.building?'buildin
 R.card=(c,card,x,y,w=200,h=282,opts={})=>{const legend=card.rarity==='legendary',owner=D.owner(card),col=owner?.color||'#7c6a4c',p=FRAME[opts.gold?'gold':legend?'legend':'plain'];
  c.save();c.translate(x,y);c.scale(w/200,h/282);
  if(paintedCard(c,card,opts,owner,legend)){c.restore();return;}
- if(opts.glow){c.shadowColor=opts.selected?'#ffc653':'#71ff56';c.shadowBlur=20;}
+ if(opts.glow){c.shadowColor=opts.selected?'#ffc653':P.ready;c.shadowBlur=20;}
  gatePath(c);c.fillStyle=grad(c,0,0,200,282,p.stone[0],p.stone[1]);c.fill();c.shadowBlur=0;c.lineWidth=3;c.strokeStyle=p.ink;c.stroke();
  c.beginPath();c.moveTo(9,33);c.lineTo(100,10);c.lineTo(191,33);c.strokeStyle='#ffffff55';c.lineWidth=1.2;c.stroke();
  // Gable field in the owner's colour with his sign.
@@ -205,7 +211,7 @@ const gateGlow=(color,blur,key)=>{const frame=CHS.ui['kartenrahmen-'+key],box=fr
   m.drawImage(frame,0,0);m.fillRect(box[0]*w/200,box[1]*h/282,(box[2]-box[0])*w/200,(box[3]-box[1])*h/282);
   m.globalCompositeOperation='source-in';m.fillStyle=color;m.fillRect(0,0,w,h);g.drawImage(cv,0,0,200,282);g.drawImage(cv,0,0,200,282);});};
 R.cardCache={};R.fastCard=(c,card,x,y,w,h,opts={})=>{const cw=R.scale>1.2?400:300,gold=!!opts.gold,key=card.id+':'+cw+(gold?':gold':'');let im=R.cardCache[key];if(!im){im=document.createElement('canvas');im.width=cw;im.height=Math.round(cw*1.41);R.card(im.getContext('2d'),card,0,0,cw,im.height,{gold});R.cardCache[key]=im;}
- if(opts.glow){const fk=frameKey(card,gold),sp=opts.selected?gateGlow('#ffc653',20,fk):opts.glow==='boost'?gateGlow('#ffd23a',18,fk):gateGlow('#71ff56',12,fk);c.save();c.translate(x,y);c.scale(w/200,h/282);R.blit(c,sp);c.restore();}c.drawImage(im,x,y,w,h);
+ if(opts.glow){const fk=frameKey(card,gold),sp=opts.selected?gateGlow('#ffc653',20,fk):opts.glow==='boost'?gateGlow('#ffd23a',18,fk):gateGlow(P.ready,12,fk);c.save();c.translate(x,y);c.scale(w/200,h/282);R.blit(c,sp);c.restore();}c.drawImage(im,x,y,w,h);
  // A changed cost (Marco Polo, Caterina, Andraste) covers the printed crystal: green when cheaper.
  if(opts.cost!=null&&opts.cost!==card.cost){const k=w/200;c.save();c.translate(x,y);c.scale(k,k);etherCrystal(c,25,34,22,opts.cost,opts.cost<card.cost?'green':'red');c.restore();}};
 R.smoothed={};R.smooth=(id,x,y,dt)=>{const old=R.smoothed[id]||{x,y},q=1-Math.exp(-dt/58);const p={x:old.x+(x-old.x)*q,y:old.y+(y-old.y)*q};R.smoothed[id]=p;return p;};
@@ -567,7 +573,7 @@ function plaque(c,u,card,ready,selected,aim){
  const legend=card.rarity==='legendary',building=!!u.building,K=window.CHF;
  // AP 3.6: Schildwall as a wooden and a bronze shield behind the plaque, Vermächtnis as an urn below it.
  if(u.taunt)K.shieldWall(c);if(card.death&&!u.silenced&&!building)K.urn(c);
- if(ready||selected){c.shadowColor=selected?'#ffda67':'#76ff4d';c.shadowBlur=20;}
+ if(ready||selected){c.shadowColor=selected?'#ffda67':P.readyShadow;c.shadowBlur=20;}
  round(c,-51,-68,102,136,9,grad(c,-51,-68,102,136,'#292824',building?'#a9a397':legend?'#b38c4e':'#79654e'),'#28231f',3);
  c.shadowBlur=0;
  round(c,-47,-64,94,128,7,null,legend?'#e1bd74':'#b59b75',1.5);
@@ -597,8 +603,8 @@ function plaque(c,u,card,ready,selected,aim){
  const own=!u.silenced;const marks=[own&&(card.passive||card.start||card.end||card.onHeal||card.allyHeal)&&['✦','#d8c9fa'],u.rush&&['➤','#ffd27a'],u.double&&['⚔','#ffe3b0'],own&&card.focus&&['✧'+card.focus,'#a9dcff'],u.plunder&&['♥','#ff8f7a'],u.silenced&&['⊘','#d5d0c8']].filter(Boolean);
  if(!building&&marks.length){const w=marks.reduce((n,[g])=>n+(g.length>1?24:17),6);round(c,-w/2,22,w,22,10,'#1d1712d9','#c9a96a',1.2);let xx=-w/2+3;
   for(const [g,col] of marks){const gw=g.length>1?24:17;txt(c,g,xx+gw/2,33,g.length>1?13:15,col);xx+=gw;}}
- if(ready&&!selected)round(c,-55,-72,110,144,11,null,'#8dff6a',2.5);
- if(aim)round(c,-59,-76,118,154,13,null,'#db403d',3);
+ if(ready&&!selected)round(c,-55,-72,110,144,11,null,P.readyRing,2.5);
+ if(aim)round(c,-59,-76,118,154,13,null,P.aim,3);
 }
 // ---------- Game feel (AP 3.2–3.5) ----------
 const clamp=T.clamp,lerp=T.mix;
@@ -654,7 +660,7 @@ function pulse(c,uid,t){const pos=R.positions[uid];if(!pos)return;const hero=/^h
  c.save();c.globalAlpha=.55+.4*b;c.translate(pos.x,pos.y);c.scale(1+.05*b,1+.05*b);
  if(hero)R.blit(c,aimGlow(170*k,170*k,85*k));else R.blit(c,aimGlow(118*k,154*k,13*k));c.restore();}
 // Units that may still attack breathe a green glow (AP 3.5).
-const readyGlow=()=>R.sprite('readyglow',-80,-100,160,200,g=>{g.shadowColor='#7dff55';g.shadowBlur=16;g.beginPath();g.roundRect(-54,-71,108,142,11);g.lineWidth=3;g.strokeStyle='#9dff7a';g.stroke();});
+const readyGlow=()=>R.sprite('readyglow',-80,-100,160,200,g=>{g.shadowColor=P.glow;g.shadowBlur=16;g.beginPath();g.roundRect(-54,-71,108,142,11);g.lineWidth=3;g.strokeStyle=P.glowRing;g.stroke();});
 // ---------- Effects ----------
 // ASTRA: tintenspritzer – Spritzer getrockneter Tinte hinter einer Schadenszahl (drei Varianten), 220 × 220
 const inkSprite=v=>R.sprite('ink:'+v,-55,-55,110,110,g=>{let seed=v*7919+3;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
@@ -725,13 +731,34 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  L.dioramas.forEach((_,i)=>{const b=L.dioramaBox(i);hit('diorama'+i,b.x,b.y,b.w,b.h,{kind:'diorama'});});window.AEDI?.dioramas(c,t,R.fx);
  const insert=view.insertIndex??CHM.insertion();
  for(let p=0;p<2;p++){const yy=L.rows[p],board=s.players[p].board,hasGap=p===0&&insert!=null&&board.length<7;if(view.drag?.cardId&&p===0)for(let i=0;i<7;i++)ellipse(c,L.center+(i-3)*L.spacing,yy,56,76,'#49331a05','#67502e22',1);
-  if(hasGap){const xx=L.center+(insert-board.length/2)*L.spacing;R.blit(c,R.sprite('gap',-110,-130,220,260,g=>{g.shadowColor='#aaf36a';g.shadowBlur=24;ellipse(g,0,0,60,78,'#91d55629','#d3ed9b',2);g.shadowBlur=0;txt(g,'↓',0,0,30,'#efffd3');}),xx,yy);}
+  if(hasGap){const xx=L.center+(insert-board.length/2)*L.spacing;R.blit(c,R.sprite('gap',-110,-130,220,260,g=>{g.shadowColor=P.gap;g.shadowBlur=24;ellipse(g,0,0,60,78,P.gapFill,P.gapRing,2);g.shadowBlur=0;txt(g,'↓',0,0,30,'#efffd3');}),xx,yy);}
   board.forEach((u,i)=>{const index=i+(hasGap&&i>=insert?1:0),base=R.smooth(u.uid,L.center+(index-(board.length-1+(hasGap?1:0))/2)*L.spacing,yy,dt),pos=CHM.pose(u.uid,base,t),foot=60*L.minionScale;
    c.save();c.translate(pos.x,pos.y+foot);c.rotate(pos.angle);c.scale(pos.scale*(pos.sx||1),pos.scale*(pos.sy||1));c.translate(-pos.x,-pos.y-foot);
    const ready=minion(c,s,p,u,pos.x,pos.y,view.selected&&view.selected.uid===u.uid,targets,t);
    if(ready&&p===0&&motion()&&view.selected?.uid!==u.uid){c.save();c.globalAlpha=.25+.25*Math.sin(t/320);c.translate(pos.x,pos.y);c.scale(L.minionScale,L.minionScale);R.blit(c,readyGlow());c.restore();}
    c.restore();});}
  for(const uid of Object.keys(R.units))if(t-R.units[uid].seen>4000)delete R.units[uid];
+// Lehrstunden (AP 6.5): oben rechts die Tafel des Chronisten mit dem aktuellen Schritt; ein goldener Ring zeigt, wohin es geht
+// (Handkarte, Chronometer, bereite Diener, Heldenfähigkeit, feindlicher Held oder Schildwall-Diener). Im Zug des Gegners wartet er.
+// ASTRA: lehrstunde-chronist – Tafel des Chronisten mit Federkiel-Medaillon und Pergamentfeld oben rechts im Match, 520 × 120
+const COACH={x:968,y:8,w:516,h:118};
+const wrapText=(c,text,width)=>{const out=[];let line='';for(const w of text.split(' ')){const next=line?line+' '+w:w;if(line&&c.measureText(next).width>width){out.push(line);line=w;}else line=next;}if(line)out.push(line);return out;};
+function coach(c,s,t,view){const k=s.lesson&&window.AETU?.coach(s);if(!k||s.phase==='over')return;const {x,y,w,h}=COACH;
+ c.save();round(c,x,y,w,h,14,grad(c,x,y,0,h,'#3a2a1af2','#1e150df2'),'#c9a052',2);
+ ellipse(c,x+44,y+h/2,32,32,grad(c,x+12,y+h/2-32,64,64,'#e8c36f','#a87a32'),'#2a1c10',2);txt(c,'✒',x+44,y+h/2+2,30,'#2a1c10');
+ txt(c,('Lehrstunde '+k.n+' · '+k.title+(k.waiting?'':' · Schritt '+k.step+'/'+k.total)).toUpperCase(),x+92,y+18,13,'#e8c36f','left',w-108);
+ c.font='17px Body,serif';const lines=wrapText(c,k.text,w-108).slice(0,4);lines.forEach((l,i)=>txt(c,l,x+92,y+42+i*21,17,k.waiting?'#cdbb95':'#f3dab0','left'));c.restore();
+ if(k.waiting||view.drag)return;
+ // Der Ring: golden, er atmet langsam (unter ruhiger Bewegung steht er still).
+ const pulse=motion()?.5+.5*Math.sin(t/260):1,ring=(px,py,rx,ry)=>{c.save();c.globalAlpha=.55+.45*pulse;c.shadowColor='#ffd76a';c.shadowBlur=14;ellipse(c,px,py,rx+4*pulse,ry+4*pulse,null,'#ffd76a',4);c.restore();};
+ const a=s.players[0];
+ if(k.focus==='chrono')ring(L.chrono.x,L.chrono.y,L.chrono.r+10,L.chrono.r+10);
+ else if(k.focus==='power'&&R.positions.power0)ring(R.positions.power0.x,R.positions.power0.y,36,36);
+ else if(k.focus==='enemy'&&R.positions.h1)ring(R.positions.h1.x,R.positions.h1.y,82*L.heroScale(1),94*L.heroScale(1));
+ else if(k.focus==='board'){for(const u of a.board)if(E.canAttack(u)&&R.positions[u.uid]){const p=R.positions[u.uid];ring(p.x,p.y,62,82);}}
+ else if(k.focus==='foeBoard'){for(const u of s.players[1].board)if(u.taunt&&R.positions[u.uid]){const p=R.positions[u.uid];ring(p.x,p.y,62,82);}}
+ else if(k.focus==='hand'){const one=k.card&&a.hand.find(h=>h.id===k.card);
+  for(const h of one?[one]:a.hand){const p=R.positions[h.uid];if(p)ring(p.x,p.y-6,p.w*.56,p.w*.72);}}}
 // Kartenrätsel (AP 6.4 Teil 2): an der Stelle der Lunte eine Tafel mit Titel und Ziel – das Rätsel endet mit Deinem Zug.
 // ASTRA: raetsel-tafel – Wachstafel mit Fragezeichen aus Karten und Titel des Rätsels oben rechts im Match, 380 × 70
 function riddle(c,s){if(s.puzzle==null)return;const {x,y,w}=FUSE,z=window.AERA?.byId[s.puzzle];
@@ -748,10 +775,10 @@ function riddle(c,s){if(s.puzzle==null)return;const {x,y,w}=FUSE,z=window.AERA?.
  hand(c,s,view,handInfo,t,gold);
  const ownHero=CHM.pose('h0',{x:L.center,y:L.heroY[0]},t);R.positions.h0=ownHero;R.positions.power0=L.powerPosition(0,ownHero.x,ownHero.y);
  const rivalHero=CHM.pose('h1',{x:L.center,y:L.heroY[1]},t),K=window.CHF;if(!K.hidden(1))portrait(c,s,1,rivalHero.x,rivalHero.y,t);
- for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,'#f5473b',4);}
+ for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,P.target,4);}
  // The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
  if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
- button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':s.mode==='puzzle'?'RÄTSEL':'SCHLACHT',368,55,13,'#f3dab0');
+ button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,(s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':s.mode==='puzzle'?'RÄTSEL':s.mode==='tutorial'?'LEHRSTUNDE':'SCHLACHT')+(s.level&&s.mode!=='tutorial'?' · '+s.level.toUpperCase():''),368,55,13,'#f3dab0',undefined,230);
  CHM.overlay(c,s,t,gold);
  if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
   if(d.target&&d.target!=='h0')pulse(c,d.target,t);
@@ -759,12 +786,12 @@ function riddle(c,s){if(s.puzzle==null)return;const {x,y,w}=FUSE,z=window.AERA?.
   if(needsArrow){const start=d.cardId?{x:d.x,y:d.y-82}:R.positions[view.selected.uid]||R.positions.power0,end=d.target?R.positions[d.target]:{x:d.pointerX,y:d.pointerY};if(start&&end)route(c,start,end,!!d.target,t);}}
  // Own portrait, frame, armor, health and power always stay above card flights/drags.
  if(!K.hidden(0))portrait(c,s,0,ownHero.x,ownHero.y,t);
- if(targets.includes('h0'))ellipse(c,ownHero.x,ownHero.y,74*L.heroScale(0),86*L.heroScale(0),null,'#f5473b',4);
+ if(targets.includes('h0'))ellipse(c,ownHero.x,ownHero.y,74*L.heroScale(0),86*L.heroScale(0),null,P.target,4);
  if(view.drag?.target==='h0')pulse(c,'h0',t);
  effects(c,t,false);
  // AP 3.9: the attack preview over target and attacker, and the bubble (chronicler at a diorama, keywords of a unit).
  window.AEDI?.preview(c,view,t);
- turnPlate(c,s,t);
+ turnPlate(c,s,t);coach(c,s,t,view);
  window.AEDI?.bubble(c,view.bubble,t,hit);
  // AP 3.8: the opening (heroes, chronicler, coin) and the close (relief, banner) lie over everything.
  K.draw(c,s,t);

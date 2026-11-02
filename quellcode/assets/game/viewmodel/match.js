@@ -11,11 +11,12 @@
  * reward bars (finale, rewardBars). */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,Q=node?require('../model/quests.js'):root.AEQ,KA=node?require('../model/campaign.js'):root.AEKA,RA=node?require('../model/puzzles.js'):root.AERA;
+const D=node?require('../model/data.js'):root.CHD,E=node?require('../model/engine.js'):root.CHE,P=node?require('../model/profile.js'):root.CHP,Q=node?require('../model/quests.js'):root.AEQ,KA=node?require('../model/campaign.js'):root.AEKA,RA=node?require('../model/puzzles.js'):root.AERA,TU=node?require('../model/tutorial.js'):root.AETU;
 const {Screen,Dialog}=node?require('./base.js'):root.AEVM;
 const chronicle=()=>node?require('./chronicle.js'):root.CHC;
 const idle=()=>({selected:null,inspect:null,targets:[]});
 // The name of a side: the boss of a mission or a Kartenrätsel (s.boss), else the hero.
+const practice=s=>s.mode==='puzzle'||s.mode==='tutorial';
 const nameOf=(s,p)=>p===1&&s.mission!=null?D.missions[s.mission].boss:p===1&&s.boss?s.boss:D.heroById[s.players[p].hero].name;
 // Chronicle strip (AP 1.8 Teil 2): which log lines it shows and how they are marked.
 const STRIP=[[/ legt einen Hinterhalt\.$/,'ambush'],[/^Hinterhalt: /,'sprung'],[/ wird vereitelt\.$/,'counter'],[/ spielt /,'play'],[/ nutzt /,'power'],[/ (wurde besiegt|stürzt ein)\.$/,'death'],[/ verbrannt \(Hand voll\)\.$/,'burn'],[/ übernimmt /,'steal'],[/ erneut\.$/,'echo'],[/: Erschöpfung (\d+)\.$/,'fatigue']];
@@ -83,10 +84,12 @@ class Match extends Screen{
   if(!result.ok){this.ui.toast(result.error);return false;}
   const lesson=p.ambushSeen?null:this.lesson(s.events);
   chronicle()?.record(p,before);
-  // Kartenrätsel zählen nicht für Statistik und Tagesaufgaben – sonst ließe sich ein gelöstes Rätsel immer wieder abspielen.
-  if(before.active===0&&s.mode!=='puzzle'){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}
+  // Kartenrätsel und Lehrstunden zählen nicht für Statistik und Tagesaufgaben – sonst ließen sie sich immer wieder abspielen.
+  if(before.active===0&&!practice(s)){const n=this.tallied(s);if(act.type==='play'){p.stats.played++;n.played++;}if(act.type==='attack'){p.stats.attacks++;n.attacks++;}
    // Tagesaufgaben (AP 6.3): ausgespielte Karten (mit Art und Epoche) und Angriffe.
    if(act.type==='play'||act.type==='attack')Q.track(p,{type:act.type,card:act.type==='play'?before.players[0].hand.find(h=>h.uid===act.uid)?.id:null},this.now);}
+  // Lehrstunden (AP 6.5): der Chronist hakt erfüllte Schritte ab.
+  if(s.lesson)TU.advance(s,{act,p:before.active,card:act.type==='play'?before.players[before.active].hand.find(h=>h.uid===act.uid)?.id:null});
   this.view=idle();if(s.phase==='over')P.reward(p,s,false,this.now);this.commit();
   this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);if(before.active===0)this.ui.haptic(act.type==='attack'?1:0);},
    ()=>{if(s.phase==='over')this.showResult();else if(!this.discover()&&!this.teach(lesson))this.scheduleAI();});
@@ -160,7 +163,9 @@ class Match extends Screen{
  // AP 3.9: a long press on a unit explains the keywords it carries in a bubble above it (tap the bubble for the card).
  keywords(hit){const t=E.unit(this.game,hit.id);if(!t||t.hero)return null;const card=D.byId[t.obj.id],lines=keywordsOf(t.obj,card);
   return lines.length?{x:hit.x+hit.w/2,top:hit.y,bottom:hit.y+hit.h,title:card.name,lines,card:card.id,life:9000}:null;}
- longPress(hit){const words=hit?.kind==='target'&&!/^h[01]$/.test(hit.id)?this.keywords(hit):null;
+ // Lehrstunden: ein langer Druck (Großansicht, Schlüsselwörter) zählt für den Schritt, der danach fragt.
+ note(kind){const s=this.game;if(s?.lesson&&TU.advance(s,{note:kind}))this.commit();}
+ longPress(hit){if(hit)this.note('inspect');const words=hit?.kind==='target'&&!/^h[01]$/.test(hit.id)?this.keywords(hit):null;
   if(words){this.view.bubble=words;this.ui.play('parchment',{gain:.6});this.ui.haptic(0);}
   else if(hit?.idCard)this.inspect(hit.idCard);
   else if(hit?.kind==='target'&&/^h[01]$/.test(hit.id))this.ctx.dialogs.lore(this.game.players[+hit.id[1]].hero);
@@ -224,10 +229,10 @@ class Match extends Screen{
  // After the close the war horns have sounded; without it (reduced motion, a resumed game) the fanfare plays here.
  result(staged=false){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over'||this.ui.dialogOpen())return;
   if(!staged)this.ui.play(s.winner===0?'victory':'defeat');
-  const to=s.mode==='campaign'||s.mode==='puzzle'?'campaign':s.mode==='draft'?'draft':'menu',z=RA.byId[s.puzzle];
+  const to=s.mode==='campaign'||s.mode==='puzzle'?'campaign':s.mode==='draft'?'draft':'menu',z=RA.byId[s.puzzle],l=TU.byId[s.lesson?.id],after=l&&s.winner===0?TU.LESSONS[l.n]:null;
   // Kartenrätsel (AP 6.4 Teil 2): „Noch einmal“ legt dasselbe Brett neu auf.
-  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,burnt:!!s.burnt,missed:!!s.missed,puzzle:z?{title:z.title,place:z.place,year:z.year}:null,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
-   buttons:[...(z?[{label:'Noch einmal',keep:true,run:()=>this.riddle(z.id,true)}]:[]),{label:{campaign:'Zur Kampagne',draft:'Zum Kolosseum'}[to]||'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
+  this.ui.dialog('result',new Dialog(this.ctx,{close:false,winner:s.winner,mode:s.mode,burnt:!!s.burnt,missed:!!s.missed,puzzle:z?{title:z.title,place:z.place,year:z.year}:null,lesson:l?{title:l.title,n:l.n}:null,reward:s.reward||{gold:0,packs:0},bars:this.rewardBars(s),
+   buttons:[...(z?[{label:'Noch einmal',keep:true,run:()=>this.riddle(z.id,true)}]:[]),...(l?[after?{label:'Lehrstunde '+after.n+' ›',keep:true,run:()=>this.startLesson(after.id,true)}:{label:'Noch einmal',keep:true,run:()=>this.startLesson(l.id,true)}]:[]),{label:{campaign:'Zur Kampagne',draft:'Zum Kolosseum'}[to]||'Zum Hauptmenü',style:'gold',keep:true,run:()=>this.ui.go(to)}]}));}
  // Rewards with progress bars (AP 3.8): the gold won, the hero level and every open quest of the day from its value before
  // this game to now (AP 6.3; a reached goal can be claimed in the menu), and in the campaign the missions completed.
  // {key, label, from, to, goal, note, ep}
@@ -244,15 +249,25 @@ class Match extends Screen{
   // Kolosseum (AP 6.1): Siege und Niederlagen des Laufs, die Belohnung erst am Ende.
   const run=r.draft;if(run){bars.push({key:'draft-wins',label:'Kolosseum · Siege',from:run.wins-(win?1:0),to:run.wins,goal:12,note:run.over?'Lauf beendet – Belohnung im Kolosseum':''},
    {key:'draft-losses',label:'Kolosseum · Niederlagen',from:run.losses-(s.winner===1?1:0),to:run.losses,goal:3,note:''});}
+  if(s.mode==='tutorial'){const done=p.tutorial.done.length;bars.push({key:'lessons',label:'Lehrstunden',from:done-(r.first?1:0),to:done,goal:TU.LESSONS.length,note:r.first?(r.packs?'Alle Lehrstunden geschafft – ein Kartenpaket dazu':'Lehrstunde erstmals geschafft'):win?'Schon geschafft':''});}
   if(s.mode==='puzzle'){const done=p.puzzles.length;bars.push({key:'puzzles',label:'Kartenrätsel',from:done-(r.first?1:0),to:done,goal:RA.PUZZLES.length,note:r.first?'Rätsel erstmals gelöst':win?'Schon gelöst – nur die Ehre':''});}
   if(s.mode==='campaign'){const done=p.campaign.length;bars.push({key:'campaign',label:'Kampagne',from:done-(r.first?1:0),to:done,goal:D.missions.length,note:r.first?'Mission erstmals vollendet':''});}
   return bars;}
- pause(){const z=RA.byId[this.game?.puzzle];if(z){this.riddlePause(z);return;}
+ pause(){const z=RA.byId[this.game?.puzzle];if(z){this.riddlePause(z);return;}const l=TU.byId[this.game?.lesson?.id];if(l){this.lessonPause(l);return;}
   this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,
   buttons:[{label:'Fortsetzen',style:'gold'},{label:'Einstellungen',run:()=>this.ctx.dialogs.settings()},{label:'Zum Hauptmenü',keep:true,run:()=>this.ui.go('menu')},{label:'Aufgeben',style:'danger',run:()=>this.confirmSurrender()}]}));}
  // Kartenrätsel (AP 6.4 Teil 2): Lage und Ziel, ein Tipp ohne die Lösung, neu auflegen oder zurück zur Kampagne.
  riddlePause(z){this.ui.dialog('message',new Dialog(this.ctx,{title:'Rätsel · '+z.title,close:false,text:[z.text,'Ziel: Gewinne in diesem Zug.'],wrap:true,
   buttons:[{label:'Weiter',style:'gold'},{label:'Tipp',run:()=>this.hint(z)},{label:'Neu beginnen',keep:true,run:()=>this.riddle(z.id,true)},{label:'Zur Kampagne',keep:true,run:()=>this.ui.go('campaign')}]}));}
+ // Lehrstunden (AP 6.5): worum es geht, neu beginnen, alle Lehrstunden oder zurück ins Menü.
+ lessonPause(l){const c=TU.coach(this.game);this.ui.dialog('message',new Dialog(this.ctx,{title:'Lehrstunde '+l.n+' · '+l.title,close:false,text:[l.intro,'Gerade: '+c.text],wrap:true,
+  buttons:[{label:'Weiter',style:'gold'},{label:'Neu beginnen',keep:true,run:()=>this.startLesson(l.id,true)},{label:'Alle Lehrstunden',run:()=>this.ctx.dialogs.lessons()},{label:'Einstellungen',run:()=>this.ctx.dialogs.settings()},{label:'Zum Hauptmenü',keep:true,run:()=>this.ui.go('menu')}]}));}
+ // Eine Lehrstunde beginnt: ihr fester Anfang ersetzt die gespeicherte Partie (eine echte Partie erst nach Rückfrage).
+ startLesson(id,force=false){const l=TU.byId[id],p=this.profile;if(!l)return;
+  if(p.game&&p.game.phase!=='over'&&p.game.puzzle==null&&p.game.lesson==null&&force!==true){
+   this.ui.dialog('message',new Dialog(this.ctx,{title:'Laufende Partie',close:false,text:'Du hast noch eine gespeicherte Partie. Die Lehrstunde ersetzt sie.',
+    buttons:[{label:'Zurück'},{label:'Lehrstunde beginnen',style:'gold',keep:true,run:()=>this.startLesson(id,true)}]}));return;}
+  p.game=TU.state(l);delete p.matchChronicle;this.commit();this.reset();this.ui.go('game');}
  hint(z){this.ui.dialog('message',new Dialog(this.ctx,{title:'Tipp',close:false,text:z.hint,buttons:[{label:'Zurück zum Rätsel',style:'gold'}]}));}
  // Ein Rätsel beginnt: sein fester Zustand ersetzt die gespeicherte Partie (eine echte Partie erst nach Rückfrage), dann das Match
  // in Deinem Zug – ohne Starthand und Münzwurf. Auch „Noch einmal“ und „Neu beginnen“ kommen hierher.

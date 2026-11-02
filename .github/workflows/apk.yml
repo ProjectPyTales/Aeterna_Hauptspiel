@@ -102,6 +102,9 @@ jobs:
       - name: Klickpfad mit Referenzbildern (Menü → Basar → Sammlung → Match → Ergebnis)
         run: node werkzeuge/klickpfad.js
 
+      - name: Geräte-Testmatrix (1.34.0) – 16:9 bis 21:9 und Tablets, schwaches Gerät mit sparsamer Grafik
+        run: node werkzeuge/geraetematrix.js
+
       - name: Start (1.26.0) – Entwickler-Splash PY'TALES und Intro bis ins Hauptmenü, Überspringen, reduzierte Bewegung
         run: node werkzeuge/intromessung.js
 

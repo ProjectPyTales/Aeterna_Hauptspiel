@@ -1,0 +1,148 @@
+/* Erzeugt von werkzeuge/lesbar_css.py – nicht von Hand ändern. Textgröße und ruhige Bewegung (Phase 7, seit 1.34.0). */
+html.text-gross .pack-info p{font-size:21.8px;line-height:1.32}
+html.text-gross .pack-info small{font-size:16.1px;line-height:1.32}
+html.text-gross .modal p{font-size:21.8px;line-height:1.32}
+html.text-gross .card-detail p{font-size:20.7px;line-height:1.32}
+html.text-gross .settings-row label{font-size:23px;line-height:1.32}
+html.text-gross .mulligan p{font-size:23px;line-height:1.32}
+html.text-gross .help-list{font-size:19.5px;line-height:1.32}
+html.text-gross .quest-row>div{font-size:20.7px;line-height:1.32}
+html.text-gross #toast{font-size:24.1px;line-height:1.32}
+html.text-gross #loading p{font-size:23px;line-height:1.32}
+html.text-gross .zoom-type{font-size:24.1px;line-height:1.32}
+html.text-gross .zoom-detail .zoom-hint{font-size:19.5px;line-height:1.32}
+html.text-gross .chronicle-drawer .chronicle-entry p{font-size:20.7px;line-height:1.32}
+html.text-gross .match-log p{font-size:19.5px;line-height:1.32}
+html.text-gross .shop-hint{font-size:19.5px;line-height:1.32}
+html.text-gross .shop-list .shop-hint{font-size:17.2px;line-height:1.32}
+html.text-gross .plaque-info p{font-size:19.5px;line-height:1.32}
+html.text-gross .glossary{font-size:19.5px;line-height:1.32}
+html.text-gross .chronicle-line{font-size:19.5px;line-height:1.32}
+html.text-gross .chronicle-line cite{font-size:16.1px;line-height:1.32}
+html.text-gross .discover p{font-size:23px;line-height:1.32}
+html.text-gross .setup-side .foe-style{font-size:17.2px;line-height:1.32}
+html.text-gross .lore-meta{font-size:20.7px;line-height:1.32}
+html.text-gross .lore-school{font-size:17.2px;line-height:1.32}
+html.text-gross .lore blockquote{font-size:21.8px;line-height:1.32}
+html.text-gross .lore cite{font-size:16.1px;line-height:1.32}
+html.text-gross .lore-bio p{font-size:20.7px;line-height:1.32}
+html.text-gross .lore-facts{font-size:18.4px;line-height:1.32}
+html.text-gross .lore-facts p{font-size:18.4px;line-height:1.32}
+html.text-gross .modal.settings .stone-tab{font-size:19.5px;line-height:1.32}
+html.text-gross .settings-note{font-size:18.4px;line-height:1.32}
+html.text-gross .settings-block small{font-size:17.2px;line-height:1.32}
+html.text-gross .lesson-card p{font-size:19.5px;line-height:1.32}
+html.text-gross .lesson-card small{font-size:16.1px;line-height:1.32}
+html.text-gross .show-info>p{font-size:20.7px;line-height:1.32}
+html.text-gross .show-meta{font-size:18.4px;line-height:1.32}
+html.text-gross .show-school{font-size:16.1px;line-height:1.32}
+html.text-gross .show-power p{font-size:17.2px;line-height:1.32}
+html.text-gross .show-power .power-deed{font-size:15.5px;line-height:1.32}
+html.text-gross .show-style{font-size:16.1px;line-height:1.32}
+html.text-gross .setup-side p{font-size:19.5px;line-height:1.32}
+html.text-gross .mission-panel p{font-size:18.4px;line-height:1.32}
+html.text-gross .mission-panel .sealed{font-size:17.2px;line-height:1.32}
+html.text-gross .arena-gate p{font-size:20.7px;line-height:1.32}
+html.text-gross .arena-gate p.muted{font-size:17.8px;line-height:1.32}
+html.text-gross .draft-side>p{font-size:17.2px;line-height:1.32}
+html.text-gross .hero-pick .power-text{font-size:16.7px;line-height:1.32}
+html.text-gross .draft-status p{font-size:18.4px;line-height:1.32}
+html.text-gross .draft-status p.muted{font-size:16.1px;line-height:1.32}
+html.text-gross .option-lore{font-size:16.1px;line-height:1.32}
+html.text-gross .draft-done p{font-size:21.8px;line-height:1.32}
+html.text-gross .quest-card p{font-size:16.7px;line-height:1.32}
+html.text-gross .quests .quest-row>div{font-size:18.4px;line-height:1.32}
+html.text-gross .mission-panel .boss-ability{font-size:16.7px;line-height:1.32}
+html.text-gross .mission-panel .fuse-note p{font-size:15.5px;line-height:1.32}
+html.text-gross .fuse-note small{font-size:13.8px;line-height:1.32}
+html.text-gross .mission-panel .reward{font-size:17.2px;line-height:1.32}
+html.text-gross .speech p{font-size:24.1px;line-height:1.32}
+html.text-gross .scene-cue{font-size:14.9px;line-height:1.32}
+html.text-gross .scene-source{font-size:14.9px;line-height:1.32}
+html.text-gross .setup-side .fuse-line{font-size:17.2px;line-height:1.32}
+html.text-sehr .pack-info p{font-size:24.7px;line-height:1.32}
+html.text-sehr .pack-info small{font-size:18.2px;line-height:1.32}
+html.text-sehr .modal p{font-size:24.7px;line-height:1.32}
+html.text-sehr .card-detail p{font-size:23.4px;line-height:1.32}
+html.text-sehr .settings-row label{font-size:26px;line-height:1.32}
+html.text-sehr .mulligan p{font-size:26px;line-height:1.32}
+html.text-sehr .help-list{font-size:22.1px;line-height:1.32}
+html.text-sehr .quest-row>div{font-size:23.4px;line-height:1.32}
+html.text-sehr #toast{font-size:27.3px;line-height:1.32}
+html.text-sehr #loading p{font-size:26px;line-height:1.32}
+html.text-sehr .zoom-type{font-size:27.3px;line-height:1.32}
+html.text-sehr .zoom-detail .zoom-hint{font-size:22.1px;line-height:1.32}
+html.text-sehr .chronicle-drawer .chronicle-entry p{font-size:23.4px;line-height:1.32}
+html.text-sehr .match-log p{font-size:22.1px;line-height:1.32}
+html.text-sehr .shop-hint{font-size:22.1px;line-height:1.32}
+html.text-sehr .shop-list .shop-hint{font-size:19.5px;line-height:1.32}
+html.text-sehr .plaque-info p{font-size:22.1px;line-height:1.32}
+html.text-sehr .glossary{font-size:22.1px;line-height:1.32}
+html.text-sehr .chronicle-line{font-size:22.1px;line-height:1.32}
+html.text-sehr .chronicle-line cite{font-size:18.2px;line-height:1.32}
+html.text-sehr .discover p{font-size:26px;line-height:1.32}
+html.text-sehr .setup-side .foe-style{font-size:19.5px;line-height:1.32}
+html.text-sehr .lore-meta{font-size:23.4px;line-height:1.32}
+html.text-sehr .lore-school{font-size:19.5px;line-height:1.32}
+html.text-sehr .lore blockquote{font-size:24.7px;line-height:1.32}
+html.text-sehr .lore cite{font-size:18.2px;line-height:1.32}
+html.text-sehr .lore-bio p{font-size:23.4px;line-height:1.32}
+html.text-sehr .lore-facts{font-size:20.8px;line-height:1.32}
+html.text-sehr .lore-facts p{font-size:20.8px;line-height:1.32}
+html.text-sehr .modal.settings .stone-tab{font-size:22.1px;line-height:1.32}
+html.text-sehr .settings-note{font-size:20.8px;line-height:1.32}
+html.text-sehr .settings-block small{font-size:19.5px;line-height:1.32}
+html.text-sehr .lesson-card p{font-size:22.1px;line-height:1.32}
+html.text-sehr .lesson-card small{font-size:18.2px;line-height:1.32}
+html.text-sehr .show-info>p{font-size:23.4px;line-height:1.32}
+html.text-sehr .show-meta{font-size:20.8px;line-height:1.32}
+html.text-sehr .show-school{font-size:18.2px;line-height:1.32}
+html.text-sehr .show-power p{font-size:19.5px;line-height:1.32}
+html.text-sehr .show-power .power-deed{font-size:17.6px;line-height:1.32}
+html.text-sehr .show-style{font-size:18.2px;line-height:1.32}
+html.text-sehr .setup-side p{font-size:22.1px;line-height:1.32}
+html.text-sehr .mission-panel p{font-size:20.8px;line-height:1.32}
+html.text-sehr .mission-panel .sealed{font-size:19.5px;line-height:1.32}
+html.text-sehr .arena-gate p{font-size:23.4px;line-height:1.32}
+html.text-sehr .arena-gate p.muted{font-size:20.2px;line-height:1.32}
+html.text-sehr .draft-side>p{font-size:19.5px;line-height:1.32}
+html.text-sehr .hero-pick .power-text{font-size:18.9px;line-height:1.32}
+html.text-sehr .draft-status p{font-size:20.8px;line-height:1.32}
+html.text-sehr .draft-status p.muted{font-size:18.2px;line-height:1.32}
+html.text-sehr .option-lore{font-size:18.2px;line-height:1.32}
+html.text-sehr .draft-done p{font-size:24.7px;line-height:1.32}
+html.text-sehr .quest-card p{font-size:18.9px;line-height:1.32}
+html.text-sehr .quests .quest-row>div{font-size:20.8px;line-height:1.32}
+html.text-sehr .mission-panel .boss-ability{font-size:18.9px;line-height:1.32}
+html.text-sehr .mission-panel .fuse-note p{font-size:17.6px;line-height:1.32}
+html.text-sehr .fuse-note small{font-size:15.6px;line-height:1.32}
+html.text-sehr .mission-panel .reward{font-size:19.5px;line-height:1.32}
+html.text-sehr .speech p{font-size:27.3px;line-height:1.32}
+html.text-sehr .scene-cue{font-size:16.9px;line-height:1.32}
+html.text-sehr .scene-source{font-size:16.9px;line-height:1.32}
+html.text-sehr .setup-side .fuse-line{font-size:19.5px;line-height:1.32}
+html.motion-ruhig .chronicle-drawer{animation:none}
+html.motion-ruhig .pack-shell,html.motion-ruhig .pack-half,html.motion-ruhig .pack-runes,html.motion-ruhig .pack-flash,html.motion-ruhig .pack-spark,html.motion-ruhig .reveal-burst,html.motion-ruhig .pack-slot.deal-in{animation-duration:1ms;animation-delay:0ms}
+html.motion-ruhig .card-flipper{transition-duration:1ms}
+html.motion-ruhig .bulk-card img{animation:none}
+html.motion-ruhig .buy-fx{display:none}
+html.motion-ruhig .spin-inner{animation:none;transform:rotateY(-14deg)}
+html.motion-ruhig .stand-card,html.motion-ruhig .stand-card.gilded .glint:before{animation:none}
+html.motion-ruhig button.stone-tab{transition-duration:1ms}
+html.motion-ruhig .hall-rays i,html.motion-ruhig .hall-star,html.motion-ruhig .rail .medal .sheen:before,html.motion-ruhig .plate .shine:before,html.motion-ruhig .plate.gold:after{animation:none}
+html.motion-ruhig .hall-sparks{display:none}
+html.motion-ruhig .plate .face,html.motion-ruhig .plate .label,html.motion-ruhig .rail .medal .face,html.motion-ruhig .knob .face{transition-duration:1ms}
+html.motion-ruhig .page-turn,html.motion-ruhig .page.under,html.motion-ruhig .fly-card,html.motion-ruhig .bar .grow{display:none}
+html.motion-ruhig .spread .page{animation:none!important}
+html.motion-ruhig .card-detail img.zoom-in{animation:none}
+html.motion-ruhig .bar{transition:none}
+html.motion-ruhig .station.open .st-seal{animation:none}
+html.motion-ruhig .mulligan-card .sheet,html.motion-ruhig .mulligan-card .rod,html.motion-ruhig .mulligan-card.replace:after,html.motion-ruhig .result-banner,html.motion-ruhig .reward-bar .track i{animation:none}
+html.motion-ruhig .coin-rain{display:none}
+html.motion-ruhig .deckrow.fresh{animation:none}
+html.motion-ruhig button.option-card{transition:none}
+html.motion-ruhig .gift-day.ready .gift-seal{animation:none}
+html.motion-ruhig .modal.scene,html.motion-ruhig .scene-seal,html.motion-ruhig .scene-stage,html.motion-ruhig .speech,html.motion-ruhig .speech p span{animation:none}
+html.motion-ruhig .speaker{transition:none}
+html.motion-ruhig .modal.riddle{animation:none}
+html.motion-ruhig *,html.motion-ruhig *::before,html.motion-ruhig *::after{scroll-behavior:auto!important}

@@ -27,7 +27,7 @@ test('Alte Spielstände ohne fps-Feld bleiben ladbar und bekommen die Anzeige au
 
 test('Bildschleife ohne 15-ms-Drossel, Leinwand mit Pixeldichte (höchstens 2), Leuchten als Sprites',()=>{
  const board=read('view/match/board.js'),render=read('view/match/render.js');
- assert.doesNotMatch(board,/now-last>=15/);assert.match(board,/Math\.min\(2,w\*\(window\.devicePixelRatio\|\|1\)\/1600\)/);
+ assert.doesNotMatch(board,/now-last>=15/);assert.match(board,/Math\.min\(R\.quality==='sparsam'\?1:2,w\*\(window\.devicePixelRatio\|\|1\)\/1600\)/);
  assert.match(board,/ctx\.setTransform\(R\.scale,0,0,R\.scale,0,0\)/);
  // Im Bild je Frame nur noch Sprites: shadowBlur steht nur noch in Malfunktionen, die einmal in ein Sprite zeichnen.
  const draw=render.slice(render.indexOf('R.draw=(c,s,view,now)=>'),render.indexOf('R.events='));

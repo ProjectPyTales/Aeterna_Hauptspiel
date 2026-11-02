@@ -19,6 +19,60 @@
 
 Im Spiel: 167 Karten und Spielsteine in 14 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
 
+
+## 0. Bestellpakete – in dieser Reihenfolge bestellen
+
+Jedes Paket liegt als eigene Datei in `ungenutzte_assets/astra_bestellung/` – mit Auftrag zum Kopieren, Referenzen und genau seinen Motiven. Anleitung: `ungenutzte_assets/ASTRA_START.md`. Karten (K) und Oberfläche (U) sind unabhängig; beide Reihen lassen sich abwechselnd bestellen.
+
+| Paket | Bilder | Gruppen | IDs |
+|---|---:|---|---|
+| [K01](astra_bestellung/K01.md) | 2 | Fabius Maximus · Römische Republik | `fabius_0`, `fabius_9` |
+| [K02](astra_bestellung/K02.md) | 9 | Thusnelda · Cherusker | `mandukhai_1`, `mandukhai_2`, `mandukhai_3`, `mandukhai_4`, `mandukhai_5`, `mandukhai_6`, `mandukhai_7`, `mandukhai_8`, `mandukhai_9` |
+| [K03](astra_bestellung/K03.md) | 7 | Zeitalter · Rom und Germanien | `rom_0`, `rom_1`, `rom_2`, `rom_3`, `rom_4`, `rom_5`, `rom_6` |
+| [K04](astra_bestellung/K04.md) | 10 | Widukind · Sachsen, Theophanu · Ottonen | `khan_3`, `khan_10`, `khan_11`, `khan_12`, `masako_0`, `masako_1`, `masako_2`, `masako_3`, `masako_4`, `masako_5` |
+| [K05](astra_bestellung/K05.md) | 6 | Theophanu · Ottonen | `masako_6`, `masako_7`, `masako_8`, `masako_9`, `masako_10`, `masako_11` |
+| [K06](astra_bestellung/K06.md) | 7 | Wiprecht von Groitzsch · Mark Meißen | `ragnar_0`, `ragnar_1`, `ragnar_2`, `ragnar_3`, `ragnar_4`, `ragnar_5`, `ragnar_6` |
+| [K07](astra_bestellung/K07.md) | 7 | Wiprecht von Groitzsch · Mark Meißen | `ragnar_7`, `ragnar_8`, `ragnar_9`, `ragnar_10`, `ragnar_11`, `ragnar_12`, `ragnar_13` |
+| [K08](astra_bestellung/K08.md) | 7 | Ulrich von Liechtenstein · Steiermark | `musashi_0`, `musashi_1`, `musashi_2`, `musashi_3`, `musashi_4`, `musashi_5`, `musashi_6` |
+| [K09](astra_bestellung/K09.md) | 6 | Ulrich von Liechtenstein · Steiermark | `musashi_7`, `musashi_8`, `musashi_9`, `musashi_10`, `musashi_11`, `musashi_12` |
+| [K10](astra_bestellung/K10.md) | 7 | Zeitalter · Mittelalter im Reich | `mittelalter_0`, `mittelalter_1`, `mittelalter_2`, `mittelalter_3`, `mittelalter_4`, `mittelalter_5`, `mittelalter_6` |
+| [K11](astra_bestellung/K11.md) | 6 | Anna Komnene · Byzanz | `anna_0`, `anna_1`, `anna_2`, `anna_3`, `anna_4`, `anna_5` |
+| [K12](astra_bestellung/K12.md) | 6 | Anna Komnene · Byzanz | `anna_6`, `anna_7`, `anna_8`, `anna_9`, `anna_10`, `anna_11` |
+| [K13](astra_bestellung/K13.md) | 5 | Baibars · Mamluken | `baibars_5`, `baibars_6`, `baibars_7`, `baibars_8`, `baibars_9` |
+| [K14](astra_bestellung/K14.md) | 7 | Zeitalter · Kreuzzüge | `byzanz_0`, `byzanz_1`, `byzanz_2`, `byzanz_3`, `byzanz_4`, `byzanz_5`, `byzanz_6` |
+| [K15](astra_bestellung/K15.md) | 6 | Nezahualcóyotl · Texcoco | `nezahualcoyotl_0`, `nezahualcoyotl_1`, `nezahualcoyotl_2`, `nezahualcoyotl_3`, `nezahualcoyotl_4`, `nezahualcoyotl_5` |
+| [K16](astra_bestellung/K16.md) | 6 | Nezahualcóyotl · Texcoco | `nezahualcoyotl_6`, `nezahualcoyotl_7`, `nezahualcoyotl_8`, `nezahualcoyotl_9`, `nezahualcoyotl_10`, `nezahualcoyotl_11` |
+| [K17](astra_bestellung/K17.md) | 10 | Vauban · Frankreich | `zizka_0`, `zizka_1`, `zizka_2`, `zizka_3`, `zizka_4`, `zizka_5`, `zizka_6`, `zizka_7`, `zizka_8`, `zizka_9` |
+| [K18](astra_bestellung/K18.md) | 10 | Johann Friedrich Böttger · Dresden und Meißen, Zeitalter · Frühe Neuzeit | `nostradamus_10`, `nostradamus_11`, `nostradamus_12`, `ostasien_0`, `ostasien_1`, `ostasien_2`, `ostasien_3`, `ostasien_4`, `ostasien_5`, `ostasien_6` |
+| [K19](astra_bestellung/K19.md) | 7 | Zeitalter · Frühzeit und Ägypten | `steppe_0`, `steppe_1`, `steppe_2`, `steppe_3`, `steppe_4`, `steppe_5`, `steppe_6` |
+| [K20](astra_bestellung/K20.md) | 8 | Neutrale Karten | `neutral_6`, `neutral_8`, `neutral_20`, `neutral_23`, `neutral_27`, `neutral_33`, `neutral_34`, `neutral_36` |
+| [K21](astra_bestellung/K21.md) | 8 | Neutrale Karten | `neutral_42`, `neutral_43`, `neutral_44`, `neutral_45`, `neutral_46`, `neutral_47`, `neutral_48`, `neutral_49` |
+| [K22](astra_bestellung/K22.md) | 9 | Spielsteine | `eagle`, `totem_fire`, `totem_guard`, `totem_strength`, `rider`, `chariot`, `terracotta`, `tribesman`, `wagon` |
+| [K23](astra_bestellung/K23.md) | 8 | Spielsteine | `taborite`, `mamluk`, `immortal`, `messenian`, `companion`, `twin`, `elephant`, `pyramid` |
+| [K24](astra_bestellung/K24.md) | 7 | Aus Teil 4 wiederbeschaffen, Alexandria · Spätantike (Entscheidung 19: neu bestellen) | `pioneer`, `perikles_7`, `perikles_8`, `perikles_9`, `citizen`, `parthenos`, `hypatia_0` |
+| [K25](astra_bestellung/K25.md) | 8 | Spielsteine, Hinterhalte (AP 5.6) | `student`, `neutral_50`, `neutral_51`, `steppe_7`, `griechen_7`, `rom_7`, `mittelalter_7`, `byzanz_7` |
+| [K26](astra_bestellung/K26.md) | 6 | Hinterhalte (AP 5.6) | `ostasien_7`, `khan_13`, `fabius_10`, `anna_12`, `leonidas_12`, `standard` |
+| [K27](astra_bestellung/K27.md) | 9 | Wunder der Welt (AP 5.7) | `leonidas_13`, `hypatia_12`, `imhotep_13`, `dandolo_13`, `khan_14`, `boudicca_13`, `nostradamus_13`, `jeanne_12`, `ragnar_14` |
+| [K28](astra_bestellung/K28.md) | 9 | Wunder der Welt (AP 5.7) | `musashi_13`, `perikles_12`, `agrippa_12`, `amanirenas_12`, `anna_13`, `nezahualcoyotl_12`, `masako_12`, `epaminondas_10`, `fabius_11` |
+| [K29](astra_bestellung/K29.md) | 9 | Wunder der Welt (AP 5.7) | `mandukhai_10`, `baibars_10`, `zizka_10`, `fuhao_10`, `neutral_52`, `neutral_53`, `neutral_54`, `neutral_55`, `neutral_56` |
+| [K30](astra_bestellung/K30.md) | 9 | Wunder der Welt (AP 5.7) | `leonidas_14`, `hypatia_13`, `imhotep_14`, `dandolo_14`, `khan_15`, `boudicca_14`, `nostradamus_14`, `jeanne_13`, `ragnar_15` |
+| [K31](astra_bestellung/K31.md) | 9 | Wunder der Welt (AP 5.7) | `musashi_14`, `perikles_13`, `agrippa_13`, `amanirenas_13`, `anna_14`, `nezahualcoyotl_13`, `masako_13`, `epaminondas_11`, `fabius_12` |
+| [K32](astra_bestellung/K32.md) | 9 | Wunder der Welt (AP 5.7) | `mandukhai_11`, `baibars_11`, `zizka_11`, `fuhao_11`, `neutral_57`, `neutral_58`, `neutral_59`, `neutral_60`, `neutral_61` |
+
+| Paket | Oberfläche | Zeilen |
+|---|---|---:|
+| [U01](astra_bestellung/U01.md) | Spielbrett: Mana, Zug, Helden (10 Teile, 27 Dateien) | 11 |
+| [U02](astra_bestellung/U02.md) | Karten und Werte (10 Teile mit `goldglanz-basar`, 20 Dateien) | 9 |
+| [U03](astra_bestellung/U03.md) | Schlüsselwörter und Effekte (13 Teile, 20 Dateien) | 13 |
+| [U04](astra_bestellung/U04.md) | Inszenierung: Anfang und Ende (6 Teile mit `faehigkeits-effekt`, 30 Dateien) | 5 |
+| [U05](astra_bestellung/U05.md) | Menüs (12 Teile, 27 Dateien) | 12 |
+| [U06](astra_bestellung/U06.md) | Kolosseum als Draft (5 Teile, 9 Dateien, seit 1.29.0) | 5 |
+| [U07](astra_bestellung/U07.md) | Aufgaben und Heldenstufen (3 Teile, 6 Dateien, seit 1.30.0) | 3 |
+| [U08](astra_bestellung/U08.md) | Kampagne 2.0 mit Lunte (5 Teile, 7 Dateien, seit 1.31.0) | 5 |
+| [U09](astra_bestellung/U09.md) | Lebendige Schlachtfelder und Szene (8 Teile, 11 Dateien, seit 1.32.0) | 8 |
+| [U10](astra_bestellung/U10.md) | Kartenrätsel (3 Teile, 5 Dateien, seit 1.33.0) | 3 |
+| [U11](astra_bestellung/U11.md) | Lehrstunden (2 Teile, 4 Dateien, seit 1.34.0) | 2 |
+
 ## 2. So gibst du den nächsten Auftrag an eine KI
 
 1. Diese Datei anhängen.
@@ -57,12 +111,12 @@ Melde pro geliefertem Bild: ID, Name, Dateiname, tatsächliche Pixelmaße und Fo
 
 ### Referenzplätze
 
-- **R1 – Malstil und Licht:** [Beispielbild ergänzen]
-- **R2 – Figuren und Materialdetails:** [Beispielbild ergänzen]
-- **R3 – Gebäude, Objekte oder Landschaft:** [Beispielbild ergänzen]
-- **R4 – UI, nur bei technischen Oberflächenarbeiten:** [optional ergänzen]
+- **R1 – Figur, Malstil und Licht:** `ungenutzte_assets/neue_astra_assets/Teil5/originale_1254px/imhotep_3.png` – Tempelärztin (`imhotep_3`)
+- **R2 – Bauwerk, Objekt, Landschaft:** `ungenutzte_assets/neue_astra_assets/Teil6/originale/griechen_6.png` – Bibliothek von Alexandria (`griechen_6`)
+- **R3 – Gruppenszene:** `ungenutzte_assets/neue_astra_assets/Teil6/originale/epaminondas_5.png` – Schlacht bei Leuktra (`epaminondas_5`)
+- **R4 – nur für Oberflächenteile:** `quellcode/assets/game/assets/ui/kartenrahmen-minion-normal.webp`, `quellcode/assets/game/assets/ui/stundenglas.webp`, `quellcode/assets/game/assets/ui/waffenablage.webp`
 
-Die fünf derzeit beigefügten Mamlukenbilder zeigen warmen malerischen Semi-Realismus und gut lesbare Aktionen. Diese Empfehlung übernimmt ihren Pinselcharakter und die Projektpalette. Die UI darf entsprechend der Stilbibel stärker vereinfacht sein. Referenzen sind keine historische Belegquelle; etwaige spätere Architektur oder überladene Ornamentik daraus nicht übernehmen.
+Die drei Referenzen stammen aus Astras eigenen, im Spiel eingebauten Lieferungen: warmer malerischer Semi-Realismus, gut lesbare Handlung, die Projektpalette. Sie zeigen Pinsel und Licht – nicht Figuren, Gebäude oder Waffen, die in andere Epochen kopiert werden.
 
 ## 3. Gemeinsame Parameter für jedes neue Motiv
 

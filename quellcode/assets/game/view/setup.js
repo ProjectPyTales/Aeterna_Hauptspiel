@@ -13,7 +13,9 @@ function side(v){const h=v.hero,day=v.day,m=v.mode;
   :html`<div><label>DEIN DECK · 30 KARTEN</label><select data-change="chooseDeck">${v.decks.map(d=>option(d.id,d.name,d.id===v.deckId))}</select></div>`}${
   m==='free'?html`<div><label>GEGNER · OFFLINE-KI</label><select data-change="chooseFoe">${D.heroes.map(h=>option(h.id,h.name,h.id===v.foeId))}</select>${
    v.foeStyle?html`<p class="foe-style">Spielweise: <b>${v.foeStyle.name}</b> – ${v.foeStyle.text}</p>`:''}</div>`
-  :m==='campaign'?html`<p><b>${v.mission.boss}</b><br>${v.mission.description}</p>${v.fuse?html`<p class="fuse-line"><b>Lunte:</b> ${v.fuse.turns} eigene Züge – gewinne vorher, sonst ist die Mission verloren.</p>`:''}`:''}<div class="spacer"></div>${
+  :m==='campaign'?html`<p><b>${v.mission.boss}</b><br>${v.mission.description}</p>${v.fuse?html`<p class="fuse-line"><b>Lunte:</b> ${v.fuse.turns} eigene Züge – gewinne vorher, sonst ist die Mission verloren.</p>`:''}`:''}${
+  // AP 5.8: Stärke der KI, gilt für jedes Duell (gespeichert in den Einstellungen).
+  html`<div class="ai-level"><label>STÄRKE DER KI</label><select data-change="chooseLevel" aria-label="Stärke der KI">${v.aiLevels.map(l=>option(l.id,l.name,l.id===v.aiLevel))}</select></div>`}<div class="spacer"></div>${
   V.button({label:(m==='campaign'?'Mission beginnen':'Duell beginnen')+' ›',cmd:'begin',style:'gold'})}${V.button({label:'Spielregeln',cmd:'help',small:true})}`,{extra:'setup-side'});}
 
 // ASTRA: heldengalerie – Heldenmünze der Galerie (klein) und Medaillon der Großansicht mit Rändelung, 512 × 512

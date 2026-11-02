@@ -73,7 +73,7 @@ function foe(r){const s={seed:mix(r.seed,1000+r.games)},others=D.heroes.filter(h
  const hero=others[Math.floor(E.rand(s)*others.length)].id;return {hero,deck:E.randomDeck(hero,s.seed),seed:mix(r.seed,2000+r.games),first:E.rand(s)<.5?0:1};}
 // Die Partie für den Lauf: Engine-Zustand mit Kennung des Laufs (s.draft), damit ein altes Ergebnis nie zählt.
 function game(p){const r=p.draft;if(phase(r)!=='play')return null;const f=foe(r);
- const s=E.create({hero:r.hero,foe:f.hero,deck:r.picks,enemyDeck:f.deck,mode:'draft',mission:null,seed:f.seed,first:f.first});s.draft=r.id;return s;}
+ const s=E.create({hero:r.hero,foe:f.hero,deck:r.picks,enemyDeck:f.deck,mode:'draft',mission:null,seed:f.seed,first:f.first,level:p.settings?.level});s.draft=r.id;return s;}
 // Ergebnis einer Partie (aus CHP.reward): Sieg oder Niederlage zählt, ein Unentschieden wird wiederholt.
 function record(p,s){const r=p.draft;if(s.mode!=='draft'||phase(r)!=='play'||s.draft!==r.id)return null;
  r.games++;if(s.winner===0)r.wins++;else if(s.winner===1)r.losses++;

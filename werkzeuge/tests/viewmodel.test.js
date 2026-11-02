@@ -75,6 +75,8 @@ test('Sammlung: Filter, Seiten, Deckbau mit Regeln und Rückfrage bei ungespeich
 
 test('Hauptmenü: vierte Platte zeigt „Partie fortsetzen“ nur bei laufender Partie',()=>{
  const {ctx,log}=setup('menu'),menu=new Menu(ctx,'test');
+ // AP 6.5: ein neuer Spielstand bekommt zuerst die Lehrstunden, danach (oder ausgeblendet) das Tagesduell.
+ assert.equal(menu.view.plates[3].go,'lesson');ctx.store.profile.tutorial.skipped=true;
  assert.equal(menu.view.plates[3].go,'daily');
  const p=ctx.store.profile;p.game=E.create({hero:'leonidas',foe:'hypatia',deck:E.starter('leonidas'),enemyDeck:E.starter('hypatia'),mode:'free',mission:null,seed:7,first:0});
  assert.equal(menu.view.plates[3].go,'resume');

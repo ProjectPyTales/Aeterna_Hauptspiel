@@ -24,16 +24,30 @@ D_.quests={render:vm=>{const g=vm.login,d=vm.daily;
   d.credit?' · '+d.credit+' Gold von gestern gutgeschrieben':''}</div><div class="quest-cards">${d.list.map(x=>task(x,d.rerolled))}</div></section><section class="quest-feats"><div class="eyebrow">Erfolge · dauerhaft</div><div class="feat-grid">${
   vm.rows.map(r=>html`<div class="quest-row" data-key="${r.quest.id}"><div>${r.quest.text}<br><small>${r.progress}/${r.quest.goal} · ${r.quest.gold} Gold</small></div>${V.button({label:r.claimed?'Erledigt':'Abholen',cmd:'claim',a:r.quest.id,disabled:!r.ready,small:true})}</div>`)}</div></section>`});}};
 
-D_.settings={render:vm=>{const s=vm.settings,row=(label,control)=>html`<div class="settings-row"><label>${label}</label>${control}</div>`;
+// Einstellungen (seit 1.34.0 in vier Reitern, Phase 7).
+const when=at=>{const d=new Date(at);return d.toLocaleDateString('de-DE',{weekday:'short',day:'numeric',month:'numeric'})+', '+d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});};
+const SETTING_BODY={
+ spiel:(vm,s,row,pick)=>html`${row('Stärke der KI',pick('level',vm.levels.map(l=>[l.id,l.name,s.level===l.id])))}<p class="settings-note">${vm.levels.find(l=>l.id===s.level)?.text||''} Gilt für alle Duelle, die Kampagne und das Kolosseum.</p>${
+  row('Spieltempo',pick('speed',[['1','Normal',s.speed===1],['2','Schnell',s.speed===2]]))}${
+  row('Intro beim Start',pick('intro',[['true','Ein',s.intro!==false],['false','Aus',s.intro===false]]))}${
+  row('Lehrstunden',V.button({label:'Mit dem Chronisten üben',cmd:'lessons',small:true}))}`,
+ anzeige:(vm,s,row,pick)=>html`${row('Textgröße',pick('text',[['normal','Normal',s.text==='normal'],['gross','Groß',s.text==='gross'],['sehr','Sehr groß',s.text==='sehr']]))}${
+  row('Farben',pick('colors',[['normal','Normal',s.colors==='normal'],['klar','Bei Farbsehschwäche',s.colors==='klar']]))}${
+  row('Bewegung',pick('motion',[['auto','Wie das Gerät',s.motion==='auto'],['ruhig','Ruhig',s.motion==='ruhig']]))}${
+  row('Grafik im Match',pick('quality',[['hoch','Hoch',s.quality==='hoch'],['sparsam','Sparsam (Akku)',s.quality==='sparsam']]))}${
+  row('Partikeleffekte',pick('particles',[['true','Ein',!!s.particles],['false','Aus',!s.particles]]))}<p class="settings-note">Farbsehschwäche: blau statt grün für spielbar, orange statt rot für Ziele. „Ruhig“ ohne Wackeln und lange Übergänge, „Sparsam“ mit weniger Pixeln.</p>`,
+ klang:(vm,s,row,pick,range)=>html`${row('Musik',range('music'))}${row('Geräusche',range('sfx'))}${
+  row('Touch-Vibration',pick('haptics',[['true','Ein',s.haptics!==false],['false','Aus',s.haptics===false]]))}${
+  row('Klangprobe',html`<div class="sound-samples">${vm.samples.map(([g,l])=>V.button({label:l,cmd:'sample',a:g,small:true}))}</div>`)}`,
+ daten:vm=>{const b=vm.backups,e=vm.errors;return html`<p class="settings-note">Sammlung und laufende Partie werden nach jeder Aktion gespeichert. Sichere Deinen Fortschritt vor einer Neuinstallation.</p>${
+  V.buttons([V.button({label:'Spielstand exportieren',cmd:'exportSave',small:true}),V.button({label:'Spielstand importieren',cmd:'askImport',small:true})])}<div class="settings-block"><b>Automatische Sicherungen</b><small>Der erste Stand jedes Tages, die drei jüngsten Tage.</small>${
+  b.length?html`<div class="backup-list">${b.map(x=>html`<div class="backup-row" data-key="b${x.at}"><span>${when(x.at)} · ${x.gold} Gold · ${x.wins} Siege</span>${V.button({label:'Zurückholen',cmd:'restore',a:x.i,small:true})}</div>`)}</div>`:html`<small>Noch keine Sicherung.</small>`}</div><div class="settings-block"><b>Fehlerprotokoll</b><small>${
+  e.length?e.length+' Einträge, zuletzt '+when(e[0].at)+': '+e[0].msg:'Keine Fehler aufgezeichnet.'} Es bleibt auf dem Gerät.</small>${
+  e.length?V.buttons([V.button({label:'Als Datei sichern',cmd:'saveErrors',small:true}),V.button({label:'Leeren',cmd:'clearErrors',small:true})]):''}</div>`;}};
+D_.settings={render:vm=>{const s=vm.settings,tab=vm.state.tab,row=(label,control)=>html`<div class="settings-row"><label>${label}</label>${control}</div>`;
  const range=k=>html`<input type="range" min="0" max="1" step=".05" value="${s[k]}" data-input="setting" data-a="${k}" aria-label="${k==='music'?'Musik':'Geräusche'}">`;
  const pick=(k,opts)=>html`<select data-change="setting" data-a="${k}">${opts.map(([v,l,on])=>option(v,l,on))}</select>`;
- return V.modal({body:html`<h2>Einstellungen</h2>${row('Musik',range('music'))}${row('Geräusche',range('sfx'))}${
-  row('Touch-Vibration',pick('haptics',[['true','Ein',s.haptics!==false],['false','Aus',s.haptics===false]]))}${
-  row('Spieltempo',pick('speed',[['1','Normal',s.speed===1],['2','Schnell',s.speed===2]]))}${
-  row('Partikeleffekte',pick('particles',[['true','Ein',!!s.particles],['false','Aus',!s.particles]]))}${
-  row('Intro beim Start',pick('intro',[['true','Ein',s.intro!==false],['false','Aus',s.intro===false]]))}${
-  row('Klangprobe',html`<div class="sound-samples">${vm.samples.map(([g,l])=>V.button({label:l,cmd:'sample',a:g,small:true}))}</div>`)}<p>Sammlung und laufende Partie werden nach jeder Aktion gespeichert. Sichere Deinen Fortschritt vor einer Neuinstallation.</p>${
-  V.buttons([V.button({label:'Spielstand exportieren',cmd:'exportSave'}),V.button({label:'Spielstand importieren',cmd:'askImport'})])}${
+ return V.modal({width:1040,extra:'settings',body:html`<h2>Einstellungen</h2>${V.tabs(vm.tabs,tab,'tab')}<div class="settings-body" data-key="tab-${tab}">${SETTING_BODY[tab](vm,s,row,pick,range)}</div>${
   V.buttons([V.button({label:'Code einlösen',cmd:'redeem'}),V.button({label:'Über das Spiel',cmd:'credits'}),V.button({label:'Fertig',cmd:'close',style:'gold'})])}`});}};
 
 // Code einlösen (Rückmeldung zu 1.10.0).
@@ -51,7 +65,15 @@ const RULES=[['1 · Karte ausspielen','Karte antippen, dann „Ausspielen“ ode
  ['Ergründen & Bauwerke','Ergründen: Wähle eine von drei Karten auf die Hand. Bauwerke belegen einen Platz, greifen nie an und haben Haltbarkeit; Flächenschaden und Heilung wirken nicht.'],
  ['Mana & Grenzen','Jeder eigene Zug erhöht maximales Mana bis 10. Höchstens 7 Diener, 10 Handkarten. Ein leeres Deck verursacht steigenden Erschöpfungsschaden.'],
  ['Waffen & Fortschritt','Waffen verlieren pro Heldenangriff 1 Haltbarkeit. Siege geben 40 Gold. Niederlagen nach 4 eigenen Zügen geben 10 Gold; Aufgeben gibt keines.']];
-D_.help={render:()=>V.modal({width:1080,body:html`<h2>So spielst Du</h2><div class="help-list">${RULES.map(([t,x])=>html`<div><b>${t}</b>${x}</div>`)}</div>${V.buttons([V.button({label:'Verstanden',cmd:'close',style:'gold'})])}`})};
+D_.help={render:()=>V.modal({width:1080,body:html`<h2>So spielst Du</h2><div class="help-list">${RULES.map(([t,x])=>html`<div><b>${t}</b>${x}</div>`)}</div>${V.buttons([V.button({label:'Lehrstunden',cmd:'lessons'}),V.button({label:'Verstanden',cmd:'close',style:'gold'})])}`})};
+
+// Lehrstunden (AP 6.5): drei Siegel mit Ort und Zeit, was man lernt und die Belohnung der ersten Lösung.
+// ASTRA: lehrstunde-siegel – Wachssiegel mit Feder und Zahl (1–3) für die Lehrstunden, 160 × 160
+const LEARN={schlacht:'Mana, Diener ausspielen, Angreifen, Heldenfähigkeit',schildwall:'Schildwall, Zauber, Großansicht',gunst:'Gunst der Stunde, Einmarsch, Sturmangriff, Vermächtnis'};
+D_.lessons={render:vm=>V.modal({width:1180,extra:'lessons',labelledby:'lessons-title',body:html`<h2 id="lessons-title">Lehrstunden mit dem Chronisten</h2><p>Drei kurze Partien, in denen der Chronist Dir Schritt für Schritt zeigt, wie Aeterna gespielt wird. Der Gegner kämpft als Lehrling.</p><div class="lesson-list">${
+ vm.rows.map(r=>html`<article class="${V.cls('lesson-card',r.done&&'done',r.next&&'next')}" data-key="${r.lesson.id}"><span class="lesson-seal" aria-hidden="true">${r.done?'✓':r.lesson.n}</span><div><small>${r.lesson.place} · ${r.lesson.year}</small><h3>${r.lesson.title}</h3><p>${LEARN[r.lesson.id]}</p><small>${r.done?'Geschafft':'Belohnung: '+r.reward.gold+' Gold'+(r.reward.packs?' und ein Kartenpaket':'')}</small></div>${
+  V.button({label:r.done?'Noch einmal':'Beginnen',cmd:'start',a:r.lesson.id,style:r.next?'gold':'',small:true,aria:'Lehrstunde '+r.lesson.n+': '+r.lesson.title})}</article>`)}</div>${
+ V.buttons([vm.skipped?V.button({label:'Im Hauptmenü zeigen',cmd:'show'}):V.button({label:'Im Hauptmenü ausblenden',cmd:'hide'}),V.button({label:'Schließen',cmd:'close',style:'gold'})])}`})};
 
 D_.credits={render:vm=>V.modal({close:false,body:html`<h2>Aeterna</h2><p><span class="version-tap" data-cmd="tapVersion">Version ${vm.state.version}</span>${vm.state.shell?` · Android-Hülle ${vm.state.shell.shell}${vm.state.shell.android?' auf Android '+vm.state.shell.android:''}`:''} · Vormals „Chroniken der Helden“. Ein eigenständiges historisches Offline-Kartenspiel mit ${vm.state.cards} Karten, ${vm.state.heroes} Helden und ${vm.state.missions} Missionen.</p><p>Eigene Illustrationen: mit dem integrierten Bildgenerierungswerkzeug erstellt. Geräusche: aufgenommene Karten-, Material- und Waffensounds von Kenney und StarNinjas (CC0), neu abgemischt; Stein- und Kristallklänge, Pergament, Aufprall, Hufe, Lanzen, Uhrwerk, Münzen, Siegel, Umblättern, Kriegshörner, Ketten, Gift, Gunst, Münzwurf und die Eck-Dioramen (Astrolabium, Räuchergefäß, Säule, Katapult) prozedural erzeugt (CC0). Musik: eigene Stücke für Hauptmenü und Duell (seit 1.13.0). Historische Motive sind künstlerisch interpretiert.</p><p>Ohne Werbung, Netzwerkzugriff oder Käufe mit echtem Geld. Schriften: Cinzel und Cinzel Decorative von Natanael Gama, Alegreya Sans von Huerta Tipográfica (beide SIL Open Font License) sowie DejaVu (freie Font-Lizenz). Renderer-Labor: PixiJS (MIT-Lizenz). Küstenlinien der Kampagnenkarte: Natural Earth (gemeinfrei), über world-atlas (ISC-Lizenz).</p>${
  vm.dev?html`<p class="dev-note">Entwickler: Bildrate im Match an (fünfmal auf die Version tippen schaltet sie aus).</p>`:''}${
@@ -86,7 +108,7 @@ D_.discover={render:vm=>{const s=vm.state;
 // ASTRA: ergebnis-banner – Banner „TRIUMPH“ / „NIEDERLAGE“ / „UNENTSCHIEDEN“ über dem Ergebnis, 900 × 240
 const pct=(n,goal)=>Math.round(Math.max(0,Math.min(1,goal?n/goal:0))*100)+'%';
 D_.result={render:vm=>{const s=vm.state,win=s.winner===0,r=s.reward,kind=win?'win':s.winner===-1?'draw':'loss',bars=s.bars||[];
- return html`<div class="scrim"><div class="${V.cls('result','panel',kind)}" role="dialog" aria-modal="true" aria-label="Ergebnis"><div class="result-banner"><span>${s.puzzle?(win?'GELÖST':'UNGELÖST'):win?'TRIUMPH':s.winner===-1?'UNENTSCHIEDEN':'NIEDERLAGE'}</span></div><div class="eyebrow">${s.puzzle?'Kartenrätsel · '+s.puzzle.place+' · '+s.puzzle.year:s.mode==='campaign'?'Die historische Kampagne':s.mode==='draft'?'Das Kolosseum':'Die Chronik des Duells'}</div><p>${s.puzzle?(win?'Gelöst: '+s.puzzle.title+'.':s.missed?'Der Zug ist vorbei – das Rätsel bleibt ungelöst. Versuche eine andere Reihenfolge.':'Das Rätsel bleibt ungelöst. Versuche eine andere Reihenfolge.'):win?'Eine neue Seite Deiner Geschichte.':s.burnt?'Die Lunte ist abgebrannt – die Belagerung ist gescheitert. Versuche es schneller.':'Jede Schlacht lehrt einen neuen Weg.'}</p><div class="rewards">${
+ return html`<div class="scrim"><div class="${V.cls('result','panel',kind)}" role="dialog" aria-modal="true" aria-label="Ergebnis"><div class="result-banner"><span>${s.puzzle?(win?'GELÖST':'UNGELÖST'):win?'TRIUMPH':s.winner===-1?'UNENTSCHIEDEN':'NIEDERLAGE'}</span></div><div class="eyebrow">${s.puzzle?'Kartenrätsel · '+s.puzzle.place+' · '+s.puzzle.year:s.lesson?'Lehrstunde '+s.lesson.n+' · '+s.lesson.title:s.mode==='campaign'?'Die historische Kampagne':s.mode==='draft'?'Das Kolosseum':'Die Chronik des Duells'}</div><p>${s.lesson?(win?(s.lesson.n<3?'Geschafft! Die nächste Lehrstunde wartet.':'Alle Lehrstunden geschafft – jetzt stehen Dir Kampagne, Kolosseum und Tagesduell offen.'):'Jede Schlacht lehrt einen neuen Weg. Versuche es noch einmal – der Chronist hilft.'):s.puzzle?(win?'Gelöst: '+s.puzzle.title+'.':s.missed?'Der Zug ist vorbei – das Rätsel bleibt ungelöst. Versuche eine andere Reihenfolge.':'Das Rätsel bleibt ungelöst. Versuche eine andere Reihenfolge.'):win?'Eine neue Seite Deiner Geschichte.':s.burnt?'Die Lunte ist abgebrannt – die Belagerung ist gescheitert. Versuche es schneller.':'Jede Schlacht lehrt einen neuen Weg.'}</p><div class="rewards">${
   bars.map((b,i)=>html`<div class="${V.cls('reward-bar',b.key==='gold'&&'gain',b.ep&&'xp',b.to>=b.goal&&b.key!=='gold'&&'full')}" data-key="${b.key}" style="--i:${i};--from:${pct(b.from,b.goal)};--to:${pct(b.to,b.goal)}"><span class="label">${b.label}</span><span class="track"><i></i></span><b>${b.key==='gold'?'+'+b.to:b.to+' / '+b.goal}</b><small>${b.note}</small>${b.key==='gold'&&b.to?html`<span class="coin-rain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>`:''}</div>`)}${
   r.packs?html`<div class="reward-pack">▣ +${r.packs} Kartenpaket</div>`:''}</div>${choose(s.buttons)}</div></div>`;}};
 

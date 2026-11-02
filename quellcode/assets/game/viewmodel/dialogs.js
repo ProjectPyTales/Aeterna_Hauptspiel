@@ -1,7 +1,7 @@
 /* Dialogs reachable from several screens: quests, settings, rules, credits, export and import. */
 (function(root){'use strict';
 const node=typeof module!=='undefined';
-const P=node?require('../model/profile.js'):root.CHP,D=node?require('../model/data.js'):root.CHD,LORE=node?require('../model/lore.js'):root.AELORE,Q=node?require('../model/quests.js'):root.AEQ;
+const P=node?require('../model/profile.js'):root.CHP,D=node?require('../model/data.js'):root.CHD,LORE=node?require('../model/lore.js'):root.AELORE,Q=node?require('../model/quests.js'):root.AEQ,E=node?require('../model/engine.js'):root.CHE,TU=node?require('../model/tutorial.js'):root.AETU;
 const {Dialog,LiveDialog}=node?require('./base.js'):root.AEVM;
 
 // Aufgaben (AP 6.3): das Tagesgeschenk mit seiner Serie, die drei Tagesaufgaben (eine zum Lernen, einmal neu würfeln) und
@@ -22,19 +22,39 @@ class Quests extends LiveDialog{
  reroll(id){const q=Q.reroll(this.profile,id,this.now);if(!q)return;this.ctx.store.commit();this.ctx.ui.play('parchment');this.ctx.ui.toast('Neue Aufgabe: '+q.text+'.');}
 }
 
+// Einstellungen in vier Reitern (seit 1.34.0, Phase 7): Spiel (Stärke der KI nach AP 5.8, Tempo, Intro, Lehrstunden), Anzeige
+// (Textgröße, Farben, Bewegung, Grafik, Partikel), Klang und Daten (Export, Import, automatische Sicherungen, Fehlerprotokoll).
+const TABS=[['spiel','Spiel'],['anzeige','Anzeige'],['klang','Klang'],['daten','Daten']];
 class Settings extends LiveDialog{
+ constructor(ctx,state={}){super(ctx,{tab:'spiel',...state});}
+ get tabs(){return TABS;}
+ tab(id){if(TABS.some(([t])=>t===id)&&this.state.tab!==id){this.set({tab:id});this.ctx.ui.play('stone',{gain:.5});}}
  get settings(){return this.profile.settings;}
+ get levels(){return E.LEVELS;}
  // Sliders deliver strings, the selects 'true'/'false' or numbers.
  setting(k,v){const s=this.profile.settings;
   if(k==='music'||k==='sfx')s[k]=Math.max(0,Math.min(1,Number(v)||0));
   else if(k==='speed')s.speed=Number(v)===2?2:1;
   else if(k==='haptics'||k==='particles'||k==='intro')s[k]=v===true||v==='true';
+  else if(k==='level')s.level=E.level(v);
+  else if(P.LOOK[k]){if(!P.LOOK[k].includes(v))return;s[k]=v;}
   else return;
   this.ctx.store.commit();}
  exportSave(){this.ctx.dialogs.exportSave();}
  askImport(){this.ctx.dialogs.askImport();}
  credits(){this.ctx.dialogs.credits();}
  redeem(){this.ctx.dialogs.redeem();}
+ lessons(){this.ctx.dialogs.lessons?.();}
+ // Automatische Sicherungen (model/store.js): je Tag der erste Stand, die drei jüngsten Tage. Zurückholen erst nach Rückfrage.
+ get backups(){return (this.ctx.store.snapshots?.()||[]).map((x,i)=>({i,at:x.at,gold:x.gold,wins:x.wins}));}
+ restore(i){let candidate;try{candidate=this.ctx.store.snapshotProfile(+i);}catch(e){this.ctx.ui.toast('Sicherung unbrauchbar: '+e.message);return;}
+  this.ctx.ui.dialog('message',new Dialog(this.ctx,{title:'Sicherung zurückholen?',close:false,
+   text:'Diese Sicherung enthält '+candidate.gold+' Gold, '+candidate.stats.wins+' Siege und '+candidate.campaign.length+' abgeschlossene Missionen. Sie ersetzt Deinen jetzigen Fortschritt.',
+   buttons:[{label:'Abbrechen'},{label:'Zurückholen',style:'gold',run:()=>{this.ctx.store.replace(candidate);this.ctx.reset?.();this.ctx.ui.go('menu',null,true);this.ctx.ui.toast('Sicherung zurückgeholt.');}}]}));}
+ // Lokales Fehlerprotokoll (service/protokoll.js), nur auf dem Gerät.
+ get errors(){return this.ctx.errors?.list()||[];}
+ saveErrors(){if(this.ctx.errors)this.ctx.ui.exportText?.(this.ctx.errors.text(),'Aeterna-Fehlerprotokoll.txt');}
+ clearErrors(){if(!this.ctx.errors)return;this.ctx.errors.clear();this.notify();this.ctx.ui.toast('Fehlerprotokoll geleert.');}
  // Klangprobe (AP 0.2): die Steingeräusche und zwei Vergleichsklänge aus dem Match auf dem Gerät anhören.
  get samples(){return SAMPLES;}
  sample(group){if(!SAMPLES.some(([g])=>g===group))return;this.ctx.ui.unlockAudio?.();this.ctx.ui.play(group);if(group==='slam')this.ctx.ui.haptic(1);}
@@ -61,12 +81,24 @@ class Redeem extends LiveDialog{
   this.set({code:'',error:null,result:'Eingelöst: '+r.text+'.'});this.ctx.store.commit();this.ctx.ui.play('pack');this.ctx.ui.haptic(1);}
 }
 
+// Lehrstunden (AP 6.5): die drei geführten Partien mit Ort, Zeit und Stand; ausblenden nimmt sie aus dem Hauptmenü.
+class Lessons extends LiveDialog{
+ get rows(){const p=this.profile,next=TU.next(p);return TU.LESSONS.map(z=>({lesson:z,done:TU.done(p,z),next:next===z,reward:z.reward}));}
+ get skipped(){return this.profile.tutorial.skipped;}
+ start(id){if(!TU.byId[id])return;this.ctx.ui.close();this.ctx.match?.startLesson(id);}
+ hide(){this.profile.tutorial.skipped=true;this.ctx.store.commit();this.ctx.ui.close();this.ctx.ui.toast('Die Lehrstunden findest Du jederzeit unter Einstellungen → Spiel und in den Spielregeln.');}
+ show(){this.profile.tutorial.skipped=false;this.ctx.store.commit();}
+}
+// Spielregeln: dazu der Weg zu den Lehrstunden.
+class Help extends Dialog{lessons(){this.ctx.dialogs.lessons();}}
+
 class Dialogs{
  constructor(ctx,version){this.ctx=ctx;this.version=version;}
  get ui(){return this.ctx.ui;}
  quests(){this.ui.dialog('quests',new Quests(this.ctx));}
  settings(){this.ui.dialog('settings',new Settings(this.ctx));}
- help(){this.ui.dialog('help',new Dialog(this.ctx,{}));}
+ help(){this.ui.dialog('help',new Help(this.ctx,{}));}
+ lessons(){this.ui.dialog('lessons',new Lessons(this.ctx));}
  // Chronikseite eines Helden (AP 5.9): Heldenwahl und Großansicht des Helden im Match.
  lore(id){const hero=D.heroes.find(h=>h.id===id),page=LORE.of(id);if(!hero||!page)return;this.learned({type:'lore',hero:id});
   this.ui.dialog('lore',new Dialog(this.ctx,{hero,page,school:LORE.school(id),favorites:page.favorites.map(c=>D.byId[c]).filter(Boolean)}));}
@@ -89,6 +121,6 @@ class Dialogs{
    buttons:[{label:'Abbrechen'},{label:'Importieren',style:'gold',run:()=>{this.ctx.store.replace(candidate);this.ctx.reset?.();this.ui.go('menu',null,true);this.ui.toast('Spielstand importiert.');}}]}));}
 }
 
-const api={Dialogs,Quests,Settings,Redeem,Credits};
+const api={Dialogs,Quests,Settings,Redeem,Credits,Lessons,Help,SETTING_TABS:TABS};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

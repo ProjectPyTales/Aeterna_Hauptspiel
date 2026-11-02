@@ -24,7 +24,8 @@ const CMP={w:458,h:206,pixel:48,share:.03,mean:6};
 const C=(x,y)=>[(x+84)*800/1084,(y-24)*800/1084];
 
 // Fester Spielstand: frisches Profil mit festem Startwert, Hilfe schon gesehen.
-const profile=JSON.stringify({...P.fresh(),seed:424242,helpSeen:true});
+// Seit 1.34.0 bietet das Hauptmenü einem neuen Spielstand die Lehrstunden an; der Klickpfad blendet sie zuerst aus und prüft sie am Ende.
+const profile=JSON.stringify({...P.fresh(),seed:424242,helpSeen:true,tutorial:{done:[],skipped:true}});
 
 const checks=[],shots=[],errors=[];
 const check=(name,ok,detail)=>{checks.push({name,ok:!!ok,detail});console.log((ok?'✓ ':'✗ ')+name+(detail!=null?' – '+JSON.stringify(detail):''));};
@@ -200,6 +201,24 @@ async function basar(page,cmpPage,cdp){
    const geschenk=await page.evaluate(v=>({gold:App.profile.gold-v,knopf:document.querySelector('.quest-gift button')?.textContent.trim(),serie:App.profile.login.streak}),vorher);
    check('Tagesgeschenk: Tag 1 bringt 20 Gold, dann „Morgen wieder“',geschenk.gold===20&&geschenk.knopf==='Morgen wieder'&&geschenk.serie===1,geschenk);
    await page.keyboard.press('Escape');await settle(page,100);
+   // Lehrstunden (AP 6.5, seit 1.34.0): die vierte Platte bietet sie an, der Dialog zeigt drei, das Brett die Tafel des Chronisten.
+   await page.evaluate(()=>{App.profile.tutorial.skipped=false;App.profile.game=null;App.store.commit();});await settle(page,150);
+   check('Hauptmenü: vierte Platte bietet die Lehrstunde an',await page.evaluate(()=>App.vm.menu.view.plates[3].go==='lesson'&&!!document.querySelector('.plate[data-a="lesson"]')));
+   await tapHall(page,C(996,800));await page.waitForSelector('#overlay .lessons');await settle(page,150);
+   check('Lehrstunden: drei Siegel, die erste ist die nächste',await page.evaluate(()=>document.querySelectorAll('.lesson-card').length===3&&document.querySelector('.lesson-card.next h3')?.textContent==='Die erste Schlacht'));
+   await page.evaluate(()=>document.getElementById('toast').classList.remove('show'));await settle(page,250);
+   await shot(page,cmpPage,'21-lehrstunden');
+   await page.locator('.lesson-card.next button').click();await waitScreen(page,'game');await settle(page,400);
+   check('Lehrstunde: festes Brett, Dein Zug, der Chronist zeigt Schritt 1',await page.evaluate(()=>{const s=App.profile.game,k=AETU.coach(s);return s.lesson?.id==='schlacht'&&s.phase==='play'&&s.active===0&&k.step===1&&k.card==='leonidas_0'&&!document.querySelector('#overlay .mulligan');}));
+   await shot(page,cmpPage,'22-lehrstunde');
+   // Einstellungen (Phase 7): Reiter „Anzeige“; Farben bei Farbsehschwäche und große Schrift wirken sofort.
+   await page.keyboard.press('Escape');await page.waitForSelector('#overlay .modal');await page.locator('#overlay button',{hasText:'Einstellungen'}).click();await page.waitForSelector('#overlay .settings');
+   await page.locator('#overlay .stone-tab',{hasText:'Anzeige'}).click();await settle(page,100);
+   await page.locator('#overlay select[data-a="text"]').selectOption('gross');await page.locator('#overlay select[data-a="colors"]').selectOption('klar');await settle(page,150);
+   check('Einstellungen: große Schrift und klare Farben am Wurzelelement',await page.evaluate(()=>document.documentElement.classList.contains('text-gross')&&document.documentElement.classList.contains('colors-klar')&&App.profile.settings.colors==='klar'));
+   await shot(page,cmpPage,'23-einstellungen');
+   await page.locator('#overlay select[data-a="text"]').selectOption('normal');await page.locator('#overlay select[data-a="colors"]').selectOption('normal');
+   await page.locator('#overlay button',{hasText:'Fertig'}).click();await settle(page,100);
   }
  }catch(e){check('Klickpfad vollständig',false,e.message.split('\n')[0]);}
  check('Keine JavaScript-Fehler',errors.length===0,errors);

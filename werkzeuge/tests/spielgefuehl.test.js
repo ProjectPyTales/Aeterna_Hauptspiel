@@ -100,7 +100,7 @@ test('AP 3.5: Treffersound je Einheit, Schadenszahl mit Tinte, Pumpen und Splitt
  for(const k of ['marschroute','tintenspritzer','staubwolke','steinrisse'])assert.match(render,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
  assert.match(render,/function route\([^]*?motion\(\)\?\(t\*\.09\)%step:0/,'die Winkel marschieren (nicht bei reduzierter Bewegung)');
  assert.match(render,/if\(d\.target&&d\.target!=='h0'\)pulse\(c,d\.target,t\)/,'Ziel unter der Route pulsiert');
- assert.match(render,/if\(ready&&!selected\)round\(c,-55,-72,110,144,11,null,'#8dff6a',2\.5\)/,'grüne Umrandung, wer angreifen kann');
+ assert.match(render,/if\(ready&&!selected\)round\(c,-55,-72,110,144,11,null,P\.readyRing,2\.5\)/,'grüne Umrandung, wer angreifen kann');assert.match(render,/readyRing:'#8dff6a'/,'grün in der normalen Palette');
 });
 
 test('AP 3.2: Gedrückte Karte bleibt im Bild und frei von der Heldenmünze; Nachbarn weichen aus',()=>{

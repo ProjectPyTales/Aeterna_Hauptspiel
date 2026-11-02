@@ -3,16 +3,22 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
 (function(){'use strict';
-const VERSION='1.33.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.34.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
+// Lokales Fehlerprotokoll (Phase 7): ab hier zählt jeder ungefangene Fehler, nur auf dem Gerät.
+const errors=AEF.create({storage:localStorage,version:VERSION}).attach(window);
 const store=new AES.Store({storage:localStorage,bridge:AEP.bridge,onError:msg=>ui.toast(msg)});
 const session={mode:'free',hero:'leonidas',foe:'hypatia',deckId:'leonidas',mission:0};
 // The renderer and the mixer follow the profile: equipped cosmetics and sound settings.
 function applyProfile(){const p=store.profile,e=p.cosmetics.equipped,skins={};
  for(const [hero,id] of Object.entries(e.skins))skins[hero]=CHK.find('skins',id).atlas;
- const table=CHK.find('boards',e.board);R.look={back:e.back,board:table.image||'board',tint:table.tint||'',frame:e.frame||'tempeltor',skins,golden:AEQ.golden(p)};R.ensure(R.look.board);A.set(p.settings);}
+ const table=CHK.find('boards',e.board);R.look={back:e.back,board:table.image||'board',tint:table.tint||'',frame:e.frame||'tempeltor',skins,golden:AEQ.golden(p)};R.ensure(R.look.board);A.set(p.settings);look(p.settings);}
+// Einstellungen der Anzeige (Phase 7, seit 1.34.0): Textgröße und Farben als Klassen am Wurzelelement (view/css/lesbar.css),
+// ruhige Bewegung für alle, die AEP.reducedMotion fragen, Farben und Grafikqualität für das Match-Canvas.
+function look(s){const root=document.documentElement.classList;for(const k of ['gross','sehr'])root.toggle('text-'+k,s.text===k);
+ root.toggle('colors-klar',s.colors==='klar');root.toggle('motion-ruhig',s.motion==='ruhig');AEP.calm=s.motion==='ruhig';R.palette(s.colors);R.quality=s.quality;}
 
 // ---------- Shell state ----------
 let screen='menu',current=null,dialog=null,busy=false,toastTimer=null;
@@ -32,6 +38,7 @@ const ui={
  haptic:kind=>AEP.haptic(kind,store.profile.settings.haptics!==false),
  unlockAudio:()=>A.init().catch(console.warn),
  exportSave:raw=>AEP.exportSave(raw,AES.EXPORT_NAME),
+ exportText:(raw,name)=>AEP.exportText(raw,name).then(r=>ui.toast(r==='file'?'Gespeichert: '+name:r==='clipboard'?'In die Zwischenablage kopiert.':'Kopieren nicht möglich – bitte den Text im Fenster markieren.')),
  pickImport:()=>AEP.pickImport(),
  exit:()=>AEP.exit(),platform:()=>AEP.info(),
  // Renderer-Labor (AP 2.5): eigene Seite neben dem Spiel; „Zurück“ dort lädt das Spiel wieder (Spielstand ist gespeichert).
@@ -40,7 +47,7 @@ function closeDialog(resume){if(!dialog)return;const d=dialog;dialog=null;d.bind
  if(resume&&screen==='game')screens.game.vm.dialogChanged(false);}
 
 // ---------- View models and views ----------
-const ctx={store,session,ui};
+const ctx={store,session,ui,errors};
 ctx.dialogs=new VM.Dialogs(ctx,VERSION);
 ctx.packs=new VM.Packs(ctx);
 const screens={
