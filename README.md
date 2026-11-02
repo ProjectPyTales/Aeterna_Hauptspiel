@@ -2,8 +2,15 @@
 
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 416 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
-Seit 24. 10. 2026 liegt das Projekt in `ProjectPyTales/Aeterna_Copy` (Kopie von `thepytales/Aeterna` mit der ganzen Historie).
-Aktueller Stand im Code: **Version 1.33.0** (**Kartenrätsel** nach AP 6.4 Teil 2 – je Kapitel ein Rätsel „Gewinne in diesem
+Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
+`thepytales/Aeterna` mit der ganzen Historie). **Das Spiel ist fertig gebaut – jetzt kommen die Bilder:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
+Aktueller Stand im Code: **Version 1.34.0** (**bereit für Astra** – die letzten offenen Pakete vor der Bildbestellung:
+**Lehrstunden** nach AP 6.5 – drei geführte Partien, in denen der Chronist Schritt für Schritt Mana, Ausspielen, Angriff,
+Heldenfähigkeit, Schildwall, Zauber, Großansicht, Gunst der Stunde, Einmarsch, Sturmangriff und Vermächtnis zeigt, angeboten auf
+der vierten Platte des Hauptmenüs; **Schwierigkeitsgrade** nach AP 5.8 – Lehrling, Feldherr (die bisherige KI) und Legende;
+**Einstellungen** nach Phase 7 in vier Reitern mit Textgröße, Farben bei Farbsehschwäche, ruhiger Bewegung und sparsamer Grafik,
+**automatische Sicherungen** und ein **lokales Fehlerprotokoll**; eine **Geräte-Testmatrix** von 16:9 bis 21:9 in der CI; der
+Astra-Auftrag in **43 fertigen Bestellpaketen** mit Startanleitung; AP 6.6 pausiert); davor 1.33.0 (**Kartenrätsel** nach AP 6.4 Teil 2 – je Kapitel ein Rätsel „Gewinne in diesem
 Zug“ nach einer historischen Lage: Auaris, Leuktra, Naulochos, Süntel, Konstantinopel 1203 und Böttgers Brennofen; feste Hand,
 festes Brett, kein Zufall, offen nach dem Kapitel, Tipp und „Noch einmal“; ein Löser im Test beweist, dass jedes lösbar und nicht
 trivial ist); davor 1.32.0 (**Lebendige Schlachtfelder und Lesbarkeit** nach AP 3.9 – vier **Eck-Dioramen**
@@ -208,14 +215,15 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `model/quests.js` | Model | Seit 1.30.0 (AP 6.3): Aufgaben und Heldenstufen (`AEQ`) – drei Tagesaufgaben aus einem Pool, eine davon zum Lernen (`profile.daily`, einmal Neuwürfeln, Tageswechsel schreibt Erledigtes gut), Tagesgeschenk mit Serie über sieben Tage (`profile.login`), Erfahrung je Held mit zehn Stufen (`profile.heroXp`, `level`, `gain`), Stufe 10 gibt die Goldene Fassung der Legendären des Helden (`golden`, gezeichnet über `R.gilded`); Ende einer Partie über `finish` aus `CHP.reward`; alles über `normalize` |
 | `model/campaign.js` | Model | Seit 1.31.0 (AP 6.4): Kampagne 2.0 (`AEKA`) – sechs Kapitel nach den Epochen des Lehrplans und ein Epilog über den 22 Missionen (`CHAPTERS`, Reihenfolge `ORDER`, angezeigte Nummer `number`), Story-Szenen mit Sprechern und Quelle (seit 1.32.0 mit Ort und Zeit je Zeile `cue` und Zeitspanne `years`), Grund und Quelle der Lunte (`fuse`), Freischalten in der neuen Reihenfolge (`unlocked`, alter Fortschritt bleibt), gesehene Szenen `profile.scenes` (über `normalize`) |
 | `model/puzzles.js` | Model | Seit 1.33.0 (AP 6.4 Teil 2): Kartenrätsel (`AERA`) – sechs Rätsel je Kapitel (`PUZZLES`: Lage, Tipp, Quelle, Brett und Hand), fester Zustand `state(z)` im Modus `puzzle` (Feld `s.puzzle`, Name des Gegners `s.boss`), Freischalten nach dem Kapitel (`unlocked`), gelöste Rätsel `profile.puzzles` (über `normalize`), Löser `solve(s)` über alle Züge für die Tests |
-| `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen |
+| `model/tutorial.js` | Model | Seit 1.34.0 (AP 6.5): Lehrstunden (`AETU`) – drei geführte Partien mit festen Händen und Decks (`LESSONS`), Schritte des Chronisten mit Ziel (`focus`, `card`) und Bedingung (`done`), fester Anfang `state(z)` im Modus `tutorial` (Feld `s.lesson = {id, step}`, Gegner als Lehrling), `advance` nach jeder Aktion, `coach(s)` für die Tafel, geschaffte Lehrstunden `profile.tutorial` (über `normalize`) |
+| `model/store.js` | Model | Laden, Speichern, Sicherung, Export/Import des Spielstands (`AES`); meldet Änderungen; seit 1.34.0 automatische Sicherungen (`snapshots`, erster Stand je Tag, drei Tage, Schlüssel `chroniken.auto`) |
 | `viewmodel/*.js` | ViewModel | Zustand und Befehle je Bildschirm (`AEVM`): `menu`, `setup`, `campaign`, `collection`, `shop` (Basar), `packs` (Pack öffnen), `match`, `dialogs`, dazu `base` und `chronicle` (seit 1.17.0 auch in Node, Einträge mit Seite `p`; `Match.strip` liefert die Chronik-Leiste; seit 1.18.0 `Match.press`/`release` für die gedrückte Handkarte und `Match.hand` mit Kosten, spielbar und erfüllter Bedingung je Handkarte; seit 1.19.0 Schaufenster `Shop.showcase`/`select` und Kauf-Zeichen `bought`, Kartenbuch mit Blätterrichtung `turn`, Steinknöpfen `pick`, Kurve `curveHint` und Flug `flight`, Heldengalerie `GALLERY`, Kampagnenkarte `MAP`/`STATIONS` mit Projektion, seit 1.31.0 mit Kapiteln `chapters`, Routen je Kapitel `routes` und der Szene `AEVM.Scene`; seit 1.20.0 Intro `Match.opening`, Schriftrollen `rolling`, Finale und Belohnungsbalken `rewardBars`, Blatt `view.leaf` im Kartenbuch) – **ohne DOM, in Node testbar** |
 | `viewmodel/draft.js` | ViewModel | Seit 1.29.0: Bildschirm „Kolosseum“ (`AEVM.Draft`) – Eintritt mit Rückfrage, Heldenwahl, Kartenwahl mit Manakurve und „Aus der Chronik“, Kampf, Lauf beenden, Belohnung abholen |
 | `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
 | `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`), seit 1.26.0 Start mit Entwickler-Splash und Intro `intro.js` (`AEI`, Zeitleiste `AEI.T`, Stil `css/intro.css`), seit 1.29.0 Kolosseum `draft.js` (Stil `css/draft.css`, fünf Astra-Platzhalter), seit 1.30.0 Aufgaben-Fenster in `dialogs.js` und Heldenstufe in `setup.js` (Stil `css/quests.css`, drei Astra-Platzhalter) |
 | `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Heldenmünze `coinArt`, Siegel `seal`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`; seit 1.17.0 Äther-Uhr `dial`, Chronik-Leiste `strip`, Pergament-Deck und Stundenglas `deck`, versiegelte Befehle `orderArt`, Zugtafel `turnPlate`; seit 1.18.0 Kartenrahmen `R.card` als Tempeltor, Hand mit Federn `hand`, Marschroute `route`, Effekte `effects` mit Tinte, Pumpen, Splittern, Staub und Rissen), seit 1.20.0 `fx.js` (`CHF`: Schlüsselwort-Bilder und -Effekte, Elemente und Heldenfähigkeiten, Intro mit Münzwurf und Finale), `anim.js` (`CHT`, seit 1.18.0: Kurven, Zeitleisten, Federn, Match-Uhr mit Tempo und Treffer-Stopp, Kamerawackeln), `motion.js` (`CHM`, Zeitleisten je Aktion, Ziehen, Verbrennen, Stundenglas), seit 1.32.0 `dioramen.js` (`AEDI`: Eck-Dioramen, Sprechblase, Angriffsvorschau; AP 3.9), `layout.js` (`CHL`, seit 1.32.0 mit `dioramas`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel auf der Match-Uhr, Bildraten-Anzeige) |
-| `view/css/` | View | seit 1.22.0 `astra.css` (zuletzt geladen: Astras gemalte Bilder für Paket, Podest, Kartenbuch, Startbefehle, Steinplatten, Hintergründe, Währungen), `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte) |
-| `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`) |
+| `view/css/` | View | seit 1.22.0 `astra.css` (zuletzt geladen: Astras gemalte Bilder für Paket, Podest, Kartenbuch, Startbefehle, Steinplatten, Hintergründe, Währungen), `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte), seit 1.34.0 `lesbar.css` (Textgröße und ruhige Bewegung, erzeugt von `werkzeuge/lesbar_css.py`) |
+| `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`; seit 1.34.0 `exportText` und `calm` für ruhige Bewegung), seit 1.34.0 `protokoll.js` (lokales Fehlerprotokoll `AEF`, Schlüssel `aeterna.fehler`) |
 | `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
 | `assets/ui/` | – | Seit 1.22.0 (AP A.2): Astras Oberflächenbilder als WebP mit Transparenz (Kartenrahmen, Kartenrücken, Chronikleiste …) und Währungen als SVG, erzeugt von `werkzeuge/astra_bilder.py`, geladen von `CHS.loadUI` vor dem ersten Bildschirm |
 | `assets/intro/` | – | Seit 1.26.0: Entwickler-Splash `pytales.webp` (aus `werkzeuge/entwicklersplash.py`); die Musik des Intros liegt als `assets/audio/intro.ogg` (aus `werkzeuge/intro_klang.py`) |
@@ -227,10 +235,10 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `android/` | **Native Hülle** (seit 1.12.0, AP 2.1): Gradle-Projekt in Kotlin – `MainActivity.kt` (WebView, Vollbild, Aussparung, Zurück, Export/Import), `Bridge.kt` (`window.Android`), `AssetClient.kt` (liefert `quellcode/assets/game` unter `https://chroniken.local/` aus), `Haptics.kt`; Version, Paket-ID und Signatur in `app/build.gradle.kts` |
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
-| `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`, seit 1.26.0 `intro_klang.py`, seit 1.32.0 `diorama_klang.py`), Entwickler-Splash `entwicklersplash.py`, Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, seit 1.26.0 Start-Messung `intromessung.js`, Tests – siehe `werkzeuge/LIESMICH.md` |
+| `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`, seit 1.26.0 `intro_klang.py`, seit 1.32.0 `diorama_klang.py`), Entwickler-Splash `entwicklersplash.py`, Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, seit 1.26.0 Start-Messung `intromessung.js`, seit 1.34.0 Geräte-Testmatrix `geraetematrix.js` und `lesbar_css.py`, Tests – siehe `werkzeuge/LIESMICH.md` |
 | `balance/` | Balance-Berichte: `BERICHT.md` (aktueller Stand, 22 Helden, 416 Karten), `BERICHT-1.29.0.md` (vor dem Feinschliff in 1.30.0), `BERICHT-1.28.0.md` (vor dem Feinschliff in 1.29.0), `BERICHT-1.27.0.md` (vor AP 5.7 Teil 2), `BERICHT-1.26.0.md` (vor AP 5.7), `BERICHT-1.24.0.md` (vor AP 5.6), `BERICHT-1.22.0.md` (vor AP L.5), `BERICHT-1.13.0.md` (vor AP L.1), `BERICHT-1.12.0.md` (vor AP 5.11 Teil 2), `BERICHT-1.10.0.md` (vor AP 5.10 Welle 2, 16 Helden), `BERICHT-1.9.0.md` (vor AP 5.11), `BERICHT-1.8.0.md` (vor AP 5.10, 10 Helden), `BERICHT-1.7.0.md` (vor AP 5.4 Teil 2), `BERICHT-1.6.0.md` (vor AP 5.3/5.4), `BERICHT-1.5.0.md` (vor AP 5.2) |
 | `stil/` | Stil-Bibel (`STILBIBEL.md`), Stil-Tafel und Vergleichsbild Konzept ↔ Umsetzung |
-| `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), `ASTRA_AUFTRAG.md` der nächste Auftrag an Astra (nur offene Motive), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 48 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
+| `ungenutzte_assets/` | Ausgangsbilder: `neue_astra_assets/` alle Astra-Lieferungen (Teil1–Teil6, `gerettet`, `gerettet_2te`, dazu `PRODUKTIONSBRIEFING.md`), seit 1.34.0 `ASTRA_START.md` (Ablauf der Bestellung) und `astra_bestellung/` (fertige Pakete K01–K32 und U01–U11), `ASTRA_AUFTRAG.md` der Auftrag an Astra (nur offene Motive, Übersicht der Pakete), `ASTRA_AUFTRAG_OBERFLAECHE.md` der Auftrag für die 77 noch gezeichneten Oberflächenteile, `ASTRA_STAND.csv` Status jeder Karte; `archiviert/` alte Originale (`art-original/`, Hauptmenü-Konzept); `MOTIVE.md` listet Karten mit Platzhalter (AP 5.12) und alle im Code gezeichneten Grafiken für Astra (AP L.4) |
 
 ### Architektur: wohin neuer Code gehört (MVVM)
 
@@ -292,6 +300,8 @@ Seit 1.29.0 (AP 6.1) der Spielmodus `draft` (Kolosseum): keine neue Regel in der
 `CHP.reward` gibt dort kein Gold je Partie und meldet das Ergebnis an `AEDR.record`.
 Seit 1.31.0 (AP 6.4, AP 3.7) die **Lunte**: Missionen mit Feld `fuse` (eigene Züge) enden verloren, wenn der letzte eigene Zug
 ohne Sieg vorbei ist (`CHE.fuse(s)` → `{turns, left}`, Feld `s.burnt`); sonst gilt kein Zugtimer.
+Seit 1.34.0 (AP 5.8) **Schwierigkeitsgrade** über das Feld `s.level` (`lehrling`, `legende`; ohne Feld der Feldherr – genau die KI bis
+1.33.0, auf der alle Balance-Läufe beruhen; `CHE.LEVELS`, `CHE.level`) und (AP 6.5) der Modus `tutorial` mit `s.lesson` – keine neue Regel.
 Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 
 ---
@@ -299,8 +309,8 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Kampagne 2.0 mit Lunte (AP 6.4), Lebendige Schlachtfelder und Lesbarkeit (AP 3.9), Kartenrätsel mit Löser (AP 6.4 Teil 2), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
-  Referenzbildern, läuft auch in der CI).
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Kampagne 2.0 mit Lunte (AP 6.4), Lebendige Schlachtfelder und Lesbarkeit (AP 3.9), Kartenrätsel mit Löser (AP 6.4 Teil 2), Lehrstunden, Schwierigkeitsgrade, Einstellungen, Sicherungen und Fehlerprotokoll (AP 6.5, AP 5.8, Phase 7), Bestellpakete für Astra (AP A.3), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Referenzbildern, läuft auch in der CI), seit 1.34.0 auch `node werkzeuge/geraetematrix.js` (16:9 bis 21:9 und Tablets).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
   `continue-on-error`, damit ein voller Speicher die CI nie rot macht. Zurück zu einer alten Version: `main` auf den alten Stand
@@ -329,7 +339,8 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 - **Platzhalter für Astra:** Alle Platzhalter und im Code gezeichneten Grafiken werden später mit ChatGPT Astra ersetzt.
   Neue Grafiken deshalb ruhig als Platzhalter bauen und immer gleich kennzeichnen: Bilder über fehlendes `art`
   (→ `MOTIVE.md`), Zeichenfunktionen mit dem Kommentar `ASTRA: <kennung> – <was>, <Größe>` (AP L.4).
-- **Stil:** Neue Oberflächen folgen `stil/STILBIBEL.md` (Palette als `--ae-…`-Variablen in `view/css/hall.css`).
+- **Stil:** Neue Oberflächen folgen `stil/STILBIBEL.md` (Palette als `--ae-…`-Variablen in `view/css/hall.css`). Nach einer
+  Änderung an Schriftgrößen oder `prefers-reduced-motion`-Regeln `python3 werkzeuge/lesbar_css.py` ausführen (ein Test prüft es).
 - **Signatur, Paket-ID und Version:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren (Alias `chroniken`), Paket-ID
   `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht. Neue Version: `versionCode` +1 und `versionName` in
   `android/app/build.gradle.kts`, dazu `VERSION` in `app.js` (ein Test prüft, dass beide übereinstimmen).
@@ -881,9 +892,17 @@ fehlt (`CHS.ui`, `R.pic`), und trägt statt `ASTRA:` den Vermerk `Astra-Bild (AP
 *Dein Hinweis vom 13. 10. 2026:* Erst wird das Spiel komplett fertig gebaut, dann kommen die Assets – damit spätere Änderungen
 keine Bilder mehr verwerfen. Bis dahin: neue Karten und Grafiken als gekennzeichnete Platzhalter (AP 5.12, AP L.4), und jede
 Namensänderung richtet sich nach einem vorhandenen Bild (wie in AP L.6).
-- [ ] Die 165 offenen IDs aus `ASTRA_AUFTRAG.md` (seit 1.24.0 ohne die 39 alten Bilder, die bleiben, und ohne den nie gerufenen
-  Spielstein `stoneguard`; vorher 205) plus sechs aus Teil 4 in kleinen Paketen (10–12 Bilder je ZIP) bestellen; jede Lieferung als neuer
-  Ordner in `neue_astra_assets/`, dann baut eine Sitzung sie ein (oft ohne Code: nur Werkzeug, Tests, Referenzbilder).
+- [x] **Bestellfertig (1.34.0, Sitzung 29):** Ablauf in [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md). Die
+  239 offenen Kartenbilder (232 neue Motive seit der Erweiterung „Wunder der Welt“ – vorher 165 –, die Korrektur `fabius_0` und sechs
+  aus Teil 4) liegen in **32 fertigen Paketen** `ungenutzte_assets/astra_bestellung/K01.md` … `K32.md` (höchstens zehn Bilder, höchstens
+  zwei Gruppen je Paket, mit Auftrag zum Kopieren und genau den Motivzeilen); die 77 Oberflächenteile in **elf Paketen** `U01.md` …
+  `U11.md`. Die leeren Referenzplätze des Briefings sind jetzt drei feste Bilder aus Astras eigenen Lieferungen (Tempelärztin,
+  Bibliothek von Alexandria, Schlacht bei Leuktra), für die Oberfläche drei Oberflächenbilder. `python3 werkzeuge/astra_bilder.py
+  --nur-auftrag` schreibt Stand, Auftrag und Pakete neu, ohne die Atlanten anzufassen; jeder Ordner `Lieferung_K…` wird beim Einbau
+  ohne Eintrag in `FOLDERS` gefunden. Tests in `astra.test.js`: die Pakete enthalten genau die offenen IDs, jedes Oberflächenpaket hat
+  seine Datei, die Referenzen liegen bereit.
+- [ ] Die Pakete K01–K32 und U01–U11 bei Astra bestellen (Du); jede Lieferung als Ordner `neue_astra_assets/Lieferung_<Paket>/`, dann
+  baut eine Sitzung sie ein (Kartenbilder ohne Code: nur Werkzeug, Tests, Referenzbilder).
 - [ ] Teil 4 vollständig wiederfinden (sechs Bilder) und `fabius_0` korrigieren lassen.
 
 ### Phase 0 – Sofortkorrekturen und Umbenennung (S)
@@ -2159,7 +2178,17 @@ Leonidas (53,4 %, mit Startdecks ebenso) und die Fürstin von Vix (46,6 %); auff
 
 **AP 5.8 – KI erweitern (M)**
 - [x] **Persönlichkeit je Held (aggressiv, defensiv, kombinierend)** – *Teil 2 in 1.10.0*, siehe unten.
-- [ ] KI versteht alle neuen Mechaniken; Schwierigkeitsgrade Lehrling, Feldherr, Legende; Vorausschau 1–2 Züge.
+- [x] KI versteht alle neuen Mechaniken; Schwierigkeitsgrade Lehrling, Feldherr, Legende; Vorausschau 1–2 Züge.
+  *Schwierigkeitsgrade ✓ in 1.34.0 (Sitzung 29):* `s.level` je Partie, gewählt in der Heldenwahl („Stärke der KI“) und in den
+  Einstellungen (Reiter „Spiel“), gilt für Duell, Tagesduell, Kampagne und Kolosseum; oben links im Match steht die Stufe.
+  **Lehrling:** ein Schritt Vorausschau, keine Suche nach dem tödlichen Zug, keine Furcht vor Hinterhalten, kleine feste
+  Fehleinschätzungen je Zustand (ohne den Zufall der Partie zu verbrauchen). **Feldherr:** die KI bis 1.33.0, Zahl für Zahl –
+  ohne Feld `s.level`, deshalb kein Balance-Lauf nötig. **Legende:** zwölf statt acht Kandidaten, ein dritter eigener Schritt
+  hinter den drei besten zweiten, Suche nach dem tödlichen Zug mit 700 statt 250 Schritten. Gemessen (132 Partien je Paarung,
+  Startdecks, wechselnder Beginner): Feldherr gegen Feldherr 53 %; Lehrling gegen Feldherr 30 %; Legende gegen Feldherr 61 % als
+  erster Platz, 49 % als zweiter (im Schnitt +5 Punkte). Eine noch stärkere Legende bräuchte eine Vorausschau auf den Zug des
+  Gegners – breitere Suche (16 Kandidaten, fünf dritte Schritte) brachte nichts mehr. Rechenzeit je Entscheidung (Node): Lehrling
+  1,0 ms, Feldherr 1,3 ms, Legende 1,9 ms.
   *Teil 1 in 1.7.0:* Die Bewertung (`E.value`) kennt Starre (erstarrter Diener zählt weniger), Doppelschlag, Arkaner
   Fokus, Bauwerke (Haltbarkeit), die Dauerwirkung der Legendären, verbilligte Handkarten und eine offene Ergründen-Wahl
   (zählt als Karte); beim Ergründen wählt sie nach Kosten, Seltenheit, Werten und Spielbarkeit (`E.cardWorth`); die
@@ -2571,15 +2600,42 @@ So, dass es im Spiel nicht kaputt aussieht:
   - **Platzhalter für Astra** (Paket 10): `raetsel-siegel`, `raetsel-lage`, `raetsel-tafel`.
   - **Prüfung:** sieben Tests in `raetsel.test.js`; Klickpfad mit Rätsel (versiegelt, Lage, Brett) und zwei neuen Referenzbildern
     `19-raetsel` und `20-raetsel-brett`. Keine Regeländerung für normale Partien, kein Balance-Lauf nötig.
-- [ ] **AP 6.5 Tutorial:** die ersten drei Partien geführt.
-- [ ] **AP 6.6 Eigenständige Mechaniken:** Epochen-Synergien (Bonus bei drei Karten derselben Ära), Relikte als
+- [x] **AP 6.5 Tutorial:** die ersten drei Partien geführt. *✓ in 1.34.0 (Sitzung 29) als **Lehrstunden mit dem Chronisten**:*
+  - **Drei Lehrstunden** (`model/tutorial.js`) mit Ort, Zeit, Einleitung und Quelle: 1 **Die erste Schlacht** (Leonidas gegen Perikles,
+    Übungsplatz in Sparta: Mana, Ausspielen, Zug beenden, Angriff, Heldenfähigkeit), 2 **Schildwall und Zauber** (Hypatia gegen Vauban,
+    Museion von Alexandria: Schildwall nachlesen, Zauber über den Schildwall, Heldenfähigkeit, Großansicht), 3 **Die Gunst der Stunde**
+    (Widukind gegen Imhotep, der Gegner beginnt: Gunst der Stunde, Einmarsch, Sturmangriff, Vermächtnis). Feste Hände und Decks, der
+    Gegner als Lehrling mit 12–18 Leben.
+  - **Der Chronist** führt mit einer Tafel oben rechts im Match (Schritt n von m) und einem goldenen Ring um das, was gemeint ist:
+    Handkarte, Chronometer, bereite Diener, Heldenfähigkeit, Schildwall-Diener oder den feindlichen Helden. Wer etwas anderes tut,
+    bleibt nicht hängen – jeder Schritt endet spätestens mit einem späteren eigenen Zug; im Zug des Gegners wartet er.
+  - **Angebot:** Die vierte Platte im Hauptmenü heißt für neue Spielstände „Lehrstunde n von 3“, bis alle geschafft oder ausgeblendet
+    sind (dann wieder Tagesduell). Immer erreichbar über *Einstellungen → Spiel → Lehrstunden* und den Knopf in den Spielregeln. Wer vor
+    1.34.0 schon gespielt hat, bekommt sie nicht angeboten (`profile.tutorial.skipped`).
+  - **Belohnung:** erster Sieg je Lehrstunde 50 Gold, die dritte dazu ein Kartenpaket; Lehrstunden zählen nicht als Duell. Ergebnis
+    mit „Lehrstunde n+1 ›“ oder „Noch einmal“, Pause mit „Neu beginnen“ und „Alle Lehrstunden“.
+  - **Platzhalter für Astra** (Paket 11): `lehrstunde-chronist`, `lehrstunde-siegel`.
+  - **Prüfung:** `lehrstunden.test.js` – ein Bot, der dem Chronisten folgt, sieht jeden Schritt in Reihenfolge und gewinnt alle drei;
+    nur Züge beenden führt trotzdem bis zum letzten Schritt; Klickpfad mit `21-lehrstunden` und `22-lehrstunde`.
+- [ ] ~~**AP 6.6 Eigenständige Mechaniken**~~ – *pausiert (Deine Entscheidung vom 2. 11. 2026), steht unter [Weitere Ideen](#weitere-ideen), Nr. 12:* Epochen-Synergien (Bonus bei drei Karten derselben Ära), Relikte als
   Kartentyp (Atlasfelder für Spartanerschild und Astrolabium sind schon gemalt), Chronik-Ereignisse für beide Spieler.
 
 ### Phase 7 – Release-Qualität (M)
 
-- [ ] Geräte-Testmatrix: schwach/mittel/stark, 60/90/120 Hz, Seitenverhältnisse 16:9 bis 21:9.
-- [ ] Einstellungen: Grafikqualität (Partikel, Auflösung), Textgröße, Farbsehschwäche-Modus, reduzierte Bewegung.
-- [ ] Lokales Fehlerprotokoll und automatische Spielstand-Sicherungen.
+- [x] Geräte-Testmatrix: schwach/mittel/stark, 60/90/120 Hz, Seitenverhältnisse 16:9 bis 21:9. *✓ in 1.34.0 (Emulation):*
+  `werkzeuge/geraetematrix.js` in der CI – sieben Geräte (16:9 schwach mit 4× gedrosselter CPU und sparsamer Grafik, 18:9, 19,5:9,
+  20:9, 21:9, Tablet 4:3 und 16:10): Hauptmenü, Lehrstunde und Einstellungen mit sehr großer Schrift liegen ganz im Bild, kein
+  seitlicher Überlauf, Pixeldichte wie erwartet (36 Prüfungen). Offen bleibt nur, was die Emulation nicht kann: 90/120 Hz und ein
+  echtes schwaches Gerät – auf dem Handy mit der Bildraten-Anzeige gegenprüfen.
+- [x] Einstellungen: Grafikqualität (Partikel, Auflösung), Textgröße, Farbsehschwäche-Modus, reduzierte Bewegung. *✓ in 1.34.0:*
+  vier Reiter (Spiel, Anzeige, Klang, Daten). **Textgröße** Normal/Groß/Sehr groß (1,15- und 1,3-fach für allen Lesetext der Menüs,
+  Dialoge, Großansicht und Chronik; die Werte auf dem Spielbrett bleiben). **Farben** bei Farbsehschwäche: spielbare Karten und bereite
+  Diener blau statt grün, Ziele orange statt rot. **Bewegung** „Ruhig“ wirkt wie die Vorgabe des Geräts (kein Wackeln, kurze
+  Übergänge, kein Intro). **Grafik im Match** „Sparsam“: Pixeldichte 1 statt bis 2. Alles in `profile.settings` über `CHP.settings`.
+- [x] Lokales Fehlerprotokoll und automatische Spielstand-Sicherungen. *✓ in 1.34.0:* **Sicherungen** – der erste Stand jedes Tages,
+  drei Tage, zusätzlich zur Sicherung des vorigen Speicherns; das Laden fällt auf sie zurück, *Einstellungen → Daten* holt eine nach
+  Rückfrage zurück. **Fehlerprotokoll** – ungefangene Fehler (40 Einträge, gleiche Meldungen zählen hoch) nur auf dem Gerät, unter
+  *Daten* als Datei (Browser) oder in die Zwischenablage (App) und zum Leeren.
 - [ ] Optional Play-Store: eigener Upload-Schlüssel, Datenschutzerklärung, Store-Grafiken, Name „Aeterna“ auf Markenkonflikte prüfen.
 
 ### Phase 8 – itch.io und Crossplay (Wunsch vom 12. 10. 2026)
@@ -2620,6 +2676,9 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 10. **Handwerk inszenieren:** Herstellen und Entzaubern als Schmiede-Animation mit Funken statt Text-Bestätigung.
 11. **Legendäre mit eigener Regel aus AP 5.7** (mit Entscheidung 22 zurückgestellt): Kleopatra, Hannibal, Alexander, Archimedes,
     Qin Shi Huang, Mansa Musa, Sun Tzu (Hinterhalte kosten 0), Leonardo, Hatschepsut, Saladin, Wu Zetian, Spartacus.
+12. **Eigenständige Mechaniken (vormals AP 6.6, pausiert seit 2. 11. 2026):** Epochen-Synergien (Bonus bei drei Karten derselben
+    Ära), Relikte als Kartentyp (Atlasfelder für Spartanerschild und Astrolabium sind schon gemalt), Chronik-Ereignisse für beide
+    Spieler. Bräuchte neue Regeln, einen vollen Balance-Lauf und neue Kartenbilder – deshalb erst nach den Astra-Bildern.
 
 ---
 
@@ -2733,8 +2792,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     - **AP 6.4 Kampagne 2.0** (✓ in 1.31.0) und **AP 3.9 Eck-Dioramen** (✓ in 1.32.0) bleiben im Plan wie aufgelistet – schlank, ohne neue Ideen obendrauf;
     - **kein Ranglistenmodus:** AP 6.2 entfällt. Aeterna bleibt offline zuerst; Crossplay (AP 8.2) ist eine kleine Variante für
       ein paar Freunde (Einladungscode, keine Konten, keine Wertung).
-    Nach dem letzten dieser Pakete bestellst Du den dann vollständigen Astra-Auftrag (AP A.3). Wenn Du Kampagne 2.0 oder die
-    Dioramen doch streichen willst, genügt ein Satz.
+    Nach dem letzten dieser Pakete bestellst Du den dann vollständigen Astra-Auftrag (AP A.3). *Ergänzt am 2. 11. 2026:* Vorher kamen
+    noch AP 6.5 (Lehrstunden), die Schwierigkeitsgrade aus AP 5.8 und die Einstellungen aus Phase 7 (✓ in 1.34.0); AP 6.6 ist
+    pausiert. **Damit ist der Auftrag vollständig** – Ablauf in `ungenutzte_assets/ASTRA_START.md`.
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
@@ -2772,8 +2832,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 26 ✓ | AP 6.4 Kampagne 2.0 mit AP 3.7 (Lunte in Belagerungsmissionen) | erledigt in 1.31.0 – sechs Kapitel und Epilog, Story-Szenen mit Quelle, Lunte am Ende jedes Kapitels; Umzug nach `ProjectPyTales/Aeterna_Copy` |
 | 27 ✓ | AP 3.9 Eck-Dioramen, Rückmeldung 1.31.0 | erledigt in 1.32.0 – Szenen mit Leitfrage, Ort und Zeit, Schattenrissen; vier antippbare Eck-Dioramen mit Klang und Zeile des Chronisten, Schlüsselwort-Blase, Angriffsvorschau |
 | 28 ✓ | AP 6.4 Teil 2 Kartenrätsel | erledigt in 1.33.0 – sechs Rätsel „Gewinne in diesem Zug“ nach historischen Lagen, offen nach dem Kapitel, Löser im Test |
-| 29+ | Rückmeldung 1.32.0/1.33.0, AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | ohne neue Astra-Bilder, deshalb auch nach der Bestellung möglich |
-| nach dem letzten Inhalts-Paket | AP A.3 (Du), dann ein Einbau-Lauf | den dann vollständigen `ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md` bei Astra bestellen, 10–12 je ZIP; jede Lieferung baut eine Sitzung mit dem Werkzeug ein |
+| 29 ✓ | AP 6.5, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 vorbereiten | erledigt in 1.34.0 – Lehrstunden mit dem Chronisten, Lehrling/Feldherr/Legende, Einstellungen mit Textgröße, Farben, Bewegung und Grafik, Sicherungen, Fehlerprotokoll, Geräte-Matrix; Astra-Auftrag in 43 Paketen mit Startanleitung; AP 6.6 pausiert |
+| ab jetzt (Du) | AP A.3: Pakete K01–K32 und U01–U11 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
+| 30+ | Einbau der Lieferungen, dazwischen AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | jede Lieferung eine kurze Sitzung; Chronikzeilen und Klang brauchen keine Bilder |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
@@ -2782,39 +2843,42 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 28 (Version 1.33.0):** **AP 6.4 Teil 2 Kartenrätsel** – je Kapitel ein Rätsel „Gewinne in diesem Zug“ nach einer
-historischen Lage (Auaris, Leuktra, Naulochos, Süntel, Konstantinopel 1203, Böttgers Brennofen), feste Hand und festes Brett ohne
-Zufall, offen nach dem Kapitel, 75 Gold für die erste Lösung, Tipp und „Noch einmal“. Ein Löser im Test beweist für jedes Rätsel, dass
-es lösbar ist, mindestens drei Schritte braucht und die meisten Wege scheitern. Drei neue Astra-Platzhalter (Paket 10). Keine
-Regeländerung für normale Partien, Balance unverändert. Deine Rückmeldung zu 1.32.0 stand noch aus und ist nicht eingearbeitet.
-Davor: Sitzung 27 (1.32.0) Eck-Dioramen und neue Szenen, Sitzung 26 (1.31.0) Kampagne 2.0; Sitzungen 1–25 (1.4.0–1.30.0).
+**Erledigt in Sitzung 29 (Version 1.34.0):** alle offenen Pakete vor der Astra-Bestellung (Deine Wahl vom 2. 11. 2026) –
+**AP 6.5 Lehrstunden** (drei geführte Partien mit dem Chronisten, vierte Platte im Hauptmenü), **AP 5.8 Schwierigkeitsgrade**
+(Lehrling, Feldherr, Legende – der Feldherr ist die bisherige KI, Balance unverändert), **Phase 7** (Einstellungen in vier Reitern
+mit Textgröße, Farben bei Farbsehschwäche, ruhiger Bewegung, sparsamer Grafik; automatische Sicherungen; lokales Fehlerprotokoll;
+Geräte-Testmatrix 16:9 bis 21:9 in der CI) und **AP A.3 bestellfertig** (32 Karten- und 11 Oberflächenpakete, feste Referenzbilder,
+Startanleitung `ungenutzte_assets/ASTRA_START.md`). AP 6.6 ist pausiert (Weitere Ideen, Nr. 12). Deine Rückmeldung zu 1.32.0 und
+1.33.0: „passt alles“ – keine Nacharbeit. Davor: Sitzungen 1–28 (1.4.0–1.33.0).
 
-**Vorher bitte von dir (10–15 Minuten):**
-1. `Aeterna-1.33.0-Test.apk` aus dem Release „Test-APK“ von `ProjectPyTales/Aeterna_Copy` als Update installieren.
-2. **Noch offen von 1.32.0:** Szenen (roter Faden, Tempo), Eck-Dioramen (groß genug, Zeile zu lang?), Sprechblase und Angriffsvorschau.
-3. **Rätsel:** Kapitel I gewinnen (oder ein gewonnenes Kapitel öffnen), im Panel „Kartenrätsel · Lösen“. Sind die Rätsel zu leicht oder
-   zu schwer, hilft der Tipp, ist der Text der Lage zu lang?
-4. **AP A.3:** Der Astra-Auftrag ist vollständig (`ungenutzte_assets/ASTRA_AUFTRAG.md` und `ASTRA_AUFTRAG_OBERFLAECHE.md`, jetzt
-   Pakete 1–10). Jede Lieferung baut eine Sitzung ein.
+**Vorher bitte von dir:**
+1. `Aeterna-1.34.0-Test.apk` aus dem Release „Test-APK“ von `ProjectPyTales/Aeterna_Hauptspiel` als Update installieren.
+2. **Kurz testen (10 Minuten):** *Einstellungen → Spiel → Lehrstunden* → Lehrstunde 1 (ist der Ring des Chronisten gut zu sehen, die
+   Tafel lesbar?); in der Heldenwahl „Stärke der KI“ auf Lehrling und Legende; *Einstellungen → Anzeige* „Groß“ und „Bei
+   Farbsehschwäche“ einmal ansehen. Auf dem OnePlus 15 mit der Bildraten-Anzeige: „Sparsam“ gegen „Hoch“.
+3. **Astra starten:** `ungenutzte_assets/ASTRA_START.md` – zuerst Teil 4 suchen (sechs Bilder), dann U01, U02, K22, K23 …
+   Lieferungen als `ungenutzte_assets/neue_astra_assets/Lieferung_<Paket>/`.
 
-**Sitzung 29 – Rückmeldungen und Chronikzeilen (AP L.6 Teil 2)**
+**Sitzung 30 – Einbau der ersten Astra-Lieferungen**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.32.0 und 1.33.0 | Szenen, Dioramen, Blase, Vorschau, Rätsel nach Deinem Test | kleine Nacharbeit |
-| AP L.6 Teil 2 Chronikzeilen | „Aus der Chronik“ für die nächsten rund 80 Karten (heute 82 von 416), zuerst die Basis- und Startdeck-Karten der 22 Helden, jede mit Quelle, Unsicheres als unsicher | braucht keine neuen Bilder, das Lernen steckt dann in jeder Karte, die man zuerst sieht |
-| Ausblick | danach der Rest der Chronikzeilen in Häppchen, AP 6.5 Tutorial oder der Einbau der ersten Astra-Lieferung | – |
+| Rückmeldung 1.34.0 | Lehrstunden, Schwierigkeitsgrade, Einstellungen nach Deinem Test | kleine Nacharbeit |
+| AP A.3 Einbau | alle bis dahin gelieferten Ordner `Lieferung_K…` (ohne Code) und `Lieferung_U…` (Zeichnung → Bild wie in 1.22.0) | sichtbarster Fortschritt, jede Lieferung macht das Spiel schöner |
+| Falls noch keine Lieferung da ist | AP L.6 Teil 2: „Aus der Chronik“ für die nächsten rund 80 Karten (Basis- und Startdeckkarten zuerst) | braucht keine Bilder |
 
-Risiko: niedrig – nur Texte mit Quelle, keine Regel; der Aufwand steckt im sorgfältigen Prüfen der Quellen.
+Risiko: niedrig – Kartenbilder baut das Werkzeug ein; bei Oberflächenteilen kann ein Bild anders geschnitten sein als die Zeichnung
+(dann Ausschnitt und Trefferflächen anpassen).
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Copy`. Übernimm mein Feedback zu Version 1.32.0 und 1.33.0:
-> *(hier Feedback zu Szenen, Dioramen, Sprechblase, Angriffsvorschau und Rätseln einfügen)*. Arbeite dann **AP L.6 Teil 2
-> (Chronikzeilen, nächstes Häppchen)** ab. Halte dich an die „Regeln für jede Sitzung“, das Leitbild „halb Spaß, halb Lernen“ und die
-> MVVM-Struktur, baue neue Grafiken als gekennzeichnete Platzhalter, lass die Tests und den Klickpfad laufen und sorge für eine grüne
-> CI. Hake erledigte Punkte in der README ab. Öffne am Ende einen Pull Request nach `main`, merge ihn bei grüner CI und schreibe unten
-> in die README wieder einen Vorschlag für die nächste Sitzung mit Effort-Empfehlung.
+> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Hauptspiel`. Übernimm mein Feedback zu Version 1.34.0:
+> *(hier Feedback zu Lehrstunden, Schwierigkeitsgraden und Einstellungen einfügen)*. Baue dann die Astra-Lieferungen
+> *(z. B. K01, K22, U01)* aus `ungenutzte_assets/neue_astra_assets/Lieferung_<Paket>/` ein (AP A.3, Ablauf in
+> `ungenutzte_assets/ASTRA_START.md`). Halte dich an die „Regeln für jede Sitzung“, lass Tests, Klickpfad und Geräte-Matrix laufen,
+> sieh Dir die neuen Bilder an und melde, was nicht zur Motivzeile passt. Hake erledigte Punkte in der README ab, öffne am Ende einen
+> Pull Request nach `main`, merge ihn bei grüner CI und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
+> Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: medium.** Chronikzeilen sind kurze, belegte Sätze – *high*, wenn Du dazu größere
-Änderungen an Szenen oder Rätseln nach Deinem Test willst.
+**Empfohlener Effort für den nächsten Prompt: medium.** Kartenbilder baut das Werkzeug ein; *high*, wenn mehrere Oberflächenpakete
+(U…) auf einmal kommen – dort wird Zeichencode auf Bilder umgestellt.

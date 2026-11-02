@@ -210,6 +210,15 @@ def collect():
             for f in sorted(os.listdir(path)):
                 if f.endswith(ext):
                     found[f[:-len(ext)]] = os.path.join(folder, f)
+    # Seit 1.34.0: jede Lieferung eines Bestellpakets als Ordner Lieferung_K01, Lieferung_K02 … – ohne Eintrag in FOLDERS,
+    # PNG, WebP oder JPEG, Dateiname = ID (Groß-/Kleinschreibung egal). Spätere Pakete haben Vorrang.
+    for d in sorted(os.listdir(NEU)):
+        path = os.path.join(NEU, d)
+        if d.startswith('Lieferung_K') and os.path.isdir(path):
+            for f in sorted(os.listdir(path)):
+                stem, ext = os.path.splitext(f)
+                if ext.lower() in ('.png', '.webp', '.jpg', '.jpeg'):
+                    found[stem.lower()] = os.path.join(d, f)
     for entry in json.load(open(os.path.join(NEU, RESCUED), encoding='utf-8')):
         found.setdefault(entry['id'], entry['source_file'])
     for i, f in BAIBARS.items():
@@ -310,6 +319,9 @@ def main():
 
     # Karten und Spielsteine in Spielreihenfolge, zwölf je Atlas.
     items = [c for c in data['cards'] + data['tokens'] if c['id'] in found]
+    if '--nur-auftrag' in sys.argv:
+        # Seit 1.34.0: nur Stand und Auftrag neu schreiben, ohne die Atlanten neu zu packen (keine Bilddateien ändern sich).
+        return stand_und_auftrag(data, found, items, (len(items) + 11) // 12)
     for f in os.listdir(ART):
         if f.startswith('astra-karten-'):
             os.remove(os.path.join(ART, f))
@@ -351,6 +363,10 @@ def main():
             os.remove(path)
             print('entfernt:', name + '.webp')
 
+    stand_und_auftrag(data, found, items, len({v[0] for v in card_map.values()}))
+
+
+def stand_und_auftrag(data, found, items, atlases):
     # Stand je ID und der nächste Auftrag an Astra.
     motifs = briefing()
     for n, (i, (g, name, motif)) in enumerate(NEW_MOTIFS.items()):
@@ -377,11 +393,142 @@ def main():
         w.writerow(['id', 'name', 'gruppe', 'status', 'quelle'])
         for c in data['cards'] + data['tokens']:
             w.writerow([c['id'], c['name'], c['owner'], status[c['id']], found.get(c['id'], '')])
-    auftrag(data, status, motifs, len(items), len({v[0] for v in card_map.values()}))
+    auftrag(data, status, motifs, len(items), atlases)
     counts = {s: list(status.values()).count(s) for s in ['eingebaut', 'Revision', 'altes Bild', 'unbenutzt', 'offen',
                                                           'wiederbeschaffen', 'gesperrt']}
-    print(f'{len(items)} Karten und Spielsteine in {len({v[0] for v in card_map.values()})} Atlanten, '
+    print(f'{len(items)} Karten und Spielsteine in {atlases} Atlanten, '
           f'22 Helden, 4 Skins, 5 Tische · Stand: {counts}')
+
+
+# Bestellpakete (seit 1.34.0): höchstens zehn Bilder, höchstens zwei Gruppen je Paket, in der Reihenfolge des Briefings.
+PACK = 10
+BESTELLUNG = os.path.join(ROOT, 'ungenutzte_assets/astra_bestellung')
+# Feste Stilreferenzen aus Astras eigenen Lieferungen (im Spiel eingebaut): Figur, Bauwerk, Gruppenszene.
+REFS = [('R1 – Figur, Malstil und Licht', 'Teil5/originale_1254px/imhotep_3.png', 'Tempelärztin (`imhotep_3`)'),
+        ('R2 – Bauwerk, Objekt, Landschaft', 'Teil6/originale/griechen_6.png', 'Bibliothek von Alexandria (`griechen_6`)'),
+        ('R3 – Gruppenszene', 'Teil6/originale/epaminondas_5.png', 'Schlacht bei Leuktra (`epaminondas_5`)')]
+UI_REFS = ['quellcode/assets/game/assets/ui/kartenrahmen-minion-normal.webp', 'quellcode/assets/game/assets/ui/stundenglas.webp',
+           'quellcode/assets/game/assets/ui/waffenablage.webp']
+
+
+def references(common):
+    """Ersetzt die leeren Referenzplätze des Briefings durch die festen Referenzen."""
+    lines = [f'- **{r}:** `ungenutzte_assets/neue_astra_assets/{path}` – {what}' for r, path, what in REFS]
+    lines.append('- **R4 – nur für Oberflächenteile:** ' + ', '.join(f'`{u}`' for u in UI_REFS))
+    out, skip = [], False
+    for line in common.split('\n'):
+        if line.startswith('- **R1 –'):
+            out.extend(lines)
+            skip = True
+            continue
+        if skip and line.startswith('- **R'):
+            continue
+        skip = False
+        if line.startswith('Die fünf derzeit beigefügten Mamlukenbilder'):
+            line = ('Die drei Referenzen stammen aus Astras eigenen, im Spiel eingebauten Lieferungen: warmer malerischer '
+                    'Semi-Realismus, gut lesbare Handlung, die Projektpalette. Sie zeigen Pinsel und Licht – nicht Figuren, '
+                    'Gebäude oder Waffen, die in andere Epochen kopiert werden.')
+        out.append(line)
+    return '\n'.join(out)
+
+
+def packages(ids, motifs):
+    """Teilt die offenen IDs in Bestellpakete: ganze Gruppen, wo sie passen, große Gruppen in gleich große Stücke."""
+    order = sorted(ids, key=lambda i: motifs.get(i, ('',) * 4 + (10 ** 6,))[4])
+    groups = []
+    for i in order:
+        g = motifs.get(i, ('Ohne Vorlage',))[0]
+        if not groups or groups[-1][0] != g:
+            groups.append((g, []))
+        groups[-1][1].append(i)
+    packs = []
+    for g, members in groups:
+        n = -(-len(members) // PACK)
+        size = -(-len(members) // n)
+        for k in range(0, len(members), size):
+            chunk = members[k:k + size]
+            last = packs[-1] if packs else None
+            if last and len(last) + len(chunk) <= PACK and len({motifs.get(i, ('',))[0] for i in last}) < 2:
+                last.extend(chunk)
+            else:
+                packs.append(list(chunk))
+    return packs
+
+
+def write_packages(packs, names, status, motifs, common):
+    os.makedirs(BESTELLUNG, exist_ok=True)
+    for f in os.listdir(BESTELLUNG):
+        if re.match(r'K\d+\.md$', f):
+            os.remove(os.path.join(BESTELLUNG, f))
+    index = []
+    for n, ids in enumerate(packs, 1):
+        key = f'K{n:02d}'
+        groups = list(dict.fromkeys(motifs.get(i, ('Ohne Vorlage',))[0] for i in ids))
+        tokens = [i for i in ids if motifs.get(i, ('',))[0] == 'Spielsteine']
+        index.append((key, ids, groups))
+        out = [f'# AETERNA – Astra-Bestellung {key}: {len(ids)} Bilder', '',
+               f'*Erzeugt von `werkzeuge/astra_bilder.py --nur-auftrag` – nicht von Hand ändern. Gruppen: {", ".join(groups)}.*', '',
+               '## So bestellst Du dieses Paket', '',
+               '1. Neue Unterhaltung mit Astra öffnen.',
+               '2. **Diese Datei** anhängen und die drei Referenzbilder aus Abschnitt „Referenzplätze“ unten dazulegen.',
+               '3. Den Arbeitsauftrag darunter kopieren und abschicken.',
+               f'4. Die Lieferung (ZIP, höchstens 10–12 Bilder) nach `ungenutzte_assets/neue_astra_assets/Lieferung_{key}/` entpacken – '
+               'Dateiname = ID, z. B. `' + ids[0] + '.png`.',
+               f'5. Eine Claude-Code-Sitzung baut sie ein: „Baue die Astra-Lieferung {key} ein“ (siehe `ungenutzte_assets/ASTRA_START.md`).', '',
+               '### Arbeitsauftrag zum Kopieren', '', '```text',
+               'Erstelle für AETERNA ausschließlich folgende IDs: ' + ', '.join(ids) + '.',
+               'Verwende diese Datei als vollständige Motiv- und Dateispezifikation (Abschnitte „Gemeinsame Parameter“ und „Motive“).',
+               'Pro ID genau ein quadratisches, randfüllendes Einzelmotiv, PNG, 1024 × 1024 px, sRGB, deckender Hintergrund,',
+               'Dateiname exakt <ID>.png. Kein Text, keine Zahlen, kein Rahmen, keine Collage. Die beigefügten Referenzen bestimmen',
+               'Pinselcharakter, Licht und Detailgrad – nicht die Figuren oder Gebäude. Liefere alle Dateien als ein ZIP',
+               f'„Lieferung_{key}.zip“ und melde je Datei: ID, Name, Pixelmaße, Format.',
+               *(['Spielsteine (' + ', '.join(tokens) + '): Profil T1 – Hauptfigur größer, Hintergrund ruhiger, aber vollständige Szene.'] if tokens else []),
+               '```', '', common, '', '## Motive', '']
+        group = None
+        for i in ids:
+            g, ctx, name, motif, _ = motifs.get(i, ('Ohne Vorlage', '', names[i], '', 0))
+            if g != group:
+                group = g
+                out.extend(['', f'### {g}', ''])
+                if ctx:
+                    out.extend([ctx, ''])
+                out.extend(['| ID | Name | Status | Konkretes Motiv und Komposition |', '|---|---|---|---|'])
+            note = {'Revision': 'Revision: ' + REVISION.get(i, ''), 'wiederbeschaffen': 'Original aus Teil 4 suchen; '
+                    'nur wenn verloren, neu erzeugen'}.get(status[i], 'neu')
+            out.append(f'| `{i}` | {names[i]} | {note} | {motif} |')
+        open(os.path.join(BESTELLUNG, key + '.md'), 'w', encoding='utf-8').write('\n'.join(out) + '\n')
+    return index
+
+
+def oberflaeche_pakete():
+    """Je Paket aus ASTRA_AUFTRAG_OBERFLAECHE.md eine eigene Datei U01 … mit Auftrag, Vorgaben und Tabelle."""
+    text = open(os.path.join(ROOT, 'ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'), encoding='utf-8').read()
+    head = text.split('## Pakete')[0]
+    rules = text.split('## Abnahme')[1] if '## Abnahme' in text else ''
+    prompt = re.search(r'```text\n(.*?)```', head, re.S).group(1)
+    for f in os.listdir(BESTELLUNG):
+        if re.match(r'U\d+\.md$', f):
+            os.remove(os.path.join(BESTELLUNG, f))
+    index = []
+    for m in re.finditer(r'### Paket (\d+) – (.*?)\n(.*?)(?=\n### Paket |\n## Abnahme)', text, re.S):
+        n, title, body = int(m.group(1)), m.group(2).strip(), m.group(3).strip()
+        key = f'U{n:02d}'
+        files = len(re.findall(r'^\| `', body, re.M))
+        index.append((key, title, files))
+        out = [f'# AETERNA – Astra-Bestellung {key}: Oberfläche, Paket {n} – {title}', '',
+               '*Erzeugt von `werkzeuge/astra_bilder.py --nur-auftrag` aus `ASTRA_AUFTRAG_OBERFLAECHE.md` – nicht von Hand ändern.*', '',
+               '## So bestellst Du dieses Paket', '',
+               '1. Neue Unterhaltung mit Astra öffnen, diese Datei anhängen und die drei Stilreferenzen dazulegen:',
+               *[f'   `{u}`' for u in UI_REFS],
+               '2. Den Arbeitsauftrag kopieren und abschicken. Mehr als 12 Dateien: in zwei ZIPs teilen lassen.',
+               f'3. Die Lieferung nach `ungenutzte_assets/neue_astra_assets/Lieferung_{key}/` entpacken (Dateinamen wie in der Tabelle).',
+               f'4. Eine Claude-Code-Sitzung baut sie ein: „Baue die Astra-Lieferung {key} ein“.', '',
+               '### Arbeitsauftrag zum Kopieren', '', '```text', prompt.replace('[NUMMER]', str(n)).strip(), '```', '',
+               f'## Paket {n} – {title}', '', 'Größen sind die Darstellung im Spiel; **geliefert wird doppelt so groß**. '
+               '„Frei für Zahl“ heißt: Das Spiel schreibt dort eine Zahl – die Fläche bleibt ruhig.', '', body, '',
+               '## Abnahme', rules.strip(), '']
+        open(os.path.join(BESTELLUNG, key + '.md'), 'w', encoding='utf-8').write('\n'.join(out) + '\n')
+    return index
 
 
 def auftrag(data, status, motifs, done, atlases):
@@ -415,7 +562,23 @@ def auftrag(data, status, motifs, done, atlases):
             '5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus '
             'die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, '
             'je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.', '',
-            common, '']
+            '']
+    common = references(common)
+    packs = packages(todo, motifs)
+    # Im Paket: nur Referenzen, gemeinsame Parameter und alte IDs – Auswahl und Auftrag stehen schon oben im Paket.
+    refs = common[common.index('### Referenzplätze'):common.index('## 3.')].strip()
+    index = write_packages(packs, names, status, motifs, refs + '\n\n' + common[common.index('## 3.'):].strip())
+    ui_index = oberflaeche_pakete()
+    out += ['## 0. Bestellpakete – in dieser Reihenfolge bestellen', '',
+            'Jedes Paket liegt als eigene Datei in `ungenutzte_assets/astra_bestellung/` – mit Auftrag zum Kopieren, Referenzen '
+            'und genau seinen Motiven. Anleitung: `ungenutzte_assets/ASTRA_START.md`. Karten (K) und Oberfläche (U) sind '
+            'unabhängig; beide Reihen lassen sich abwechselnd bestellen.', '',
+            '| Paket | Bilder | Gruppen | IDs |', '|---|---:|---|---|']
+    out += [f'| [{k}](astra_bestellung/{k}.md) | {len(ids)} | {", ".join(g)} | ' + ', '.join(f'`{i}`' for i in ids) + ' |'
+            for k, ids, g in index]
+    out += ['', '| Paket | Oberfläche | Zeilen |', '|---|---|---:|']
+    out += [f'| [{k}](astra_bestellung/{k}.md) | {t} | {n} |' for k, t, n in ui_index]
+    out += ['', common, '']
 
     def section(title, ids, intro):
         out.extend([title, '', intro, ''])

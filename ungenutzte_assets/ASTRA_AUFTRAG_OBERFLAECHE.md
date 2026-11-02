@@ -1,16 +1,19 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (75 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (77 Teile)
 
-*Stand 1.33.0 (25. 10. 2026; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9, und seit 1.33.0 die drei der Kartenrätsel, AP 6.4 Teil 2). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
+*Stand 1.34.0 (2. 11. 2026; seit 1.34.0 die zwei der Lehrstunden, AP 6.5; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9, und seit 1.33.0 die drei der Kartenrätsel, AP 6.4 Teil 2). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 75 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 77 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
 versiegelte Befehle, Waffenablage, Schildwall, Giftphiole, Urne, Kartenpaket, Podest, Kartenbuch, Startbefehle, Steinplatten.
 
 ## So gibst du den Auftrag
+
+**Am einfachsten:** je Paket die fertige Datei `ungenutzte_assets/astra_bestellung/U01.md` … `U11.md` anhängen – sie enthält Auftrag,
+Vorgaben und nur die Zeilen dieses Pakets (erzeugt von `werkzeuge/astra_bilder.py --nur-auftrag`). Ablauf: `ungenutzte_assets/ASTRA_START.md`.
 
 1. Diese Datei anhängen und **drei Stilreferenzen** aus dem Spiel dazulegen:
    `quellcode/assets/game/assets/ui/kartenrahmen-minion-normal.webp`, `…/stundenglas.webp`, `…/waffenablage.webp`.

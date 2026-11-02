@@ -69,3 +69,33 @@ test('Auftrag Oberfläche: jede noch gezeichnete Kennung aus MOTIVE.md hat eine 
  assert.ok(ids.length>=40);
  for(const id of ids)assert.ok(order.includes('| `'+id+'` |')||order.includes('`'+id+'`'),id);
 });
+
+// AP A.3 (seit 1.34.0): bestellfertig – feste Pakete, die zusammen genau die offenen IDs enthalten, je Oberflächenpaket eine Datei,
+// echte Referenzbilder statt Platzhaltern, Lieferordner werden ohne Eintrag im Werkzeug gefunden, Startanleitung.
+test('Bestellpakete: K-Pakete decken genau die offenen IDs ab (höchstens zehn je Paket), U-Pakete jedes Oberflächenpaket',()=>{
+ const dir=path.join(root,'ungenutzte_assets/astra_bestellung'),files=fs.readdirSync(dir).sort();
+ const rows=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_STAND.csv'),'utf8').trim().split('\n').slice(1).map(l=>l.split(';'));
+ const open=rows.filter(r=>['offen','Revision','wiederbeschaffen'].includes(r[3])).map(r=>r[0]).sort(),seen=[];
+ const auftrag=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG.md'),'utf8');
+ for(const f of files.filter(f=>/^K\d\d\.md$/.test(f))){const t=fs.readFileSync(path.join(dir,f),'utf8'),ids=/folgende IDs: (.*?)\.\n/.exec(t)[1].split(', ');
+  assert.ok(ids.length>=1&&ids.length<=10,f+': '+ids.length+' Bilder');seen.push(...ids);
+  for(const i of ids)assert.ok(t.includes('| `'+i+'` |'),f+': Motivzeile für '+i);
+  assert.ok(!t.includes('[IDs EINTRAGEN]')&&!t.includes('[Beispielbild ergänzen]'),f+': keine Platzhalter');
+  assert.match(t,new RegExp('Lieferung_'+f.slice(0,3)+'/'),f+': Lieferordner');assert.ok(auftrag.includes('astra_bestellung/'+f),f+' in der Übersicht');}
+ assert.deepEqual(seen.slice().sort(),open,'jede offene ID genau einmal');assert.equal(new Set(seen).size,seen.length);
+ const ui=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8'),packs=[...ui.matchAll(/### Paket (\d+) – /g)].map(m=>+m[1]);
+ assert.deepEqual(files.filter(f=>/^U\d\d\.md$/.test(f)).map(f=>+f.slice(1,3)),packs,'je Oberflächenpaket eine Datei');
+ for(const n of packs){const t=fs.readFileSync(path.join(dir,'U'+String(n).padStart(2,'0')+'.md'),'utf8'),block=ui.split('### Paket '+n+' – ')[1].split(/\n### Paket |\n## Abnahme/)[0];
+  for(const k of block.matchAll(/^\| `([a-z0-9-]+)` \|/gm))assert.ok(t.includes('`'+k[1]+'`'),'U'+n+': '+k[1]);assert.match(t,new RegExp('Paket '+n+' dieser Datei'));}
+});
+
+test('Bestellpakete: Referenzbilder liegen bereit, Lieferordner Lieferung_K… werden selbst gefunden, Startanleitung nennt alles',()=>{
+ const tool=fs.readFileSync(path.join(__dirname,'../astra_bilder.py'),'utf8');
+ for(const m of tool.matchAll(/\('R\d – [^']+', '([^']+)'/g))assert.ok(fs.existsSync(path.join(root,'ungenutzte_assets/neue_astra_assets',m[1])),m[1]);
+ for(const m of tool.matchAll(/'(quellcode\/assets\/game\/assets\/ui\/[a-z-]+\.webp)'/g))assert.ok(fs.existsSync(path.join(root,m[1])),m[1]);
+ assert.match(tool,/d\.startswith\('Lieferung_K'\)/);assert.match(tool,/'--nur-auftrag' in sys\.argv/);
+ const start=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_START.md'),'utf8');
+ for(const w of ['K01','K32','U01','U11','Lieferung_K01','Aeterna_Hauptspiel','astra_bilder.py','imhotep_3.png','griechen_6.png','epaminondas_5.png'])assert.ok(start.includes(w),w);
+ const rows=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_STAND.csv'),'utf8').split('\n').filter(l=>l.split(';')[3]==='wiederbeschaffen').map(l=>l.split(';')[0]);
+ for(const i of rows)assert.ok(start.includes('`'+i+'`'),'Teil 4: '+i);
+});
