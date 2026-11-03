@@ -88,7 +88,45 @@ test('AP 1.6 Deckbau: Manakurve in drei Phasen mit Hinweis, Karte fliegt ins Dec
  const view=read('view/collection.js'),css=read('view/css/screens.css');
  assert.match(view,/data-key="page-\$\{v\.page\}"/,'neue Seite = neuer Knoten (Animation), Filter auf derselben Seite nicht');
  assert.match(view,/data-key="fly-\$\{f\.n\}"/);assert.match(css,/\.bar\{[^}]*transition:height/,'der Balken wächst sichtbar');
- for(const k of ['filterknopf','kartenbuch','manakurve'])assert.match(view,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
+ for(const k of ['filterknopf','manakurve'])assert.match(view,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
+});
+
+// Sammlung 3.0 (1.35.0): Raster der Decks, Deckbau in zwei Spalten – links 30 Plätze, rechts alle Karten mit Suche und Filtern.
+test('Sammlung 3.0: Deckraster, Reiter Kartensammlung, Deckbau in zwei Spalten mit Plätzen, Filtern und Antippen zum Hinzufügen',()=>{
+ const {ctx,log}=setup('collection'),coll=new Collection(ctx);coll.enter();let v=coll.view;
+ assert.equal(v.tab,'decks');assert.equal(v.decks.length,ctx.store.profile.decks.length);assert.ok(v.decks.every(d=>d.hero&&d.count===d.deck.cards.length&&d.complete===(d.count===30)));
+ // Reiter Kartensammlung: alle Helden, Sammlungsstand je Seltenheit, Antippen öffnet Details.
+ coll.tab('cards');v=coll.view;assert.equal(v.tab,'cards');assert.equal(v.filters.hero,'all');assert.equal(v.cards.length,12);
+ assert.equal(v.rarities.reduce((a,r)=>a+r.total,0),D.cards.length);assert.equal(v.rarities.reduce((a,r)=>a+r.owned,0),v.unique);
+ coll.tapCard(v.cards[3].card.id,'3');assert.equal(log.open.kind,'card');assert.equal(log.open.vm.state.slot,3);
+ // Filter: Kartenart und Sortierung; Unsinn wird ignoriert; Zurücksetzen.
+ coll.filter('type','spell');assert.ok(coll.view.cards.every(x=>x.card.type==='spell'&&!x.card.ambush));
+ coll.filter('type','ambush');assert.ok(coll.view.cards.length&&coll.view.cards.every(x=>x.card.ambush));
+ coll.filter('type','quatsch');assert.equal(coll.view.filters.type,'ambush');coll.filter('sort','quatsch');assert.equal(coll.view.filters.sort,'cost');
+ coll.filter('type','all');coll.filter('sort','name');const names=coll.view.cards.map(x=>x.card.name);assert.deepEqual(names,[...names].sort((a,b)=>a.localeCompare(b,'de')));
+ coll.pick('mana','2');coll.toggleOwned();coll.resetFilters();assert.deepEqual([coll.view.filters.mana,coll.view.filters.owned,coll.view.filters.type],['all',false,'all']);
+ // Deckbau: leeres Deck = 30 leere Plätze; Antippen fügt hinzu, die Karte fliegt von ihrem Platz im Raster auf ihren Platz im Deck.
+ coll.createDeck('leonidas');v=coll.view;assert.equal(v.tab,'edit');assert.equal(v.slots.length,0);assert.equal(v.size,30);
+ coll.tab('cards');assert.equal(coll.view.tab,'edit','Reiter wechseln nur in der Übersicht');
+ coll.filter('hero','perikles');assert.equal(coll.view.filters.hero,'leonidas','Held bleibt beim Deckbau fest');
+ const own=coll.view.cards.findIndex(x=>x.owned>0),card=coll.view.cards[own].card;coll.tapCard(card.id,String(own));v=coll.view;
+ assert.equal(v.slots.length,1);assert.equal(v.flight.from,own);assert.equal(v.flight.to,0);assert.equal(v.flight.key,card.id+'#1');
+ coll.tapCard(card.id,String(own));v=coll.view;assert.equal(v.slots.length,2);assert.equal(v.flight.key,card.id+'#2');assert.equal(v.cards[own].inDeck,2);
+ coll.tapCard(card.id,String(own));assert.match(log.toasts.at(-1),/Höchstens 2 Exemplare|höchstens 1 Exemplar|Kein weiteres/);
+ // Nicht im Besitz: Antippen öffnet die Details zum Herstellen statt hinzuzufügen.
+ assert.equal(coll.view.filters.owned,true,'im Deckbau zuerst nur Karten im Besitz');assert.ok(coll.view.cards.every(x=>x.owned>0));coll.toggleOwned();
+ coll.filter('rarity','legendary');const locked=coll.view.cards.findIndex(x=>!x.owned);assert.ok(locked>=0);
+ {coll.tapCard(coll.view.cards[locked].card.id,String(locked));assert.equal(log.open.kind,'card');assert.equal(coll.view.slots.length,2);}
+ coll.filter('rarity','all');coll.toggleOwned();
+ // Plätze sind nach Mana sortiert, ein Platz nimmt die Karte heraus.
+ coll.autoFill();v=coll.view;assert.equal(v.slots.length,30);assert.ok(v.slots.every((x,i)=>!i||v.slots[i-1].card.cost<=x.card.cost));
+ assert.equal(new Set(v.slots.map(x=>x.key)).size,30,'jeder Platz eigener Schlüssel');
+ coll.removeCard(v.slots[5].card.id);assert.equal(coll.view.slots.length,29);assert.ok(!coll.view.flight);
+ // Zurück: im Deckbau zur Übersicht (mit Rückfrage), dann ins Hauptmenü.
+ coll.back();choose(log,'Verwerfen');assert.equal(coll.view.tab,'decks');coll.back();assert.equal(log.go.at(-1)[0],'menu');
+ const view=read('view/collection.js'),css=read('view/css/screens.css');
+ assert.match(view,/data-key="\$\{x\.key\}" data-cmd="removeCard"/);assert.match(view,/data-cmd="tapCard"/);assert.match(view,/class="pc-info" data-cmd="inspect"/);
+ assert.match(css,/\.deck-slots\{display:grid;grid-template-columns:repeat\(8,70px\)/);assert.match(css,/\.pool-grid\{display:grid;grid-template-columns:repeat\(6,146px\)/);
 });
 
 test('AP 1.7 Heldenwahl: Galerie nach Zeitalter, großes Porträt mit Fähigkeit, Epoche, Lehrplan und Lieblingskarten',()=>{

@@ -33,6 +33,7 @@ html.text-gross .settings-note{font-size:18.4px;line-height:1.32}
 html.text-gross .settings-block small{font-size:17.2px;line-height:1.32}
 html.text-gross .lesson-card p{font-size:19.5px;line-height:1.32}
 html.text-gross .lesson-card small{font-size:16.1px;line-height:1.32}
+html.text-gross .pool-help{font-size:16.1px;line-height:1.32}
 html.text-gross .show-info>p{font-size:20.7px;line-height:1.32}
 html.text-gross .show-meta{font-size:18.4px;line-height:1.32}
 html.text-gross .show-school{font-size:16.1px;line-height:1.32}
@@ -94,6 +95,7 @@ html.text-sehr .settings-note{font-size:20.8px;line-height:1.32}
 html.text-sehr .settings-block small{font-size:19.5px;line-height:1.32}
 html.text-sehr .lesson-card p{font-size:22.1px;line-height:1.32}
 html.text-sehr .lesson-card small{font-size:18.2px;line-height:1.32}
+html.text-sehr .pool-help{font-size:18.2px;line-height:1.32}
 html.text-sehr .show-info>p{font-size:23.4px;line-height:1.32}
 html.text-sehr .show-meta{font-size:20.8px;line-height:1.32}
 html.text-sehr .show-school{font-size:18.2px;line-height:1.32}
@@ -132,8 +134,8 @@ html.motion-ruhig button.stone-tab{transition-duration:1ms}
 html.motion-ruhig .hall-rays i,html.motion-ruhig .hall-star,html.motion-ruhig .rail .medal .sheen:before,html.motion-ruhig .plate .shine:before,html.motion-ruhig .plate.gold:after{animation:none}
 html.motion-ruhig .hall-sparks{display:none}
 html.motion-ruhig .plate .face,html.motion-ruhig .plate .label,html.motion-ruhig .rail .medal .face,html.motion-ruhig .knob .face{transition-duration:1ms}
-html.motion-ruhig .page-turn,html.motion-ruhig .page.under,html.motion-ruhig .fly-card,html.motion-ruhig .bar .grow{display:none}
-html.motion-ruhig .spread .page{animation:none!important}
+html.motion-ruhig .fly-card,html.motion-ruhig .bar .grow,html.motion-ruhig .deck-slot .land{display:none}
+html.motion-ruhig .pool-grid{animation:none!important}
 html.motion-ruhig .card-detail img.zoom-in{animation:none}
 html.motion-ruhig .bar{transition:none}
 html.motion-ruhig .station.open .st-seal{animation:none}

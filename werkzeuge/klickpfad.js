@@ -108,12 +108,19 @@ async function basar(page,cmpPage,cdp){
   R.basar=await basar(page,cmpPage,cdp);
   if(!ONLY_SHOP){
    await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
-   // Sammlung: Suche tippt in ein Feld, das seinen Fokus behält.
-   await tapHall(page,C(1812,714));await waitScreen(page,'collection');await shot(page,cmpPage,'06-sammlung');
+   // Sammlung (seit 1.35.0): Raster der Decks; ein Deck öffnet den Deckbau in zwei Spalten, die Suche tippt in ein Feld, das seinen Fokus behält.
+   await tapHall(page,C(1812,714));await waitScreen(page,'collection');
+   check('Sammlung: Raster der Decks mit Neues Deck',await page.evaluate(()=>document.querySelectorAll('.deck-tile').length===App.profile.decks.length+1));
+   await shot(page,cmpPage,'06-sammlung');
+   await page.locator('.deck-tile[data-a="leonidas"]').click();await settle(page,150);
+   const zwei=await page.evaluate(()=>({plaetze:document.querySelectorAll('.deck-slot').length,belegt:document.querySelectorAll('.deck-slot:not(.empty)').length,raster:document.querySelectorAll('.pool-grid .collect-card').length}));
+   check('Deckbau: links 30 Plätze, rechts das Kartenraster',zwei.plaetze===30&&zwei.belegt===30&&zwei.raster>0,zwei);
    await page.locator('#search').click();await page.keyboard.type('Wache',{delay:30});await settle(page,100);
-   const search=await page.evaluate(()=>({fokus:document.activeElement?.id,wert:document.getElementById('search').value,karten:document.querySelectorAll('.collect-card').length}));
-   check('Suche: Feld behält Fokus und Text (AP 2.3)',search.fokus==='search'&&search.wert==='Wache',search);
+   const search=await page.evaluate(()=>({fokus:document.activeElement?.id,wert:document.getElementById('search').value,karten:document.querySelectorAll('.pool-grid .collect-card').length}));
+   check('Suche: Feld behält Fokus und Text (AP 2.3)',search.fokus==='search'&&search.wert==='Wache'&&search.karten>0,search);
    await shot(page,cmpPage,'07-sammlung-suche');
+   await page.locator('#ui button',{hasText:'Zurück'}).click();await settle(page,100);
+   check('Zurück im Deckbau führt zur Deckübersicht',await page.evaluate(()=>!!document.querySelector('.deck-grid')));
    await page.locator('#ui button',{hasText:'Zurück'}).click();await waitScreen(page,'menu');
    // Herausforderung → Starthand → Match.
    await tapHall(page,C(996,800));await waitScreen(page,'setup');await shot(page,cmpPage,'08-herausforderung');

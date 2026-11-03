@@ -120,7 +120,7 @@ test('AP 3.8: Sieg mit Relief und Banner, danach Belohnungen mit Fortschrittsbal
  assert.equal(d.log.closed,1);assert.equal(d.log.present.at(-1)[1].winner,1);
 });
 
-test('Rückmeldung 1.19.0: Uhrwerk leiser, Dienertod ruhiger, beim Blättern trägt das Blatt die Karten',()=>{
+test('Rückmeldung 1.19.0: Uhrwerk leiser, Dienertod ruhiger, beim Blättern gleitet das Raster (seit 1.35.0)',()=>{
  global.window=global.window||{};require(path.join(game,'service/audio.js'));const {levels}=window.CHA;
  // Lautestes 100-ms-Fenster je Datei (dBFS, oberflaeche_klang.py / schluessel_klang.py) + Pegel; 1.19.0: −15 dBFS bei 0,35.
  const measured={chime:-14.6,gong:-10.8,clink:-19.5,chains:-23.5,poison:-17.9,toss:-19.3,horn:-12,clash:-14.4},db=g=>measured[g]+20*Math.log10(levels[g]);
@@ -129,13 +129,11 @@ test('Rückmeldung 1.19.0: Uhrwerk leiser, Dienertod ruhiger, beim Blättern tr�
  assert.ok(db('horn')<db('clash')+6,'Kriegshörner nicht lauter als ein Gefecht');for(const k of ['clink','chains','poison','toss'])assert.ok(db(k)<=db('clash'),k);
  const manifest=JSON.parse(read('assets/audio/manifest.json'));for(const k of ['clink','chains','poison','toss','horn']){assert.equal(manifest[k].length,2,k);for(const f of manifest[k])assert.ok(fs.existsSync(path.join(game,'assets/audio',f+'.ogg')),f);}
  assert.match(render,/life:460/);assert.match(render,/ev\.type==='death'&&!ev\.building\?\.7/,'Todeslaut leiser');
- // Kartenbuch: Vorderseite = Hälfte der alten Doppelseite, Rückseite = Hälfte der neuen, darunter die andere alte Hälfte.
+ // Seit 1.35.0 (Sammlung 3.0) gibt es kein Kartenbuch mehr: Blättern schiebt das Raster in Blätterrichtung, ohne Blatt.
  const m=new Map(),store=new Store({storage:{getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v))}});store.load();
  const ui={screen:()=>'collection',busy:()=>false,hidden:()=>false,play(){},haptic(){},toast(){},go(){},dialog(){},close(){},dialogOpen:()=>false};
  const coll=new Collection({store,ui,session:{hero:'leonidas'}});coll.enter();const ids=v=>v.map(x=>x.card.id),first=ids(coll.view.cards);
- coll.page(1);let v=coll.view;assert.deepEqual(ids(v.leaf.front),first.slice(4));assert.deepEqual(ids(v.leaf.under),first.slice(0,4));assert.deepEqual(ids(v.leaf.back),ids(v.cards).slice(0,4));
- const second=ids(v.cards);coll.page(-1);v=coll.view;assert.deepEqual(ids(v.leaf.front),second.slice(0,4));assert.deepEqual(ids(v.leaf.back),ids(v.cards).slice(4));
- coll.filter('q','');assert.equal(coll.view.leaf,undefined,'ohne Blättern kein Blatt');
- const css=read('view/css/screens.css');assert.match(css,/\.leaf-face\.back\{transform:rotateY\(180deg\)/);assert.match(css,/backface-visibility:hidden/);
- assert.ok(!/@keyframes turn-next\{[^}]*opacity/.test(css),'keine Deckkraft-Animation am Blatt (sie hebt das 3D auf)');
+ coll.page(1);let v=coll.view;assert.equal(v.turn,1);assert.equal(v.leaf,undefined);assert.notDeepEqual(ids(v.cards),first);
+ coll.page(-1);v=coll.view;assert.equal(v.turn,-1);assert.deepEqual(ids(v.cards),first);
+ const css=read('view/css/screens.css');assert.match(css,/@keyframes pool-next\{from\{transform:translateX\(60px\)/);assert.ok(!css.includes('.page-turn'),'kein Blatt mehr');
 });
