@@ -17,9 +17,6 @@
  background:url('../../assets/ui/praesentationspodest.webp') center top/contain no-repeat;filter:drop-shadow(0 18px 22px #000a)}
 .pedestal i{display:none}
 
-/* Astra-Bild (AP A.2): kartenbuch – leather-bound book; the pages keep their padding for the cards. */
-.spread{background:url('../../assets/ui/kartenbuch.webp') center/100% 100% no-repeat;box-shadow:0 16px 30px #000a;padding:22px 34px 26px}
-
 /* Astra-Bild (AP A.2): startbefehle – each starting order on a painted scroll (rods and seal are part of the picture). */
 .mulligan-card .sheet{background:url('../../assets/ui/startbefehle.webp') center/100% 100% no-repeat;box-shadow:none;padding:58px 30px 72px;filter:drop-shadow(0 6px 10px #0008)}
 .mulligan-card .rod{visibility:hidden}

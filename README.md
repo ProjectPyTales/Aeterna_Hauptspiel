@@ -4,7 +4,14 @@
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
 `thepytales/Aeterna` mit der ganzen Historie). **Das Spiel ist fertig gebaut – jetzt kommen die Bilder:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
-Aktueller Stand im Code: **Version 1.34.0** (**bereit für Astra** – die letzten offenen Pakete vor der Bildbestellung:
+Aktueller Stand im Code: **Version 1.35.0** (**Sammlung 3.0** – die Sammlung ist jetzt wie die Deckbauer großer
+Sammelkartenspiele aufgebaut: zuerst ein **Raster aller Decks** als Kacheln mit Heldenbild, Name, Kartenzahl und kleiner Manakurve,
+dazu „Neues Deck“ und in der Kopfleiste der Reiter **Kartensammlung**; ein angetipptes Deck öffnet den **Deckbau in zwei Spalten** –
+links das Deck als **30 Plätze** (leere Plätze bleiben sichtbar, ein Platz antippen nimmt die Karte heraus) mit Manakurve, rechts
+**alle Karten als Raster** (6 × 2 je Seite, Blättern auch per Wischen) mit Suche, Held, Kartenart, Sortierung, Steinknöpfen für Mana
+und Seltenheit, „Im Besitz“ und Zurücksetzen; **Antippen fügt die Karte hinzu**, sie fliegt auf ihren Platz, ⓘ öffnet die Details;
+das Kartenbuch mit Umblättern aus 1.19.0 entfällt, `assets/ui/kartenbuch.webp` bleibt vorerst ungenutzt liegen);
+davor 1.34.0 (**bereit für Astra** – die letzten offenen Pakete vor der Bildbestellung:
 **Lehrstunden** nach AP 6.5 – drei geführte Partien, in denen der Chronist Schritt für Schritt Mana, Ausspielen, Angriff,
 Heldenfähigkeit, Schildwall, Zauber, Großansicht, Gunst der Stunde, Einmarsch, Sturmangriff und Vermächtnis zeigt, angeboten auf
 der vierten Platte des Hauptmenüs; **Schwierigkeitsgrade** nach AP 5.8 – Lehrling, Feldherr (die bisherige KI) und Legende;
@@ -1180,7 +1187,16 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
   eigenen Karten – Hand, Flug, Sammlung, Packs; im Duell läuft alle 2,8 s ein Glanzstreifen darüber (`goldglanz`, nicht bei
   reduzierter Bewegung).*
 
-**AP 1.6 – Sammlung und Deckbau 2.0 (M)** – *✓ in 1.19.0 als Astra-Platzhalter*
+**AP 1.6 – Sammlung und Deckbau 2.0 (M)** – *✓ in 1.19.0 als Astra-Platzhalter; seit 1.35.0 abgelöst durch Sammlung 3.0*
+- *1.35.0 (Wunsch vom 3. 11. 2026: „mehr wie in Master Duel – Rasteransicht, dann zwei Spalten, links das Deck, rechts die Karten
+  mit Suchfiltern“): Übersicht als Raster der Decks (`view.decks`, Kacheln mit `R.heroStyle`), Reiter Decks | Kartensammlung in der
+  Kopfleiste (`Collection.tab`). Deckbau: links `view.slots` – jedes Exemplar ein Platz mit eigenem Schlüssel (`id#n`), nach Mana
+  sortiert, 8 × 4 Raster mit 30 Plätzen –, Manakurve und Knöpfe; rechts das Kartenraster (`PER_PAGE` 12) mit Suche, Held (im
+  Deckbau fest), Kartenart (`typeOf`: Diener, Gebäude, Zauber, Hinterhalte), Sortierung (Mana, Name, Seltenheit, Angriff),
+  Mana- und Seltenheitsknöpfen, „Im Besitz“ (im Deckbau voreingestellt) und Zurücksetzen. `tapCard` fügt hinzu (fehlt die Karte,
+  öffnen sich die Details zum Herstellen), die Karte fliegt von ihrem Platz im Raster auf ihren Deckplatz (`flight.from/to`), ⓘ
+  öffnet die Details, „Zurück“ führt im Deckbau zur Übersicht. Blättern schiebt das Raster in Blätterrichtung (260 ms) statt ein
+  Blatt zu schwingen; das Kartenbuch (`kartenbuch`) wird nicht mehr gezeigt. Klickpfad: Deckraster → Deckbau → Suche.*
 - [x] Kartenbuch mit Umblätter-Animation, Antippen zoomt die Karte heran, Filter als gemalte Steinknöpfe.
   *1.19.0: Die Sammlung ist ein aufgeschlagenes Buch mit Ledereinband, zwei Pergamentseiten (je vier Karten) und Buchrücken
   (`kartenbuch`). Blättern schwingt ein Blatt über den Rücken (560 ms, vorwärts nach links, zurück nach rechts; `Collection.turn`,

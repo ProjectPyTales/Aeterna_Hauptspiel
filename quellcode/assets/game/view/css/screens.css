@@ -1,15 +1,60 @@
 /* Sammlung 2.0 (AP 1.6), Heldenwahl und Kampagnenkarte (AP 1.7). Painted parts are placeholders for Astra (MOTIVE.md). */
 
-/* ---------- Sammlung: open card book, stone filters, mana curve ---------- */
-.book{display:flex;height:708px;position:relative;background:linear-gradient(100deg,#1d1914,#2a241c 16%,#221d17 74%,#171e21)}
-.filters{width:250px;flex:none;padding:18px 20px;display:flex;flex-direction:column;gap:9px}
-.filters input,.filters select{width:100%;font-size:16px;min-height:48px}
-.filters label{font-size:14px;color:#c2b18b;letter-spacing:1px;margin-top:2px}
-.filters label b{color:#efcf8c;font-weight:normal;letter-spacing:0;margin-left:6px}
-.mana-knobs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-button.knob{height:48px;min-height:48px;padding:0;border-radius:50%;font:20px Title,serif;color:#eaf6ff;background:radial-gradient(circle at 35% 30%,#7fb6d9,#2c5b85 60%,#173452);border:3px solid #6f6250;box-shadow:inset 0 -3px 0 #0e2236,0 3px 0 #0b0907b0;text-shadow:0 1px 2px #0a1a2a}
+/* ---------- Sammlung 3.0 (1.35.0): Raster der Decks, Deckbau in zwei Spalten, Steinknöpfe, Manakurve ---------- */
+/* Reiter in der Kopfleiste (Decks | Kartensammlung). */
+.collection .topbar .stone-tabs{height:auto;padding:0;gap:14px;margin-right:8px}
+.collection .topbar button.stone-tab{min-width:212px;height:52px;font-size:18px;letter-spacing:2px}
+/* Übersicht: alle Decks als Kacheln. */
+.deck-grid{height:708px;padding:22px 40px 30px;display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:300px;gap:18px;align-content:start;overscroll-behavior:contain}
+.deck-tile{position:relative;padding:0;min-height:0;height:300px;border-radius:12px;overflow:hidden;border:2px solid #967343;background:linear-gradient(#26231e,#15191c);box-shadow:inset 0 0 0 3px #211d1980,0 8px 16px #0008;text-align:left;color:#f1dfb6}
+.deck-tile .tile-art{position:absolute;left:0;right:0;top:0;height:200px;background-repeat:no-repeat;background-color:var(--hero);box-shadow:inset 0 -40px 30px -10px #15191c}
+.deck-tile .tile-age{position:absolute;left:10px;top:10px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:18px Title,serif;color:#f6e3b4;background:#15191ccc;border:2px solid var(--hero)}
+.deck-tile .tile-plate{position:absolute;left:0;right:0;bottom:0;height:104px;padding:8px 12px 10px;display:flex;flex-direction:column;gap:3px;border-top:3px solid var(--hero);background:linear-gradient(#2c2822,#1a1d1f)}
+.deck-tile .tile-plate b{font:17px/1.2 Title,serif;color:#f3dca5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.deck-tile .tile-plate small{font-size:13px;color:#bfae8a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deck-tile .tile-meta{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between}
+.tile-count{font:16px Title,serif;color:#9fd3b4}.tile-count.short{color:#f3ba63}
+.deck-tile.new{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;border-style:dashed;background:#1a1f22b8;padding:20px}
+.deck-tile.new .plus{font:64px/1 Title,serif;color:#e8c57d}
+.deck-tile.new b{font:20px Title,serif;color:#f3dca5}.deck-tile.new small{font-size:14px;color:#bfae8a;line-height:1.4}
+.deck-tile:active{transform:translateY(3px)}
+/* Zwei Spalten: links Deck (oder Sammlungsstand), rechts alle Karten. */
+.deckbuilder{display:flex;height:708px;position:relative;background:linear-gradient(100deg,#1d1914e6,#221d17d9 40%,#171e21e6)}
+.deck-panel{width:640px;flex:none;padding:14px 18px 12px;display:flex;flex-direction:column;gap:8px;background:linear-gradient(130deg,#2b2721f2,#181e22f2);border-right:2px solid #9a7948}
+.deck-head{display:flex;align-items:center;gap:12px;height:50px}
+.deck-head .coin-face{width:50px;height:50px;flex:none;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 3px #8a6a3a,0 0 0 5px #2a1f14}
+.deck-title{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.deck-title .eyebrow{font-size:12px;letter-spacing:3px}
+.deck-title input{font-size:17px;min-height:30px;height:30px;padding:2px 10px;width:100%}
+.deck-count{font:30px/1 Title,serif;color:#f3ba63;min-width:84px;text-align:right}.deck-count small{font-size:18px;color:#bfae8a}.deck-count.full{color:#9fd3b4}
+.deck-slots{display:grid;grid-template-columns:repeat(8,70px);grid-auto-rows:99px;gap:6px;height:414px;margin-top:4px}
+.deck-slot{position:relative;width:70px;height:99px;padding:0;min-height:0;border:0;border-radius:6px;background:none;box-shadow:none}
+.deck-slot img{width:70px;height:99px;display:block;filter:drop-shadow(0 3px 3px #0009)}
+.deck-slot.empty{display:block;background:#0f1417aa;box-shadow:inset 0 0 0 2px #5d4d36,inset 0 6px 12px #0008}
+.deck-slot.empty:after{content:'';position:absolute;inset:34px 22px;border-radius:50%;border:2px dashed #5d4d3688}
+.deck-slot .land{position:absolute;inset:-3px;border-radius:7px;box-shadow:0 0 0 2px #fff3c4,0 0 14px #ffd77a;opacity:0;animation:bar-grow .9s .5s ease-out both;pointer-events:none}
+.deck-controls{display:flex;gap:7px;margin-top:auto}.deck-controls button{font-size:15px;padding:8px 10px;min-height:48px}.deck-controls .save{flex:1;min-height:48px;font-size:18px}
+/* Sammlungsstand links im Reiter Kartensammlung. */
+.coll-stats{gap:12px;padding:24px 34px}
+.coll-stats h3{font-size:28px}
+.progress{height:12px;border-radius:6px;background:#0f1417;box-shadow:inset 0 0 0 1px #6a5838;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#a77332,#e2c07a)}
+.rarity-list{list-style:none;margin:6px 0;padding:0;display:grid;gap:8px;font-size:18px}
+.rarity-list li{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:6px;background:#11191b66}.rarity-list b{margin-left:auto;font-weight:normal;color:#efcf8c}
+.seal-dot{width:22px;height:22px;border-radius:50%;flex:none;border:2px solid #211c17}
+.seal-dot.basic{background:#b5ab98}.seal-dot.common{background:#c27c45}.seal-dot.rare{background:#c9d0d8}.seal-dot.epic{background:#e2b14c}.seal-dot.legendary{background:#3b3550;box-shadow:0 0 6px #b9c3ff}
+.dust-line{font-size:20px;color:#e6c881}.dust-line .cur{display:inline-block;width:1.2em;height:1.2em;margin-right:.4em;vertical-align:-.22em;background:center/contain no-repeat}
+.coll-stats>button{align-self:flex-start}
+.coll-note{font-size:16px;line-height:1.5;margin-top:auto}
+/* Rechte Spalte: Suche, Filter, Raster, Blättern. */
+.pool{flex:1;padding:14px 20px 0;display:flex;flex-direction:column;min-width:0}
+.pool-filters{display:flex;gap:10px;height:48px}
+.pool-filters input{flex:1;min-width:0;font-size:16px;min-height:48px;height:48px}
+.pool-filters select{width:178px;font-size:16px;min-height:48px;height:48px;padding:6px 10px}
+.pool-knobs{display:flex;align-items:center;gap:16px;height:48px;margin-top:10px}
+.mana-knobs{display:flex;gap:6px}
+button.knob{width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;font:18px Title,serif;color:#eaf6ff;background:radial-gradient(circle at 35% 30%,#7fb6d9,#2c5b85 60%,#173452);border:3px solid #6f6250;box-shadow:inset 0 -3px 0 #0e2236,0 3px 0 #0b0907b0;text-shadow:0 1px 2px #0a1a2a}
 button.knob.on{background:radial-gradient(circle at 35% 30%,#d6f0ff,#5aa7e0 55%,#235a8c);border-color:#f0d48c;box-shadow:0 0 0 2px #f0d48c,0 0 14px #9fd6ff99;transform:translateY(2px)}
-.rarity-seals{display:flex;justify-content:space-between}
+.rarity-seals{display:flex;gap:7px}
 button.seal-knob{width:40px;height:44px;min-height:44px;padding:0;border-radius:50%;border:2px solid #211c17;box-shadow:inset 0 0 0 3px #0003,0 3px 0 #0b0907b0;display:grid;place-items:center}
 .seal-knob.basic{background:radial-gradient(circle at 40% 35%,#d8cfbd,#8f8574 70%)}
 .seal-knob.common{background:radial-gradient(circle at 40% 35%,#e0a46a,#8a5126 70%)}
@@ -18,46 +63,32 @@ button.seal-knob{width:40px;height:44px;min-height:44px;padding:0;border-radius:
 .seal-knob.legendary{background:radial-gradient(circle at 40% 35%,#5b5470,#151320 70%)}
 .seal-knob.legendary:after{content:'✦';color:#dfe6ff;font-size:18px}
 .seal-knob.on{box-shadow:0 0 0 3px #f0d48c,0 0 14px #f0d48c88;transform:translateY(2px)}
-.filters .small{min-height:44px}
-.filters .stats{font-size:15px;line-height:1.6;margin-top:2px}
-.cardbook{width:934px;flex:none;padding:10px 24px 0;position:relative}
-/* ASTRA-Platzhalter kartenbuch (view/collection.js): Ledereinband, Pergament, Buchrücken */
-.spread{position:relative;display:flex;height:616px;padding:10px 14px;border-radius:10px;perspective:1800px;background:linear-gradient(90deg,#d9c69c,#efe2c0 8%,#f3e8cc 44%,#cbb68a 49.4%,#8f7a58 50%,#cbb68a 50.6%,#f3e8cc 56%,#efe2c0 92%,#d9c69c);box-shadow:0 0 0 8px #4a2f18,0 0 0 11px #a8834a,0 16px 30px #000a}
-.page{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0 12px;justify-items:center}
-.spine{width:22px;flex:none}
-.collect-card{height:296px;position:relative;border:0;box-shadow:none;padding:0;background:none;min-height:0}
-.collect-card img{height:271px;width:192px;object-fit:contain}
-.collect-card .count{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);color:#f7e1ad;background:#39362a;border:1px solid #a99a77;padding:3px 18px;border-radius:16px;font-size:15px;white-space:nowrap}
-.collect-card.locked img{filter:grayscale(1) brightness(.62);opacity:.8}
-.collect-card .in-deck{position:absolute;right:2px;top:11px;border-radius:50%;background:#204c47;color:#f9e4a5;padding:7px;min-width:32px}
-.page-turn{position:absolute;z-index:2;top:8px;bottom:8px;width:calc(50% - 11px);pointer-events:none;visibility:hidden;transform-style:preserve-3d}
-/* Feedback 1.19.0: the leaf carries the cards of both sides (front: the old half it lifts, back: the new half it lays down). */
-.leaf-face{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0 12px;justify-items:center;padding:2px 14px 2px 0;border-radius:4px;backface-visibility:hidden;-webkit-backface-visibility:hidden;
- background:linear-gradient(90deg,#cdb98f,#f1e5c6 10%,#f3e8cc 60%,#e9dcb9 90%,#bba67a);box-shadow:0 0 18px #0005}
-.leaf-face.back{transform:rotateY(180deg);padding:2px 0 2px 14px;background:linear-gradient(90deg,#bba67a,#e9dcb9 10%,#f3e8cc 40%,#f1e5c6 90%,#cdb98f)}
-.turn-prev .leaf-face.front{padding:2px 0 2px 14px}.turn-prev .leaf-face.back{padding:2px 14px 2px 0}
-.leaf-face:after{content:'';position:absolute;inset:0;border-radius:4px;background:linear-gradient(90deg,#0000,#3a240f55);opacity:0;animation:leaf-shade 560ms both}
-@keyframes leaf-shade{50%{opacity:1}}
-.page.under{position:absolute;z-index:1;top:10px;bottom:10px;width:calc(50% - 25px);animation:under-hide 560ms both;pointer-events:none}
-.page.under.on-left{left:14px}.page.under.on-right{right:14px}
-@keyframes under-hide{0%,99%{visibility:visible}100%{visibility:hidden}}
-.turn-next .page-turn{left:calc(50% + 11px);transform-origin:-11px 50%;animation:turn-next 560ms cubic-bezier(.45,.05,.4,1) both}
-.turn-prev .page-turn{right:calc(50% + 11px);transform-origin:calc(100% + 11px) 50%;animation:turn-prev 560ms cubic-bezier(.45,.05,.4,1) both}
-.turn-next .page.left,.turn-prev .page.right{animation:page-show 560ms both}
-/* visibility instead of opacity: an animated opacity flattens the 3D leaf, and its front would show mirrored from behind. */
-@keyframes turn-next{0%{visibility:visible;transform:rotateY(0)}99%{visibility:visible;transform:rotateY(-180deg)}100%{visibility:hidden;transform:rotateY(-180deg)}}
-@keyframes turn-prev{0%{visibility:visible;transform:rotateY(0)}99%{visibility:visible;transform:rotateY(180deg)}100%{visibility:hidden;transform:rotateY(180deg)}}
-@keyframes page-show{0%,99%{visibility:hidden}100%{visibility:visible}}
-.pagination{display:flex;align-items:center;justify-content:center;gap:28px;height:62px;margin-top:8px;color:#d9c49a;font-size:19px}
-.deck-side{width:416px;flex:none;padding:16px 20px 14px;display:flex;flex-direction:column;gap:9px;background:linear-gradient(130deg,#2b2721,#181e22);border-left:2px solid #9a7948}
-.deck-side h3{font-size:21px}
-.deck-side input{font-size:17px;min-height:44px;width:100%}
-.deck-controls{display:flex;gap:7px}.deck-controls button{flex:1;font-size:14px;padding:8px 5px;min-height:44px}
+.pool-knobs .owned-toggle{min-height:44px;font-size:15px;padding:6px 14px;margin-left:auto}.pool-knobs .owned-toggle.on{border-color:#f0d48c;color:#f6e3b4}
+.pool-knobs .reset{min-height:44px;min-width:48px;padding:4px 10px;font-size:20px}
+.pool-grid{display:grid;grid-template-columns:repeat(6,146px);grid-auto-rows:206px;column-gap:9px;row-gap:16px;height:428px;margin-top:18px;touch-action:pan-y}
+.pool-card{position:relative;width:146px;height:206px}
+.collect-card{position:relative;width:146px;height:206px;border:0;box-shadow:none;padding:0;background:none;min-height:0}
+.collect-card img{width:146px;height:206px;display:block;filter:drop-shadow(0 5px 6px #000a)}
+.collect-card .count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);color:#f7e1ad;background:#39362a;border:1px solid #a99a77;padding:2px 12px;border-radius:14px;font-size:13px;white-space:nowrap}
+.pool-card.locked img{filter:grayscale(1) brightness(.62);opacity:.8}
+.pool-card.full img{filter:brightness(.55) saturate(.7)}
+.collect-card .in-deck{position:absolute;left:-4px;top:-4px;border-radius:12px;background:#204c47;border:2px solid #9fd3b4;color:#f9e4a5;padding:2px 8px;font:15px Title,serif}
+.pc-info{position:absolute;right:-6px;top:-6px;width:42px;height:42px;min-height:0;padding:0;border-radius:50%;font:italic bold 19px Title,serif;color:#f6e3b4;background:#1d3034d9;border:2px solid #c9a86899;box-shadow:0 2px 4px #0008}
+.pool-empty{grid-column:1/-1;align-self:center;text-align:center;font-size:20px}
+.turn-next{animation:pool-next 260ms cubic-bezier(.2,.8,.3,1) both}.turn-prev{animation:pool-prev 260ms cubic-bezier(.2,.8,.3,1) both}
+@keyframes pool-next{from{transform:translateX(60px);opacity:0}}
+@keyframes pool-prev{from{transform:translateX(-60px);opacity:0}}
+.pool-pager{display:flex;align-items:center;justify-content:center;gap:28px;height:52px;margin-top:14px;color:#d9c49a;font-size:18px}
+.pool-pager span{min-width:200px;text-align:center}.pool-pager small{display:block;font-size:13px;color:#b7aa91}
+.pool-pager button{min-width:76px}
+.pool-help{text-align:center;font-size:14px;color:#b7aa91;margin-top:6px}
+/* Deck lists as rows (Kolosseum). */
 .decklist{overflow:auto;flex:1;touch-action:pan-y;min-height:0;border-top:1px solid #8c724d;border-bottom:1px solid #8c724d;padding:6px 0}
 .deckrow{display:flex;align-items:center;gap:10px;min-height:42px;margin:4px 0;border:1px solid #766548;background:#393c36;padding:6px 10px;border-radius:5px;color:#e7d6b2;font-size:15px;width:100%;text-align:left}
 .deckrow .mana{border-radius:50%;background:#386b90;min-width:26px;text-align:center;color:white;padding:3px}
 .deckrow b{flex:1;font-size:14px}
 .deckrow .legend{color:#f4be60}
+/* Mana curve (AP 1.6), compact under the deck. */
 .mini-curve{display:flex;align-items:flex-end;gap:2px;height:24px}
 .mini-curve i{width:5px;border-radius:1px 1px 0 0}
 .mini-curve .ph-early,.bar.ph-early{background:linear-gradient(#86cfae,#2f6f5a)}
@@ -65,6 +96,7 @@ button.seal-knob{width:40px;height:44px;min-height:44px;padding:0;border-radius:
 .mini-curve .ph-late,.bar.ph-late{background:linear-gradient(#e8917a,#8e3626)}
 .curve-box{flex:none;padding:4px 2px 0}
 .curve{height:88px;display:flex;gap:8px;align-items:flex-end;border-bottom:1px solid #867753;padding:0 4px;margin-bottom:20px}
+.deck-panel .curve-box{padding-top:16px}.deck-panel .curve{height:58px;margin-bottom:18px}
 .bar{flex:1;position:relative;min-height:3px;border-radius:3px 3px 0 0;transition:height .38s cubic-bezier(.3,1.5,.5,1)}
 .bar em{position:absolute;top:-19px;left:0;right:0;text-align:center;font:13px Title,serif;font-style:normal;color:#f1dcab}
 .bar span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:11px;color:#baa887}
@@ -73,17 +105,17 @@ button.seal-knob{width:40px;height:44px;min-height:44px;padding:0;border-radius:
 .phases{display:flex;gap:12px;font-size:13px;letter-spacing:.5px}
 .phases .ph-early{color:#8fd3b4}.phases .ph-mid{color:#f0cf7a}.phases .ph-late{color:#ee9a7c}.phases .avg{margin-left:auto;color:#cdbd9b}
 .curve-hint{font-size:14px;line-height:1.35;color:#b9c7a4;margin:5px 0 0;min-height:38px}
+.deck-panel .curve-hint{margin-top:4px}
 .curve-hint.warn{color:#f3ba63}
-.deck-info{text-align:center;font-size:13px;color:#c7b88c}
-.deck-actions{display:flex;gap:8px}.deck-actions .gold{flex:1}
-.fly-card{position:absolute;left:340px;top:96px;width:300px;height:423px;z-index:30;pointer-events:none;filter:drop-shadow(0 12px 16px #000a);animation:card-fly 620ms cubic-bezier(.5,0,.75,.45) both}
-@keyframes card-fly{0%{transform:none;opacity:1}85%{opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(.12) rotate(8deg);opacity:0}}
+/* An added card flies from the grid onto its place in the deck. */
+.fly-card{position:absolute;z-index:30;pointer-events:none;transform-origin:0 0;filter:drop-shadow(0 12px 16px #000a);animation:card-fly 520ms cubic-bezier(.45,0,.3,1) both}
+@keyframes card-fly{0%{transform:none;opacity:1}88%{opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(var(--s));opacity:.2}}
 .card-detail img{width:300px;flex:none}
 .card-detail img.zoom-in{animation:zoom-in 300ms cubic-bezier(.2,.8,.3,1.08) both}
 .card-detail img.from-slot{animation-name:zoom-from;animation-duration:340ms}
 @keyframes zoom-in{from{transform:scale(.7);opacity:0}}
-@keyframes zoom-from{from{transform:translate(var(--fx),var(--fy)) scale(.64);opacity:.6}}
-@media(prefers-reduced-motion:reduce){.page-turn,.page.under,.fly-card,.bar .grow{display:none}.spread .page{animation:none!important}.card-detail img.zoom-in{animation:none}.bar{transition:none}}
+@keyframes zoom-from{from{transform:translate(var(--fx),var(--fy)) scale(.49);opacity:.6}}
+@media(prefers-reduced-motion:reduce){.fly-card,.bar .grow,.deck-slot .land{display:none}.pool-grid{animation:none!important}.card-detail img.zoom-in{animation:none}.bar{transition:none}}
 
 /* ---------- Heldenwahl: gallery by age, the chosen hero large, deck and opponent ---------- */
 .setup-content{display:flex;gap:18px;margin:20px 30px 0;height:668px}
