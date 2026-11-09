@@ -3,7 +3,7 @@
  * als „notes“ in version.json (werkzeuge/update_info.js), und ältere Versionen zeigen sie im Hinweis „Neue Version“. */
 (function(root){'use strict';
 const api={
- version:'1.37.0',
- notes:'Flüssiger und kühler: In Ruhe zeichnet das Match nur noch 30 Bilder je Sekunde, der Tisch liegt auf einer eigenen Ebene, und schwächere Handys senken im Gefecht die Auflösung von selbst. Unter Fenstern ruhen die Funken des Hauptmenüs.'};
+ version:'1.38.0',
+ notes:'Legendäre treten mit Band und Siegel auf, das Handy vibriert im Takt jedes Aufpralls, und das Brett ist lesbarer: mehr von jeder Handkarte, größere Schrift für Zug, Deck und Friedhof, ein ruhigeres Grün und kleinere Schildwall-Wappen.'};
 if(typeof module!=='undefined')module.exports=api;else root.AENEU=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

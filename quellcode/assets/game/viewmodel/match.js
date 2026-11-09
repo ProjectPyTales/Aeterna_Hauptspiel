@@ -40,6 +40,17 @@ class Choice extends Dialog{
  close(){}
 }
 
+// Vibration im Takt des Aufpralls (AP 4.5, seit 1.38.0): Die Hülle vibriert im Moment des Einschlags (Treffer-Stopp), nach Wucht:
+// schwer (2) bei Treffern am Helden, beim Auftritt einer Legendären und beim Tod großer Diener (Kosten ab 5), mittel (1) bei
+// Treffern an Dienern, eigenen Angriffen und schweren Karten (Kosten ab 6), leicht (0) beim übrigen eigenen Befehl. Im Zug des Gegners nur, wenn es
+// trifft oder eine Legendäre landet. → -1: keine Vibration.
+function impactHaptic(before,s,act){const p=before.active,ev=s.events||[],h=act.type==='play'?before.players[p].hand.find(x=>x.uid===act.uid):null,card=h?D.byId[h.id]:null;
+ const hits=ev.filter(e=>e.type==='damage'&&e.n>0),hero=hits.some(e=>e.hero||e.target==='h0'||e.target==='h1'),big=ev.some(e=>e.type==='death'&&!e.building&&(D.byId[e.id]?.cost??0)>=5);
+ const legend=card?.rarity==='legendary'&&!card.ambush;
+ if(hero||big||legend)return 2;
+ if(hits.length||act.type==='attack'&&p===0||card&&!card.ambush&&card.cost>=6)return 1;
+ return p===0?0:-1;}
+
 class Match extends Screen{
  constructor(ctx){super(ctx,{});this.view=idle();this.mull=new Set();this.aiTimer=null;this.touching=false;}
  get board(){return this.ctx.board;}
@@ -91,7 +102,7 @@ class Match extends Screen{
   // Lehrstunden (AP 6.5): der Chronist hakt erfüllte Schritte ab.
   if(s.lesson)TU.advance(s,{act,p:before.active,card:act.type==='play'?before.players[before.active].hand.find(h=>h.uid===act.uid)?.id:null});
   this.view=idle();if(s.phase==='over')P.reward(p,s,false,this.now);this.commit();
-  this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);if(before.active===0)this.ui.haptic(act.type==='attack'?1:0);},
+  this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);const k=impactHaptic(before,s,act);if(k>=0)this.ui.haptic(k);},
    ()=>{if(s.phase==='over')this.showResult();else if(!this.discover()&&!this.teach(lesson))this.scheduleAI();});
   return true;}
  // Rückmeldung zu 1.25.0 („etwas verwirrend“, kaum begegnet): Beim ersten Hinterhalt, der gelegt wird oder zuschnappt –
@@ -299,6 +310,6 @@ class Match extends Screen{
  back(){this.pause();}
 }
 
-const api={DIORAMAS,keywordsOf,Match,Choice};
+const api={DIORAMAS,keywordsOf,impactHaptic,Match,Choice};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);

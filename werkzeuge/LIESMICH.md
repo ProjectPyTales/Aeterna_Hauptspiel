@@ -343,6 +343,10 @@ das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle
   Brett, Wackeln ist ein CSS-`transform` (`view/match/board.js`, `R.layered`); die Teilchen des Hauptmenüs ruhen unter Fenstern
   (`CHH.covered`). `matchmessung.js` meldet zusätzlich `im_ruhetakt`, `live_schatten` (muss 0 sein) und die Stufe und schlägt fehl,
   wenn der Ruhetakt nicht greift oder ein Live-Schatten auftaucht. Tests: `tests/bildrate.test.js`, `tests/renderer.test.js`.
+- **AP 1.9, AP 3.10, AP 4.5** (seit 1.38.0): Hand bei voller Hand weiter auseinander (`L.handSides` in `view/match/layout.js`),
+  Mindestschrift `MIN_TEXT` auf dem Brett, ruhigeres Bereit-Grün, kleineres Schildwall-Wappen (`view/match/render.js`); Auftritt der
+  Legendären als Phase „herald“ (`view/match/motion.js`, Band und Siegel `F.herald` in `fx.js`); Vibration nach Wucht im Moment des
+  Einschlags (`impactHaptic` in `viewmodel/match.js`). Test: `tests/hud.test.js`.
 - **AP 5.11 Teil 2** (`model/data.js`): Wandernder Händler 2/2 mit Vermächtnis 2 Rüstung, Grenzläuferin 3/3 mit Tarnung,
   Rōnin 3/4, Bronzener Wall 2 Rüstung (+2 Leben), Kämpfer der Heiligen Schar 3/2. Bericht `balance/BERICHT.md`, vorher
   `BERICHT-1.12.0.md`. Die Regeltests nutzen statt Händler und Grenzläuferin regellose Attrappen (`tests/attrappen.js`,
