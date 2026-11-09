@@ -259,7 +259,33 @@ function finale(c,s,t,st){const e=st.held?FINALE.end:t-st.at,kind=st.info.winner
   const q=ease.outCubic(clamp((e-FINALE.banner)/FINALE.unroll)),drop=ease.outBack(clamp((e-FINALE.banner)/350));
   c.save();c.translate(800,mix(-60,250,drop));c.beginPath();c.rect(-240,-40,480,40+290*q);c.clip();R.blit(c,banner(kind));c.restore();}
  if(!st.held&&e>=FINALE.end){st.held=true;st.done?.();}}
+// AP 3.10 (seit 1.38.0): Auftritt einer Legendären. Vor dem Ausspielen fährt ein Band mit Name und Epoche quer über das Brett
+// (raw 0–0,3), ein goldenes Siegel prägt sich darauf (0,38–0,55, mit Klang und leichtem Wackeln), dann blendet alles aus (ab 0,82)
+// und die Karte fällt wie bisher mit schwerem Aufprall (AP 3.3). Unter ruhiger Bewegung steht nur das Band, ohne Fahrt und Siegel.
+// raw läuft über die Phase „herald“ der Zeitleiste (motion.js) – bei „Schnell“ doppelt so schnell, ein Tippen überspringt sie.
+// ASTRA: legendaer-band – Band aus dunklem Samt mit Goldborte und Lorbeerenden quer über das Brett, Mitte frei für Name und Epoche, 1280 × 160
+// ASTRA: legendaer-siegel – goldenes Wachssiegel mit Lorbeerkranz und Stern, das sich auf das Band prägt, 150 × 150
+const heraldBand=card=>R.sprite('herald:'+card.id,-660,-84,1320,168,g=>{const owner=D.owner(card),line=['Legendär',owner?.name,D.eraOf(card)].filter(Boolean).join(' · ');
+ g.shadowColor='#000a';g.shadowBlur=18;g.shadowOffsetY=6;g.beginPath();g.moveTo(-640,-50);g.lineTo(600,-50);g.lineTo(640,0);g.lineTo(600,50);g.lineTo(-640,50);g.lineTo(-600,0);g.closePath();
+ g.fillStyle=grad(g,0,-50,0,100,'#3a0f14','#1a070a');g.fill();g.shadowBlur=0;g.shadowOffsetY=0;
+ for(const y of [-42,42]){g.beginPath();g.moveTo(-620,y);g.lineTo(612,y);g.strokeStyle='#e6c065';g.lineWidth=3;g.stroke();}
+ g.font='bold 46px Title,serif';g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';g.strokeStyle='#120406';g.lineWidth=6;g.strokeText(card.name,40,-10,900);g.fillStyle='#ffe6a6';g.fillText(card.name,40,-10,900);
+ g.font='24px Body,serif';g.fillStyle='#e8d2a0';g.fillText(line,40,26,900);});
+const heraldSeal=()=>R.sprite('herald-seal',-80,-80,160,160,g=>{g.shadowColor='#0009';g.shadowBlur=12;g.shadowOffsetY=4;
+ g.beginPath();for(let i=0;i<=40;i++){const an=i/40*TAU,rr=62+3*Math.sin(an*9);g.lineTo(Math.cos(an)*rr,Math.sin(an)*rr);}g.closePath();g.fillStyle=grad(g,-62,-62,124,124,'#8a5a12','#ffe08a');g.fill();
+ g.shadowBlur=0;g.shadowOffsetY=0;g.strokeStyle='#5a3a0a';g.lineWidth=2;g.stroke();ellipse(g,0,0,46,46,null,'#7a4e10',3);
+ for(let i=0;i<14;i++){const an=-Math.PI*.9+i/13*Math.PI*.8,side=[-1,1];for(const sd of side){g.save();g.rotate(sd*an);g.translate(0,-38);g.rotate(sd*.5);g.beginPath();g.ellipse(0,0,4,8,0,0,TAU);g.fillStyle='#6a420c';g.fill();g.restore();}}
+ sparkle(g,0,0,20,'#fff6d0');});
+F.herald=(c,x,raw)=>{const card=x.card,y=357,calm=still(),fade=raw<.82?1:clamp((1-raw)/.18);
+ const slide=calm?1:ease.outCubic(clamp(raw/.3)),stamp=calm?0:clamp((raw-.38)/.17);
+ if(!calm&&raw>=.02&&!x.horn){x.horn=true;CHA.play('horn',{gain:.42});}
+ if(!calm&&stamp>=1&&!x.stamped){x.stamped=true;CHA.play('seal',{gain:.75});T.shake.add(.14);}
+ c.save();c.globalAlpha=fade*.38*clamp(raw/.15);c.fillStyle='#0b0806';c.fillRect(-60,-60,1720,920);c.restore();
+ c.save();c.globalAlpha=fade*(calm?clamp(raw/.15):1);R.blit(c,heraldBand(card),mix(-1100,800,slide),y);
+ if(stamp>0){const k=mix(2.4,1,ease.inCubic(stamp));c.globalAlpha=fade*clamp(stamp*2);c.translate(800-520,y);c.scale(k,k);R.blit(c,heraldSeal());}
+ c.restore();};
 // Drawn last over the board (R.draw). A held close is dropped as soon as another game is shown.
-F.draw=(c,s,t)=>{const st=F.stage;if(!st)return;if(st.kind==='finale'&&s.phase!=='over'){F.stage=null;return;}
+F.draw=(c,s,t)=>{const x=CHM.transition;if(x?.line&&!x.hit){const ph=x.line.at(t-x.at);if(ph.name==='herald')F.herald(c,x,ph.raw);}
+ const st=F.stage;if(!st)return;if(st.kind==='finale'&&s.phase!=='over'){F.stage=null;return;}
  if(st.kind==='opening')opening(c,s,t,st);else finale(c,s,t,st);};
 })();

@@ -4,7 +4,7 @@ const L=window.CHL={center:800,spacing:158,rows:[448,264],heroY:[656,91],heroSca
   // AP 1.8: hero coin (radius in coin units), ruler's seal beside it, chronometer, middle line of the table (no drawn seam
   // since 1.17.0, the engraved chart is centred on it).
   coin:74,powerOffset:{x:112,y:22},chrono:{x:1490,y:366,r:56},seam:357,
-  minionScale:1.22*.85,handCenter:800,handY:764,handWidth:144,dragWidth:258,handTop:700,
+  minionScale:1.22*.85,handCenter:800,handY:752,handWidth:144,dragWidth:258,handTop:700,
   drop:{left:225,right:1370,top:365,bottom:551}};
 L.heroScale=p=>L.heroScales[p];
 // AP 3.9: the four corner dioramas of the table (astrolabe, incense burner, column, catapult) – each a touch target of
@@ -27,9 +27,16 @@ L.confirm={x:120,y:584,w:140,h:56};
 L.powerPosition=(p,x=L.center,y=L.heroY[p])=>({x:x+L.powerOffset.x*L.heroScale(p),y:y+L.powerOffset.y*L.heroScale(p)});
 // Two low fans leave a permanent clear corridor for the hero and attached power.
 // Rendering, card flights and reorder hit testing all use this same geometry.
-L.handStep=n=>Math.min(100,320/Math.max(1,Math.ceil(n/2)-1));
+// AP 1.9 (seit 1.38.0, Entscheidung 23: zwei Fächerseiten): Jede Seite nutzt den Platz bis zu ihrem Rand – links bis vor die Säule
+// der Chronik und das Diorama unten links, rechts bis vor das Katapult –, die linke beginnt näher an der Münze (vor den
+// Hinterhalt-Rollen). Bei voller Hand liegen die Karten damit 98 bzw. 90 statt 80 Einheiten auseinander, und die ganze Hand
+// sitzt 12 Einheiten höher, damit das Namensband nicht am unteren Rand klebt.
+// Bis vier Karten je Seite bleibt alles wie bisher (symmetrisch, Schritt 100).
+L.handSides={inner:262,innerFull:232,outer:622};
+L.handInner=(n,side)=>side<0&&Math.ceil(n/2)>=5?L.handSides.innerFull:L.handSides.inner;
+L.handStep=(n,side=1)=>{const k=side<0?Math.ceil(n/2):Math.floor(n/2);return Math.min(100,(L.handSides.outer-L.handInner(n,side))/Math.max(1,k-1));};
 L.handPose=(i,n)=>{const left=Math.ceil(n/2),side=i<left?-1:1,depth=side<0?left-1-i:i-left;
-  return {x:L.center+side*(262+depth*L.handStep(n)),y:L.handY+depth*.8,
+  return {x:L.center+side*(L.handInner(n,side)+depth*L.handStep(n,side)),y:L.handY+depth*.8,
     w:L.handWidth,h:L.handWidth*1.41,angle:side*(.012+depth*.012)};};
 L.raisedHandPose=pose=>({...pose,x:pose.x<L.center?Math.min(pose.x,530):Math.max(pose.x,1086),y:pose.y-58,angle:0});
 // AP 3.2: a pressed hand card grows at once (× 1.75) and rises upright – inside the stage and clear of the hero coin.

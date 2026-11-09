@@ -10,7 +10,14 @@ const now=()=>T.clock.now();
 const PLAY=heavy=>timeline([{name:'lift',d:150,ease:'outCubic'},{name:'hover',d:heavy?270:140,ease:'inOutCubic'},{name:'slam',d:heavy?130:115,ease:'inCubic'},{name:'settle',d:heavy?380:300}]);
 const SPELL=timeline([{name:'lift',d:150,ease:'outCubic'},{name:'hover',d:110,ease:'inOutCubic'},{name:'cast',d:130,ease:'inQuad'},{name:'after',d:260}]);
 const ATTACK=timeline([{name:'windup',d:130,ease:'outCubic'},{name:'charge',d:105,ease:'inQuad'},{name:'contact',d:60},{name:'recoil',d:300,ease:'outBack'}]);
-M.lines={PLAY,SPELL,ATTACK};
+// AP 3.10 (seit 1.38.0): Auftritt der Legendären – vor dem Ausspielen einer Legendären (auch der KI) hält das Spiel kurz an,
+// ein Band mit Name und Epoche fährt über das Brett und ein Siegel prägt sich darauf (fx.js, F.herald); dann landet die Karte wie
+// bisher. HERALD ms auf der Match-Uhr (bei „Schnell“ die Hälfte), ein Tippen überspringt es (M.skipHerald). Hinterhalte nicht –
+// sie bleiben verdeckt.
+const HERALD=700;
+M.legendary=card=>card?.rarity==='legendary'&&!card.ambush;
+const herald=line=>timeline([{name:'herald',d:HERALD},...line.phases.map(({name,d,ease})=>({name,d,ease}))]);
+M.lines={PLAY,SPELL,ATTACK,HERALD,herald};
 // Weight of a card 0…1: cost, and legendaries weigh more; from 0.7 a card is heavy (longer hover, cracks, camera jolt).
 M.weight=card=>!card?0:card.rarity==='legendary'&&card.cost>=5?1:clamp(.12+card.cost*.07+(card.rarity==='legendary'?.15:0),0,.85);
 M.heavy=card=>M.weight(card)>=.7;
@@ -21,7 +28,7 @@ M.handPose=(s,uid)=>{const hand=s.players[0].hand,i=hand.findIndex(h=>h.uid===ui
 M.position=(s,uid)=>{if(uid==='h0')return{x:L.center,y:L.heroY[0]};if(uid==='h1')return{x:L.center,y:L.heroY[1]};if(uid==='power0')return L.powerPosition(0);if(uid==='power1')return L.powerPosition(1);for(let p=0;p<2;p++){const arr=s.players[p].board,i=arr.findIndex(u=>u.uid===uid);if(i>=0)return{x:L.center+(i-(arr.length-1)/2)*L.spacing,y:L.rows[p]};}return M.handPose(s,uid);};
 M.begin=(before,after,action,origin,impact,done)=>{
  M.cancel(false);const at=now(),p=before.active,type=action.type,h=type==='play'?before.players[p].hand.find(h=>h.uid===action.uid):null;
- const card=h?CHD.byId[h.id]:null,weight=M.weight(card),line=type==='attack'?ATTACK:card?(card.type==='minion'?PLAY(weight>=.7):SPELL):null;
+ const card=h?CHD.byId[h.id]:null,weight=M.weight(card),base=type==='attack'?ATTACK:card?(card.type==='minion'?PLAY(weight>=.7):SPELL):null,line=base&&M.legendary(card)?herald(base):base;
  const hitAt=line?line.start(type==='attack'?'contact':card.type==='minion'?'settle':'after'):type==='power'?260:160;
  const duration=line?line.duration:type==='power'?570:660;
  // A Hinterhalt (AP 5.6) flies to its roll beside the hero – the rival's face down.
@@ -34,6 +41,9 @@ M.begin=(before,after,action,origin,impact,done)=>{
  return duration;
 };
 M.busy=()=>!!M.transition||window.CHF.busy();
+// Läuft gerade der Auftritt einer Legendären? Ein Tippen springt an sein Ende (die Karte fällt sofort).
+M.inHerald=()=>{const x=M.transition;return !!x?.line&&!x.hit&&x.line.at(now()-x.at).name==='herald';};
+M.skipHerald=()=>{if(!M.inHerald())return false;const x=M.transition,end=x.line.end('herald');x.at=now()-end;x.horn=x.stamped=true;return true;};
 M.remaining=()=>M.transition?Math.max(0,M.transition.duration-(now()-M.transition.at)):0;
 M.cancel=(clearReturns=true)=>{if(M.transition&&!M.transition.hit){M.transition.hit=true;/* State is already saved; cancel visual effects when leaving. */}M.transition=null;M.draws=[];M.burns=[];M.drains=[];if(clearReturns)M.returns=[];};
 // The moment of impact: hit stop and shake by weight, dust and cracks where a card lands (AP 3.3), and what the action
@@ -104,7 +114,10 @@ M.overlay=(c,s,t,gold)=>{
   const startW=x.origin?.w||(mine?L.handWidth:46),liftW=heavy?226:210;
   const lifted={x:mix(from.x,to.x,.25),y:mine?Math.min(from.y-110,to.y+60):Math.max(from.y+150,to.y-260)};
   const above={x:to.x,y:minion?to.y-(heavy?150:120):to.y-110};
-  if(ph.name==='lift'){const q=ph.q,turn=mine?null:clamp(ph.raw*1.4);M.floatCard(c,x.card.id,mix(from.x,lifted.x,q),mix(from.y,lifted.y,q),mix(startW,liftW,q),mix(x.origin?.angle||-.06,0,q),1,
+  // AP 3.10: während des Bandes wartet die Karte, wo sie lag (die der KI verdeckt bei ihren Befehlen).
+  // Das Band selbst zeichnet fx.js zuletzt über allem (F.draw), auch über der Tafel „Dein Zug“.
+  if(ph.name==='herald')M.floatCard(c,x.card.id,from.x,from.y,startW,x.origin?.angle||-.06,1,{lift:0,back:!mine,gold:g});
+  else if(ph.name==='lift'){const q=ph.q,turn=mine?null:clamp(ph.raw*1.4);M.floatCard(c,x.card.id,mix(from.x,lifted.x,q),mix(from.y,lifted.y,q),mix(startW,liftW,q),mix(x.origin?.angle||-.06,0,q),1,
    {lift:q,back:hidden||turn!=null&&turn<.5,sx:turn==null||hidden?null:Math.abs(Math.cos(turn*Math.PI)),gold:g});}
   else if(ph.name==='hover'){const q=ph.q,bob=Math.sin(ph.raw*Math.PI*(heavy?2:1))*(heavy?7:4);M.floatCard(c,x.card.id,mix(lifted.x,above.x,q),mix(lifted.y,above.y,q)-bob,liftW,Math.sin(ph.raw*Math.PI)*.03,1,{lift:1,gold:g,back:hidden});}
   else if(minion)morph(c,x.card.id,above.x,mix(above.y,to.y,ph.q),ph.q,g);

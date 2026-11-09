@@ -17,7 +17,9 @@ R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;p
 R.scale=1;
 // Farben der Hinweise (Phase 7, seit 1.34.0): bei Farbsehschwäche leuchtet „spielbar/bereit“ blau statt grün und Ziele orange
 // statt rot – Grün und Rot sind die häufigste Verwechslung. Ein Wechsel leert den Sprite-Speicher, die Schlüssel bleiben.
-const PALETTES={normal:{ready:'#71ff56',readyShadow:'#76ff4d',readyRing:'#8dff6a',glow:'#7dff55',glowRing:'#9dff7a',gap:'#aaf36a',gapFill:'#91d55629',gapRing:'#d3ed9b',aim:'#db403d',target:'#f5473b'},
+// AP 1.9 (seit 1.38.0): „bereit“ in einem wärmeren, satteren Grün (bis 1.37.0 #71ff56, grell gegen Pergament und Gold); kräftig
+// leuchtet nur der gewählte Diener (Gold), das Atmen der übrigen ist leiser und langsamer.
+const PALETTES={normal:{ready:'#7fd24e',readyShadow:'#79c94a',readyRing:'#a9dc7f',glow:'#86d454',glowRing:'#b4e28c',gap:'#aaf36a',gapFill:'#91d55629',gapRing:'#d3ed9b',aim:'#db403d',target:'#f5473b'},
  klar:{ready:'#3da5ff',readyShadow:'#4aaeff',readyRing:'#7cc4ff',glow:'#52b2ff',glowRing:'#9ad2ff',gap:'#7cc4ff',gapFill:'#3da5ff29',gapRing:'#b9e0ff',aim:'#ff8a1e',target:'#ff8a1e'}};
 let P=PALETTES.normal;R.colors=()=>P;
 R.palette=id=>{const next=PALETTES[id]||PALETTES.normal;if(next===P)return;P=next;sprites?.clear();};
@@ -39,6 +41,9 @@ const glow=(w,h,r,color,blur)=>R.sprite('glow:'+[w,h,r,color,blur],-blur*2,-blur
 R.cardShadow=()=>R.sprite('cardshadow',-40,-40,280,362,g=>{g.shadowColor='#000a';g.shadowBlur=24;round(g,0,0,200,282,14,'#000a');});
 function round(c,x,y,w,h,r,fill,stroke,lw=1){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
 function ellipse(c,x,y,rx,ry,fill,stroke,lw=1){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}}
+// Mindestgröße für Text auf dem Brett (AP 1.9, seit 1.38.0): 22 Einheiten ≈ 12,5 px auf einem 915 px breiten Handy; hell auf
+// dunklem Grund (stil/STILBIBEL.md). Gilt für die Schriften des Bretts selbst (Modus, Deck, Friedhof, Zug, Chronik-Leiste).
+const MIN_TEXT=22;R.MIN_TEXT=MIN_TEXT;
 function txt(c,t,x,y,size=18,color='#fff',align='center',max){c.font=`${size}px ${size>=22?'Title':'Body'},serif`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;if(max)c.fillText(t,x,y,max);else c.fillText(t,x,y);}
 function number(c,t,x,y,size=30){c.font=`bold ${size}px Title,serif`;c.textAlign='center';c.textBaseline='middle';c.strokeStyle='#171416';c.lineWidth=5;c.lineJoin='round';c.strokeText(t,x,y);c.fillStyle='#fff6dc';c.fillText(t,x,y);}
 function grad(c,x,y,w,h,a,b){let g=c.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,a);g.addColorStop(.45,b);g.addColorStop(1,a);return g;}
@@ -321,8 +326,10 @@ function weaponRack(c,x,y,w){if(pic(c,'waffenablage',x,y+4,80,104)){number(c,w.a
  round(c,-12,12,24,5,2,'#c9a052','#4a3418',1);round(c,-2.5,17,5,12,2,'#5a3d1e');ellipse(c,0,31,4,4,'#c9a052','#4a3418',1);c.restore();
  ellipse(c,x-20,y+38,15,15,'#e2bc55','#554521',2.5);number(c,w.attack,x-20,y+39,21);
  c.beginPath();c.moveTo(x+8,y+25);c.lineTo(x+34,y+25);c.lineTo(x+34,y+40);c.quadraticCurveTo(x+33,y+51,x+21,y+56);c.quadraticCurveTo(x+9,y+51,x+8,y+40);c.closePath();c.fillStyle=grad(c,x+8,y+25,26,31,'#5d686e','#dfe6e8');c.fill();c.strokeStyle='#262e33';c.lineWidth=2.5;c.stroke();number(c,w.durability,x+21,y+39,19);}
+// AP 1.9 (seit 1.38.0): das Wappen sitzt kleiner (70 %) und tiefer auf dem oberen Rand der Plakette – bei vollem Brett trug fast
+// jeder Diener ein großes Wappen.
 function tauntCrest(c){
- c.save();c.shadowColor='#20160dcc';c.shadowBlur=4;c.shadowOffsetY=2;
+ c.save();c.translate(0,-50);c.scale(.7,.7);c.translate(0,50);c.shadowColor='#20160dcc';c.shadowBlur=4;c.shadowOffsetY=2;
  c.beginPath();c.moveTo(-18,-83);c.lineTo(18,-83);c.lineTo(17,-64);c.quadraticCurveTo(14,-52,0,-46);c.quadraticCurveTo(-14,-52,-17,-64);c.closePath();
  c.fillStyle=grad(c,-18,-83,36,37,'#594536','#c29b60');c.fill();c.strokeStyle='#f4d494';c.lineWidth=3;c.stroke();c.shadowBlur=0;
  c.beginPath();c.moveTo(0,-76);c.lineTo(0,-55);c.moveTo(-10,-70);c.lineTo(10,-70);c.strokeStyle='#fce5b4';c.lineWidth=3;c.stroke();c.restore();
@@ -423,16 +430,16 @@ function hourglassArt(g){if(pic(g,'stundenglas',0,42,74,100))return;g.save();g.s
  g.save();bulb();g.clip();g.fillStyle='#d6a85a';g.fillRect(-20,28,40,8);g.beginPath();g.moveTo(-17,82);g.quadraticCurveTo(0,52,17,82);g.closePath();g.fill();g.restore();
  bulb();g.strokeStyle='#f6fbffcc';g.lineWidth=1.6;g.stroke();g.beginPath();g.moveTo(-11,14);g.quadraticCurveTo(-12,26,-6,33);g.strokeStyle='#ffffff88';g.lineWidth=1.4;g.stroke();}
 function deck(c,s,p,now){const pp=s.players[p],yy=p===0?590:158,x=1448;
- if(pp.deck.length){const n=Math.min(6,Math.ceil(pp.deck.length/5));R.blit(c,R.sprite('scrolls:'+n,-50,-10,100,110,g=>scrolls(g,n)),x,yy);txt(c,pp.deck.length,1451,yy+103,19,'#f2dfaf');}
+ if(pp.deck.length){const n=Math.min(6,Math.ceil(pp.deck.length/5));R.blit(c,R.sprite('scrolls:'+n,-50,-10,100,110,g=>scrolls(g,n)),x,yy);round(c,1426,yy+89,50,28,14,'#1e150dcc','#c9a05288',1.5);txt(c,pp.deck.length,1451,yy+104,MIN_TEXT,'#f3dab0');}
  else{// While the hourglass drinks life (AP 3.4) it swells and glows red.
   const dr=CHM.drains.find(f=>f.p===p),beat=dr?Math.sin(Math.min(1,(now-dr.at)/dr.duration*1.6)*Math.PI):0;
   if(beat>0){c.save();c.globalAlpha=.7*beat;c.translate(x,yy+42);c.scale(1.8+beat,2.2+beat);R.blit(c,pumpSprite());c.restore();}
   c.save();c.translate(x,yy+42);c.scale(1+.12*beat,1+.12*beat);c.translate(-x,-yy-42);R.blit(c,R.sprite('hourglass',-40,-12,80,112,hourglassArt),x,yy);c.restore();
   // Falling sand: a dashed stream that runs downwards.
   c.save();c.setLineDash([3,4]);c.lineDashOffset=-(now/40%7);c.beginPath();c.moveTo(x,yy+41);c.lineTo(x,yy+70);c.strokeStyle='#d6a85a';c.lineWidth=2;c.stroke();c.restore();
-  txt(c,'−'+(pp.fatigue+1),1451,yy+103,19,'#ff9a8a');}
+  round(c,1426,yy+89,50,28,14,'#1e150dcc','#c9a05288',1.5);txt(c,'−'+(pp.fatigue+1),1451,yy+104,MIN_TEXT,'#ff9a8a');}
  touch('deck'+p,1411,yy-10,80,125,{kind:'deck'});
- round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,21,'#d9c99f');touch('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
+ round(c,1510,yy+35,64,53,8,'#2c2925bb','#907750',2);txt(c,'☠ '+pp.grave.length,1542,yy+61,MIN_TEXT,'#f3dab0','center',60);touch('grave'+p,1500,yy+25,89,77,{kind:'grave'});}
 // Hinterhalte (AP 5.6): a laid ambush is a short roll tied with a cord and closed by a big wax seal – dark red for the
 // rival (its face stays hidden), gold-rimmed for your own, which you can tap to read.
 // Rückmeldung zu 1.27.0 („sehr unscheinbar“, aber nicht aufdringlich): ein Viertel größer, auf einer dunklen Mulde, damit sie
@@ -492,7 +499,8 @@ function strip(c,items,now){R.blit(c,R.sprite('strip',L.strip.x-70,L.strip.y-40,
  items.forEach((e,i)=>{const {x,y,size}=L.stripRow(i);
   // A new parchment section per turn, headed by its number.
   if(i&&items[i-1].turn!==e.turn){const sy=y-L.strip.step/2;c.save();c.strokeStyle='#6a503088';c.lineWidth=1.2;c.setLineDash([4,3]);c.beginPath();c.moveTo(L.strip.x+8,sy);c.lineTo(L.strip.x+L.strip.w-8,sy);c.stroke();c.restore();
-   round(c,x-23,sy-6.5,46,13,6.5,'#ead8ab','#6a503066',1);txt(c,'ZUG '+e.turn,x,sy+.5,8.5,'#5a4026');}
+   // Seit 1.38.0 (AP 1.9) ein Siegel mit der Zahl des Zuges in Mindestgröße statt „ZUG n“ in 8,5 Einheiten.
+   ellipse(c,x,sy,17,17,'#3a2a1a','#c9a052',1.5);txt(c,e.turn,x,sy+1,MIN_TEXT,'#f3dab0','center',30);}
   R.blit(c,R.sprite('entry:'+[e.kind,e.id,e.type,e.p,e.n||''],-size/2-6,-size/2-6,size+12,size+12,g=>entryArt(g,e)),x,y);
   if(!i&&R.stripNew?.key===e.key&&now-R.stripNew.at<900){const q=(now-R.stripNew.at)/900;c.save();c.globalAlpha=1-q;round(c,x-size/2-6,y-size/2-6,size+12,size+12,9,null,'#fff0b4',3);c.restore();}
   touch('log'+i,x-size/2,y-size/2,size,size,{kind:'log',idCard:e.kind==='card'?e.id:null});});
@@ -509,12 +517,13 @@ function chronoArt(c,active,label,turn){const r=L.chrono.r;
  ellipse(c,0,0,r-7,r-7,active?grad(c,-r,-r,2*r,2*r,'#fff6dc','#e0c58e'):grad(c,-r,-r,2*r,2*r,'#c9c3b5','#8f8a7f'),'#4a3418',2);
  c.strokeStyle='#4a3418';for(let i=0;i<60;i++){const an=i*Math.PI/30,long=i%5===0;c.beginPath();c.moveTo(Math.cos(an)*(r-10),Math.sin(an)*(r-10));c.lineTo(Math.cos(an)*(r-(long?17:13)),Math.sin(an)*(r-(long?17:13)));c.lineWidth=long?2:1;c.stroke();}
  for(const [t,an] of [['XII',-Math.PI/2],['III',0],['VI',Math.PI/2],['IX',Math.PI]])txt(c,t,Math.cos(an)*(r-26),Math.sin(an)*(r-26)+1,10,'#4a3418');
- round(c,-64,r+8,128,30,9,grad(c,-64,r+8,0,30,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',3);
- round(c,-60,r+12,120,22,6,null,'#ffffff40',1);txt(c,label,0,r+24,14,active?'#2a2016':'#c8cfcb','center',118);txt(c,'ZUG '+turn,0,r+56,14,'#ddc99d');}
+ round(c,-84,r+8,168,36,10,grad(c,-84,r+8,0,36,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',3);
+ round(c,-80,r+12,160,28,7,null,'#ffffff40',1);txt(c,label,0,r+27,MIN_TEXT,active?'#2a2016':'#e3e8e5','center',152);
+ round(c,-46,r+50,92,30,15,'#1e150dcc','#c9a05288',1.5);txt(c,'ZUG '+turn,0,r+66,MIN_TEXT,'#f3dab0','center',84);}
 function chronometer(c,s,now){const {x,y,r}=L.chrono,mine=s.active===0,active=mine&&s.phase==='play';let f=R.chrono;
  if(!f)f=R.chrono={mine,from:0,to:mine?0:Math.PI,at:-1e9};else if(f.mine!==mine){f.mine=mine;f.from=f.to;f.to+=Math.PI;f.at=motion()?now:-1e9;}
  const q=Math.min(1,(now-f.at)/CHRONO),back=1.70158,e=1+(back+1)*Math.pow(q-1,3)+back*Math.pow(q-1,2),angle=f.from+(f.to-f.from)*e,hop=1+.08*Math.sin(Math.min(1,q*1.6)*Math.PI);
- c.save();c.translate(x,y);c.scale(hop,hop);R.blit(c,R.sprite('chrono:'+[active,s.turn],-90,-r-40,180,2*r+112,g=>chronoArt(g,active,mine?'ZUG BEENDEN':'GEGNERZUG',Math.max(1,s.turn))));
+ c.save();c.translate(x,y);c.scale(hop,hop);R.blit(c,R.sprite('chrono:'+[active,s.turn],-92,-r-40,184,2*r+124,g=>chronoArt(g,active,mine?'ZUG BEENDEN':'GEGNERZUG',Math.max(1,s.turn))));
  c.rotate(angle);c.lineCap='round';c.beginPath();c.moveTo(0,10);c.lineTo(0,-(r-21));c.strokeStyle='#2a1c10';c.lineWidth=4;c.stroke();
  c.beginPath();c.moveTo(0,-(r-14));c.lineTo(-5,-(r-25));c.lineTo(5,-(r-25));c.closePath();c.fillStyle='#2a1c10';c.fill();c.restore();
  ellipse(c,x,y,5,5,'#c9a052','#2a1c10',1.5);
@@ -739,7 +748,7 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
   board.forEach((u,i)=>{const index=i+(hasGap&&i>=insert?1:0),base=R.smooth(u.uid,L.center+(index-(board.length-1+(hasGap?1:0))/2)*L.spacing,yy,dt),pos=CHM.pose(u.uid,base,t),foot=60*L.minionScale;
    c.save();c.translate(pos.x,pos.y+foot);c.rotate(pos.angle);c.scale(pos.scale*(pos.sx||1),pos.scale*(pos.sy||1));c.translate(-pos.x,-pos.y-foot);
    const ready=minion(c,s,p,u,pos.x,pos.y,view.selected&&view.selected.uid===u.uid,targets,t);
-   if(ready&&p===0&&motion()&&view.selected?.uid!==u.uid){c.save();c.globalAlpha=.25+.25*Math.sin(t/320);c.translate(pos.x,pos.y);c.scale(L.minionScale,L.minionScale);R.blit(c,readyGlow());c.restore();}
+   if(ready&&p===0&&motion()&&view.selected?.uid!==u.uid){c.save();c.globalAlpha=.17+.13*Math.sin(t/420);c.translate(pos.x,pos.y);c.scale(L.minionScale,L.minionScale);R.blit(c,readyGlow());c.restore();}
    c.restore();});}
  for(const uid of Object.keys(R.units))if(t-R.units[uid].seen>4000)delete R.units[uid];
 // Lehrstunden (AP 6.5): oben rechts die Tafel des Chronisten mit dem aktuellen Schritt; ein goldener Ring zeigt, wohin es geht
@@ -786,7 +795,9 @@ function riddle(c,s){if(s.puzzle==null)return;const {x,y,w}=FUSE,z=window.AERA?.
  for(const id of targets.filter(x=>x==='h1')){const pos=R.positions[id];ellipse(c,pos.x,pos.y,74*L.heroScale(1),86*L.heroScale(1),null,P.target,4);}
  // The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
  if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
- button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');txt(c,(s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':s.mode==='puzzle'?'RÄTSEL':s.mode==='tutorial'?'LEHRSTUNDE':'SCHLACHT')+(s.level&&s.mode!=='tutorial'?' · '+s.level.toUpperCase():''),368,55,13,'#f3dab0',undefined,230);
+ button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');
+ // Modus und Stärke der KI (AP 1.9: Mindestgröße, hell auf dunklem Band statt 13 Einheiten auf dem Holz).
+ round(c,254,38,236,34,17,'#1e150dcc','#c9a05288',1.5);txt(c,(s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':s.mode==='puzzle'?'RÄTSEL':s.mode==='tutorial'?'LEHRSTUNDE':'SCHLACHT')+(s.level&&s.mode!=='tutorial'?' · '+s.level.toUpperCase():''),372,56,MIN_TEXT,'#f3dab0','center',220);
  CHM.overlay(c,s,t,gold);
  if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
   if(d.target&&d.target!=='h0')pulse(c,d.target,t);

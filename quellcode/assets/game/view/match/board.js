@@ -29,7 +29,7 @@ window.AEMatchView=function(canvas,vm,ui){
  function release(id){if(id!=null&&canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);}
  function cancel(){clearTimeout(holdTimer);vm.cancelDrag();vm.release();const id=down?.id;down=null;held=false;vm.touching=false;release(id);}
 
- canvas.addEventListener('pointerdown',ev=>{woke();if(ui.screen()!=='game'||ui.dialogOpen()||down)return;ui.unlockAudio();if(CHF.busy()){CHF.skip();return;}if(M.busy())return;
+ canvas.addEventListener('pointerdown',ev=>{woke();if(ui.screen()!=='game'||ui.dialogOpen()||down)return;ui.unlockAudio();if(CHF.busy()){CHF.skip();return;}if(M.skipHerald())return;if(M.busy())return;
   const p=coord(ev),hit=R.hit(p.x,p.y);down={...p,hit,id:ev.pointerId,pose:hit?.kind==='hand'?{...R.positions[hit.id]}:null};
   held=false;vm.touching=true;canvas.setPointerCapture(ev.pointerId);vm.press(hit);
   holdTimer=setTimeout(()=>{if(!down)return;held=true;vm.longPress(hit);},500);});
