@@ -51,7 +51,7 @@ test('AP 5.8: Stärke in Einstellungen und Heldenwahl, gilt für Duell, Kampagne
  // Im gespeicherten Spiel bleibt die Stufe; eine unbekannte wird zum Feldherrn.
  const saved=JSON.parse(store.exportText());saved.game.level='zauberer';assert.equal(P.parse(JSON.stringify(saved)).game.level,'feldherr');
  assert.match(read('model/draft.js'),/level:p\.settings\?\.level/,'Kolosseum nach der Einstellung');
- assert.match(read('view/setup.js'),/data-change="chooseLevel"/);assert.match(read('view/match/render.js'),/s\.level&&s\.mode!=='tutorial'\?' · '\+s\.level\.toUpperCase\(\)/,'Stufe im Match oben links');
+ assert.match(read('view/setup.js'),/data-change="chooseLevel"/);assert.match(read('viewmodel/match.js'),/' · Stärke der KI: '\+lv\.name/,'Stufe im Pausenfenster (seit 1.39.0 nicht mehr oben links im Match)');
 });
 
 test('AP 6.5: drei Lehrstunden mit Ort, Zeit, Quelle, festen Karten und Schritten des Chronisten',()=>{

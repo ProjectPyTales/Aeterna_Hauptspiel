@@ -796,8 +796,7 @@ function riddle(c,s){if(s.puzzle==null)return;const {x,y,w}=FUSE,z=window.AERA?.
  // The chronicle strip replaces the former CHRONIK button; AUSSPIELEN sits below your ether dial.
  if(!view.drag&&view.selected&&view.selected.type==='play'&&!E.targetKind(s,0,view.selected))button(c,'AUSSPIELEN',L.confirm.x,L.confirm.y,L.confirm.w,L.confirm.h,true,'confirm');
  button(c,'Ⅱ',124,27,60,56,false,'pause');button(c,'?',210,27,60,56,false,'help');
- // Modus und Stärke der KI (AP 1.9: Mindestgröße, hell auf dunklem Band statt 13 Einheiten auf dem Holz).
- round(c,254,38,236,34,17,'#1e150dcc','#c9a05288',1.5);txt(c,(s.mode==='campaign'?'MISSION '+(window.AEKA?AEKA.number(s.mission):s.mission+1):s.mode==='random'||s.mode==='draft'?'KOLOSSEUM':s.mode==='daily'?'TAGESDUELL':s.mode==='puzzle'?'RÄTSEL':s.mode==='tutorial'?'LEHRSTUNDE':'SCHLACHT')+(s.level&&s.mode!=='tutorial'?' · '+s.level.toUpperCase():''),372,56,MIN_TEXT,'#f3dab0','center',220);
+ // Seit 1.39.0 kein Modus mehr oben auf dem Brett (Rückmeldung zu 1.38.0) – Art der Partie und Stärke der KI stehen im Pausenfenster.
  CHM.overlay(c,s,t,gold);
  if(view.drag&&view.selected){const d=view.drag,needsArrow=view.selected.type==='attack'||(view.selected.type==='power'&&E.targetKind(s,0,view.selected))||(d.cardId&&E.targetKind(s,0,view.selected));
   if(d.target&&d.target!=='h0')pulse(c,d.target,t);

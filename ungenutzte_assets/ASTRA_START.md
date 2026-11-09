@@ -8,7 +8,7 @@ Regel und keine Karte mehr. Diese Seite ist der ganze Ablauf – von der ersten 
 | Reihe | Pakete | Inhalt | Liegt in |
 |---|---|---|---|
 | **K – Kartenbilder** | K01–K32 | 239 Bilder: 232 neue Motive, 1 Korrektur (`fabius_0`), 6 aus Teil 4 (zuerst das Original suchen) | `ungenutzte_assets/astra_bestellung/K01.md` … `K32.md` |
-| **U – Oberfläche** | U01–U13 | 80 gemalte Oberflächenteile mit Transparenz (Spielbrett, Werte, Effekte, Menüs, Modi, Updates, Auftritt der Legendären) | `ungenutzte_assets/astra_bestellung/U01.md` … `U13.md` |
+| **U – Oberfläche** | U01–U13 | 81 gemalte Oberflächenteile mit Transparenz (Spielbrett, Werte, Effekte, Menüs, Modi, Updates, Auftritt der Legendären) | `ungenutzte_assets/astra_bestellung/U01.md` … `U13.md` |
 
 Jede Paketdatei ist vollständig: Auftrag zum Kopieren, Stil- und Dateivorgaben, Referenzen und genau die Motive des Pakets
 (höchstens zehn Kartenbilder je Paket). Die Übersicht mit allen IDs steht in `ASTRA_AUFTRAG.md`, Abschnitt 0; der Stand jeder

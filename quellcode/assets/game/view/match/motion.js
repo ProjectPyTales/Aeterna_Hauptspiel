@@ -10,11 +10,12 @@ const now=()=>T.clock.now();
 const PLAY=heavy=>timeline([{name:'lift',d:150,ease:'outCubic'},{name:'hover',d:heavy?270:140,ease:'inOutCubic'},{name:'slam',d:heavy?130:115,ease:'inCubic'},{name:'settle',d:heavy?380:300}]);
 const SPELL=timeline([{name:'lift',d:150,ease:'outCubic'},{name:'hover',d:110,ease:'inOutCubic'},{name:'cast',d:130,ease:'inQuad'},{name:'after',d:260}]);
 const ATTACK=timeline([{name:'windup',d:130,ease:'outCubic'},{name:'charge',d:105,ease:'inQuad'},{name:'contact',d:60},{name:'recoil',d:300,ease:'outBack'}]);
-// AP 3.10 (seit 1.38.0): Auftritt der Legendären – vor dem Ausspielen einer Legendären (auch der KI) hält das Spiel kurz an,
-// ein Band mit Name und Epoche fährt über das Brett und ein Siegel prägt sich darauf (fx.js, F.herald); dann landet die Karte wie
-// bisher. HERALD ms auf der Match-Uhr (bei „Schnell“ die Hälfte), ein Tippen überspringt es (M.skipHerald). Hinterhalte nicht –
-// sie bleiben verdeckt.
-const HERALD=700;
+// AP 3.10 (seit 1.38.0, neu inszeniert in 1.39.0 nach Deiner Rückmeldung): Auftritt der Legendären – vor dem Ausspielen einer
+// Legendären (auch der KI) fliegt die Karte groß in die Mitte des Brettes (M.SHOW), hinter ihr gehen goldene Strahlen auf, darunter
+// entrollt sich ein Band mit Name und Epoche, ein Siegel prägt sich mit Funken darauf (fx.js, F.herald); von dort schlägt die Karte
+// schwer auf ihrem Platz ein. HERALD ms auf der Match-Uhr (bei „Schnell“ die Hälfte), ein Tippen überspringt es (M.skipHerald).
+// Hinterhalte nicht – sie bleiben verdeckt.
+const HERALD=900;M.SHOW={x:800,y:340,w:212};
 M.legendary=card=>card?.rarity==='legendary'&&!card.ambush;
 const herald=line=>timeline([{name:'herald',d:HERALD},...line.phases.map(({name,d,ease})=>({name,d,ease}))]);
 M.lines={PLAY,SPELL,ATTACK,HERALD,herald};
@@ -33,8 +34,11 @@ M.begin=(before,after,action,origin,impact,done)=>{
  const duration=line?line.duration:type==='power'?570:660;
  // A Hinterhalt (AP 5.6) flies to its roll beside the hero – the rival's face down.
  const to=card?.ambush?L.ambush(p,Math.min(2,(before.players[p].ambush||[]).length)):card?.type==='minion'?M.position(after,after.events.find(e=>e.type==='summon'&&e.id===card.id)?.target):action.target?M.position(before,action.target):type==='power'?M.position(before,(after.events.find(e=>e.type==='damage'||e.type==='heal'||e.type==='summon')||after.events.find(e=>e.type==='power'))?.target||'h'+p):{x:800,y:350};
- const from=origin||(card&&p===1?M.orderPosition(Math.max(0,before.players[1].hand.findIndex(x=>x.uid===action.uid))):M.position(before,action.uid||'power'+p));
- M.transition={id:++M.serial,before,after,action,card,p,weight,line,from,to,origin,at,hitAt,duration,hit:false,impact,done};
+ const start=origin||(card&&p===1?M.orderPosition(Math.max(0,before.players[1].hand.findIndex(x=>x.uid===action.uid))):M.position(before,action.uid||'power'+p));
+ // Eine Legendäre startet nach ihrem Auftritt in der Mitte des Brettes; wo sie lag, merkt sich heraldFrom (dort beginnt ihr Flug).
+ const show=line!==base,from=show?{x:M.SHOW.x,y:M.SHOW.y}:start,lifted=show?{w:M.SHOW.w,angle:0}:origin;
+ M.transition={id:++M.serial,before,after,action,card,p,weight,line,from,to,origin:lifted,at,hitAt,duration,hit:false,impact,done,
+  heraldFrom:show?{x:start.x,y:start.y,w:origin?.w||(p===0?L.handWidth:46),angle:origin?.angle||-.06}:null};
  if(type==='attack')CHA.play('swing',{x:M.position(before,action.uid).x,gain:.62});
  if(type==='play')CHA.play('parchment',{x:from.x,gain:.55+.35*weight});
  if(type==='power')CHA.play('channel',{x:939,gain:.4});
@@ -51,7 +55,9 @@ M.cancel=(clearReturns=true)=>{if(M.transition&&!M.transition.hit){M.transition.
 function impact(x,t){const {action,card,weight,after,before}=x;
  if(card?.type==='minion'){T.clock.stop(40+40*weight);T.shake.add(.18+.5*weight,weight>=.7?.16:0);
   CHA.play('thud',{x:x.to.x,gain:.6+.4*weight});if(weight>=.7)CHA.play('slam',{x:x.to.x,gain:.7});
-  CHR.fx.push({type:'dust',x:x.to.x,y:x.to.y+58,weight,start:t,life:900});if(weight>=.3)CHR.fx.push({type:'cracks',x:x.to.x,y:x.to.y+40,weight,seed:x.id,start:t,life:1700});}
+  CHR.fx.push({type:'dust',x:x.to.x,y:x.to.y+58,weight,start:t,life:900});
+  // AP 3.10: eine Legendäre schlägt mit einem goldenen Funkenkranz ein.
+  if(M.legendary(card))CHR.fx.push({type:'burst',element:'gold',x:x.to.x,y:x.to.y,seed:x.id%97,start:t,life:1000,n:18,size:1.4});if(weight>=.3)CHR.fx.push({type:'cracks',x:x.to.x,y:x.to.y+40,weight,seed:x.id,start:t,life:1700});}
  if(action.type==='attack'){const n=Math.max(0,...after.events.filter(e=>e.type==='damage'&&e.target===action.target).map(e=>e.n));
   T.clock.stop(50+Math.min(30,n*6));T.shake.add(.3+Math.min(.35,n*.05));}
  // AP 3.6: a spell bursts in the colours of its element, a hero power in its own effect, where they land.
@@ -112,12 +118,12 @@ M.overlay=(c,s,t,gold)=>{
  const x=M.transition;
  if(x?.card&&!x.hit){const e=t-x.at,ph=x.line.at(e),from=x.from,to=x.to,mine=x.p===0,minion=x.card.type==='minion',heavy=x.weight>=.7,g=mine&&(gold||CHR.gilded(x.card.id)),hidden=!mine&&!!x.card.ambush;
   const startW=x.origin?.w||(mine?L.handWidth:46),liftW=heavy?226:210;
-  const lifted={x:mix(from.x,to.x,.25),y:mine?Math.min(from.y-110,to.y+60):Math.max(from.y+150,to.y-260)};
+  const lifted=x.heraldFrom?{x:mix(from.x,to.x,.3),y:from.y-40}:{x:mix(from.x,to.x,.25),y:mine?Math.min(from.y-110,to.y+60):Math.max(from.y+150,to.y-260)};
   const above={x:to.x,y:minion?to.y-(heavy?150:120):to.y-110};
   // AP 3.10: während des Bandes wartet die Karte, wo sie lag (die der KI verdeckt bei ihren Befehlen).
-  // Das Band selbst zeichnet fx.js zuletzt über allem (F.draw), auch über der Tafel „Dein Zug“.
-  if(ph.name==='herald')M.floatCard(c,x.card.id,from.x,from.y,startW,x.origin?.angle||-.06,1,{lift:0,back:!mine,gold:g});
-  else if(ph.name==='lift'){const q=ph.q,turn=mine?null:clamp(ph.raw*1.4);M.floatCard(c,x.card.id,mix(from.x,lifted.x,q),mix(from.y,lifted.y,q),mix(startW,liftW,q),mix(x.origin?.angle||-.06,0,q),1,
+  // Den Auftritt selbst – Karte, Strahlen, Band, Siegel – zeichnet fx.js zuletzt über allem (F.draw), auch über „Dein Zug“.
+  if(ph.name==='herald'){}
+  else if(ph.name==='lift'){const q=ph.q,turn=mine||x.heraldFrom?null:clamp(ph.raw*1.4);M.floatCard(c,x.card.id,mix(from.x,lifted.x,q),mix(from.y,lifted.y,q),mix(startW,liftW,q),mix(x.origin?.angle||-.06,0,q),1,
    {lift:q,back:hidden||turn!=null&&turn<.5,sx:turn==null||hidden?null:Math.abs(Math.cos(turn*Math.PI)),gold:g});}
   else if(ph.name==='hover'){const q=ph.q,bob=Math.sin(ph.raw*Math.PI*(heavy?2:1))*(heavy?7:4);M.floatCard(c,x.card.id,mix(lifted.x,above.x,q),mix(lifted.y,above.y,q)-bob,liftW,Math.sin(ph.raw*Math.PI)*.03,1,{lift:1,gold:g,back:hidden});}
   else if(minion)morph(c,x.card.id,above.x,mix(above.y,to.y,ph.q),ph.q,g);

@@ -259,33 +259,55 @@ function finale(c,s,t,st){const e=st.held?FINALE.end:t-st.at,kind=st.info.winner
   const q=ease.outCubic(clamp((e-FINALE.banner)/FINALE.unroll)),drop=ease.outBack(clamp((e-FINALE.banner)/350));
   c.save();c.translate(800,mix(-60,250,drop));c.beginPath();c.rect(-240,-40,480,40+290*q);c.clip();R.blit(c,banner(kind));c.restore();}
  if(!st.held&&e>=FINALE.end){st.held=true;st.done?.();}}
-// AP 3.10 (seit 1.38.0): Auftritt einer Legendären. Vor dem Ausspielen fährt ein Band mit Name und Epoche quer über das Brett
-// (raw 0–0,3), ein goldenes Siegel prägt sich darauf (0,38–0,55, mit Klang und leichtem Wackeln), dann blendet alles aus (ab 0,82)
-// und die Karte fällt wie bisher mit schwerem Aufprall (AP 3.3). Unter ruhiger Bewegung steht nur das Band, ohne Fahrt und Siegel.
-// raw läuft über die Phase „herald“ der Zeitleiste (motion.js) – bei „Schnell“ doppelt so schnell, ein Tippen überspringt sie.
-// ASTRA: legendaer-band – Band aus dunklem Samt mit Goldborte und Lorbeerenden quer über das Brett, Mitte frei für Name und Epoche, 1280 × 160
+// AP 3.10 (seit 1.38.0, neu inszeniert in 1.39.0 nach Deiner Rückmeldung „noch nicht gut“): Auftritt einer Legendären. raw läuft
+// über die Phase „herald“ (motion.js, 900 ms Match-Uhr, bei „Schnell“ die Hälfte, ein Tippen überspringt sie):
+//   0–0,32   das Brett wird dunkel, die Karte fliegt aus der Hand (die der KI von ihren Befehlen, dabei dreht sie sich um) groß in
+//            die Mitte (CHM.SHOW), hinter ihr gehen goldene Strahlen auf und drehen sich langsam;
+//   0,22–0,5 unter der Karte entrollt sich von der Mitte aus ein Band aus Samt mit Name und „Legendär · Held · Epoche“;
+//   0,5–0,62 ein goldenes Siegel prägt sich auf das Band – Siegelklang, ein Funkenkranz, ein leichter Stoß;
+//   0,62–1   die Karte schwebt, Strahlen und Band blenden aus; dann fällt sie von dort mit schwerem Aufprall auf ihren Platz (AP 3.3).
+// Unter ruhiger Bewegung steht die Karte gleich in der Mitte, das Band liegt still, ohne Strahlen, Siegel und Funken.
+// ASTRA: legendaer-band – Band aus dunkelrotem Samt mit Goldborte und gegabelten Enden unter der Karte, Mitte frei für Name und Epoche, 680 × 110
 // ASTRA: legendaer-siegel – goldenes Wachssiegel mit Lorbeerkranz und Stern, das sich auf das Band prägt, 150 × 150
-const heraldBand=card=>R.sprite('herald:'+card.id,-660,-84,1320,168,g=>{const owner=D.owner(card),line=['Legendär',owner?.name,D.eraOf(card)].filter(Boolean).join(' · ');
- g.shadowColor='#000a';g.shadowBlur=18;g.shadowOffsetY=6;g.beginPath();g.moveTo(-640,-50);g.lineTo(600,-50);g.lineTo(640,0);g.lineTo(600,50);g.lineTo(-640,50);g.lineTo(-600,0);g.closePath();
- g.fillStyle=grad(g,0,-50,0,100,'#3a0f14','#1a070a');g.fill();g.shadowBlur=0;g.shadowOffsetY=0;
- for(const y of [-42,42]){g.beginPath();g.moveTo(-620,y);g.lineTo(612,y);g.strokeStyle='#e6c065';g.lineWidth=3;g.stroke();}
- g.font='bold 46px Title,serif';g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';g.strokeStyle='#120406';g.lineWidth=6;g.strokeText(card.name,40,-10,900);g.fillStyle='#ffe6a6';g.fillText(card.name,40,-10,900);
- g.font='24px Body,serif';g.fillStyle='#e8d2a0';g.fillText(line,40,26,900);});
+// ASTRA: legendaer-strahlen – goldener Strahlenkranz hinter der großen Karte einer Legendären (wird gedreht), 840 × 840
+const heraldRibbon=card=>R.sprite('herald-band:'+card.id,-360,-62,720,124,g=>{const owner=D.owner(card),line=['Legendär',owner?.name,D.eraOf(card)].filter(Boolean).join(' · ');
+ g.shadowColor='#000b';g.shadowBlur=16;g.shadowOffsetY=6;
+ for(const sd of [-1,1]){g.beginPath();g.moveTo(sd*300,-30);g.lineTo(sd*350,-36);g.lineTo(sd*328,0);g.lineTo(sd*350,36);g.lineTo(sd*300,30);g.closePath();g.fillStyle='#4a1016';g.fill();}
+ g.beginPath();g.moveTo(-310,-44);g.quadraticCurveTo(0,-54,310,-44);g.lineTo(310,44);g.quadraticCurveTo(0,34,-310,44);g.closePath();g.fillStyle=grad(g,0,-50,0,100,'#7a1c24','#2a080c');g.fill();
+ g.shadowBlur=0;g.shadowOffsetY=0;g.lineWidth=3;g.strokeStyle='#e6c065';g.stroke();
+ g.beginPath();g.moveTo(-296,-36);g.quadraticCurveTo(0,-45,296,-36);g.moveTo(-296,36);g.quadraticCurveTo(0,27,296,36);g.lineWidth=1.2;g.strokeStyle='#e6c06588';g.stroke();
+ g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';g.font='bold 36px Title,serif';g.strokeStyle='#160406';g.lineWidth=6;
+ g.strokeText(card.name,14,-10,540);g.fillStyle=grad(g,0,-30,0,40,'#fff3c4','#e8b450');g.fillText(card.name,14,-10,540);
+ g.font='22px Body,serif';g.fillStyle='#f0dcae';g.fillText(line,14,22,540);});
 const heraldSeal=()=>R.sprite('herald-seal',-80,-80,160,160,g=>{g.shadowColor='#0009';g.shadowBlur=12;g.shadowOffsetY=4;
  g.beginPath();for(let i=0;i<=40;i++){const an=i/40*TAU,rr=62+3*Math.sin(an*9);g.lineTo(Math.cos(an)*rr,Math.sin(an)*rr);}g.closePath();g.fillStyle=grad(g,-62,-62,124,124,'#8a5a12','#ffe08a');g.fill();
  g.shadowBlur=0;g.shadowOffsetY=0;g.strokeStyle='#5a3a0a';g.lineWidth=2;g.stroke();ellipse(g,0,0,46,46,null,'#7a4e10',3);
- for(let i=0;i<14;i++){const an=-Math.PI*.9+i/13*Math.PI*.8,side=[-1,1];for(const sd of side){g.save();g.rotate(sd*an);g.translate(0,-38);g.rotate(sd*.5);g.beginPath();g.ellipse(0,0,4,8,0,0,TAU);g.fillStyle='#6a420c';g.fill();g.restore();}}
+ for(let i=0;i<14;i++){const an=-Math.PI*.9+i/13*Math.PI*.8;for(const sd of [-1,1]){g.save();g.rotate(sd*an);g.translate(0,-38);g.rotate(sd*.5);g.beginPath();g.ellipse(0,0,4,8,0,0,TAU);g.fillStyle='#6a420c';g.fill();g.restore();}}
  sparkle(g,0,0,20,'#fff6d0');});
-F.herald=(c,x,raw)=>{const card=x.card,y=357,calm=still(),fade=raw<.82?1:clamp((1-raw)/.18);
- const slide=calm?1:ease.outCubic(clamp(raw/.3)),stamp=calm?0:clamp((raw-.38)/.17);
- if(!calm&&raw>=.02&&!x.horn){x.horn=true;CHA.play('horn',{gain:.42});}
- if(!calm&&stamp>=1&&!x.stamped){x.stamped=true;CHA.play('seal',{gain:.75});T.shake.add(.14);}
- c.save();c.globalAlpha=fade*.38*clamp(raw/.15);c.fillStyle='#0b0806';c.fillRect(-60,-60,1720,920);c.restore();
- c.save();c.globalAlpha=fade*(calm?clamp(raw/.15):1);R.blit(c,heraldBand(card),mix(-1100,800,slide),y);
- if(stamp>0){const k=mix(2.4,1,ease.inCubic(stamp));c.globalAlpha=fade*clamp(stamp*2);c.translate(800-520,y);c.scale(k,k);R.blit(c,heraldSeal());}
- c.restore();};
+const heraldRays=()=>R.sprite('herald-strahlen',-420,-420,840,840,g=>{const f=g.createRadialGradient(0,0,30,0,0,420);f.addColorStop(0,'#fff4c8ee');f.addColorStop(.3,'#ffd27a77');f.addColorStop(1,'#ffcf6a00');
+ g.fillStyle=f;for(let i=0;i<18;i++){const a=i/18*TAU;g.beginPath();g.moveTo(0,0);g.arc(0,0,420,a-.06,a+.06);g.closePath();g.fill();}
+ const h=g.createRadialGradient(0,0,0,0,0,260);h.addColorStop(0,'#ffe9a066');h.addColorStop(1,'#ffe9a000');g.fillStyle=h;g.beginPath();g.arc(0,0,260,0,TAU);g.fill();});
+F.herald=(c,x,raw,t)=>{const card=x.card,S=CHM.SHOW,calm=still(),mine=x.p===0,from=x.heraldFrom||S,out=raw<.62?0:clamp((raw-.62)/.38);
+ const fly=calm?1:ease.outCubic(clamp(raw/.32)),unroll=calm?1:ease.outCubic(clamp((raw-.22)/.28)),stamp=calm?0:clamp((raw-.5)/.12),turn=mine||calm?1:clamp(raw/.32);
+ if(!calm&&!x.horn){x.horn=true;CHA.play('horn',{gain:.42});}
+ if(!calm&&stamp>=1&&!x.stamped){x.stamped=true;x.stampAt=t;CHA.play('seal',{gain:.75});T.shake.add(.16);}
+ // Das Brett tritt zurück.
+ c.save();c.globalAlpha=.68*clamp(raw/.18)*(1-out);c.fillStyle='#0b0806';c.fillRect(-60,-60,1720,920);c.restore();
+ // Strahlen und Schein hinter der Karte.
+ const w=mix(from.w,S.w,fly),h=w*1.41,cx=mix(from.x,S.x,fly),cy=mix(from.y,S.y,fly)-Math.sin(fly*Math.PI)*46+(calm?0:Math.sin(raw*Math.PI*2)*3*fly);
+ if(!calm){c.save();c.globalAlpha=fly*(1-out)*.55;c.translate(cx,cy);c.rotate(t/2600);const k=.7+.3*fly;c.scale(k,k);R.blit(c,heraldRays());c.restore();}
+ c.save();c.globalAlpha=fly*(1-out*.6);c.translate(cx-w/2,cy-h/2);c.scale(w/200,h/282);R.blit(c,revealGlow());c.restore();
+ // Die Karte – die der KI dreht sich im Flug um.
+ CHM.floatCard(c,card.id,cx,cy,w,mix(from.angle||0,0,fly),1,{lift:fly,back:turn<.5,sx:mine||calm?null:Math.abs(Math.cos(turn*Math.PI)),gold:mine&&R.gilded(card.id)});
+ // Das Band entrollt sich von der Mitte aus unter der Karte.
+ const by=S.y+S.w*1.41/2+30;
+ if(unroll>0){c.save();c.globalAlpha=1-out;c.beginPath();c.rect(S.x-360*unroll,by-70,720*unroll,140);c.clip();R.blit(c,heraldRibbon(card),S.x,by);c.restore();}
+ // Das Siegel prägt sich links auf das Band, Funken fliegen.
+ if(stamp>0){const k=mix(2.6,.72,ease.inCubic(stamp));c.save();c.globalAlpha=clamp(stamp*2)*(1-out);c.translate(S.x-292,by);c.scale(k,k);R.blit(c,heraldSeal());c.restore();}
+ if(x.stampAt!=null){const e=(t-x.stampAt)/520;if(e<1)for(let i=0;i<18;i++){const an=i/18*TAU+.3,r=20+e*120*(.7+.3*Math.sin(i*7)),a=(1-e)*(1-out);
+  c.save();c.globalAlpha=a;sparkle(c,S.x-292+Math.cos(an)*r,by+Math.sin(an)*r*.7,6+4*(1-e),'#fff1c0');c.restore();}}};
 // Drawn last over the board (R.draw). A held close is dropped as soon as another game is shown.
-F.draw=(c,s,t)=>{const x=CHM.transition;if(x?.line&&!x.hit){const ph=x.line.at(t-x.at);if(ph.name==='herald')F.herald(c,x,ph.raw);}
+F.draw=(c,s,t)=>{const x=CHM.transition;if(x?.line&&!x.hit){const ph=x.line.at(t-x.at);if(ph.name==='herald')F.herald(c,x,ph.raw,t);}
  const st=F.stage;if(!st)return;if(st.kind==='finale'&&s.phase!=='over'){F.stage=null;return;}
  if(st.kind==='opening')opening(c,s,t,st);else finale(c,s,t,st);};
 })();

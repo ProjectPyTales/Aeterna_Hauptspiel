@@ -3,7 +3,7 @@
  * als „notes“ in version.json (werkzeuge/update_info.js), und ältere Versionen zeigen sie im Hinweis „Neue Version“. */
 (function(root){'use strict';
 const api={
- version:'1.38.0',
- notes:'Legendäre treten mit Band und Siegel auf, das Handy vibriert im Takt jedes Aufpralls, und das Brett ist lesbarer: mehr von jeder Handkarte, größere Schrift für Zug, Deck und Friedhof, ein ruhigeres Grün und kleinere Schildwall-Wappen.'};
+ version:'1.39.0',
+ notes:'Legendäre treten jetzt groß auf: Die Karte fliegt in die Mitte, goldene Strahlen gehen auf, ein Band mit Name und Epoche entrollt sich, ein Siegel prägt sich darauf – dann schlägt sie mit Funken ein. Der Modus steht nicht mehr oben auf dem Brett, sondern im Pausenfenster.'};
 if(typeof module!=='undefined')module.exports=api;else root.AENEU=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

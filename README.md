@@ -4,7 +4,10 @@
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
 `thepytales/Aeterna` mit der ganzen Historie). **Das Spiel ist fertig gebaut – jetzt kommen die Bilder:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
-Aktueller Stand im Code: **Version 1.38.0** (**Match-HUD, Auftritt der Legendären und Vibration im Takt** nach AP 1.9, AP 3.10
+Aktueller Stand im Code: **Version 1.39.0** (**Rückmeldung zu 1.38.0** – der Auftritt der Legendären ist neu inszeniert: die Karte
+fliegt groß in die Mitte, goldene Strahlen gehen auf, darunter entrollt sich ein Band mit Name und Epoche, ein Siegel prägt sich mit
+Funken darauf, dann schlägt sie mit goldenem Funkenkranz ein; der Modus steht nicht mehr dauerhaft oben auf dem Brett, sondern im
+Pausenfenster); davor 1.38.0 (**Match-HUD, Auftritt der Legendären und Vibration im Takt** nach AP 1.9, AP 3.10
 und AP 4.5 – bei voller Hand liegen die Karten weiter auseinander und etwas höher, Modus, Zug, Deck und Friedhof stehen in
 Mindestgröße hell auf dunklem Band, das Bereit-Grün ist wärmer und ruhiger, das Schildwall-Wappen kleiner; vor jeder Legendären
 fährt ein Band mit Name und Epoche über das Brett, ein Siegel prägt sich darauf; das Handy vibriert im Moment des Einschlags nach
@@ -1463,7 +1466,8 @@ Gesehen im Bild von `node werkzeuge/matchmessung.js` (Handyformat 915 × 412, 7 
 - [x] **Mindestgröße für Text auf dem Brett:** „SCHLACHT“, „ZUG 1“ und die Zahlen an Deck und Friedhof sind im Handyformat nur
   wenige Pixel hoch und blass. Mindestens 22 Einheiten (≈ 12,5 px bei 915 px Breite) und Kontrast nach `stil/STILBIBEL.md`;
   am besten mit einem Test, der die kleinste Schrift im Match-Renderer prüft (wie `lesbar_css.py` für die Menüs).
-  *1.38.0: `MIN_TEXT = 22` für Modus (auf dunklem Band), „ZUG BEENDEN“ und „ZUG n“ am Chronometer, Deck, Erschöpfung und Friedhof;
+  *1.38.0: `MIN_TEXT = 22` für „ZUG BEENDEN“ und „ZUG n“ am Chronometer, Deck, Erschöpfung und Friedhof (der Modus stand in 1.38.0
+  groß auf einem Band oben links – nach Deiner Rückmeldung steht er seit 1.39.0 nur noch im Pausenfenster, mit der Stärke der KI);
   in der Chronik-Leiste ein Siegel mit der Zahl des Zuges statt „ZUG n“ in 8,5 Einheiten. Test `tests/hud.test.js`. Klein bleiben
   die Ziffern auf dem Zifferblatt und „CHRONIK“ auf Astras Rolle (Schmuck, kein Lesetext).*
 - [x] **Schildwall-Wappen zurücknehmen:** Bei vollem Brett trägt fast jeder Diener oben ein Wappen – kleiner oder als Rand der
@@ -1889,6 +1893,11 @@ nichts Neues. Offen ist nur ein eigener Auftritt für Legendäre:
   *1.38.0: Phase „herald“ (700 ms auf der Match-Uhr) vor der Zeitleiste des Ausspielens (`view/match/motion.js`); Band mit Name,
   „Legendär · Held · Epoche“ und goldenem Siegel mit Horn und Siegelklang (`F.herald` in `fx.js`, zuletzt über allem gezeichnet);
   Tippen springt an sein Ende (`M.skipHerald`); Hinterhalte bleiben verdeckt. Astra-Paket U13 (`legendaer-band`, `legendaer-siegel`).*
+  *1.39.0 (Rückmeldung „noch nicht gut“): neu inszeniert, 900 ms – das Brett dunkelt ab, die Karte fliegt aus der Hand (die der KI
+  dreht sich dabei um) groß in die Mitte (`M.SHOW`), hinter ihr drehen sich goldene Strahlen, darunter entrollt sich von der Mitte
+  aus ein Band aus Samt mit Name und „Legendär · Held · Epoche“, ein Siegel prägt sich mit Siegelklang, Stoß und Funkenkranz darauf;
+  dann fällt die Karte von dort auf ihren Platz und schlägt mit goldenem Funkenkranz ein. Ruhige Bewegung: Karte und Band stehen
+  still. Neu im Astra-Paket U13: `legendaer-strahlen`.*
 
 ### Phase 4 – Klang, Stimmen und Haptik (M)
 
@@ -3006,7 +3015,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 29 ✓ | AP 6.5, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 vorbereiten | erledigt in 1.34.0 – Lehrstunden mit dem Chronisten, Lehrling/Feldherr/Legende, Einstellungen mit Textgröße, Farben, Bewegung und Grafik, Sicherungen, Fehlerprotokoll, Geräte-Matrix; Astra-Auftrag in 43 Paketen mit Startanleitung; AP 6.6 pausiert |
 | ab jetzt (Du) | AP A.3: Pakete K01–K32 und U01–U12 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
 | 30+ | Einbau der Lieferungen, dazwischen AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | jede Lieferung eine kurze Sitzung; Chronikzeilen und Klang brauchen keine Bilder |
-| 30 ✓ | Automatische Updates, AP 2.7, AP 1.9, AP 3.10, AP 4.5 (Zusatz) | erledigt in 1.36.0 bis 1.38.0 – Updates wie in ADEU-Harness; Ruhetakt, Tisch als eigene Ebene, Auflösung passt sich an; lesbare Hand, Mindestschrift, ruhigeres Grün; Auftritt der Legendären; Vibration im Takt des Aufpralls |
+| 30 ✓ | Automatische Updates, AP 2.7, AP 1.9, AP 3.10, AP 4.5 (Zusatz), Rückmeldung 1.38.0 | erledigt in 1.36.0 bis 1.39.0 – Updates wie in ADEU-Harness; Ruhetakt, Tisch als eigene Ebene, Auflösung passt sich an; lesbare Hand, Mindestschrift, ruhigeres Grün; Auftritt der Legendären; Vibration im Takt des Aufpralls |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
@@ -3015,12 +3024,14 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt in Sitzung 30 (Versionen 1.36.0 bis 1.38.0, 9. 11. 2026):**
+**Erledigt in Sitzung 30 (Versionen 1.36.0 bis 1.39.0, 9. 11. 2026):**
 - **Automatische Updates** wie in ADEU-Harness (1.36.0, Dein Wunsch): `version.json` im Release „Test-APK“, Hinweis im Hauptmenü mit
   „Was ist neu“, Download mit SHA-256-Prüfung, Installer von Android, *Einstellungen → Daten → Updates* – siehe
   [Automatische Updates](#automatische-updates-seit-1360).
 - **AP 2.7 Bildrate und Wärme** (1.37.0): Ruhetakt (in Ruhe 30 Bilder je Sekunde), Tisch als eigene Ebene mit Wackeln als
   CSS-transform, Auflösung, die sich im Gefecht anpasst, keine Live-Schatten mehr, Menü-Funken ruhen unter Fenstern.
+- **Rückmeldung zu 1.38.0** (1.39.0): Auftritt der Legendären neu inszeniert (Karte groß in der Mitte, Strahlen, Band, Siegel,
+  Einschlag mit Funken); der Modus steht nicht mehr oben auf dem Brett, sondern im Pausenfenster.
 - **AP 1.9 Match-HUD, AP 3.10 Auftritt der Legendären, AP 4.5 Vibration im Takt des Aufpralls** (1.38.0, Dein Wunsch): lesbarere
   Hand bei voller Hand (Entscheidung 23 nach meinem Vorschlag: zwei Fächerseiten), Brett-Schriften in Mindestgröße, ruhigeres
   Grün, kleinere Schildwall-Wappen; Band und Siegel vor jeder Legendären; Vibration nach Wucht im Moment des Einschlags.
@@ -3029,8 +3040,9 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 - Davor: Sitzungen 1–29 (1.4.0–1.35.0). Deine Rückmeldung zu 1.34.0 und 1.35.0 steht noch aus.
 
 **Vorher bitte von dir:**
-1. **`Aeterna-1.38.0-Test.apk` einmal von Hand installieren** (Release „Test-APK“ – es hält nur die neueste APK). Ab dann meldet sich
-   jede neue Version von selbst im Hauptmenü; beim ersten Update führt Android einmal zu „Apps aus dieser Quelle zulassen“.
+1. **Update auf 1.39.0 über den neuen Hinweis im Hauptmenü** – auf 1.38.0 meldet es sich von selbst („Neue Version verfügbar“).
+   Beim ersten Update führt Android einmal zu „Apps aus dieser Quelle zulassen“. Wer noch eine Version vor 1.36.0 hat, installiert
+   die APK aus dem Release „Test-APK“ einmal von Hand.
 2. **Kurz testen (15 Minuten):** ein Duell mit voller Hand – sind die Karten ohne Großansicht zu erkennen? Eine Legendäre ausspielen
    (Band, Siegel, Aufprall; Tippen überspringt). Spürst Du die Vibration im Takt der Treffer, zu stark oder zu schwach? Mit der
    Bildraten-Anzeige (fünfmal auf die Version in *Über das Spiel*): im Gefecht 120 fps, in Ruhe 30 mit „· Ruhe“. Dazu, falls noch
@@ -3043,7 +3055,7 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.34.0–1.38.0 | Lehrstunden, Schwierigkeitsgrade, Sammlung, Updates, Bildrate, Hand, Legendäre, Vibration nach Deinem Test | kleine Nacharbeit |
+| Rückmeldung 1.34.0–1.39.0 | Lehrstunden, Schwierigkeitsgrade, Sammlung, Updates, Bildrate, Hand, Legendäre, Vibration nach Deinem Test | kleine Nacharbeit |
 | AP A.3 Einbau | alle bis dahin gelieferten Ordner `Lieferung_K…` und `Lieferung_U…` | sichtbarster Fortschritt |
 | Falls keine Lieferung da ist | AP L.6 Teil 2: „Aus der Chronik“ für die nächsten rund 80 Karten (Basis- und Startdeckkarten zuerst) | braucht keine Bilder, stärkt den Lernteil |
 | Optional | AP 1.9 Rest: Chronik-Leiste startet eingeklappt und fährt mit dem ersten Eintrag heraus | klein |
@@ -3052,7 +3064,7 @@ Risiko: niedrig – Kartenbilder baut das Werkzeug ein; Chronikzeilen ändern ke
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Hauptspiel`. Übernimm mein Feedback zu den Versionen 1.34.0 bis 1.38.0:
+> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Hauptspiel`. Übernimm mein Feedback zu den Versionen 1.34.0 bis 1.39.0:
 > *(hier Feedback einfügen, auch zu Updates, Bildrate, Hand, Legendären und Vibration)*. Entscheidung 23: *(zwei Fächerseiten bleiben /
 > ein Fächer)*. Baue dann die Astra-Lieferungen *(falls vorhanden, z. B. K01, U01)* ein, sonst AP L.6 Teil 2. Halte dich an die
 > „Regeln für jede Sitzung“ (neue Version mit `model/neu.js`), lass Tests, Klickpfad und Geräte-Matrix laufen, hake erledigte Punkte
