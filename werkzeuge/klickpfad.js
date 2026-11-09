@@ -222,10 +222,12 @@ async function basar(page,cmpPage,cdp){
    check('Lehrstunde: festes Brett, Dein Zug, der Chronist zeigt Schritt 1',await page.evaluate(()=>{const s=App.profile.game,k=AETU.coach(s);return s.lesson?.id==='schlacht'&&s.phase==='play'&&s.active===0&&k.step===1&&k.card==='leonidas_0'&&!document.querySelector('#overlay .mulligan');}));
    await shot(page,cmpPage,'22-lehrstunde');
    // AP 2.7: der goldene Ring der Lehrstunde ist ein Sprite – kein shadowBlur auf der Leinwand des Bretts; in Ruhe der Ruhetakt.
+   // Gezählt wird erst, wenn der Ruhetakt gilt (nach dem letzten Ereignis läuft noch 2 s der volle Takt): 2 s → etwa 60 Bilder.
+   await page.waitForFunction(()=>CHR.pacing?.().resting,null,{timeout:10000});
    const ring=await page.evaluate(()=>new Promise(res=>{const c=document.getElementById('board').getContext('2d'),d=Object.getOwnPropertyDescriptor(c,'shadowBlur');let n=0,f=0;const draw=CHR.draw;
     Object.defineProperty(c,'shadowBlur',{configurable:true,get(){return d.get.call(this);},set(v){if(v>0)n++;d.set.call(this,v);}});CHR.draw=function(...a){f++;return draw.apply(this,a);};
-    setTimeout(()=>{CHR.draw=draw;Object.defineProperty(c,'shadowBlur',d);res({schatten:n,bilder:f,ruhe:CHR.pacing().resting,ebene:CHR.layered&&getComputedStyle(document.getElementById('table')).display});},3000);}));
-   check('Lehrstunde: Ring ohne Live-Schatten, Tisch als eigene Ebene, Ruhetakt',ring.schatten===0&&ring.bilder>0&&ring.bilder<=100&&ring.ruhe&&ring.ebene==='block',ring);
+    setTimeout(()=>{CHR.draw=draw;Object.defineProperty(c,'shadowBlur',d);res({schatten:n,bilder_2s:f,ruhe:CHR.pacing().resting,ebene:CHR.layered&&getComputedStyle(document.getElementById('table')).display});},2000);}));
+   check('Lehrstunde: Ring ohne Live-Schatten, Tisch als eigene Ebene, Ruhetakt',ring.schatten===0&&ring.bilder_2s>0&&ring.bilder_2s<=72&&ring.ruhe&&ring.ebene==='block',ring);
    // Einstellungen (Phase 7): Reiter „Anzeige“; Farben bei Farbsehschwäche und große Schrift wirken sofort.
    await page.keyboard.press('Escape');await page.waitForSelector('#overlay .modal');await page.locator('#overlay button',{hasText:'Einstellungen'}).click();await page.waitForSelector('#overlay .settings');
    await page.locator('#overlay .stone-tab',{hasText:'Anzeige'}).click();await settle(page,100);
