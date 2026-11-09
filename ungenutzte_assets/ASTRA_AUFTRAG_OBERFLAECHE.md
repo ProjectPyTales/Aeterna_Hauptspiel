@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (80 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (81 Teile)
 
 *Stand 1.34.0 (2. 11. 2026; seit 1.34.0 die zwei der Lehrstunden, AP 6.5; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9, und seit 1.33.0 die drei der Kartenrätsel, AP 6.4 Teil 2). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 80 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 81 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -181,11 +181,12 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 |---|---|---|---|
 | `update-siegel` | `update-siegel.png` | 120 × 120 | Rundes Wachssiegel in Dunkelrot über dem Hinweis „Neue Version“: eingeprägt ein Pfeil, der sich im Kreis schließt, mit feinem Bronzerand; kein Text. |
 
-### Paket 13 – Auftritt der Legendären (2 Teile, 2 Dateien, seit 1.38.0)
+### Paket 13 – Auftritt der Legendären (3 Teile, 3 Dateien, seit 1.38.0, neu in 1.39.0)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
-| `legendaer-band` | `legendaer-band.png` | 1280 × 160 | Band aus dunkelrotem Samt mit Goldborte oben und unten und Lorbeerenden, das quer über das Spielbrett fährt; links Platz für ein Siegel, die Mitte ruhig und dunkel für Name und Epoche in heller Schrift. |
+| `legendaer-band` | `legendaer-band.png` | 680 × 110 | Band aus dunkelrotem Samt mit Goldborte oben und unten und gegabelten Enden, leicht gewölbt, unter der groß gezeigten Karte; links Platz für ein Siegel, die Mitte ruhig und dunkel für Name und Epoche in heller Schrift. |
+| `legendaer-strahlen` | `legendaer-strahlen.png` | 840 × 840 | Goldener Strahlenkranz mit warmem Licht in der Mitte, nach außen weich auslaufend, hinter der großen Karte einer Legendären; das Spiel dreht ihn langsam – keine Schrift, keine Figur. |
 | `legendaer-siegel` | `legendaer-siegel.png` | 150 × 150 | Goldenes Wachssiegel mit Lorbeerkranz und einem Stern in der Mitte, das sich auf das Band prägt; leicht gewellter Rand, Licht von oben rechts. |
 
 ## Abnahme

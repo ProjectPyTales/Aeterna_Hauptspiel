@@ -2,7 +2,7 @@
 // Browser (Klickpfad, matchmessung.js, Geräte-Matrix); hier stehen Geometrie, Regeln und was ohne Browser prüfbar ist.
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs'),vm=require('node:vm');
 const game=path.join(__dirname,'../../quellcode/assets/game'),read=f=>fs.readFileSync(path.join(game,f),'utf8');
-const D=require(path.join(game,'model/data.js')),{impactHaptic}=require(path.join(game,'viewmodel/match.js')),T=require(path.join(game,'view/match/anim.js'));
+const D=require(path.join(game,'model/data.js')),{impactHaptic,modeText}=require(path.join(game,'viewmodel/match.js')),T=require(path.join(game,'view/match/anim.js'));
 const box={window:{}};vm.runInNewContext(read('view/match/layout.js'),box);const L=box.window.CHL;
 const render=read('view/match/render.js'),motion=read('view/match/motion.js'),fx=read('view/match/fx.js'),board=read('view/match/board.js');
 
@@ -24,8 +24,8 @@ test('AP 1.9 Handkarten (Entscheidung 23: zwei Fächerseiten): bei voller Hand w
 
 test('AP 1.9 Lesbarkeit: Brett-Schriften in Mindestgröße hell auf dunklem Band, ruhigeres Grün, kleineres Schildwall-Wappen',()=>{
  assert.match(render,/const MIN_TEXT=22;/);
- // Modus, Zug, ZUG BEENDEN, Deck, Erschöpfung, Friedhof und das Zugsiegel der Chronik-Leiste nutzen die Mindestgröße.
- for(const re of [/372,56,MIN_TEXT,'#f3dab0'/,/txt\(c,label,0,r\+27,MIN_TEXT/,/txt\(c,'ZUG '\+turn,0,r\+66,MIN_TEXT/,/txt\(c,pp\.deck\.length,1451,yy\+104,MIN_TEXT/,
+ // Zug, ZUG BEENDEN, Deck, Erschöpfung, Friedhof und das Zugsiegel der Chronik-Leiste nutzen die Mindestgröße.
+ for(const re of [/txt\(c,label,0,r\+27,MIN_TEXT/,/txt\(c,'ZUG '\+turn,0,r\+66,MIN_TEXT/,/txt\(c,pp\.deck\.length,1451,yy\+104,MIN_TEXT/,
   /txt\(c,'−'\+\(pp\.fatigue\+1\),1451,yy\+104,MIN_TEXT/,/txt\(c,'☠ '\+pp\.grave\.length,1542,yy\+61,MIN_TEXT/,/txt\(c,e\.turn,x,sy\+1,MIN_TEXT/])assert.match(render,re);
  for(const old of [/,368,55,13,/,/'ZUG '\+e\.turn,x,sy\+\.5,8\.5/,/'ZUG '\+turn,0,r\+56,14/,/pp\.deck\.length,1451,yy\+103,19/])assert.doesNotMatch(render,old);
  // Die Plakette der Chronometer-Taste passt in sein Sprite.
@@ -37,18 +37,32 @@ test('AP 1.9 Lesbarkeit: Brett-Schriften in Mindestgröße hell auf dunklem Band
  assert.match(render,/function tauntCrest\(c\)\{\n c\.save\(\);c\.translate\(0,-50\);c\.scale\(\.7,\.7\);/);
 });
 
-test('AP 3.10 Auftritt der Legendären: Band und Siegel vor dem Aufprall, ≤ 1 s, überspringbar, nicht für Hinterhalte',()=>{
- assert.match(motion,/const HERALD=700;/);assert.match(motion,/M\.legendary=card=>card\?\.rarity==='legendary'&&!card\.ambush;/);
+test('Rückmeldung zu 1.38.0: kein Modus mehr oben auf dem Brett – Art der Partie und Stärke der KI stehen im Pausenfenster',()=>{
+ assert.doesNotMatch(render,/'SCHLACHT'/);assert.doesNotMatch(render,/'KOLOSSEUM'/);assert.doesNotMatch(render,/round\(c,254,38,236,34/);
+ assert.equal(modeText({mode:'free'}),'Freies Duell · Stärke der KI: Feldherr');
+ assert.equal(modeText({mode:'free',level:'legende'}),'Freies Duell · Stärke der KI: Legende');
+ assert.match(modeText({mode:'campaign',mission:0}),/^Kampagne · Mission \d+ · Stärke der KI: /);
+ assert.equal(modeText({mode:'tutorial'}),'Lehrstunde');assert.equal(modeText({mode:'puzzle'}),'Kartenrätsel');assert.equal(modeText(null),'');
+ assert.match(read('viewmodel/match.js'),/title:'Die Partie ruht',close:false,text:\[modeText\(this\.game\),'Dein Spielstand ist gespeichert\.'\]/);
+});
+
+test('AP 3.10 Auftritt der Legendären (1.39.0 neu inszeniert): Karte groß in der Mitte, Strahlen, Band, Siegel, dann Aufprall – ≤ 1 s, überspringbar',()=>{
+ assert.match(motion,/const HERALD=900;M\.SHOW=\{x:800,y:340,w:212\};/);assert.match(motion,/M\.legendary=card=>card\?\.rarity==='legendary'&&!card\.ambush;/);
  assert.match(motion,/line=base&&M\.legendary\(card\)\?herald\(base\):base/);
  // Die Zeitleiste behält ihre Phasen und setzt das Band davor; auf „Schnell“ läuft die Match-Uhr doppelt (anim.js).
  const play=T.timeline([{name:'lift',d:150},{name:'hover',d:270},{name:'slam',d:130},{name:'settle',d:380}]);
- const withBand=T.timeline([{name:'herald',d:700},...play.phases.map(({name,d,ease})=>({name,d,ease}))]);
- assert.equal(withBand.duration,play.duration+700);assert.equal(withBand.start('lift'),700);assert.ok(700<=1000);
+ const withBand=T.timeline([{name:'herald',d:900},...play.phases.map(({name,d,ease})=>({name,d,ease}))]);
+ assert.equal(withBand.duration,play.duration+900);assert.equal(withBand.start('lift'),900);assert.ok(900<=1000);
+ // Nach dem Auftritt beginnt der Flug in der Mitte (dort steht die Karte), nicht mehr in der Hand.
+ assert.match(motion,/const show=line!==base,from=show\?\{x:M\.SHOW\.x,y:M\.SHOW\.y\}:start/);
+ assert.match(motion,/heraldFrom:show\?/);assert.match(motion,/turn=mine\|\|x\.heraldFrom\?null:/,'die KI-Karte dreht sich nicht zweimal um');
+ assert.match(motion,/if\(M\.legendary\(card\)\)CHR\.fx\.push\(\{type:'burst',element:'gold'/,'goldener Funkenkranz beim Einschlag');
  assert.match(motion,/M\.skipHerald=\(\)=>\{if\(!M\.inHerald\(\)\)return false;/);
  assert.match(board,/if\(M\.skipHerald\(\)\)return;if\(M\.busy\(\)\)return;/,'ein Tippen überspringt');
- assert.match(fx,/F\.draw=\(c,s,t\)=>\{const x=CHM\.transition;if\(x\?\.line&&!x\.hit\)\{const ph=x\.line\.at\(t-x\.at\);if\(ph\.name==='herald'\)F\.herald/,'zuletzt über allem');
- assert.match(fx,/calm=still\(\)/);assert.match(fx,/stamp=calm\?0:/,'ruhige Bewegung: nur das Band');
- for(const k of ['legendaer-band','legendaer-siegel'])assert.match(fx,new RegExp('ASTRA: '+k+' – '),k);
+ assert.match(fx,/F\.draw=\(c,s,t\)=>\{const x=CHM\.transition;if\(x\?\.line&&!x\.hit\)\{const ph=x\.line\.at\(t-x\.at\);if\(ph\.name==='herald'\)F\.herald\(c,x,ph\.raw,t\)/,'zuletzt über allem');
+ assert.match(fx,/calm=still\(\)/);assert.match(fx,/fly=calm\?1:/);assert.match(fx,/stamp=calm\?0:/,'ruhige Bewegung: Karte steht, Band liegt still, kein Siegel');
+ assert.match(fx,/CHM\.floatCard\(c,card\.id,cx,cy,w/,'die Karte selbst im Auftritt');
+ for(const k of ['legendaer-band','legendaer-siegel','legendaer-strahlen'])assert.match(fx,new RegExp('ASTRA: '+k+' – '),k);
  // Es gibt Legendäre, die so auftreten – und Hinterhalte, die verdeckt bleiben.
  assert.ok(D.cards.filter(c=>c.rarity==='legendary'&&!c.ambush).length>=22);
 });

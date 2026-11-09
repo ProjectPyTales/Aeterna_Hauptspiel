@@ -108,7 +108,7 @@ test('Ansichten: Platzhalter für Astra, Tafel im Match, Lage und Ergebnis; Lade
  const camp=read('view/campaign.js'),dlg=read('view/dialogs.js'),rnd=read('view/match/render.js');
  assert.match(camp,/\/\/ ASTRA: raetsel-siegel – /);assert.match(camp,/cmd:'openRiddle'/);
  assert.match(dlg,/\/\/ ASTRA: raetsel-lage – /);assert.match(dlg,/D_\.riddle=/);assert.match(dlg,/'GELÖST':'UNGELÖST'/);
- assert.match(rnd,/\/\/ ASTRA: raetsel-tafel – /);assert.match(rnd,/riddle\(c,s\)/);assert.match(rnd,/'RÄTSEL'/);
+ assert.match(rnd,/\/\/ ASTRA: raetsel-tafel – /);assert.match(rnd,/riddle\(c,s\)/);assert.match(read('viewmodel/match.js'),/puzzle:\(\)=>'Kartenrätsel'/);
  const html=read('index.html');assert.ok(html.indexOf('model/campaign.js')<html.indexOf('model/puzzles.js')&&html.indexOf('model/puzzles.js')<html.indexOf('model/profile.js'));
  const order=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8');
  for(const k of ['raetsel-siegel','raetsel-lage','raetsel-tafel'])assert.ok(order.includes('| `'+k+'` |'),k);

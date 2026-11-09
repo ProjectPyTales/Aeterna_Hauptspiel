@@ -40,6 +40,11 @@ class Choice extends Dialog{
  close(){}
 }
 
+// Art der Partie und Stärke der KI (seit 1.39.0 nur noch im Pausenfenster – bis dahin stand sie dauerhaft oben auf dem Brett).
+const MODES={campaign:s=>'Kampagne · Mission '+(KA?KA.number(s.mission):s.mission+1),random:()=>'Kolosseum',draft:()=>'Kolosseum',daily:()=>'Tagesduell',puzzle:()=>'Kartenrätsel',tutorial:()=>'Lehrstunde'};
+function modeText(s){if(!s)return '';const m=(MODES[s.mode]||(()=>'Freies Duell'))(s);if(s.mode==='tutorial'||s.mode==='puzzle')return m;
+ const lv=E.LEVELS.find(l=>l.id===E.level(s.level));return m+(lv?' · Stärke der KI: '+lv.name:'');}
+
 // Vibration im Takt des Aufpralls (AP 4.5, seit 1.38.0): Die Hülle vibriert im Moment des Einschlags (Treffer-Stopp), nach Wucht:
 // schwer (2) bei Treffern am Helden, beim Auftritt einer Legendären und beim Tod großer Diener (Kosten ab 5), mittel (1) bei
 // Treffern an Dienern, eigenen Angriffen und schweren Karten (Kosten ab 6), leicht (0) beim übrigen eigenen Befehl. Im Zug des Gegners nur, wenn es
@@ -265,7 +270,7 @@ class Match extends Screen{
   if(s.mode==='campaign'){const done=p.campaign.length;bars.push({key:'campaign',label:'Kampagne',from:done-(r.first?1:0),to:done,goal:D.missions.length,note:r.first?'Mission erstmals vollendet':''});}
   return bars;}
  pause(){const z=RA.byId[this.game?.puzzle];if(z){this.riddlePause(z);return;}const l=TU.byId[this.game?.lesson?.id];if(l){this.lessonPause(l);return;}
-  this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:'Dein Spielstand ist gespeichert.',wrap:true,
+  this.ui.dialog('message',new Dialog(this.ctx,{title:'Die Partie ruht',close:false,text:[modeText(this.game),'Dein Spielstand ist gespeichert.'],wrap:true,
   buttons:[{label:'Fortsetzen',style:'gold'},{label:'Einstellungen',run:()=>this.ctx.dialogs.settings()},{label:'Zum Hauptmenü',keep:true,run:()=>this.ui.go('menu')},{label:'Aufgeben',style:'danger',run:()=>this.confirmSurrender()}]}));}
  // Kartenrätsel (AP 6.4 Teil 2): Lage und Ziel, ein Tipp ohne die Lösung, neu auflegen oder zurück zur Kampagne.
  riddlePause(z){this.ui.dialog('message',new Dialog(this.ctx,{title:'Rätsel · '+z.title,close:false,text:[z.text,'Ziel: Gewinne in diesem Zug.'],wrap:true,
@@ -310,6 +315,6 @@ class Match extends Screen{
  back(){this.pause();}
 }
 
-const api={DIORAMAS,keywordsOf,impactHaptic,Match,Choice};
+const api={DIORAMAS,keywordsOf,impactHaptic,modeText,Match,Choice};
 if(node)module.exports=api;else root.AEVM=Object.assign(root.AEVM||{},api);
 })(typeof globalThis!=='undefined'?globalThis:this);
