@@ -4,7 +4,11 @@
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
 `thepytales/Aeterna` mit der ganzen Historie). **Das Spiel ist fertig gebaut – jetzt kommen die Bilder:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
-Aktueller Stand im Code: **Version 1.35.0** (**Sammlung 3.0** – die Sammlung ist jetzt wie die Deckbauer großer
+Aktueller Stand im Code: **Version 1.36.0** (**Automatische Updates** nach dem Vorbild von ADEU-Harness – die App sucht nach dem
+Intro im Release „Test-APK“ nach einer neuen Version, fragt im Hauptmenü mit „Was ist neu“, lädt die APK, prüft Größe und
+SHA-256 und öffnet den Installer von Android; „Später“ fragt beim nächsten Start wieder, nie mitten im Match; einmal nach jedem
+Update erscheint „Neu in Aeterna …“; ein- und ausschalten und von Hand suchen unter *Einstellungen → Daten*; siehe
+[Automatische Updates](#automatische-updates-seit-1360)); davor 1.35.0 (**Sammlung 3.0** – die Sammlung ist jetzt wie die Deckbauer großer
 Sammelkartenspiele aufgebaut: zuerst ein **Raster aller Decks** als Kacheln mit Heldenbild, Name, Kartenzahl und kleiner Manakurve,
 dazu „Neues Deck“ und in der Kopfleiste der Reiter **Kartensammlung**; ein angetipptes Deck öffnet den **Deckbau in zwei Spalten** –
 links das Deck als **30 Plätze** (leere Plätze bleiben sichtbar, ein Platz antippen nimmt die Karte heraus) mit Manakurve, rechts
@@ -111,6 +115,7 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
 ## Inhalt
 
 1. [APK herunterladen](#apk-herunterladen)
+   - [Automatische Updates (seit 1.36.0)](#automatische-updates-seit-1360)
    - [Notiz: Start mit Entwickler-Splash und Intro (1.26.0)](#notiz-start-mit-entwickler-splash-und-intro-1260)
 2. [Projektaufbau](#projektaufbau)
 3. [Regeln für jede Sitzung](#regeln-für-jede-sitzung)
@@ -145,6 +150,34 @@ Seit Oktober 2026 liegt sie nicht mehr unter „Artifacts“ (der Actions-Speich
 
 Jeder Lauf auf `main` ersetzt diese eine APK; Zweige bauen und prüfen nur. Die Screenshots der Sichtprüfung gibt es nur noch,
 wenn sie fehlschlägt (Artefakt „Sichtpruefung“ am Lauf, 3 Tage).
+
+### Automatische Updates (seit 1.36.0)
+
+Wie bei ADEU-Harness aktualisiert sich die App selbst – ohne GitHub-Konto, ohne Store. **1.36.0 einmal von Hand installieren**
+(wie oben), ab dann geht es automatisch:
+
+1. Nach dem Intro liest die App `…/releases/download/test-apk/version.json` (ein einfacher Download aus diesem öffentlichen
+   Repo). Ist dort ein höherer `versionCode`, fragt sie im Hauptmenü: **Neue Version verfügbar** mit „Was ist neu“ –
+   *Jetzt aktualisieren* / *Später*. Nie mitten im Match; ohne Netz bleibt sie still.
+2. *Jetzt aktualisieren* lädt die APK mit Fortschritt (*Im Hintergrund* spielt weiter, *Abbrechen* hört auf), prüft Größe und
+   SHA-256 aus `version.json` und öffnet den Installer von Android – dort **Aktualisieren** tippen. Beim allerersten Update
+   führt die App einmal zu *Apps aus dieser Quelle zulassen*: einschalten, zurück, noch einmal *Installieren*.
+3. Sammlung, Decks und eine laufende Partie bleiben (gleicher Schlüssel, gleiche Paket-ID). Nach dem Neustart zeigt das
+   Hauptmenü einmal **Neu in Aeterna <Version>**.
+
+*Später* fragt beim nächsten Start wieder (oder nach sechs Stunden im Hintergrund). Von Hand und zum Abschalten:
+*Einstellungen → Daten → Updates* („Jetzt nach Updates suchen“, „Beim Start suchen: Ein/Aus“, „Alle Versionen“).
+
+**Für die Pflege:** Ein Update erreicht die Geräte, sobald `main` mit **höherem `versionCode`** gebaut ist – also bei jeder neuen
+Version wie bisher `versionCode` +1, `versionName`, `VERSION` in `app.js` und dazu **`model/neu.js`** (ein bis drei Sätze „Was ist
+neu“; ein Test prüft die Versionsnummer). Die CI schreibt mit `werkzeuge/update_info.js` die `version.json` (Version,
+`versionCode`, „Was ist neu“, Adresse, Größe, SHA-256) und lädt sie mit der APK in einem Schritt ins Release „Test-APK“. Ein
+Merge ohne neue Version ändert für die Geräte nichts. Zurückziehen: wie bisher `main` zurücksetzen, aber mit **neuem, höherem
+`versionCode`** – Android installiert keine niedrigere Version über eine höhere.
+
+**Sicherheit:** Nur die Hülle spricht mit dem Netz (`Updater.kt`, nur https); die WebView lädt weiter nur
+`https://chroniken.local/`. Installiert wird nur eine Datei mit passender Prüfsumme, und Android nimmt nur APKs mit demselben
+Schlüssel als Update an. Die APK gibt `UpdateFiles.kt` dem Installer nur lesend und nur für diesen einen Aufruf frei.
 
 Umstieg von 1.2.2 (anderer Signaturschlüssel): In der alten App *Einstellungen → Spielstand
 exportieren*, alte App deinstallieren, neue installieren, *Spielstand importieren*. Ab 1.3.0
@@ -231,6 +264,8 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Heldenmünze `coinArt`, Siegel `seal`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`; seit 1.17.0 Äther-Uhr `dial`, Chronik-Leiste `strip`, Pergament-Deck und Stundenglas `deck`, versiegelte Befehle `orderArt`, Zugtafel `turnPlate`; seit 1.18.0 Kartenrahmen `R.card` als Tempeltor, Hand mit Federn `hand`, Marschroute `route`, Effekte `effects` mit Tinte, Pumpen, Splittern, Staub und Rissen), seit 1.20.0 `fx.js` (`CHF`: Schlüsselwort-Bilder und -Effekte, Elemente und Heldenfähigkeiten, Intro mit Münzwurf und Finale), `anim.js` (`CHT`, seit 1.18.0: Kurven, Zeitleisten, Federn, Match-Uhr mit Tempo und Treffer-Stopp, Kamerawackeln), `motion.js` (`CHM`, Zeitleisten je Aktion, Ziehen, Verbrennen, Stundenglas), seit 1.32.0 `dioramen.js` (`AEDI`: Eck-Dioramen, Sprechblase, Angriffsvorschau; AP 3.9), `layout.js` (`CHL`, seit 1.32.0 mit `dioramas`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel auf der Match-Uhr, Bildraten-Anzeige) |
 | `view/css/` | View | seit 1.22.0 `astra.css` (zuletzt geladen: Astras gemalte Bilder für Paket, Podest, Kartenbuch, Startbefehle, Steinplatten, Hintergründe, Währungen), `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte), seit 1.34.0 `lesbar.css` (Textgröße und ruhige Bewegung, erzeugt von `werkzeuge/lesbar_css.py`) |
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`; seit 1.34.0 `exportText` und `calm` für ruhige Bewegung), seit 1.34.0 `protokoll.js` (lokales Fehlerprotokoll `AEF`, Schlüssel `aeterna.fehler`) |
+| `model/neu.js` | Model | Seit 1.36.0: „Was ist neu“ zur aktuellen Version (`AENEU`) – erscheint einmal nach einem Update und als `notes` in `version.json` |
+| `viewmodel/update.js` | ViewModel | Seit 1.36.0: automatische Updates (`AEVM.Updates`, Fenster `UpdateDialog`) – wann das Spiel fragt (ruhiges Hauptmenü, `ui.idle()`), „Später“, Laden im Hintergrund, „Was ist neu“ (Schlüssel `aeterna.version`), Stand für Einstellungen → Daten |
 | `app.js` | Shell | Steckt alles zusammen: Store, ViewModels, Views, Navigation mit Übergängen, Dialoge, Toasts; `window.App` für die Hülle. Auf Bildschirmen breiter als 2:1 wird die Bühne um zwei Flügel (`--wing`) breiter: Untermenüs und Dialoge reichen randlos bis an den Rand, Inhalte bleiben im mittleren 1600 × 800-Bereich |
 | `assets/ui/` | – | Seit 1.22.0 (AP A.2): Astras Oberflächenbilder als WebP mit Transparenz (Kartenrahmen, Kartenrücken, Chronikleiste …) und Währungen als SVG, erzeugt von `werkzeuge/astra_bilder.py`, geladen von `CHS.loadUI` vor dem ersten Bildschirm |
 | `assets/intro/` | – | Seit 1.26.0: Entwickler-Splash `pytales.webp` (aus `werkzeuge/entwicklersplash.py`); die Musik des Intros liegt als `assets/audio/intro.ogg` (aus `werkzeuge/intro_klang.py`) |
@@ -239,7 +274,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 
 | Pfad | Inhalt |
 |---|---|
-| `android/` | **Native Hülle** (seit 1.12.0, AP 2.1): Gradle-Projekt in Kotlin – `MainActivity.kt` (WebView, Vollbild, Aussparung, Zurück, Export/Import), `Bridge.kt` (`window.Android`), `AssetClient.kt` (liefert `quellcode/assets/game` unter `https://chroniken.local/` aus), `Haptics.kt`; Version, Paket-ID und Signatur in `app/build.gradle.kts` |
+| `android/` | **Native Hülle** (seit 1.12.0, AP 2.1): Gradle-Projekt in Kotlin – `MainActivity.kt` (WebView, Vollbild, Aussparung, Zurück, Export/Import), `Bridge.kt` (`window.Android`), `AssetClient.kt` (liefert `quellcode/assets/game` unter `https://chroniken.local/` aus), `Haptics.kt`, seit 1.36.0 `Updater.kt` (automatische Updates: `version.json` aus dem Release „Test-APK“, Download, SHA-256, Installer) und `UpdateFiles.kt` (gibt die APK dem Installer frei); Version, Paket-ID und Signatur in `app/build.gradle.kts` |
 | `quellcode/assets/game/labor/` | Renderer-Labor (AP 2.5): `renderer.html`, `labor.js`, PixiJS `pixi.min.js` (MIT, `LIZENZ-pixi.txt`) – nur im Entwicklermodus erreichbar |
 | `quellcode/` | Web-Spiel (`assets/game/`), das die Hülle als Assets einpackt. Die alte, nur kompiliert vorliegende Hülle (`classes.dex`, binäres Manifest) ist mit 1.12.0 entfallen. |
 | `werkzeuge/` | Asset-Pipeline `bilder_webp.py`, Hauptmenü-Bild, Sound-Generatoren (`stein_sounds.py`, `aether_klang.py`, seit 1.18.0 `spielgefuehl_klang.py`, seit 1.19.0 `oberflaeche_klang.py`, seit 1.20.0 `schluessel_klang.py`, seit 1.26.0 `intro_klang.py`, seit 1.32.0 `diorama_klang.py`), Entwickler-Splash `entwicklersplash.py`, Kampagnenkarte `weltkarte.js`, Sichtprüfung, Klickpfad mit Referenzbildern (`referenz/`), Balance-Werkzeug `balance.js`, Liste fehlender Motive und der im Code gezeichneten Grafiken (`ASTRA:`) `motive.js`, Match-Messung `matchmessung.js`, Labor-Messung `labormessung.js`, seit 1.26.0 Start-Messung `intromessung.js`, seit 1.34.0 Geräte-Testmatrix `geraetematrix.js` und `lesbar_css.py`, Tests – siehe `werkzeuge/LIESMICH.md` |
@@ -265,8 +300,9 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 
 Native Brücke (`window.Android`): `save`, `load`, `exportSave`, `importSave`, `haptic(0–3)` (leicht, mittel, schwer,
 doppelt), `exitApp`, seit 1.12.0 auch `keepAwake(an)` (Bildschirm bleibt im Match an) und `info()` (Hülle, Version,
-Android); die Hülle ruft `App.back()`, `App.importText()`, `App.onPause()`, `App.onResume()` und `App.resize()` (mit
-`window.safeInsets` der Kamera-Aussparung) auf. Spielstand wie bisher in den SharedPreferences `chroniken_v1` und im
+Android), seit 1.36.0 `updateState`, `updateCheck(vonHand)`, `updateDownload`, `updateInstall`, `updateCancel` und `updatePage`
+(im Spiel `AEP.updates`); die Hülle ruft `App.back()`, `App.importText()`, `App.onPause()`, `App.onResume()`, `App.resize()` (mit
+`window.safeInsets` der Kamera-Aussparung) und seit 1.36.0 `App.onUpdate(json)` auf. Spielstand wie bisher in den SharedPreferences `chroniken_v1` und im
 localStorage. Inhalte werden unter `https://chroniken.local/` ausgeliefert (Unterordner gehen, Pfade mit `..` nicht),
 mit echten MIME-Typen (u. a. `.webp .jpg .svg .woff2 .mp3`, Liste in `AssetClient.kt`).
 
@@ -316,7 +352,7 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
 ## Regeln für jede Sitzung
 
 - **Tests vor jedem Push:** `node --test werkzeuge/tests/*.test.js` (Kosmetik, Spielstand, ViewModels, Regeln und
-  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Kampagne 2.0 mit Lunte (AP 6.4), Lebendige Schlachtfelder und Lesbarkeit (AP 3.9), Kartenrätsel mit Löser (AP 6.4 Teil 2), Lehrstunden, Schwierigkeitsgrade, Einstellungen, Sicherungen und Fehlerprotokoll (AP 6.5, AP 5.8, Phase 7), Bestellpakete für Astra (AP A.3), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
+  Heldenfähigkeiten, Schlüsselwörter Teil 1 und 2, Legendäre, Platzhalter, Chronik, neue Helden beider Wellen, Kartenwelle mit Bauwerken und KI-Persönlichkeit, Massenöffnung und Codes, native Hülle, Klangpegel, Renderer und Bildraten-Anzeige, Lehrplan-Helden, Kartennamen nach Lebenswelt und Astra-Kennzeichnung, Spielbrett, Schlachtfelder und Chronik-Leiste (AP 1.8), Spielgefühl und Kartenrahmen (AP 1.5, AP 3.1–3.5), Basar, Sammlung, Heldenwahl und Kampagnenkarte (AP 1.4, AP 1.6, AP 1.7), Schlüsselwort-Effekte, Intro, Münzwurf und Finale (AP 3.6, AP 3.8), Astra-Einbau (AP A.1), Heldenfähigkeiten aus der Geschichte (AP L.5), Karten, Schlüsselwörter und Chronikzeilen nah an der Geschichte (AP L.6), Hinterhalte (AP 5.6), Erweiterung „Wunder der Welt“ und Hinterhalt-Erklärung (AP 5.7), Aufgaben und Heldenstufen (AP 6.3), Kampagne 2.0 mit Lunte (AP 6.4), Lebendige Schlachtfelder und Lesbarkeit (AP 3.9), Kartenrätsel mit Löser (AP 6.4 Teil 2), Lehrstunden, Schwierigkeitsgrade, Einstellungen, Sicherungen und Fehlerprotokoll (AP 6.5, AP 5.8, Phase 7), Bestellpakete für Astra (AP A.3), automatische Updates (1.36.0), Balance-Werkzeug, 100 simulierte Partien) und `node werkzeuge/klickpfad.js` (Klickpfad mit
   Referenzbildern, läuft auch in der CI), seit 1.34.0 auch `node werkzeuge/geraetematrix.js` (16:9 bis 21:9 und Tablets).
 - **CI muss grün sein** (Jobs „apk“, „sichtpruefung“ und „balance“), die APK kommt aus dem Release „Test-APK“ – keine gebauten APKs/ZIPs ins Repo.
   Keine neuen Artefakte anlegen: Der Actions-Speicher (Free: 0,5 GB) ist knapp. Hochgeladen wird nur noch bei Fehlern und mit
@@ -350,7 +386,8 @@ Die Schlüsselwörter erklärt das Glossar `CHD.keywords`.
   Änderung an Schriftgrößen oder `prefers-reduced-motion`-Regeln `python3 werkzeuge/lesbar_css.py` ausführen (ein Test prüft es).
 - **Signatur, Paket-ID und Version:** Immer mit `werkzeuge/signatur/chroniken-test.p12` signieren (Alias `chroniken`), Paket-ID
   `de.chroniken.helden.layout` nie ändern – sonst gehen Updates nicht. Neue Version: `versionCode` +1 und `versionName` in
-  `android/app/build.gradle.kts`, dazu `VERSION` in `app.js` (ein Test prüft, dass beide übereinstimmen).
+  `android/app/build.gradle.kts`, dazu `VERSION` in `app.js` (ein Test prüft, dass beide übereinstimmen) und seit 1.36.0
+  „Was ist neu“ in `model/neu.js` – nur ein höherer `versionCode` erreicht die Geräte als automatisches Update.
 - **Bilder:** Astra-Lieferungen als neuer Ordner nach `ungenutzte_assets/neue_astra_assets/` (PNG oder WebP, Dateiname = ID;
   neuen Ordner in `FOLDERS` von `werkzeuge/astra_bilder.py` eintragen), dann `python3 werkzeuge/astra_bilder.py` und
   `node werkzeuge/motive.js` – das Spiel lädt nur die WebP-Atlanten. Alte Bilder: `ungenutzte_assets/archiviert/art-original/`,
@@ -2918,7 +2955,8 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 27 ✓ | AP 3.9 Eck-Dioramen, Rückmeldung 1.31.0 | erledigt in 1.32.0 – Szenen mit Leitfrage, Ort und Zeit, Schattenrissen; vier antippbare Eck-Dioramen mit Klang und Zeile des Chronisten, Schlüsselwort-Blase, Angriffsvorschau |
 | 28 ✓ | AP 6.4 Teil 2 Kartenrätsel | erledigt in 1.33.0 – sechs Rätsel „Gewinne in diesem Zug“ nach historischen Lagen, offen nach dem Kapitel, Löser im Test |
 | 29 ✓ | AP 6.5, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 vorbereiten | erledigt in 1.34.0 – Lehrstunden mit dem Chronisten, Lehrling/Feldherr/Legende, Einstellungen mit Textgröße, Farben, Bewegung und Grafik, Sicherungen, Fehlerprotokoll, Geräte-Matrix; Astra-Auftrag in 43 Paketen mit Startanleitung; AP 6.6 pausiert |
-| ab jetzt (Du) | AP A.3: Pakete K01–K32 und U01–U11 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
+| Bonus ✓ | Automatische Updates (wie ADEU-Harness) | erledigt in 1.36.0 – `version.json` im Release „Test-APK“, Hinweis im Hauptmenü mit „Was ist neu“, Download mit SHA-256-Prüfung, Installer von Android, Einstellungen → Daten → Updates |
+| ab jetzt (Du) | AP A.3: Pakete K01–K32 und U01–U12 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
 | 30+ | Einbau der Lieferungen, dazwischen AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | jede Lieferung eine kurze Sitzung; Chronikzeilen und Klang brauchen keine Bilder |
 | jederzeit, ohne Bilder | AP 2.7, dann AP 1.9 und AP 3.10 | Vorschlag vom 9. 11. 2026: AP 2.7 ist mit `matchmessung.js` messbar und braucht keine Astra-Bilder; AP 1.9 nach Entscheidung 23 |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
@@ -2928,6 +2966,10 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 ---
 
 ## Vorschlag für die nächste Sitzung
+
+**Erledigt (Bonus, Version 1.36.0, Wunsch vom 9. 11. 2026):** **automatische Updates** wie in ADEU-Harness – siehe
+[Automatische Updates](#automatische-updates-seit-1360). **Bitte einmal 1.36.0 von Hand installieren**; jede spätere Version mit
+höherem `versionCode` meldet sich dann im Hauptmenü von selbst.
 
 **Erledigt in Sitzung 29 (Version 1.34.0):** alle offenen Pakete vor der Astra-Bestellung (Deine Wahl vom 2. 11. 2026) –
 **AP 6.5 Lehrstunden** (drei geführte Partien mit dem Chronisten, vierte Platte im Hauptmenü), **AP 5.8 Schwierigkeitsgrade**

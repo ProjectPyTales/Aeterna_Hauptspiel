@@ -22,6 +22,16 @@ window.AEP={
   return navigator.clipboard?.writeText?navigator.clipboard.writeText(raw).then(()=>'clipboard',()=>'none'):Promise.resolve('none');},
  // Native: the shell answers with App.importText(text). Browser: the hidden file input.
  pickImport(){if(native())native().importSave();else document.getElementById('import-file').click();},
+ // Automatische Updates (seit 1.36.0, android/…/Updater.kt): die Hülle sucht, lädt, prüft und öffnet den Installer von
+ // Android; ihren Zustand meldet sie über App.onUpdate(json). Im Browser gibt es keine Updates (supported false).
+ updates:{
+  get supported(){return !!native()?.updateCheck;},
+  state(){try{return JSON.parse(native()?.updateState?.()||'null');}catch{return null;}},
+  check(manual){native()?.updateCheck?.(!!manual);},
+  download(){native()?.updateDownload?.();},
+  install(){native()?.updateInstall?.();},
+  cancel(){native()?.updateCancel?.();},
+  page(){native()?.updatePage?.();}},
  // Ruhige Bewegung: die Einstellung (Phase 7, seit 1.34.0, AEP.calm aus app.js) oder die Vorgabe des Geräts.
  calm:false,
  reducedMotion:()=>window.AEP.calm||!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches};

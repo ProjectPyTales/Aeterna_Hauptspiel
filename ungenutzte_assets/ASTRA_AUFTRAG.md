@@ -72,6 +72,7 @@ Jedes Paket liegt als eigene Datei in `ungenutzte_assets/astra_bestellung/` – 
 | [U09](astra_bestellung/U09.md) | Lebendige Schlachtfelder und Szene (8 Teile, 11 Dateien, seit 1.32.0) | 8 |
 | [U10](astra_bestellung/U10.md) | Kartenrätsel (3 Teile, 5 Dateien, seit 1.33.0) | 3 |
 | [U11](astra_bestellung/U11.md) | Lehrstunden (2 Teile, 4 Dateien, seit 1.34.0) | 2 |
+| [U12](astra_bestellung/U12.md) | Updates (1 Teil, 1 Datei, seit 1.36.0) | 1 |
 
 ## 2. So gibst du den nächsten Auftrag an eine KI
 

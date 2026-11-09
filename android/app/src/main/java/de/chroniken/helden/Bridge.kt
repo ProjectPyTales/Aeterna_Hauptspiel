@@ -6,7 +6,9 @@ import org.json.JSONObject
 
 /**
  * `window.Android` – dieselbe JS-API wie die alte Hülle (save, load, exportSave, importSave, haptic, exitApp),
- * dazu `keepAwake` (Bildschirm bleibt im Match an) und `info` (Hülle, Version, Android-Version).
+ * dazu `keepAwake` (Bildschirm bleibt im Match an), `info` (Hülle, Version, Android-Version) und seit 1.36.0 die
+ * automatischen Updates `updateState`, `updateCheck`, `updateDownload`, `updateInstall`, `updateCancel`, `updatePage`
+ * ([Updater]; der Zustand kommt über `App.onUpdate(json)` zurück).
  * Die Methoden laufen im Brücken-Thread; alles, was Fenster oder Activity anfasst, geht auf den UI-Thread.
  */
 class Bridge(private val activity: MainActivity) {
@@ -60,7 +62,32 @@ class Bridge(private val activity: MainActivity) {
             .put("android", Build.VERSION.RELEASE)
             .put("sdk", Build.VERSION.SDK_INT)
             .put("haptics", activity.haptics.available)
+            .put("updates", true)
             .toString()
+    }
+
+    // ---------- Automatische Updates (seit 1.36.0) ----------
+    @JavascriptInterface
+    fun updateState(): String = activity.updater.state()
+
+    /** Sucht nach einer neuen Version; `manual` aus den Einstellungen zeigt auch Fehler. */
+    @JavascriptInterface
+    fun updateCheck(manual: Boolean) = activity.updater.check(manual)
+
+    @JavascriptInterface
+    fun updateDownload() = activity.updater.download()
+
+    @JavascriptInterface
+    fun updateInstall() {
+        activity.runOnUiThread { activity.updater.install() }
+    }
+
+    @JavascriptInterface
+    fun updateCancel() = activity.updater.cancel()
+
+    @JavascriptInterface
+    fun updatePage() {
+        activity.runOnUiThread { activity.updater.page() }
     }
 
     companion object {

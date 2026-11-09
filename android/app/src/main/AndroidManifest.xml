@@ -4,6 +4,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Seit 1.36.0 nur für die automatischen Updates (Updater.kt): version.json und APK aus dem Release „Test-APK“ laden
+         und dem Installer von Android übergeben. Die WebView bleibt offline (AssetClient sperrt jede andere Adresse). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
     <application
@@ -27,5 +31,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Update-APK für den Installer (UpdateFiles.kt): nicht exportiert, Lesen nur mit Freigabe je Aufruf. -->
+        <provider
+            android:name=".UpdateFiles"
+            android:authorities="${applicationId}.updates"
+            android:exported="false"
+            android:grantUriPermissions="true" />
     </application>
 </manifest>

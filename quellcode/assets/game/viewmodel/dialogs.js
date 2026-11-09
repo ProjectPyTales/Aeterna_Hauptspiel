@@ -23,10 +23,12 @@ class Quests extends LiveDialog{
 }
 
 // Einstellungen in vier Reitern (seit 1.34.0, Phase 7): Spiel (Stärke der KI nach AP 5.8, Tempo, Intro, Lehrstunden), Anzeige
-// (Textgröße, Farben, Bewegung, Grafik, Partikel), Klang und Daten (Export, Import, automatische Sicherungen, Fehlerprotokoll).
+// (Textgröße, Farben, Bewegung, Grafik, Partikel), Klang und Daten (Export, Import, automatische Sicherungen, Fehlerprotokoll,
+// seit 1.36.0 Updates).
 const TABS=[['spiel','Spiel'],['anzeige','Anzeige'],['klang','Klang'],['daten','Daten']];
 class Settings extends LiveDialog{
- constructor(ctx,state={}){super(ctx,{tab:'spiel',...state});}
+ constructor(ctx,state={}){super(ctx,{tab:'spiel',...state});this.offUpdates=ctx.updates?.subscribe(()=>this.notify());}
+ closed(){super.closed();this.offUpdates?.();}
  get tabs(){return TABS;}
  tab(id){if(TABS.some(([t])=>t===id)&&this.state.tab!==id){this.set({tab:id});this.ctx.ui.play('stone',{gain:.5});}}
  get settings(){return this.profile.settings;}
@@ -35,7 +37,7 @@ class Settings extends LiveDialog{
  setting(k,v){const s=this.profile.settings;
   if(k==='music'||k==='sfx')s[k]=Math.max(0,Math.min(1,Number(v)||0));
   else if(k==='speed')s.speed=Number(v)===2?2:1;
-  else if(k==='haptics'||k==='particles'||k==='intro')s[k]=v===true||v==='true';
+  else if(k==='haptics'||k==='particles'||k==='intro'||k==='updates')s[k]=v===true||v==='true';
   else if(k==='level')s.level=E.level(v);
   else if(P.LOOK[k]){if(!P.LOOK[k].includes(v))return;s[k]=v;}
   else return;
@@ -51,6 +53,12 @@ class Settings extends LiveDialog{
   this.ctx.ui.dialog('message',new Dialog(this.ctx,{title:'Sicherung zurückholen?',close:false,
    text:'Diese Sicherung enthält '+candidate.gold+' Gold, '+candidate.stats.wins+' Siege und '+candidate.campaign.length+' abgeschlossene Missionen. Sie ersetzt Deinen jetzigen Fortschritt.',
    buttons:[{label:'Abbrechen'},{label:'Zurückholen',style:'gold',run:()=>{this.ctx.store.replace(candidate);this.ctx.reset?.();this.ctx.ui.go('menu',null,true);this.ctx.ui.toast('Sicherung zurückgeholt.');}}]}));}
+ // Automatische Updates (seit 1.36.0, viewmodel/update.js): installierte Version, Stand, „Jetzt suchen“, Ein/Aus.
+ get update(){const u=this.ctx.updates,s=u?.state||{};
+  return {supported:!!u?.supported,version:u?.version||'',status:u?.status||'',busy:!!u?.busy,offer:!!s.version&&['available','ready','failed'].includes(s.state)&&s.version!==u?.version,failed:s.state==='failed'};}
+ checkUpdate(){const u=this.ctx.updates;if(!u?.supported||u.busy)return;u.check(true);this.ctx.ui.play('stone',{gain:.5});}
+ showUpdate(){this.ctx.updates?.show();}
+ updatePage(){this.ctx.updates?.page();}
  // Lokales Fehlerprotokoll (service/protokoll.js), nur auf dem Gerät.
  get errors(){return this.ctx.errors?.list()||[];}
  saveErrors(){if(this.ctx.errors)this.ctx.ui.exportText?.(this.ctx.errors.text(),'Aeterna-Fehlerprotokoll.txt');}

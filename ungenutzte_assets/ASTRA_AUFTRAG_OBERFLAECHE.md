@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (77 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche (78 Teile)
 
 *Stand 1.34.0 (2. 11. 2026; seit 1.34.0 die zwei der Lehrstunden, AP 6.5; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9, und seit 1.33.0 die drei der Kartenrätsel, AP 6.4 Teil 2). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 77 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Das Spiel zeichnet noch 78 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -174,6 +174,12 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 |---|---|---|---|
 | `lehrstunde-chronist` | `lehrstunde-chronist.png` | 520 × 120 | Tafel des Chronisten oben rechts im Match: dunkles Holz mit Bronzerand, links ein rundes Medaillon mit Gänsefeder (Durchmesser 64), rechts eine ruhige, dunkle Fläche für vier Zeilen heller Schrift. Neunteilig dehnbar in der Breite (Ecken 24 px). |
 | `lehrstunde-siegel` | `lehrstunde-siegel-offen.png`, `-naechste.png`, `-geschafft.png` | 160 × 160 | Wachssiegel einer Lehrstunde mit eingeprägter Feder; offen dunkelrot und matt, die nächste golden leuchtend, geschafft mit Blattgoldrand. Mitte frei für die Zahl 1–3. |
+
+### Paket 12 – Updates (1 Teil, 1 Datei, seit 1.36.0)
+
+| Kennung | Dateien | Größe | Motiv und Vorgaben |
+|---|---|---|---|
+| `update-siegel` | `update-siegel.png` | 120 × 120 | Rundes Wachssiegel in Dunkelrot über dem Hinweis „Neue Version“: eingeprägt ein Pfeil, der sich im Kreis schließt, mit feinem Bronzerand; kein Text. |
 
 ## Abnahme
 
