@@ -46,7 +46,38 @@ const shake={trauma:0,zoom:0,max:15,
  offset(){const d=clock.realDt;this.trauma=Math.max(0,this.trauma-d/600);this.zoom=Math.max(0,this.zoom-d/2600);
   const k=this.trauma*this.trauma*this.max,t=(clock.real??0)/1000;
   return {x:k*(Math.sin(t*61)*.6+Math.sin(t*97+1.3)*.4),y:k*.6*(Math.sin(t*73+2.1)*.6+Math.sin(t*113)*.4),zoom:1+this.zoom*this.zoom*.9};}};
-const reset=()=>{Object.assign(clock,{time:0,real:null,until:-Infinity,speed:1,reduced:false,dt:0,realDt:0});shake.trauma=0;shake.zoom=0;};
-const api={clamp,mix,ease,curve,tween,timeline,Spring,clock,shake,reset};
+const reset=()=>{Object.assign(clock,{time:0,real:null,until:-Infinity,speed:1,reduced:false,dt:0,realDt:0});shake.trauma=0;shake.zoom=0;pace.reset();};
+
+// Ruhetakt (AP 2.7): Bewegt sich nichts (kein Finger, kein Flug, kein Effekt, keine Feder), genügen 30 Bilder je Sekunde für
+// Atmen, Leuchten und Dioramen – auf 60, 90 und 120 Hz gleich. due(now, calm) sagt, ob dieses Bild gezeichnet wird; im vollen
+// Takt immer. Ein wenig Spielraum (4 ms), damit auf 60 Hz wirklich jedes zweite Bild kommt und keines doppelt wartet.
+const pace={REST:1000/30,last:-Infinity,resting:false,
+ due(now,calm){this.resting=!!calm;if(!calm||now-this.last>=this.REST-4){this.last=now;return true;}return false;},
+ reset(){this.last=-Infinity;this.resting=false;}};
+
+// Auflösung, die sich anpasst (AP 2.7): Die Schleife meldet im vollen Takt den Abstand jedes Bildes. Kommen in zwei Sekunden mehr
+// als ein Viertel zu spät (über LATE ms, also unter etwa 42 Bildern je Sekunde), sinkt die Stufe (2 → 1,5 → 1,25 → 1); laufen acht
+// Sekunden fast alle pünktlich (höchstens 5 % zu spät), steigt sie wieder. Nach jedem Wechsel drei Sekunden Pause (die Leinwand
+// wird neu angelegt). Muss eine Stufe kurz nach dem Steigen wieder fallen, bleibt sie eine Minute – so flackert nichts.
+// Obergrenze bleibt das Gerät bzw. „Grafik: Hoch“ (board.js), „Sparsam“ ist ohnehin 1.
+class Resolution{
+ constructor({steps=[2,1.5,1.25,1],late=24,down=2000,up=8000,hold=3000,lock=60000}={}){
+  Object.assign(this,{steps,late,down,up,hold,lock});this.level=0;this.samples=[];this.until=0;this.raised=-Infinity;this.locked=0;}
+ get cap(){return this.steps[this.level];}
+ // gap: Abstand zum vorigen Bild im vollen Takt (ms). Lücken über 250 ms (Pause, Wechsel des Bildschirms) zählen nicht.
+ // scale: die Pixeldichte, die gerade gilt (das Gerät kann unter der Stufe liegen) – hinab geht es auf die nächste Stufe darunter,
+ // sonst bliebe ein Schritt ohne Wirkung. → true, wenn sich die Stufe geändert hat.
+ sample(now,gap,scale=this.cap){if(!(gap>0)||gap>250||now<this.until)return false;
+  this.samples.push([now,gap>this.late]);while(this.samples.length&&now-this.samples[0][0]>this.up)this.samples.shift();
+  const share=ms=>{const s=this.samples.filter(x=>now-x[0]<=ms);return s.length?s.filter(x=>x[1]).length/s.length:0;},span=now-this.samples[0][0];
+  const below=this.steps.findIndex(x=>x<Math.min(scale,this.cap)-.01);
+  if(below>this.level&&span>=this.down*.9&&this.samples.length>=20&&share(this.down)>.25){
+   if(now-this.raised<10000)this.locked=now+this.lock;return this.change(now,below-this.level);}
+  if(this.level>0&&now>=this.locked&&span>=this.up*.9&&share(this.up)<=.05){this.raised=now;return this.change(now,-1);}
+  return false;}
+ change(now,d){this.level+=d;this.samples=[];this.until=now+this.hold;return true;}
+ reset(){this.level=0;this.samples=[];this.until=0;this.raised=-Infinity;this.locked=0;}
+}
+const api={clamp,mix,ease,curve,tween,timeline,Spring,clock,shake,pace,Resolution,reset};
 if(typeof module!=='undefined')module.exports=api;else root.CHT=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

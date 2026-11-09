@@ -72,6 +72,10 @@ function sprites(){const make=(n,draw)=>{const c=document.createElement('canvas'
  const star=make(64,(g,r)=>{for(const [w,h] of [[2*r,r*.16],[r*.16,2*r]]){const d=g.createRadialGradient(r,r,0,r,r,r);d.addColorStop(0,'#fff6c8ff');d.addColorStop(.5,'#f5b638b0');d.addColorStop(1,'#f5b63800');g.fillStyle=d;g.fillRect(r-w/2,r-h/2,w,h);}g.drawImage(glow,r/2,r/2,r,r);});
  const orb=make(64,(g,r)=>{const d=g.createRadialGradient(r,r,0,r,r,r);[[0,'#fff3c0cc'],[.35,'#ffd46a66'],[1,'#ffc04000']].forEach(([o,col])=>d.addColorStop(o,col));g.fillStyle=d;g.fillRect(0,0,2*r,2*r);});
  return {glow,star,orb};}
+// Ein Fenster liegt über dem Hauptmenü, wenn #overlay etwas enthält.
+H.covered=()=>!!document.getElementById('overlay')?.firstElementChild;
+// Gezeichnete Bilder der Teilchen (für die Sichtprüfung: steht still, solange ein Fenster offen ist).
+H.sparkFrames=0;
 function sparks(hall){const canvas=hall.querySelector('.hall-sparks');if(!canvas||!canvas.getContext||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return null;
  SPRITES=SPRITES||sprites();const g=canvas.getContext('2d'),P=[],rnd=(a,b)=>a+Math.random()*(b-a),gl={cx:sx(GOLD_LINE.c[0]),cy:sy(GOLD_LINE.c[1]),rx:GOLD_LINE.rx*K,ry:GOLD_LINE.ry*K};
  let res=1,last=performance.now(),due={ember:0,dust:0,glint:0,orb:0},trailAt=0;
@@ -94,7 +98,9 @@ function sparks(hall){const canvas=hall.querySelector('.hall-sparks');if(!canvas
  const draw=(sprite,x,y,s,a)=>{if(a<=.01)return;g.globalAlpha=Math.min(1,a);g.drawImage(sprite,x-s/2,y-s/2,s,s);};
  const frame=now=>{if(!canvas.isConnected){window.removeEventListener('resize',fit);return;}
   const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
-  if(hall.classList.contains('leaving')){requestAnimationFrame(frame);return;}spawn(dt);
+  // Seit 1.37.0 (AP 2.7): Liegt ein Fenster über dem Hauptmenü (Einstellungen, Aufgaben, Updates …), ruhen die Teilchen –
+  // das Fenster deckt sie ohnehin zu. Danach geht es ohne Sprung weiter (dt läuft nur, solange gezeichnet wird).
+  if(hall.classList.contains('leaving')||H.covered()){requestAnimationFrame(frame);return;}spawn(dt);H.sparkFrames++;
   g.setTransform(res,0,0,res,0,0);g.clearRect(0,0,1600,800);
   for(let i=P.length-1;i>=0;i--){const p=P[i];p.age+=dt;const t=p.age/p.life;if(t>=1){P.splice(i,1);continue;}
    const k=Math.exp(-p.drag*dt);p.vx*=k;p.vy=p.vy*k+p.g*dt;p.x+=p.vx*dt+(p.wob?Math.cos(p.ph+p.age*1.3)*p.wob*dt:0);p.y+=p.vy*dt;

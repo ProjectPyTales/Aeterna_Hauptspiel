@@ -315,7 +315,7 @@ function legend(c,text,r){const chars=[...text],arc=Math.PI*1.2*r;let size=10.5;
 function aspis(c,x,y,n){c.save();c.shadowColor='#10141899';c.shadowBlur=6;c.shadowOffsetY=2;ellipse(c,x,y,23,23,grad(c,x-23,y-23,46,46,'#56636a','#e3ecee'),'#262e33',3);c.restore();
  ellipse(c,x,y,17.5,17.5,null,'#f6fbff99',1.5);for(let i=0;i<8;i++){const an=i*Math.PI/4;ellipse(c,x+Math.cos(an)*20.5,y+Math.sin(an)*20.5,1.3,1.3,'#f6fbff');}number(c,n,x,y+1,23);}
 // Astra-Bild (AP A.2): waffenablage – Waffe links neben dem Helden: Klinge auf Bronzeplatte, Wucht (Angriff) und Schmiedequalität (Haltbarkeit), 160 × 210
-function weaponRack(c,x,y,w){if(pic(c,'waffenablage',x,y+4,80,104)){number(c,w.attack,x-15,y+38,16);number(c,w.durability,x+14,y+38,16);return;}c.save();c.shadowColor='#160e09aa';c.shadowBlur=10;c.shadowOffsetY=4;round(c,x-31,y-46,62,84,12,grad(c,x-31,y-46,62,84,'#35281b','#8d6c3d'),'#2a1e12',3);c.restore();
+function weaponRack(c,x,y,w){if(pic(c,'waffenablage',x,y+4,80,104)){number(c,w.attack,x-15,y+38,16);number(c,w.durability,x+14,y+38,16);return;}R.blit(c,R.sprite('waffenablage-tafel',-61,-76,122,150,g=>{g.shadowColor='#160e09aa';g.shadowBlur=10;g.shadowOffsetY=4;round(g,-31,-46,62,84,12,grad(g,-31,-46,62,84,'#35281b','#8d6c3d'),'#2a1e12',3);}),x,y);
  round(c,x-26,y-41,52,74,9,null,'#e9c98a66',1.2);
  c.save();c.translate(x,y-6);c.rotate(-.72);c.beginPath();c.moveTo(-3.6,-30);c.lineTo(0,-38);c.lineTo(3.6,-30);c.lineTo(3.6,12);c.lineTo(-3.6,12);c.closePath();c.fillStyle=grad(c,-4,0,8,0,'#7d898f','#f4f8f9');c.fill();c.strokeStyle='#2c3438';c.lineWidth=1.2;c.stroke();
  round(c,-12,12,24,5,2,'#c9a052','#4a3418',1);round(c,-2.5,17,5,12,2,'#5a3d1e');ellipse(c,0,31,4,4,'#c9a052','#4a3418',1);c.restore();
@@ -720,11 +720,15 @@ function effects(c,t,floor){
   else if(f.type==='impact'){c.save();c.globalAlpha=1-q;c.globalCompositeOperation='screen';ellipse(c,f.x,f.y,18+q*54,12+q*37,null,'#ffe7b0',4*(1-q)+1);for(let i=0;i<9;i++){const an=i*2.399+f.x,rad=12+q*86;c.strokeStyle=i%2?'#fff5d7':'#ffb449';c.lineWidth=3*(1-q)+.5;c.beginPath();c.moveTo(f.x+Math.cos(an)*rad*.55,f.y+Math.sin(an)*rad*.55);c.lineTo(f.x+Math.cos(an)*rad,f.y+Math.sin(an)*rad);c.stroke();}c.restore();}}}
 // ---------- The picture ----------
 // t is the match clock (anim.js): tempo, hit stop. handInfo comes from the view model (Match.hand): cost, playable, boost.
+// Static layer (AP 2.4): table and chart in one offscreen picture, redrawn only for another table. Seit 1.37.0 (AP 2.7) liegt
+// es im Match auf einer eigenen Leinwand unter dem Brett (#table, board.js malt es nur bei einem Tischwechsel), und Wackeln und
+// Zoom bei Treffern sind ein CSS-transform auf beiden Ebenen (GPU) – R.layered. Ohne die Ebene (Renderer-Labor) wie bisher.
+R.layered=false;
+R.field=()=>{const fieldName=R.images[R.look.board]?R.look.board:R.images.board?'board':null,tint=fieldName===R.look.board?R.look.tint||'':'';
+ return R.sprite('field:'+[fieldName,tint],0,0,1600,800,g=>table(g,fieldName,tint));};
 R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.lastTime??t-16)));R.lastTime=t;still=!!window.AEP?.reducedMotion?.();R.hits=[];R.positions={};c.clearRect(0,0,1600,800);c.save();
- const gold=R.look.frame==='gold',sh=T.shake.offset();if(sh.zoom!==1){c.translate(800,400);c.scale(sh.zoom,sh.zoom);c.translate(-800,-400);}c.translate(sh.x,sh.y);
- // Static layer (AP 2.4): table and chart in one offscreen picture, redrawn only for another table.
- const fieldName=R.images[R.look.board]?R.look.board:R.images.board?'board':null,tint=fieldName===R.look.board?R.look.tint||'':'';
- R.blit(c,R.sprite('field:'+[fieldName,tint],0,0,1600,800,g=>table(g,fieldName,tint)));
+ const gold=R.look.frame==='gold';
+ if(!R.layered){const sh=T.shake.offset();if(sh.zoom!==1){c.translate(800,400);c.scale(sh.zoom,sh.zoom);c.translate(-800,-400);}c.translate(sh.x,sh.y);R.blit(c,R.field());}
  R.fx=R.fx.filter(f=>t-f.start<f.life);effects(c,t,true);
  const a=s.players[0],b=s.players[1],targets=view.targets||[];
  // AP 3.9: the corner dioramas (view/match/dioramen.js) lie on the frame; tapping one is a command of the view model.
@@ -742,6 +746,9 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
 // (Handkarte, Chronometer, bereite Diener, Heldenfähigkeit, feindlicher Held oder Schildwall-Diener). Im Zug des Gegners wartet er.
 // ASTRA: lehrstunde-chronist – Tafel des Chronisten mit Federkiel-Medaillon und Pergamentfeld oben rechts im Match, 520 × 120
 const COACH={x:968,y:8,w:516,h:118};
+// Größen auf 4 Einheiten gerundet (Handkarten wachsen beim Drücken), der Maßstab gleicht den Rest aus.
+const ringSize=r=>Math.max(8,Math.round(r/4)*4);
+const coachRing=(rx,ry)=>R.sprite('coachring:'+rx+','+ry,-rx-34,-ry-34,2*rx+68,2*ry+68,g=>{g.shadowColor='#ffd76a';g.shadowBlur=14;ellipse(g,0,0,rx,ry,null,'#ffd76a',4);});
 const wrapText=(c,text,width)=>{const out=[];let line='';for(const w of text.split(' ')){const next=line?line+' '+w:w;if(line&&c.measureText(next).width>width){out.push(line);line=w;}else line=next;}if(line)out.push(line);return out;};
 function coach(c,s,t,view){const k=s.lesson&&window.AETU?.coach(s);if(!k||s.phase==='over')return;const {x,y,w,h}=COACH;
  c.save();round(c,x,y,w,h,14,grad(c,x,y,0,h,'#3a2a1af2','#1e150df2'),'#c9a052',2);
@@ -750,7 +757,8 @@ function coach(c,s,t,view){const k=s.lesson&&window.AETU?.coach(s);if(!k||s.phas
  c.font='17px Body,serif';const lines=wrapText(c,k.text,w-108).slice(0,4);lines.forEach((l,i)=>txt(c,l,x+92,y+42+i*21,17,k.waiting?'#cdbb95':'#f3dab0','left'));c.restore();
  if(k.waiting||view.drag)return;
  // Der Ring: golden, er atmet langsam (unter ruhiger Bewegung steht er still).
- const pulse=motion()?.5+.5*Math.sin(t/260):1,ring=(px,py,rx,ry)=>{c.save();c.globalAlpha=.55+.45*pulse;c.shadowColor='#ffd76a';c.shadowBlur=14;ellipse(c,px,py,rx+4*pulse,ry+4*pulse,null,'#ffd76a',4);c.restore();};
+ // Seit 1.37.0 (AP 2.7) ein Sprite je Größe: das Atmen ist nur noch Maßstab und Deckkraft, kein shadowBlur je Bild.
+ const pulse=motion()?.5+.5*Math.sin(t/260):1,ring=(px,py,rx,ry)=>{const qx=ringSize(rx),qy=ringSize(ry);c.save();c.globalAlpha=.55+.45*pulse;c.translate(px,py);c.scale((rx+4*pulse)/qx,(ry+4*pulse)/qy);R.blit(c,coachRing(qx,qy));c.restore();};
  const a=s.players[0];
  if(k.focus==='chrono')ring(L.chrono.x,L.chrono.y,L.chrono.r+10,L.chrono.r+10);
  else if(k.focus==='power'&&R.positions.power0)ring(R.positions.power0.x,R.positions.power0.y,36,36);

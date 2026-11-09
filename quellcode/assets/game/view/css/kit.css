@@ -28,7 +28,7 @@ button.grave-card{padding:0;border:0;background:none;box-shadow:none;min-height:
 #stage{--wing:0px}
 body.stone-hall #stage{background:none}
 #stage.match-active{background:#11171c}
-#board{left:var(--wing)}
+#board,#table{left:var(--wing)}
 #ui>.hall{position:absolute;top:0;left:var(--wing);width:1600px;height:800px}
 .screen{padding-inline:var(--wing)}
 .screen>.topbar{margin-inline:calc(var(--wing) * -1);padding-inline:calc(36px + var(--wing))}

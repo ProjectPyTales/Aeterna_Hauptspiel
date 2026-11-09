@@ -177,11 +177,13 @@ F.event=(ev,pos,t,fx)=>{const u=R.units[ev.target];
 // ribbon „Hinterhalt!“, stays readable and fades. The AI waits while it shows (F.busy).
 // ASTRA: hinterhalt-enthuellung – brechendes Wachssiegel und Band „Hinterhalt!“ über der aufgedeckten Karte, 600 × 160
 const REVEAL=1900;
+const revealGlow=()=>R.sprite('hinterhalt-schein',-52,-52,304,386,g=>{g.shadowColor='#ffcf6a';g.shadowBlur=24;round(g,0,0,200,282,16,'#ffcf6a');});
 function ambushReveal(c,f,t){const e=t-f.start,card=D.byId[f.id];if(!card)return;const q=still()?1:clamp(e/300),out=clamp((e-REVEAL+320)/320),
   to={x:350,y:f.p===0?430:335},m=ease.outCubic(q),x=mix(f.from.x,to.x,m),y=mix(f.from.y,to.y,m),w=mix(42,226,still()?1:ease.outBack(q)),h=w*1.41;
  c.save();c.globalAlpha=1-out;
  if(e<520&&!still())for(let i=0;i<9;i++){const an=i*TAU/9+.4,r=8+e*.13;ellipse(c,f.from.x+Math.cos(an)*r,f.from.y+Math.sin(an)*r+e*e*.00012,4.5,3.2,'#b2362a','#3a0a07',1);}
- c.shadowColor='#ffcf6a';c.shadowBlur=24;R.fastCard(c,card,x-w/2,y-h/2,w,h);c.shadowBlur=0;
+ // Seit 1.37.0 (AP 2.7): der goldene Schein als Sprite, mit der Karte skaliert – kein shadowBlur je Bild.
+ c.save();c.translate(x-w/2,y-h/2);c.scale(w/200,h/282);R.blit(c,revealGlow());c.restore();R.fastCard(c,card,x-w/2,y-h/2,w,h);
  if(q>=1){const k=still()?1:.55+.45*ease.outBack(clamp((e-300)/260));c.save();c.translate(x,y-h/2-20);c.scale(k,k);R.blit(c,ribbon(250,'Hinterhalt!'));c.restore();}
  c.restore();}
 F.paint={gunst:gunstBreak,frostburst:freezeBurst,poison:poisonBurst,urn:urnRelease,burst,ambush:ambushReveal};

@@ -24,7 +24,9 @@ function setup({screen='menu',seen,played=0,supported=true,automated=false,updat
  const ctx={store,ui,session:{}};const platform=shell(supported);
  ctx.updates=new Updates(ctx,{platform,storage,version:VERSION,automated});ctx.dialogs=new Dialogs(ctx,VERSION);
  return {ctx,ui,log,platform,storage,store,u:ctx.updates,set screen(v){screen=v;},set idle(v){idle=v;}};}
-const offer={state:'available',installed:'1.35.0',version:'1.37.0',notes:'Neue Karten.',size:13*1048576,page:'https://example.invalid'};
+// Die angebotene Version liegt immer eine Unterversion über der installierten, die vorige eine darunter.
+const NEXT=VERSION.replace(/^(\d+)\.(\d+)\..*$/,(m,a,b)=>a+'.'+(+b+1)+'.0'),PREV=VERSION.replace(/^(\d+)\.(\d+)\..*$/,(m,a,b)=>a+'.'+(+b-1)+'.0');
+const offer={state:'available',installed:VERSION,version:NEXT,notes:'Neue Karten.',size:13*1048576,page:'https://example.invalid'};
 
 test('Hülle: Internet nur für Updates, Installer-Recht, Provider nicht exportiert, WebView bleibt offline',()=>{
  const manifest=fs.readFileSync(path.join(android,'AndroidManifest.xml'),'utf8');
@@ -107,7 +109,7 @@ test('Neue Version: fragt im ruhigen Hauptmenü, nie im Match; „Später“ bis
  t.screen='game';t.u.receive(JSON.stringify(offer));assert.equal(t.log.dialogs.length,0,'nicht im Match');
  t.screen='menu';t.u.idle();assert.equal(t.log.open?.kind,'update');
  const d=t.log.open.vm;assert.ok(d instanceof UpdateDialog);assert.equal(d.size,'13 MB');assert.equal(d.s.notes,'Neue Karten.');
- d.later();assert.equal(t.log.open,null);assert.equal(t.u.postponed,'1.37.0');
+ d.later();assert.equal(t.log.open,null);assert.equal(t.u.postponed,NEXT);
  t.u.receive(offer);t.u.idle();assert.equal(t.log.dialogs.length,1,'nach „Später“ nicht wieder');
  t.u.check(true);assert.equal(t.u.postponed,null);assert.deepEqual(t.platform.calls.at(-1),['check',true]);
  t.u.receive(offer);assert.equal(t.log.dialogs.length,2,'von Hand gesucht: fragt wieder');
@@ -142,14 +144,14 @@ test('Laden: Fortschritt im Fenster, fertig → Installer; im Hintergrund fragt 
 });
 
 test('Was ist neu: einmal nach einem Update, nicht nach einer Neuinstallation, nicht in der Sichtprüfung',()=>{
- const a=setup({seen:'1.35.0'});a.u.start();assert.equal(a.log.open?.kind,'message');assert.equal(a.log.open.vm.state.title,'Neu in Aeterna '+VERSION);
+ const a=setup({seen:PREV});a.u.start();assert.equal(a.log.open?.kind,'message');assert.equal(a.log.open.vm.state.title,'Neu in Aeterna '+VERSION);
  assert.equal(a.log.open.vm.state.text,NEU.notes);assert.equal(a.storage.getItem(UPDATE_KEY),VERSION);
  // Danach fragt das Spiel nach dem Update, nicht vorher.
  a.u.receive(offer);assert.equal(a.log.open.kind,'message');a.log.open.vm.choose(0);a.u.idle();assert.equal(a.log.open?.kind,'update');
  const again=setup({seen:VERSION});again.u.start();assert.equal(again.log.open,null,'gleiche Version: nichts');
  const fresh=setup();fresh.u.start();assert.equal(fresh.log.open,null,'Neuinstallation: nichts');
  const old=setup({played:3});old.u.start();assert.equal(old.log.open?.kind,'message','aus 1.35.0 (ohne Schlüssel), schon gespielt');
- const ci=setup({seen:'1.35.0',automated:true});ci.u.start();assert.equal(ci.log.open,null);
+ const ci=setup({seen:PREV,automated:true});ci.u.start();assert.equal(ci.log.open,null);
 });
 
 test('Einstellungen → Daten: Stand, Jetzt suchen, Ein/Aus; im Browser der Hinweis auf die Android-App',()=>{

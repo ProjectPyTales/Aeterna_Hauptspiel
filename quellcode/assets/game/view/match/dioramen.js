@@ -84,7 +84,7 @@ DI.bubble=(c,b,t,hit)=>{if(!b)return;b.t0??=t;const e=t-b.t0-(b.delay||0);if(e<0
  if(b.card)rows.push({text:'Antippen: ganze Karte',font:'italic 13px Body,serif',color:'#6b5236',small:true});
  const h=PAD*2+24+rows.reduce((n,r)=>n+(r.small?17:LINE),0),below=b.top<300,x=Math.max(14,Math.min(1586-W,b.x-W/2)),y=below?b.bottom+16:b.top-16-h;
  c.globalAlpha=alpha;c.translate(0,(1-Math.min(1,e/140))*(below?-8:8));
- c.shadowColor='#0009';c.shadowBlur=14;c.shadowOffsetY=5;round(c,x,y,W,h,14,'#eadbb8');c.shadowColor='transparent';
+ R.blit(c,R.sprite('blase-schatten:'+W+','+h,-34,-30,W+68,h+72,g=>{g.shadowColor='#0009';g.shadowBlur=14;g.shadowOffsetY=5;round(g,0,0,W,h,14,'#eadbb8');}),x,y);
  const g=c.createLinearGradient(0,y,0,y+h);g.addColorStop(0,'#f5e9cc');g.addColorStop(1,'#e0cca3');round(c,x,y,W,h,14,g,'#8a6a3a',2);
  const tx=Math.max(x+24,Math.min(x+W-24,b.x));c.beginPath();if(below){c.moveTo(tx-12,y+1);c.lineTo(tx,y-13);c.lineTo(tx+12,y+1);}else{c.moveTo(tx-12,y+h-1);c.lineTo(tx,y+h+13);c.lineTo(tx+12,y+h-1);}
  c.fillStyle=below?'#f5e9cc':'#e0cca3';c.fill();c.strokeStyle='#8a6a3a';c.lineWidth=2;c.stroke();

@@ -338,6 +338,11 @@ das sie unter `https://chroniken.local/` ausliefert. Die Signatur erzeugt Gradle
 - **Messwerkzeuge:** `matchmessung.js` (7 Diener je Seite, 10 Handkarten; Frame-Zeit und Bildabstände in Ruhe und im
   Gefecht, CPU 1× und 4×; `--spiel <ordner>` für Vorher-Werte) und `labormessung.js` (Messreihe des Labors; ohne GPU läuft
   WebGL in SwiftShader – nur Funktionsprobe). Beide laufen im CI-Job „sichtpruefung“. Test: `tests/renderer.test.js`.
+- **AP 2.7 Bildrate und Wärme** (seit 1.37.0): Ruhetakt `CHT.pace` (30 Bilder je Sekunde, wenn sich nichts bewegt) und Auflösung,
+  die sich anpasst `CHT.Resolution` (Stufen 2 → 1,5 → 1,25 → 1) in `view/match/anim.js`; der Tisch liegt auf `#table` unter dem
+  Brett, Wackeln ist ein CSS-`transform` (`view/match/board.js`, `R.layered`); die Teilchen des Hauptmenüs ruhen unter Fenstern
+  (`CHH.covered`). `matchmessung.js` meldet zusätzlich `im_ruhetakt`, `live_schatten` (muss 0 sein) und die Stufe und schlägt fehl,
+  wenn der Ruhetakt nicht greift oder ein Live-Schatten auftaucht. Tests: `tests/bildrate.test.js`, `tests/renderer.test.js`.
 - **AP 5.11 Teil 2** (`model/data.js`): Wandernder Händler 2/2 mit Vermächtnis 2 Rüstung, Grenzläuferin 3/3 mit Tarnung,
   Rōnin 3/4, Bronzener Wall 2 Rüstung (+2 Leben), Kämpfer der Heiligen Schar 3/2. Bericht `balance/BERICHT.md`, vorher
   `BERICHT-1.12.0.md`. Die Regeltests nutzen statt Händler und Grenzläuferin regellose Attrappen (`tests/attrappen.js`,
@@ -614,7 +619,7 @@ Paarung beträgt der Zufallsfehler etwa ±2,3 Punkte je Held und ±6,9 je Paarun
 node werkzeuge/klickpfad.js            # Klickpfad Handyformat, Vergleich mit referenz/, Ergebnis in sichtpruefung/klickpfad/
 node werkzeuge/klickpfad.js --referenz # nach gewollten optischen Änderungen: Referenzbilder neu schreiben, ansehen, committen
 node werkzeuge/sichtpruefung.js        # Hauptmenü: Screenshots Handy/Tablet, Auftritt, Trefferflächen, Bildzeiten, Menüwechsel
-node werkzeuge/matchmessung.js         # Match mit 7 Dienern je Seite: Frame-Zeit und Bildabstände (CPU 1× und 4×) → sichtpruefung/matchmessung.json
+node werkzeuge/matchmessung.js         # Match mit 7 Dienern je Seite: Frame-Zeit, Bildabstände, Ruhetakt, Live-Schatten (CPU 1× und 4×) → sichtpruefung/matchmessung.json
 node werkzeuge/matchmessung.js --spiel <ordner>   # dasselbe für eine ältere Version (Vorher-Wert)
 node werkzeuge/labormessung.js         # Renderer-Labor: Canvas 2D gegen PixiJS, je Szene 3 s → sichtpruefung/labormessung.json
 node werkzeuge/motive.js              # Liste der fehlenden Motive (ungenutzte_assets/MOTIVE.md) neu schreiben
