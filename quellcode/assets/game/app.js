@@ -1,9 +1,9 @@
 /* Aeterna – composition root (MVVM shell). Creates the model store, the view models and their views, and
  * provides the ui service the view models talk to: navigation with transitions, dialogs, toasts, sound and
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
- * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(). */
+ * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(), since 1.36.0 onUpdate(). */
 (function(){'use strict';
-const VERSION='1.35.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.36.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -27,12 +27,14 @@ const reduced=()=>AEP.reducedMotion();
 // ---------- ui service for the view models ----------
 const ui={
  screen:()=>screen,busy:()=>busy,hidden:()=>document.hidden,
+ // Ruhiges Hauptmenü: kein Fenster, kein Übergang, kein Intro – erst dann fragt das Spiel nach Updates (viewmodel/update.js).
+ idle:()=>screen==='menu'&&!dialog&&!busy&&!intro.active(),
  go:(next,arg,force)=>navigate(next,arg,force),
  toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3000);},
  // One dialog at a time; opening another replaces it.
  dialog(kind,vm){closeDialog(false);matchView.cancel();
   dialog={kind,vm,binding:bind(overlay,V.dialogs[kind],vm)};screens.game.vm.dialogChanged(true);},
- close(){closeDialog(true);},
+ close(){closeDialog(true);calm();},
  dialogOpen:vm=>!!dialog&&(!vm||dialog.vm===vm),
  play:(name,opts)=>A.play(name,opts),
  haptic:kind=>AEP.haptic(kind,store.profile.settings.haptics!==false),
@@ -43,11 +45,16 @@ const ui={
  exit:()=>AEP.exit(),platform:()=>AEP.info(),
  // Renderer-Labor (AP 2.5): eigene Seite neben dem Spiel; „Zurück“ dort lädt das Spiel wieder (Spielstand ist gespeichert).
  lab:()=>{store.save?.();location.href='labor/renderer.html';}};
+// Nach Fenstern und Übergängen ins Hauptmenü: kurz warten (ein Knopf kann gleich das nächste Fenster öffnen), dann darf das
+// Spiel nach Updates fragen.
+function calm(){setTimeout(()=>ctx.updates.idle(),450);}
 function closeDialog(resume){if(!dialog)return;const d=dialog;dialog=null;d.binding.unbind();overlay.textContent='';d.vm.closed?.();
  if(resume&&screen==='game')screens.game.vm.dialogChanged(false);}
 
 // ---------- View models and views ----------
 const ctx={store,session,ui,errors};
+// Automatische Updates (seit 1.36.0): die Hülle sucht und installiert, das ViewModel entscheidet, wann das Spiel fragt.
+ctx.updates=new VM.Updates(ctx,{platform:AEP.updates,storage:localStorage,version:VERSION,automated:!!navigator.webdriver});
 ctx.dialogs=new VM.Dialogs(ctx,VERSION);
 ctx.packs=new VM.Packs(ctx);
 const screens={
@@ -72,7 +79,7 @@ function navigate(next,arg,force=false){
  if(next===screen||reduced()){show(next,arg);return;}
  if(screen==='menu'||next==='menu')ring(next,arg);else slide(()=>show(next,arg));}
 function hold(){busy=true;clearTimeout(screens.game.vm.aiTimer);matchView.cancel();}
-function release(){busy=false;if(screen==='game')screens.game.vm.arrived();}
+function release(){busy=false;if(screen==='game')screens.game.vm.arrived();else if(screen==='menu')calm();}
 function ring(next,arg){hold();
  if(next==='menu'){A.play('grind',{gain:.6});H.arrive(()=>show(next,arg),release);}else{A.play('power',{gain:.45});H.leave(()=>show(next,arg),release);}}
 function slide(swap){hold();const el=$('slabs');el.className='active closing';A.play('scrape',{gain:.9});
@@ -87,7 +94,7 @@ function show(next,arg){
  window.getSelection()?.removeAllRanges();canvas.style.display=next==='game'?'block':'none';
  const {vm,view}=screens[next];vm.enter(arg);
  if(view)current=bind($('ui'),view,vm);
- A.track(next==='game'?'battle':'menu');}
+ A.track(next==='game'?'battle':'menu');if(next==='menu')calm();}
 
 // ---------- Platform ----------
 // On screens wider than 2:1 the stage grows sideways ("wings"): menus, dialogs and their backdrops reach the edges,
@@ -98,12 +105,14 @@ function resize(){const inset=window.safeInsets||{left:0,right:0,top:0,bottom:0}
  for(const [k,v] of [['bw',H.bgWidth*scale],['bh',800*scale],['bx',left-H.bgOffset*scale],['by',topY]])document.body.style.setProperty('--hall-'+k,v+'px');}
 function back(){if(intro.active()){intro.skip();return;}if(busy)return;if(dialog){dialog.vm.close?.();return;}screens[screen].vm.back();}
 function onPause(){ctx.packs.pause();matchView.cancel();screens.game.vm.pauseApp();store.save();A.pause();}
-function onResume(){A.resume();screens.game.vm.resumeApp();}
+function onResume(){A.resume();screens.game.vm.resumeApp();ctx.updates.resume();}
 
 window.App={get profile(){return store.profile;},get intro(){return intro.state();},get artReady(){return art.ready;},get view(){return screens.game.vm.view;},get screen(){return screen;},get dialog(){return dialog?.kind||null;},
  vm:Object.fromEntries(Object.entries(screens).map(([k,s])=>[k,s.vm])),store,ui,
  navigate:(next,arg)=>navigate(next,arg),close:()=>ui.close(),toast:msg=>ui.toast(msg),back,onPause,onResume,resize,
- importText:raw=>ctx.dialogs.importText(raw)};
+ importText:raw=>ctx.dialogs.importText(raw),
+ // Automatische Updates: die Hülle meldet ihren Zustand (android/…/Updater.kt).
+ onUpdate:raw=>ctx.updates.receive(raw),get updates(){return ctx.updates;}};
 
 for(const event of ['selectstart','contextmenu','dragstart'])stage.addEventListener(event,ev=>{if(screen==='game')ev.preventDefault();});
 // A tap on the scrim beside a dialog that allows it (card zoom, chronicle) closes the dialog.
@@ -138,7 +147,7 @@ const settings=store.profile.settings,intro=AEI.start({automated:!!navigator.web
  onArrive:()=>A.play('chime',{gain:.9})});
 Promise.all([H.preload((done,total)=>{bar.style.width=Math.round(100*done/total)+'%';}),surface]).then(()=>intro.ready()).then(()=>{$('loading').remove();
  $('slabs').querySelector('.slab-l').innerHTML=S.slabArt('l');$('slabs').querySelector('.slab-r').innerHTML=S.slabArt('r');
- show('menu',!reduced());intro.reveal();store.save();matchView.start();
+ show('menu',!reduced());intro.reveal().then(()=>ctx.updates.start());store.save();matchView.start();
  return R.load((done,total)=>{art.done=done;art.total=total;if(art.next)artToast();}).then(artLoaded);})
  .catch(e=>{intro.abort();const el=$('loading');if(el)el.innerHTML='<h2>Ladefehler</h2><p>'+AEM.esc(e.message)+'</p>';else console.error(e);});
 })();

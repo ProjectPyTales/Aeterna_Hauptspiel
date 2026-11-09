@@ -43,7 +43,29 @@ const SETTING_BODY={
   V.buttons([V.button({label:'Spielstand exportieren',cmd:'exportSave',small:true}),V.button({label:'Spielstand importieren',cmd:'askImport',small:true})])}<div class="settings-block"><b>Automatische Sicherungen</b><small>Der erste Stand jedes Tages, die drei jüngsten Tage.</small>${
   b.length?html`<div class="backup-list">${b.map(x=>html`<div class="backup-row" data-key="b${x.at}"><span>${when(x.at)} · ${x.gold} Gold · ${x.wins} Siege</span>${V.button({label:'Zurückholen',cmd:'restore',a:x.i,small:true})}</div>`)}</div>`:html`<small>Noch keine Sicherung.</small>`}</div><div class="settings-block"><b>Fehlerprotokoll</b><small>${
   e.length?e.length+' Einträge, zuletzt '+when(e[0].at)+': '+e[0].msg:'Keine Fehler aufgezeichnet.'} Es bleibt auf dem Gerät.</small>${
-  e.length?V.buttons([V.button({label:'Als Datei sichern',cmd:'saveErrors',small:true}),V.button({label:'Leeren',cmd:'clearErrors',small:true})]):''}</div>`;}};
+  e.length?V.buttons([V.button({label:'Als Datei sichern',cmd:'saveErrors',small:true}),V.button({label:'Leeren',cmd:'clearErrors',small:true})]):''}</div>${updates(vm)}`;}};
+// Updates (seit 1.36.0): Stand, „Jetzt suchen“, beim Start suchen Ein/Aus; im Browser nur der Hinweis auf die Android-App.
+function updates(vm){const u=vm.update,s=vm.settings;
+ if(!u.supported)return html`<div class="settings-block update-block"><b>Updates</b><small>Version ${u.version}. Automatische Updates gibt es in der Android-App; neue Versionen stehen im Release „Test-APK“ auf GitHub.</small></div>`;
+ return html`<div class="settings-block update-block"><b>Updates · installiert: Aeterna ${u.version}</b><small class="${V.cls(u.failed&&'update-error')}" role="status">${u.status}</small><div class="update-row"><label>Beim Start suchen</label><select data-change="setting" data-a="updates" aria-label="Beim Start nach Updates suchen">${
+  option('true','Ein',s.updates!==false)}${option('false','Aus',s.updates===false)}</select></div>${
+  V.buttons([u.offer?V.button({label:'Jetzt aktualisieren',cmd:'showUpdate',style:'gold',small:true}):V.button({label:'Jetzt nach Updates suchen',cmd:'checkUpdate',small:true,disabled:u.busy}),V.button({label:'Alle Versionen',cmd:'updatePage',small:true})])}</div>`;}
+
+// Neue Version (seit 1.36.0, viewmodel/update.js): Hinweis mit „Was ist neu“, Laden mit Fortschritt, bereit, Fehler.
+// ASTRA: update-siegel – Wachssiegel mit Pfeil im Ring über dem Hinweis „Neue Version“, 120 × 120
+const UPDATE_KEEP='Sammlung, Decks und eine laufende Partie bleiben.';
+D_.update={render:vm=>{const s=vm.s,size=vm.size;let body;
+ if(s.state==='downloading')body=html`<h2 id="update-title">Aeterna ${s.version} wird geladen</h2><span class="update-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${vm.percent}"><i style="width:${vm.percent}%"></i></span><p class="update-step">${s.step||'Wird geladen …'} ${vm.percent} %${size?' von '+size:''}</p><p class="settings-note">Danach fragt Android, ob die App aktualisiert werden soll – einfach „Aktualisieren“ tippen.</p>${
+  V.buttons([V.button({label:'Abbrechen',cmd:'cancel'}),V.button({label:'Im Hintergrund',cmd:'background'})])}`;
+ else if(s.state==='ready')body=html`<h2 id="update-title">Update ist bereit</h2><p>Aeterna ${s.version} ist geladen und geprüft. ${s.installing?'Android fragt jetzt, ob die App aktualisiert werden soll – einfach „Aktualisieren“ tippen.':'Android fragt gleich, ob die App aktualisiert werden soll – einfach „Aktualisieren“ tippen.'} ${UPDATE_KEEP}</p>${
+  s.note?html`<p class="update-note" role="alert">${s.note}</p>`:''}${V.buttons([V.button({label:'Später',cmd:'later'}),V.button({label:'Installieren',cmd:'install',style:'gold'})])}`;
+ else if(s.state==='failed')body=html`<h2 id="update-title">Update hat nicht geklappt</h2><p>${s.message||''}</p><p class="settings-note">Die bisherige Version läuft weiter. Beim nächsten Start fragt das Spiel erneut.</p>${
+  V.buttons([V.button({label:'Schließen',cmd:'later'}),V.button({label:'Download-Seite',cmd:'page'}),...(s.version?[V.button({label:'Erneut versuchen',cmd:'start',style:'gold'})]:[])])}`;
+ else if(s.state==='available')body=html`<h2 id="update-title">Neue Version verfügbar</h2><p>Aeterna ${s.version} ist da (installiert: ${s.installed}).</p>${
+  s.notes?html`<div class="update-notes"><b>Neu</b><p>${s.notes}</p></div>`:''}<p class="settings-note">Das Update lädt ${size||'die neue APK'} aus dem Release „Test-APK“ auf GitHub. Danach fragt Android einmal nach („Aktualisieren“). ${UPDATE_KEEP}</p>${
+  V.buttons([V.button({label:'Später',cmd:'later'}),V.button({label:'Jetzt aktualisieren',cmd:'start',style:'gold'})])}`;
+ else body=html`<h2 id="update-title">Updates</h2><p>${vm.updates.status}</p>${V.buttons([V.button({label:'Schließen',cmd:'later',style:'gold'})])}`;
+ return V.modal({width:860,close:false,extra:'update',labelledby:'update-title',body:html`<span class="update-seal" aria-hidden="true">⟳</span>${body}`});}};
 D_.settings={render:vm=>{const s=vm.settings,tab=vm.state.tab,row=(label,control)=>html`<div class="settings-row"><label>${label}</label>${control}</div>`;
  const range=k=>html`<input type="range" min="0" max="1" step=".05" value="${s[k]}" data-input="setting" data-a="${k}" aria-label="${k==='music'?'Musik':'Geräusche'}">`;
  const pick=(k,opts)=>html`<select data-change="setting" data-a="${k}">${opts.map(([v,l,on])=>option(v,l,on))}</select>`;

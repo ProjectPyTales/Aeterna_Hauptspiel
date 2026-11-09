@@ -134,6 +134,7 @@ html.motion-ruhig button.stone-tab{transition-duration:1ms}
 html.motion-ruhig .hall-rays i,html.motion-ruhig .hall-star,html.motion-ruhig .rail .medal .sheen:before,html.motion-ruhig .plate .shine:before,html.motion-ruhig .plate.gold:after{animation:none}
 html.motion-ruhig .hall-sparks{display:none}
 html.motion-ruhig .plate .face,html.motion-ruhig .plate .label,html.motion-ruhig .rail .medal .face,html.motion-ruhig .knob .face{transition-duration:1ms}
+html.motion-ruhig .update-track i{transition:none}
 html.motion-ruhig .fly-card,html.motion-ruhig .bar .grow,html.motion-ruhig .deck-slot .land{display:none}
 html.motion-ruhig .pool-grid{animation:none!important}
 html.motion-ruhig .card-detail img.zoom-in{animation:none}

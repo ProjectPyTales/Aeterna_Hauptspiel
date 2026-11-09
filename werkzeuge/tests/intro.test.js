@@ -84,7 +84,7 @@ test('Ablauf: automatisierte Läufe überspringen, ohne Ebene geht es sofort wei
  assert.match(app,/full:settings\.intro!==false&&!reduced\(\)/,'Einstellung und reduzierte Bewegung');
  assert.match(app,/sound:!!AEP\.bridge/,'Ton nur in der App (Autoplay im Browser gesperrt)');
  assert.match(app,/then\(\(\)=>intro\.ready\(\)\)\.then\(\(\)=>\{\$\('loading'\)\.remove\(\);/,'Ladebildschirm erst nach dem Intro weg');
- assert.match(app,/show\('menu',!reduced\(\)\);intro\.reveal\(\);/,'Hauptmenü unter dem letzten Bild');
+ assert.match(app,/show\('menu',!reduced\(\)\);intro\.reveal\(\)[.;]/,'Hauptmenü unter dem letzten Bild');
  assert.match(app,/function back\(\)\{if\(intro\.active\(\)\)\{intro\.skip\(\);return;\}/,'Zurück überspringt');
  assert.match(app,/catch\(e=>\{intro\.abort\(\);/,'Ladefehler bleibt sichtbar');
 });

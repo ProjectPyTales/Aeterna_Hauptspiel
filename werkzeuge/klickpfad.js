@@ -226,6 +226,19 @@ async function basar(page,cmpPage,cdp){
    await shot(page,cmpPage,'23-einstellungen');
    await page.locator('#overlay select[data-a="text"]').selectOption('normal');await page.locator('#overlay select[data-a="colors"]').selectOption('normal');
    await page.locator('#overlay button',{hasText:'Fertig'}).click();await settle(page,100);
+   // Automatische Updates (seit 1.36.0): im Browser nur der Hinweis in Einstellungen → Daten; das Fenster „Neue Version“
+   // mit eingespieltem Zustand der Hülle (verfügbar → lädt → Fehler), ohne Referenzbild.
+   check('Updates: im Browser keine Suche',await page.evaluate(()=>!App.updates.supported&&App.updates.started&&App.updates.state.state==='idle'));
+   await page.evaluate(()=>App.vm.game.ctx.dialogs.settings());await page.waitForSelector('#overlay .settings');
+   await page.locator('#overlay .stone-tab',{hasText:'Daten'}).click();await settle(page,100);
+   check('Updates: Einstellungen → Daten nennt Version und die Android-App',await page.evaluate(()=>/Automatische Updates gibt es in der Android-App/.test(document.querySelector('#overlay .update-block')?.textContent||'')));
+   await page.keyboard.press('Escape');await settle(page,100);
+   const neu=await page.evaluate(async()=>{const u=App.updates,base={installed:'1.36.0',version:'9.9.9',notes:'Neue Karten und ein Fest.',size:13*1048576};
+    u.receive({state:'available',...base});u.show();await new Promise(r=>setTimeout(r,60));const m=document.querySelector('#overlay .modal.update'),a={titel:m?.querySelector('h2')?.textContent,neu:m?.querySelector('.update-notes p')?.textContent,knoepfe:[...(m?.querySelectorAll('button')||[])].map(b=>b.textContent.trim())};
+    u.receive(JSON.stringify({state:'downloading',...base,progress:.5,step:'Wird geladen …'}));await new Promise(r=>setTimeout(r,60));a.balken=document.querySelector('#overlay .update-track')?.getAttribute('aria-valuenow');
+    u.receive({state:'failed',...base,message:'Prüfsumme stimmt nicht.'});await new Promise(r=>setTimeout(r,60));a.fehler=document.querySelector('#overlay .modal.update p')?.textContent;
+    App.back();await new Promise(r=>setTimeout(r,60));a.zu=!document.querySelector('#overlay .modal.update');u.receive({state:'idle'});return a;});
+   check('Updates: Fenster „Neue Version“ mit Neuem, Fortschritt und Fehler, Zurück schließt',neu.titel==='Neue Version verfügbar'&&neu.neu==='Neue Karten und ein Fest.'&&neu.knoepfe.join('|')==='Später|Jetzt aktualisieren'&&neu.balken==='50'&&neu.fehler==='Prüfsumme stimmt nicht.'&&neu.zu,neu);
   }
  }catch(e){check('Klickpfad vollständig',false,e.message.split('\n')[0]);}
  check('Keine JavaScript-Fehler',errors.length===0,errors);

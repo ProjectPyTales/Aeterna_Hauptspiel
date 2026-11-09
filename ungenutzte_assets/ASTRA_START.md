@@ -8,7 +8,7 @@ Regel und keine Karte mehr. Diese Seite ist der ganze Ablauf – von der ersten 
 | Reihe | Pakete | Inhalt | Liegt in |
 |---|---|---|---|
 | **K – Kartenbilder** | K01–K32 | 239 Bilder: 232 neue Motive, 1 Korrektur (`fabius_0`), 6 aus Teil 4 (zuerst das Original suchen) | `ungenutzte_assets/astra_bestellung/K01.md` … `K32.md` |
-| **U – Oberfläche** | U01–U11 | 77 gemalte Oberflächenteile mit Transparenz (Spielbrett, Werte, Effekte, Menüs, Modi) | `ungenutzte_assets/astra_bestellung/U01.md` … `U11.md` |
+| **U – Oberfläche** | U01–U12 | 78 gemalte Oberflächenteile mit Transparenz (Spielbrett, Werte, Effekte, Menüs, Modi, Updates) | `ungenutzte_assets/astra_bestellung/U01.md` … `U12.md` |
 
 Jede Paketdatei ist vollständig: Auftrag zum Kopieren, Stil- und Dateivorgaben, Referenzen und genau die Motive des Pakets
 (höchstens zehn Kartenbilder je Paket). Die Übersicht mit allen IDs steht in `ASTRA_AUFTRAG.md`, Abschnitt 0; der Stand jeder
@@ -50,7 +50,7 @@ Karte in `ASTRA_STAND.csv`. Die Paketdateien erzeugt `python3 werkzeuge/astra_bi
 1. **U01 und U02** – Spielbrett und Kartenwerte sieht man in jeder Partie.
 2. **K22 und K23** – die Spielsteine erscheinen in vielen Partien und in den Lehrstunden.
 3. **K01 bis K21** in der Reihenfolge der Liste (je Held und Zeitalter), dazwischen **U03 bis U05**.
-4. **K24 bis K32** (Teil 4, Alexandria, Hinterhalte, Wunder der Welt) und **U06 bis U11** (Modi).
+4. **K24 bis K32** (Teil 4, Alexandria, Hinterhalte, Wunder der Welt) und **U06 bis U11** (Modi), zuletzt **U12** (Updates).
 
 Eine Bestellung je Tag reicht; jede eingebaute Lieferung kommt mit der nächsten Test-APK aufs Handy.
 

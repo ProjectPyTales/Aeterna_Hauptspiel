@@ -60,17 +60,26 @@ jobs:
           grep -qi "SHA-256 digest: 8d4ab16f74df55c6ea0c119e2074e02ee7aeb2e1262c2770fede660b29e9e509" verify.txt
           echo "APK-Größe: $(stat -c %s "$apk") Bytes"
 
+      # Automatische Updates (seit 1.36.0): version.json mit Version, versionCode, „Was ist neu“ (model/neu.js), Größe und
+      # SHA-256 der APK. Die App liest sie aus dem Release „Test-APK“ und bietet ein Update an, wenn versionCode höher ist.
+      - name: version.json für die automatischen Updates schreiben
+        run: node werkzeuge/update_info.js "Aeterna-${{ steps.version.outputs.name }}-Test.apk" version.json
+
       # Nur main: eine einzige Test-APK im Release „Test-APK“, die jeder Lauf ersetzt (Tags von GITHUB_TOKEN starten keinen Lauf).
+      # Mit ihr version.json – beide in einem Schritt, damit die Apps nie eine Datei ohne die andere sehen.
       - name: Release „Test-APK“ ersetzen (nur main)
         if: github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           apk=Aeterna-${{ steps.version.outputs.name }}-Test.apk
+          notes=$(node -p "require('./quellcode/assets/game/model/neu.js').notes")
           gh release delete test-apk --cleanup-tag --yes || true
-          gh release create test-apk "$apk" --target "$GITHUB_SHA" --prerelease \
+          gh release create test-apk "$apk" version.json --target "$GITHUB_SHA" --prerelease \
             --title "Aeterna ${{ steps.version.outputs.name }} – Test-APK" \
-            --notes "Signierte Test-APK von main (Commit ${GITHUB_SHA::7}). Als Update über die Vorversion installieren."
+            --notes "Signierte Test-APK von main (Commit ${GITHUB_SHA::7}). Ab 1.36.0 aktualisiert sich die App selbst (Hinweis im Hauptmenü, Einstellungen → Daten → Updates); sonst als Update über die Vorversion installieren.
+
+          **Neu:** $notes"
 
       # Nur main: Artefakte älter als ein Tag löschen (früher APK 30 Tage, Screenshots 14 Tage) – hält den Actions-Speicher frei.
       - name: Alte Artefakte aufräumen (nur main)

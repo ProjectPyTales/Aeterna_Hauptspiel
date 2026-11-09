@@ -27,10 +27,12 @@ import java.io.ByteArrayOutputStream
  * Vibrationsmuster erweitert; die Hülle ruft wie bisher `App.back()`, `App.importText()`, `App.onPause()`,
  * `App.onResume()` und `App.resize()` auf. Spielstand: SharedPreferences `chroniken_v1`/`profile` wie bisher,
  * dazu localStorage des Ursprungs https://chroniken.local – beides bleibt beim Update erhalten.
+ * Seit 1.36.0 sucht [Updater] nach neuen Versionen und übergibt sie dem Installer von Android.
  */
 class MainActivity : Activity() {
     internal lateinit var prefs: SharedPreferences
     internal lateinit var haptics: Haptics
+    internal lateinit var updater: Updater
     private var web: WebView? = null
     private var exportPending: String? = null
     private var pageReady = false
@@ -40,6 +42,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         haptics = Haptics(this)
+        updater = Updater(this)
         window.attributes = window.attributes.apply {
             layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
@@ -244,6 +247,7 @@ class MainActivity : Activity() {
             it.destroy()
         }
         web = null
+        updater.close()
         super.onDestroy()
     }
 

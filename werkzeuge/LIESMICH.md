@@ -564,7 +564,11 @@ cd android && ./gradlew assembleRelease     # → app/build/outputs/apk/release/
 ```
 
 - Neue Version: `versionCode` +1 und `versionName` in `android/app/build.gradle.kts`, dazu `VERSION` in
-  `assets/game/app.js` (ein Test prüft, dass beide übereinstimmen). App-Name: `app/src/main/res/values/strings.xml`.
+  `assets/game/app.js` (ein Test prüft, dass beide übereinstimmen) und „Was ist neu“ in `assets/game/model/neu.js`.
+  App-Name: `app/src/main/res/values/strings.xml`.
+- Automatische Updates (seit 1.36.0): `node werkzeuge/update_info.js Aeterna-<Version>-Test.apk version.json` schreibt die
+  `version.json` (Version, versionCode, „Was ist neu“, Adresse, Größe, SHA-256), die die CI mit der APK ins Release „Test-APK“
+  lädt; die App bietet ein Update an, sobald dort ein höherer `versionCode` liegt (`android/…/Updater.kt`).
 - In den Claude-Code-Sitzungen gibt es kein Android-SDK (`dl.google.com` ist gesperrt). Die Kotlin-Quellen lassen sich dort
   trotzdem prüfen: ein kleines Gradle-Projekt mit `kotlin("jvm")` und `compileOnly("org.robolectric:android-all:16-…")`
   aus Maven Central, das `android/app/src/main/java` kompiliert. Gebaut wird in der CI.
