@@ -19,7 +19,9 @@ const P=require('../quellcode/assets/game/model/profile.js');
 const arg=(name,def)=>{const i=process.argv.indexOf(name);return i<0?def:process.argv[i+1];};
 const game=path.resolve(arg('--spiel',path.join(__dirname,'../quellcode/assets/game')));
 const out=path.resolve(arg('--ziel','sichtpruefung'));
-const profile=JSON.stringify({...P.fresh(),seed:424242,helpSeen:true});
+// ambushSeen: Beginnt die KI und legt sie als Erstes einen Hinterhalt, erklärte sonst ein Fenster die Wachsrolle (einmal je
+// Spielstand) – der Lauf wartete darauf (CI am 9. 11. 2026, Startwert zufällig).
+const profile=JSON.stringify({...P.fresh(),seed:424242,helpSeen:true,ambushSeen:true});
 
 // Volles Brett: fester Aufbau, damit vorher und nachher dasselbe gezeichnet wird.
 function fill(){const s=App.profile.game,E=CHE;
@@ -54,7 +56,8 @@ async function measure(page,fight){
   await page.evaluate(()=>App.navigate('setup'));await page.waitForFunction(()=>App.screen==='setup');await page.waitForTimeout(400);
   await page.locator('#ui button',{hasText:'Duell beginnen'}).click();await page.waitForSelector('#overlay .mulligan');await page.waitForTimeout(300);
   await page.locator('#overlay button',{hasText:'Beginnen'}).click();
-  await page.waitForFunction(()=>App.profile.game.phase==='play'&&App.profile.game.active===0&&!CHM.busy()&&!document.querySelector('#overlay .scrim'),null,{timeout:30000});
+  await page.waitForFunction(()=>App.profile.game.phase==='play'&&App.profile.game.active===0&&!CHM.busy()&&!document.querySelector('#overlay .scrim'),null,{timeout:30000})
+   .catch(async e=>{R.zustand=await page.evaluate(()=>({phase:App.profile.game?.phase,active:App.profile.game?.active,busy:CHM.busy(),fenster:App.dialog,screen:App.screen})).catch(()=>null);throw e;});
   await page.evaluate(fill);await page.waitForTimeout(1500);
   R.leinwand=await page.evaluate(()=>{const c=document.getElementById('board');return {breite:c.width,hoehe:c.height,css_breite:Math.round(c.getBoundingClientRect().width),pixeldichte:devicePixelRatio};});
   await page.screenshot({path:path.join(out,'match-voll.png')});
