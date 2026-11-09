@@ -1400,6 +1400,26 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
   Farbfilter (im Basar mit dem Hinweis „Platzhalter · Bild folgt“); `MOTIVE.md` nennt sie mit Größe und Prompt im neuen
   Abschnitt „Schlachtfelder ohne Bild“. Der Rest von 1.15.0 ist laut Deinem Test in Ordnung.*
 
+**AP 1.9 – Match-HUD: Lesbarkeit und Feinschliff (S)** – *Vorschlag vom 9. 11. 2026, offen*
+Gesehen im Bild von `node werkzeuge/matchmessung.js` (Handyformat 915 × 412, 7 gegen 7, 10 Handkarten):
+- [ ] **Handkarten lesbar:** Bei 10 Karten sind die Namen abgeschnitten („Schmi…“, „Wüstensp…“, „Gebirgsw…“), die Karten ragen
+  unten aus dem Bild. Die Hand liegt als zwei Fächerseiten links und rechts der Heldenmünze (AP 3.2, `CHL.handPose`). Vorschlag:
+  bei voller Hand die Fächerseiten enger und etwas höher, der Name der berührten Karte auf einem Band darüber; Alternative ein
+  einziger Fächer in der Mitte, die Heldenmünze rückt dafür nach oben – Entscheidung 23.
+- [ ] **Bereit-Leuchten ruhiger:** Das Grün bleibt (Status-Leuchten aus Deiner Ideensammlung, AP 3.2 und AP 3.5), aber `#71ff56`
+  wirkt auf sieben Dienern grell gegen Pergament und Gold. Ein wärmeres, satteres Grün mit weicherem Rand, kräftig nur am gewählten
+  Diener; die Palette „klar“ für Farbsehschwäche bleibt eigenständig (`PALETTES` in `view/match/render.js`).
+- [ ] **Mindestgröße für Text auf dem Brett:** „SCHLACHT“, „ZUG 1“ und die Zahlen an Deck und Friedhof sind im Handyformat nur
+  wenige Pixel hoch und blass. Mindestens 22 Einheiten (≈ 12,5 px bei 915 px Breite) und Kontrast nach `stil/STILBIBEL.md`;
+  am besten mit einem Test, der die kleinste Schrift im Match-Renderer prüft (wie `lesbar_css.py` für die Menüs).
+- [ ] **Schildwall-Wappen zurücknehmen:** Bei vollem Brett trägt fast jeder Diener oben ein Wappen – kleiner oder als Rand der
+  Plakette, damit das Brett ruhiger wirkt.
+- [ ] Klein, optional: Die Chronik-Leiste links ist zu Beginn der Partie leer (rund 5 % der Breite); sie könnte eingeklappt
+  starten und mit dem ersten Eintrag herausfahren.
+- Pause- und Hilfe-Knopf (graue Platzhalter) kommen mit Astra (`knopf-match`, AP A.3) – hier keine Arbeit.
+- Abnahme: Sichtprüfung im Handyformat und in der Geräte-Matrix, neue Referenzbilder im Klickpfad; bei 10 Handkarten ist jede
+  Karte ohne Großansicht zu erkennen.
+
 ### Phase 2 – Technisches Fundament (L)
 
 **AP 2.1 – Native Android-Hülle neu aufsetzen (M)**
@@ -1555,6 +1575,40 @@ höher aufgelöste Breitbild-Fassung aus AP 1.2 – dann nur `hauptmenue_bild.py
   Änderungen: `node werkzeuge/klickpfad.js --referenz`.*
 - Abnahme: CI schlägt bei JavaScript-Fehlern oder starken Bildabweichungen fehl. *✓ – jede Konsolen- oder
   Laufzeitfehlermeldung, jede fehlgeschlagene Prüfung und jede starke Bildabweichung beendet den Job mit Fehler.*
+
+**AP 2.7 – Bildrate und Wärme: Match und Menü entlasten (S)** – *Vorschlag vom 9. 11. 2026, offen*
+
+Stand 1.35.0 in der Emulation (`node werkzeuge/matchmessung.js`, Handyformat, 7 gegen 7, volle Hand, ohne GPU; anderer Rechner
+als 1.13.0, daher nur grob vergleichbar):
+
+| Match, 7 gegen 7, volle Hand | 1.13.0 | 1.35.0 |
+|---|---|---|
+| Zeichenzeit je Bild, Ruhe / Gefecht (Mittel) | 0,61 / 0,59 ms | 0,86 / 1,6 ms |
+| dasselbe, 95 % der Bilder | 0,9 / 0,8 ms | 1,1 / 2,3 ms |
+| Bilder in 3 s, Ruhe / Gefecht | 165 / 177 | 132 / **103** (≈ 34 fps) |
+| CPU 4×: Zeichenzeit Ruhe / Gefecht | 3,5 / 3,5 ms | 4,0 / **7,0 ms** (95 %: 5,6 / 11 ms) |
+
+Die Arbeit im Hauptthread bleibt klein, seit 1.18.0 sind aber viele Effekte dazugekommen. Teuer ist vor allem das Rastern: Jedes
+Bild löscht die ganze Leinwand (bis 3200 × 1600) und füllt sie neu. Auf dem OnePlus 15 läuft das Match mit 120 fps (Stand 1.14.0);
+die Punkte zielen auf Mittelklasse-Handys (Qualitätsziel Galaxy A54) und auf Akku und Wärme in langen Partien.
+- [ ] **Tisch als eigene Ebene:** Der Tisch ist schon ein fertiges Bild (AP 2.4), wird aber in jedem Bild über die ganze Leinwand
+  kopiert (`R.draw` in `view/match/render.js`). Eine zweite Leinwand darunter malt ihn nur bei einem Tischwechsel; Wackeln und
+  Zoom bei Treffern (`T.shake`) wandern dafür aus dem Canvas in ein CSS-`transform` auf beiden Ebenen (läuft auf der GPU).
+  Spart je Bild eine volle Fläche.
+- [ ] **Ruhetakt:** Die Bildschleife (`view/match/board.js`) zeichnet bei jedem Bildwechsel – auf 120-Hz-Displays 120-mal je
+  Sekunde, auch wenn sich nichts bewegt. Liegt kein Finger auf dem Brett, fliegt keine Karte, läuft kein Effekt (`R.fx`,
+  `CHM.busy`, `CHF.busy`) und schwingt keine Feder mehr, genügen 30 Bilder je Sekunde für Atmen, Leuchten und Dioramen; die erste
+  Berührung oder ein neues Ereignis schaltet sofort zurück. Weniger Wärme heißt: Das Handy drosselt sich in langen Partien
+  seltener selbst. Die Bildraten-Anzeige zeigt den Ruhetakt mit an.
+- [ ] **Auflösung passt sich an:** Heute nur von Hand (*Grafik: sparsam* → 1×). Die Schleife misst die Bildabstände ohnehin; liegen
+  über mehrere Sekunden zu viele über dem Ziel, sinkt `R.scale` stufenweise (2 → 1,5 → 1,25), erholt sich das Gerät, steigt sie
+  wieder – mit Abstand zwischen den Schwellen, damit nichts flackert. „Hoch“ bleibt die Obergrenze.
+- [ ] **Letzte Live-Schatten in Sprites:** Die Waffenablage (`weaponRack`, `shadowBlur` 10) und der goldene Ring der Lehrstunden
+  (`coach`, `shadowBlur` 14, pulsiert) zeichnen noch je Bild mit `shadowBlur`. Der Test in `renderer.test.js` prüft nur den Rumpf
+  von `R.draw` – auf alle Zeichenfunktionen des Matches ausweiten.
+- [ ] **Hauptmenü:** Die Teilchenschleife (`view/hall.js`) läuft weiter, solange ein Fenster über dem Menü liegt – dann anhalten.
+- Abnahme: `matchmessung.js` zählt zusätzlich die Bilder in Ruhe ohne Berührung (Ziel ≈ 30 je Sekunde) und im Gefecht (mehr als
+  103 in 3 s); auf dem OnePlus 15 mit der Bildraten-Anzeige 120 fps im Gefecht, 30 in Ruhe.
 
 ### Phase 3 – Game Feel im Match (L)
 
@@ -1747,6 +1801,14 @@ bitte mit dem Overlay gegenprüfen (Entscheidung 18).*
   `eck-raeuchergefaess`, `eck-saeule`, `eck-katapult`, `sprechblase-match`, `angriffsvorschau`. Prüfung: sechs Tests in
   `lebendig.test.js`, zwei Klickpfad-Prüfungen, Referenzbild `10-match` neu.*
 
+**AP 3.10 – Auftritt der Legendären (S)** – *Vorschlag vom 9. 11. 2026, offen*
+Ausholen, Rückstoß, Splitter beim Tod und Verbrennen gibt es schon (AP 3.3–3.5); den Tod hast Du zweimal ruhiger gewünscht – dort
+nichts Neues. Offen ist nur ein eigener Auftritt für Legendäre:
+- [ ] Beim Ausspielen einer Legendären hält das Spiel kurz an: ein Band mit Name und Epoche fährt über das Brett, ein Siegel prägt
+  sich darauf, dann landet die Karte wie bisher mit schwerem Aufprall (AP 3.3). Höchstens 1 s, mit einem Tippen zu überspringen,
+  bei „Schnell“ die Hälfte, bei ruhiger Bewegung nur das Band. Die KI-Legendären zeigen dasselbe. Platzhalter mit
+  `ASTRA: legendaer-band – …`; die Stimme des Chronisten kommt mit AP 4.2.
+
 ### Phase 4 – Klang, Stimmen und Haptik (M)
 
 **AP 4.1 – Drei Klangspuren je Diener**
@@ -1770,6 +1832,9 @@ bitte mit dem Overlay gegenprüfen (Entscheidung 18).*
 
 **AP 4.5 – Haptik-Sprache** (benötigt AP 2.1)
 - [ ] Leicht (Antippen), mittel (Ausspielen, Einrasten), schwer (Treffer, Tod, Legendäre); abschaltbar.
+- [ ] Im Match vibriert heute nur der eigene Befehl im Moment des Antippens (Angriff mittel, sonst leicht – `Match` in
+  `viewmodel/match.js`). Vorschlag vom 9. 11. 2026: Vibration im Takt des Aufpralls und nach Wucht – schwer bei Treffern am Helden,
+  bei Legendären und beim Tod großer Diener, mittel bei normalen Treffern; zusammen mit dem Treffer-Stopp (`T.clock`).
 
 ### Phase 5 – Regeln, Karten und Balance (L)
 
@@ -2741,6 +2806,7 @@ Zusätzliche Vorschläge, die zu Aeterna passen und Spaß machen – zum Einsort
 | Halb Spaß, halb Lernen: Karten, Schlüsselwörter und Chronik nah an der Geschichte, möglichst ohne neue Bilder | AP L.6 – Teil 1 ✓ in 1.24.0, Teil 2 begonnen |
 | Erst das Spiel fertig bauen, dann die Assets (Hinweis vom 13. 10. 2026) | Entscheidung 22, AP A.3, [Empfohlene Reihenfolge](#empfohlene-reihenfolge-der-sitzungen) |
 | Code-Eingabe und Massenöffnung der Kartenpakete (Rückmeldung zu 1.10.0) | ✓ in 1.11.0 – *Einstellungen → Code einlösen*, im Basar „Alle öffnen“; Rückmeldung zu 1.11.0 ✓ in 1.12.0: alle Pakete auf einmal, ohne Standbild |
+| Spiel flüssiger, bessere Animationen, bessere UI (Frage vom 9. 11. 2026) | AP 2.7 (Bildrate und Wärme), AP 1.9 (Match-HUD), AP 3.10 (Auftritt der Legendären), AP 4.5 (Vibration im Takt des Aufpralls) |
 
 ---
 
@@ -2811,6 +2877,9 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
     Nach dem letzten dieser Pakete bestellst Du den dann vollständigen Astra-Auftrag (AP A.3). *Ergänzt am 2. 11. 2026:* Vorher kamen
     noch AP 6.5 (Lehrstunden), die Schwierigkeitsgrade aus AP 5.8 und die Einstellungen aus Phase 7 (✓ in 1.34.0); AP 6.6 ist
     pausiert. **Damit ist der Auftrag vollständig** – Ablauf in `ungenutzte_assets/ASTRA_START.md`.
+23. **Handfächer** (AP 1.9): zwei Fächerseiten links und rechts der Heldenmünze behalten und bei voller Hand enger stellen
+    (mein Vorschlag) – oder ein einziger Fächer in der Mitte, die Heldenmünze rückt dafür nach oben?
+
 ---
 
 ## Empfohlene Reihenfolge der Sitzungen
@@ -2851,6 +2920,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 29 ✓ | AP 6.5, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 vorbereiten | erledigt in 1.34.0 – Lehrstunden mit dem Chronisten, Lehrling/Feldherr/Legende, Einstellungen mit Textgröße, Farben, Bewegung und Grafik, Sicherungen, Fehlerprotokoll, Geräte-Matrix; Astra-Auftrag in 43 Paketen mit Startanleitung; AP 6.6 pausiert |
 | ab jetzt (Du) | AP A.3: Pakete K01–K32 und U01–U11 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
 | 30+ | Einbau der Lieferungen, dazwischen AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | jede Lieferung eine kurze Sitzung; Chronikzeilen und Klang brauchen keine Bilder |
+| jederzeit, ohne Bilder | AP 2.7, dann AP 1.9 und AP 3.10 | Vorschlag vom 9. 11. 2026: AP 2.7 ist mit `matchmessung.js` messbar und braucht keine Astra-Bilder; AP 1.9 nach Entscheidung 23 |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
@@ -2882,6 +2952,7 @@ Startanleitung `ungenutzte_assets/ASTRA_START.md`). AP 6.6 ist pausiert (Weitere
 | Rückmeldung 1.34.0 | Lehrstunden, Schwierigkeitsgrade, Einstellungen nach Deinem Test | kleine Nacharbeit |
 | AP A.3 Einbau | alle bis dahin gelieferten Ordner `Lieferung_K…` (ohne Code) und `Lieferung_U…` (Zeichnung → Bild wie in 1.22.0) | sichtbarster Fortschritt, jede Lieferung macht das Spiel schöner |
 | Falls noch keine Lieferung da ist | AP L.6 Teil 2: „Aus der Chronik“ für die nächsten rund 80 Karten (Basis- und Startdeckkarten zuerst) | braucht keine Bilder |
+| Oder, ebenfalls ohne Bilder | AP 2.7 Bildrate und Wärme (Tisch als eigene Ebene, Ruhetakt, Auflösung passt sich an) | messbar mit `matchmessung.js`; das Gefecht zeichnet in der Emulation nur noch ≈ 34 Bilder/s |
 
 Risiko: niedrig – Kartenbilder baut das Werkzeug ein; bei Oberflächenteilen kann ein Bild anders geschnitten sein als die Zeichnung
 (dann Ausschnitt und Trefferflächen anpassen).
