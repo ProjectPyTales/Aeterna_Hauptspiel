@@ -27,11 +27,20 @@ test('Alte Spielstände ohne fps-Feld bleiben ladbar und bekommen die Anzeige au
 
 test('Bildschleife ohne 15-ms-Drossel, Leinwand mit Pixeldichte (höchstens 2), Leuchten als Sprites',()=>{
  const board=read('view/match/board.js'),render=read('view/match/render.js');
- assert.doesNotMatch(board,/now-last>=15/);assert.match(board,/Math\.min\(R\.quality==='sparsam'\?1:2,w\*\(window\.devicePixelRatio\|\|1\)\/1600\)/);
+ assert.doesNotMatch(board,/now-last>=15/);assert.match(board,/Math\.min\(R\.quality==='sparsam'\?1:2,res\.cap,w\*\(window\.devicePixelRatio\|\|1\)\/1600\)/);
  assert.match(board,/ctx\.setTransform\(R\.scale,0,0,R\.scale,0,0\)/);
  // Im Bild je Frame nur noch Sprites: shadowBlur steht nur noch in Malfunktionen, die einmal in ein Sprite zeichnen.
- const draw=render.slice(render.indexOf('R.draw=(c,s,view,now)=>'),render.indexOf('R.events='));
+ // Bis 1.36.0 suchte dieser Test nach einer alten Signatur von R.draw und prüfte damit nichts; seit 1.37.0 (AP 2.7) gilt er für
+ // alle Zeichendateien des Matches. Was je Bild wirklich passiert, misst werkzeuge/matchmessung.js (live_schatten = 0).
+ const start=render.indexOf('R.draw=(c,s,view,t'),draw=render.slice(start,render.indexOf('R.events='));
+ assert.ok(start>0&&draw.length>2000,'Rumpf von R.draw gefunden');
  assert.doesNotMatch(draw.replace(/R\.sprite\([^]*?\}\)\)/g,''),/c\.shadowBlur=[1-9]/);
+ for(const f of ['view/match/fx.js','view/match/dioramen.js','view/match/motion.js'])assert.doesNotMatch(read(f),/\bc\.shadowBlur=[1-9]/,f+': Schatten nur in Sprites (g)');
+ // In render.js nur in Malfunktionen, die in ein Sprite oder ein Kartenbild zeichnen (ihr c ist dort ein fremder Kontext).
+ const PAINT=['R.card','paintedCard','sealArt','coinArt','aspis','chronoArt','plaque','tauntCrest'];
+ const lines=render.split('\n');let owner='';
+ lines.forEach((l,i)=>{const m=/^(?:function (\w+)|(R\.\w+)=|const (\w+)=)/.exec(l);if(m)owner=m[1]||m[2]||m[3];
+  if(/\bc\.shadowBlur=[1-9]/.test(l))assert.ok(PAINT.includes(owner),'render.js Zeile '+(i+1)+': shadowBlur in '+owner);});
  for(const f of ['minion','portrait','button'])assert.match(render,new RegExp('function '+f+'\\([^]*?R\\.sprite\\('));
 });
 

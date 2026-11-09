@@ -3,7 +3,7 @@
  * als „notes“ in version.json (werkzeuge/update_info.js), und ältere Versionen zeigen sie im Hinweis „Neue Version“. */
 (function(root){'use strict';
 const api={
- version:'1.36.0',
- notes:'Aeterna aktualisiert sich jetzt selbst: Gibt es eine neue Version, fragt das Spiel im Hauptmenü und installiert sie auf Wunsch – Sammlung, Decks und eine laufende Partie bleiben. Abschalten und von Hand suchen unter Einstellungen → Daten.'};
+ version:'1.37.0',
+ notes:'Flüssiger und kühler: In Ruhe zeichnet das Match nur noch 30 Bilder je Sekunde, der Tisch liegt auf einer eigenen Ebene, und schwächere Handys senken im Gefecht die Auflösung von selbst. Unter Fenstern ruhen die Funken des Hauptmenüs.'};
 if(typeof module!=='undefined')module.exports=api;else root.AENEU=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

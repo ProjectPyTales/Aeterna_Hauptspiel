@@ -204,6 +204,9 @@ async function basar(page,cmpPage,cdp){
    const auf=await page.evaluate(()=>({karten:document.querySelectorAll('.quest-card').length,lernen:document.querySelectorAll('.quest-card.learn').length,siegel:document.querySelectorAll('.gift-day').length,bereit:!!document.querySelector('.gift-day.ready'),erfolge:document.querySelectorAll('.feat-grid .quest-row').length}));
    check('Aufgaben: Tagesgeschenk, drei Tagesaufgaben (eine zum Lernen) und vier Erfolge',auf.karten===3&&auf.lernen===1&&auf.siegel===7&&auf.bereit&&auf.erfolge===4,auf);
    await shot(page,cmpPage,'17-aufgaben');
+   // AP 2.7 (seit 1.37.0): Unter einem Fenster ruhen die Teilchen des Hauptmenüs (ohne reduzierte Bewegung laufen sie sonst).
+   const funken=await page.evaluate(async()=>{const a=CHH.sparkFrames;await new Promise(r=>setTimeout(r,400));return {an:a>0,unter_fenster:CHH.sparkFrames-a};});
+   check('Hauptmenü: Teilchen ruhen unter einem Fenster',!funken.an||funken.unter_fenster===0,funken);
    const vorher=await page.evaluate(()=>App.profile.gold);await page.locator('.quest-gift button',{hasText:'Abholen'}).click();await settle(page,100);
    const geschenk=await page.evaluate(v=>({gold:App.profile.gold-v,knopf:document.querySelector('.quest-gift button')?.textContent.trim(),serie:App.profile.login.streak}),vorher);
    check('Tagesgeschenk: Tag 1 bringt 20 Gold, dann „Morgen wieder“',geschenk.gold===20&&geschenk.knopf==='Morgen wieder'&&geschenk.serie===1,geschenk);
@@ -218,6 +221,11 @@ async function basar(page,cmpPage,cdp){
    await page.locator('.lesson-card.next button').click();await waitScreen(page,'game');await settle(page,400);
    check('Lehrstunde: festes Brett, Dein Zug, der Chronist zeigt Schritt 1',await page.evaluate(()=>{const s=App.profile.game,k=AETU.coach(s);return s.lesson?.id==='schlacht'&&s.phase==='play'&&s.active===0&&k.step===1&&k.card==='leonidas_0'&&!document.querySelector('#overlay .mulligan');}));
    await shot(page,cmpPage,'22-lehrstunde');
+   // AP 2.7: der goldene Ring der Lehrstunde ist ein Sprite – kein shadowBlur auf der Leinwand des Bretts; in Ruhe der Ruhetakt.
+   const ring=await page.evaluate(()=>new Promise(res=>{const c=document.getElementById('board').getContext('2d'),d=Object.getOwnPropertyDescriptor(c,'shadowBlur');let n=0,f=0;const draw=CHR.draw;
+    Object.defineProperty(c,'shadowBlur',{configurable:true,get(){return d.get.call(this);},set(v){if(v>0)n++;d.set.call(this,v);}});CHR.draw=function(...a){f++;return draw.apply(this,a);};
+    setTimeout(()=>{CHR.draw=draw;Object.defineProperty(c,'shadowBlur',d);res({schatten:n,bilder:f,ruhe:CHR.pacing().resting,ebene:CHR.layered&&getComputedStyle(document.getElementById('table')).display});},3000);}));
+   check('Lehrstunde: Ring ohne Live-Schatten, Tisch als eigene Ebene, Ruhetakt',ring.schatten===0&&ring.bilder>0&&ring.bilder<=100&&ring.ruhe&&ring.ebene==='block',ring);
    // Einstellungen (Phase 7): Reiter „Anzeige“; Farben bei Farbsehschwäche und große Schrift wirken sofort.
    await page.keyboard.press('Escape');await page.waitForSelector('#overlay .modal');await page.locator('#overlay button',{hasText:'Einstellungen'}).click();await page.waitForSelector('#overlay .settings');
    await page.locator('#overlay .stone-tab',{hasText:'Anzeige'}).click();await settle(page,100);

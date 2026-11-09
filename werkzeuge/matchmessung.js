@@ -6,7 +6,8 @@
 //   gefecht   – dazu alle 250 ms Treffer, Tod und Heilung mit Partikeln, Gunst zerspringt, Starre, Gift und ein
 //               Zauber-Ausbruch je Element (wie ein Schlagabtausch)
 // Gemessen werden die Zeit, die R.draw je Bild braucht (Frame-Zeit), die Abstände der Bilder und wie viele Bilder die
-// Schleife wirklich zeichnet. Werte aus der Emulation (Desktop-Chromium ohne GPU) – auf dem Gerät mit dem FPS-Overlay
+// Schleife wirklich zeichnet. Seit 1.37.0 (AP 2.7) außerdem: der Ruhetakt (in Ruhe ≈ 90 gezeichnete Bilder in 3 s statt eines je
+// Bildwechsel), die Stufe der Auflösung und Live-Schatten (shadowBlur auf der Leinwand des Bretts je Bild – muss 0 sein). Werte aus der Emulation (Desktop-Chromium ohne GPU) – auf dem Gerät mit dem FPS-Overlay
 // gegenprüfen.
 //
 // Aufruf: node werkzeuge/matchmessung.js [--spiel <ordner>] [--ziel <ordner>]
@@ -29,17 +30,21 @@ function fill(){const s=App.profile.game,E=CHE;
  a.hand=hand.map(id=>({id,uid:'c'+s.nextId++}));a.mana=a.maxMana=10;s.players[1].hand=s.players[1].hand.slice(0,5);s.events=[];}
 
 async function measure(page,fight){
- return page.evaluate(fight=>new Promise(res=>{const R=CHR,draw=R.draw,times=[],gaps=[];let last=performance.now(),fx=0;
-  R.draw=function(...a){const t=performance.now();const r=draw.apply(this,a);times.push(performance.now()-t);return r;};
+ return page.evaluate(fight=>new Promise(res=>{const R=CHR,draw=R.draw,times=[],gaps=[];let last=performance.now(),fx=0,shadows=0,resting=0;
+  // Live-Schatten: jedes shadowBlur über 0 auf dem Kontext des Bretts (Sprites malen in eigene Leinwände).
+  const c=document.getElementById('board').getContext('2d'),d=Object.getOwnPropertyDescriptor(c,'shadowBlur')||Object.getOwnPropertyDescriptor(Object.getPrototypeOf(c),'shadowBlur');
+  Object.defineProperty(c,'shadowBlur',{configurable:true,get(){return d.get.call(this);},set(v){if(v>0)shadows++;d.set.call(this,v);}});
+  R.draw=function(...a){const t=performance.now();const r=draw.apply(this,a);times.push(performance.now()-t);if(R.pacing?.().resting)resting++;return r;};
   const s=App.profile.game,ids=[...s.players[0].board,...s.players[1].board].map(u=>u.uid),end=last+3000;
   const loop=now=>{gaps.push(now-last);last=now;
    if(fight&&now>fx){fx=now+250;const t=ids[Math.floor(Math.random()*ids.length)],u=ids[Math.floor(Math.random()*ids.length)];
     R.events([{type:'attack',target:t},{type:'damage',target:t,n:3},{type:'death',target:u},{type:'heal',target:'h0',n:2},{type:'shield',target:t},{type:'freeze',target:u},{type:'poison',target:t}],{particles:true});
     const els=['fire','frost','light','gold','earth','arcane','shadow','nature'],pos=R.positions[t]||{x:800,y:400};R.fx.push({type:'burst',element:els[Math.floor(fx/250)%8],x:pos.x,y:pos.y,seed:Math.floor(fx)%97,start:CHT.clock.now(),life:900,n:11,size:1});}
-   if(now<end)requestAnimationFrame(loop);else{R.draw=draw;const q=(d,k)=>{d=[...d].sort((a,b)=>a-b);return +d[Math.min(d.length-1,Math.floor(d.length*k))].toFixed(2);};
+   if(now<end)requestAnimationFrame(loop);else{R.draw=draw;Object.defineProperty(c,'shadowBlur',d.get?{configurable:true,get:d.get,set:d.set}:d);const q=(d,k)=>{d=[...d].sort((a,b)=>a-b);return +d[Math.min(d.length-1,Math.floor(d.length*k))].toFixed(2);};
     const mean=d=>+(d.reduce((a,b)=>a+b,0)/d.length).toFixed(2);
     res({bilder:gaps.length,gezeichnet:times.length,frame_mittel_ms:mean(times),frame_p50_ms:q(times,.5),frame_p95_ms:q(times,.95),frame_max_ms:+Math.max(...times).toFixed(1),
-     abstand_p50_ms:q(gaps,.5),abstand_p95_ms:q(gaps,.95),abstaende_ueber_20ms:gaps.filter(x=>x>20).length});}};
+     abstand_p50_ms:q(gaps,.5),abstand_p95_ms:q(gaps,.95),abstaende_ueber_20ms:gaps.filter(x=>x>20).length,
+     im_ruhetakt:resting,live_schatten:shadows,aufloesung:R.scale,stufe:R.pacing?.().cap??null});}};
   requestAnimationFrame(loop);}),fight);}
 
 (async()=>{fs.mkdirSync(out,{recursive:true});const {server,url}=await serve(game);const browser=await pw.chromium.launch();const errors=[],R={spiel:path.relative(process.cwd(),game)||'.'};
@@ -57,6 +62,11 @@ async function measure(page,fight){
   for(const rate of [1,4]){await cdp.send('Emulation.setCPUThrottlingRate',{rate});await page.waitForTimeout(500);
    R['cpu_'+rate+'x']={ruhe:await measure(page,false),gefecht:await measure(page,true)};}
   await cdp.send('Emulation.setCPUThrottlingRate',{rate:1});
+  // Abnahme AP 2.7: in Ruhe der Ruhetakt (ohne Drosselung höchstens etwa 30 Bilder je Sekunde), nirgends Live-Schatten.
+  const r1=R.cpu_1x,ruhe=r1.ruhe.gezeichnet;
+  if(R.cpu_1x.ruhe.im_ruhetakt>0&&ruhe>100)errors.push('Ruhetakt: '+ruhe+' gezeichnete Bilder in 3 s Ruhe (Ziel ≈ 90)');
+  if(!R.cpu_1x.ruhe.im_ruhetakt)errors.push('Ruhetakt greift in Ruhe nicht');
+  for(const k of ['cpu_1x','cpu_4x'])for(const m of ['ruhe','gefecht'])if(R[k][m].live_schatten)errors.push('Live-Schatten '+k+' '+m+': '+R[k][m].live_schatten);
  }catch(e){errors.push('Messlauf: '+e.message.split('\n')[0]);}
  R.fehler=errors;fs.writeFileSync(path.join(out,'matchmessung.json'),JSON.stringify(R,null,1));console.log(JSON.stringify(R,null,1));
  await browser.close();server.close();if(errors.length)process.exitCode=1;})().catch(e=>{console.error(e);process.exit(1);});

@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(), since 1.36.0 onUpdate(). */
 (function(){'use strict';
-const VERSION='1.36.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.37.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 
 // ---------- Model ----------
@@ -91,7 +91,7 @@ function show(next,arg){
  if(screen==='game'||next==='game'){matchView.cancel();screens.game.vm.leave();matchView.board.cancel();}
  current?.unbind();current=null;$('ui').textContent='';
  screen=next;document.body.classList.toggle('stone-hall',next==='menu');stage.classList.toggle('match-active',next==='game');
- window.getSelection()?.removeAllRanges();canvas.style.display=next==='game'?'block':'none';
+ window.getSelection()?.removeAllRanges();canvas.style.display=$('table').style.display=next==='game'?'block':'none';
  const {vm,view}=screens[next];vm.enter(arg);
  if(view)current=bind($('ui'),view,vm);
  A.track(next==='game'?'battle':'menu');if(next==='menu')calm();}

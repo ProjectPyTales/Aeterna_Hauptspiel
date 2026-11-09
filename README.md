@@ -4,7 +4,10 @@
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
 `thepytales/Aeterna` mit der ganzen Historie). **Das Spiel ist fertig gebaut – jetzt kommen die Bilder:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
-Aktueller Stand im Code: **Version 1.36.0** (**Automatische Updates** nach dem Vorbild von ADEU-Harness – die App sucht nach dem
+Aktueller Stand im Code: **Version 1.37.0** (**Bildrate und Wärme** nach AP 2.7 – in Ruhe zeichnet das Match nur noch 30 Bilder
+je Sekunde, der Tisch liegt auf einer eigenen Ebene unter dem Brett und wackelt per CSS auf der GPU, im Gefecht senkt ein Regler die
+Auflösung stufenweise, wenn das Gerät nicht mitkommt, die letzten Live-Schatten sind Sprites, und die Funken des Hauptmenüs ruhen
+unter Fenstern); davor 1.36.0 (**Automatische Updates** nach dem Vorbild von ADEU-Harness – die App sucht nach dem
 Intro im Release „Test-APK“ nach einer neuen Version, fragt im Hauptmenü mit „Was ist neu“, lädt die APK, prüft Größe und
 SHA-256 und öffnet den Installer von Android; „Später“ fragt beim nächsten Start wieder, nie mitten im Match; einmal nach jedem
 Update erscheint „Neu in Aeterna …“; ein- und ausschalten und von Hand suchen unter *Einstellungen → Daten*; siehe
@@ -153,8 +156,8 @@ wenn sie fehlschlägt (Artefakt „Sichtpruefung“ am Lauf, 3 Tage).
 
 ### Automatische Updates (seit 1.36.0)
 
-Wie bei ADEU-Harness aktualisiert sich die App selbst – ohne GitHub-Konto, ohne Store. **1.36.0 einmal von Hand installieren**
-(wie oben), ab dann geht es automatisch:
+Wie bei ADEU-Harness aktualisiert sich die App selbst – ohne GitHub-Konto, ohne Store. **Einmal eine Version ab 1.36.0 von Hand
+installieren** (wie oben), ab dann geht es automatisch:
 
 1. Nach dem Intro liest die App `…/releases/download/test-apk/version.json` (ein einfacher Download aus diesem öffentlichen
    Repo). Ist dort ein höherer `versionCode`, fragt sie im Hauptmenü: **Neue Version verfügbar** mit „Was ist neu“ –
@@ -261,7 +264,7 @@ das Match wird auf ein Canvas (1600 × 800) gezeichnet. Seit 1.5.0 ist der Code 
 | `viewmodel/draft.js` | ViewModel | Seit 1.29.0: Bildschirm „Kolosseum“ (`AEVM.Draft`) – Eintritt mit Rückfrage, Heldenwahl, Kartenwahl mit Manakurve und „Aus der Chronik“, Kampf, Lauf beenden, Belohnung abholen |
 | `view/kit.js` | View | Gemeinsame Bausteine, je einmal: Steinknopf, Panel, Reiter, Wallet, Kopfleiste, Modal (`AEV`) |
 | `view/*.js` | View | Vorlagen je Bildschirm und Dialog (`shop`, `packs`, `collection`, `setup`, seit 1.19.0 `campaign`, `dialogs`), Hauptmenü `hall.js` (`CHH`), Steinplatten-Übergang und Kartenrücken `stone.js` (`CHS`), seit 1.26.0 Start mit Entwickler-Splash und Intro `intro.js` (`AEI`, Zeitleiste `AEI.T`, Stil `css/intro.css`), seit 1.29.0 Kolosseum `draft.js` (Stil `css/draft.css`, fünf Astra-Platzhalter), seit 1.30.0 Aufgaben-Fenster in `dialogs.js` und Heldenstufe in `setup.js` (Stil `css/quests.css`, drei Astra-Platzhalter) |
-| `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Heldenmünze `coinArt`, Siegel `seal`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`; seit 1.17.0 Äther-Uhr `dial`, Chronik-Leiste `strip`, Pergament-Deck und Stundenglas `deck`, versiegelte Befehle `orderArt`, Zugtafel `turnPlate`; seit 1.18.0 Kartenrahmen `R.card` als Tempeltor, Hand mit Federn `hand`, Marschroute `route`, Effekte `effects` mit Tinte, Pumpen, Splittern, Staub und Rissen), seit 1.20.0 `fx.js` (`CHF`: Schlüsselwort-Bilder und -Effekte, Elemente und Heldenfähigkeiten, Intro mit Münzwurf und Finale), `anim.js` (`CHT`, seit 1.18.0: Kurven, Zeitleisten, Federn, Match-Uhr mit Tempo und Treffer-Stopp, Kamerawackeln), `motion.js` (`CHM`, Zeitleisten je Aktion, Ziehen, Verbrennen, Stundenglas), seit 1.32.0 `dioramen.js` (`AEDI`: Eck-Dioramen, Sprechblase, Angriffsvorschau; AP 3.9), `layout.js` (`CHL`, seit 1.32.0 mit `dioramas`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel auf der Match-Uhr, Bildraten-Anzeige) |
+| `view/match/` | View | Match-Canvas: `render.js` (`CHR`, seit 1.13.0 mit Sprite-Cache `R.sprite`/`R.blit` und Pixeldichte `R.scale`; seit 1.16.0 Feldherrentisch `table`, Heldenmünze `coinArt`, Siegel `seal`, Chronometer `chronometer`, Touch-Ziele ≥ 48 dp über `touch`; seit 1.17.0 Äther-Uhr `dial`, Chronik-Leiste `strip`, Pergament-Deck und Stundenglas `deck`, versiegelte Befehle `orderArt`, Zugtafel `turnPlate`; seit 1.18.0 Kartenrahmen `R.card` als Tempeltor, Hand mit Federn `hand`, Marschroute `route`, Effekte `effects` mit Tinte, Pumpen, Splittern, Staub und Rissen), seit 1.20.0 `fx.js` (`CHF`: Schlüsselwort-Bilder und -Effekte, Elemente und Heldenfähigkeiten, Intro mit Münzwurf und Finale), `anim.js` (`CHT`, seit 1.18.0: Kurven, Zeitleisten, Federn, Match-Uhr mit Tempo und Treffer-Stopp, Kamerawackeln), `motion.js` (`CHM`, Zeitleisten je Aktion, Ziehen, Verbrennen, Stundenglas; seit 1.37.0 in `anim.js` auch Ruhetakt `pace` und Auflösung `Resolution`, AP 2.7), seit 1.32.0 `dioramen.js` (`AEDI`: Eck-Dioramen, Sprechblase, Angriffsvorschau; AP 3.9), `layout.js` (`CHL`, seit 1.32.0 mit `dioramas`), `board.js` (Gesten → ViewModel, Bildschleife ohne Drossel auf der Match-Uhr, Bildraten-Anzeige; seit 1.37.0 Tisch auf der Ebene `#table`, Wackeln als CSS-transform, Ruhetakt und Auflösungsregler) |
 | `view/css/` | View | seit 1.22.0 `astra.css` (zuletzt geladen: Astras gemalte Bilder für Paket, Podest, Kartenbuch, Startbefehle, Steinplatten, Hintergründe, Währungen), `style.css`, `packs.css`, `stone.css` (seit 1.19.0 mit dem Basar-Schaufenster), `hall.css` (Schriften, Farbvariablen `--ae-…`), `kit.css`, seit 1.19.0 `screens.css` (Kartenbuch, Heldengalerie, Kampagnenkarte), seit 1.34.0 `lesbar.css` (Textgröße und ruhige Bewegung, erzeugt von `werkzeuge/lesbar_css.py`) |
 | `service/` | Dienste | `audio.js` (Web-Audio-Mischer, `CHA`, Pegel je Klanggruppe in `CHA.levels`), `platform.js` (Android-Brücke, `AEP`; seit 1.34.0 `exportText` und `calm` für ruhige Bewegung), seit 1.34.0 `protokoll.js` (lokales Fehlerprotokoll `AEF`, Schlüssel `aeterna.fehler`) |
 | `model/neu.js` | Model | Seit 1.36.0: „Was ist neu“ zur aktuellen Version (`AENEU`) – erscheint einmal nach einem Update und als `notes` in `version.json` |
@@ -1613,7 +1616,8 @@ Gesehen im Bild von `node werkzeuge/matchmessung.js` (Handyformat 915 × 412, 7 
 - Abnahme: CI schlägt bei JavaScript-Fehlern oder starken Bildabweichungen fehl. *✓ – jede Konsolen- oder
   Laufzeitfehlermeldung, jede fehlgeschlagene Prüfung und jede starke Bildabweichung beendet den Job mit Fehler.*
 
-**AP 2.7 – Bildrate und Wärme: Match und Menü entlasten (S)** – *Vorschlag vom 9. 11. 2026, offen*
+**AP 2.7 – Bildrate und Wärme: Match und Menü entlasten (S)** – *✓ in 1.37.0 (Vorschlag vom 9. 11. 2026); offen nur die Prüfung
+auf dem OnePlus 15*
 
 Stand 1.35.0 in der Emulation (`node werkzeuge/matchmessung.js`, Handyformat, 7 gegen 7, volle Hand, ohne GPU; anderer Rechner
 als 1.13.0, daher nur grob vergleichbar):
@@ -1628,24 +1632,47 @@ als 1.13.0, daher nur grob vergleichbar):
 Die Arbeit im Hauptthread bleibt klein, seit 1.18.0 sind aber viele Effekte dazugekommen. Teuer ist vor allem das Rastern: Jedes
 Bild löscht die ganze Leinwand (bis 3200 × 1600) und füllt sie neu. Auf dem OnePlus 15 läuft das Match mit 120 fps (Stand 1.14.0);
 die Punkte zielen auf Mittelklasse-Handys (Qualitätsziel Galaxy A54) und auf Akku und Wärme in langen Partien.
-- [ ] **Tisch als eigene Ebene:** Der Tisch ist schon ein fertiges Bild (AP 2.4), wird aber in jedem Bild über die ganze Leinwand
+- [x] **Tisch als eigene Ebene:** Der Tisch ist schon ein fertiges Bild (AP 2.4), wird aber in jedem Bild über die ganze Leinwand
   kopiert (`R.draw` in `view/match/render.js`). Eine zweite Leinwand darunter malt ihn nur bei einem Tischwechsel; Wackeln und
   Zoom bei Treffern (`T.shake`) wandern dafür aus dem Canvas in ein CSS-`transform` auf beiden Ebenen (läuft auf der GPU).
-  Spart je Bild eine volle Fläche.
-- [ ] **Ruhetakt:** Die Bildschleife (`view/match/board.js`) zeichnet bei jedem Bildwechsel – auf 120-Hz-Displays 120-mal je
+  Spart je Bild eine volle Fläche. *1.37.0: `#table` unter `#board` (`index.html`), `board.js` malt `R.field()` nur, wenn sich das
+  Sprite ändert, und setzt `transform` auf beide Leinwände (`transform-origin` 800 400 wie bisher); `R.draw` zeichnet Tisch und
+  Wackeln nur noch ohne Ebene (`R.layered`, Renderer-Labor). Fingertipps treffen jetzt auch während des Wackelns genau.*
+- [x] **Ruhetakt:** Die Bildschleife (`view/match/board.js`) zeichnet bei jedem Bildwechsel – auf 120-Hz-Displays 120-mal je
   Sekunde, auch wenn sich nichts bewegt. Liegt kein Finger auf dem Brett, fliegt keine Karte, läuft kein Effekt (`R.fx`,
   `CHM.busy`, `CHF.busy`) und schwingt keine Feder mehr, genügen 30 Bilder je Sekunde für Atmen, Leuchten und Dioramen; die erste
   Berührung oder ein neues Ereignis schaltet sofort zurück. Weniger Wärme heißt: Das Handy drosselt sich in langen Partien
-  seltener selbst. Die Bildraten-Anzeige zeigt den Ruhetakt mit an.
-- [ ] **Auflösung passt sich an:** Heute nur von Hand (*Grafik: sparsam* → 1×). Die Schleife misst die Bildabstände ohnehin; liegen
+  seltener selbst. Die Bildraten-Anzeige zeigt den Ruhetakt mit an. *1.37.0: `CHT.pace` (`anim.js`) zeichnet in Ruhe jedes Bild
+  nach ≥ 29 ms; voller Takt bei Finger, Ziehen, Flug, Effekt, Hinterhalt-Auftritt, Wackeln, Treffer-Stopp und noch 2 s nach jedem
+  Ereignis (`woke()` in `board.js`); Anzeige „· Ruhe“.*
+- [x] **Auflösung passt sich an:** Heute nur von Hand (*Grafik: sparsam* → 1×). Die Schleife misst die Bildabstände ohnehin; liegen
   über mehrere Sekunden zu viele über dem Ziel, sinkt `R.scale` stufenweise (2 → 1,5 → 1,25), erholt sich das Gerät, steigt sie
-  wieder – mit Abstand zwischen den Schwellen, damit nichts flackert. „Hoch“ bleibt die Obergrenze.
-- [ ] **Letzte Live-Schatten in Sprites:** Die Waffenablage (`weaponRack`, `shadowBlur` 10) und der goldene Ring der Lehrstunden
+  wieder – mit Abstand zwischen den Schwellen, damit nichts flackert. „Hoch“ bleibt die Obergrenze. *1.37.0: `CHT.Resolution` –
+  über 2 s mehr als ein Viertel der Bilder später als 24 ms → nächste wirksame Stufe darunter (2 → 1,5 → 1,25 → 1); 8 s fast alle
+  pünktlich → eine Stufe hinauf; 3 s Pause nach jedem Wechsel; fällt sie kurz nach dem Steigen wieder, bleibt sie eine Minute.*
+- [x] **Letzte Live-Schatten in Sprites:** Die Waffenablage (`weaponRack`, `shadowBlur` 10) und der goldene Ring der Lehrstunden
   (`coach`, `shadowBlur` 14, pulsiert) zeichnen noch je Bild mit `shadowBlur`. Der Test in `renderer.test.js` prüft nur den Rumpf
-  von `R.draw` – auf alle Zeichenfunktionen des Matches ausweiten.
-- [ ] **Hauptmenü:** Die Teilchenschleife (`view/hall.js`) läuft weiter, solange ein Fenster über dem Menü liegt – dann anhalten.
+  von `R.draw` – auf alle Zeichenfunktionen des Matches ausweiten. *1.37.0: Ring und Waffenablage als Sprites, dazu zwei weitere
+  gefundene: der Schein beim Auftritt eines Hinterhalts (`fx.js`) und der Schatten der Sprechblase (`dioramen.js`). Der alte Test
+  suchte eine überholte Signatur von `R.draw` und prüfte nichts; jetzt prüft er alle Zeichendateien, und `matchmessung.js` zählt
+  `live_schatten` je Lauf (muss 0 sein), der Klickpfad ebenso in der Lehrstunde.*
+- [x] **Hauptmenü:** Die Teilchenschleife (`view/hall.js`) läuft weiter, solange ein Fenster über dem Menü liegt – dann anhalten.
+  *1.37.0: `CHH.covered()`; `intromessung.js` prüft 18 → 0 → 18 Bilder je 300 ms.*
 - Abnahme: `matchmessung.js` zählt zusätzlich die Bilder in Ruhe ohne Berührung (Ziel ≈ 30 je Sekunde) und im Gefecht (mehr als
   103 in 3 s); auf dem OnePlus 15 mit der Bildraten-Anzeige 120 fps im Gefecht, 30 in Ruhe.
+  *Gemessen am 9. 11. 2026, ein Rechner, vorher 1.36.0 (`--spiel`), nachher 1.37.0; Emulation ohne GPU:*
+
+  | Match, 7 gegen 7, volle Hand | 1.36.0 | 1.37.0 |
+  |---|---|---|
+  | gezeichnete Bilder in 3 s Ruhe, CPU 1× | 173 | **91** (Ruhetakt) |
+  | Bilder in 3 s Gefecht, CPU 1× / 4× | 130 / 29 | **136 / 32** |
+  | Zeichenzeit je Bild in Ruhe (Mittel, 95 %) | 0,63 / 0,8 ms | 0,58 / 0,8 ms |
+  | Live-Schatten je Lauf | Lehrstunde: 1 je Bild | **0** |
+  | Pixeldichte im Gefecht (Gerät 1,34) | 1,34 | 1,25, bei CPU 4× 1 |
+
+  Im Gefecht steigt die mittlere Zeichenzeit kurz, wenn die Stufe wechselt (Sprites und Kartenbilder entstehen neu, einmal je
+  Stufe). In der Emulation ohne GPU senkt schon CPU 1× die Stufe, weil das Rastern dort die Bilder bremst – auf dem Gerät mit GPU
+  ist das seltener. **Offen:** auf dem OnePlus 15 mit der Bildraten-Anzeige prüfen (Gefecht 120 fps, Ruhe 30 – „· Ruhe“).
 
 ### Phase 3 – Game Feel im Match (L)
 
@@ -2955,10 +2982,10 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 27 ✓ | AP 3.9 Eck-Dioramen, Rückmeldung 1.31.0 | erledigt in 1.32.0 – Szenen mit Leitfrage, Ort und Zeit, Schattenrissen; vier antippbare Eck-Dioramen mit Klang und Zeile des Chronisten, Schlüsselwort-Blase, Angriffsvorschau |
 | 28 ✓ | AP 6.4 Teil 2 Kartenrätsel | erledigt in 1.33.0 – sechs Rätsel „Gewinne in diesem Zug“ nach historischen Lagen, offen nach dem Kapitel, Löser im Test |
 | 29 ✓ | AP 6.5, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 vorbereiten | erledigt in 1.34.0 – Lehrstunden mit dem Chronisten, Lehrling/Feldherr/Legende, Einstellungen mit Textgröße, Farben, Bewegung und Grafik, Sicherungen, Fehlerprotokoll, Geräte-Matrix; Astra-Auftrag in 43 Paketen mit Startanleitung; AP 6.6 pausiert |
-| Bonus ✓ | Automatische Updates (wie ADEU-Harness) | erledigt in 1.36.0 – `version.json` im Release „Test-APK“, Hinweis im Hauptmenü mit „Was ist neu“, Download mit SHA-256-Prüfung, Installer von Android, Einstellungen → Daten → Updates |
 | ab jetzt (Du) | AP A.3: Pakete K01–K32 und U01–U12 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
 | 30+ | Einbau der Lieferungen, dazwischen AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | jede Lieferung eine kurze Sitzung; Chronikzeilen und Klang brauchen keine Bilder |
-| jederzeit, ohne Bilder | AP 2.7, dann AP 1.9 und AP 3.10 | Vorschlag vom 9. 11. 2026: AP 2.7 ist mit `matchmessung.js` messbar und braucht keine Astra-Bilder; AP 1.9 nach Entscheidung 23 |
+| 30 ✓ | Automatische Updates, AP 2.7 | erledigt in 1.36.0 und 1.37.0 – Updates wie in ADEU-Harness; Ruhetakt, Tisch als eigene Ebene, Auflösung passt sich an, keine Live-Schatten, Menü-Funken ruhen unter Fenstern |
+| jederzeit, ohne Bilder | AP 1.9 und AP 3.10 (AP 2.7 ✓ in 1.37.0) | Vorschlag vom 9. 11. 2026; AP 1.9 nach Entscheidung 23 |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
@@ -2967,47 +2994,46 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Vorschlag für die nächste Sitzung
 
-**Erledigt (Bonus, Version 1.36.0, Wunsch vom 9. 11. 2026):** **automatische Updates** wie in ADEU-Harness – siehe
-[Automatische Updates](#automatische-updates-seit-1360). **Bitte einmal 1.36.0 von Hand installieren**; jede spätere Version mit
-höherem `versionCode` meldet sich dann im Hauptmenü von selbst.
-
-**Erledigt in Sitzung 29 (Version 1.34.0):** alle offenen Pakete vor der Astra-Bestellung (Deine Wahl vom 2. 11. 2026) –
-**AP 6.5 Lehrstunden** (drei geführte Partien mit dem Chronisten, vierte Platte im Hauptmenü), **AP 5.8 Schwierigkeitsgrade**
-(Lehrling, Feldherr, Legende – der Feldherr ist die bisherige KI, Balance unverändert), **Phase 7** (Einstellungen in vier Reitern
-mit Textgröße, Farben bei Farbsehschwäche, ruhiger Bewegung, sparsamer Grafik; automatische Sicherungen; lokales Fehlerprotokoll;
-Geräte-Testmatrix 16:9 bis 21:9 in der CI) und **AP A.3 bestellfertig** (32 Karten- und 11 Oberflächenpakete, feste Referenzbilder,
-Startanleitung `ungenutzte_assets/ASTRA_START.md`). AP 6.6 ist pausiert (Weitere Ideen, Nr. 12). Deine Rückmeldung zu 1.32.0 und
-1.33.0: „passt alles“ – keine Nacharbeit. Davor: Sitzungen 1–28 (1.4.0–1.33.0).
+**Erledigt in Sitzung 30 (Versionen 1.36.0 und 1.37.0, 9. 11. 2026):**
+- **Automatische Updates** wie in ADEU-Harness (1.36.0, Dein Wunsch): `version.json` im Release „Test-APK“, Hinweis im Hauptmenü mit
+  „Was ist neu“, Download mit SHA-256-Prüfung, Installer von Android, *Einstellungen → Daten → Updates* – siehe
+  [Automatische Updates](#automatische-updates-seit-1360).
+- **AP 2.7 Bildrate und Wärme** (1.37.0): Ruhetakt (in Ruhe 30 statt 60–120 Bilder je Sekunde), Tisch als eigene Ebene mit Wackeln
+  als CSS-transform, Auflösung, die sich im Gefecht anpasst, die letzten Live-Schatten als Sprites, Funken des Hauptmenüs ruhen
+  unter Fenstern; Messwerte unter AP 2.7.
+- Davor: Sitzungen 1–29 (1.4.0–1.35.0). Deine Rückmeldung zu 1.34.0 und 1.35.0 steht noch aus.
 
 **Vorher bitte von dir:**
-1. `Aeterna-1.34.0-Test.apk` aus dem Release „Test-APK“ von `ProjectPyTales/Aeterna_Hauptspiel` als Update installieren.
-2. **Kurz testen (10 Minuten):** *Einstellungen → Spiel → Lehrstunden* → Lehrstunde 1 (ist der Ring des Chronisten gut zu sehen, die
-   Tafel lesbar?); in der Heldenwahl „Stärke der KI“ auf Lehrling und Legende; *Einstellungen → Anzeige* „Groß“ und „Bei
-   Farbsehschwäche“ einmal ansehen. Auf dem OnePlus 15 mit der Bildraten-Anzeige: „Sparsam“ gegen „Hoch“.
-3. **Astra starten:** `ungenutzte_assets/ASTRA_START.md` – zuerst Teil 4 suchen (sechs Bilder), dann U01, U02, K22, K23 …
-   Lieferungen als `ungenutzte_assets/neue_astra_assets/Lieferung_<Paket>/`.
+1. **`Aeterna-1.37.0-Test.apk` einmal von Hand installieren** (Release „Test-APK“). 1.36.0 liegt dort nicht mehr – das Release hält
+   nur die neueste APK. Ab 1.38.0 meldet sich jede neue Version von selbst im Hauptmenü; dann bitte einmal „Jetzt aktualisieren“
+   ausprobieren (beim ersten Mal führt Android zu „Apps aus dieser Quelle zulassen“).
+2. **Kurz testen (10 Minuten):** ein Duell mit der Bildraten-Anzeige (fünfmal auf die Version in *Über das Spiel* tippen): im
+   Gefecht 120 fps, in Ruhe 30 mit „· Ruhe“, ob sich das Handy in einer langen Partie kühler anfühlt; *Einstellungen → Daten →
+   Updates* „Jetzt nach Updates suchen“ (sollte „Du hast die neueste Version.“ sagen). Dazu, falls noch nicht geschehen, die
+   Punkte von 1.34.0: Lehrstunde 1, „Stärke der KI“, Textgröße und Farben, und die neue Sammlung aus 1.35.0.
+3. **Entscheidung 23** (Handfächer, AP 1.9): zwei Fächerseiten enger stellen (mein Vorschlag) oder ein Fächer in der Mitte?
+4. **Astra:** `ungenutzte_assets/ASTRA_START.md` – Lieferungen als `ungenutzte_assets/neue_astra_assets/Lieferung_<Paket>/`
+   (seit 1.36.0 auch U12, das Siegel des Update-Hinweises).
 
-**Sitzung 30 – Einbau der ersten Astra-Lieferungen**
+**Sitzung 31**
 
 | Paket | Inhalt | Warum jetzt |
 |---|---|---|
-| Rückmeldung 1.34.0 | Lehrstunden, Schwierigkeitsgrade, Einstellungen nach Deinem Test | kleine Nacharbeit |
-| AP A.3 Einbau | alle bis dahin gelieferten Ordner `Lieferung_K…` (ohne Code) und `Lieferung_U…` (Zeichnung → Bild wie in 1.22.0) | sichtbarster Fortschritt, jede Lieferung macht das Spiel schöner |
-| Falls noch keine Lieferung da ist | AP L.6 Teil 2: „Aus der Chronik“ für die nächsten rund 80 Karten (Basis- und Startdeckkarten zuerst) | braucht keine Bilder |
-| Oder, ebenfalls ohne Bilder | AP 2.7 Bildrate und Wärme (Tisch als eigene Ebene, Ruhetakt, Auflösung passt sich an) | messbar mit `matchmessung.js`; das Gefecht zeichnet in der Emulation nur noch ≈ 34 Bilder/s |
+| Rückmeldung 1.34.0–1.37.0 | Lehrstunden, Schwierigkeitsgrade, Sammlung, Updates, Bildrate nach Deinem Test | kleine Nacharbeit |
+| AP A.3 Einbau | alle bis dahin gelieferten Ordner `Lieferung_K…` und `Lieferung_U…` | sichtbarster Fortschritt |
+| Falls keine Lieferung da ist | **AP 1.9 Match-HUD** (nach Entscheidung 23): Handkarten bei voller Hand lesbar, ruhigeres Bereit-Leuchten, Mindestschriftgröße auf dem Brett mit Test, kleineres Schildwall-Wappen | braucht keine Bilder; das Brett zeichnet seit 1.37.0 sparsamer, Platz für Feinschliff |
+| Danach | AP 3.10 Auftritt der Legendären, AP 4.5 Vibration im Takt des Aufpralls | ohne Bilder, kurz |
 
-Risiko: niedrig – Kartenbilder baut das Werkzeug ein; bei Oberflächenteilen kann ein Bild anders geschnitten sein als die Zeichnung
-(dann Ausschnitt und Trefferflächen anpassen).
+Risiko: niedrig bis mittel – AP 1.9 ändert das Bild des Matches, neue Referenzbilder im Klickpfad und Prüfung in der Geräte-Matrix.
 
 **Text zum Kopieren für den Start:**
 
-> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Hauptspiel`. Übernimm mein Feedback zu Version 1.34.0:
-> *(hier Feedback zu Lehrstunden, Schwierigkeitsgraden und Einstellungen einfügen)*. Baue dann die Astra-Lieferungen
-> *(z. B. K01, K22, U01)* aus `ungenutzte_assets/neue_astra_assets/Lieferung_<Paket>/` ein (AP A.3, Ablauf in
-> `ungenutzte_assets/ASTRA_START.md`). Halte dich an die „Regeln für jede Sitzung“, lass Tests, Klickpfad und Geräte-Matrix laufen,
-> sieh Dir die neuen Bilder an und melde, was nicht zur Motivzeile passt. Hake erledigte Punkte in der README ab, öffne am Ende einen
-> Pull Request nach `main`, merge ihn bei grüner CI und schreibe unten in die README wieder einen Vorschlag für die nächste Sitzung mit
-> Effort-Empfehlung.
+> Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Hauptspiel`. Übernimm mein Feedback zu den Versionen 1.34.0 bis 1.37.0:
+> *(hier Feedback einfügen, auch zu den automatischen Updates und zur Bildrate)*. Entscheidung 23: *(zwei Fächerseiten / ein Fächer)*.
+> Baue dann die Astra-Lieferungen *(falls vorhanden, z. B. K01, U01)* ein, sonst AP 1.9 Match-HUD. Halte dich an die „Regeln für jede
+> Sitzung“ (neue Version mit `model/neu.js`), lass Tests, Klickpfad und Geräte-Matrix laufen, hake erledigte Punkte in der README ab,
+> öffne am Ende einen Pull Request nach `main`, merge ihn bei grüner CI und schreibe unten in die README wieder einen Vorschlag für
+> die nächste Sitzung mit Effort-Empfehlung.
 
-**Empfohlener Effort für den nächsten Prompt: medium.** Kartenbilder baut das Werkzeug ein; *high*, wenn mehrere Oberflächenpakete
-(U…) auf einmal kommen – dort wird Zeichencode auf Bilder umgestellt.
+**Empfohlener Effort für den nächsten Prompt: medium.** AP 1.9 ist überschaubar (Layout der Hand, Farben, ein Schrift-Test);
+*high*, wenn mehrere Oberflächenpakete (U…) von Astra auf einmal kommen – dort wird Zeichencode auf Bilder umgestellt.

@@ -26,7 +26,13 @@ const STILLS=[['funke',.35],['montage',2.2],['karten',4.25],['ring',5.1],['einsc
   check(R.splash_s>2&&R.splash_s<6,'Splash-Dauer '+R.splash_s+' s');
   await p.waitForTimeout(600);R.bildzeiten=await frames(p,3000);
   await menu(p);R.bis_menue_s=+((Date.now()-t0)/1000).toFixed(2);
-  check(await p.evaluate(()=>[...document.querySelectorAll('canvas')].every(c=>c.id==='board'||c.classList.contains('hall-sparks'))),'Intro-Canvas entfernt');
+  check(await p.evaluate(()=>[...document.querySelectorAll('canvas')].every(c=>c.id==='board'||c.id==='table'||c.classList.contains('hall-sparks'))),'Intro-Canvas entfernt');
+  // AP 2.7 (seit 1.37.0): Die Teilchen des Hauptmenüs ruhen, solange ein Fenster darüber liegt, und laufen danach weiter.
+  await p.waitForFunction(()=>!document.getElementById('intro'),null,{timeout:20000});
+  const funken=await p.evaluate(async()=>{const wait=ms=>new Promise(r=>setTimeout(r,ms));await wait(300);const a=CHH.sparkFrames;await wait(300);const frei=CHH.sparkFrames-a;
+   App.vm.menu.ctx.dialogs.settings();await wait(100);const b=CHH.sparkFrames;await wait(400);const fenster=CHH.sparkFrames-b;App.close();await wait(300);const c=CHH.sparkFrames;await wait(300);
+   return {frei,unter_fenster:fenster,danach:CHH.sparkFrames-c};});
+  R.funken=funken;check(funken.frei>5&&funken.unter_fenster===0&&funken.danach>5,'Teilchen ruhen unter einem Fenster: '+JSON.stringify(funken));
   await ctx.close();}
 
  // 2. Standbilder der Akte (eingefroren, unabhängig von der Bildrate).
