@@ -51,6 +51,20 @@ Der Browser-Test entpackt beide APKs und hält Ursprung und Browserprofil beim W
 
 Lokal verwendet der Pakettest einen Relay auf einem freien Loopback-Port und zwei vollständig getrennte Browserprofile. Er prüft beide Starthände, die öffentliche Brettansicht nach jedem Zug, verdeckte Handkarten, Versionskonflikt, einen abrupt getrennten Transport mit automatischer Wiederverbindung, das erneute Öffnen der Gastseite und ein reguläres Partieende. Das Paket für den manuellen itch.io-Upload ist `dist/Aeterna-1.41.0-HTML5.zip`. In itch.io „HTML“ und „This file will be played in the browser“ wählen und Vollbild erlauben. Den Upload übernimmt der Projektinhaber.
 
+## Native Wiederholung im Test-AVD
+
+Der Zweiglauf verwendet die signierte Datei aus `Android-Kandidat`, die separate Instrumentierung und das bereits im Browser geprüfte itch-ZIP. Beide APK-Installationen laufen über Androids Paketmanager. Die Referenz liegt im Speicher desselben Android-Pakets. Der Test vergleicht Sammlung, alle Decks und die laufende Partie beim zweiten Start der veröffentlichten App und nach dem Update. Dann öffnet er die alte Partie und prüft in einer zweiten, frischen Installation das Startprofil. Der WSS-Test verbindet den Browser aus dem ZIP und die WebView aus der installierten APK. Eine nur in diesem Wegwerf-Emulator eingetragene Test-CA beglaubigt den lokalen Relay. Der öffentliche Serverbetrieb erfordert ein eigenes gültiges TLS-Zertifikat.
+
+Für die Wiederholung ein frisches Android-13-Test-AVD (API 33, x86_64, Google APIs) mit `-writable-system` starten. Das explizite Flag bestätigt, dass Systemzertifikat und Testprofil nur in diesem verwerfbaren Emulator angelegt werden dürfen.
+
+```sh
+(cd android && ./gradlew assembleRelease assembleReleaseAndroidTest --no-daemon)
+bash werkzeuge/android-emulator-abnahme.sh --leeres-test-avd abnahme-alt/alt.apk \
+  android/app/build/outputs/apk/release/app-release.apk \
+  android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk \
+  dist/Aeterna-1.41.0-HTML5.zip
+```
+
 ## Geräteabnahme
 
 Ein Testgerät bzw. einen separaten Android-Testnutzer verwenden. Sammlung und persönliche Spielstände auf Geräten mit vorhandener Installation vorher exportieren. Ausgangs-APK, Kandidat und `adb` müssen lokal verfügbar sein.

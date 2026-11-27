@@ -48,7 +48,12 @@ jobs:
 
       - name: APK mit Gradle bauen und signieren
         working-directory: android
-        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        run: |
+          tasks=(assembleRelease)
+          if [[ "$GITHUB_REF" == refs/heads/codex/aeterna-release-1-41 ]]; then
+            tasks+=(assembleReleaseAndroidTest)
+          fi
+          ./gradlew "${tasks[@]}" -Pkotlin.compiler.execution.strategy=in-process --max-workers=2 --no-daemon --stacktrace
 
       # Gleicher Schlüssel wie seit 1.3.0 (chroniken-test.p12), sonst gibt es kein Update über die Vorversion.
       - name: Paket-ID, Version und Signatur prüfen
@@ -78,6 +83,14 @@ jobs:
             Aeterna-${{ steps.version.outputs.name }}-Test.apk
             version.json
           retention-days: 7
+
+      - name: Signierte Instrumentierung für dieselbe APK übergeben
+        if: github.ref == 'refs/heads/codex/aeterna-release-1-41'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-Abnahmewerkzeug
+          path: android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk
+          retention-days: 3
 
       # Nur main: eine einzige Test-APK im Release „Test-APK“, die jeder Lauf ersetzt (Tags von GITHUB_TOKEN starten keinen Lauf).
       # Mit ihr version.json – beide in einem Schritt, damit die Apps nie eine Datei ohne die andere sehen.
@@ -197,6 +210,7 @@ jobs:
           retention-days: 3
 
   android-abnahme:
+    needs: [apk, html5]
     if: github.ref == 'refs/heads/codex/aeterna-release-1-41'
     runs-on: ubuntu-24.04
     timeout-minutes: 40
@@ -207,15 +221,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: actions/setup-java@v4
+      - uses: actions/download-artifact@v4
         with:
-          distribution: temurin
-          java-version: 17
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Signierte APK und separate Instrumentierung bauen
-        working-directory: android
-        run: ./gradlew assembleRelease assembleReleaseAndroidTest -Pkotlin.compiler.execution.strategy=in-process --max-workers=2 --no-daemon
-      - name: Tatsächliche Vorversion und Browserpaket vorbereiten
+          name: Android-Kandidat
+          path: abnahme-kandidat
+      - uses: actions/download-artifact@v4
+        with:
+          name: Android-Abnahmewerkzeug
+          path: abnahme-werkzeug
+      - uses: actions/download-artifact@v4
+        with:
+          name: HTML5-fuer-itch
+          path: dist
+      - name: Vorversion herunterladen und Spielstandwechsel in beiden APKs prüfen
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -223,11 +241,12 @@ jobs:
           gh release download test-apk -p version.json -D abnahme-alt
           curl -fL "$(jq -r .android.url abnahme-alt/version.json)" -o abnahme-alt/alt.apk
           echo "$(jq -r .android.sha256 abnahme-alt/version.json)  abnahme-alt/alt.apk" | sha256sum -c -
-          python3 werkzeuge/html5.py
+          jq -e '.version == "1.41.0" and .versionCode == 44' abnahme-kandidat/version.json
+          echo "$(jq -r .android.sha256 abnahme-kandidat/version.json)  abnahme-kandidat/Aeterna-1.41.0-Test.apk" | sha256sum -c -
           npm ci --prefix relay
           npm install --no-package-lock --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
-          node werkzeuge/update-spielstand.js abnahme-alt/alt.apk android/app/build/outputs/apk/release/app-release.apk
+          node werkzeuge/update-spielstand.js abnahme-alt/alt.apk abnahme-kandidat/Aeterna-1.41.0-Test.apk
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
@@ -241,4 +260,4 @@ jobs:
           heap-size: 384M
           cores: 2
           emulator-options: -no-window -gpu swiftshader_indirect -feature -Vulkan -noaudio -no-boot-anim -no-snapshot -writable-system -camera-back none
-          script: bash werkzeuge/android-emulator-abnahme.sh --leeres-test-avd abnahme-alt/alt.apk android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk dist/Aeterna-1.41.0-HTML5.zip
+          script: bash werkzeuge/android-emulator-abnahme.sh --leeres-test-avd abnahme-alt/alt.apk abnahme-kandidat/Aeterna-1.41.0-Test.apk abnahme-werkzeug/app-release-androidTest.apk dist/Aeterna-1.41.0-HTML5.zip
