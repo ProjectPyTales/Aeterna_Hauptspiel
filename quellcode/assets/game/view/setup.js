@@ -18,7 +18,7 @@ function side(v){const h=v.hero,day=v.day,m=v.mode;
   html`<div class="ai-level"><label>STÄRKE DER KI</label><select data-change="chooseLevel" aria-label="Stärke der KI">${v.aiLevels.map(l=>option(l.id,l.name,l.id===v.aiLevel))}</select></div>`}<div class="spacer"></div>${
   V.button({label:(m==='campaign'?'Mission beginnen':'Duell beginnen')+' ›',cmd:'begin',style:'gold'})}${V.button({label:'Spielregeln',cmd:'help',small:true})}`,{extra:'setup-side'});}
 
-// ASTRA: heldengalerie – Heldenmünze der Galerie (klein) und Medaillon der Großansicht mit Rändelung, 512 × 512
+// Astra-Bild (AP A.2): heldengalerie – Heldenmünze der Galerie (klein) und Medaillon der Großansicht mit Rändelung, 512 × 512
 // Short names under the gallery coins: the usual one, without regnal numbers.
 const SHORT={agrippa:'Agrippa',nostradamus:'Böttger',fuhao:'Vix',dandolo:'Dandolo',anna:'Anna',zizka:'Vauban'};
 const short=h=>SHORT[h.id]||h.name.replace(/ [IVX]+\.$/,'').split(' ')[0];
@@ -29,7 +29,7 @@ const gallery=v=>html`<div class="${V.cls('hero-gallery',(v.mode==='daily'||v.mo
  html`<div class="age-row" data-key="${age.id}" style="--age:${age.color}"><div class="age-label"><span>${age.icon}</span>${age.name}</div><div class="age-heroes">${heroes.map(h=>coin(h,v))}</div></div>`)}</div>`;
 
 // Heldenstufe (AP 6.3): Abzeichen, Erfahrung in der Stufe und die Belohnung der nächsten.
-// ASTRA: heldenstufe – Stufenabzeichen als Lorbeerkranz mit Zahl an der Heldenmünze, 64 × 64
+// Astra-Bild (AP A.2): heldenstufe – Stufenabzeichen als Lorbeerkranz mit Zahl an der Heldenmünze, 64 × 64
 const level=l=>html`<div class="${V.cls('hero-level',l.max&&'max')}"><span class="level-badge" aria-hidden="true">${l.level}</span><div><b>Stufe ${l.level}</b>${
  l.max?html`<small>Höchste Stufe – die Goldene Fassung der Legendären gehört Dir.</small>`:html`<span class="level-track"><i style="width:${Math.round(100*l.into/l.span)}%"></i></span><small>${l.into} / ${l.span} EP · Stufe ${l.level+1}: ${l.next}</small>`}</div></div>`;
 function show(v){const h=v.hero;

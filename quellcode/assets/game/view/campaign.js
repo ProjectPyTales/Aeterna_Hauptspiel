@@ -15,15 +15,15 @@ function route(vm,list){const seg=[];
  const lead=list.map(x=>x.station).filter(s=>Math.hypot(s.x-s.at.x,s.y-s.at.y)>4).map(s=>`<path class="lead" d="M${s.at.x} ${s.at.y}L${s.x} ${s.y}"/><circle class="place" cx="${s.at.x}" cy="${s.at.y}" r="3"/>`);
  return raw(`<svg class="map-route" viewBox="0 0 1080 640" aria-hidden="true">${lead.join('')}${seg.join('')}</svg>`);}
 
-// ASTRA: missionssiegel – Wachssiegel einer Station (offen, vollendet, versiegelt) mit Turm für Belagerungen, 128 × 128
+// Astra-Bild (AP A.2): missionssiegel – Wachssiegel einer Station (offen, vollendet, versiegelt) mit Turm für Belagerungen, 128 × 128
 const station=(x,picked,chapter)=>{const s=x.station,m=x.mission;
  return html`<button class="${V.cls('station',x.done&&'done',x.locked&&'locked',!x.done&&!x.locked&&'open',picked&&'picked',s.siege&&'siege',x.chapter!==chapter&&'other')}" data-key="st${m.id}" style="left:${s.x}px;top:${s.y}px" data-cmd="pick" data-a="${m.id}" aria-label="Mission ${x.number}: ${m.title}, ${s.place}${x.done?', vollendet':x.locked?', versiegelt':''}" aria-pressed="${picked}"><span class="st-seal">${x.done?'✓':num(x.number)}</span>${x.fuse?html`<i class="tower fuse" title="Belagerung mit Lunte">✹</i>`:s.siege?html`<i class="tower" title="Belagerung">♜</i>`:''}${picked?html`<span class="place-name">${s.place}</span>`:''}</button>`;};
 
-// ASTRA: kapitelsiegel – Medaillon eines Kapitels in der Farbe seiner Epoche (offen, vollendet, versiegelt), 96 × 96
+// Astra-Bild (AP A.2): kapitelsiegel – Medaillon eines Kapitels in der Farbe seiner Epoche (offen, vollendet, versiegelt), 96 × 96
 const chapters=vm=>html`<nav class="chapter-strip" aria-label="Kapitel">${vm.chapters.map(c=>html`<button class="${V.cls('chapter-seal',c.current&&'current',c.complete&&'complete',!c.open&&'locked')}" data-key="${c.chapter.id}" data-cmd="chapter" data-a="${c.chapter.id}" style="--age:${c.chapter.color}" aria-label="${c.chapter.label}: ${c.chapter.era}, ${c.done} von ${c.total}" aria-pressed="${c.current}"><span>${c.chapter.numeral||c.chapter.icon}</span><small>${c.done}/${c.total}</small></button>`)}</nav>`;
 
-// ASTRA: raetsel-siegel – Siegel eines Kartenrätsels (versiegelt, offen, gelöst) mit Fragezeichen aus Karten, 96 × 96
-const riddle=r=>!r?'':html`<div class="${V.cls('riddle-note',r.open&&'open',r.solved&&'solved')}"><span class="riddle-seal" aria-hidden="true">${r.solved?'✓':'?'}</span><div><small>Kartenrätsel${r.solved?' · gelöst':''}</small><b>${r.puzzle.title}</b>${r.open?'':html`<span>Gewinne alle Missionen des Kapitels.</span>`}</div>${
+// Astra-Bild (AP A.2): raetsel-siegel – Siegel eines Kartenrätsels (versiegelt, offen, gelöst) mit Fragezeichen aus Karten, 96 × 96
+const riddle=r=>!r?'':html`<div class="${V.cls('riddle-note',r.open&&'open',r.solved&&'solved')}"><span class="riddle-seal" aria-hidden="true"></span><div><small>Kartenrätsel${r.solved?' · gelöst':''}</small><b>${r.puzzle.title}</b>${r.open?'':html`<span>Gewinne alle Missionen des Kapitels.</span>`}</div>${
  r.open?V.button({label:r.solved?'Erneut':'Lösen',cmd:'openRiddle',small:true,aria:'Kartenrätsel '+r.puzzle.title+(r.solved?' erneut lösen':' lösen')}):''}</div>`;
 
 function panel(vm,x,count){const m=x.mission,s=x.station,c=x.chapter,f=x.fuse,ch=vm.chapters.find(y=>y.current);
@@ -33,7 +33,7 @@ function panel(vm,x,count){const m=x.mission,s=x.station,c=x.chapter,f=x.fuse,ch
 
 AEV.screens=AEV.screens||{};
 AEV.screens.campaign={render:vm=>{const list=vm.missions,picked=vm.picked,count=list.filter(x=>x.done).length;
- // ASTRA: weltkarte – gemalte Weltkarte Europa und Mittelmeer mit Kästchen „Neue Welt“ (heute Küstenlinien als SVG), 2160 × 1280
- return html`<div class="screen campaign">${V.topbar('Kampagne · Die Chronik',vm.wallet())}<div class="campaign-content"><div class="world-map"><img class="map-art" src="assets/art/weltkarte.svg" alt="">${route(vm,list)}<span class="map-title">Die Chronik der Welt</span><span class="inset-title">Neue Welt</span>${
+ // Astra-Bild (AP A.2): weltkarte – gemalte Weltkarte Europa und Mittelmeer mit Kästchen „Neue Welt“ (heute Küstenlinien als SVG), 2160 × 1280
+ return html`<div class="screen campaign">${V.topbar('Kampagne · Die Chronik',vm.wallet())}<div class="campaign-content"><div class="world-map"><img class="map-art" src="assets/ui/weltkarte.webp" alt="">${route(vm,list)}<span class="map-title">Die Chronik der Welt</span><span class="inset-title">Neue Welt</span>${
   vm.ordered.map(x=>station(x,x.mission.id===picked.mission.id,picked.chapter))}</div>${panel(vm,picked,count)}</div></div>`;}};
 })();

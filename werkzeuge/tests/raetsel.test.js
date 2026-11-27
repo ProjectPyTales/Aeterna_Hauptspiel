@@ -104,11 +104,11 @@ test('Kampagnenkarte und Match: Rätsel im Panel, Lage, Brett, Tipp, Neu beginne
  log.open.vm.choose(1);assert.equal(log.go.at(-1),'campaign');c.chapter('griechen');assert.ok(c.riddle.solved);
 });
 
-test('Ansichten: Platzhalter für Astra, Tafel im Match, Lage und Ergebnis; Laden vor dem Spielstand',()=>{
+test('Ansichten: Rätselsiegel, Tafel im Match, Lage und Ergebnis; Laden vor dem Spielstand',()=>{
  const camp=read('view/campaign.js'),dlg=read('view/dialogs.js'),rnd=read('view/match/render.js');
- assert.match(camp,/\/\/ ASTRA: raetsel-siegel – /);assert.match(camp,/cmd:'openRiddle'/);
- assert.match(dlg,/\/\/ ASTRA: raetsel-lage – /);assert.match(dlg,/D_\.riddle=/);assert.match(dlg,/'GELÖST':'UNGELÖST'/);
- assert.match(rnd,/\/\/ ASTRA: raetsel-tafel – /);assert.match(rnd,/riddle\(c,s\)/);assert.match(read('viewmodel/match.js'),/puzzle:\(\)=>'Kartenrätsel'/);
+ assert.ok(read('view/css/astra.css').includes('raetsel-siegel-offen.webp'));assert.match(camp,/cmd:'openRiddle'/);
+ assert.ok(read('view/css/astra.css').includes('raetsel-lage.webp'));assert.match(dlg,/D_\.riddle=/);assert.match(dlg,/'GELÖST':'UNGELÖST'/);
+ assert.ok(rnd.includes("pic(c,'raetsel-tafel'"));assert.match(rnd,/riddle\(c,s\)/);assert.match(read('viewmodel/match.js'),/puzzle:\(\)=>'Kartenrätsel'/);
  const html=read('index.html');assert.ok(html.indexOf('model/campaign.js')<html.indexOf('model/puzzles.js')&&html.indexOf('model/puzzles.js')<html.indexOf('model/profile.js'));
  const order=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8');
  for(const k of ['raetsel-siegel','raetsel-lage','raetsel-tafel'])assert.ok(order.includes('| `'+k+'` |'),k);

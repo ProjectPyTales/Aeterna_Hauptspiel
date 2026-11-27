@@ -59,13 +59,13 @@ test('Astra (AP L.4): Code und MOTIVE.md nennen dieselben Kennungen, jede mit Gr
   if(e.isDirectory())walk(f);else if(/\.(js|css|html)$/.test(e.name)&&!e.name.endsWith('.min.js')){const text=fs.readFileSync(f,'utf8');
    for(const m of text.matchAll(tag))code.push(m[1]);marks+=text.split('ASTRA:').length-1;}}};
  walk(path.join(__dirname,'../../quellcode'));
- assert.ok(code.length>=20,'mindestens 20 gezeichnete Grafiken gekennzeichnet');
+
  assert.equal(new Set(code).size,code.length,'jede Kennung nur einmal');
  assert.equal(marks,code.length,'unvollständige Kennzeichnung: „ASTRA: <kennung> – <was>, <Größe>“');
  const md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8'),section=md.slice(md.indexOf('## Im Code gezeichnet'));
  const listed=[...section.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m=>m[1]);
  assert.deepEqual(listed.sort(),[...code].sort(),'MOTIVE.md veraltet – node werkzeuge/motive.js ausführen');
- assert.ok(code.includes('feldherrentisch'));
+ assert.ok(!code.includes('feldherrentisch'));
  // Seit 1.22.0 (AP A.2) gemalt: aus der Liste, die Zeichnung bleibt als Ersatz.
  for(const id of ['kartenrahmen','chronikleiste','steinknopf','stufenpyramide','lebensherz','phalanxschild','knopf-match',
   'diener-plakette','heldenmuenze','herrschersiegel','aetheruhr','chronometer','faehigkeitssymbole','faehigkeits-effekt'])assert.ok(!code.includes(id),id);

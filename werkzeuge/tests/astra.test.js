@@ -70,9 +70,9 @@ test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ei
  for(const k of ['kartenrahmen','kartenruecken-chroniken','chronikleiste','stundenglas','waffenablage','kartenbuch','waehrung'])assert.ok(!md.includes('`'+k+'`'),k);
 });
 
-test('Duellpakete U01–U04: jedes RGBA-Original ist doppelt so groß wie sein Bild im Spiel',()=>{
+test('Oberflächenpakete U01–U13: jedes RGBA-Original ist doppelt so groß wie sein Bild im Spiel',()=>{
  for(const h of D.heroes)assert.deepEqual(B.ui['faehigkeitssymbol-'+h.id],[96,96],h.name);
- for(const [paket,anzahl] of [['U01',27],['U02',20],['U03',21],['U04',30]]){
+ for(const [paket,anzahl] of [['U01',27],['U02',20],['U03',21],['U04',30],['U05',21],['U06',9],['U07',6],['U08',9],['U09',13],['U10',5],['U11',4],['U12',1],['U13',3]]){
   const dir=path.join(root,'ungenutzte_assets/neue_astra_assets','Lieferung_'+paket);
   const files=fs.readdirSync(dir).filter(f=>f.endsWith('.png'));
   assert.equal(files.length,anzahl,paket);
@@ -88,7 +88,7 @@ test('Duellpakete U01–U04: jedes RGBA-Original ist doppelt so groß wie sein B
 test('Auftrag Oberfläche: jede noch gezeichnete Kennung aus MOTIVE.md hat eine Zeile in ASTRA_AUFTRAG_OBERFLAECHE.md',()=>{
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/MOTIVE.md'),'utf8'),section=md.slice(md.indexOf('## Im Code gezeichnet'));
  const ids=[...section.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m=>m[1]),order=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8');
- assert.ok(ids.length>=40);
+ assert.ok(section.startsWith('## Im Code gezeichnet'));
  for(const id of ids)assert.ok(order.includes('| `'+id+'` |')||order.includes('`'+id+'`'),id);
 });
 

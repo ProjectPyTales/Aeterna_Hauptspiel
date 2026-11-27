@@ -80,9 +80,9 @@ test('Angriffsvorschau: erwarteter Schaden an Ziel und Angreifer auf einer Kopie
  s.active=1;assert.equal(m.preview(me.uid,foe.uid),null);
 });
 
-test('Ansichten: Dioramen, Sprechblase und Vorschau als gekennzeichnete Platzhalter, nach render.js geladen',()=>{
+test('Ansichten: Dioramen, Sprechblase und Vorschau mit gemalten Ebenen, nach render.js geladen',()=>{
  const di=read('view/match/dioramen.js'),rnd=read('view/match/render.js'),html=read('index.html');
- for(const k of ['eck-astrolabium','eck-raeuchergefaess','eck-saeule','eck-katapult','sprechblase-match','angriffsvorschau'])assert.match(di,new RegExp('// ASTRA: '+k+' – .*, \\d+ × \\d+'),k);
+ for(const k of ['eck-astrolabium','eck-raeuchergefaess','eck-saeule','eck-katapult','sprechblase-match','angriffsvorschau'])assert.ok(di.includes("'"+k+"'"),k);
  assert.ok(html.indexOf('view/match/dioramen.js')>html.indexOf('view/match/render.js'));
  assert.match(rnd,/hit\('diorama'\+i,/);assert.match(rnd,/AEDI\?\.bubble\(c,view\.bubble,t,hit\)/);assert.match(rnd,/AEDI\?\.preview\(c,view,t\)/);
  assert.doesNotMatch(rnd,/decor0/,'die alten Deko-Flächen sind ersetzt');

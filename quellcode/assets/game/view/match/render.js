@@ -169,6 +169,18 @@ function column(c,x,y,w,h,p){round(c,x,y+7,w,h-14,2,grad(c,x,0,w,0,p.column[0],p
 const pic=(c,name,cx,cy,w,h)=>{const im=CHS.ui[name];if(!im)return false;const k=Math.min(w/im.naturalWidth,h/im.naturalHeight),iw=im.naturalWidth*k,ih=im.naturalHeight*k;
  c.drawImage(im,cx-iw/2,cy-ih/2,iw,ih);return true;};
 R.pic=pic;
+// Streckbare Tafeln: die vier Ecken behalten ihre Quellgröße auch bei kurzen Texten.
+R.nineSlice=(c,name,x,y,w,h,corner,edge=corner)=>{
+ const im=CHS.ui[name];if(!im)return false;
+ const sw=im.naturalWidth,sh=im.naturalHeight;
+ const sx=[0,corner,sw-corner,sw],sy=[0,corner,sh-corner,sh];
+ const ex=Math.min(edge,w/2),ey=Math.min(edge,h/2);
+ const dx=[x,x+ex,x+w-ex,x+w],dy=[y,y+ey,y+h-ey,y+h];
+ for(let j=0;j<3;j++)for(let i=0;i<3;i++){
+  c.drawImage(im,sx[i],sy[j],sx[i+1]-sx[i],sy[j+1]-sy[j],dx[i],dy[j],dx[i+1]-dx[i],dy[j+1]-dy[j]);
+ }
+ return true;
+};
 // The painted temple gates (AP A.2): one frame each for minion, spell and building, normal and golden. The art window
 // comes from Astra's clip masks (CHB.windows); name plate, text field and the star of the gable were measured on the frames.
 const PAINTED={'minion-normal':{plate:163,text:[182,244],star:28},'spell-normal':{plate:178,text:[196,250],star:15},'building-normal':{plate:173,text:[190,250],star:23},
@@ -409,8 +421,8 @@ function table(g,field,tint){const im=R.images[field];
  if(im){if(tint)g.filter=tint;g.drawImage(im,0,0,1600,800);g.filter='none';}else{g.fillStyle='#765d3e';g.fillRect(0,0,1600,800);}
  const shade=g.createRadialGradient(800,365,210,800,365,880);shade.addColorStop(0,'#3d230a00');shade.addColorStop(1,'#23150e45');g.fillStyle=shade;g.fillRect(0,0,1600,800);
  chart(g);}
-// ASTRA: feldherrentisch – eingeritzte Weltkarte auf dem Feldherrentisch (Kompassrose, Loxodromen, Gradnetz), 3200 × 1600
-function chart(g){g.save();g.beginPath();g.rect(40,34,1520,732);g.clip();
+// Astra-Bild (AP A.2): feldherrentisch – eingeritzte Weltkarte auf dem Feldherrentisch (Kompassrose, Loxodromen, Gradnetz), 3200 × 1600
+function chart(g){if(pic(g,'feldherrentisch-gravur',800,400,1600,800))return;g.save();g.beginPath();g.rect(40,34,1520,732);g.clip();
  // Every line is cut into the stone: a dark groove with a light lower edge.
  const cut=(path,w,a)=>{g.lineWidth=w;g.save();g.translate(0,1.3);path();g.strokeStyle=`rgba(255,240,205,${a*.7})`;g.stroke();g.restore();path();g.strokeStyle=`rgba(52,30,12,${a})`;g.stroke();};
  cut(()=>{g.beginPath();for(let i=0;i<32;i++){const an=i*Math.PI/16;g.moveTo(800+Math.cos(an)*60,L.seam+Math.sin(an)*60);g.lineTo(800+Math.cos(an)*1800,L.seam+Math.sin(an)*1800);}},1,.1);
@@ -635,21 +647,24 @@ function chronometer(c,s,now){const {x,y,r}=L.chrono,mine=s.active===0,active=mi
 // Lunte (AP 6.4 mit AP 3.7): In einer Belagerungsmission glimmt oben rechts am Rahmen eine Zündschnur zum Pulverfass. Jeder
 // eigene Zug brennt ein Stück ab (die Glut wandert in 600 ms weiter), Asche bleibt zurück; die Zahl nennt die eigenen Züge, die
 // bleiben, den laufenden mitgerechnet. Die letzten drei glühen rot. Ohne Bewegung ohne Flackern und Funken.
-// ASTRA: lunte – Zündschnur mit Glut und Funken, verbrannte Schnur als Asche, am Ende ein Pulverfass, 380 × 70
+// Astra-Bild (AP A.2): lunte – Zündschnur mit Glut und Funken, verbrannte Schnur als Asche, am Ende ein Pulverfass, 380 × 70
 const FUSE={x:1000,y:38,w:262,ms:600};R.fuse=null;
 function fuse(c,s,t){const f=E.fuse(s);if(!f){R.fuse=null;return;}const {x,y,w}=FUSE,k=f.left/f.turns,late=f.left<=3;
  let a=R.fuse;if(!a||a.mission!==s.mission)a=R.fuse={mission:s.mission,from:k,to:k,at:-1e9};else if(a.to!==k){a.from=a.to;a.to=k;a.at=motion()?t:-1e9;}
- const q=Math.min(1,(t-a.at)/FUSE.ms),now=a.from+(a.to-a.from)*(1-Math.pow(1-q,3)),gx=x+w*(1-now),wave=v=>y+Math.sin(v/17)*3.5;
+ const q=Math.min(1,(t-a.at)/FUSE.ms),now=a.from+(a.to-a.from)*(1-Math.pow(1-q,3)),gx=x+w*(1-now),wave=v=>CHS.ui['lunte-schnur']?y:y+Math.sin(v/17)*3.5;
  const cord=(from,to,width,color,dash)=>{c.beginPath();for(let v=from;v<=to;v+=6)v===from?c.moveTo(v,wave(v)):c.lineTo(v,wave(v));c.lineTo(to,wave(to));c.lineWidth=width;c.strokeStyle=color;c.setLineDash(dash||[]);c.stroke();c.setLineDash([]);};
  // Die Tafel: eine Mulde im Rahmen, damit Schnur und Glut auf dem dunklen Holz lesbar sind.
  round(c,x-22,y-22,w+84,64,14,grad(c,x-22,y-22,0,64,'#3a2a1aee','#1e150dee'),late?'#e0703a':'#b08a52',2);
  c.save();c.lineCap='round';
  if(gx>x+2)cord(x,gx,3.5,'#8d8277',[2,6]);
- if(gx<x+w-1){cord(gx,x+w,8,'#4a3018');cord(gx,x+w,6,late?'#d08a4a':'#d8b27a');cord(gx,x+w,2,'#fff1c8bb',[4,6]);}
+ const rope=CHS.ui['lunte-schnur'];
+ if(rope&&gx<x+w){c.save();c.beginPath();c.rect(gx,y-12,x+w-gx,24);c.clip();
+  for(let dx=x;dx<x+w;dx+=114)c.drawImage(rope,dx,y-10.5,114,21);c.restore();}
+ else if(gx<x+w-1){cord(gx,x+w,8,'#4a3018');cord(gx,x+w,6,late?'#d08a4a':'#d8b27a');cord(gx,x+w,2,'#fff1c8bb',[4,6]);}
  // Pulverfass: Dauben, zwei Reifen, Spund.
- const bx=x+w+26;round(c,bx-16,y-19,32,38,8,grad(c,bx-16,y-19,32,38,'#9a6232','#4a2c14'),'#24140a',2);
+ const bx=x+w+26;if(!pic(c,'lunte-fass',bx,y,220,42)){round(c,bx-16,y-19,32,38,8,grad(c,bx-16,y-19,32,38,'#9a6232','#4a2c14'),'#24140a',2);
  for(const yy of [y-9,y+9]){c.beginPath();c.moveTo(bx-16,yy);c.lineTo(bx+16,yy);c.lineWidth=3;c.strokeStyle='#b39a6a';c.stroke();}
- ellipse(c,bx,y-19,8,3,'#2a1a0e','#24140a',1);
+ ellipse(c,bx,y-19,8,3,'#2a1a0e','#24140a',1);}
  if(f.left>0){const flick=motion()?.8+.2*Math.sin(t/70)+.1*Math.sin(t/23):1,r=(late?12:10)*flick,gy=wave(gx),g=c.createRadialGradient(gx,gy,0,gx,gy,r*2.3);
   g.addColorStop(0,'#fffbe0');g.addColorStop(.25,late?'#ff6a2a':'#ffc24a');g.addColorStop(1,'#ff5a1a00');c.fillStyle=g;c.beginPath();c.arc(gx,gy,r*2.3,0,Math.PI*2);c.fill();
   if(motion())for(let i=0;i<6;i++){const life=(t/420+i/6)%1,an=i*2.4+Math.floor(t/420+i/6)*1.7,d=4+life*20;
@@ -891,15 +906,15 @@ R.draw=(c,s,view,t,log=[],handInfo={})=>{const dt=Math.min(40,Math.max(0,t-(R.la
  for(const uid of Object.keys(R.units))if(t-R.units[uid].seen>4000)delete R.units[uid];
 // Lehrstunden (AP 6.5): oben rechts die Tafel des Chronisten mit dem aktuellen Schritt; ein goldener Ring zeigt, wohin es geht
 // (Handkarte, Chronometer, bereite Diener, Heldenfähigkeit, feindlicher Held oder Schildwall-Diener). Im Zug des Gegners wartet er.
-// ASTRA: lehrstunde-chronist – Tafel des Chronisten mit Federkiel-Medaillon und Pergamentfeld oben rechts im Match, 520 × 120
+// Astra-Bild (AP A.2): lehrstunde-chronist – Tafel des Chronisten mit Federkiel-Medaillon und Pergamentfeld oben rechts im Match, 520 × 120
 const COACH={x:968,y:8,w:516,h:118};
 // Größen auf 4 Einheiten gerundet (Handkarten wachsen beim Drücken), der Maßstab gleicht den Rest aus.
 const ringSize=r=>Math.max(8,Math.round(r/4)*4);
 const coachRing=(rx,ry)=>R.sprite('coachring:'+rx+','+ry,-rx-34,-ry-34,2*rx+68,2*ry+68,g=>{g.shadowColor='#ffd76a';g.shadowBlur=14;ellipse(g,0,0,rx,ry,null,'#ffd76a',4);});
 const wrapText=(c,text,width)=>{const out=[];let line='';for(const w of text.split(' ')){const next=line?line+' '+w:w;if(line&&c.measureText(next).width>width){out.push(line);line=w;}else line=next;}if(line)out.push(line);return out;};
 function coach(c,s,t,view){const k=s.lesson&&window.AETU?.coach(s);if(!k||s.phase==='over')return;const {x,y,w,h}=COACH;
- c.save();round(c,x,y,w,h,14,grad(c,x,y,0,h,'#3a2a1af2','#1e150df2'),'#c9a052',2);
- ellipse(c,x+44,y+h/2,32,32,grad(c,x+12,y+h/2-32,64,64,'#e8c36f','#a87a32'),'#2a1c10',2);txt(c,'✒',x+44,y+h/2+2,30,'#2a1c10');
+ c.save();if(!R.nineSlice(c,'lehrstunde-chronist',x,y,w,h,24)){round(c,x,y,w,h,14,grad(c,x,y,0,h,'#3a2a1af2','#1e150df2'),'#c9a052',2);
+ ellipse(c,x+44,y+h/2,32,32,grad(c,x+12,y+h/2-32,64,64,'#e8c36f','#a87a32'),'#2a1c10',2);txt(c,'✒',x+44,y+h/2+2,30,'#2a1c10');}
  txt(c,('Lehrstunde '+k.n+' · '+k.title+(k.waiting?'':' · Schritt '+k.step+'/'+k.total)).toUpperCase(),x+92,y+18,13,'#e8c36f','left',w-108);
  c.font='17px Body,serif';const lines=wrapText(c,k.text,w-108).slice(0,4);lines.forEach((l,i)=>txt(c,l,x+92,y+42+i*21,17,k.waiting?'#cdbb95':'#f3dab0','left'));c.restore();
  if(k.waiting||view.drag)return;
@@ -915,10 +930,10 @@ function coach(c,s,t,view){const k=s.lesson&&window.AETU?.coach(s);if(!k||s.phas
  else if(k.focus==='hand'){const one=k.card&&a.hand.find(h=>h.id===k.card);
   for(const h of one?[one]:a.hand){const p=R.positions[h.uid];if(p)ring(p.x,p.y-6,p.w*.56,p.w*.72);}}}
 // Kartenrätsel (AP 6.4 Teil 2): an der Stelle der Lunte eine Tafel mit Titel und Ziel – das Rätsel endet mit Deinem Zug.
-// ASTRA: raetsel-tafel – Wachstafel mit Fragezeichen aus Karten und Titel des Rätsels oben rechts im Match, 380 × 70
+// Astra-Bild (AP A.2): raetsel-tafel – Wachstafel mit Fragezeichen aus Karten und Titel des Rätsels oben rechts im Match, 380 × 70
 function riddle(c,s){if(s.puzzle==null)return;const {x,y,w}=FUSE,z=window.AERA?.byId[s.puzzle];
- round(c,x-22,y-22,w+84,64,14,grad(c,x-22,y-22,0,64,'#3a2a1aee','#1e150dee'),'#c9a052',2);
- ellipse(c,x+4,y+10,19,19,grad(c,x-15,y-9,38,38,'#e8c36f','#a87a32'),'#2a1c10',2);txt(c,'?',x+4,y+11,24,'#2a1c10');
+ if(!pic(c,'raetsel-tafel',x+w/2+20,y+10,w+84,64)){round(c,x-22,y-22,w+84,64,14,grad(c,x-22,y-22,0,64,'#3a2a1aee','#1e150dee'),'#c9a052',2);
+ ellipse(c,x+4,y+10,19,19,grad(c,x-15,y-9,38,38,'#e8c36f','#a87a32'),'#2a1c10',2);}txt(c,'?',x+8,y+10,24,'#f4d790');
  txt(c,(z?z.title:'Kartenrätsel').toUpperCase(),x+w/2+24,y,15,'#f3dab0',undefined,w+10);txt(c,'GEWINNE IN DIESEM ZUG',x+w/2+24,y+22,13,'#e8c36f',undefined,w+10);}
  // Rival's fanned hand as sealed orders (AP 1.8 Teil 2); orders still flying from his deck are not in the row yet.
  const order=R.sprite('order',-24,-62,48,92,orderArt),orders=Math.max(0,b.hand.length-CHM.pendingOrders());

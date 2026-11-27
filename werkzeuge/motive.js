@@ -446,5 +446,5 @@ spätere Sitzung baut sie ein. Größen mit „9-Slice“ sind dehnbare Rahmen (
 ${drawn.map(d=>`| \`${d.id}\` | ${d.what} | ${d.size} | \`${d.at}\` | ${UI}. ${d.what}. |`).join('\n')}
 `;
 fs.mkdirSync(path.join(__dirname,'../ungenutzte_assets'),{recursive:true});
-fs.writeFileSync(path.join(__dirname,'../ungenutzte_assets/MOTIVE.md'),out);
+fs.writeFileSync(path.join(__dirname,'../ungenutzte_assets/MOTIVE.md'),out.trimEnd()+'\n');
 console.log(`MOTIVE.md: ${cards.length} Karten, ${heroes.length} Helden, ${tables.length} Schlachtfelder ohne Motiv, ${drawn.length} im Code gezeichnete Grafiken.`);

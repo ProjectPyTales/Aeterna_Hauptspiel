@@ -11,11 +11,11 @@ D_.message={render:vm=>{const s=vm.state;
 
 // Aufgaben (AP 6.3): Tagesgeschenk mit Serie, drei Tagesaufgaben (eine zum Lernen) und die dauerhaften Erfolge.
 const bar=(n,goal)=>html`<span class="quest-track" role="progressbar" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${n}"><i style="width:${pct(n,goal)}"></i></span>`;
-// ASTRA: tagesgeschenk – sieben Wachssiegel der Serie: offen, heute leuchtend, abgeholt gebrochen, je 96 × 96
+// Astra-Bild (AP A.2): tagesgeschenk – sieben Wachssiegel der Serie: offen, heute leuchtend, abgeholt gebrochen, je 96 × 96
 const gift=g=>html`<section class="quest-gift"><div class="eyebrow">Tagesgeschenk · ${g.ready?'Tag '+((g.streak-1)%7+1)+' der Serie':'Serie: '+g.streak+(g.streak===1?' Tag':' Tage')}</div><div class="gift-days">${
  g.slots.map(s=>html`<div class="${V.cls('gift-day',s.done&&'done',s.today&&'today',s.today&&g.ready&&'ready')}" data-key="g${s.day}"><span class="gift-seal" aria-hidden="true">${s.day}</span><small>${s.text}</small></div>`)}</div>${
  V.button({label:g.ready?'Abholen':'Morgen wieder',cmd:'claimLogin',style:g.ready?'gold':'',disabled:!g.ready})}</section>`;
-// ASTRA: aufgabe-tafel – Wachstafel einer Tagesaufgabe mit Griffel, die zum Lernen mit Eule und Schriftrolle, 360 × 210
+// Astra-Bild (AP A.2): aufgabe-tafel – Wachstafel einer Tagesaufgabe mit Griffel, die zum Lernen mit Eule und Schriftrolle, 360 × 210
 const task=(x,rerolled)=>html`<article class="${V.cls('quest-card',x.learn&&'learn',x.ready&&'ready',x.claimed&&'claimed')}" data-key="${x.quest.id}"><div class="eyebrow">${x.learn?'Lernen':'Spielen'} · ${x.quest.gold} Gold</div><h3>${x.quest.text}</h3><p>${x.quest.hint}</p>${
  bar(x.n,x.goal)}<div class="quest-foot"><b>${x.n} / ${x.goal}</b>${x.claimed?html`<span class="muted">Abgeholt</span>`:x.ready?V.button({label:'Abholen',cmd:'claim',a:x.quest.id,style:'gold',small:true}):
  V.button({label:'Neu würfeln',cmd:'reroll',a:x.quest.id,small:true,disabled:rerolled,aria:'Andere Aufgabe statt „'+x.quest.text+'“'})}</div></article>`;
@@ -52,7 +52,7 @@ function updates(vm){const u=vm.update,s=vm.settings;
   V.buttons([u.offer?V.button({label:'Jetzt aktualisieren',cmd:'showUpdate',style:'gold',small:true}):V.button({label:'Jetzt nach Updates suchen',cmd:'checkUpdate',small:true,disabled:u.busy}),V.button({label:'Alle Versionen',cmd:'updatePage',small:true})])}</div>`;}
 
 // Neue Version (seit 1.36.0, viewmodel/update.js): Hinweis mit „Was ist neu“, Laden mit Fortschritt, bereit, Fehler.
-// ASTRA: update-siegel – Wachssiegel mit Pfeil im Ring über dem Hinweis „Neue Version“, 120 × 120
+// Astra-Bild (AP A.2): update-siegel – Wachssiegel mit Pfeil im Ring über dem Hinweis „Neue Version“, 120 × 120
 const UPDATE_KEEP='Sammlung, Decks und eine laufende Partie bleiben.';
 D_.update={render:vm=>{const s=vm.s,size=vm.size;let body;
  if(s.state==='downloading')body=html`<h2 id="update-title">Aeterna ${s.version} wird geladen</h2><span class="update-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${vm.percent}"><i style="width:${vm.percent}%"></i></span><p class="update-step">${s.step||'Wird geladen …'} ${vm.percent} %${size?' von '+size:''}</p><p class="settings-note">Danach fragt Android, ob die App aktualisiert werden soll – einfach „Aktualisieren“ tippen.</p>${
@@ -65,7 +65,7 @@ D_.update={render:vm=>{const s=vm.s,size=vm.size;let body;
   s.notes?html`<div class="update-notes"><b>Neu</b><p>${s.notes}</p></div>`:''}<p class="settings-note">Das Update lädt ${size||'die neue APK'} aus dem Release „Test-APK“ auf GitHub. Danach fragt Android einmal nach („Aktualisieren“). ${UPDATE_KEEP}</p>${
   V.buttons([V.button({label:'Später',cmd:'later'}),V.button({label:'Jetzt aktualisieren',cmd:'start',style:'gold'})])}`;
  else body=html`<h2 id="update-title">Updates</h2><p>${vm.updates.status}</p>${V.buttons([V.button({label:'Schließen',cmd:'later',style:'gold'})])}`;
- return V.modal({width:860,close:false,extra:'update',labelledby:'update-title',body:html`<span class="update-seal" aria-hidden="true">⟳</span>${body}`});}};
+ return V.modal({width:860,close:false,extra:'update',labelledby:'update-title',body:html`<span class="update-seal" aria-hidden="true"></span>${body}`});}};
 D_.settings={render:vm=>{const s=vm.settings,tab=vm.state.tab,row=(label,control)=>html`<div class="settings-row"><label>${label}</label>${control}</div>`;
  const range=k=>html`<input type="range" min="0" max="1" step=".05" value="${s[k]}" data-input="setting" data-a="${k}" aria-label="${k==='music'?'Musik':'Geräusche'}">`;
  const pick=(k,opts)=>html`<select data-change="setting" data-a="${k}">${opts.map(([v,l,on])=>option(v,l,on))}</select>`;
@@ -90,10 +90,10 @@ const RULES=[['1 · Karte ausspielen','Karte antippen, dann „Ausspielen“ ode
 D_.help={render:()=>V.modal({width:1080,body:html`<h2>So spielst Du</h2><div class="help-list">${RULES.map(([t,x])=>html`<div><b>${t}</b>${x}</div>`)}</div>${V.buttons([V.button({label:'Lehrstunden',cmd:'lessons'}),V.button({label:'Verstanden',cmd:'close',style:'gold'})])}`})};
 
 // Lehrstunden (AP 6.5): drei Siegel mit Ort und Zeit, was man lernt und die Belohnung der ersten Lösung.
-// ASTRA: lehrstunde-siegel – Wachssiegel mit Feder und Zahl (1–3) für die Lehrstunden, 160 × 160
+// Astra-Bild (AP A.2): lehrstunde-siegel – Wachssiegel mit Feder und Zahl (1–3) für die Lehrstunden, 160 × 160
 const LEARN={schlacht:'Mana, Diener ausspielen, Angreifen, Heldenfähigkeit',schildwall:'Schildwall, Zauber, Großansicht',gunst:'Gunst der Stunde, Einmarsch, Sturmangriff, Vermächtnis'};
 D_.lessons={render:vm=>V.modal({width:1180,extra:'lessons',labelledby:'lessons-title',body:html`<h2 id="lessons-title">Lehrstunden mit dem Chronisten</h2><p>Drei kurze Partien, in denen der Chronist Dir Schritt für Schritt zeigt, wie Aeterna gespielt wird. Der Gegner kämpft als Lehrling.</p><div class="lesson-list">${
- vm.rows.map(r=>html`<article class="${V.cls('lesson-card',r.done&&'done',r.next&&'next')}" data-key="${r.lesson.id}"><span class="lesson-seal" aria-hidden="true">${r.done?'✓':r.lesson.n}</span><div><small>${r.lesson.place} · ${r.lesson.year}</small><h3>${r.lesson.title}</h3><p>${LEARN[r.lesson.id]}</p><small>${r.done?'Geschafft':'Belohnung: '+r.reward.gold+' Gold'+(r.reward.packs?' und ein Kartenpaket':'')}</small></div>${
+ vm.rows.map(r=>html`<article class="${V.cls('lesson-card',r.done&&'done',r.next&&'next')}" data-key="${r.lesson.id}"><span class="lesson-seal" aria-hidden="true">${r.lesson.n}</span><div><small>${r.lesson.place} · ${r.lesson.year}</small><h3>${r.lesson.title}</h3><p>${LEARN[r.lesson.id]}</p><small>${r.done?'Geschafft':'Belohnung: '+r.reward.gold+' Gold'+(r.reward.packs?' und ein Kartenpaket':'')}</small></div>${
   V.button({label:r.done?'Noch einmal':'Beginnen',cmd:'start',a:r.lesson.id,style:r.next?'gold':'',small:true,aria:'Lehrstunde '+r.lesson.n+': '+r.lesson.title})}</article>`)}</div>${
  V.buttons([vm.skipped?V.button({label:'Im Hauptmenü zeigen',cmd:'show'}):V.button({label:'Im Hauptmenü ausblenden',cmd:'hide'}),V.button({label:'Schließen',cmd:'close',style:'gold'})])}`})};
 
@@ -135,7 +135,7 @@ D_.result={render:vm=>{const s=vm.state,win=s.winner===0,r=s.reward,kind=win?'wi
   r.packs?html`<div class="reward-pack">▣ +${r.packs} Kartenpaket</div>`:''}</div>${choose(s.buttons)}</div></div>`;}};
 
 // Kartenrätsel (AP 6.4 Teil 2): die Lage vor dem Brett – Siegel in der Farbe der Epoche, Ort und Zeit, Text, Ziel, Belohnung, Quelle.
-// ASTRA: raetsel-lage – Pergament der Rätsel-Lage mit Kartenfächer und Fragezeichen-Siegel, 1000 × 420
+// Astra-Bild (AP A.2): raetsel-lage – Pergament der Rätsel-Lage mit Kartenfächer und Fragezeichen-Siegel, 1000 × 420
 D_.riddle={render:vm=>{const s=vm.state,z=s.puzzle,c=s.chapter;
  return V.modal({close:true,extra:'riddle',label:'Kartenrätsel: '+z.title,body:html`<div class="scene-head"><span class="scene-seal riddle-mark" style="--age:${c.color}" aria-hidden="true">?</span><div><h2>${z.title}</h2><span class="scene-years">Kartenrätsel · ${c.label} · ${z.place} · ${z.year}</span></div></div><p class="riddle-text">${z.text}</p><p class="riddle-goal">Ziel: Gewinne in diesem Zug. Endet er ohne Sieg, legst Du das Brett einfach neu auf.</p><p class="riddle-meta">${s.solved?'Schon gelöst – ein neuer Sieg bringt nur die Ehre.':'Erste Lösung: '+z.reward+' Gold'}</p><p class="scene-source">Quelle: ${z.source}</p>${V.buttons(choose(s.buttons))}`});}};
 
@@ -143,16 +143,16 @@ D_.riddle={render:vm=>{const s=vm.state,z=s.puzzle,c=s.chapter;
 // Szene sprechen, und die Quelle. Seit 1.32.0 (Rückmeldung zu 1.31.0): Titel mit Kapitelsiegel und Zeitspanne, die Bühne entrollt
 // sich, der Chronist erzählt im Erzählkasten, die Helden warten als Schattenrisse und treten ins Licht, sobald sie sprechen; über
 // ihrer Blase Ort und Zeit, die Worte erscheinen nacheinander; die letzte Zeile führt zur ersten Mission.
-// ASTRA: szene-buehne – Pergamentbühne der Story-Szene mit Band in der Farbe der Epoche, 1200 × 520
-// ASTRA: sprechblase – Sprechblase als entrollte Schriftrolle mit Spitze nach unten, 1000 × 180
-// ASTRA: chronist – Porträt des Chronisten mit Feder und Buch für die Story-Szenen, 256 × 256
-// ASTRA: erzaehlkasten – Erzählkasten des Chronisten: Pergamentstreifen mit Feder und Tintenrand, 1000 × 160
-// ASTRA: schattenriss – Schattenriss eines Helden, der in der Szene noch nicht gesprochen hat (Rand und Schleier), 256 × 256
+// Astra-Bild (AP A.2): szene-buehne – Pergamentbühne der Story-Szene mit Band in der Farbe der Epoche, 1200 × 520
+// Astra-Bild (AP A.2): sprechblase – Sprechblase als entrollte Schriftrolle mit Spitze nach unten, 1000 × 180
+// Astra-Bild (AP A.2): chronist – Porträt des Chronisten mit Feder und Buch für die Story-Szenen, 256 × 256
+// Astra-Bild (AP A.2): erzaehlkasten – Erzählkasten des Chronisten: Pergamentstreifen mit Feder und Tintenrand, 1000 × 160
+// Astra-Bild (AP A.2): schattenriss – Schattenriss eines Helden, der in der Szene noch nicht gesprochen hat (Rand und Schleier), 256 × 256
 const speaker=who=>who==='chronist'?'Der Chronist':D.heroById[who]?.name||who;
 const words=text=>text.split(' ').map((w,i)=>html`<span style="--w:${i}">${w} </span>`);
 D_.scene={render:vm=>{const c=vm.chapter,l=vm.line,stage=vm.stage,at=stage.findIndex(x=>x.speaking),step=vm.state.step,talk=l.who!=='chronist',g=vm.goal;
  return V.modal({width:1200,extra:'scene',labelledby:'scene-title',body:html`<header class="scene-head" style="--age:${c.color}"><span class="scene-seal" aria-hidden="true">${c.numeral||c.icon}</span><div><div class="eyebrow">${c.label}${c.epilogue?'':' · '+c.era}</div><h2 id="scene-title">${c.title}</h2><small class="scene-years">${c.years}</small></div></header><div class="scene-stage" style="--age:${c.color};--n:${stage.length};--at:${at}"><div class="${V.cls('speech',!talk&&'narration')}" data-key="line${step}" role="status" aria-live="polite">${
-  talk&&l.cue?html`<span class="scene-cue">${l.cue}</span>`:''}<b>${talk?'':html`<i class="quill" aria-hidden="true">✒</i>`}${speaker(l.who)}</b><p>${words(l.text)}</p></div><div class="cast">${
+  talk&&l.cue?html`<span class="scene-cue">${l.cue}</span>`:''}<b>${talk?'':html`<i class="chronicler-face" aria-hidden="true"></i>`}${speaker(l.who)}</b><p>${words(l.text)}</p></div><div class="cast">${
   stage.map(x=>html`<div class="${V.cls('speaker',x.speaking&&'speaking',x.spoke&&'spoke',x.waiting&&'waiting')}" data-key="${x.who}"><span class="coin-face" style="${R.heroStyle(x.who)}"></span><small>${x.waiting?'…':speaker(x.who)}</small></div>`)}</div></div><div class="scene-foot"><span class="scene-steps" aria-label="Zeile ${step+1} von ${vm.lines.length}">${
   vm.lines.map((_,i)=>html`<i class="${V.cls(i===step&&'now',i<step&&'read')}"></i>`)}</span><small class="scene-source">Quelle: ${c.source}</small></div>${
   V.buttons([V.button({label:'Zurück',cmd:'prev',disabled:step===0}),...(vm.last?[]:[V.button({label:vm.then?'Überspringen':'Schließen',cmd:'done'})]),

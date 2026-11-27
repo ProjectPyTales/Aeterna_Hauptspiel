@@ -291,24 +291,24 @@ function finale(c,s,t,st){const e=st.held?FINALE.end:t-st.at,kind=st.info.winner
 //   0,5–0,62 ein goldenes Siegel prägt sich auf das Band – Siegelklang, ein Funkenkranz, ein leichter Stoß;
 //   0,62–1   die Karte schwebt, Strahlen und Band blenden aus; dann fällt sie von dort mit schwerem Aufprall auf ihren Platz (AP 3.3).
 // Unter ruhiger Bewegung steht die Karte gleich in der Mitte, das Band liegt still, ohne Strahlen, Siegel und Funken.
-// ASTRA: legendaer-band – Band aus dunkelrotem Samt mit Goldborte und gegabelten Enden unter der Karte, Mitte frei für Name und Epoche, 680 × 110
-// ASTRA: legendaer-siegel – goldenes Wachssiegel mit Lorbeerkranz und Stern, das sich auf das Band prägt, 150 × 150
-// ASTRA: legendaer-strahlen – goldener Strahlenkranz hinter der großen Karte einer Legendären (wird gedreht), 840 × 840
+// Astra-Bild (AP A.2): legendaer-band – Band aus dunkelrotem Samt mit Goldborte und gegabelten Enden unter der Karte, Mitte frei für Name und Epoche, 680 × 110
+// Astra-Bild (AP A.2): legendaer-siegel – goldenes Wachssiegel mit Lorbeerkranz und Stern, das sich auf das Band prägt, 150 × 150
+// Astra-Bild (AP A.2): legendaer-strahlen – goldener Strahlenkranz hinter der großen Karte einer Legendären (wird gedreht), 840 × 840
 const heraldRibbon=card=>R.sprite('herald-band:'+card.id,-360,-62,720,124,g=>{const owner=D.owner(card),line=['Legendär',owner?.name,D.eraOf(card)].filter(Boolean).join(' · ');
- g.shadowColor='#000b';g.shadowBlur=16;g.shadowOffsetY=6;
+ if(!R.pic(g,'legendaer-band',0,0,700,110)){g.shadowColor='#000b';g.shadowBlur=16;g.shadowOffsetY=6;
  for(const sd of [-1,1]){g.beginPath();g.moveTo(sd*300,-30);g.lineTo(sd*350,-36);g.lineTo(sd*328,0);g.lineTo(sd*350,36);g.lineTo(sd*300,30);g.closePath();g.fillStyle='#4a1016';g.fill();}
  g.beginPath();g.moveTo(-310,-44);g.quadraticCurveTo(0,-54,310,-44);g.lineTo(310,44);g.quadraticCurveTo(0,34,-310,44);g.closePath();g.fillStyle=grad(g,0,-50,0,100,'#7a1c24','#2a080c');g.fill();
  g.shadowBlur=0;g.shadowOffsetY=0;g.lineWidth=3;g.strokeStyle='#e6c065';g.stroke();
- g.beginPath();g.moveTo(-296,-36);g.quadraticCurveTo(0,-45,296,-36);g.moveTo(-296,36);g.quadraticCurveTo(0,27,296,36);g.lineWidth=1.2;g.strokeStyle='#e6c06588';g.stroke();
+ g.beginPath();g.moveTo(-296,-36);g.quadraticCurveTo(0,-45,296,-36);g.moveTo(-296,36);g.quadraticCurveTo(0,27,296,36);g.lineWidth=1.2;g.strokeStyle='#e6c06588';g.stroke();}
  g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';g.font='bold 36px Title,serif';g.strokeStyle='#160406';g.lineWidth=6;
  g.strokeText(card.name,14,-10,540);g.fillStyle=grad(g,0,-30,0,40,'#fff3c4','#e8b450');g.fillText(card.name,14,-10,540);
  g.font='22px Body,serif';g.fillStyle='#f0dcae';g.fillText(line,14,22,540);});
-const heraldSeal=()=>R.sprite('herald-seal',-80,-80,160,160,g=>{g.shadowColor='#0009';g.shadowBlur=12;g.shadowOffsetY=4;
+const heraldSeal=()=>R.sprite('herald-seal',-80,-80,160,160,g=>{if(R.pic(g,'legendaer-siegel',0,0,132,132))return;g.shadowColor='#0009';g.shadowBlur=12;g.shadowOffsetY=4;
  g.beginPath();for(let i=0;i<=40;i++){const an=i/40*TAU,rr=62+3*Math.sin(an*9);g.lineTo(Math.cos(an)*rr,Math.sin(an)*rr);}g.closePath();g.fillStyle=grad(g,-62,-62,124,124,'#8a5a12','#ffe08a');g.fill();
  g.shadowBlur=0;g.shadowOffsetY=0;g.strokeStyle='#5a3a0a';g.lineWidth=2;g.stroke();ellipse(g,0,0,46,46,null,'#7a4e10',3);
  for(let i=0;i<14;i++){const an=-Math.PI*.9+i/13*Math.PI*.8;for(const sd of [-1,1]){g.save();g.rotate(sd*an);g.translate(0,-38);g.rotate(sd*.5);g.beginPath();g.ellipse(0,0,4,8,0,0,TAU);g.fillStyle='#6a420c';g.fill();g.restore();}}
  sparkle(g,0,0,20,'#fff6d0');});
-const heraldRays=()=>R.sprite('herald-strahlen',-420,-420,840,840,g=>{const f=g.createRadialGradient(0,0,30,0,0,420);f.addColorStop(0,'#fff4c8ee');f.addColorStop(.3,'#ffd27a77');f.addColorStop(1,'#ffcf6a00');
+const heraldRays=()=>R.sprite('herald-strahlen',-420,-420,840,840,g=>{if(R.pic(g,'legendaer-strahlen',0,0,840,840))return;const f=g.createRadialGradient(0,0,30,0,0,420);f.addColorStop(0,'#fff4c8ee');f.addColorStop(.3,'#ffd27a77');f.addColorStop(1,'#ffcf6a00');
  g.fillStyle=f;for(let i=0;i<18;i++){const a=i/18*TAU;g.beginPath();g.moveTo(0,0);g.arc(0,0,420,a-.06,a+.06);g.closePath();g.fill();}
  const h=g.createRadialGradient(0,0,0,0,0,260);h.addColorStop(0,'#ffe9a066');h.addColorStop(1,'#ffe9a000');g.fillStyle=h;g.beginPath();g.arc(0,0,260,0,TAU);g.fill();});
 F.herald=(c,x,raw,t)=>{const card=x.card,S=CHM.SHOW,calm=still(),mine=x.p===0,from=x.heraldFrom||S,out=raw<.62?0:clamp((raw-.62)/.38);

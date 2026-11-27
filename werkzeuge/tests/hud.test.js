@@ -64,7 +64,7 @@ test('AP 3.10 Auftritt der Legendären (1.39.0 neu inszeniert): Karte groß in d
  assert.match(fx,/F\.draw=\(c,s,t\)=>\{const x=CHM\.transition;if\(x\?\.line&&!x\.hit\)\{const ph=x\.line\.at\(t-x\.at\);if\(ph\.name==='herald'\)F\.herald\(c,x,ph\.raw,t\)/,'zuletzt über allem');
  assert.match(fx,/calm=still\(\)/);assert.match(fx,/fly=calm\?1:/);assert.match(fx,/stamp=calm\?0:/,'ruhige Bewegung: Karte steht, Band liegt still, kein Siegel');
  assert.match(fx,/CHM\.floatCard\(c,card\.id,cx,cy,w/,'die Karte selbst im Auftritt');
- for(const k of ['legendaer-band','legendaer-siegel','legendaer-strahlen'])assert.match(fx,new RegExp('ASTRA: '+k+' – '),k);
+ for(const k of ['legendaer-band','legendaer-siegel','legendaer-strahlen'])assert.ok(fx.includes("R.pic(g,'"+k+"'"),k);
  // Es gibt Legendäre, die so auftreten – und Hinterhalte, die verdeckt bleiben.
  assert.ok(D.cards.filter(c=>c.rarity==='legendary'&&!c.ambush).length>=22);
 });

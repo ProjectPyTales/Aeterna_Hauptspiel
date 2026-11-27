@@ -64,3 +64,136 @@ button.stone-action:active:enabled {filter: brightness(.87)}
 .result.panel .result-banner span{margin-top:0}
 .result.draw .result-banner span{font-size:32px;letter-spacing:2px}
 .result.loss .result-banner span{font-size:40px;letter-spacing:2px}
+
+/* U05: Die Quellbilder der Tafeln haben feste Ecken von 48 px. */
+.modal:not(.result) {
+ border-image: url('../../assets/ui/panel-dunkel.webp') 48 fill / 18px;
+}
+.screen > .topbar {
+ border-image: url('../../assets/ui/panel-hell.webp') 48 fill / 14px;
+ color: #382514;
+}
+.screen > .topbar h2 {color:#382514; text-shadow:0 1px #fff0ca}
+button.stone-tab, button.stone-tab.active {
+ background: url('../../assets/ui/reiter-ruhend.webp') center / 100% 100% no-repeat;
+ border-color:transparent; box-shadow:none; color:#fff1cf;
+}
+button.stone-tab.active {background-image:url('../../assets/ui/reiter-aktiv.webp'); color:#392610}
+button.knob, .pool-knobs button.seal-knob {
+ --filter:url('../../assets/ui/filterknopf-normal.webp');
+ background:var(--emblem,none) center / 65% 65% no-repeat, var(--filter) center / contain no-repeat;
+ border:0; box-shadow:none; color:#fff2d3;
+}
+button.knob.on, .pool-knobs button.seal-knob.on {--filter:url('../../assets/ui/filterknopf-aktiv.webp'); color:#352411; text-shadow:none}
+.pool-knobs .common {--emblem:url('../../assets/ui/archivsiegel-common.webp')}
+.pool-knobs .rare {--emblem:url('../../assets/ui/archivsiegel-rare.webp')}
+.pool-knobs .epic {--emblem:url('../../assets/ui/archivsiegel-epic.webp')}
+.pool-knobs .legendary {--emblem:url('../../assets/ui/archivsiegel-legendary.webp')}
+.pool-knobs .legendary:after {content:none}
+.curve .bar, .mini-curve i {
+ background:var(--pillar) center top / 100% 80px no-repeat;
+}
+.mini-curve i {background-size:100% 26px}
+.ph-early {--pillar:url('../../assets/ui/manakurve-frueh.webp')}
+.ph-mid {--pillar:url('../../assets/ui/manakurve-mittel.webp')}
+.ph-late {--pillar:url('../../assets/ui/manakurve-spaet.webp')}
+.hero-medal .coin-rim, .shop-coin .coin-rim, .hero-coin .coin-face:after {
+ background:url('../../assets/ui/heldengalerie-medaillon.webp') center / 100% 100% no-repeat;
+ box-shadow:none; z-index:1; pointer-events:none;
+}
+.hero-coin .coin-face {position:relative}
+.hero-coin .coin-face:after {content:''; position:absolute; inset:-5px}
+.shop-coin .coin-rim {background-image:url('../../assets/ui/heldenmuenze-spieler.webp')}
+.shop-coin .coin-name {z-index:2; color:#fff0cd; text-shadow:0 1px 3px #281a10}
+.coin-rim:after {content:none}
+.mini-field {position:relative}
+.mini-field:after {content:''; position:absolute; inset:0; background:url('../../assets/ui/miniatur-spielfeld.webp') center / 100% 100%; pointer-events:none}
+.mini-field .mini-table {inset:21% 5% 26%; height:auto; transform:none; border:0; box-shadow:none; clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)}
+.mini-field .board-note {z-index:1}
+.station .st-seal, .station.done .st-seal, .station.locked .st-seal {
+ background:var(--stamp) center / contain no-repeat; box-shadow:none; --stamp:url('../../assets/ui/missionssiegel-offen.webp');
+}
+.station.done .st-seal {--stamp:url('../../assets/ui/missionssiegel-vollendet.webp')}
+.station.locked .st-seal {--stamp:url('../../assets/ui/missionssiegel-versiegelt.webp')}
+.station.siege .st-seal {--stamp:url('../../assets/ui/missionssiegel-offen-belagerung.webp')}
+.station.siege.done .st-seal {--stamp:url('../../assets/ui/missionssiegel-vollendet-belagerung.webp')}
+.station.siege.locked .st-seal {--stamp:url('../../assets/ui/missionssiegel-versiegelt-belagerung.webp')}
+.station.siege .tower:not(.fuse) {visibility:hidden}
+
+/* U06 */
+.arena-art {background:url('../../assets/ui/kolosseum-arena.webp') center 54% / cover}
+.arena-art:before {content:none}
+.panel.draft-run {background:linear-gradient(100deg,#251a10de,#21180fa6),url('../../assets/ui/kolosseum-sand.webp') center / cover}
+.laurel, .shield, .laurel.on, .shield.on, .option-socket {
+ border:0; background:var(--art) center / 100% 100% no-repeat; box-shadow:none;
+}
+.laurel {--art:url('../../assets/ui/kolosseum-lorbeer-leer.webp')}
+.laurel.on {--art:url('../../assets/ui/kolosseum-lorbeer-gewonnen.webp')}
+.shield {--art:url('../../assets/ui/kolosseum-schild-heil.webp')}
+.shield.on {--art:url('../../assets/ui/kolosseum-schild-gebrochen.webp')}
+.option-socket {--art:url('../../assets/ui/draft-wahl-gewoehnlich.webp'); border-radius:0; filter:drop-shadow(0 3px 5px var(--glow))}
+.option.rare .option-socket {--art:url('../../assets/ui/draft-wahl-selten.webp')}
+.option.epic .option-socket, .option.legendary .option-socket {--art:url('../../assets/ui/draft-wahl-episch.webp')}
+.option.legendary .option-socket {filter:sepia(.45) hue-rotate(222deg) drop-shadow(0 3px 5px var(--glow))}
+
+/* U07 */
+.gift-day .gift-seal, .gift-day.done .gift-seal, .gift-day.today .gift-seal {
+ opacity:1; background:var(--wax) center / contain no-repeat; box-shadow:none;
+}
+.gift-day {--wax:url('../../assets/ui/tagesgeschenk-offen.webp')}
+.gift-day.today {--wax:url('../../assets/ui/tagesgeschenk-heute.webp')}
+.gift-day.done {--wax:url('../../assets/ui/tagesgeschenk-abgeholt.webp')}
+.quest-card, .quest-card.learn {background:var(--tablet) center / 100% 100% no-repeat; border-color:transparent; box-shadow:none}
+.quest-card {--tablet:url('../../assets/ui/aufgabe-tafel.webp'); padding:20px 22px}
+.quest-card.learn {--tablet:url('../../assets/ui/aufgabe-tafel-lernen.webp')}
+.quest-card.learn .eyebrow {padding-right:36px}
+.hero-level .level-badge, .hero-coin .coin-level {
+ background:url('../../assets/ui/heldenstufe.webp') center / contain no-repeat, radial-gradient(ellipse,#48311e 52%,transparent 54%);
+ color:#ffecc3; border:0; box-shadow:none;
+}
+
+/* U08 und U09: Porträts, Sprecherposition und Epochenfarbe stammen aus der Szene. */
+button.chapter-seal {
+ background:radial-gradient(circle,color-mix(in srgb,var(--age) 45%,transparent) 0 32%,transparent 53%),
+  var(--chapter) center / contain no-repeat;
+ --chapter:url('../../assets/ui/kapitelsiegel-offen.webp'); box-shadow:none; border-color:transparent;
+}
+button.chapter-seal.complete {--chapter:url('../../assets/ui/kapitelsiegel-vollendet.webp')}
+button.chapter-seal.locked {--chapter:url('../../assets/ui/kapitelsiegel-versiegelt.webp'); filter:none}
+button.chapter-seal.current {border-color:#d7b56e}
+.scene-stage {
+ background:linear-gradient(var(--age),var(--age)) center 4% / 74% 4px no-repeat,url('../../assets/ui/szene-buehne.webp') center / 100% 100% no-repeat;
+}
+.speech, .speech.narration {
+ background:url('../../assets/ui/sprechblase.webp') center / 100% 100% no-repeat;
+ box-shadow:none; padding-inline:7%;
+}
+.speech:after {width:28px; height:18px; bottom:-11px; border:0; background:url('../../assets/ui/sprechblase-spitze.webp') center / 100% 100%}
+.speech.narration {background-image:url('../../assets/ui/erzaehlkasten.webp'); padding-left:14%}
+.chronicler-face {display:inline-block; vertical-align:middle; width:30px; height:30px; margin-right:8px; background:url('../../assets/ui/chronist.webp') center / contain no-repeat}
+.speaker.waiting {filter:none}
+.speaker.waiting .coin-face {position:relative}
+.speaker.waiting .coin-face:after {content:''; position:absolute; inset:0; background:url('../../assets/ui/schattenriss.webp') center / contain no-repeat}
+.speaker small {background:#392919ed; padding:1px 6px; border-radius:3px; color:#fff1ce}
+
+/* U10 bis U12 */
+.riddle-note .riddle-seal, .riddle-note.open .riddle-seal, .riddle-note.solved .riddle-seal {
+ background:var(--riddle) center / contain no-repeat; box-shadow:none; filter:none;
+}
+.riddle-note {--riddle:url('../../assets/ui/raetsel-siegel-versiegelt.webp')}
+.riddle-note.open {--riddle:url('../../assets/ui/raetsel-siegel-offen.webp')}
+.riddle-note.solved {--riddle:url('../../assets/ui/raetsel-siegel-geloest.webp')}
+.modal.riddle {
+ border-image:none; background:url('../../assets/ui/raetsel-lage.webp') center / 100% 100% no-repeat;
+ color:#362416; padding-inline:70px;
+}
+.modal.riddle h2, .riddle .riddle-text {color:#352314}
+.riddle .scene-years, .riddle .riddle-meta, .riddle .scene-source {color:#5b3b23}
+.riddle .riddle-goal {background:#4b311f; color:#fff0c9}
+.lesson-card .lesson-seal, .lesson-card.done .lesson-seal {
+ background:var(--lesson) center / contain no-repeat; box-shadow:none; border:0; color:#fff0c9; text-shadow:0 1px 3px #291508;
+}
+.lesson-card {--lesson:url('../../assets/ui/lehrstunde-siegel-offen.webp')}
+.lesson-card.next {--lesson:url('../../assets/ui/lehrstunde-siegel-naechste.webp')}
+.lesson-card.done {--lesson:url('../../assets/ui/lehrstunde-siegel-geschafft.webp')}
+.modal.update .update-seal {background:url('../../assets/ui/update-siegel.webp') center / contain no-repeat; border:0; box-shadow:none}
