@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /** Signierter Instrumentierungstest für die unveränderte veröffentlichte APK und den Release-Kandidaten. */
 public final class SpielstandAbnahme extends Instrumentation {
@@ -44,14 +45,19 @@ public final class SpielstandAbnahme extends Instrumentation {
         ArrayBlockingQueue<String> result = new ArrayBlockingQueue<>(1);
         runOnMainSync(() -> web.evaluateJavascript(script, value -> result.offer(value==null?"null":value)));
         String value = result.poll(60, TimeUnit.SECONDS);
-        if (value == null) throw new AssertionError("WebView antwortet nicht");
+        if (value == null) throw new TimeoutException("WebView antwortet nicht auf "+script);
         return value;
     }
     private void waitFor(String expression) throws Exception {
         android.util.Log.i("AeternaAbnahme","Warte auf "+expression);
         long end = SystemClock.elapsedRealtime()+480000;
         while (SystemClock.elapsedRealtime()<end) {
-            if ("true".equals(js("Boolean("+expression+")"))) return;
+            try {
+                if ("true".equals(js("Boolean("+expression+")"))) return;
+            } catch (TimeoutException e) {
+                // Beim Wechsel vom leeren Startdokument kann eine reine Zustandsabfrage verloren gehen.
+                android.util.Log.w("AeternaAbnahme",e.getMessage());
+            }
             SystemClock.sleep(250);
         }
         String page=js("JSON.stringify({url:location.href,screen:window.App?.screen,dialog:window.App?.dialog,loading:document.querySelector('#loading')?.textContent})");

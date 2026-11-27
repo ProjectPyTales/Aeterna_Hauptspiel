@@ -58,6 +58,9 @@ boot
 adb shell ls "$cert_path"
 adb shell wm size 960x540
 adb shell wm density 160
+adb shell input keyevent KEYCODE_WAKEUP
+adb shell wm dismiss-keyguard
+adb shell svc power stayon true
 adb logcat -v brief 'AndroidRuntime:E' 'chromium:I' 'AeternaAbnahme:I' 'ActivityManager:W' '*:S' > "$temp/android.log" &
 logpid=$!
 adb shell dumpsys webviewupdate | head -12
