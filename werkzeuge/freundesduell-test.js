@@ -58,9 +58,19 @@ async function main(){
   };
   await sync(s=>s.phase==='mulligan');
   for(const page of pages){await page.locator('button.karte').first().click();await page.getByText('Starthand bestätigen',{exact:true}).click();}
-  await sync(s=>s.phase==='play');let steps=0,restored=false,played=0,attacked=0;
+  await sync(s=>s.phase==='play');let steps=0,restored=false,reconnected=false,played=0,attacked=0;
   while(states[0].phase==='play'){
    assert.ok(++steps<1200,'Partie endet');
+   if(steps===5){
+    const old=states[1],connections=[...relay.clients];
+    assert.equal(connections.length,2);
+    // Der Gast wurde zuletzt verbunden. Den Transport trennen, ohne die Gastseite neu zu laden.
+    connections[1].terminate();
+    await pages[0].getByText(/Partie pausiert/).waitFor();
+    await sync((a,b)=>a.online.every(Boolean)&&b.online.every(Boolean));
+    assert.equal(states[1].rev,old.rev);assert.deepEqual(states[1].hand,old.hand);
+    assert.deepEqual(states[1].players,old.players);reconnected=true;
+   }
    if(steps===9){
     const rev=states[0].rev,publicBoard=states[0].players;
     const guestUrl=pages[1].url();
@@ -87,7 +97,7 @@ async function main(){
    if(a.type==='play')played++;if(a.type==='attack')attacked++;
    await sync(n=>n.rev===s.rev+1);
   }
-  assert.ok(played&&attacked&&restored);assert.equal(states[0].winner,states[1].winner);
+  assert.ok(played&&attacked&&restored&&reconnected);assert.equal(states[0].winner,states[1].winner);
   for(const page of pages)await page.getByText(/Du hast gewonnen|Gegenüber hat gewonnen|Unentschieden/).waitFor();
   const rejected=await pages[0].evaluate(url=>new Promise(resolve=>{const w=new WebSocket(url);w.onopen=()=>w.send(JSON.stringify({type:'create',version:'0.0.1'}));w.onclose=e=>resolve(e.code);}),url);
   assert.equal(rejected,4001);assert.deepEqual(errors,[]);

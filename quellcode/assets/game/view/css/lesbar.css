@@ -1,9 +1,3 @@
-/* Text und Quelle bleiben bei großer Schrift gemeinsam scrollbar. */
-.card-detail .details, .zoom .details { min-width: 0; overflow-wrap: anywhere; }
-@media (orientation:portrait) {
-  body.browser-game::after { content:'Für ein größeres Spielfeld ins Querformat drehen'; position:fixed; bottom:1em;
-    left:0; right:0; text-align:center; font:16px system-ui; color:#fff3de; pointer-events:none; }
-}
 /* Erzeugt von werkzeuge/lesbar_css.py – nicht von Hand ändern. Textgröße und ruhige Bewegung (Phase 7, seit 1.34.0). */
 html.text-gross .pack-info p{font-size:21.8px;line-height:1.32}
 html.text-gross .pack-info small{font-size:16.1px;line-height:1.32}

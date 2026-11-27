@@ -15,6 +15,14 @@ async function main(){
   link('alt');site=await serve(root);browser=await pw.chromium.launch();
   const page=await browser.newPage({viewport:{width:640,height:360},hasTouch:true,reducedMotion:'reduce'});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.addInitScript(()=>{
+   window.stimmproben=[];
+   const audio=window.Audio;
+   window.Audio=function(src){
+    const el=new audio(src);if(src?.includes('/stimmen/'))window.stimmproben.push(el);return el;
+   };
+   window.Audio.prototype=audio.prototype;
+  });
   const ready=()=>page.waitForFunction(()=>window.App?.artReady,null,{timeout:90000});
   await page.goto(site.url);await ready();
   const oldVersion=await page.evaluate(()=>AENEU.version);
@@ -45,6 +53,23 @@ async function main(){
     return r.left>=0&&r.right<=innerWidth&&y>=0&&y<innerHeight&&el.contains(document.elementFromPoint(x,y));});
    assert.ok(visible,kind+': lange Quelle abgeschnitten');await page.evaluate(()=>App.close());
   }
+  await page.evaluate(()=>App.vm.game.ctx.dialogs.settings());
+  await page.locator('#overlay .stone-tab',{hasText:'Klang'}).click();
+  const slider=key=>page.locator('#overlay input[data-a="'+key+'"]');
+  async function volume(key,value){
+   await slider(key).evaluate((el,v)=>{el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));},String(value));
+   assert.equal(await page.evaluate(k=>App.profile.settings[k],key),value);
+  }
+  await volume('music',.2);await volume('sfx',.45);await volume('voice',.65);
+  await page.locator('[data-cmd="sampleVoice"]').click();
+  await page.waitForFunction(()=>stimmproben.some(el=>!el.paused&&el.currentTime>0),null,{timeout:20000});
+  await volume('voice',0);
+  assert.ok(await page.evaluate(()=>stimmproben.every(el=>el.paused)));
+  const attempts=await page.evaluate(()=>stimmproben.length);
+  await page.locator('[data-cmd="sampleVoice"]').click();
+  assert.equal(await page.evaluate(()=>stimmproben.length),attempts);
+  assert.deepEqual(await page.evaluate(()=>[CHA.settings.music,CHA.settings.sfx]),[.2,.45]);
+  await volume('voice',.8);await page.evaluate(()=>App.close());
   // Ein vollständiges Offline-Duell. Beide Seiten verwenden die reguläre Aktionsverarbeitung des Matches.
   await page.evaluate(()=>{App.vm.menu.go('resume');App.profile.ambushSeen=true;});
   let count=0;
@@ -56,7 +81,7 @@ async function main(){
     if(App.dialog)App.close();vm.action(CHE.ai(g));});
   }
   assert.deepEqual(errors,[]);
-  console.log(oldVersion+' → '+version+': Sammlung, eigenes 30-Karten-Deck und laufende Partie identisch. Fortgesetzt und beendet. Lange Kartenquelle in beiden Ansichten bei 640 × 360 und sehr großer Schrift sichtbar.');
+  console.log(oldVersion+' → '+version+': Sammlung, eigenes 30-Karten-Deck und laufende Partie identisch. Fortgesetzt und beendet. Lange Kartenquelle in beiden Ansichten bei 640 × 360 und sehr großer Schrift sichtbar. Drei getrennte Klangregler, Ogg-Wiedergabe und sofortiges Stummschalten geprüft.');
  }finally{await browser?.close();site?.server.close();fs.rmSync(tmp,{recursive:true,force:true});}
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});

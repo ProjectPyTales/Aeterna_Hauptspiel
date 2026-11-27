@@ -1,5 +1,5 @@
 {
-  "anfang": "Zwei Zeiten treffen aufeinander. Das Duell beginnt.",
+  "anfang": "Zwei Zeiten treffen aufeinander.",
   "monument": "Ein Monument tritt aus der Geschichte.",
   "ende": "Die Schlacht ist entschieden.",
   "leonidas-gruss": "Wir halten diesen Pass.",
@@ -10,7 +10,7 @@
   "leonidas_9-angriff": "An meine Seite!",
   "leonidas_9-abschied": "Tragt den Schild weiter.",
   "hypatia-gruss": "Beginnen wir mit einer Frage.",
-  "hypatia-vorteil": "Diesen Zug kann man berechnen.",
+  "hypatia-vorteil": "Die Rechnung stimmt.",
   "hypatia-gefahr": "Ich prüfe die Rechnung noch einmal.",
   "hypatia-chronik": "In Alexandria kamen Schüler zu Hypatia, um Philosophie zu lernen. Der Kirchenhistoriker Sokrates lobt ihre Bildung.",
   "hypatia_9-auftritt": "Schaut durch mein Astrolabium.",
@@ -55,7 +55,7 @@
   "jeanne-vorteil": "Eine Stimme trägt die andere.",
   "jeanne-gefahr": "Auch eine leise Stimme zählt.",
   "jeanne-chronik": "Die Benediktsregel beschreibt den Dienst an der Klosterpforte. Eine erfahrene Person sollte dort Besucher empfangen.",
-  "jeanne_9-auftritt": "Kommt und lernt mit mir.",
+  "jeanne_9-auftritt": "Ich zeige euch den Weg.",
   "jeanne_9-angriff": "Haltet den Ton.",
   "jeanne_9-abschied": "Singt weiter.",
   "ragnar-gruss": "Wir brechen von Groitzsch auf.",
@@ -92,7 +92,7 @@
   "amanirenas-chronik": "Der Soldat Ahmose berichtet an seiner Grabwand, er sei in Nekheb aufgewachsen. Die Ruinen dieser Stadt liegen beim heutigen Elkab.",
   "amanirenas_9-auftritt": "Seht das Zeichen des Königs.",
   "amanirenas_9-angriff": "Für Theben!",
-  "amanirenas_9-abschied": "Tragt mich zurück.",
+  "amanirenas_9-abschied": "Das Zeichen des Königs bleibt.",
   "anna-gruss": "Ich werde diese Taten aufschreiben.",
   "anna-vorteil": "Diese Wendung verdient eine Zeile.",
   "anna-gefahr": "Unsere Geschichte geht weiter.",
@@ -134,7 +134,7 @@
   "mandukhai-chronik": "Segestes schickte Boten zu Germanicus, als er von Landsleuten bedrängt wurde. Der römische Feldherr kam ihm zu Hilfe.",
   "mandukhai_9-auftritt": "Die Verbündeten sind da.",
   "mandukhai_9-angriff": "Zusammen durch den Wald.",
-  "mandukhai_9-abschied": "Unsere Namen bleiben.",
+  "mandukhai_9-abschied": "Die Stämme stehen zusammen.",
   "baibars-gruss": "Die Kuriere sind unterwegs.",
   "baibars-vorteil": "Meine Vorhut hat dich gesehen.",
   "baibars-gefahr": "Es gibt einen zweiten Weg.",
@@ -161,5 +161,5 @@
   "neutral_38-abschied": "Bewahrt ihre Geschichten.",
   "neutral_39-auftritt": "Palmyra empfängt euch.",
   "neutral_39-angriff": "Die Karawanen ziehen weiter.",
-  "neutral_39-abschied": "Denkt an meine Stadt."
+  "neutral_39-abschied": "Meine Stadt wird leben."
 }

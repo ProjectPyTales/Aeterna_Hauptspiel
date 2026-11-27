@@ -12,6 +12,7 @@
   ];
   const infantry=['land','clash','thud'];
   let current, gain, speechBus, queue=[], lastComment=-Infinity, lastId='';
+  const spellVariant=new Map(), spellCues=['auftritt','angriff','abschied'];
   function stop(){
     queue=[];if(!current)return;
     current.onended=current.onerror=null;current.pause();current.removeAttribute('src');current.load();current=null;
@@ -49,7 +50,14 @@
       if(c?.type==='minion')foley(id,act.type==='attack'?1:0);
       if(dead.length)foley(dead[0].id,2);
       if(s.phase==='over')return;
-      if(c?.rarity==='legendary' && act.type==='play'){speak(['monument',id+'-auftritt'],true);return;}
+      if(c?.rarity==='legendary' && act.type==='play'){
+        let cue='auftritt';
+        if(c.type==='spell'){
+          const variant=spellVariant.get(id)||0;
+          cue=spellCues[variant];spellVariant.set(id,(variant+1)%spellCues.length);
+        }
+        speak(['monument',id+'-'+cue],true);return;
+      }
       if(legend){speak([legend.id+'-abschied']);return;}
       if(c?.rarity==='legendary'&&act.type==='attack'){if(lastId!==id){speak([id+'-angriff']);lastId=id;}return;}
       if(current||p!==1||s.turn<3||performance.now()-lastComment<35000)return;

@@ -1771,7 +1771,7 @@ Alle Animationen werden aus den Engine-Ereignissen (`events`) abgeleitet; Regeln
   zweimal rot (Diener und Held).*
 - [x] **Tod:** Die Siegel-Plakette zerbricht in Gesteinssplitter, danach der individuelle Fall- oder Sterbelaut.
   *Zwölf Splitter aus dem letzten Bild der Plakette fliegen mit Drall und Schwerkraft auseinander, dazu Staub; nach 260 ms
-  schleifen die Splitter über den Tisch (Bauwerke: schwerer Einsturz). Eigene Todeslaute je Einheit kommen mit AP 4.1.*
+  schleifen die Splitter über den Tisch (Bauwerke: schwerer Einsturz). Eigene Todeslaute je Einheit sind in 1.41.0 als Gruppenklänge umgesetzt.*
   *1.19.0 (Rückmeldung zu 1.18.0: „etwas zu viel“): Splitter kürzer, näher und ruhiger, kaum Staub, leiseres Schleifen.*
   *1.20.0 (Rückmeldung zu 1.19.0: „immer noch etwas viel, aber besser“): Splitter 460 statt 560 ms und noch näher, kein Staub
   und kein Schleifen mehr (nur ein Bauwerk stürzt hörbar ein), Todeslaut um 3 dB leiser.*
@@ -1861,7 +1861,7 @@ bitte mit dem Overlay gegenprüfen (Entscheidung 18).*
   herein, „GEGEN“ dazwischen, ein Pergamentband „Der Chronist verkündet“ entrollt sich mit leisem Horn: „Leonidas I. trifft auf
   Hypatia – die Chronik schlägt eine neue Seite auf.“ (in der Kampagne mit Mission und Gegner). Das Intro startet erst nach dem
   Steinplatten-Übergang, dauert 3,2 s (bei „Schnell“ die Hälfte) und lässt sich mit einem Tippen überspringen; die Stimme des
-  Chronisten kommt mit AP 4.2.*
+  Chronisten ist seit 1.41.0 eingebaut.*
 - [x] **Sieg:** Das gegnerische Herrscher-Relief bricht auseinander, ein Banner „TRIUMPH“ entrollt sich, Kriegshörner;
   danach werden Belohnungen mit Fortschrittsbalken ausgeschüttet. *Risse laufen über die Münze des Verlierers, sie zerbricht in
   zehn Keile (Treffer-Stopp, Wackeln, Staub), ein rot-goldenes Banner fällt und entrollt sich zu zwei Kriegshörnern im Quintabstand
@@ -1894,7 +1894,7 @@ nichts Neues. Offen ist nur ein eigener Auftritt für Legendäre:
 - [x] Beim Ausspielen einer Legendären hält das Spiel kurz an: ein Band mit Name und Epoche fährt über das Brett, ein Siegel prägt
   sich darauf, dann landet die Karte wie bisher mit schwerem Aufprall (AP 3.3). Höchstens 1 s, mit einem Tippen zu überspringen,
   bei „Schnell“ die Hälfte, bei ruhiger Bewegung nur das Band. Die KI-Legendären zeigen dasselbe. Platzhalter mit
-  `ASTRA: legendaer-band – …`; die Stimme des Chronisten kommt mit AP 4.2.
+  `ASTRA: legendaer-band – …`; die Stimme des Chronisten ist seit 1.41.0 eingebaut.
   *1.38.0: Phase „herald“ (700 ms auf der Match-Uhr) vor der Zeitleiste des Ausspielens (`view/match/motion.js`); Band mit Name,
   „Legendär · Held · Epoche“ und goldenem Siegel mit Horn und Siegelklang (`F.herald` in `fx.js`, zuletzt über allem gezeichnet);
   Tippen springt an sein Ende (`M.skipHerald`); Hinterhalte bleiben verdeckt. Astra-Paket U13 (`legendaer-band`, `legendaer-siegel`).*
@@ -1922,7 +1922,7 @@ nichts Neues. Offen ist nur ein eigener Auftritt für Legendäre:
   schwachen Angriff, Hypatia analysiert einen Fehler); mit Abklingzeit, damit es nie nervt. Kein Spieler-Emote-Spam.
 
 **AP 4.4 – Geräuschkulisse und Musik**
-- [ ] Kategorien: Stein-UI, Pergament/Karten, Kampf, Magie, Belohnung; Lautheit angleichen; Quellen in den Credits.
+- [x] Stein-UI, Pergament und Karten, Kampf, Magie und Belohnung nutzen die abgemischten Geräuschgruppen. Die Quellen stehen in den Credits.
 - [x] Musikentscheidung seit 1.13.0: die beiden eigenen Aufnahmen für Menü und Duell.
 
 **AP 4.5 – Haptik-Sprache** (benötigt AP 2.1)
