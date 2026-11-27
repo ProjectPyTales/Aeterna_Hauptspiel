@@ -35,3 +35,23 @@
 
 /* Large view of a card (feedback on 1.21.0): the motif fills its frame – the older rule .card-detail img (300 px) no longer wins. */
 .zoom-detail .zoom-art img{width:100%}
+
+/* Gemeinsame Aktionsknöpfe. Neun Segmente halten die Bronzeecken auch bei langen Namen maßhaltig.
+   Der Rahmen wird über die bestehende Fläche gemalt und ändert weder Innenraum noch Trefferfläche. */
+button.stone-action {
+ border-image: url('../../assets/ui/knopf-match-ruhend.webp') 32 fill / 12px / 0 stretch;
+ color: #fff0d0;
+ text-shadow: 0 1px 2px #281c14;
+}
+button.stone-action.gold {
+ border-image-source: url('../../assets/ui/knopf-match-aktiv.webp');
+ color: #2e1a0f;
+ text-shadow: 0 1px #fff0cc;
+}
+button.stone-action.teal, button.stone-action.owned-toggle.on {
+ border-image-source: url('../../assets/ui/steinknopf-tuerkis.webp');
+}
+button.stone-action.danger {
+ border-image-source: url('../../assets/ui/steinknopf-gefahr.webp');
+}
+button.stone-action:active:enabled {filter: brightness(.87)}

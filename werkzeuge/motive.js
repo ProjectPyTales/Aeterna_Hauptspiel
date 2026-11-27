@@ -6,8 +6,8 @@ const game=path.join(__dirname,'../quellcode/assets/game');
 const D=require(path.join(game,'model/data.js')),L=require(path.join(game,'model/lore.js')),K=require(path.join(game,'model/cosmetics.js'));
 
 // Gemeinsamer Prompt-Anfang für Kartenmotive – derselbe Stil wie der Prompt-Anfang aus AP 1.2, aber als Bild im Kartenfenster.
-const START='Card illustration for a mobile card game, hand-painted stylized fantasy-antique style matching the Aeterna concept art, '+
- 'warm golden light, rich detail, clean readable silhouette centred for a round portrait crop, painterly background, no text, no frame';
+const START='Card illustration for a mobile card game, warm, hand-painted historical semi-realism matching the Aeterna card art, '+
+ 'warm light from the upper right, rich detail, clean readable silhouette centred for a round portrait crop, painterly background, no text, no frame';
 // Bildidee je Karte (englisch, für die Bild-KI). Fehlt sie, nennt der Prompt Name und Kartentext.
 const IDEA={
  // AP 5.7 Teil 1 (1.27.0): Erweiterung „Wunder der Welt“
@@ -407,7 +407,7 @@ const tables=K.catalog.boards.filter(b=>!b.image);
 // MOTIVE.md dieselben Kennungen nennen.
 const ASTRA=/ASTRA: ([a-z0-9-]+) – (.+?), ([^,]*?\d+ × \d+)/g;
 const UI='Game UI asset for a mobile card game, hand-painted in the Aeterna style matching the concept art: warm limestone, '+
- 'polished dark wood, bronze, gold leaf and lapis accents, light from the upper left, soft ambient shadows, transparent background, no text';
+ 'polished dark wood, bronze, gold leaf and lapis accents, light from the upper right, soft ambient shadows, transparent background, no text';
 function astra(){const out=[],base=path.join(__dirname,'..');
  const walk=dir=>{for(const e of fs.readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const f=path.join(dir,e.name);
   if(e.isDirectory())walk(f);else if(/\.(js|css|html)$/.test(e.name)&&!e.name.endsWith('.min.js'))
@@ -427,10 +427,9 @@ einen gestalteten Platzhalter (Epochenfarbe, Symbol, „Motiv folgt“; AP 5.12)
 **Stand:** ${cards.length} Karten ohne Motiv, ${heroes.length} Helden ohne Porträt, ${tables.length} Schlachtfelder ohne Bild, ${drawn.length} im Code gezeichnete Grafiken.
 Die Karten der elf Lehrplan-Helden tragen seit 1.15.0 (AP L.2) Namen und Bildideen aus deren Lebenswelt.
 
-**Für Astra gilt seit 1.21.0 (AP A.1) \`ungenutzte_assets/ASTRA_AUFTRAG.md\`:** Dort stehen alle Karten, die noch kein
-Astra-Bild haben – auch die, die hier fehlen, weil sie noch ein altes Bild zeigen –, mit Motivbeschreibung. Lieferungen
-kommen nach \`ungenutzte_assets/neue_astra_assets/\`, \`python3 werkzeuge/astra_bilder.py\` baut sie ein. Diese Liste
-zeigt nur, wo das Spiel heute einen Platzhalter zeichnet.
+Den Bildstand jeder Karte und jedes Spielsteins führt \`ungenutzte_assets/ASTRA_STAND.csv\`.
+Offene Bildaufträge und historische Korrekturen stehen in \`ungenutzte_assets/ASTRA_AUFTRAG.md\`.
+Lieferungen kommen nach \`ungenutzte_assets/neue_astra_assets/\`. Das Werkzeug \`werkzeuge/astra_bilder.py\` baut sie ein.
 
 | ID | Name | Held | Typ | Größe (px) | Prompt |
 |---|---|---|---|---|---|

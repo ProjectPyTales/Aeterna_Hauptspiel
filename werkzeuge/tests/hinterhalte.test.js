@@ -5,6 +5,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),path=requir
 const game=path.join(__dirname,'../../quellcode/assets/game');
 const need=f=>require(path.join(game,f));
 const D=need('model/data.js'),E=need('model/engine.js'),L=need('model/lore.js');
+const images=need('model/bilder.js');
 const TRIGGERS=['attack','hero','defend','minion','spell','death'];
 const AMBUSH=D.cards.filter(c=>c.ambush&&!c.set);
 
@@ -21,7 +22,7 @@ test('Zwölf Hinterhalte: Zauber mit Auslöser, „Hinterhalt:“ im Text, Gloss
  assert.equal(AMBUSH.length,12);assert.equal(D.cards.filter(c=>!c.set).length,362,'ohne die Erweiterung (AP 5.7)');
  assert.deepEqual(D.cards.slice(350,362).map(c=>c.id),['neutral_50','neutral_51','steppe_7','griechen_7','rom_7','mittelalter_7','byzanz_7','ostasien_7','khan_13','fabius_10','anna_12','leonidas_12']);
  for(const c of AMBUSH){assert.equal(c.type,'spell',c.id);assert.ok(TRIGGERS.includes(c.ambush),c.id);assert.ok(c.text.startsWith('Hinterhalt: Wenn '),c.id);
-  assert.equal(c.target,null,c.id+': kein Ziel beim Ausspielen');assert.ok(D.missingArt(c),c.id+': Platzhalter bis Astra');
+  assert.equal(c.target,null,c.id+': kein Ziel beim Ausspielen');assert.deepEqual([c.art,c.cell],images.cards[c.id],c.id+': eigenes Bild im Atlas');
   assert.ok(D.keywordsOf(c.text).some(k=>k.name==='Hinterhalt'),c.id);
   const line=L.card(c.id);assert.ok(line&&line[0].length>60&&line[1].length>5,c.id+': Aus der Chronik mit Quelle');}
  // Jeder Held kann Hinterhalte spielen: zwei neutrale und je einer für jedes Zeitalter.

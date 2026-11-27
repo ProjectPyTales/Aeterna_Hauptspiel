@@ -42,16 +42,23 @@ test('Stand: ASTRA_STAND.csv nennt alle Karten und Spielsteine, Auftrag nur offe
   assert.equal(['eingebaut','Revision'].includes(s),!!B.cards[id],id+': Status passt zu bilder.js');
   // AP L.6: „altes Bild“ heißt, das Spiel zeigt ein altes, geprüftes Bild – nicht den Platzhalter.
   if(s==='altes Bild')assert.ok(D.byId[id].art&&!D.missingArt(D.byId[id])&&!D.byId[id].art.startsWith('astra'),id+': altes Bild im Spiel');}
- // Entscheidung 21 (AP L.6): 39 alte Bilder bleiben, der nie gerufene Pyramidenwächter wird nicht bestellt.
- assert.equal(Object.values(status).filter(s=>s==='altes Bild').length,39);assert.equal(status.stoneguard,'unbenutzt');
- for(const id of ['neutral_6','neutral_8','neutral_20','neutral_23','hypatia_0'])assert.equal(status[id],'offen',id+': altes Bild stimmt nicht');
+ // Die Dublette von Rekrut und Krieger ist aufgelöst. Die übrigen geprüften alten Bilder bleiben.
+ assert.equal(Object.values(status).filter(s=>s==='altes Bild').length,38);assert.equal(status.stoneguard,'unbenutzt');
+ assert.equal(status.warrior,'eingebaut');
+ assert.notDeepEqual([D.tokens.warrior.art,D.tokens.warrior.cell],[D.tokens.recruit.art,D.tokens.recruit.cell]);
+ for(const id of ['fabius_0','neutral_6','neutral_8','neutral_20','neutral_23','hypatia_0'])assert.equal(status[id],'eingebaut',id+': historisches Ersatzmotiv');
+ const tokens='eagle totem_fire totem_guard totem_strength rider chariot terracotta tribesman wagon taborite mamluk immortal messenian companion twin elephant pyramid citizen pioneer parthenos student standard'.split(' ');
+ for(const id of tokens)assert.equal(status[id],'eingebaut',id+': Spielstein mit eigenem Motiv');
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG.md'),'utf8');
- for(const [id,s] of Object.entries(status))assert.equal(md.includes('| `'+id+'` |'),['offen','Revision','wiederbeschaffen'].includes(s),id+' im Auftrag');
+ const orders=md.slice(md.indexOf('## 5. Kartenillustrationen'));
+ for(const [id,s] of Object.entries(status))assert.equal(orders.includes('| `'+id+'` |'),['offen','Revision','wiederbeschaffen'].includes(s),id+' im Auftrag');
 });
 
 test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ein Bildfenster, CSS zeigt auf vorhandene Bilder',()=>{
  const ui=path.join(game,'assets/ui');
  for(const [name,[w,h]] of Object.entries(B.ui))assert.deepEqual(size(path.join(ui,name+'.webp')),[w,h],name);
+ for(const name of ['knopf-match-aktiv','knopf-match-ruhend','steinknopf-tuerkis','steinknopf-gefahr'])assert.deepEqual(B.ui[name],[344,128],name);
+ assert.deepEqual(B.ui.lebensherz,[96,96]);assert.deepEqual(B.ui.phalanxschild,[112,112]);
  for(const kind of ['minion','spell','building'])for(const v of ['normal','gold']){const k=kind+'-'+v,[x0,y0,x1,y1]=B.windows[k];
   assert.ok(B.ui['kartenrahmen-'+k],k);assert.ok(x0>20&&x1<180&&y0>20&&y1<180&&x1-x0>80&&y1-y0>80,k+': Fenster im Tempeltor');}
  for(const back of ['chroniken','tempel','sparta','pharao','runen','sterne','lilien','zen'])assert.ok(B.ui['kartenruecken-'+back],back);
@@ -95,7 +102,7 @@ test('Bestellpakete: Referenzbilder liegen bereit, Lieferordner Lieferung_K… w
  for(const m of tool.matchAll(/'(quellcode\/assets\/game\/assets\/ui\/[a-z-]+\.webp)'/g))assert.ok(fs.existsSync(path.join(root,m[1])),m[1]);
  assert.match(tool,/d\.startswith\('Lieferung_K'\)/);assert.match(tool,/'--nur-auftrag' in sys\.argv/);
  const start=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_START.md'),'utf8');
- for(const w of ['K01','K32','U01','U11','Lieferung_K01','Aeterna_Hauptspiel','astra_bilder.py','imhotep_3.png','griechen_6.png','epaminondas_5.png'])assert.ok(start.includes(w),w);
+ for(const w of ['K01','K32','U01','U13','Lieferung_K02','Aeterna_Hauptspiel','astra_bilder.py','imhotep_3.png','griechen_6.png','epaminondas_5.png'])assert.ok(start.includes(w),w);
  const rows=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_STAND.csv'),'utf8').split('\n').filter(l=>l.split(';')[3]==='wiederbeschaffen').map(l=>l.split(';')[0]);
  for(const i of rows)assert.ok(start.includes('`'+i+'`'),'Teil 4: '+i);
 });

@@ -1,6 +1,6 @@
 # AETERNA – Auftrag an Astra: noch fehlende Kartenbilder
 
-*Erzeugt von `werkzeuge/astra_bilder.py` – nicht von Hand ändern. Grundlage: alle Lieferungen in `ungenutzte_assets/neue_astra_assets/` (Teil 1–6, gerettet, gerettet_2te) und das Produktionsbriefing (`neue_astra_assets/PRODUKTIONSBRIEFING.md`). Jede Karte mit Status steht in `ASTRA_STAND.csv`.*
+*Erzeugt von `werkzeuge/astra_bilder.py` – nicht von Hand ändern. Grundlage: alle Lieferungen in `ungenutzte_assets/neue_astra_assets/` (Teil 1–6, gerettete Bilder und Lieferung_K…) und das Produktionsbriefing (`neue_astra_assets/PRODUKTIONSBRIEFING.md`). Jede Karte mit Status steht in `ASTRA_STAND.csv`.*
 
 **Diese Datei ersetzt das alte Produktionsbriefing als Übergabe an die Bild-KI.** Sie enthält nur noch, was wirklich fehlt; alles Gelieferte ist im Spiel eingebaut und darf nicht erneut erzeugt werden.
 
@@ -8,64 +8,31 @@
 
 | Status | Karten | Spielsteine | Summe |
 |---|---:|---:|---:|
-| Eingebaut (im Spiel) | 163 | 3 | **166** |
-| Eingebaut, Korrektur nötig | 1 | 0 | **1** |
-| Altes Bild bleibt (AP L.6) – nicht erzeugen | 36 | 3 | **39** |
+| Eingebaut (im Spiel) | 380 | 26 | **406** |
+| Eingebaut, Korrektur nötig | 0 | 0 | **0** |
+| Altes Bild bleibt (AP L.6) – nicht erzeugen | 36 | 2 | **38** |
 | Im Spiel nie gerufen – nicht erzeugen | 0 | 1 | **1** |
-| Neu erzeugen | 213 | 19 | **232** |
-| Teil 4 beschädigt – Original suchen, sonst neu | 3 | 3 | **6** |
+| Neu erzeugen | 0 | 0 | **0** |
+| Teil 4 beschädigt – Original suchen, sonst neu | 0 | 0 | **0** |
 | Gesperrt – Zuordnung klären | 0 | 0 | **0** |
 | **Gesamt** | **416** | **29** | **445** |
 
-Im Spiel: 167 Karten und Spielsteine in 14 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
+Im Spiel: 406 Karten und Spielsteine in 34 Atlanten, alle 22 Heldenporträts, 4 Marmor-Skins, 5 Schlachtfeld-Tische. Lieferformat ist egal (PNG oder WebP): `werkzeuge/astra_bilder.py` erzeugt daraus die WebP-Atlanten des Spiels. Bitte weiter **PNG 1024 × 1024** (oder das native Original) liefern, je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.
 
 
 ## 0. Bestellpakete – in dieser Reihenfolge bestellen
 
-Jedes Paket liegt als eigene Datei in `ungenutzte_assets/astra_bestellung/` – mit Auftrag zum Kopieren, Referenzen und genau seinen Motiven. Anleitung: `ungenutzte_assets/ASTRA_START.md`. Karten (K) und Oberfläche (U) sind unabhängig; beide Reihen lassen sich abwechselnd bestellen.
+Jedes Paket liegt als eigene Datei in `ungenutzte_assets/astra_bestellung/` – mit Auftrag zum Kopieren, Referenzen und genau seinen Motiven. Die Anleitung steht in `ungenutzte_assets/ASTRA_START.md`.
 
-| Paket | Bilder | Gruppen | IDs |
-|---|---:|---|---|
-| [K01](astra_bestellung/K01.md) | 2 | Fabius Maximus · Römische Republik | `fabius_0`, `fabius_9` |
-| [K02](astra_bestellung/K02.md) | 9 | Thusnelda · Cherusker | `mandukhai_1`, `mandukhai_2`, `mandukhai_3`, `mandukhai_4`, `mandukhai_5`, `mandukhai_6`, `mandukhai_7`, `mandukhai_8`, `mandukhai_9` |
-| [K03](astra_bestellung/K03.md) | 7 | Zeitalter · Rom und Germanien | `rom_0`, `rom_1`, `rom_2`, `rom_3`, `rom_4`, `rom_5`, `rom_6` |
-| [K04](astra_bestellung/K04.md) | 10 | Widukind · Sachsen, Theophanu · Ottonen | `khan_3`, `khan_10`, `khan_11`, `khan_12`, `masako_0`, `masako_1`, `masako_2`, `masako_3`, `masako_4`, `masako_5` |
-| [K05](astra_bestellung/K05.md) | 6 | Theophanu · Ottonen | `masako_6`, `masako_7`, `masako_8`, `masako_9`, `masako_10`, `masako_11` |
-| [K06](astra_bestellung/K06.md) | 7 | Wiprecht von Groitzsch · Mark Meißen | `ragnar_0`, `ragnar_1`, `ragnar_2`, `ragnar_3`, `ragnar_4`, `ragnar_5`, `ragnar_6` |
-| [K07](astra_bestellung/K07.md) | 7 | Wiprecht von Groitzsch · Mark Meißen | `ragnar_7`, `ragnar_8`, `ragnar_9`, `ragnar_10`, `ragnar_11`, `ragnar_12`, `ragnar_13` |
-| [K08](astra_bestellung/K08.md) | 7 | Ulrich von Liechtenstein · Steiermark | `musashi_0`, `musashi_1`, `musashi_2`, `musashi_3`, `musashi_4`, `musashi_5`, `musashi_6` |
-| [K09](astra_bestellung/K09.md) | 6 | Ulrich von Liechtenstein · Steiermark | `musashi_7`, `musashi_8`, `musashi_9`, `musashi_10`, `musashi_11`, `musashi_12` |
-| [K10](astra_bestellung/K10.md) | 7 | Zeitalter · Mittelalter im Reich | `mittelalter_0`, `mittelalter_1`, `mittelalter_2`, `mittelalter_3`, `mittelalter_4`, `mittelalter_5`, `mittelalter_6` |
-| [K11](astra_bestellung/K11.md) | 6 | Anna Komnene · Byzanz | `anna_0`, `anna_1`, `anna_2`, `anna_3`, `anna_4`, `anna_5` |
-| [K12](astra_bestellung/K12.md) | 6 | Anna Komnene · Byzanz | `anna_6`, `anna_7`, `anna_8`, `anna_9`, `anna_10`, `anna_11` |
-| [K13](astra_bestellung/K13.md) | 5 | Baibars · Mamluken | `baibars_5`, `baibars_6`, `baibars_7`, `baibars_8`, `baibars_9` |
-| [K14](astra_bestellung/K14.md) | 7 | Zeitalter · Kreuzzüge | `byzanz_0`, `byzanz_1`, `byzanz_2`, `byzanz_3`, `byzanz_4`, `byzanz_5`, `byzanz_6` |
-| [K15](astra_bestellung/K15.md) | 6 | Nezahualcóyotl · Texcoco | `nezahualcoyotl_0`, `nezahualcoyotl_1`, `nezahualcoyotl_2`, `nezahualcoyotl_3`, `nezahualcoyotl_4`, `nezahualcoyotl_5` |
-| [K16](astra_bestellung/K16.md) | 6 | Nezahualcóyotl · Texcoco | `nezahualcoyotl_6`, `nezahualcoyotl_7`, `nezahualcoyotl_8`, `nezahualcoyotl_9`, `nezahualcoyotl_10`, `nezahualcoyotl_11` |
-| [K17](astra_bestellung/K17.md) | 10 | Vauban · Frankreich | `zizka_0`, `zizka_1`, `zizka_2`, `zizka_3`, `zizka_4`, `zizka_5`, `zizka_6`, `zizka_7`, `zizka_8`, `zizka_9` |
-| [K18](astra_bestellung/K18.md) | 10 | Johann Friedrich Böttger · Dresden und Meißen, Zeitalter · Frühe Neuzeit | `nostradamus_10`, `nostradamus_11`, `nostradamus_12`, `ostasien_0`, `ostasien_1`, `ostasien_2`, `ostasien_3`, `ostasien_4`, `ostasien_5`, `ostasien_6` |
-| [K19](astra_bestellung/K19.md) | 7 | Zeitalter · Frühzeit und Ägypten | `steppe_0`, `steppe_1`, `steppe_2`, `steppe_3`, `steppe_4`, `steppe_5`, `steppe_6` |
-| [K20](astra_bestellung/K20.md) | 8 | Neutrale Karten | `neutral_6`, `neutral_8`, `neutral_20`, `neutral_23`, `neutral_27`, `neutral_33`, `neutral_34`, `neutral_36` |
-| [K21](astra_bestellung/K21.md) | 8 | Neutrale Karten | `neutral_42`, `neutral_43`, `neutral_44`, `neutral_45`, `neutral_46`, `neutral_47`, `neutral_48`, `neutral_49` |
-| [K22](astra_bestellung/K22.md) | 9 | Spielsteine | `eagle`, `totem_fire`, `totem_guard`, `totem_strength`, `rider`, `chariot`, `terracotta`, `tribesman`, `wagon` |
-| [K23](astra_bestellung/K23.md) | 8 | Spielsteine | `taborite`, `mamluk`, `immortal`, `messenian`, `companion`, `twin`, `elephant`, `pyramid` |
-| [K24](astra_bestellung/K24.md) | 7 | Aus Teil 4 wiederbeschaffen, Alexandria · Spätantike (Entscheidung 19: neu bestellen) | `pioneer`, `perikles_7`, `perikles_8`, `perikles_9`, `citizen`, `parthenos`, `hypatia_0` |
-| [K25](astra_bestellung/K25.md) | 8 | Spielsteine, Hinterhalte (AP 5.6) | `student`, `neutral_50`, `neutral_51`, `steppe_7`, `griechen_7`, `rom_7`, `mittelalter_7`, `byzanz_7` |
-| [K26](astra_bestellung/K26.md) | 6 | Hinterhalte (AP 5.6) | `ostasien_7`, `khan_13`, `fabius_10`, `anna_12`, `leonidas_12`, `standard` |
-| [K27](astra_bestellung/K27.md) | 9 | Wunder der Welt (AP 5.7) | `leonidas_13`, `hypatia_12`, `imhotep_13`, `dandolo_13`, `khan_14`, `boudicca_13`, `nostradamus_13`, `jeanne_12`, `ragnar_14` |
-| [K28](astra_bestellung/K28.md) | 9 | Wunder der Welt (AP 5.7) | `musashi_13`, `perikles_12`, `agrippa_12`, `amanirenas_12`, `anna_13`, `nezahualcoyotl_12`, `masako_12`, `epaminondas_10`, `fabius_11` |
-| [K29](astra_bestellung/K29.md) | 9 | Wunder der Welt (AP 5.7) | `mandukhai_10`, `baibars_10`, `zizka_10`, `fuhao_10`, `neutral_52`, `neutral_53`, `neutral_54`, `neutral_55`, `neutral_56` |
-| [K30](astra_bestellung/K30.md) | 9 | Wunder der Welt (AP 5.7) | `leonidas_14`, `hypatia_13`, `imhotep_14`, `dandolo_14`, `khan_15`, `boudicca_14`, `nostradamus_14`, `jeanne_13`, `ragnar_15` |
-| [K31](astra_bestellung/K31.md) | 9 | Wunder der Welt (AP 5.7) | `musashi_14`, `perikles_13`, `agrippa_13`, `amanirenas_13`, `anna_14`, `nezahualcoyotl_13`, `masako_13`, `epaminondas_11`, `fabius_12` |
-| [K32](astra_bestellung/K32.md) | 9 | Wunder der Welt (AP 5.7) | `mandukhai_11`, `baibars_11`, `zizka_11`, `fuhao_11`, `neutral_57`, `neutral_58`, `neutral_59`, `neutral_60`, `neutral_61` |
+Alle Kartenpakete sind abgeschlossen.
 
 | Paket | Oberfläche | Zeilen |
 |---|---|---:|
-| [U01](astra_bestellung/U01.md) | Spielbrett: Mana, Zug, Helden (10 Teile, 27 Dateien) | 11 |
+| [U01](astra_bestellung/U01.md) | Spielbrett: Mana, Zug, Helden (7 Teile, 23 Dateien) | 8 |
 | [U02](astra_bestellung/U02.md) | Karten und Werte (10 Teile mit `goldglanz-basar`, 20 Dateien) | 9 |
 | [U03](astra_bestellung/U03.md) | Schlüsselwörter und Effekte (13 Teile, 20 Dateien) | 13 |
 | [U04](astra_bestellung/U04.md) | Inszenierung: Anfang und Ende (6 Teile mit `faehigkeits-effekt`, 30 Dateien) | 5 |
-| [U05](astra_bestellung/U05.md) | Menüs (12 Teile, 27 Dateien) | 12 |
+| [U05](astra_bestellung/U05.md) | Menüs (10 Teile, 19 Dateien) | 10 |
 | [U06](astra_bestellung/U06.md) | Kolosseum als Draft (5 Teile, 9 Dateien, seit 1.29.0) | 5 |
 | [U07](astra_bestellung/U07.md) | Aufgaben und Heldenstufen (3 Teile, 6 Dateien, seit 1.30.0) | 3 |
 | [U08](astra_bestellung/U08.md) | Kampagne 2.0 mit Lunte (5 Teile, 7 Dateien, seit 1.31.0) | 5 |
@@ -175,410 +142,11 @@ Die technischen IDs bleiben wegen bestehender Spielstände erhalten. Der aktuell
 | `totem_*` | Grenzsteine | Fantasy-Totempfähle |
 
 
-## 5. Kartenillustrationen: 217
+## 5. Kartenillustrationen: 0
 
 Profil **K1**: PNG, 1024 × 1024 px, 1:1, deckend, sRGB; Dateiname `<ID>.png`.
 
 
-### Fabius Maximus · Römische Republik
-
-**Stil-/Epochenkontext:** Rom und Süditalien im Zweiten Punischen Krieg. Republikanische Ausrüstung mit ovalen Schilden, passenden Helmen, Speeren und Kettenrüstung. Ziegelrot, warmes Leder und Bronze. Keine kaiserzeitliche Segmentrüstung oder spätere Kaiserinsignien.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `fabius_0` | Veles | Revision: Veles trägt zu schwere Rüstung: schlichte Tunika, kleiner leichter Rundschild, Wurfspeere, kein Kettenhemd. | Junger römischer Veles mit leichtem Schild und Wurfspeeren auf einem Hügel. Bewegliche, unbeschwerte Haltung und republikanische Ausrüstung. |
-| `fabius_9` | Marcellus, Schwert Roms | neu | Marcellus hebt im Gefecht sein Schwert, römische Soldaten hinter ihm. Heroische Halbfigur mit eigenem Gesicht, kein Agrippa-Porträt übernehmen. |
-
-### Thusnelda · Cherusker
-
-**Stil-/Epochenkontext:** Germanien zwischen Rhein und Weser in der frühen Kaiserzeit. Wolle, Leinen, Fibeln, Speere, Holzschilde und Langhäuser. Waldgrün, Holzbraun und Leinenbeige. Keine Mongolen, Wikingerhörner, Burgen oder Fantasy-Korsetts. Konkrete Ereignisjahre der Einzelmotive gehen vor.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `mandukhai_1` | Hüterin des Herdfeuers | neu | Frau versorgt das Herdfeuer in einem germanischen Langhaus. Ruhige Innenraumszene mit Keramik und Holz; keine Hexendarstellung. |
-| `mandukhai_2` | Ruf zum Thing | neu | Krieger stimmen bei einer Versammlung durch Speerschläge auf Schilde zu. Kreisförmige Gruppe unter Bäumen; Versammlung statt Schlacht. |
-| `mandukhai_3` | Krieger im Keil | neu | Germanische Krieger greifen in einer Keilformation an. Drei deutliche Vordergrundfiguren, übrige Gruppe reduziert; Rundschilde und Speere. |
-| `mandukhai_4` | Varusschlacht | neu | Angriff auf einen römischen Marschzug im nassen Wald, Regen und Schlamm. Unübersichtlichkeit durch Tiefe, nicht durch unlesbares Gewimmel; Jahr 9 als Spielkontext. |
-| `mandukhai_5` | Krieger der Sippe | neu | Zwei Krieger derselben Sippe nebeneinander mit Speeren und bemalten Schilden. Familiäre Verbundenheit, unterschiedliche Gesichter; kein einzelner Token. |
-| `mandukhai_6` | Heiliger Hain | neu | Alter Eichenhain mit aufgehängten Waffenzeichen. Landschaft und kultischer Ort als Motiv; keine Zauberrunen, die in der Luft leuchten. |
-| `mandukhai_7` | Seitenwechsel | neu | Germanischer Auxiliarsoldat legt ein römisches Feldzeichen nieder und wendet sich seinen Stammesangehörigen zu. Seitenwechsel als eindeutige Geste. |
-| `mandukhai_8` | Arminius, Fürst der Cherusker | neu | Arminius mit Elementen römischer Offiziersausrüstung und germanischem Mantel vor dunklem Wald. Halbfigur, natürliche Physiognomie; keine Fantasy-Krone. |
-| `mandukhai_9` | Bund der Stämme | neu | Anführer mehrerer Stämme schließen am Feuer ein Bündnis durch Handschlag. Hände und Gesichter als Fokus; regionale Unterschiede sparsam darstellen. |
-
-### Zeitalter · Rom und Germanien
-
-**Stil-/Epochenkontext:** Römische Republik beziehungsweise frühe Kaiserzeit passend zum konkreten Motiv. Toga, römische Helme und Schilde; Marmor, Kalkstein, Ziegelrot. Arena, Kurie, Triumph und Straßenbau als unterschiedliche Bildtypen behandeln.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `rom_0` | Gladiator | neu | Römischer Netzgladiator mit Dreizack in der Arena. Netzführung, unbehinderte Silhouette und Sandboden; keine überladene Ganzkörperrüstung. |
-| `rom_1` | Senator der Kurie | neu | Senator in Toga spricht in der Kurie vor sitzenden Zuhörern. Redegeste und Gesicht im Fokus; keine Schrift im Hintergrund. |
-| `rom_2` | Centurio | neu | Centurio mit Querhelmbusch ermutigt einen Legionär. Zwei Figuren, erkennbare Rangunterschiede und römische Ausrüstung. |
-| `rom_3` | Triumphzug | neu | Römischer Triumphzug mit Feldherrn in einer Quadriga. Wagen und Pferde im Vordergrund, Menschenmenge vereinfacht; keine lesbaren Triumphinschriften. |
-| `rom_4` | Via Appia | neu | Via Appia mit Steinpflaster, Grabbauten und Zypressen; eine Legion zieht in die Ferne. Fluchtpunkt und Wegstruktur als Hauptmotiv. |
-| `rom_5` | Vestalin am ewigen Feuer | neu | Vestalin versorgt das heilige Feuer im Rundtempel. Helles Gewand, ruhige Haltung und Feuerschale; keine Fantasy-Priesterin. |
-| `rom_6` | Pax Romana | neu | Ara Pacis als ruhiges Architektur- und Reliefmotiv im warmen Licht. Frieden durch Atmosphäre; keine moderne Museumshülle. |
-
-### Widukind · Sachsen
-
-**Stil-/Epochenkontext:** Sachsenkriege des 8. Jahrhunderts, Westfalen und Weserraum. Wolltunika, Mantel, Sax, Speer, Holzschild; Kettenhemd für wohlhabende Krieger. Gedämpftes Grün, Ocker und Holzbraun. Keine mongolische Kleidung oder Waffen aus dem alten ID-Namen ableiten.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `khan_3` | Reiter der Edelinge | neu | Sächsischer Edeling reitet mit gesenktem Speer einen Waldweg entlang; Kettenhemd und Wollmantel. Pferd und Speerrichtung bilden eine klare Diagonale. |
-| `khan_10` | Plünderer am Rhein | neu | Sächsische Plünderer tragen Beute am Rheinufer; entfernt Rauch über einem fränkischen Dorf. Vordergrundgruppe gut lesbar, keine grafische Gewaltdarstellung. |
-| `khan_11` | Heerlager an der Weser | neu | Sächsisches Heerlager an der Weser im Morgenlicht; Zelte, Feuer, Pferde und wenige sich rüstende Krieger. Flussbiegung schafft Tiefe. |
-| `khan_12` | Versammlung in Marklo | neu | Versammlung von Edelingen und freien Bauern unter großen Eichen bei Marklo. Kreisförmige Gruppe, ein sprechender Mann im Fokus; keine Krönungszeremonie. |
-
-### Theophanu · Ottonen
-
-**Stil-/Epochenkontext:** Ottonisches Reich um 980, bei einzelnen Motiven genauerer Kontext. Byzantinisch beeinflusste Seide, Pergament, Siegel, passende Kirchen- und Pfalzarchitektur. Purpur, Elfenbein und kleines Gold. Keine japanischen Motive oder spätgotischen Formen.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `masako_0` | Lehnsmann | neu | Ottonischer Lehnsmann kniet und legt seine Hände in die Hände seines Herrn. Huldigung als klarer Gestus; schlichter Raum des 10. Jahrhunderts. |
-| `masako_1` | Bogenschütze der Pfalz | neu | Bogenschütze auf der Mauer einer ottonischen Pfalz. Wollkleidung und einfacher Bogen, kompakte Architektur; keine gotische Burg. |
-| `masako_2` | Treueschwur | neu | Adelige schwören dem jungen Otto III. Treue, Hände bei einem Reliquiar. Kinderkönig und Eidgeste sichtbar, Zeremonie ohne lesbare Urkunde. |
-| `masako_3` | Stiftsdame aus Quedlinburg | neu | Stiftsdame aus Quedlinburg hält ein kostbar gebundenes Evangelienbuch. Würdevolle Halbfigur im Innenhof des Stifts; zeitgerechte Stoffe und Kopfbedeckung. |
-| `masako_4` | Späher an der Elbe | neu | Späher verbirgt sich im Schilf an der Elbe und beobachtet das andere Ufer. Blickachse über den Fluss; Ausrüstung um 983. |
-| `masako_5` | Heerbann | neu | Bewaffnete Gefolgsleute sammeln sich zum Heerbann unter einem Banner. Unterschiedliche, zeitlich stimmige Ausrüstung; keine Uniformarmee. |
-| `masako_6` | St. Pantaleon in Köln | neu | St. Pantaleon in Köln mit Schwerpunkt auf dem ottonischen Westwerk. Architekturbild mit kleinen Maßstabsfiguren; keine heutige Ansicht ungeprüft kopieren. |
-| `masako_7` | Haft in Utrecht | neu | Heinrich der Zänker sitzt unter Bewachung in Utrecht. Gefangenschaft durch Tür, Wache und Körpersprache zeigen; keine moderne Gefängniszelle. |
-| `masako_8` | Willigis, Erzbischof von Mainz | neu | Willigis als Erzbischof mit Pallium und Krummstab neben der Regentin. Er bleibt die Hauptfigur; zeitgerechte Gewandung, kein übergroßer später Mitraaufbau. |
-| `masako_9` | Otto II., Kaiser | neu | Otto II. mit zurückhaltenden Kaiserinsignien und kostbarem Hofgewand. Halbfigur mit warmem Goldlicht; kein japanisches Motiv trotz alter ID. |
-| `masako_10` | Kanzler der Kaiserin | neu | Kanzler der Kaiserin prüft eine Urkunde mit Feder und Siegel an einem Schreibpult. Arbeitsgestus im Vordergrund, Hofumgebung vereinfacht. |
-| `masako_11` | Siegel der Kaiserin | neu | Nahes Stillleben einer prunkvollen ottonischen Urkunde mit Siegel und purpurfarbener Gestaltung. Material, Schnur und Wachssiegel statt lesbarer Buchstaben. |
-
-### Wiprecht von Groitzsch · Mark Meißen
-
-**Stil-/Epochenkontext:** Groitzsch, Pegau und Mark Meißen um 1100. Kettenhemd, Nasalhelm, lange Schilde, Wolltunika, Holzbau und Romanik. Erde, Waldgrün und warmes Steinbeige. Keine Wikinger-Fantasy und keine Vollplattenrüstung.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `ragnar_0` | Siedler aus Franken | neu | Fränkische Siedler treffen mit Ochsenkarren und Werkzeugen an einer Waldlichtung bei der Weißen Elster ein. Familie und Wagen im Vordergrund, neues Land dahinter. |
-| `ragnar_1` | Fehde | neu | Bewaffnete Reiter setzen bei einer Fehde um 1100 eine abgelegene Scheune in Brand. Abendlicht, Feuer als Nebenlicht; keine brennenden Menschen. |
-| `ragnar_2` | Burgmann von Groitzsch | neu | Burgmann auf der Mauer von Groitzsch mit Kettenhemd, Nasalhelm und langem Schild. Wachsame Dreiviertelfigur, romanische Burganlage im Hintergrund. |
-| `ragnar_3` | Lokator | neu | Lokator legt mit Messseil den Grundriss eines neuen Dorfes fest und weist Helfer beim Grenzsteinsetzen an. Weite Arbeitsszene mit nachvollziehbarer Raumordnung. |
-| `ragnar_4` | Verhau | neu | Gefällte Bäume versperren einen Waldweg; wenige feindliche Reiter kommen davor zum Halt. Der Verhau selbst ist das große Hauptmotiv. |
-| `ragnar_5` | Panzerreiter | neu | Panzerreiter um 1100 im Kettenhemd mit Nasalhelm und langem Schild stürmt mit eingelegter Lanze. Dynamische Seitenansicht; keine Vollplattenrüstung. |
-| `ragnar_6` | Rodung | neu | Siedler roden Wald mit Äxten und kontrolliertem Feuer; neue Felder und eine kleine Kirche in der Ferne. Menschliche Arbeit steht im Zentrum. |
-| `ragnar_7` | Grenzwächter der Mark | neu | Grenzwächter der Mark Meißen steht mit Speer und Horn neben einem Grenzstein. Wachfeuer im Hintergrund; klarer Figurenumriss vor einer Landschaft. |
-| `ragnar_8` | Heerfahrt nach Italien | neu | Ritter Heinrichs IV. ziehen in den 1080er-Jahren über einen Alpenpass Richtung Italien. Tief gestaffelter Zug, Felswände und Weg als Bildführung. |
-| `ragnar_9` | Judith von Böhmen | neu | Judith von Böhmen in vornehmem Mantel und zurückhaltendem Stirnreif; Grenzsteine und Landschaft hinter ihr. Würdevolle Halbfigur, keine Märchenkönigin. |
-| `ragnar_10` | Böhmischer Söldner | neu | Böhmischer Söldner um 1100 mit Axt, Schild und Beutesack. Abgenutzte Ausrüstung, markantes Gesicht; bodenständige Figur statt Wikingerklischee. |
-| `ragnar_11` | Brandschatzung | neu | Soldaten fordern mit Fackeln eine Abgabe von Dorfbewohnern. Angespannte Verhandlung an einem Hoftor; Bedrohung ohne explizite Verletzungen. |
-| `ragnar_12` | Feldmesser | neu | Feldmesser arbeitet mit Messstab und geknotetem Seil an Feldgrenzen. Nahsicht auf Werkzeuge und Handgriffe; anders als die Dorfplanung des Lokators. |
-| `ragnar_13` | Beuterecht | neu | Ritter beansprucht nach einer Schlacht ein erbeutetes Pferd und abgelegte Waffen. Ruhige Übergabeszene; Beutegegenstände im Vordergrund, kein weiterer Angriff. |
-
-### Ulrich von Liechtenstein · Steiermark
-
-**Stil-/Epochenkontext:** Höfische und turnierbezogene Welt des 13. Jahrhunderts. Kettenrüstung, Topfhelme, Waffenröcke, Turnierlanzen und zeitgerechte Schilde. Warme Textilfarben mit Rot-/Blauakzenten. Keine Samurai oder Rüstung des 15. Jahrhunderts. Venusfahrt ausdrücklich literarisch inszeniert.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `musashi_0` | Edelknabe | neu | Junger Edelknabe im hochmittelalterlichen Gewand hält den großen Helm seines Herrn in einem steirischen Burghof. Schlichte, würdige Dienstszene. |
-| `musashi_1` | Lanzenstoß | neu | Turnierlanze trifft einen Schild, Holzsplitter fliegen. Enge Aktionsansicht mit nachvollziehbaren Händen und Lanzenrichtung; kein Blut und kein tödlicher Treffer. |
-| `musashi_2` | Fahrender Ritter | neu | Fahrender Ritter mit Topfhelm und farbigem Waffenrock reitet durch die Steiermark. Berglandschaft und einsamer Weg; Reise statt Turnier. |
-| `musashi_3` | Minnebrief | neu | Bote überreicht einem Ritter einen mit Wachs versiegelten Minnebrief. Hände, Siegel und Reaktionen im Fokus; keine lesbaren Liebesverse. |
-| `musashi_4` | Minneritter | neu | Minneritter mit dem Ärmel seiner Dame als Gunstzeichen am Helm bereitet sich auf ein Turnier vor. Ruhige Halbfigur, Stoffdetail deutlich. |
-| `musashi_5` | Mit eingelegter Lanze | neu | Ritter galoppiert mit eingelegter Lanze entlang der Turnierbahn. Voller Bewegungsbogen des Pferdes; vor dem Aufprall, keine Wiederholung von musashi_1. |
-| `musashi_6` | Kämpe im Buhurt | neu | Mehrere Ritter kämpfen im Buhurt mit stumpfen Waffen. Zwei klar getrennte Vordergrundfiguren, übriges Getümmel vereinfacht; Kettenrüstung des 13. Jahrhunderts. |
-| `musashi_7` | Venusfahrt | neu | Literarisch inszenierte Venusfahrt: Turnierritter in Kettenrüstung mit langem blondem Flechtenhaar und höfischer weiblicher Verkleidung. Reiterszene, keine übernatürliche Venus. |
-| `musashi_8` | Landrichter der Steiermark | neu | Landrichter der Steiermark hält unter einer Linde Gericht, Amtsstab in der Hand. Bittsteller und Zeugen rahmen die sitzende Hauptfigur. |
-| `musashi_9` | Friedrich der Streitbare | neu | Herzog Friedrich der Streitbare in zeitgerechter Rüstung vor einem Turnierfeld; rot-weiß-rotes Banner als Farbakzent. Eigenständiges Gesicht, keine spätere Plattenrüstung. |
-| `musashi_10` | Heimlicher Bote | neu | Heimlicher Bote schiebt nachts einen versiegelten Brief durch ein Burgfenster. Nahes Motiv mit Händen und Fensterrand; warmes Innenlicht oben rechts. |
-| `musashi_11` | Ritter aus Murau | neu | Ritter aus Murau mit Schwert und Schild vor dem Murtal. Standhafte Dreiviertelfigur mit Landschaft; keine Turnieraktion. |
-| `musashi_12` | Frische Lanze | neu | Knappe reicht einem Ritter eine frische Lanze an der Turnierbahn. Übergabe im Mittelpunkt; zwei klar lesbare Figuren, keine gesplitterte Lanze. |
-
-### Zeitalter · Mittelalter im Reich
-
-**Stil-/Epochenkontext:** Je Motiv ein konsistenter Zeitpunkt ungefähr zwischen 1100 und 1400. Holz, Stein, Wolle, Leinen und passende Metallausrüstung. Warmes Beige, Bronze, gedämpftes Blau/Rot. Spannsystem der Armbrust, Helm und Schiffstyp müssen zur gewählten Zeit passen.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `mittelalter_0` | Knappe | neu | Knappe poliert neben einem Pferd den Helm seines Ritters. Burghof, praktische Kleidung und deutlich sichtbare Handarbeit. |
-| `mittelalter_1` | Armbrustschütze | neu | Armbrustschütze spannt seine Armbrust im Schutz einer Pavese. Schrägansicht mit verständlicher Mechanik; Epoche konsequent zum Spannsystem wählen. |
-| `mittelalter_2` | Mönch von Cluny | neu | Benediktinermönch von Cluny kopiert eine Handschrift im Skriptorium. Schreibpult, Tageslicht und konzentrierte Haltung; keine lesbaren Textseiten. |
-| `mittelalter_3` | Hansekogge | neu | Hansekogge läuft mit Tuchballen und Fässern in einen Hafen ein. Schiffsform und Rahsegel klar, keine spätere Galeone. |
-| `mittelalter_4` | Turnierritter | neu | Turnierritter mit gesenkter Lanze vor Tribüne und Fahnen. Gesamtansicht der Turniersituation; nicht die enge Splitteraufnahme musashi_1 wiederholen. |
-| `mittelalter_5` | Burgfried | neu | Bergfried einer mittelalterlichen Höhenburg über einem felsigen Hang. Massiger steinerner Turm im Fokus; nicht als gesamte märchenhafte Schlossanlage. |
-| `mittelalter_6` | Tribok | neu | Tribok schleudert einen Stein auf eine entfernte Burgmauer. Wurfarm, Gegengewicht und Schleuder räumlich verständlich; keine schwebenden Seile. |
-
-### Anna Komnene · Byzanz
-
-**Stil-/Epochenkontext:** Konstantinopel im 11./12. Jahrhundert; für einzelne Bauwerke deren Kontext beachten. Seide, Codices, Purpur, Gold, Ketten- oder passende Lamellenrüstung. Keine osmanischen Minarette an der Hagia Sophia. Bronze und Purpur sparsam vor warmem Stein.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `anna_0` | Kopistin der Chronik | neu | Byzantinische Kopistin schreibt eine Chronik an einem Lesepult bei warmem Licht. Nonnengewand, Codex und Schreibwerkzeuge; keine lesbaren Textzeilen. |
-| `anna_1` | Pantokrator-Spital | neu | Weiter Blick in einen Saal des Pantokrator-Spitals mit mehreren Patienten und Pflegenden. Architektur und organisierte Versorgung als Hauptthema; keine Arzt-Nahaufnahme. |
-| `anna_2` | Warägergardist | neu | Warägergardist mit großer Axt und Rundschild im Kaiserpalast. Massige, aber glaubwürdige Silhouette; byzantinische Umgebung, kein gehörntes Wikingerkostüm. |
-| `anna_3` | Hofärztin | neu | Hofärztin prüft den Puls einer sitzenden Person; Kräuter und medizinischer Codex auf kleinem Tisch. Weibliche Fachperson eindeutig zeigen. |
-| `anna_4` | Griechisches Feuer | neu | Ein byzantinischer Dromon setzt nachts Griechisches Feuer gegen ein entferntes Schiff ein. Siphon und Feuerstrahl visuell verständlich; keine moderne Flammenwerferkonstruktion. |
-| `anna_5` | Bibliothekar von Konstantinopel | neu | Bibliothekar ordnet Codices und Schriftrollen, durch ein Fenster sind Kuppeln Konstantinopels sichtbar. Gelehrter in Halbfigur, tiefe Regale dahinter. |
-| `anna_6` | Kataphrakt | neu | Kataphrakt mit passendem Pferdeschutz und gesenkter Lanze. Seitliche Dreiviertelansicht, Rüstung und Pferdeanatomie erkennbar; kein spätmittelalterlicher Ritter. |
-| `anna_7` | Chrysobull | neu | Kaiserliche Urkunde mit hängendem Goldsiegel an purpurner Schnur wird einem venezianischen Kaufmann überreicht. Siegel als großer Fokus; Schrift unleserlich. |
-| `anna_8` | Nikephoros Bryennios | neu | Nikephoros Bryennios schreibt an einem Tisch, Helm und Rüstung liegen daneben. Verbindung von Feldherr und Historiker durch wenige klare Attribute. |
-| `anna_9` | Alexios I. Komnenos | neu | Alexios I. Komnenos auf dem Thron in Purpur und Gold; byzantinischer Palast und entfernte Kuppel. Zurückhaltende Insignien, eigenständige Gesichtszüge. |
-| `anna_10` | Spitalarzt des Pantokrator | neu | Ein Spitalarzt versorgt einen einzelnen Patienten bei Lampenlicht. Intime Nahansicht mit Arbeitsbewegung; unterscheidbar vom großen Spitalsaal anna_1. |
-| `anna_11` | Chronist am Kaiserhof | neu | Chronist am Kaiserhof präsentiert eine lange Schriftrolle im Palast. Stehende Halbfigur und Rollengeste; keine Wiederholung der schreibenden Kopistin. |
-
-### Baibars · Mamluken
-
-**Stil-/Epochenkontext:** Ägypten, Syrien und Palästina im 13. Jahrhundert. Kettenrüstung, passende textile/Lamellenanteile, konische Helme, Lanzen und Kompositbögen. Sandbeige, Lapisblau, Bronze und kleine rote Akzente wie in den Einzelbildern. Keine späteren osmanischen Bauwerke oder Feuerwaffen übernehmen.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `baibars_5` | Vorgetäuschte Flucht | neu | Mamlukenreiter wenden sich während einer vorgetäuschten Flucht zurück zum verfolgenden Gegner. Geschwungene Bewegungsrichtung, mindestens ein sichtbarer Rückblick. |
-| `baibars_6` | Qutuz, Sultan von Ägypten | neu | Qutuz in mamlukischer Ausrüstung vor seinem Heer. Ruhige, entschlossene Halbfigur mit Lanze oder Schwert; nicht den Baibars-Heldenkopf kopieren. |
-| `baibars_7` | Sturm auf Antiochia | neu | Mamlukische Soldaten stürmen 1268 auf eine Bresche in Antiochias Mauern zu. Infanterie und Mauerdurchbruch im Fokus; nicht erneut das Katapultmotiv. |
-| `baibars_8` | Zitadelle von Kairo | neu | Zitadelle von Kairo über der Stadt als Architekturbild. Blick vom Hang, passende mittelalterliche Silhouette; spätere osmanische Bauten nicht aus Referenzen übernehmen. |
-| `baibars_9` | Qalawun, Emir der Bahriya | neu | Qalawun führt schwere mamlukische Reiterei. Eigener älterer Gesichtstyp, Lanze und textile Akzente; von Qutuz durch Reiteraktion unterscheiden. |
-
-### Zeitalter · Kreuzzüge
-
-**Stil-/Epochenkontext:** Byzantinischer oder mittelalterlich-islamischer Kontext, je Motiv grob 900–1300. Konstantinopel, Bagdad und Kairo voneinander unterscheiden. Stein, Papier/Pergament, Bronze und zurückhaltende Purpur-/Türkisakzente. Keine osmanischen Minarette im byzantinischen Bild.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `byzanz_0` | Akrit der Grenzmark | neu | Byzantinischer Grenzkrieger mit Speer und Schild im Bergland. Aufmerksame Einzelperson; praktische Ausrüstung und felsige Grenzlandschaft. |
-| `byzanz_1` | Gelehrter im Haus der Weisheit | neu | Gelehrte übersetzen Handschriften in Bagdad an einem gemeinsamen Arbeitstisch. Bücher, Schreibgeräte und Austausch; keine moderne Universität. |
-| `byzanz_2` | Tribut in Goldbyzantinern | neu | Tribut aus byzantinischen Goldmünzen wird auf einem Tuch abgezählt. Hände und kleine Münzhaufen als Nahmotiv; Prägungen ohne lesbare Schrift. |
-| `byzanz_3` | Arzt des Bimaristan | neu | Arzt versorgt einen Patienten im mittelalterlichen Bimaristan, Brunnenhof im Hintergrund. Ruhige Halbfiguren und Keramikgefäße. |
-| `byzanz_4` | Theodosianische Mauern | neu | Theodosianische Mauern mit gestaffelten Befestigungslinien und Türmen. Erhöhte Sicht, Mauertiefe gut lesbar; keine osmanische Belagerungsszene. |
-| `byzanz_5` | Hagia Sophia | neu | Hagia Sophia im byzantinischen Kontext bei warmem Abendlicht. Kuppel und Baukörper klar lesbar; ohne osmanische Minarette. |
-| `byzanz_6` | Ibn an-Nafis, Arzt von Kairo | neu | Ibn an-Nafis studiert einen medizinischen Codex zu Herz und Lunge in Kairo. Gelehrter als Hauptmotiv, schematische unbeschriftete Zeichnungen als Nebendetail. |
-
-### Nezahualcóyotl · Texcoco
-
-**Stil-/Epochenkontext:** Zentralmexiko im 15. Jahrhundert vor der Eroberung; Acolhua-/Nahua-Kontext. Baumwolle, Türkis, Obsidian, Holz und regionale Federkleidung. Warmes Steinbeige mit Türkis und Grün. Keine Pferde, Stahlwaffen, europäischen Kronen, Maya-Architektur oder Plains-Federhauben.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `nezahualcoyotl_0` | Gärtner von Tetzcotzinco | neu | Gärtner pflegt Terrassen, Blumen und Wasserläufe in Tetzcotzinco. Mensch im Vordergrund, Wasserführung und Hangstaffelung gut lesbar. |
-| `nezahualcoyotl_1` | Adlerkrieger | neu | Adlerkrieger mit charakteristischem Adlerkopf-Kopfschutz, Baumwollschutz, Schild und Macuahuitl. Klarer Körperumriss; keine europäische Metallrüstung. |
-| `nezahualcoyotl_2` | Blumenkrieg | neu | Zwei Krieger im Adler- und Jaguargewand begegnen sich im Blumenkrieg. Kontrollierte Aktionsszene mit regionalen Blumenakzenten; keine Feuerballmagie. |
-| `nezahualcoyotl_3` | Jaguarkrieger | neu | Jaguarkrieger kauert aufmerksam im schattigen Unterholz. Jaguargewand als Kleidung, menschliches Gesicht; kein anthropomorphes Raubtier. |
-| `nezahualcoyotl_4` | Aquädukt von Chapultepec | neu | Wasserleitung von Chapultepec führt durch die Landschaft Richtung Tenochtitlan. Fokus auf Wasserkanal und Verlauf; keine ungeprüfte römische Bogenbrücke übernehmen. |
-| `nezahualcoyotl_5` | Gesetze von Texcoco | neu | Richter von Texcoco beraten über einen aufgeschlagenen Bildcodex. Figurenkreis und bemalte Buchseiten; keine lateinischen Gesetzestexte oder europäischen Perücken. |
-| `nezahualcoyotl_6` | Quetzal-Hauptmann | neu | Hauptmann mit regional passendem Quetzalfederschmuck hält eine Räucherschale. Türkis, Baumwolle und grünes Federwerk als Akzente; keine Plains-Federhaube. |
-| `nezahualcoyotl_7` | Damm von Nezahualcóyotl | neu | Damm durch den Texcoco-See mit Holz-, Stein- und Erdabschnitten; Kanus verdeutlichen den Maßstab. Erhöhte Perspektive und klare Diagonale. |
-| `nezahualcoyotl_8` | Itzcoatl, Herr von Tenochtitlan | neu | Itzcoatl mit Türkisdiadem vor dem Templo Mayor. Würdevolle Halbfigur mit Baumwollmantel; keine europäische Krone oder Maya-Pyramide. |
-| `nezahualcoyotl_9` | Nezahualpilli, Sohn des Dichters | neu | Nezahualpilli beobachtet von einem Tempeldach den Sternenhimmel. Schlichte Beobachtung ohne Fernrohr; warmes Lampenlicht und kühler Nachtakzent. |
-| `nezahualcoyotl_10` | Dichter von Texcoco | neu | Dichter von Texcoco trägt ein Blumenlied vor, Trommel und einzelne Blüten als Attribute. Ausdrucksvolle, natürliche Sprechgeste; keine Schriftbänder. |
-| `nezahualcoyotl_11` | Chinampa | neu | Chinampa-Anbauflächen zwischen Kanälen, Mais und Gemüse, ein Gärtner im Kanu. Fest angelegte Beete im Wasserlandschaftssystem, keine frei treibenden Inseln. |
-
-### Vauban · Frankreich
-
-**Stil-/Epochenkontext:** Frankreich unter Ludwig XIV., spätes 17. Jahrhundert. Lange Röcke, Kniehosen, passende Perücken, historische Musketen, Geschütze, Bastionen, Faschinen und Schanzkörbe. Warmes Steinbeige, zurückhaltendes Blau und Bronze. Keine Hussiten und keine Wagenburg.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `zizka_0` | Schanzarbeiter | neu | Französischer Schanzarbeiter füllt im Belagerungsgraben einen geflochtenen Schanzkorb mit Erde. Naher Arbeitsgestus, Holzschaufel und Flechtwerk sichtbar. |
-| `zizka_1` | Grenadier | neu | Grenadier Ludwigs XIV. setzt zum Wurf einer historischen Handgranate an. Historische Ausrüstung und kontrollierte Bewegung; keine moderne Granate. |
-| `zizka_2` | Salve von der Bastion | neu | Geschütze feuern von einer Bastion, weißgrauer Pulverdampf zieht über die Brüstung. Architektur und gemeinsamer Feuerstoß, keine einzelnen Schützenporträts. |
-| `zizka_3` | Ingenieur des Königs | neu | Königlicher Ingenieur prüft mit Zirkel einen Festungsplan am Grabenrand. Gesicht, Hände und Plan im Fokus; Plan ohne lesbare Beschriftung. |
-| `zizka_4` | Festungsgeschütz | neu | Schweres Festungsgeschütz in einer Kasematte wird von Bedienmannschaft geladen. Rohr, Lafette und Raum klar trennen; keine neuzeitliche Stahlkanone. |
-| `zizka_5` | Faschinen | neu | Soldaten tragen Reisigbündel zur Befestigung eines Grabens. Große Faschinen und wiederholte Arbeitsbewegung; nicht mit Schanzkörben verwechseln. |
-| `zizka_6` | Minengang | neu | Mineure arbeiten bei Kerzenlicht in einem engen Stollen unter einer Bastion. Holzausbau, Werkzeuge und verschlossene Pulverfässer; sachliche Arbeitsszene. |
-| `zizka_7` | Zitadelle von Lille | neu | Fünfeckige Zitadelle von Lille aus erhöhter Schrägsicht. Bastionen und Gräben lesbar; zeichnerische Spielillustration, kein präziser Vermessungsplan. |
-| `zizka_8` | Louvois, Kriegsminister | neu | Louvois mit Perücke und barockem Amtsgewand am Schreibtisch mit Armeelisten. Verwaltungsarbeit als Motiv; unlesbare Papierflächen. |
-| `zizka_9` | Ludwig XIV., der Sonnenkönig | neu | Ludwig XIV. im zeremoniellen Mantel mit Lilienmotiven vor einem angedeuteten Versailles. Würdevolles Herrscherbild mit sparsamen Goldakzenten. |
-
-### Johann Friedrich Böttger · Dresden und Meißen
-
-**Stil-/Epochenkontext:** Sächsischer Barock um 1705–1710. Hemden, Westen, Röcke, Leinenhalstücher; Keramiktiegel, Öfen, frühes Porzellan und Schreibbücher. Elfenbein, Brennofenorange und dunkles Holz. Keine mittelalterlichen Zauberer, Runen oder moderne Labortechnik.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `nostradamus_10` | Eid der Arkanisten | neu | Porzellanarbeiter schwören mit erhobenen Händen vor einem Hofbeamten Verschwiegenheit. Kleine Gruppe in einer Werkstatt; keine mittelalterlichen Magier. |
-| `nostradamus_11` | Laborbuch | neu | Offenes Laborbuch von 1708 von oben, Porzellanscherbe auf den Seiten, Versuchsspuren und Arbeitsutensilien. Sachliche Werkbankstudie; vom geheimen Rezeptbuch kompositorisch unterscheiden. |
-| `nostradamus_12` | Weißes Gold | neu | Frühes weißes Meißner Porzellangefäß auf dunklem Samtkissen. Ruhiges Objektmotiv, weicher Glanz auf weißer Glasur; keine moderne Marke oder Beschriftung. |
-
-### Zeitalter · Frühe Neuzeit
-
-**Stil-/Epochenkontext:** Europa ungefähr 1450–1720, der konkrete Titel bestimmt Datum und Region. Druckerpresse, Pike, Muskete, Kartaune und Sternfestung passend zum Motiv. Nicht Ostasien darstellen. Warme Stein-/Holztöne mit Stofffarben, weißem Pulverdampf und begrenzten Goldakzenten.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `ostasien_0` | Landsknecht | neu | Landsknecht in geschlitzter bunter Kleidung, Federhut und langer Pike. Dynamische Einzelperson der frühen Neuzeit; keine ostasiatische Rüstung. |
-| `ostasien_1` | Buchdrucker aus Mainz | neu | Buchdrucker betätigt eine hölzerne Presse in Mainz; Druckbögen hängen im Hintergrund. Hebel, Drucktisch und Handwerk im Fokus. |
-| `ostasien_2` | Leipziger Kaffeehaus | neu | Barockes Leipziger Kaffeehaus mit wenigen Gästen, Zeitungsbögen und dampfendem Kaffee. Gemütliche Gruppenszene; keine lesbaren Zeitungstitel. |
-| `ostasien_3` | Kartaunen-Salve | neu | Schwere Kartaunen feuern gemeinsam, dichter Pulverdampf über einer Belagerungsstellung. Geschützrohre und Holzlafetten klar erkennbar. |
-| `ostasien_4` | Kriegsgaleone | neu | Spanische Kriegsgaleone feuert eine Breitseite auf dem Atlantik. Schiff in Dreiviertelansicht, Segel und Rauch; keine Dampfschiffe. |
-| `ostasien_5` | Stehendes Heer | neu | Uniformierte Musketiere üben auf einem barocken Paradeplatz. Wiederholung klarer Reihen, ein vorderer Soldat als Größenanker. |
-| `ostasien_6` | Sternschanze | neu | Sternförmige Festung aus der Vogelperspektive mit Bastionen, Außenwerken und Gräben. Generisches Festungssystem; von der konkreten Zitadelle Lille unterscheiden. |
-
-### Zeitalter · Frühzeit und Ägypten
-
-**Stil-/Epochenkontext:** Diese Gruppe vereint verschiedene Kontexte: Wagenbauer und Bernsteinstraße hallstattzeitlich; Schreiber, Medjai, Streitwagen und Buhen ägyptisch. Kulturen nie innerhalb eines Motivs vermischen. Ägyptische Streitwagen gehören nicht zu Imhoteps Altem Reich. Keine mongolische Steppe.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `steppe_0` | Wagenbauer | neu | Hallstattzeitlicher Wagenbauer setzt einen Eisenreifen auf ein hölzernes Speichenrad. Zeremonialwagen dahinter; Werkzeug und Rad im Fokus, keine Mongolen. |
-| `steppe_1` | Schreiber im Lebenshaus | neu | Ägyptischer Schreiber sitzt mit Papyrus und Schreibrohr im Lebenshaus. Regalnischen mit Rollen, schlichtes Leinen; keinerlei lesbare Hieroglyphen verlangen. |
-| `steppe_2` | Schuss vom Streitwagen | neu | Ägyptischer Bogenschütze spannt im fahrenden Streitwagen einen Kompositbogen. Nahsicht auf Schütze und Wagen; vom Wagenverband steppe_4 unterscheiden. |
-| `steppe_3` | Wache der Medjai | neu | Medjai-Wachen mit Bögen sichern eine Wüstenstraße in Ägypten. Zwei deutlich lesbare Figuren, Felsen und Weg als Hintergrund. |
-| `steppe_4` | Angriff der Streitwagen | neu | Mehrere ägyptische Streitwagen greifen in versetzter Reihe an. Formationsbewegung und Staubwolke; anatomisch klare vordere Pferde. |
-| `steppe_5` | Bernsteinstraße | neu | Frühkeltischer Handelszug mit Ochsenkarren, Bernstein, Zinn und Amphoren im Waldtal. Waren und Reiseweg im Fokus; keine asiatische Seidenkarawane. |
-| `steppe_6` | Festung Buhen | neu | Lehmziegelfestung Buhen am Nil mit Türmen, Mauern und trockenem Graben. Erhöhte Schrägsicht; eigener ägyptischer Kontext statt Hallstattzeit. |
-
-### Neutrale Karten
-
-**Stil-/Epochenkontext:** Jeder Titel erhält eine eigene zusammenhängende historische Welt. Antike für griechisch-römische Motive; Mittelalter für Dorf/Burg; Renaissance/Frühe Neuzeit, wo ausdrücklich passend. Keine Mischrüstung. Tiere natürlich darstellen. Benannte Frauen bleiben Frauen, Berufe bleiben Berufe, Bauwerke und Objekte werden keine Heldenporträts.
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `neutral_6` | Feldheilerin | neu | Feldheilerin verbindet einen sitzenden Soldaten, Leinenapron über Wollkleid. Zuwendung und Hände im Fokus; keine modernen Verbandsverpackungen. |
-| `neutral_8` | Wachhund | neu | Kräftiger Haushund bewacht eine mittelalterliche Holztür. Niedrige Perspektive, natürliche Anatomie; keine Panzerung. |
-| `neutral_20` | Ordensritter | neu | Ordensritter des 13. Jahrhunderts im Kettenhemd und schlichtem weißem Waffenrock mit kleinem Kreuz. Topfhelm unter dem Arm, keine spätere Plattenrüstung. |
-| `neutral_23` | Grabwächter | neu | Lebender Grabwächter trägt eine Lampe an einer antiken mediterranen Grabanlage. Ruhiges Motiv; keine Mumie, kein Untoter. |
-| `neutral_27` | Prätorianer | neu | Prätorianer der frühen Kaiserzeit mit römischem Helm, Kettenrüstung und gebogenem Scutum. Wehrhafte Halbfigur; kein mittelalterlicher Ritter. |
-| `neutral_33` | Trojanisches Pferd | neu | Trojanisches Pferd als hölzernes Objekt vor einer bronzezeitlich inspirierten Stadtmauer. Legendäre Szene, kleine Maßstabsfiguren; keine archäologische Gewissheit behaupten. |
-| `neutral_34` | Brander | neu | Brennendes hölzernes Schiff treibt auf entfernte gegnerische Schiffe zu. Segelbrand und Wasserreflexe; kein modernes Kriegsschiff. |
-| `neutral_36` | Burgbesatzung | neu | Burgbesatzung verteidigt eine Steinmauer mit Schilden und Speeren. Mehrere erkennbare Soldaten; keine einzelne Torwache. |
-| `neutral_42` | Freibeuterin | neu | Mediterrane Freibeuterin auf einer Galeere mit zeitgerecht schlichtem Schwert und Münzbeutel. Praktische Kleidung, keine modernen Piratenfilm-Accessoires. |
-| `neutral_43` | Späherin im Unterholz | neu | Späherin unter grüner Kapuze im Unterholz; Augen und einfacher Bogen sichtbar. Stille Beobachtung, deutlich engere Komposition als Wilderin neutral_3. |
-| `neutral_44` | Wandermönch | neu | Wandermönch mit Stab und kleinem Holzkreuz auf einem Weg. Beruhigende Lichtstimmung; kein übernatürlicher Heiligenschein nötig. |
-| `neutral_45` | Giftmischerin | neu | Renaissancezeitliche Giftmischerin gießt Flüssigkeit aus einer Phiole in einer Apotheke. Kontrollierte Hände, Keramik und Glas der gewählten Epoche; kein Neontrank. |
-| `neutral_46` | Condottiere | neu | Italienischer Condottiere mit zeitgerechter Plattenrüstung und Kommandostab vor Söldnerbannern. Spätmittelalterlicher Kontext ausdrücklich erhalten. |
-| `neutral_47` | Kolosseum | neu | Kolosseum mit Zuschauern und kleinen Gladiatoren in der Arena. Architektur und räumliche Weite im Fokus; kein zweites Gladiatorenporträt. |
-| `neutral_48` | Hängende Gärten | neu | Hängende Gärten als interpretierte antike Überlieferung: begrünte Terrassen und Wasserläufe. Architektur mit Pflanzenstaffelung, keine gesicherte Rekonstruktion behaupten. |
-| `neutral_49` | Pyramiden von Gizeh | neu | Pyramiden von Gizeh mit Sphinx im warmen Abendlicht. Große klare Silhouetten, keine Djoser-Stufenpyramide und keine modernen Touristen. |
-
-### Aus Teil 4 wiederbeschaffen
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `perikles_7` | Pest von Athen | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Pest von Athen: respektvolle Szene von Versorgung und Erschöpfung in einer klassischen athenischen Straße. Eine versorgende Person im Fokus; keine moderne Schutzkleidung und keine expliziten Krankheitsdetails. Profil K1. |
-| `perikles_8` | Odeion | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Odeion als athenischer Musik- und Versammlungsbau im Kontext des Perikles; Baukörper und Nutzung erkennbar. Kleine Musiker als Maßstab; keine moderne Bühne. Profil K1. |
-| `perikles_9` | Phidias, Meister der Akropolis | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Phidias arbeitet in einer Werkstatt an einer großen Athena-Statue. Bildhauer und Werkzeug im Fokus; vom fertigen Kultbild des Tokens unterscheiden. Klassisches Athen, Profil K1. |
-
-### Alexandria · Spätantike (Entscheidung 19: neu bestellen)
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `hypatia_0` | Bibliothekslehrling | neu | Junger erwachsener männlicher Schüler mit Papyrus in einem bescheidenen alexandrinischen Gelehrtenraum um 400 n. Chr.; Tunika/Himation, keine monumentale intakte ptolemäische Bibliothek. |
-
-### Hinterhalte (AP 5.6)
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `neutral_50` | Krähenfüße | neu | Eiserne Krähenfüße mit vier Spitzen im zertretenen Gras, ein römischer Soldat streut weitere aus einem Lederbeutel, in der Ferne nahen Reiter. |
-| `neutral_51` | Abgefangene Botschaft | neu | Römische Futterholer halten auf einer staubigen Straße in Süditalien zwei numidische Reiter an, ein Legionär hält einen versiegelten Brief hoch (207 v. Chr.). |
-| `steppe_7` | Falsche Kundschafter von Kadesch | neu | Zwei Beduinen knien vor Ramses II. in seinem Lager und zeigen nach Norden; hinter den Mauern von Kadesch warten verborgen hethitische Streitwagen (um 1274 v. Chr.). |
-| `griechen_7` | Botschaft des Sikinnos | neu | Ein griechischer Sklave rudert nachts in einem kleinen Boot auf die persische Flotte zu, Laternen auf den Trieren, die Meerenge von Salamis (480 v. Chr.). |
-| `rom_7` | Wall am Kalkrieser Berg | neu | Germanen warten hinter einem langen Wall aus Rasensoden am Fuß eines bewaldeten Bergs; auf dem schmalen Weg am Moor zieht im Regen eine römische Kolonne vorbei (9 n. Chr.). |
-| `mittelalter_7` | Fallgatter | neu | Das eisenbeschlagene Fallgatter eines Burgtors saust herab, davor reißen Reiter ihre Pferde zurück. |
-| `byzanz_7` | Engpass von Myriokephalon | neu | Seldschukische Bogenreiter greifen von felsigen Hängen eine lange byzantinische Heereskolonne an, der Tross steckt im engen Pass fest (1176). |
-| `ostasien_7` | Gegenmine | neu | Verteidiger einer barocken Sternfestung graben bei Kerzenlicht einen Gegenstollen unter dem Wall, einer horcht an der Erdwand, Pulverfässer (um 1700). |
-| `khan_13` | Hinterhalt am Süntel | neu | Fränkische Reiter stürmen überhastet einen bewaldeten Berghang hinauf auf das Lager der Sachsen zu, von beiden Seiten brechen Sachsen aus dem Wald (782). |
-| `fabius_10` | Rettung bei Gerunium | neu | Der alte Fabius Maximus führt seine Legionen über einen Hügel, um im Tal umzingelte Römer vor den Karthagern zu retten (217 v. Chr.). |
-| `anna_12` | Täuschung bei Larissa | neu | Ein byzantinisches Heer steht mit den kaiserlichen Feldzeichen vor den Mauern von Larissa, normannische Ritter stürmen darauf zu (1083). |
-| `leonidas_12` | Kampf um den Leichnam | neu | Spartanische Hopliten kämpfen im Engpass der Thermopylen um den Leichnam ihres gefallenen Königs und drängen die Perser zurück (480 v. Chr.). |
-
-### Wunder der Welt (AP 5.7)
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `leonidas_13` | Eiren der Agoge | neu | Ein junger Spartaner von etwa zwanzig Jahren im roten Umhang führt eine Gruppe barfüßiger Jungen mit kurzgeschorenem Haar über einen steinigen Übungsplatz, Schilfrohre in den Händen (5. Jh. v. Chr.). |
-| `hypatia_12` | Astrolab für Synesios | neu | Ein silbernes Astrolab mit Sternennetz liegt auf einem Tisch mit Papyrusrollen, eine Gelehrtenhand zeigt auf die Skala, Säulenhalle in Alexandria (um 400 n. Chr.). Kein Leuchten. |
-| `imhotep_13` | Pilger im Asklepieion von Saqqara | neu | Kranke Pilger mit Opfergaben und Tonfiguren steigen im Morgenlicht zum Heiligtum des Imhotep bei der Stufenpyramide von Saqqara hinauf (Spätzeit, um 300 v. Chr.). |
-| `dandolo_13` | Eroberung von Zara | neu | Venezianische Galeeren und Kreuzfahrer vor den Mauern der Hafenstadt Zara an der Adria, Leitern an den Mauern, Wappen mit dem Markuslöwen (1202). |
-| `khan_14` | Irminsul | neu | Ein hoher, aufgerichteter Baumstamm als Heiligtum in einer Lichtung, mit Opfergaben und Schnitzereien, Sachsen in Wollmänteln davor, Dämmerung (8. Jh.). |
-| `boudicca_13` | Stater des Vercingetorix | neu | Gallische Goldmünze mit dem Kopf eines jungen Mannes und der Umschrift VERCINGETORIXS, daneben ein Lederbeutel mit weiteren Münzen auf einem Holztisch (52 v. Chr.). |
-| `nostradamus_13` | Manufaktur auf der Albrechtsburg | neu | Die spätgotische Albrechtsburg über Meißen an der Elbe, aus den Fenstern Rauch der Brennöfen, im Vordergrund Arbeiter mit Körben voll weißer Gefäße (1710). |
-| `jeanne_12` | Volmar, Schreiber Hildegards | neu | Ein Benediktinermönch mit Tonsur sitzt am Schreibpult und schreibt auf Pergament, durch eine Öffnung blickt er zu einer Nonne mit Wachstafeln (12. Jh.). |
-| `ragnar_14` | Kloster Pegau | neu | Romanische Klosterkirche aus Bruchstein an der Weißen Elster, Mönche bei der Feldarbeit, ein Ritter im Kettenhemd kniet vor dem Portal (um 1100). |
-| `musashi_13` | Gefährte der Artusfahrt | neu | Ein Ritter mit Topfhelm und Wappenrock bricht im Tjost seine Lanze, im Hintergrund ein Zelt mit dem Banner König Artus’ und Zuschauer (1240). |
-| `perikles_12` | Aspasia von Milet | neu | Eine Frau im feinen Chiton spricht im Säulenhof eines athenischen Hauses zu Männern, die ihr zuhören, eine Schriftrolle in der Hand (5. Jh. v. Chr.). |
-| `agrippa_12` | Aqua Virgo | neu | Römische Bogenleitung und Bauarbeiter mit Kran und Lot, im Vordergrund strömt klares Wasser in ein Becken (19 v. Chr.). |
-| `amanirenas_12` | Stele von Karnak | neu | Eine hohe Kalksteinstele mit Hieroglyphen und dem Bild einer Königin im Tempelhof von Karnak, Priester lesen davor (um 1540 v. Chr.). |
-| `anna_13` | Kloster Kecharitomene | neu | Byzantinisches Frauenkloster mit Kuppelkirche in Konstantinopel, im Garten schreibt eine ältere Frau in Purpur an einem Pult (12. Jh.). |
-| `nezahualcoyotl_12` | Gesänge des Dichterkönigs | neu | Ein Fürst aus Texcoco mit Federschmuck trägt in einem Garten Verse vor, Musiker mit Trommel (huehuetl) und Flöte, Blüten (15. Jh.). |
-| `masako_12` | Heiratsurkunde der Theophanu | neu | Eine prachtvolle Urkunde auf purpurrotem Pergament mit Goldschrift und runden Medaillons mit Tieren, ausgerollt auf einem Tisch (972). |
-| `epaminondas_10` | Scheinlager bei Mantineia | neu | Thebanische Hopliten legen ihre Schilde und Speere ab, als wollten sie lagern, im Hintergrund lösen die Gegner ihre Schlachtreihe (362 v. Chr.). |
-| `fabius_11` | Quintus Fabius, der Sohn | neu | Ein römischer Konsul mit Liktoren befiehlt einem alten Feldherrn, vom Pferd zu steigen; der Alte steigt lächelnd ab (213 v. Chr.). |
-| `mandukhai_10` | Thumelicus | neu | Ein kleiner germanischer Junge an der Hand seiner Mutter in einem römischen Triumphzug, Zuschauer und Feldzeichen (17 n. Chr.). |
-| `baibars_10` | Brief an die Besatzung von Krak | neu | Ein Bote reicht Johanniterrittern auf der Mauer der Burg Krak des Chevaliers einen gesiegelten Brief, davor das Mamlukenheer (1271). |
-| `zizka_10` | Neuf-Brisach | neu | Vogelschau auf eine achteckige Festungsstadt mit Bastionen, Wassergräben und schnurgeraden Straßen am Rhein (um 1700). |
-| `fuhao_10` | Goldener Halsring von Vix | neu | Ein massiver goldener Halsring mit kugeligen Enden und kleinen geflügelten Pferden auf dunklem Tuch (um 500 v. Chr.). |
-| `neutral_52` | Koloss von Rhodos | neu | Die riesige Bronzestatue des Helios am Hafen von Rhodos, Schiffe zu ihren Füßen, Abendlicht (um 280 v. Chr.). |
-| `neutral_53` | Zeus des Phidias | neu | Der sitzende Zeus aus Gold und Elfenbein im Tempel von Olympia, so groß, dass sein Kopf fast das Dach berührt, Besucher klein davor (5. Jh. v. Chr.). |
-| `neutral_54` | Himmelsscheibe von Nebra | neu | Eine grün patinierte Bronzescheibe mit goldener Sonne, Mondsichel und Sternen auf Erde und Stein, Nachthimmel darüber (um 1600 v. Chr.). |
-| `neutral_55` | Gänse des Kapitols | neu | Weiße Gänse schnattern nachts auf dem Kapitol, ein römischer Krieger erwacht mit dem Schwert, Gallier klettern die Felsen herauf (um 387 v. Chr.). |
-| `neutral_56` | Skytale | neu | Ein Holzstab, um den spiralförmig ein beschriebener Lederstreifen gewickelt ist, in der Hand eines spartanischen Boten (5. Jh. v. Chr.). |
-| `leonidas_14` | „Mit ihm oder auf ihm“ | neu | Eine spartanische Mutter im Peplos reicht ihrem jungen Sohn in Rüstung den runden Bronzeschild mit dem Lambda, im Hof eines Hauses, ernster Blick (5. Jh. v. Chr.). |
-| `hypatia_13` | Orestes, Präfekt von Ägypten | neu | Ein römischer Präfekt in Toga mit Purpursaum hört in einer Säulenhalle in Alexandria einer Gelehrten zu, Schreiber und Wachen im Hintergrund (um 414 n. Chr.). |
-| `imhotep_14` | Sockel der Djoser-Statue | neu | Ein Statuensockel aus Kalkstein mit Hieroglyphen und den Füßen einer Königsstatue, darauf der eingemeißelte Name des Imhotep, im Hintergrund die Stufenpyramide (um 2650 v. Chr.). |
-| `dandolo_14` | Quadriga von San Marco | neu | Vier vergoldete Bronzepferde auf der Loggia über dem Portal des Markusdoms in Venedig, Tauben und Abendlicht (13. Jh.). |
-| `khan_15` | Taufe in Attigny | neu | Ein sächsischer Anführer mit langem Haar steigt in ein steinernes Taufbecken in einer Pfalzkapelle, Karl der Große mit Krone steht als Pate daneben, Priester mit Kreuz (785). |
-| `boudicca_14` | Murus Gallicus | neu | Eine gallische Stadtmauer aus Holzbalken und Steinen auf einem Hügel, römische Soldaten mit Rammbock und Fackeln scheitern davor (52 v. Chr.). |
-| `nostradamus_14` | Weiße Erde aus Aue | neu | Bergleute mit Grubenlampen tragen Körbe voll weißer Tonerde aus einem Stollen im Erzgebirge, ein Fuhrwerk wartet im Schnee (um 1710). |
-| `jeanne_13` | Lingua ignota | neu | Eine aufgeschlagene Pergamentseite mit fremden, erfundenen Buchstaben und einer Wortliste, daneben Feder und Tintenhorn auf einem Klosterpult (12. Jh.). |
-| `ragnar_15` | Pilgerfahrt nach Santiago | neu | Ein Ritter im Pilgermantel mit Jakobsmuschel und Stab kniet vor der romanischen Kathedrale von Santiago de Compostela, andere Pilger ziehen vorbei (um 1100). |
-| `musashi_14` | Turnier zu Friesach | neu | Zwei Ritter mit Topfhelmen prallen mit Lanzen im Tjost aufeinander, bunte Zelte und eine Burg auf dem Hügel, Zuschauer auf Tribünen (1224). |
-| `perikles_13` | Bauabrechnung des Parthenon | neu | Ein Steinmetz meißelt Zahlen in eine Marmorplatte, im Hintergrund der eingerüstete Parthenon auf der Akropolis, Bürger lesen eine fertige Tafel (um 440 v. Chr.). |
-| `agrippa_13` | Weltkarte des Agrippa | neu | Eine große gemalte Weltkarte mit Mittelmeer, Küsten und Provinzen an der Wand einer römischen Säulenhalle, Bürger betrachten sie (um 7 v. Chr.). |
-| `amanirenas_13` | Kamose | neu | Ein ägyptischer König mit blauer Krone steht am Bug eines Kriegsschiffs auf dem Nil, Bogenschützen neben ihm, Flotte dahinter (um 1550 v. Chr.). |
-| `anna_14` | Irene Dukaina | neu | Eine byzantinische Kaiserin in Purpur und Perlen wacht im Feldzelt am Lager eines kranken Kaisers, eine Öllampe brennt (um 1112). |
-| `nezahualcoyotl_13` | Bäder von Tetzcotzinco | neu | In den Fels gehauene Wasserbecken und Treppen auf einem bewaldeten Hügel, Wasser fließt aus einer Rinne, Gärten mit Blüten, Blick auf den See von Texcoco (15. Jh.). |
-| `masako_13` | Theophanius imperator augustus | neu | Eine Kaiserin mit Krone und Zepter sitzt auf dem Thron und siegelt eine Urkunde, Schreiber und Bischöfe stehen daneben (990). |
-| `epaminondas_11` | Mauern von Messene | neu | Mächtige Quadermauern mit einem viereckigen Turm und Tor in hügeliger Landschaft unter dem Berg Ithome, Bauleute setzen Steine (369 v. Chr.). |
-| `fabius_12` | Schatten auf den Höhen | neu | Ein römisches Heer zieht auf einem Hügelkamm entlang und blickt hinab auf das Lager Hannibals mit Elefanten in der Ebene (217 v. Chr.). |
-| `mandukhai_11` | Stolz im Triumphzug | neu | Eine germanische Frau mit erhobenem Kopf geht gefasst in einem römischen Triumphzug, Zuschauer, Feldzeichen und Lorbeer (17 n. Chr.). |
-| `baibars_11` | Moschee des Baibars | neu | Eine große Moschee mit weitem Hof, Arkaden und monumentalem Tor in Kairo, Gläubige und Händler davor (1269). |
-| `zizka_11` | Projet d’une dîme royale | neu | Ein gealterter Marschall in Perücke schreibt im Kerzenschein an einem Tisch voller Zahlenlisten und Karten Frankreichs (1707). |
-| `fuhao_11` | Krater von Vix | neu | Ein riesiges bronzenes Mischgefäß mit Henkeln in Gorgonenform und einem Fries aus Kriegern und Wagen, ein Mensch daneben wirkt klein (um 500 v. Chr.). |
-| `neutral_57` | Artemistempel von Ephesos | neu | Ein riesiger Marmortempel mit doppelten Säulenreihen, Pilger auf den Stufen, im Hintergrund Rauch der alten Brandstelle (4. Jh. v. Chr.). |
-| `neutral_58` | Mausoleum von Halikarnassos | neu | Ein hohes Grabmal mit Sockel, Säulenkranz, Stufenpyramide und Viergespann auf der Spitze über einer Hafenstadt (um 350 v. Chr.). |
-| `neutral_59` | Ischtar-Tor | neu | Ein Stadttor aus blau glasierten Ziegeln mit goldenen Stieren und Drachen, Zinnen und eine Prozessionsstraße davor (um 575 v. Chr.). |
-| `neutral_60` | Stele des Hammurapi | neu | Eine hohe Stele aus schwarzem Stein mit Keilschrift, oben ein König vor dem thronenden Sonnengott, in einem Tempelhof (um 1750 v. Chr.). |
-| `neutral_61` | Feuerpost | neu | Ein großes Signalfeuer brennt auf einem Berggipfel in der Nacht, auf fernen Gipfeln antworten weitere Feuer, ein Wächter blickt in die Ferne (um 1200 v. Chr.). |
-
-## 6. Spielsteine: 22
+## 6. Spielsteine: 0
 
 Profil **T1**: wie K1, Hauptfigur größer, Hintergrund ruhiger; vollständige Szene, kein Freisteller.
-
-
-### Spielsteine
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `eagle` | Habicht | neu | Habicht mit angezogenen beziehungsweise zum Greifen geöffneten Fängen über einem deutschen Wald. Kurze breite Flügel und langer Schwanz; ausdrücklich kein Adler trotz Dateiname. |
-| `totem_fire` | Grenzstein der Mark | neu | Grenzstein der Mark mit einfachem Schwertrelief, kleines Signalfeuer daneben. Hauptstein groß, Umgebung ruhig; keine Figur und kein Totempfahl. |
-| `totem_guard` | Grenzstein der Burg | neu | Massiver moosiger Grenzstein mit eingearbeitetem Turmrelief. Frontal-nahe Ansicht, feste breite Silhouette; kein vollständiges Burgpanorama. |
-| `totem_strength` | Grenzstein des Dorfes | neu | Dörflicher Grenzstein mit schlichtem Pflugrelief, reifes Feld dahinter. Stein als Hauptmotiv, goldwarme Akzente; kein magisches Runenobjekt. |
-| `rider` | Reiter | neu | Ein leichter Reiter mit Speer und Rundschild kommt aus einem Wald. Vereinfachter Hintergrund und zentrale Pferd-Reiter-Silhouette; kein Porträt eines benannten Helden. |
-| `chariot` | Streitwagen | neu | Ein leichter ägyptischer Streitwagen mit zwei Pferden und Bogenschützen. Seiten-Dreiviertelansicht, ruhiger Wüstenhintergrund; keine ganze Wagenformation. |
-| `terracotta` | Musketier | neu | Ein barocker Musketier im blauen Rock mit Muskete in Wachhaltung. Menschliche Einzelperson, keine Terrakottastatue und kein chinesischer Soldat. |
-| `tribesman` | Stammeskrieger | neu | Ein Cherusker mit Speer und kleinem Rundschild vor einem ruhigen Waldrand. Wolle, Leinen und schlichte Fibel; keine mongolische Rüstung. |
-| `wagon` | Schanzkorb | neu | Ein großer geflochtener Schanzkorb voller Erde im Belagerungsgraben; Kanone klein im Hintergrund. Objektmotiv mit klarer Flechtstruktur; kein Wagen. |
-| `taborite` | Füsilier | neu | Französischer Füsilier des späten 17. Jahrhunderts mit Steinschlossmuskete und passender Ausrüstung. Einzelperson; keine hussitische oder mittelalterliche Darstellung. |
-| `mamluk` | Mamlukenreiter | neu | Ein leichter Mamlukenreiter mit Lanze und Rundschild. Ruhige Dreiviertelpose vor schlichtem sandigem Hintergrund; vom aktiven Bogenreiter baibars_3 unterscheiden. |
-| `immortal` | Medjai-Krieger | neu | Ein Medjai-Krieger mit Bogen und Hautschild in ägyptischem Kontext. Natürliche menschliche Figur; kein persischer Unsterblicher oder Fantasy-Wesen. |
-| `messenian` | Freier Messenier | neu | Freier Messenier mit neuem Speer und Schild vor ruhiger Landschaft. Selbstbewusste Standpose im griechischen Kontext; keine Massenbefreiungsszene. |
-| `companion` | Gefährte der Heiligen Schar | neu | Ein Gefährte der Heiligen Schar mit Rundschild in griechischer Hoplitenausrüstung. Einzelperson als Gegenstück zu den zwei Kämpfern epaminondas_4. |
-| `twin` | Sippenbruder | neu | Junger germanischer Sippenbruder mit Speer und kleinem Schild. Eigenständiges Gesicht und andere Pose als tribesman; weder Zwillingpaar noch Mongole. |
-| `elephant` | Kriegselefant | neu | Ein antiker Kriegselefant in ruhiger Dreiviertelansicht, natürliche Anatomie und einfache Ausrüstung. Keine übergroße Fantasieturm-Panzerung; anders als die bewegte Feldszene neutral_19. |
-| `pyramid` | Stufenpyramide | neu | Djosers Stufenpyramide bei Sakkara im warmen Licht, Architektur klar zentral. Keine Figur Djosers, keine Gizeh-Pyramide; vereinfachter, gut lesbarer Hintergrund. |
-
-### Aus Teil 4 wiederbeschaffen
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `pioneer` | Pionier | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Römischer Pionier der späten Republik/frühen Kaiserzeit mit Werkzeug und einfacher Soldatenausrüstung beim Bauen; Einzelperson, warmer Stein und Ziegelrot, Profil T1. |
-| `citizen` | Bürger | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Ein athenischer Bürger in schlichtem Chiton/Himation vor ruhiger Stadtkulisse; klare menschliche Halbfigur statt Feldherr. Klassisches Athen, Profil T1. |
-| `parthenos` | Athena Parthenos | Original aus Teil 4 suchen; nur wenn verloren, neu erzeugen | Vollendete Athena-Parthenos-Kultstatue im Tempelraum; Elfenbein-/Goldwirkung sparsam, Statue statt lebender Göttin, keine Werkstattaktion. Klassisches Athen, Profil T1. |
-
-### Spielsteine
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `student` | Schüler der Hypatia | neu | Junger Gelehrter in schlichtem Chiton und Mantel um 400 n. Chr., sitzt mit Wachstafel und Griffel, ein Astrolab aus Messing auf dem Tisch, Säulenhalle in Alexandria im Hintergrund. Kein Zauber, kein Leuchten (AP L.5: Hypatias Unterricht). |
-
-### Hinterhalte (AP 5.6)
-
-| ID | Name | Status | Konkretes Motiv und Komposition |
-|---|---|---|---|
-| `standard` | Träger der Kaiserstandarte | neu | Byzantinischer Fahnenträger im Lamellenpanzer mit hoher kaiserlicher Fahne mit goldenem Kreuz (11. Jh.). |

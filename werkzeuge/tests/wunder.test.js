@@ -1,8 +1,8 @@
 // Erweiterung „Wunder der Welt“ Teil 1 (AP 5.7, 1.27.0, Entscheidung 22): je Held eine Karte aus seiner Lebenswelt und fünf
-// neutrale – nur vorhandene Regeln, jede mit Quelle, alle noch Platzhalter. Dazu die Rückmeldung zu 1.25.0: Beim ersten
+// neutrale – nur vorhandene Regeln, jede mit Quelle und Illustration. Dazu die Rückmeldung zu 1.25.0: Beim ersten
 // Hinterhalt erklärt ein Fenster einmal, was die Wachsrolle ist.
 require('./attrappen.js');
-const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs');
+const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.join(__dirname,'../..'),game=path.join(root,'quellcode/assets/game');
 const need=f=>require(path.join(game,f));
 const D=need('model/data.js'),E=need('model/engine.js'),L=need('model/lore.js'),P=need('model/profile.js');
@@ -17,13 +17,13 @@ const minion=(s,p,id='attrappe_23')=>{const u=E.summon(s,p,id);u.ready=true;dele
 const placed=(s,p,id)=>s.players[p].board.find(u=>u.id===id);
 const turn=s=>{act(s,{type:'end'});const a=s.players[s.active];a.mana=a.maxMana=10;};
 
-test('Teil 1 und 2: 54 Karten hinten angehängt – je Held zwei, zehn neutrale, Quelle, Platzhalter, Werte-Budget',()=>{
+test('Teil 1 und 2: 54 Karten hinten angehängt – je Held zwei, zehn neutrale, Quelle, Kartenbild, Werte-Budget',()=>{
  assert.equal(SET.length,54);assert.deepEqual(D.cards.slice(362).map(c=>c.id),SET.map(c=>c.id),'IDs hinten angehängt');
  for(const h of D.heroes)assert.equal(SET.filter(c=>c.hero===h.id).length,2,h.id+': zwei Karten');
  assert.equal(SET.filter(c=>c.hero==='neutral').length,10);assert.ok(SET.every(c=>!c.age),'keine Zeitalterkarten');
- const motive=fs.readFileSync(path.join(root,'ungenutzte_assets/MOTIVE.md'),'utf8'),auftrag=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG.md'),'utf8');
+ const images=need('model/bilder.js');
  for(const c of SET){
-  assert.ok(D.missingArt(c),c.id+': Platzhalter bis Astra');assert.ok(motive.includes(c.id)&&auftrag.includes(c.id),c.id+': Bildidee für Astra');
+  assert.deepEqual([c.art,c.cell],images.cards[c.id],c.id+': eigenes Bild im Atlas');
   const line=L.card(c.id);assert.ok(line&&line[0].length>80&&line[1].length>5,c.id+': Aus der Chronik mit Quelle');
   assert.ok(['common','rare','epic'].includes(c.rarity),c.id+': keine neue Legendäre');
   if(c.type==='minion')assert.ok(c.attack+c.health<=2*c.cost+1,c.id+': Grundwerte höchstens 2 × Kosten + 1');

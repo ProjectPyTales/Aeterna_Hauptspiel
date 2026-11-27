@@ -9,7 +9,7 @@ leonidas_6;Phalanxveteran;Sparta;eingebaut;Teil1/assets/cards/leonidas_6.webp
 leonidas_7;Spartas Erbe;Sparta;eingebaut;Teil2/assets/cards/leonidas_7.png
 leonidas_8;Dienekes;Sparta;eingebaut;Teil2/assets/cards/leonidas_8.png
 leonidas_9;Gorgo, Stimme Spartas;Sparta;eingebaut;Teil1/assets/cards/leonidas_9.webp
-hypatia_0;Bibliothekslehrling;Alexandria;offen;
+hypatia_0;Bibliothekslehrling;Alexandria;eingebaut;Lieferung_K24/hypatia_0.webp
 hypatia_1;Erdmessung des Eratosthenes;Alexandria;eingebaut;Teil2/assets/cards/hypatia_1.png
 hypatia_2;Sternenkundiger;Alexandria;altes Bild;
 hypatia_3;Sternkatalog des Hipparchos;Alexandria;eingebaut;Teil2/assets/cards/hypatia_3.png
@@ -42,7 +42,7 @@ dandolo_9;Marco Polo, der Weltenfahrer;Venedig;eingebaut;gerettet/Marco Polo auf
 khan_0;Späher aus Engern;Sachsen;eingebaut;gerettet/Späher im dunklen Buchenwald.png
 khan_1;Speerwerfer aus Westfalen;Sachsen;eingebaut;gerettet/Sächsischer Speerwerfer im Nebel.png
 khan_2;Pfeilschuss;Sachsen;altes Bild;
-khan_3;Reiter der Edelinge;Sachsen;offen;
+khan_3;Reiter der Edelinge;Sachsen;eingebaut;Lieferung_K04/khan_3.webp
 khan_4;Falknerin;Sachsen;eingebaut;gerettet/Sächsische Falknerin mit Habicht.png
 khan_5;Sachsenaufstand;Sachsen;eingebaut;gerettet/Sächsische Speerträger vor dem brennenden Dorf.png
 khan_6;Schildträger aus Ostfalen;Sachsen;eingebaut;gerettet/Ostfälischer Schildträger mit Speer.png
@@ -79,35 +79,35 @@ jeanne_6;Vorsängerin im Chor;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_6.
 jeanne_7;Spiel der Tugenden;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_7.png
 jeanne_8;Ritter mit dem Schutzbrief;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_8.png
 jeanne_9;Jutta von Sponheim, Magistra;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_9.png
-ragnar_0;Siedler aus Franken;Mark Meißen;offen;
-ragnar_1;Fehde;Mark Meißen;offen;
-ragnar_2;Burgmann von Groitzsch;Mark Meißen;offen;
-ragnar_3;Lokator;Mark Meißen;offen;
-ragnar_4;Verhau;Mark Meißen;offen;
-ragnar_5;Panzerreiter;Mark Meißen;offen;
-ragnar_6;Rodung;Mark Meißen;offen;
-ragnar_7;Grenzwächter der Mark;Mark Meißen;offen;
-ragnar_8;Heerfahrt nach Italien;Mark Meißen;offen;
-ragnar_9;Judith von Böhmen;Mark Meißen;offen;
-musashi_0;Edelknabe;Steiermark;offen;
-musashi_1;Lanzenstoß;Steiermark;offen;
-musashi_2;Fahrender Ritter;Steiermark;offen;
-musashi_3;Minnebrief;Steiermark;offen;
-musashi_4;Minneritter;Steiermark;offen;
-musashi_5;Mit eingelegter Lanze;Steiermark;offen;
-musashi_6;Kämpe im Buhurt;Steiermark;offen;
-musashi_7;Venusfahrt;Steiermark;offen;
-musashi_8;Landrichter der Steiermark;Steiermark;offen;
-musashi_9;Friedrich der Streitbare;Steiermark;offen;
+ragnar_0;Siedler aus Franken;Mark Meißen;eingebaut;Lieferung_K06/ragnar_0.webp
+ragnar_1;Fehde;Mark Meißen;eingebaut;Lieferung_K06/ragnar_1.webp
+ragnar_2;Burgmann von Groitzsch;Mark Meißen;eingebaut;Lieferung_K06/ragnar_2.webp
+ragnar_3;Lokator;Mark Meißen;eingebaut;Lieferung_K06/ragnar_3.webp
+ragnar_4;Verhau;Mark Meißen;eingebaut;Lieferung_K06/ragnar_4.webp
+ragnar_5;Panzerreiter;Mark Meißen;eingebaut;Lieferung_K06/ragnar_5.webp
+ragnar_6;Rodung;Mark Meißen;eingebaut;Lieferung_K06/ragnar_6.webp
+ragnar_7;Grenzwächter der Mark;Mark Meißen;eingebaut;Lieferung_K07/ragnar_7.webp
+ragnar_8;Heerfahrt nach Italien;Mark Meißen;eingebaut;Lieferung_K07/ragnar_8.webp
+ragnar_9;Judith von Böhmen;Mark Meißen;eingebaut;Lieferung_K07/ragnar_9.webp
+musashi_0;Edelknabe;Steiermark;eingebaut;Lieferung_K08/musashi_0.webp
+musashi_1;Lanzenstoß;Steiermark;eingebaut;Lieferung_K08/musashi_1.webp
+musashi_2;Fahrender Ritter;Steiermark;eingebaut;Lieferung_K08/musashi_2.webp
+musashi_3;Minnebrief;Steiermark;eingebaut;Lieferung_K08/musashi_3.webp
+musashi_4;Minneritter;Steiermark;eingebaut;Lieferung_K08/musashi_4.webp
+musashi_5;Mit eingelegter Lanze;Steiermark;eingebaut;Lieferung_K08/musashi_5.webp
+musashi_6;Kämpe im Buhurt;Steiermark;eingebaut;Lieferung_K08/musashi_6.webp
+musashi_7;Venusfahrt;Steiermark;eingebaut;Lieferung_K09/musashi_7.webp
+musashi_8;Landrichter der Steiermark;Steiermark;eingebaut;Lieferung_K09/musashi_8.webp
+musashi_9;Friedrich der Streitbare;Steiermark;eingebaut;Lieferung_K09/musashi_9.webp
 neutral_0;Dorfwache;Neutral;altes Bild;
 neutral_1;Wandernder Händler;Neutral;altes Bild;
 neutral_2;Steinschleuderer;Neutral;altes Bild;
 neutral_3;Wilderin;Neutral;altes Bild;
 neutral_4;Torwache der Burg;Neutral;altes Bild;
 neutral_5;Kavallerist;Neutral;altes Bild;
-neutral_6;Feldheilerin;Neutral;offen;
+neutral_6;Feldheilerin;Neutral;eingebaut;Lieferung_K20/neutral_6.webp
 neutral_7;Archivarin;Neutral;altes Bild;
-neutral_8;Wachhund;Neutral;offen;
+neutral_8;Wachhund;Neutral;eingebaut;Lieferung_K20/neutral_8.webp
 neutral_9;Veteran;Neutral;altes Bild;
 neutral_10;Belagerungsturm;Neutral;altes Bild;
 neutral_11;Schmied;Neutral;altes Bild;
@@ -119,39 +119,39 @@ neutral_16;Versorgung;Neutral;altes Bild;
 neutral_17;Heilkräuter;Neutral;altes Bild;
 neutral_18;Wurfmesser;Neutral;altes Bild;
 neutral_19;Kriegselefant;Neutral;altes Bild;
-neutral_20;Ordensritter;Neutral;offen;
+neutral_20;Ordensritter;Neutral;eingebaut;Lieferung_K20/neutral_20.webp
 neutral_21;Söldnerhauptmann;Neutral;altes Bild;
 neutral_22;Adler der Berge;Neutral;altes Bild;
-neutral_23;Grabwächter;Neutral;offen;
+neutral_23;Grabwächter;Neutral;eingebaut;Lieferung_K20/neutral_23.webp
 neutral_24;Sammelruf;Neutral;altes Bild;
 neutral_25;Feldration;Neutral;altes Bild;
 neutral_26;Bogenmeisterin;Neutral;altes Bild;
-neutral_27;Prätorianer;Neutral;offen;
+neutral_27;Prätorianer;Neutral;eingebaut;Lieferung_K20/neutral_27.webp
 neutral_28;Silberner Bannerträger;Neutral;altes Bild;
 neutral_29;Flammenkrug;Neutral;altes Bild;
 neutral_30;Löwin der Arena;Neutral;altes Bild;
 neutral_31;Seidenkarawanenführer;Neutral;altes Bild;
 neutral_32;Schlachtruf;Neutral;altes Bild;
-neutral_33;Trojanisches Pferd;Neutral;offen;
-neutral_34;Brander;Neutral;offen;
+neutral_33;Trojanisches Pferd;Neutral;eingebaut;Lieferung_K20/neutral_33.webp
+neutral_34;Brander;Neutral;eingebaut;Lieferung_K20/neutral_34.webp
 neutral_35;Mercators Atlas;Neutral;altes Bild;
-neutral_36;Burgbesatzung;Neutral;offen;
+neutral_36;Burgbesatzung;Neutral;eingebaut;Lieferung_K20/neutral_36.webp
 neutral_37;Donnernde Legion;Neutral;altes Bild;
 neutral_38;Herodot, Vater der Geschichte;Neutral;altes Bild;
 neutral_39;Zenobia, Rebellin von Palmyra;Neutral;altes Bild;
 dandolo_10;Spitzel im Venezianerviertel;Venedig;eingebaut;Teil2/assets/cards/dandolo_10.png
-khan_10;Plünderer am Rhein;Sachsen;offen;
+khan_10;Plünderer am Rhein;Sachsen;eingebaut;Lieferung_K04/khan_10.webp
 imhotep_10;Kobra des Nils;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_10.png
 boudicca_10;Zwanzig Städte in Flammen;Arverner;eingebaut;Teil6/originale/boudicca_10.png
-nostradamus_10;Eid der Arkanisten;Meißen;offen;
-ragnar_10;Böhmischer Söldner;Mark Meißen;offen;
-ragnar_11;Brandschatzung;Mark Meißen;offen;
-musashi_10;Heimlicher Bote;Steiermark;offen;
-neutral_42;Freibeuterin;Neutral;offen;
-neutral_43;Späherin im Unterholz;Neutral;offen;
-neutral_44;Wandermönch;Neutral;offen;
-neutral_45;Giftmischerin;Neutral;offen;
-neutral_46;Condottiere;Neutral;offen;
+nostradamus_10;Eid der Arkanisten;Meißen;eingebaut;Lieferung_K18/nostradamus_10.webp
+ragnar_10;Böhmischer Söldner;Mark Meißen;eingebaut;Lieferung_K07/ragnar_10.webp
+ragnar_11;Brandschatzung;Mark Meißen;eingebaut;Lieferung_K07/ragnar_11.webp
+musashi_10;Heimlicher Bote;Steiermark;eingebaut;Lieferung_K09/musashi_10.webp
+neutral_42;Freibeuterin;Neutral;eingebaut;Lieferung_K21/neutral_42.webp
+neutral_43;Späherin im Unterholz;Neutral;eingebaut;Lieferung_K21/neutral_43.webp
+neutral_44;Wandermönch;Neutral;eingebaut;Lieferung_K21/neutral_44.webp
+neutral_45;Giftmischerin;Neutral;eingebaut;Lieferung_K21/neutral_45.webp
+neutral_46;Condottiere;Neutral;eingebaut;Lieferung_K21/neutral_46.webp
 perikles_0;Ruderer der Triere;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_0.png
 perikles_1;Lange Mauern;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_1.png
 perikles_2;Rede auf die Gefallenen;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_2.png
@@ -159,9 +159,9 @@ perikles_3;Strategos;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Tei
 perikles_4;Pnyx;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_4.png
 perikles_5;Scherbengericht;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_5.png
 perikles_6;Triere von Salamis;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_6.png
-perikles_7;Pest von Athen;Athen;wiederbeschaffen;
-perikles_8;Odeion;Athen;wiederbeschaffen;
-perikles_9;Phidias, Meister der Akropolis;Athen;wiederbeschaffen;
+perikles_7;Pest von Athen;Athen;eingebaut;Lieferung_K24/perikles_7.webp
+perikles_8;Odeion;Athen;eingebaut;Lieferung_K24/perikles_8.webp
+perikles_9;Phidias, Meister der Akropolis;Athen;eingebaut;Lieferung_K24/perikles_9.webp
 agrippa_0;Pilumwerfer;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_0.png
 agrippa_1;Legionär der Zehnten;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_1.png
 agrippa_2;Castra;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_2.png
@@ -182,36 +182,36 @@ amanirenas_6;Erbeuteter Streitwagen;Theben am Nil;eingebaut;Teil5/originale_1254
 amanirenas_7;Überfall auf Nefrusi;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_7.png
 amanirenas_8;Ahmose, Befreier Ägyptens;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_8.png
 amanirenas_9;Zeremonialaxt des Ahmose;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_9.png
-anna_0;Kopistin der Chronik;Byzanz;offen;
-anna_1;Pantokrator-Spital;Byzanz;offen;
-anna_2;Warägergardist;Byzanz;offen;
-anna_3;Hofärztin;Byzanz;offen;
-anna_4;Griechisches Feuer;Byzanz;offen;
-anna_5;Bibliothekar von Konstantinopel;Byzanz;offen;
-anna_6;Kataphrakt;Byzanz;offen;
-anna_7;Chrysobull;Byzanz;offen;
-anna_8;Nikephoros Bryennios;Byzanz;offen;
-anna_9;Alexios I. Komnenos;Byzanz;offen;
-nezahualcoyotl_0;Gärtner von Tetzcotzinco;Texcoco;offen;
-nezahualcoyotl_1;Adlerkrieger;Texcoco;offen;
-nezahualcoyotl_2;Blumenkrieg;Texcoco;offen;
-nezahualcoyotl_3;Jaguarkrieger;Texcoco;offen;
-nezahualcoyotl_4;Aquädukt von Chapultepec;Texcoco;offen;
-nezahualcoyotl_5;Gesetze von Texcoco;Texcoco;offen;
-nezahualcoyotl_6;Quetzal-Hauptmann;Texcoco;offen;
-nezahualcoyotl_7;Damm von Nezahualcóyotl;Texcoco;offen;
-nezahualcoyotl_8;Itzcoatl, Herr von Tenochtitlan;Texcoco;offen;
-nezahualcoyotl_9;Nezahualpilli, Sohn des Dichters;Texcoco;offen;
-masako_0;Lehnsmann;Ottonen;offen;
-masako_1;Bogenschütze der Pfalz;Ottonen;offen;
-masako_2;Treueschwur;Ottonen;offen;
-masako_3;Stiftsdame aus Quedlinburg;Ottonen;offen;
-masako_4;Späher an der Elbe;Ottonen;offen;
-masako_5;Heerbann;Ottonen;offen;
-masako_6;St. Pantaleon in Köln;Ottonen;offen;
-masako_7;Haft in Utrecht;Ottonen;offen;
-masako_8;Willigis, Erzbischof von Mainz;Ottonen;offen;
-masako_9;Otto II., Kaiser;Ottonen;offen;
+anna_0;Kopistin der Chronik;Byzanz;eingebaut;Lieferung_K11/anna_0.webp
+anna_1;Pantokrator-Spital;Byzanz;eingebaut;Lieferung_K11/anna_1.webp
+anna_2;Warägergardist;Byzanz;eingebaut;Lieferung_K11/anna_2.webp
+anna_3;Hofärztin;Byzanz;eingebaut;Lieferung_K11/anna_3.webp
+anna_4;Griechisches Feuer;Byzanz;eingebaut;Lieferung_K11/anna_4.webp
+anna_5;Bibliothekar von Konstantinopel;Byzanz;eingebaut;Lieferung_K11/anna_5.webp
+anna_6;Kataphrakt;Byzanz;eingebaut;Lieferung_K12/anna_6.webp
+anna_7;Chrysobull;Byzanz;eingebaut;Lieferung_K12/anna_7.webp
+anna_8;Nikephoros Bryennios;Byzanz;eingebaut;Lieferung_K12/anna_8.webp
+anna_9;Alexios I. Komnenos;Byzanz;eingebaut;Lieferung_K12/anna_9.webp
+nezahualcoyotl_0;Gärtner von Tetzcotzinco;Texcoco;eingebaut;Lieferung_K15/nezahualcoyotl_0.webp
+nezahualcoyotl_1;Adlerkrieger;Texcoco;eingebaut;Lieferung_K15/nezahualcoyotl_1.webp
+nezahualcoyotl_2;Blumenkrieg;Texcoco;eingebaut;Lieferung_K15/nezahualcoyotl_2.webp
+nezahualcoyotl_3;Jaguarkrieger;Texcoco;eingebaut;Lieferung_K15/nezahualcoyotl_3.webp
+nezahualcoyotl_4;Aquädukt von Chapultepec;Texcoco;eingebaut;Lieferung_K15/nezahualcoyotl_4.webp
+nezahualcoyotl_5;Gesetze von Texcoco;Texcoco;eingebaut;Lieferung_K15/nezahualcoyotl_5.webp
+nezahualcoyotl_6;Quetzal-Hauptmann;Texcoco;eingebaut;Lieferung_K16/nezahualcoyotl_6.webp
+nezahualcoyotl_7;Damm von Nezahualcóyotl;Texcoco;eingebaut;Lieferung_K16/nezahualcoyotl_7.webp
+nezahualcoyotl_8;Itzcoatl, Herr von Tenochtitlan;Texcoco;eingebaut;Lieferung_K16/nezahualcoyotl_8.webp
+nezahualcoyotl_9;Nezahualpilli, Sohn des Dichters;Texcoco;eingebaut;Lieferung_K16/nezahualcoyotl_9.webp
+masako_0;Lehnsmann;Ottonen;eingebaut;Lieferung_K04/masako_0.webp
+masako_1;Bogenschütze der Pfalz;Ottonen;eingebaut;Lieferung_K04/masako_1.webp
+masako_2;Treueschwur;Ottonen;eingebaut;Lieferung_K04/masako_2.webp
+masako_3;Stiftsdame aus Quedlinburg;Ottonen;eingebaut;Lieferung_K04/masako_3.webp
+masako_4;Späher an der Elbe;Ottonen;eingebaut;Lieferung_K04/masako_4.webp
+masako_5;Heerbann;Ottonen;eingebaut;Lieferung_K04/masako_5.webp
+masako_6;St. Pantaleon in Köln;Ottonen;eingebaut;Lieferung_K05/masako_6.webp
+masako_7;Haft in Utrecht;Ottonen;eingebaut;Lieferung_K05/masako_7.webp
+masako_8;Willigis, Erzbischof von Mainz;Ottonen;eingebaut;Lieferung_K05/masako_8.webp
+masako_9;Otto II., Kaiser;Ottonen;eingebaut;Lieferung_K05/masako_9.webp
 leonidas_10;Spartiat der Dreihundert;Sparta;eingebaut;Teil2/assets/cards/leonidas_10.png
 leonidas_11;Engpass der Thermopylen;Sparta;eingebaut;Teil2/assets/cards/leonidas_11.png
 hypatia_10;Astronomin des Museions;Alexandria;eingebaut;Teil2/assets/cards/hypatia_10.png
@@ -220,30 +220,30 @@ imhotep_11;Priesterin der Sachmet;Ägypten;eingebaut;Teil5/originale_1254px/imho
 imhotep_12;Ka-Statue;Ägypten;eingebaut;Teil5/originale_1254px/imhotep_12.png
 dandolo_11;Galeerenschmied;Venedig;eingebaut;Teil2/assets/cards/dandolo_11.png
 dandolo_12;Plünderung Konstantinopels;Venedig;eingebaut;Teil2/assets/cards/dandolo_12.png
-khan_11;Heerlager an der Weser;Sachsen;offen;
-khan_12;Versammlung in Marklo;Sachsen;offen;
+khan_11;Heerlager an der Weser;Sachsen;eingebaut;Lieferung_K04/khan_11.webp
+khan_12;Versammlung in Marklo;Sachsen;eingebaut;Lieferung_K04/khan_12.webp
 boudicca_11;Barde der Arverner;Arverner;eingebaut;Teil6/originale/boudicca_11.png
 boudicca_12;Gallische Reiterei;Arverner;eingebaut;Teil6/originale/boudicca_12.png
-nostradamus_11;Laborbuch;Meißen;offen;
-nostradamus_12;Weißes Gold;Meißen;offen;
+nostradamus_11;Laborbuch;Meißen;eingebaut;Lieferung_K18/nostradamus_11.webp
+nostradamus_12;Weißes Gold;Meißen;eingebaut;Lieferung_K18/nostradamus_12.webp
 jeanne_10;Adlige Stifterin;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_10.png
 jeanne_11;Weihe der Klosterkirche;Rupertsberg;eingebaut;Teil2/assets/cards/jeanne_11.png
-ragnar_12;Feldmesser;Mark Meißen;offen;
-ragnar_13;Beuterecht;Mark Meißen;offen;
-musashi_11;Ritter aus Murau;Steiermark;offen;
-musashi_12;Frische Lanze;Steiermark;offen;
+ragnar_12;Feldmesser;Mark Meißen;eingebaut;Lieferung_K07/ragnar_12.webp
+ragnar_13;Beuterecht;Mark Meißen;eingebaut;Lieferung_K07/ragnar_13.webp
+musashi_11;Ritter aus Murau;Steiermark;eingebaut;Lieferung_K09/musashi_11.webp
+musashi_12;Frische Lanze;Steiermark;eingebaut;Lieferung_K09/musashi_12.webp
 perikles_10;Steinmetz vom Pentelikon;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_10.png
 perikles_11;Schatz des Seebunds;Athen;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/perikles_11.png
 agrippa_10;Aquilifer;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_10.png
 agrippa_11;Harpax;Rom;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/agrippa_11.png
 amanirenas_10;Pfeilmacher aus Edfu;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_10.png
 amanirenas_11;Gift der Hornviper;Theben am Nil;eingebaut;Teil5/originale_1254px/amanirenas_11.png
-anna_10;Spitalarzt des Pantokrator;Byzanz;offen;
-anna_11;Chronist am Kaiserhof;Byzanz;offen;
-nezahualcoyotl_10;Dichter von Texcoco;Texcoco;offen;
-nezahualcoyotl_11;Chinampa;Texcoco;offen;
-masako_10;Kanzler der Kaiserin;Ottonen;offen;
-masako_11;Siegel der Kaiserin;Ottonen;offen;
+anna_10;Spitalarzt des Pantokrator;Byzanz;eingebaut;Lieferung_K12/anna_10.webp
+anna_11;Chronist am Kaiserhof;Byzanz;eingebaut;Lieferung_K12/anna_11.webp
+nezahualcoyotl_10;Dichter von Texcoco;Texcoco;eingebaut;Lieferung_K16/nezahualcoyotl_10.webp
+nezahualcoyotl_11;Chinampa;Texcoco;eingebaut;Lieferung_K16/nezahualcoyotl_11.webp
+masako_10;Kanzler der Kaiserin;Ottonen;eingebaut;Lieferung_K05/masako_10.webp
+masako_11;Siegel der Kaiserin;Ottonen;eingebaut;Lieferung_K05/masako_11.webp
 griechen_0;Olympionike;Griechenland und Hellenismus;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/griechen_0.png
 griechen_1;Rhapsode;Griechenland und Hellenismus;eingebaut;Teil4/assets/Chronicle_of_Heroes_Assets_Teil_04/assets/cards/griechen_1.png
 griechen_2;Marathonläufer;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_2.png
@@ -251,23 +251,23 @@ griechen_3;Orakel von Delphi;Griechenland und Hellenismus;eingebaut;Teil4/assets
 griechen_4;Leuchtturm von Pharos;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_4.png
 griechen_5;Akropolis;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_5.png
 griechen_6;Bibliothek von Alexandria;Griechenland und Hellenismus;eingebaut;Teil6/originale/griechen_6.png
-mittelalter_0;Knappe;Mittelalter im Reich;offen;
-mittelalter_1;Armbrustschütze;Mittelalter im Reich;offen;
-mittelalter_2;Mönch von Cluny;Mittelalter im Reich;offen;
-mittelalter_3;Hansekogge;Mittelalter im Reich;offen;
-mittelalter_4;Turnierritter;Mittelalter im Reich;offen;
-mittelalter_5;Burgfried;Mittelalter im Reich;offen;
-mittelalter_6;Tribok;Mittelalter im Reich;offen;
-ostasien_0;Landsknecht;Frühe Neuzeit;offen;
-ostasien_1;Buchdrucker aus Mainz;Frühe Neuzeit;offen;
-ostasien_2;Leipziger Kaffeehaus;Frühe Neuzeit;offen;
-ostasien_3;Kartaunen-Salve;Frühe Neuzeit;offen;
-ostasien_4;Kriegsgaleone;Frühe Neuzeit;offen;
-ostasien_5;Stehendes Heer;Frühe Neuzeit;offen;
-ostasien_6;Sternschanze;Frühe Neuzeit;offen;
-neutral_47;Kolosseum;Neutral;offen;
-neutral_48;Hängende Gärten;Neutral;offen;
-neutral_49;Pyramiden von Gizeh;Neutral;offen;
+mittelalter_0;Knappe;Mittelalter im Reich;eingebaut;Lieferung_K10/mittelalter_0.webp
+mittelalter_1;Armbrustschütze;Mittelalter im Reich;eingebaut;Lieferung_K10/mittelalter_1.webp
+mittelalter_2;Mönch von Cluny;Mittelalter im Reich;eingebaut;Lieferung_K10/mittelalter_2.webp
+mittelalter_3;Hansekogge;Mittelalter im Reich;eingebaut;Lieferung_K10/mittelalter_3.webp
+mittelalter_4;Turnierritter;Mittelalter im Reich;eingebaut;Lieferung_K10/mittelalter_4.webp
+mittelalter_5;Burgfried;Mittelalter im Reich;eingebaut;Lieferung_K10/mittelalter_5.webp
+mittelalter_6;Tribok;Mittelalter im Reich;eingebaut;Lieferung_K10/mittelalter_6.webp
+ostasien_0;Landsknecht;Frühe Neuzeit;eingebaut;Lieferung_K18/ostasien_0.webp
+ostasien_1;Buchdrucker aus Mainz;Frühe Neuzeit;eingebaut;Lieferung_K18/ostasien_1.webp
+ostasien_2;Leipziger Kaffeehaus;Frühe Neuzeit;eingebaut;Lieferung_K18/ostasien_2.webp
+ostasien_3;Kartaunen-Salve;Frühe Neuzeit;eingebaut;Lieferung_K18/ostasien_3.webp
+ostasien_4;Kriegsgaleone;Frühe Neuzeit;eingebaut;Lieferung_K18/ostasien_4.webp
+ostasien_5;Stehendes Heer;Frühe Neuzeit;eingebaut;Lieferung_K18/ostasien_5.webp
+ostasien_6;Sternschanze;Frühe Neuzeit;eingebaut;Lieferung_K18/ostasien_6.webp
+neutral_47;Kolosseum;Neutral;eingebaut;Lieferung_K21/neutral_47.webp
+neutral_48;Hängende Gärten;Neutral;eingebaut;Lieferung_K21/neutral_48.webp
+neutral_49;Pyramiden von Gizeh;Neutral;eingebaut;Lieferung_K21/neutral_49.webp
 epaminondas_0;Thebanischer Plänkler;Theben;eingebaut;Teil6/originale/epaminondas_0.png
 epaminondas_1;Böotischer Hoplit;Theben;eingebaut;Teil6/originale/epaminondas_1.png
 epaminondas_2;Fünfzig Schilde tief;Theben;eingebaut;Teil6/originale/epaminondas_2.png
@@ -278,7 +278,7 @@ epaminondas_6;Befreiung Messeniens;Theben;eingebaut;Teil6/originale/epaminondas_
 epaminondas_7;Thebanischer Phalangit;Theben;eingebaut;Teil6/originale/epaminondas_7.png
 epaminondas_8;Megalopolis;Theben;eingebaut;Teil6/originale/epaminondas_8.png
 epaminondas_9;Pelopidas, Führer der Heiligen Schar;Theben;eingebaut;Teil6/originale/epaminondas_9.png
-fabius_0;Veles;Römische Republik;Revision;Teil6/originale/fabius_0.png
+fabius_0;Veles;Römische Republik;eingebaut;Lieferung_K01/fabius_0.webp
 fabius_1;Triarier;Römische Republik;eingebaut;Teil6/originale/fabius_1.png
 fabius_2;Hinhalten;Römische Republik;eingebaut;Teil6/originale/fabius_2.png
 fabius_3;Konsul der Republik;Römische Republik;eingebaut;Teil6/originale/fabius_3.png
@@ -287,37 +287,37 @@ fabius_5;Späher am Volturnus;Römische Republik;eingebaut;Teil6/originale/fabiu
 fabius_6;Minucius, der Reiteroberst;Römische Republik;eingebaut;Teil6/originale/fabius_6.png
 fabius_7;Rückeroberung von Tarent;Römische Republik;eingebaut;Teil6/originale/fabius_7.png
 fabius_8;Lager auf den Höhen;Römische Republik;eingebaut;Teil6/originale/fabius_8.png
-fabius_9;Marcellus, Schwert Roms;Römische Republik;offen;
+fabius_9;Marcellus, Schwert Roms;Römische Republik;eingebaut;Lieferung_K01/fabius_9.webp
 mandukhai_0;Botin der Cherusker;Cherusker;eingebaut;Teil6/originale/mandukhai_0.png
-mandukhai_1;Hüterin des Herdfeuers;Cherusker;offen;
-mandukhai_2;Ruf zum Thing;Cherusker;offen;
-mandukhai_3;Krieger im Keil;Cherusker;offen;
-mandukhai_4;Varusschlacht;Cherusker;offen;
-mandukhai_5;Krieger der Sippe;Cherusker;offen;
-mandukhai_6;Heiliger Hain;Cherusker;offen;
-mandukhai_7;Seitenwechsel;Cherusker;offen;
-mandukhai_8;Arminius, Fürst der Cherusker;Cherusker;offen;
-mandukhai_9;Bund der Stämme;Cherusker;offen;
+mandukhai_1;Hüterin des Herdfeuers;Cherusker;eingebaut;Lieferung_K02/mandukhai_1.webp
+mandukhai_2;Ruf zum Thing;Cherusker;eingebaut;Lieferung_K02/mandukhai_2.webp
+mandukhai_3;Krieger im Keil;Cherusker;eingebaut;Lieferung_K02/mandukhai_3.webp
+mandukhai_4;Varusschlacht;Cherusker;eingebaut;Lieferung_K02/mandukhai_4.webp
+mandukhai_5;Krieger der Sippe;Cherusker;eingebaut;Lieferung_K02/mandukhai_5.webp
+mandukhai_6;Heiliger Hain;Cherusker;eingebaut;Lieferung_K02/mandukhai_6.webp
+mandukhai_7;Seitenwechsel;Cherusker;eingebaut;Lieferung_K02/mandukhai_7.webp
+mandukhai_8;Arminius, Fürst der Cherusker;Cherusker;eingebaut;Lieferung_K02/mandukhai_8.webp
+mandukhai_9;Bund der Stämme;Cherusker;eingebaut;Lieferung_K02/mandukhai_9.webp
 baibars_0;Mamlukenrekrut;Mamluken;eingebaut;gerettet_2te/bf9709a5-8713-4dd0-8aa7-6ac966b22275.png
 baibars_1;Barid-Kurier;Mamluken;eingebaut;gerettet_2te/4137f04e-bc14-49b4-8b74-0480c39de1bd.png
 baibars_2;Ain Dschalut;Mamluken;eingebaut;gerettet_2te/efd83f43-4ebc-4b02-b4be-264e376f0dab.png
 baibars_3;Bogenreiter der Bahriya;Mamluken;eingebaut;gerettet_2te/e1f5377d-d9d2-46b4-9425-24caff1cada0.png
 baibars_4;Manjaniq-Meister;Mamluken;eingebaut;gerettet_2te/1c6b6825-0953-4078-b12a-2ed1b9d01797.png
-baibars_5;Vorgetäuschte Flucht;Mamluken;offen;
-baibars_6;Qutuz, Sultan von Ägypten;Mamluken;offen;
-baibars_7;Sturm auf Antiochia;Mamluken;offen;
-baibars_8;Zitadelle von Kairo;Mamluken;offen;
-baibars_9;Qalawun, Emir der Bahriya;Mamluken;offen;
-zizka_0;Schanzarbeiter;Frankreich;offen;
-zizka_1;Grenadier;Frankreich;offen;
-zizka_2;Salve von der Bastion;Frankreich;offen;
-zizka_3;Ingenieur des Königs;Frankreich;offen;
-zizka_4;Festungsgeschütz;Frankreich;offen;
-zizka_5;Faschinen;Frankreich;offen;
-zizka_6;Minengang;Frankreich;offen;
-zizka_7;Zitadelle von Lille;Frankreich;offen;
-zizka_8;Louvois, Kriegsminister;Frankreich;offen;
-zizka_9;Ludwig XIV., der Sonnenkönig;Frankreich;offen;
+baibars_5;Vorgetäuschte Flucht;Mamluken;eingebaut;Lieferung_K13/baibars_5.webp
+baibars_6;Qutuz, Sultan von Ägypten;Mamluken;eingebaut;Lieferung_K13/baibars_6.webp
+baibars_7;Sturm auf Antiochia;Mamluken;eingebaut;Lieferung_K13/baibars_7.webp
+baibars_8;Zitadelle von Kairo;Mamluken;eingebaut;Lieferung_K13/baibars_8.webp
+baibars_9;Qalawun, Emir der Bahriya;Mamluken;eingebaut;Lieferung_K13/baibars_9.webp
+zizka_0;Schanzarbeiter;Frankreich;eingebaut;Lieferung_K17/zizka_0.webp
+zizka_1;Grenadier;Frankreich;eingebaut;Lieferung_K17/zizka_1.webp
+zizka_2;Salve von der Bastion;Frankreich;eingebaut;Lieferung_K17/zizka_2.webp
+zizka_3;Ingenieur des Königs;Frankreich;eingebaut;Lieferung_K17/zizka_3.webp
+zizka_4;Festungsgeschütz;Frankreich;eingebaut;Lieferung_K17/zizka_4.webp
+zizka_5;Faschinen;Frankreich;eingebaut;Lieferung_K17/zizka_5.webp
+zizka_6;Minengang;Frankreich;eingebaut;Lieferung_K17/zizka_6.webp
+zizka_7;Zitadelle von Lille;Frankreich;eingebaut;Lieferung_K17/zizka_7.webp
+zizka_8;Louvois, Kriegsminister;Frankreich;eingebaut;Lieferung_K17/zizka_8.webp
+zizka_9;Ludwig XIV., der Sonnenkönig;Frankreich;eingebaut;Lieferung_K17/zizka_9.webp
 fuhao_0;Speerwerfer vom Mont Lassois;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_0.png
 fuhao_1;Prunkdolch;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_1.png
 fuhao_2;Reiter an der Seine;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_2.png
@@ -328,119 +328,119 @@ fuhao_6;Gelage am Krater;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_6.
 fuhao_7;Schleuderer am Wall;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_7.png
 fuhao_8;Halle auf dem Mont Lassois;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_8.png
 fuhao_9;Gesandter aus Massalia;Hallstattzeit;eingebaut;Teil5/originale_1254px/fuhao_9.png
-rom_0;Gladiator;Rom und Germanien;offen;
-rom_1;Senator der Kurie;Rom und Germanien;offen;
-rom_2;Centurio;Rom und Germanien;offen;
-rom_3;Triumphzug;Rom und Germanien;offen;
-rom_4;Via Appia;Rom und Germanien;offen;
-rom_5;Vestalin am ewigen Feuer;Rom und Germanien;offen;
-rom_6;Pax Romana;Rom und Germanien;offen;
-steppe_0;Wagenbauer;Frühzeit und Ägypten;offen;
-steppe_1;Schreiber im Lebenshaus;Frühzeit und Ägypten;offen;
-steppe_2;Schuss vom Streitwagen;Frühzeit und Ägypten;offen;
-steppe_3;Wache der Medjai;Frühzeit und Ägypten;offen;
-steppe_4;Angriff der Streitwagen;Frühzeit und Ägypten;offen;
-steppe_5;Bernsteinstraße;Frühzeit und Ägypten;offen;
-steppe_6;Festung Buhen;Frühzeit und Ägypten;offen;
-byzanz_0;Akrit der Grenzmark;Kreuzzüge;offen;
-byzanz_1;Gelehrter im Haus der Weisheit;Kreuzzüge;offen;
-byzanz_2;Tribut in Goldbyzantinern;Kreuzzüge;offen;
-byzanz_3;Arzt des Bimaristan;Kreuzzüge;offen;
-byzanz_4;Theodosianische Mauern;Kreuzzüge;offen;
-byzanz_5;Hagia Sophia;Kreuzzüge;offen;
-byzanz_6;Ibn an-Nafis, Arzt von Kairo;Kreuzzüge;offen;
-neutral_50;Krähenfüße;Neutral;offen;
-neutral_51;Abgefangene Botschaft;Neutral;offen;
-steppe_7;Falsche Kundschafter von Kadesch;Frühzeit und Ägypten;offen;
-griechen_7;Botschaft des Sikinnos;Griechenland und Hellenismus;offen;
-rom_7;Wall am Kalkrieser Berg;Rom und Germanien;offen;
-mittelalter_7;Fallgatter;Mittelalter im Reich;offen;
-byzanz_7;Engpass von Myriokephalon;Kreuzzüge;offen;
-ostasien_7;Gegenmine;Frühe Neuzeit;offen;
-khan_13;Hinterhalt am Süntel;Sachsen;offen;
-fabius_10;Rettung bei Gerunium;Römische Republik;offen;
-anna_12;Täuschung bei Larissa;Byzanz;offen;
-leonidas_12;Kampf um den Leichnam;Sparta;offen;
-leonidas_13;Eiren der Agoge;Sparta;offen;
-hypatia_12;Astrolab für Synesios;Alexandria;offen;
-imhotep_13;Pilger im Asklepieion von Saqqara;Ägypten;offen;
-dandolo_13;Eroberung von Zara;Venedig;offen;
-khan_14;Irminsul;Sachsen;offen;
-boudicca_13;Stater des Vercingetorix;Arverner;offen;
-nostradamus_13;Manufaktur auf der Albrechtsburg;Meißen;offen;
-jeanne_12;Volmar, Schreiber Hildegards;Rupertsberg;offen;
-ragnar_14;Kloster Pegau;Mark Meißen;offen;
-musashi_13;Gefährte der Artusfahrt;Steiermark;offen;
-perikles_12;Aspasia von Milet;Athen;offen;
-agrippa_12;Aqua Virgo;Rom;offen;
-amanirenas_12;Stele von Karnak;Theben am Nil;offen;
-anna_13;Kloster Kecharitomene;Byzanz;offen;
-nezahualcoyotl_12;Gesänge des Dichterkönigs;Texcoco;offen;
-masako_12;Heiratsurkunde der Theophanu;Ottonen;offen;
-epaminondas_10;Scheinlager bei Mantineia;Theben;offen;
-fabius_11;Quintus Fabius, der Sohn;Römische Republik;offen;
-mandukhai_10;Thumelicus;Cherusker;offen;
-baibars_10;Brief an die Besatzung von Krak;Mamluken;offen;
-zizka_10;Neuf-Brisach;Frankreich;offen;
-fuhao_10;Goldener Halsring von Vix;Hallstattzeit;offen;
-neutral_52;Koloss von Rhodos;Neutral;offen;
-neutral_53;Zeus des Phidias;Neutral;offen;
-neutral_54;Himmelsscheibe von Nebra;Neutral;offen;
-neutral_55;Gänse des Kapitols;Neutral;offen;
-neutral_56;Skytale;Neutral;offen;
-leonidas_14;„Mit ihm oder auf ihm“;Sparta;offen;
-hypatia_13;Orestes, Präfekt von Ägypten;Alexandria;offen;
-imhotep_14;Sockel der Djoser-Statue;Ägypten;offen;
-dandolo_14;Quadriga von San Marco;Venedig;offen;
-khan_15;Taufe in Attigny;Sachsen;offen;
-boudicca_14;Murus Gallicus;Arverner;offen;
-nostradamus_14;Weiße Erde aus Aue;Meißen;offen;
-jeanne_13;Lingua ignota;Rupertsberg;offen;
-ragnar_15;Pilgerfahrt nach Santiago;Mark Meißen;offen;
-musashi_14;Turnier zu Friesach;Steiermark;offen;
-perikles_13;Bauabrechnung des Parthenon;Athen;offen;
-agrippa_13;Weltkarte des Agrippa;Rom;offen;
-amanirenas_13;Kamose;Theben am Nil;offen;
-anna_14;Irene Dukaina;Byzanz;offen;
-nezahualcoyotl_13;Bäder von Tetzcotzinco;Texcoco;offen;
-masako_13;Theophanius imperator augustus;Ottonen;offen;
-epaminondas_11;Mauern von Messene;Theben;offen;
-fabius_12;Schatten auf den Höhen;Römische Republik;offen;
-mandukhai_11;Stolz im Triumphzug;Cherusker;offen;
-baibars_11;Moschee des Baibars;Mamluken;offen;
-zizka_11;Projet d’une dîme royale;Frankreich;offen;
-fuhao_11;Krater von Vix;Hallstattzeit;offen;
-neutral_57;Artemistempel von Ephesos;Neutral;offen;
-neutral_58;Mausoleum von Halikarnassos;Neutral;offen;
-neutral_59;Ischtar-Tor;Neutral;offen;
-neutral_60;Stele des Hammurapi;Neutral;offen;
-neutral_61;Feuerpost;Neutral;offen;
+rom_0;Gladiator;Rom und Germanien;eingebaut;Lieferung_K03/rom_0.webp
+rom_1;Senator der Kurie;Rom und Germanien;eingebaut;Lieferung_K03/rom_1.webp
+rom_2;Centurio;Rom und Germanien;eingebaut;Lieferung_K03/rom_2.webp
+rom_3;Triumphzug;Rom und Germanien;eingebaut;Lieferung_K03/rom_3.webp
+rom_4;Via Appia;Rom und Germanien;eingebaut;Lieferung_K03/rom_4.webp
+rom_5;Vestalin am ewigen Feuer;Rom und Germanien;eingebaut;Lieferung_K03/rom_5.webp
+rom_6;Pax Romana;Rom und Germanien;eingebaut;Lieferung_K03/rom_6.webp
+steppe_0;Wagenbauer;Frühzeit und Ägypten;eingebaut;Lieferung_K19/steppe_0.webp
+steppe_1;Schreiber im Lebenshaus;Frühzeit und Ägypten;eingebaut;Lieferung_K19/steppe_1.webp
+steppe_2;Schuss vom Streitwagen;Frühzeit und Ägypten;eingebaut;Lieferung_K19/steppe_2.webp
+steppe_3;Wache der Medjai;Frühzeit und Ägypten;eingebaut;Lieferung_K19/steppe_3.webp
+steppe_4;Angriff der Streitwagen;Frühzeit und Ägypten;eingebaut;Lieferung_K19/steppe_4.webp
+steppe_5;Bernsteinstraße;Frühzeit und Ägypten;eingebaut;Lieferung_K19/steppe_5.webp
+steppe_6;Festung Buhen;Frühzeit und Ägypten;eingebaut;Lieferung_K19/steppe_6.webp
+byzanz_0;Akrit der Grenzmark;Kreuzzüge;eingebaut;Lieferung_K14/byzanz_0.webp
+byzanz_1;Gelehrter im Haus der Weisheit;Kreuzzüge;eingebaut;Lieferung_K14/byzanz_1.webp
+byzanz_2;Tribut in Goldbyzantinern;Kreuzzüge;eingebaut;Lieferung_K14/byzanz_2.webp
+byzanz_3;Arzt des Bimaristan;Kreuzzüge;eingebaut;Lieferung_K14/byzanz_3.webp
+byzanz_4;Theodosianische Mauern;Kreuzzüge;eingebaut;Lieferung_K14/byzanz_4.webp
+byzanz_5;Hagia Sophia;Kreuzzüge;eingebaut;Lieferung_K14/byzanz_5.webp
+byzanz_6;Ibn an-Nafis, Arzt von Kairo;Kreuzzüge;eingebaut;Lieferung_K14/byzanz_6.webp
+neutral_50;Krähenfüße;Neutral;eingebaut;Lieferung_K25/neutral_50.webp
+neutral_51;Abgefangene Botschaft;Neutral;eingebaut;Lieferung_K25/neutral_51.webp
+steppe_7;Falsche Kundschafter von Kadesch;Frühzeit und Ägypten;eingebaut;Lieferung_K25/steppe_7.webp
+griechen_7;Botschaft des Sikinnos;Griechenland und Hellenismus;eingebaut;Lieferung_K25/griechen_7.webp
+rom_7;Wall am Kalkrieser Berg;Rom und Germanien;eingebaut;Lieferung_K25/rom_7.webp
+mittelalter_7;Fallgatter;Mittelalter im Reich;eingebaut;Lieferung_K25/mittelalter_7.webp
+byzanz_7;Engpass von Myriokephalon;Kreuzzüge;eingebaut;Lieferung_K25/byzanz_7.webp
+ostasien_7;Gegenmine;Frühe Neuzeit;eingebaut;Lieferung_K26/ostasien_7.webp
+khan_13;Hinterhalt am Süntel;Sachsen;eingebaut;Lieferung_K26/khan_13.webp
+fabius_10;Rettung bei Gerunium;Römische Republik;eingebaut;Lieferung_K26/fabius_10.webp
+anna_12;Täuschung bei Larissa;Byzanz;eingebaut;Lieferung_K26/anna_12.webp
+leonidas_12;Kampf um den Leichnam;Sparta;eingebaut;Lieferung_K26/leonidas_12.webp
+leonidas_13;Eiren der Agoge;Sparta;eingebaut;Lieferung_K27/leonidas_13.webp
+hypatia_12;Astrolab für Synesios;Alexandria;eingebaut;Lieferung_K27/hypatia_12.webp
+imhotep_13;Pilger im Asklepieion von Saqqara;Ägypten;eingebaut;Lieferung_K27/imhotep_13.webp
+dandolo_13;Eroberung von Zara;Venedig;eingebaut;Lieferung_K27/dandolo_13.webp
+khan_14;Irminsul;Sachsen;eingebaut;Lieferung_K27/khan_14.webp
+boudicca_13;Stater des Vercingetorix;Arverner;eingebaut;Lieferung_K27/boudicca_13.webp
+nostradamus_13;Manufaktur auf der Albrechtsburg;Meißen;eingebaut;Lieferung_K27/nostradamus_13.webp
+jeanne_12;Volmar, Schreiber Hildegards;Rupertsberg;eingebaut;Lieferung_K27/jeanne_12.webp
+ragnar_14;Kloster Pegau;Mark Meißen;eingebaut;Lieferung_K27/ragnar_14.webp
+musashi_13;Gefährte der Artusfahrt;Steiermark;eingebaut;Lieferung_K28/musashi_13.webp
+perikles_12;Aspasia von Milet;Athen;eingebaut;Lieferung_K28/perikles_12.webp
+agrippa_12;Aqua Virgo;Rom;eingebaut;Lieferung_K28/agrippa_12.webp
+amanirenas_12;Stele von Karnak;Theben am Nil;eingebaut;Lieferung_K28/amanirenas_12.webp
+anna_13;Kloster Kecharitomene;Byzanz;eingebaut;Lieferung_K28/anna_13.webp
+nezahualcoyotl_12;Gesänge des Dichterkönigs;Texcoco;eingebaut;Lieferung_K28/nezahualcoyotl_12.webp
+masako_12;Heiratsurkunde der Theophanu;Ottonen;eingebaut;Lieferung_K28/masako_12.webp
+epaminondas_10;Scheinlager bei Mantineia;Theben;eingebaut;Lieferung_K28/epaminondas_10.webp
+fabius_11;Quintus Fabius, der Sohn;Römische Republik;eingebaut;Lieferung_K28/fabius_11.webp
+mandukhai_10;Thumelicus;Cherusker;eingebaut;Lieferung_K29/mandukhai_10.webp
+baibars_10;Brief an die Besatzung von Krak;Mamluken;eingebaut;Lieferung_K29/baibars_10.webp
+zizka_10;Neuf-Brisach;Frankreich;eingebaut;Lieferung_K29/zizka_10.webp
+fuhao_10;Goldener Halsring von Vix;Hallstattzeit;eingebaut;Lieferung_K29/fuhao_10.webp
+neutral_52;Koloss von Rhodos;Neutral;eingebaut;Lieferung_K29/neutral_52.webp
+neutral_53;Zeus des Phidias;Neutral;eingebaut;Lieferung_K29/neutral_53.webp
+neutral_54;Himmelsscheibe von Nebra;Neutral;eingebaut;Lieferung_K29/neutral_54.webp
+neutral_55;Gänse des Kapitols;Neutral;eingebaut;Lieferung_K29/neutral_55.webp
+neutral_56;Skytale;Neutral;eingebaut;Lieferung_K29/neutral_56.webp
+leonidas_14;„Mit ihm oder auf ihm“;Sparta;eingebaut;Lieferung_K30/leonidas_14.webp
+hypatia_13;Orestes, Präfekt von Ägypten;Alexandria;eingebaut;Lieferung_K30/hypatia_13.webp
+imhotep_14;Sockel der Djoser-Statue;Ägypten;eingebaut;Lieferung_K30/imhotep_14.webp
+dandolo_14;Quadriga von San Marco;Venedig;eingebaut;Lieferung_K30/dandolo_14.webp
+khan_15;Taufe in Attigny;Sachsen;eingebaut;Lieferung_K30/khan_15.webp
+boudicca_14;Murus Gallicus;Arverner;eingebaut;Lieferung_K30/boudicca_14.webp
+nostradamus_14;Weiße Erde aus Aue;Meißen;eingebaut;Lieferung_K30/nostradamus_14.webp
+jeanne_13;Lingua ignota;Rupertsberg;eingebaut;Lieferung_K30/jeanne_13.webp
+ragnar_15;Pilgerfahrt nach Santiago;Mark Meißen;eingebaut;Lieferung_K30/ragnar_15.webp
+musashi_14;Turnier zu Friesach;Steiermark;eingebaut;Lieferung_K31/musashi_14.webp
+perikles_13;Bauabrechnung des Parthenon;Athen;eingebaut;Lieferung_K31/perikles_13.webp
+agrippa_13;Weltkarte des Agrippa;Rom;eingebaut;Lieferung_K31/agrippa_13.webp
+amanirenas_13;Kamose;Theben am Nil;eingebaut;Lieferung_K31/amanirenas_13.webp
+anna_14;Irene Dukaina;Byzanz;eingebaut;Lieferung_K31/anna_14.webp
+nezahualcoyotl_13;Bäder von Tetzcotzinco;Texcoco;eingebaut;Lieferung_K31/nezahualcoyotl_13.webp
+masako_13;Theophanius imperator augustus;Ottonen;eingebaut;Lieferung_K31/masako_13.webp
+epaminondas_11;Mauern von Messene;Theben;eingebaut;Lieferung_K31/epaminondas_11.webp
+fabius_12;Schatten auf den Höhen;Römische Republik;eingebaut;Lieferung_K31/fabius_12.webp
+mandukhai_11;Stolz im Triumphzug;Cherusker;eingebaut;Lieferung_K32/mandukhai_11.webp
+baibars_11;Moschee des Baibars;Mamluken;eingebaut;Lieferung_K32/baibars_11.webp
+zizka_11;Projet d’une dîme royale;Frankreich;eingebaut;Lieferung_K32/zizka_11.webp
+fuhao_11;Krater von Vix;Hallstattzeit;eingebaut;Lieferung_K32/fuhao_11.webp
+neutral_57;Artemistempel von Ephesos;Neutral;eingebaut;Lieferung_K32/neutral_57.webp
+neutral_58;Mausoleum von Halikarnassos;Neutral;eingebaut;Lieferung_K32/neutral_58.webp
+neutral_59;Ischtar-Tor;Neutral;eingebaut;Lieferung_K32/neutral_59.webp
+neutral_60;Stele des Hammurapi;Neutral;eingebaut;Lieferung_K32/neutral_60.webp
+neutral_61;Feuerpost;Neutral;eingebaut;Lieferung_K32/neutral_61.webp
 recruit;Rekrut;Spielstein;altes Bild;
 novice;Novizin;Spielstein;eingebaut;Teil2/assets/tokens/novice.png
-warrior;Krieger;Spielstein;altes Bild;
-eagle;Habicht;Spielstein;offen;
+warrior;Krieger;Spielstein;eingebaut;Lieferung_K23b/warrior.webp
+eagle;Habicht;Spielstein;eingebaut;Lieferung_K22/eagle.webp
 stoneguard;Pyramidenwächter;Spielstein;unbenutzt;
 totem_heal;Grenzstein des Klosters;Spielstein;eingebaut;Teil2/assets/tokens/totem_heal.png
-totem_fire;Grenzstein der Mark;Spielstein;offen;
-totem_guard;Grenzstein der Burg;Spielstein;offen;
-totem_strength;Grenzstein des Dorfes;Spielstein;offen;
+totem_fire;Grenzstein der Mark;Spielstein;eingebaut;Lieferung_K22/totem_fire.webp
+totem_guard;Grenzstein der Burg;Spielstein;eingebaut;Lieferung_K22/totem_guard.webp
+totem_strength;Grenzstein des Dorfes;Spielstein;eingebaut;Lieferung_K22/totem_strength.webp
 coin;Gunst der Stunde;Spielstein;altes Bild;
 hoplite;Hoplit;Spielstein;eingebaut;Teil2/assets/tokens/hoplite.png
-citizen;Bürger;Spielstein;wiederbeschaffen;
-pioneer;Pionier;Spielstein;wiederbeschaffen;
-rider;Reiter;Spielstein;offen;
-chariot;Streitwagen;Spielstein;offen;
-terracotta;Musketier;Spielstein;offen;
-tribesman;Stammeskrieger;Spielstein;offen;
-wagon;Schanzkorb;Spielstein;offen;
-taborite;Füsilier;Spielstein;offen;
-mamluk;Mamlukenreiter;Spielstein;offen;
-immortal;Medjai-Krieger;Spielstein;offen;
-messenian;Freier Messenier;Spielstein;offen;
-companion;Gefährte der Heiligen Schar;Spielstein;offen;
-twin;Sippenbruder;Spielstein;offen;
-elephant;Kriegselefant;Spielstein;offen;
-parthenos;Athena Parthenos;Spielstein;wiederbeschaffen;
-pyramid;Stufenpyramide;Spielstein;offen;
-student;Schüler der Hypatia;Spielstein;offen;
-standard;Träger der Kaiserstandarte;Spielstein;offen;
+citizen;Bürger;Spielstein;eingebaut;Lieferung_K24/citizen.webp
+pioneer;Pionier;Spielstein;eingebaut;Lieferung_K24/pioneer.webp
+rider;Reiter;Spielstein;eingebaut;Lieferung_K22/rider.webp
+chariot;Streitwagen;Spielstein;eingebaut;Lieferung_K22/chariot.webp
+terracotta;Musketier;Spielstein;eingebaut;Lieferung_K22/terracotta.webp
+tribesman;Stammeskrieger;Spielstein;eingebaut;Lieferung_K22/tribesman.webp
+wagon;Schanzkorb;Spielstein;eingebaut;Lieferung_K22/wagon.webp
+taborite;Füsilier;Spielstein;eingebaut;Lieferung_K23/taborite.webp
+mamluk;Mamlukenreiter;Spielstein;eingebaut;Lieferung_K23/mamluk.webp
+immortal;Medjai-Krieger;Spielstein;eingebaut;Lieferung_K23/immortal.webp
+messenian;Freier Messenier;Spielstein;eingebaut;Lieferung_K23/messenian.webp
+companion;Gefährte der Heiligen Schar;Spielstein;eingebaut;Lieferung_K23/companion.webp
+twin;Sippenbruder;Spielstein;eingebaut;Lieferung_K23/twin.webp
+elephant;Kriegselefant;Spielstein;eingebaut;Lieferung_K23/elephant.webp
+parthenos;Athena Parthenos;Spielstein;eingebaut;Lieferung_K24/parthenos.webp
+pyramid;Stufenpyramide;Spielstein;eingebaut;Lieferung_K23/pyramid.webp
+student;Schüler der Hypatia;Spielstein;eingebaut;Lieferung_K25/student.webp
+standard;Träger der Kaiserstandarte;Spielstein;eingebaut;Lieferung_K26/standard.webp

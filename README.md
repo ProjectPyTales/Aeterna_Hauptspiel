@@ -3,8 +3,10 @@
 *Vormals „Chroniken der Helden“.* Ein historisches Offline-Kartenduell für Android: 416 Karten,
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
-`thepytales/Aeterna` mit der ganzen Historie). **Das Spiel ist fertig gebaut – jetzt kommen die Bilder:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
-Aktueller Stand im Code: **Version 1.39.0** (**Rückmeldung zu 1.38.0** – der Auftritt der Legendären ist neu inszeniert: die Karte
+`thepytales/Aeterna` mit der ganzen Historie). **Kartenbilder und Oberflächengrafiken:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
+Aktueller Stand im Code: **Version 1.40.0** – neue Kartenbilder und Spielsteine, historische Bildkorrekturen und gemalte Aktionsknöpfe, Lebensherzen und Rüstungsschilde. Den aktuellen Bildstand je Karte führt [ASTRA_STAND.csv](ungenutzte_assets/ASTRA_STAND.csv).
+
+Davor **Version 1.39.0** (**Rückmeldung zu 1.38.0** – der Auftritt der Legendären ist neu inszeniert: die Karte
 fliegt groß in die Mitte, goldene Strahlen gehen auf, darunter entrollt sich ein Band mit Name und Epoche, ein Siegel prägt sich mit
 Funken darauf, dann schlägt sie mit goldenem Funkenkranz ein; der Modus steht nicht mehr dauerhaft oben auf dem Brett, sondern im
 Pausenfenster); davor 1.38.0 (**Match-HUD, Auftritt der Legendären und Vibration im Takt** nach AP 1.9, AP 3.10
@@ -948,16 +950,15 @@ keine Bilder mehr verwerfen. Bis dahin: neue Karten und Grafiken als gekennzeich
 Namensänderung richtet sich nach einem vorhandenen Bild (wie in AP L.6).
 - [x] **Bestellfertig (1.34.0, Sitzung 29):** Ablauf in [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md). Die
   239 offenen Kartenbilder (232 neue Motive seit der Erweiterung „Wunder der Welt“ – vorher 165 –, die Korrektur `fabius_0` und sechs
-  aus Teil 4) liegen in **32 fertigen Paketen** `ungenutzte_assets/astra_bestellung/K01.md` … `K32.md` (höchstens zehn Bilder, höchstens
+  aus Teil 4) lagen in **32 fertigen Paketen** `ungenutzte_assets/astra_bestellung/K01.md` … `K32.md` (höchstens zehn Bilder, höchstens
   zwei Gruppen je Paket, mit Auftrag zum Kopieren und genau den Motivzeilen); die 77 Oberflächenteile in **elf Paketen** `U01.md` …
   `U11.md`. Die leeren Referenzplätze des Briefings sind jetzt drei feste Bilder aus Astras eigenen Lieferungen (Tempelärztin,
   Bibliothek von Alexandria, Schlacht bei Leuktra), für die Oberfläche drei Oberflächenbilder. `python3 werkzeuge/astra_bilder.py
   --nur-auftrag` schreibt Stand, Auftrag und Pakete neu, ohne die Atlanten anzufassen; jeder Ordner `Lieferung_K…` wird beim Einbau
   ohne Eintrag in `FOLDERS` gefunden. Tests in `astra.test.js`: die Pakete enthalten genau die offenen IDs, jedes Oberflächenpaket hat
   seine Datei, die Referenzen liegen bereit.
-- [ ] Die Pakete K01–K32 und U01–U11 bei Astra bestellen (Du); jede Lieferung als Ordner `neue_astra_assets/Lieferung_<Paket>/`, dann
-  baut eine Sitzung sie ein (Kartenbilder ohne Code: nur Werkzeug, Tests, Referenzbilder).
-- [ ] Teil 4 vollständig wiederfinden (sechs Bilder) und `fabius_0` korrigieren lassen.
+- [x] **1.40.0:** Alle 416 Karten und alle im Spiel verwendeten Spielsteine haben ein Motiv. Für die sechs verlorenen Illustrationen aus Teil 4 gibt es neu gemalte Fassungen. Der Veles trägt Tunika, leichten Rundschild und Wurfspeere.
+- [ ] Die übrigen Oberflächenmotive aus der [aktuellen Paketübersicht](ungenutzte_assets/ASTRA_AUFTRAG.md) einbauen.
 
 ### Phase 0 – Sofortkorrekturen und Umbenennung (S)
 
@@ -3013,7 +3014,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 27 ✓ | AP 3.9 Eck-Dioramen, Rückmeldung 1.31.0 | erledigt in 1.32.0 – Szenen mit Leitfrage, Ort und Zeit, Schattenrissen; vier antippbare Eck-Dioramen mit Klang und Zeile des Chronisten, Schlüsselwort-Blase, Angriffsvorschau |
 | 28 ✓ | AP 6.4 Teil 2 Kartenrätsel | erledigt in 1.33.0 – sechs Rätsel „Gewinne in diesem Zug“ nach historischen Lagen, offen nach dem Kapitel, Löser im Test |
 | 29 ✓ | AP 6.5, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 vorbereiten | erledigt in 1.34.0 – Lehrstunden mit dem Chronisten, Lehrling/Feldherr/Legende, Einstellungen mit Textgröße, Farben, Bewegung und Grafik, Sicherungen, Fehlerprotokoll, Geräte-Matrix; Astra-Auftrag in 43 Paketen mit Startanleitung; AP 6.6 pausiert |
-| ab jetzt (Du) | AP A.3: Pakete K01–K32 und U01–U12 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
+| ab jetzt (Du) | AP A.3: verbleibende Oberflächenpakete U01–U13 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
 | 30+ | Einbau der Lieferungen, dazwischen AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | jede Lieferung eine kurze Sitzung; Chronikzeilen und Klang brauchen keine Bilder |
 | 30 ✓ | Automatische Updates, AP 2.7, AP 1.9, AP 3.10, AP 4.5 (Zusatz), Rückmeldung 1.38.0 | erledigt in 1.36.0 bis 1.39.0 – Updates wie in ADEU-Harness; Ruhetakt, Tisch als eigene Ebene, Auflösung passt sich an; lesbare Hand, Mindestschrift, ruhigeres Grün; Auftritt der Legendären; Vibration im Takt des Aufpralls |
 | nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
@@ -3023,6 +3024,8 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 ---
 
 ## Vorschlag für die nächste Sitzung
+
+**Bildstand 1.40.0:** Alle 416 Karten und alle 28 verwendeten Spielsteine haben Illustrationen. Die 240 neuen Motive sind in Sammlung und Duell eingebaut. Die verbleibenden [Oberflächenaufträge](ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md) betreffen unter anderem die Wertezeichen und Effekte.
 
 **Erledigt in Sitzung 30 (Versionen 1.36.0 bis 1.39.0, 9. 11. 2026):**
 - **Automatische Updates** wie in ADEU-Harness (1.36.0, Dein Wunsch): `version.json` im Release „Test-APK“, Hinweis im Hauptmenü mit
@@ -3066,7 +3069,7 @@ Risiko: niedrig – Kartenbilder baut das Werkzeug ein; Chronikzeilen ändern ke
 
 > Lies die `README.md` im Repo `ProjectPyTales/Aeterna_Hauptspiel`. Übernimm mein Feedback zu den Versionen 1.34.0 bis 1.39.0:
 > *(hier Feedback einfügen, auch zu Updates, Bildrate, Hand, Legendären und Vibration)*. Entscheidung 23: *(zwei Fächerseiten bleiben /
-> ein Fächer)*. Baue dann die Astra-Lieferungen *(falls vorhanden, z. B. K01, U01)* ein, sonst AP L.6 Teil 2. Halte dich an die
+> ein Fächer)*. Baue dann die Astra-Lieferungen *(falls vorhanden, z. B. U01)* ein, sonst AP L.6 Teil 2. Halte dich an die
 > „Regeln für jede Sitzung“ (neue Version mit `model/neu.js`), lass Tests, Klickpfad und Geräte-Matrix laufen, hake erledigte Punkte
 > in der README ab, öffne am Ende einen Pull Request nach `main`, merge ihn bei grüner CI und schreibe unten in die README wieder einen
 > Vorschlag für die nächste Sitzung mit Effort-Empfehlung.

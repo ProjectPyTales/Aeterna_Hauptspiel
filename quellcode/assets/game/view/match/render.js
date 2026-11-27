@@ -7,8 +7,18 @@ const picture=name=>{const src='assets/art/'+name+'.webp',viaImage=()=>new Promi
  return window.createImageBitmap?fetch(src).then(r=>{if(!r.ok)throw Error(r.status);return r.blob();}).then(b=>createImageBitmap(b)).catch(viaImage):viaImage();};
 // Atlases come from the heroes and cards themselves (since 1.21.0, AP A.1, Astra's portraits in heroes and heroes2).
 R.atlases=()=>['board',...new Set(D.heroes.map(h=>h.art).filter(Boolean)),'heroes-marble',...new Set(Object.values(D.byId).map(c=>c.art).filter(a=>a&&a[0]!=='@'))];
-R.load=(progress=()=>{})=>{const names=R.atlases();let done=0;
- return Promise.all(names.map(name=>picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>progress(++done,names.length))));};
+R.load=(progress=()=>{})=>{
+ const names=R.atlases();let next=0,done=0;
+ // Vier parallele Decoder begrenzen die temporären Bildpuffer beim Start auf dem Handy.
+ async function loadNext(){
+  while(next<names.length){
+   const name=names[next++];
+   try{R.images[name]=await picture(name);}catch{/* Beim Zeichnen greift das Ersatzbild. */}
+   progress(++done,names.length);
+  }
+ }
+ return Promise.all(Array.from({length:Math.min(4,names.length)},loadNext));
+};
 R.ensure=name=>{if(R.images[name]||R.pending[name])return;R.pending[name]=true;picture(name).then(im=>{R.images[name]=im;},()=>null).then(()=>delete R.pending[name]);};
 // Pixel density and pre-rendered sprites (AP 2.4). The match canvas holds R.scale device pixels per stage unit (pixel
 // density, at most 2). Glows, shadows and whole plaques are drawn once into an offscreen canvas at that density and
@@ -49,10 +59,11 @@ function number(c,t,x,y,size=30){c.font=`bold ${size}px Title,serif`;c.textAlign
 function grad(c,x,y,w,h,a,b){let g=c.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,a);g.addColorStop(.45,b);g.addColorStop(1,a);return g;}
 // ASTRA: edelstein – facettierter Edelstein für Kosten, Seltenheit und Mana (je Farbe), 96 × 96
 function gem(c,x,y,r,color,label){c.save();c.translate(x,y);c.beginPath();c.moveTo(0,-r);c.lineTo(r*.82,-r*.4);c.lineTo(r,r*.35);c.lineTo(0,r);c.lineTo(-r,r*.35);c.lineTo(-r*.82,-r*.4);c.closePath();const g=c.createLinearGradient(-r,-r,r,r);g.addColorStop(0,'#f5ffff');g.addColorStop(.22,color);g.addColorStop(.62,color);g.addColorStop(1,'#162030');c.fillStyle=g;c.fill();c.lineWidth=2;c.strokeStyle='#172c50';c.stroke();c.beginPath();c.moveTo(-r*.82,-r*.4);c.lineTo(0,0);c.lineTo(r*.82,-r*.4);c.moveTo(0,0);c.lineTo(0,r);c.strokeStyle='#ffffff50';c.stroke();if(label!=null)number(c,label,0,1,r*1.4);c.restore();}
-// ASTRA: lebensherz – Herz für die Lebenspunkte, 96 × 96
-function heart(c,x,y,r,label){c.beginPath();c.moveTo(x,y-r);c.bezierCurveTo(x+r*.4,y-r*.2,x+r,y+r*.05,x+r*.8,y+r*.55);c.bezierCurveTo(x+r*.45,y+r*1.4,x-r*.8,y+r*1.4,x-r*.86,y+r*.4);c.bezierCurveTo(x-r*.92,y-r*.1,x-r*.3,y-r*.4,x,y-r);c.fillStyle=grad(c,x-r,y-r,2*r,2*r,'#731c23','#ee5a47');c.fill();c.strokeStyle='#321211';c.lineWidth=3;c.stroke();number(c,label,x,y+r*.35,r*1.25);}
-// Placeholder art drawn in code (AP 5.12 preview): the step pyramid of Djoser until a painted motif exists.
-// ASTRA: stufenpyramide – Motiv der Stufenpyramide des Djoser (Spielstein pyramid), 724 × 724
+// Gemaltes Emailleherz. Die Lebenszahl bleibt auch bei fehlendem Bild sichtbar.
+function heart(c,x,y,r,label){
+ if(pic(c,'lebensherz',x,y,r*2.25,r*2.25)){number(c,label,x,y-r*.04,r*1.25);return;}
+ c.beginPath();c.moveTo(x,y-r);c.bezierCurveTo(x+r*.4,y-r*.2,x+r,y+r*.05,x+r*.8,y+r*.55);c.bezierCurveTo(x+r*.45,y+r*1.4,x-r*.8,y+r*1.4,x-r*.86,y+r*.4);c.bezierCurveTo(x-r*.92,y-r*.1,x-r*.3,y-r*.4,x,y-r);c.fillStyle=grad(c,x-r,y-r,2*r,2*r,'#731c23','#ee5a47');c.fill();c.strokeStyle='#321211';c.lineWidth=3;c.stroke();number(c,label,x,y+r*.35,r*1.25);}
+// Ersatzzeichnung für Spielstände oder Vorschauen mit der alten Atlas-Kennung @pyramid.
 function pyramidArt(c,x,y,w,h){c.save();c.beginPath();c.rect(x,y,w,h);c.clip();
  const sky=c.createLinearGradient(0,y,0,y+h);sky.addColorStop(0,'#f2c37a');sky.addColorStop(.55,'#f7dfae');sky.addColorStop(.56,'#d9b47a');sky.addColorStop(1,'#a97c44');c.fillStyle=sky;c.fillRect(x,y,w,h);
  const sun=c.createRadialGradient(x+w*.74,y+h*.24,0,x+w*.74,y+h*.24,w*.2);sun.addColorStop(0,'#fffbe8');sun.addColorStop(.4,'#ffe7a3');sun.addColorStop(1,'#ffe7a300');c.fillStyle=sun;c.fillRect(x,y,w,h);
@@ -244,8 +255,27 @@ function hit(id,x,y,w,h,data={}){R.hits.push({id,x,y,w,h,...data});}
 // Touch targets of at least 48 dp (AP 1.8): 84 stage units are 48 CSS pixels on a 915 px wide phone; the picture keeps its size.
 const TOUCH=84;function touch(id,x,y,w,h,data){const tw=Math.max(w,TOUCH),th=Math.max(h,TOUCH);hit(id,x-(tw-w)/2,y-(th-h)/2,tw,th,data);}
 R.hit=(x,y)=>[...R.hits].reverse().find(h=>{if(h.angle!=null){const dx=x-h.cx,dy=y-h.cy,co=Math.cos(-h.angle),si=Math.sin(-h.angle),xx=dx*co-dy*si,yy=dx*si+dy*co;return Math.abs(xx)<=h.w/2&&Math.abs(yy)<=h.h/2;}return x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h;});
-// ASTRA: knopf-match – Knopf auf dem Spielbrett (Zug beenden, Chronik, Pause, Hilfe), aktiv und ruhend, 344 × 128
-function button(c,text,x,y,w,h,active,id){R.blit(c,R.sprite('button:'+[text,w,h,active],-30,-30,w+60,h+60,g=>{if(active){g.shadowColor='#ffc44b';g.shadowBlur=12;}round(g,0,0,w,h,12,grad(g,0,0,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);g.shadowBlur=0;round(g,6,6,w-12,h-12,8,null,'#ffffff45',1);txt(g,text,w/2,h/2,19,active?'#2a2016':'#c8cfcb','center',w-14);}),x,y);touch(id,x,y,w,h);}
+// Bronzekappen behalten ihre Proportionen am quadratischen Hilfeknopf und an langen Beschriftungen.
+function buttonPlate(c,x,y,w,h,active){
+ const image=CHS.ui[active?'knopf-match-aktiv':'knopf-match-ruhend'];
+ if(!image)return false;
+ const iw=image.naturalWidth,ih=image.naturalHeight,cap=Math.round(iw*.12),edge=Math.min(w*.25,cap*h/ih);
+ c.drawImage(image,0,0,cap,ih,x,y,edge,h);
+ c.drawImage(image,cap,0,iw-2*cap,ih,x+edge,y,w-2*edge,h);
+ c.drawImage(image,iw-cap,0,cap,ih,x+w-edge,y,edge,h);
+ return true;
+}
+function button(c,text,x,y,w,h,active,id){
+ R.blit(c,R.sprite('button:'+[text,w,h,active],-30,-30,w+60,h+60,g=>{
+  if(!buttonPlate(g,0,0,w,h,active)){
+   if(active){g.shadowColor='#ffc44b';g.shadowBlur=12;}
+   round(g,0,0,w,h,12,grad(g,0,0,0,h,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',5);
+   g.shadowBlur=0;round(g,6,6,w-12,h-12,8,null,'#ffffff45',1);
+  }
+  txt(g,text,w/2,h/2,19,active?'#2a2016':'#fff1d4','center',w-14);
+ }),x,y);
+ touch(id,x,y,w,h);
+}
 // ASTRA: faehigkeitssymbole – Symbol der Heldenfähigkeit, eines je Held (22), 96 × 96
 function powerIcon(c,id,x,y){c.save();c.translate(x,y);c.strokeStyle='#f2d99b';c.fillStyle='#f2d99b';c.lineWidth=3;c.lineCap='round';c.lineJoin='round';c.beginPath();
 if(id==='leonidas'){c.moveTo(-16,-18);c.lineTo(16,-18);c.lineTo(16,2);c.quadraticCurveTo(13,18,0,24);c.quadraticCurveTo(-13,18,-16,2);c.closePath();c.stroke();c.beginPath();c.moveTo(-7,8);c.lineTo(0,-8);c.lineTo(7,8);}
@@ -316,8 +346,10 @@ function legend(c,text,r){const chars=[...text],arc=Math.PI*1.2*r;let size=10.5;
  let w=widths(),total=w.reduce((a,b)=>a+b,0);if(total>arc){size*=arc/total;w=widths();total=w.reduce((a,b)=>a+b,0);}
  let at=-total/2;chars.forEach((ch,i)=>{const an=-Math.PI/2+(at+w[i]/2)/r;at+=w[i];c.save();c.rotate(an+Math.PI/2);c.fillStyle='#fff0c466';c.fillText(ch,0,-r+.9);c.fillStyle='#3b2710';c.fillText(ch,0,-r);c.restore();});
  c.restore();}
-// ASTRA: phalanxschild – Rüstung als runder Hoplitenschild (Aspis) über dem Leben, 112 × 112
-function aspis(c,x,y,n){c.save();c.shadowColor='#10141899';c.shadowBlur=6;c.shadowOffsetY=2;ellipse(c,x,y,23,23,grad(c,x-23,y-23,46,46,'#56636a','#e3ecee'),'#262e33',3);c.restore();
+// Gemalter Bronzeschild mit der aktuellen Rüstung.
+function aspis(c,x,y,n){
+ if(pic(c,'phalanxschild',x,y,48,48)){txt(c,n,x,y+1,24,'#291a0e');return;}
+ c.save();c.shadowColor='#10141899';c.shadowBlur=6;c.shadowOffsetY=2;ellipse(c,x,y,23,23,grad(c,x-23,y-23,46,46,'#56636a','#e3ecee'),'#262e33',3);c.restore();
  ellipse(c,x,y,17.5,17.5,null,'#f6fbff99',1.5);for(let i=0;i<8;i++){const an=i*Math.PI/4;ellipse(c,x+Math.cos(an)*20.5,y+Math.sin(an)*20.5,1.3,1.3,'#f6fbff');}number(c,n,x,y+1,23);}
 // Astra-Bild (AP A.2): waffenablage – Waffe links neben dem Helden: Klinge auf Bronzeplatte, Wucht (Angriff) und Schmiedequalität (Haltbarkeit), 160 × 210
 function weaponRack(c,x,y,w){if(pic(c,'waffenablage',x,y+4,80,104)){number(c,w.attack,x-15,y+38,16);number(c,w.durability,x+14,y+38,16);return;}R.blit(c,R.sprite('waffenablage-tafel',-61,-76,122,150,g=>{g.shadowColor='#160e09aa';g.shadowBlur=10;g.shadowOffsetY=4;round(g,-31,-46,62,84,12,grad(g,-31,-46,62,84,'#35281b','#8d6c3d'),'#2a1e12',3);}),x,y);
@@ -517,8 +549,11 @@ function chronoArt(c,active,label,turn){const r=L.chrono.r;
  ellipse(c,0,0,r-7,r-7,active?grad(c,-r,-r,2*r,2*r,'#fff6dc','#e0c58e'):grad(c,-r,-r,2*r,2*r,'#c9c3b5','#8f8a7f'),'#4a3418',2);
  c.strokeStyle='#4a3418';for(let i=0;i<60;i++){const an=i*Math.PI/30,long=i%5===0;c.beginPath();c.moveTo(Math.cos(an)*(r-10),Math.sin(an)*(r-10));c.lineTo(Math.cos(an)*(r-(long?17:13)),Math.sin(an)*(r-(long?17:13)));c.lineWidth=long?2:1;c.stroke();}
  for(const [t,an] of [['XII',-Math.PI/2],['III',0],['VI',Math.PI/2],['IX',Math.PI]])txt(c,t,Math.cos(an)*(r-26),Math.sin(an)*(r-26)+1,10,'#4a3418');
- round(c,-84,r+8,168,36,10,grad(c,-84,r+8,0,36,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',3);
- round(c,-80,r+12,160,28,7,null,'#ffffff40',1);txt(c,label,0,r+27,MIN_TEXT,active?'#2a2016':'#e3e8e5','center',152);
+ if(!buttonPlate(c,-84,r+8,168,36,active)){
+  round(c,-84,r+8,168,36,10,grad(c,-84,r+8,0,36,active?'#b48534':'#3c4647',active?'#f4d47c':'#667270'),active?'#63451e':'#303839',3);
+  round(c,-80,r+12,160,28,7,null,'#ffffff40',1);
+ }
+ txt(c,label,0,r+27,MIN_TEXT,active?'#2a2016':'#e3e8e5','center',152);
  round(c,-46,r+50,92,30,15,'#1e150dcc','#c9a05288',1.5);txt(c,'ZUG '+turn,0,r+66,MIN_TEXT,'#f3dab0','center',84);}
 function chronometer(c,s,now){const {x,y,r}=L.chrono,mine=s.active===0,active=mine&&s.phase==='play';let f=R.chrono;
  if(!f)f=R.chrono={mine,from:0,to:mine?0:Math.PI,at:-1e9};else if(f.mine!==mine){f.mine=mine;f.from=f.to;f.to+=Math.PI;f.at=motion()?now:-1e9;}
