@@ -72,7 +72,8 @@ test('Aus der Chronik (AP L.6 Teil 2): belegte Sätze mit Quelle, zuerst für al
   assert.ok(L.card(id),id+': Chronikzeile fehlt');
  // Unsicheres wird als unsicher erzählt.
  assert.match(L.card('hypatia_7')[0],/Legende/);assert.match(L.card('neutral_33')[0],/Sage/);assert.match(L.card('neutral_48')[0],/unsicher/);
- assert.equal(L.card('leonidas_0'),null);
+ assert.deepEqual(new Set(Object.keys(L.cards)),new Set(D.cards.map(c=>c.id)));
+ for(const h of D.heroes){const page=L.of(h.id);assert.ok(page?.quote&&page.source&&page.bio.length&&L.deed(h.id)&&h.powerText,h.id);}
  // Großansicht im Match und Kartendetails der Sammlung zeigen die Zeile.
  assert.match(src('view/kit.js'),/V\.chronicle=c=>\{const l=AELORE\.card\(c\.id\)/);
  for(const f of ['view/dialogs.js','view/collection.js'])assert.match(src(f),/\$\{V\.glossary\(c\)\}\$\{V\.chronicle\(c\)\}/,f);

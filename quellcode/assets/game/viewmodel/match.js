@@ -71,13 +71,13 @@ class Match extends Screen{
  // AP 3.8: the heroes face each other, the chronicler announces the battle, the coin decides who begins – once per game;
  // then the starting hand.
  open(){const s=this.game;if(this.opened===s){this.ui.dialog('mulligan',this);return;}this.opened=s;
-  this.present('opening',this.opening(s),()=>{if(this.ui.screen()==='game'&&this.game===s&&s.phase==='mulligan'&&!this.ui.dialogOpen())this.ui.dialog('mulligan',this);});}
+  this.ui.speech?.opening(s);this.present('opening',this.opening(s),()=>{if(this.ui.screen()==='game'&&this.game===s&&s.phase==='mulligan'&&!this.ui.dialogOpen())this.ui.dialog('mulligan',this);});}
  // Names, epochs and the chronicler's line; first is the side the coin chose (the engine decided it at creation).
  opening(s=this.game){const names=[0,1].map(p=>nameOf(s,p)),m=s.mission!=null?D.missions[s.mission]:null;
   const n=m?KA.number(s.mission):0,eras=[0,1].map(p=>p===1&&m?'Mission '+n:D.heroById[s.players[p].hero].era),f=m&&KA.fuse(s.mission);
   const line=m?'Mission '+n+' · '+m.title+': '+names[0]+' stellt sich '+names[1]+'.'+(f?' Die Lunte brennt: '+f.turns+' eigene Züge.':''):names[0]+' trifft auf '+names[1]+' – die Chronik schlägt eine neue Seite auf.';
   return {names,eras,line,first:s.active,firstName:names[s.active]};}
- leave(){clearTimeout(this.aiTimer);this.cancelDrag();this.waiting=false;this.present('stop');}
+ leave(){this.ui.speech?.stop();clearTimeout(this.aiTimer);this.cancelDrag();this.waiting=false;this.present('stop');}
  // The shell opened or closed a dialog: hold the AI while one is open.
  dialogChanged(open){if(open){this.cancelDrag();this.release();clearTimeout(this.aiTimer);}else this.scheduleAI();}
 
@@ -107,7 +107,7 @@ class Match extends Screen{
   // Lehrstunden (AP 6.5): der Chronist hakt erfüllte Schritte ab.
   if(s.lesson)TU.advance(s,{act,p:before.active,card:act.type==='play'?before.players[before.active].hand.find(h=>h.uid===act.uid)?.id:null});
   this.view=idle();if(s.phase==='over')P.reward(p,s,false,this.now);this.commit();
-  this.board.begin(before,s,act,origin,()=>{this.board.events(s.events);const k=impactHaptic(before,s,act);if(k>=0)this.ui.haptic(k);},
+  this.board.begin(before,s,act,origin,()=>{this.ui.speech?.action(before,s,act);this.board.events(s.events);const k=impactHaptic(before,s,act);if(k>=0)this.ui.haptic(k);},
    ()=>{if(s.phase==='over')this.showResult();else if(!this.discover()&&!this.teach(lesson))this.scheduleAI();});
   return true;}
  // Rückmeldung zu 1.25.0 („etwas verwirrend“, kaum begegnet): Beim ersten Hinterhalt, der gelegt wird oder zuschnappt –
@@ -241,7 +241,7 @@ class Match extends Screen{
  showResult(){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over')return;
   if(!s.rewarded){P.reward(this.profile,s,false,this.now);this.commit();}
   if(this.closing===s){this.result();return;}this.closing=s;
-  this.present('finale',{winner:s.winner},()=>this.result(true));}
+  this.ui.speech?.ending(s);this.present('finale',{winner:s.winner},()=>this.result(true));}
  // After the close the war horns have sounded; without it (reduced motion, a resumed game) the fanfare plays here.
  result(staged=false){const s=this.game;if(this.ui.screen()!=='game'||s?.phase!=='over'||this.ui.dialogOpen())return;
   if(!staged)this.ui.play(s.winner===0?'victory':'defeat');

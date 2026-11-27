@@ -13,3 +13,15 @@ test('Steingeräusche: Tippen leiser als Kampf, Einrasten als Akzent des Überga
  assert.ok(Math.abs(db('click')-db('stone'))<5,'Klick und Stein-Tipp in derselben Liga');
  for(const g of Object.keys(levels))assert.ok(levels[g]>0&&levels[g]<=1.2,g);
 });
+
+test('Deutsche Stimmen decken Helden, Legendäre und Chronisten ab und liegen als Offline-Ogg vor',()=>{
+ const fs=require('node:fs'),path=require('node:path'),root=path.resolve(__dirname,'../../quellcode/assets/game');
+ const D=require(path.join(root,'model/data.js')),lines=require(path.join(root,'assets/audio/stimmen.json'));
+ const ids=['anfang','monument','ende'];
+ for(const h of D.heroes)for(const cue of ['gruss','vorteil','gefahr','chronik'])ids.push(h.id+'-'+cue);
+ for(const c of D.cards.filter(c=>c.rarity==='legendary'))for(const cue of ['auftritt','angriff','abschied'])ids.push(c.id+'-'+cue);
+ assert.deepEqual(Object.keys(lines).sort(),ids.sort());
+ for(const id of ids){assert.ok(lines[id].length>=6,id);
+  const data=fs.readFileSync(path.join(root,'assets/audio/stimmen',id+'.ogg'));
+  assert.equal(data.toString('ascii',0,4),'OggS',id);assert.ok(data.includes(Buffer.from('vorbis')),id);}
+});

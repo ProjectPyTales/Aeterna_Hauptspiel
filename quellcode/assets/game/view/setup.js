@@ -16,7 +16,7 @@ function side(v){const h=v.hero,day=v.day,m=v.mode;
   :m==='campaign'?html`<p><b>${v.mission.boss}</b><br>${v.mission.description}</p>${v.fuse?html`<p class="fuse-line"><b>Lunte:</b> ${v.fuse.turns} eigene Züge – gewinne vorher, sonst ist die Mission verloren.</p>`:''}`:''}${
   // AP 5.8: Stärke der KI, gilt für jedes Duell (gespeichert in den Einstellungen).
   html`<div class="ai-level"><label>STÄRKE DER KI</label><select data-change="chooseLevel" aria-label="Stärke der KI">${v.aiLevels.map(l=>option(l.id,l.name,l.id===v.aiLevel))}</select></div>`}<div class="spacer"></div>${
-  V.button({label:(m==='campaign'?'Mission beginnen':'Duell beginnen')+' ›',cmd:'begin',style:'gold'})}${V.button({label:'Spielregeln',cmd:'help',small:true})}`,{extra:'setup-side'});}
+  V.button({label:(m==='campaign'?'Mission beginnen':'Duell beginnen')+' ›',cmd:'begin',style:'gold'})}${m==='free'?V.button({label:'Privates Duell',cmd:'friends',small:true}):''}${V.button({label:'Spielregeln',cmd:'help',small:true})}`,{extra:'setup-side'});}
 
 // Astra-Bild (AP A.2): heldengalerie – Heldenmünze der Galerie (klein) und Medaillon der Großansicht mit Rändelung, 512 × 512
 // Short names under the gallery coins: the usual one, without regnal numbers.

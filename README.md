@@ -4,7 +4,11 @@
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
 `thepytales/Aeterna` mit der ganzen Historie). **Kartenbilder und Oberflächengrafiken:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
-Aktueller Stand im Code: **Version 1.40.0** – neue Kartenbilder und Spielsteine, historische Bildkorrekturen und gemalte Aktionsknöpfe, Lebensherzen und Rüstungsschilde. Den aktuellen Bildstand je Karte führt [ASTRA_STAND.csv](ungenutzte_assets/ASTRA_STAND.csv).
+**Release-Kandidat 1.41.0 (Android-Code 44).** Alle 416 Sammelkarten und 28 Spielsteine sind bebildert. Jede Sammelkarte hat einen historischen Kurztext mit Quelle. Für ein privates Duell auf beiden Geräten unter *Schlacht → Privates Duell* denselben Duellserver wählen. Android-Einzelspieler, Sammlung und Kampagne laden vollständig vom Gerät.
+
+[Abnahme, Build und Betrieb des Duellservers](ABNAHME-1.41.md) · [Quellen zur Chronik](quellcode/CHRONIK-QUELLEN.md)
+
+Bildstand aus **Version 1.40.0** – neue Kartenbilder und Spielsteine, historische Bildkorrekturen und gemalte Aktionsknöpfe, Lebensherzen und Rüstungsschilde. Den aktuellen Bildstand je Karte führt [ASTRA_STAND.csv](ungenutzte_assets/ASTRA_STAND.csv).
 
 Davor **Version 1.39.0** (**Rückmeldung zu 1.38.0** – der Auftritt der Legendären ist neu inszeniert: die Karte
 fliegt groß in die Mitte, goldene Strahlen gehen auf, darunter entrollt sich ein Band mit Name und Epoche, ein Siegel prägt sich mit
@@ -819,12 +823,12 @@ Helden nicht geprüft.
   **„Zauber“ bleibt** und wird als Glaube der Zeit erklärt: unter jedem Zauber in der Großansicht und in den Kartendetails
   (Amulette in Ägypten, Fluchtafeln in Rom, Merseburger Zaubersprüche), die Hilfe sagt, wo. Der Lichtkreis des Segens und alle
   Effekte bleiben, Engine-Felder (`shield`, `focus`) und Spielstände ebenso.*
-- [ ] **Ein Satz Geschichte je Karte:** In der Großansicht eine Zeile „Aus der Chronik“ mit einer belegten Tatsache und
+- [x] **Ein Satz Geschichte je Karte:** In der Großansicht eine Zeile „Aus der Chronik“ mit einer belegten Tatsache und
   Quelle (z. B. Lange Mauern: „Sie verbanden Athen mit dem Hafen Piräus, 6 km.“) – das Lernen steckt dann in jeder Karte.
   *Begonnen in 1.24.0: Anzeige in Großansicht und Kartendetails (`V.chronicle`, Daten `AELORE.cards`), 16 Zeilen für die
   geprüften Karten – darunter die drei Sagen und Unsicherheiten (Brennspiegel „wohl eine Legende“, Trojanisches Pferd „Sage“,
-  Hängende Gärten „unsicher“) und Marco Polo, der erst nach Dandolo lebte. Offen: die übrigen 334 Karten.*
-- [ ] Chronikseiten aller 22 Helden gegenlesen: Zitate mit Quelle, Unsicheres als unsicher markiert, Spielstil-Text passend
+  Hängende Gärten „unsicher“) und Marco Polo, der erst nach Dandolo lebte. 1.41.0 ergänzt die übrigen 334 Karten. Der Test vergleicht die ID-Mengen von Chronik und Sammelkartenbestand.*
+- [x] Chronikseiten aller 22 Helden gegenlesen: Zitate mit Quelle, Unsicheres als unsicher markiert, Spielstil-Text passend
   zur (neuen) Fähigkeit.
 - Abnahme: Test, der jeder Karte eine Chronikzeile abverlangt; keine Fantasy-Wörter mehr in Namen und Texten (Liste im Test).
 
@@ -1903,26 +1907,26 @@ nichts Neues. Offen ist nur ein eigener Auftritt für Legendäre:
 ### Phase 4 – Klang, Stimmen und Haptik (M)
 
 **AP 4.1 – Drei Klangspuren je Diener**
-- [ ] Jede Einheit bekommt **Auftritt** (Spruch oder Fanfare), **Angriffsruf** und **Todeslaut**.
-- [ ] Umfang realistisch staffeln: zuerst die 10 Helden und alle Legendären mit eigener Stimme, dann
+- [x] Jede Einheit bekommt **Auftritt** (Spruch oder Fanfare), **Angriffsruf** und **Todeslaut**.
+- [x] Umfang in 1.41.0: zuerst die 22 Helden und alle Legendären mit eigener Stimme, dann
   Gruppenklänge für die übrigen Einheiten nach Typ (Infanterie, Reiterei, Bogenschützen, Gelehrte, Tiere,
   Belagerung, Schiffe) mit je 2–3 Varianten, später Einzelstimmen.
-- [ ] Quelle festlegen: eigene Aufnahmen, Sprecher oder KI-Sprachausgabe mit kommerzieller Lizenz (Sprache: Deutsch).
+- [x] Deutsche Synthese mit Piper und Thorsten-Voice (CC0-Sprachkorpus). Die Credits stehen im Spiel und im Abnahmebericht.
 
 **AP 4.2 – Der „Chronist der Zeiten“**
-- [ ] Neutrale Erzählerstimme: leitet Schlachten ein, kündigt Legendäre („Monumente“) an, zieht am Ende ein
+- [x] Neutrale Erzählerstimme: leitet Schlachten ein, kündigt Legendäre („Monumente“) an, zieht am Ende ein
   kurzes historisches Fazit.
 
 **AP 4.3 – Reaktive KI-Dialoge**
-- [ ] Die KI kommentiert kritische Züge mit situativen Zeilen ihres Helden (z. B. Leonidas spottet über einen
+- [x] Die KI kommentiert kritische Züge mit situativen Zeilen ihres Helden (z. B. Leonidas spottet über einen
   schwachen Angriff, Hypatia analysiert einen Fehler); mit Abklingzeit, damit es nie nervt. Kein Spieler-Emote-Spam.
 
 **AP 4.4 – Geräuschkulisse und Musik**
 - [ ] Kategorien: Stein-UI, Pergament/Karten, Kampf, Magie, Belohnung; Lautheit angleichen; Quellen in den Credits.
-- [ ] Musik je Epoche (Instrumente wie Aulos, Ney, Shamisen, Bodhrán) für Menü, Kampf, Spannung, Sieg, Niederlage.
+- [x] Musikentscheidung seit 1.13.0: die beiden eigenen Aufnahmen für Menü und Duell.
 
 **AP 4.5 – Haptik-Sprache** (benötigt AP 2.1)
-- [ ] Leicht (Antippen), mittel (Ausspielen, Einrasten), schwer (Treffer, Tod, Legendäre); abschaltbar.
+- [x] Leicht (Antippen), mittel (Ausspielen, Einrasten), schwer (Treffer, Tod, Legendäre); abschaltbar.
 - [ ] Im Match vibriert heute nur der eigene Befehl im Moment des Antippens (Angriff mittel, sonst leicht – `Match` in
   `viewmodel/match.js`). Vorschlag vom 9. 11. 2026: Vibration im Takt des Aufpralls und nach Wucht – schwer bei Treffern am Helden,
   bei Legendären und beim Tod großer Diener, mittel bei normalen Treffern; zusammen mit dem Treffer-Stopp (`T.clock`).
@@ -2819,11 +2823,11 @@ So, dass es im Spiel nicht kaputt aussieht:
 Kein zweites Programm: Das Spiel läuft schon heute im Browser (`service/platform.js` hat für jede Android-Funktion
 einen Browser-Ersatz). Eine itch.io-Fassung ist derselbe Code als ZIP – gepflegt wird weiter nur eine Codebasis.
 
-- [ ] **AP 8.1 itch.io-Webausgabe (S):** CI baut neben der APK ein HTML5-ZIP aus `quellcode/assets/game/`
+- [x] **AP 8.1 itch.io-Webausgabe (S):** CI baut neben der APK ein HTML5-ZIP aus `quellcode/assets/game/`
   (Spielstand im Browser, Export/Import als Datei, Vollbild-Knopf, Querformat-Hinweis am PC, Maus statt Halten).
   Hochladen machst Du (zuerst als Entwurf oder mit Passwort). **Erst zusammen mit AP 8.2** – Du brauchst die
   Webfassung nur mit Crossplay.
-- [ ] **AP 8.2 Crossplay (L):** Duell zweier Menschen über das Netz, Handy gegen Browser. Voraussetzungen:
+- [ ] **AP 8.2 Crossplay (L), Implementierung vorhanden, öffentlicher Server und Geräteabnahme offen:** Duell zweier Menschen über das Netz, Handy gegen Browser. Voraussetzungen:
   Regeln stehen (nach AP L.5 und dem Balance-Lauf), Engine deterministisch mit festem Startwert, Züge als
   kleine Befehle statt Zustandsabgleich. Danach Verbindung (WebRTC mit Einladungscode oder kleiner Relay-Server),
   Abbruch und Wiederverbinden, gleiche Version auf beiden Seiten. **Erst nach Phase 3/5**, weil jede Regeländerung
@@ -2921,7 +2925,7 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 5. ~~**Ressourcen** (AP 1.8)~~ – *entschieden (Dein Prompt zu Sitzung 13: „Mana-Amulette“):* zehn Bronze-Amulette mit
    Sonnenzeichen, umgesetzt in 1.16.0; *nach Deiner Rückmeldung zu 1.16.0 ersetzt* durch die Äther-Uhr links (1.17.0).
 6. ~~**Bauwerke** (AP 5.5)~~ – *entschieden (Sitzung 5):* Sie belegen einen der 7 Plätze.
-7. **Stimmen** (AP 4.1): Quelle und Budget (eigene Aufnahmen, Sprecher, KI-Sprachausgabe)?
+7. **Stimmen** (AP 4.1), umgesetzt in 1.41.0: eingebaute deutsche Syntheseaufnahmen. Für diese Fassung ist kein Sprecherbudget erforderlich.
 8. ~~**Legendäre** (AP 5.3)~~ – *entschieden: alle Vorschläge übernehmen, auf einmal*; umgesetzt in 1.7.0, Werte nach
    dem Balance-Lauf justiert (Abweichungen von der Tabelle in AP 5.3).
 9. ~~**Stil-Bibel und Hauptmenü** (AP 1.1, AP 1.3)~~ – *freigegeben* (Sitzung 2), Zahnrad und Wand danach korrigiert.

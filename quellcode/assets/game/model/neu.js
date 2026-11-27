@@ -3,7 +3,7 @@
  * als „notes“ in version.json (werkzeuge/update_info.js), und ältere Versionen zeigen sie im Hinweis „Neue Version“. */
 (function(root){'use strict';
 const api={
- version:'1.40.0',
- notes:'Alle 416 Karten und alle beschworenen Spielsteine haben jetzt ein Bild. 240 Illustrationen sind neu. Der Veles trägt leichte Ausrüstung, die Feldheilerin verbindet mit Leinen. Knöpfe, Lebensherz und Rüstungsschild sind in Stein, Bronze und Emaille gefasst.'};
+ version:'1.41.0',
+ notes:'Alle Karten haben Bilder und eine historische Chronik. Im freien Duell kannst Du Freunde per Einladungscode herausfordern. Deutsche Stimmen begleiten die Schlachten.'};
 if(typeof module!=='undefined')module.exports=api;else root.AENEU=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

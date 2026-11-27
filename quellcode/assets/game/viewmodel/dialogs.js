@@ -32,10 +32,11 @@ class Settings extends LiveDialog{
  get tabs(){return TABS;}
  tab(id){if(TABS.some(([t])=>t===id)&&this.state.tab!==id){this.set({tab:id});this.ctx.ui.play('stone',{gain:.5});}}
  get settings(){return this.profile.settings;}
+ fullscreen(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen().catch(()=>this.ctx.ui.toast('Vollbild hier nicht verfügbar.'));}
  get levels(){return E.LEVELS;}
  // Sliders deliver strings, the selects 'true'/'false' or numbers.
  setting(k,v){const s=this.profile.settings;
-  if(k==='music'||k==='sfx')s[k]=Math.max(0,Math.min(1,Number(v)||0));
+  if(k==='music'||k==='sfx'||k==='voice')s[k]=Math.max(0,Math.min(1,Number(v)||0));
   else if(k==='speed')s.speed=Number(v)===2?2:1;
   else if(k==='haptics'||k==='particles'||k==='intro'||k==='updates')s[k]=v===true||v==='true';
   else if(k==='level')s.level=E.level(v);
@@ -65,6 +66,7 @@ class Settings extends LiveDialog{
  clearErrors(){if(!this.ctx.errors)return;this.ctx.errors.clear();this.notify();this.ctx.ui.toast('Fehlerprotokoll geleert.');}
  // Klangprobe (AP 0.2): die Steingeräusche und zwei Vergleichsklänge aus dem Match auf dem Gerät anhören.
  get samples(){return SAMPLES;}
+ async sampleVoice(){await this.ctx.ui.unlockAudio?.();this.ctx.ui.speech?.sample();}
  sample(group){if(!SAMPLES.some(([g])=>g===group))return;this.ctx.ui.unlockAudio?.();this.ctx.ui.play(group);if(group==='slam')this.ctx.ui.haptic(1);}
 }
 const SAMPLES=[['stone','Tippen'],['scrape','Schleifen'],['slam','Einrasten'],['grind','Mahlen'],['draw','Karte'],['hit','Treffer']];
