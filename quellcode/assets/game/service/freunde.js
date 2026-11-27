@@ -5,7 +5,7 @@
   const storageKey='aeterna.freundesduell', local=['localhost','127.0.0.1','[::1]'].includes(location.hostname);
   const read=(store,key)=>{try{return JSON.parse(store.getItem(key));}catch{return null;}};
   const deck=read(sessionStorage,'aeterna.duelldeck') || {hero:'leonidas',name:'Leonidas · Basis',cards:CHE.starter('leonidas')};
-  let saved=read(localStorage,storageKey), ws, timer, state, stopped=false, pending=false;
+  let saved=read(localStorage,storageKey), ws, timer, state, stopped=false, pending=false, versionConflict=false;
   const redraw=()=>{if(state)render(state);};
   $('deck').textContent='Dein Deck · '+deck.name;
   $('adresse').value=saved?.url || localStorage.getItem('aeterna.duellserver') || (local?'ws://127.0.0.1:8787':'');
@@ -21,13 +21,14 @@
     }catch{status('Gib die WSS-Adresse des Duellservers ein.');return;}
     if(type==='join'&&!/^[A-F0-9]{10}$/i.test($('code').value.trim())){status('Der Einladungscode hat zehn Zeichen.');return;}
     let socket;try{socket=new WebSocket(u.href);}catch{status('Die Serveradresse ist nicht erreichbar.');return;}
-    ws=socket;stopped=false;pending=true;$('lobby').hidden=true;status('Verbindung wird aufgebaut …');
+    ws=socket;stopped=false;pending=true;versionConflict=false;$('lobby').hidden=true;status('Verbindung wird aufgebaut …');
     socket.onopen=()=>{localStorage.setItem('aeterna.duellserver',u.href);
       socket.send(JSON.stringify(type==='resume'?{type,version,code:saved.code,key:saved.key}:
         {type,version,hero:deck.hero,deck:deck.cards,code:$('code').value.trim().toUpperCase()}));};
     socket.onmessage=e=>{
       if(ws!==socket)return;
       const m=JSON.parse(e.data);
+      if(m.type==='left'){stopped=true;clearTimeout(timer);localStorage.removeItem(storageKey);socket.close();location.replace('index.html');return;}
       if(m.type==='seat'){saved={code:m.code,key:m.key,url:u.href};localStorage.setItem(storageKey,JSON.stringify(saved));}
       if(m.type==='state'){pending=false;state=m;render(m);}
     };
@@ -35,6 +36,7 @@
       if(ws!==socket||stopped)return;pending=true;redraw();
       if(e.code>=4000&&e.code<4100){
         // Bei einem Versionsfehler kann derselbe Platz mit der richtigen App wieder übernommen werden.
+        versionConflict=e.code===4001;
         if([4002,4003].includes(e.code)){saved=null;localStorage.removeItem(storageKey);}
         $('spiel').replaceChildren();$('lobby').hidden=!!saved;$('verlassen').hidden=!saved;status(e.reason);return;
       }
@@ -106,7 +108,9 @@
   }
   $('erstellen').onclick=()=>connect('create');$('beitreten').onclick=()=>connect('join');
   $('verlassen').onclick=()=>{if(state?.phase!=='over'&&!confirm('Platz auf diesem Gerät freigeben? Ohne den Schlüssel kannst du nicht zurückkehren.'))return;
-    stopped=true;clearTimeout(timer);if(ws?.readyState===WebSocket.OPEN)ws.send(JSON.stringify({type:'leave'}));ws?.close();localStorage.removeItem(storageKey);location.replace('index.html');};
+    if(versionConflict){localStorage.removeItem(storageKey);location.replace('index.html');return;}
+    if(ws?.readyState!==WebSocket.OPEN){status('Zum Aufgeben erneut verbinden. Dein Platz bleibt reserviert.');return;}
+    ws.send(JSON.stringify({type:'leave'}));status('Der Server bestätigt das Verlassen …');};
   $('vollbild').hidden=!document.fullscreenEnabled;$('vollbild').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
   window.App={back:()=>location.replace('index.html'),onPause:()=>{},onResume:()=>{},resize:()=>{},onUpdate:()=>{}};
   if(saved)connect('resume');

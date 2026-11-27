@@ -101,6 +101,9 @@ async function main(){
   for(const page of pages)await page.getByText(/Du hast gewonnen|Gegenüber hat gewonnen|Unentschieden/).waitFor();
   const rejected=await pages[0].evaluate(url=>new Promise(resolve=>{const w=new WebSocket(url);w.onopen=()=>w.send(JSON.stringify({type:'create',version:'0.0.1'}));w.onclose=e=>resolve(e.code);}),url);
   assert.equal(rejected,4001);assert.deepEqual(errors,[]);
+  await pages[0].getByText('Duell schließen',{exact:true}).click();
+  await pages[0].waitForURL('**/index.html');
+  assert.equal(await pages[0].evaluate(()=>localStorage.getItem('aeterna.freundesduell')),null);
   if(android)await pages[1].evaluate(()=>{window.aeternaDuellAbgenommen=true;});
   console.log(path.basename(zip)+' · '+(android?'Android-APK und Browser':'zwei getrennte Browserprofile')+', '+steps+' Befehle, '+played+' Karten, '+attacked+' Angriffe, Wiederaufnahme, identisches Ende. Abweichende Spielversion abgewiesen.');
  }finally{await device?.close();await browser?.close();tlsProxy?.close();relay?.close();site?.server.close();fs.rmSync(tmp,{recursive:true,force:true});}

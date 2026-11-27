@@ -214,7 +214,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Signierte APK und separate Instrumentierung bauen
         working-directory: android
-        run: ./gradlew assembleRelease assembleReleaseAndroidTest --no-daemon
+        run: ./gradlew assembleRelease assembleReleaseAndroidTest -Pkotlin.compiler.execution.strategy=in-process --max-workers=2 --no-daemon
       - name: Tatsächliche Vorversion und Browserpaket vorbereiten
         env:
           GH_TOKEN: ${{ github.token }}
@@ -237,5 +237,8 @@ jobs:
           api-level: 33
           arch: x86_64
           target: google_apis
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -writable-system -camera-back none
+          ram-size: 2304M
+          heap-size: 384M
+          cores: 2
+          emulator-options: -no-window -gpu swiftshader_indirect -feature -Vulkan -noaudio -no-boot-anim -no-snapshot -writable-system -camera-back none
           script: bash werkzeuge/android-emulator-abnahme.sh --leeres-test-avd abnahme-alt/alt.apk android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk dist/Aeterna-1.41.0-HTML5.zip

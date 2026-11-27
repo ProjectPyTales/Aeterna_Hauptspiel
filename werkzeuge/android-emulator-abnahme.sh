@@ -12,7 +12,17 @@ runner=$package.test/de.chroniken.abnahme.SpielstandAbnahme
 [[ $(adb shell getprop ro.build.version.sdk | tr -d '\r') == 33 ]]
 [[ -z $(adb shell pm list packages "$package") ]]
 temp=$(mktemp -d)
-trap 'rm -rf "$temp"' EXIT
+cleanup(){
+  result=$?
+  if [[ $result != 0 ]]; then
+    free -h
+    df -h /tmp
+    timeout 8 adb shell logcat -b crash -d -t 30 || true
+    if [[ -n ${GITHUB_ACTIONS:-} ]]; then sudo dmesg | tail -25 || true; fi
+  fi
+  rm -rf "$temp"
+}
+trap cleanup EXIT
 
 # Die APK vertraut ausschließlich Android-Systemzertifikaten. Dem wegwerfbaren AVD für diesen
 # Lauf eine lokale CA geben. Beide privaten Schlüssel verlassen den Testrechner nie.
@@ -44,9 +54,14 @@ adb shell restorecon "$cert_path"
 adb reboot
 boot
 adb shell ls "$cert_path"
+adb shell wm size 960x540
+adb shell wm density 160
 adb shell dumpsys webviewupdate | head -12
+free -h
+df -h /tmp
 
 step(){
+  echo "Android-Prüfschritt $1"
   adb shell am force-stop "$package"
   adb shell am instrument -w -e isoliert ja -e schritt "$1" "$runner" | tee "$temp/$1.log"
   grep -q 'abnahme=OK' "$temp/$1.log"

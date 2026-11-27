@@ -91,8 +91,9 @@ function start({port = 8787, host = '127.0.0.1'} = {}) {
         }
         const p=room.seats[seat],g=room.game;
         if (p.ws===ws && m.type==='leave') {
-          if (!g) {retire(room);return;}
-          if (g.phase!=='over') {g.phase='over';g.winner=1-seat;room.rev++;publish(room);}
+          if (g && g.phase!=='over') {g.phase='over';g.winner=1-seat;room.rev++;publish(room);}
+          send(ws,{type:'left'});
+          if (!g) retire(room);
           return;
         }
         if (p.ws!==ws || !g || !room.seats.every(s=>s?.ws)) return publish(room);
