@@ -4,7 +4,7 @@
 22 Helden nach dem sächsischen Lehrplan Geschichte (Klasse 5–7), von der Fürstin von Vix bis Vauban, 22 Kampagnenmissionen.
 Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales/Aeterna_Copy`, ab 24. 10. 2026 eine Kopie von
 `thepytales/Aeterna` mit der ganzen Historie). **Kartenbilder und Oberflächengrafiken:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
-**Release-Kandidat 1.41.0 (Android-Code 44).** Alle 416 Sammelkarten und 28 Spielsteine sind bebildert. Jede Sammelkarte hat einen historischen Kurztext mit Quelle. Für ein privates Duell auf beiden Geräten unter *Schlacht → Privates Duell* denselben Duellserver wählen. Android-Einzelspieler, Sammlung und Kampagne laden vollständig vom Gerät.
+**Version 1.41.1 (Android-Code 45)** – Rückmeldung zu 1.41.0: Die Helden sitzen größer in ihrer Münze. Astras Münzrand wird im Spiel radial gestaucht (Rändelung unverändert, Namensband und Lorbeer schmaler), das Porträt hat gut ein Fünftel mehr Durchmesser. In Menüs, Packs und Sammlung lässt sich kein Text mehr markieren (Eingabefelder ausgenommen). Die Webfassung läuft unter <https://aeterna.pytales.de/>. Seit 1.41.0: Alle 416 Sammelkarten und 28 Spielsteine sind bebildert. Jede Sammelkarte hat einen historischen Kurztext mit Quelle. Für ein privates Duell auf beiden Geräten unter *Schlacht → Privates Duell* denselben Duellserver wählen. Android-Einzelspieler, Sammlung und Kampagne laden vollständig vom Gerät.
 
 [Abnahme, Build und Betrieb des Duellservers](ABNAHME-1.41.md) · [Quellen zur Chronik](quellcode/CHRONIK-QUELLEN.md) · [Balancevergleich und Startwerte](balance/BERICHT-1.41.0.md)
 

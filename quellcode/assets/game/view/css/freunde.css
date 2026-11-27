@@ -10,3 +10,5 @@ button:disabled{opacity:.55;cursor:default}label{display:grid;gap:.25rem}input,s
 .karte{display:inline-grid;align-content:start;gap:.25rem;max-width:11rem;border:1px solid #837054;border-radius:4px;padding:.3rem .5rem}
 .bild{height:3rem;background-size:400% 300%;border-radius:3px}.werte,.regel{font-size:.9rem}.befehle{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
 [hidden]{display:none!important}#verlassen{margin-top:1rem}@media(max-width:520px){#lobby{grid-template-columns:1fr}main{padding:10px}header{gap:.35rem}}
+/* Seit 1.41.1: kein Markieren auf der Duellseite; Eingaben und die Statuszeile mit dem Einladungscode bleiben markierbar. */
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,#status{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}img{-webkit-user-drag:none}

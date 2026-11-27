@@ -3,7 +3,7 @@
  * als „notes“ in version.json (werkzeuge/update_info.js), und ältere Versionen zeigen sie im Hinweis „Neue Version“. */
 (function(root){'use strict';
 const api={
- version:'1.41.0',
- notes:'Alle Karten haben Bilder und eine historische Chronik. Im freien Duell kannst Du Freunde per Einladungscode herausfordern. Deutsche Stimmen begleiten die Schlachten.'};
+ version:'1.41.1',
+ notes:'Die Helden sind in ihrer Münze jetzt deutlich größer zu sehen: Der Rand ist schmaler, Name und Lorbeer bleiben. Text lässt sich nicht mehr versehentlich markieren. Aeterna läuft jetzt auch im Browser unter aeterna.pytales.de.'};
 if(typeof module!=='undefined')module.exports=api;else root.AENEU=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

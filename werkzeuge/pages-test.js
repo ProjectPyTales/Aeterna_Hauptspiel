@@ -49,8 +49,15 @@ async function main(){
   await page.waitForFunction(()=>window.App?.artReady,null,{timeout:90000});
   assert.equal(await page.evaluate(()=>AENEU.version),version,'ausgelieferte Version');
   await page.evaluate(()=>App.vm.menu.go('free'));
+  // Seit 1.41.1: Im Spiel lässt sich kein Text markieren (Rückmeldung zur Webfassung), Eingabefelder bleiben markierbar.
+  const selected=async()=>{await page.evaluate(()=>{document.activeElement?.blur?.();getSelection().removeAllRanges();});
+   await page.keyboard.press('Control+A');return page.evaluate(()=>getSelection().toString().trim());};
+  assert.equal(await selected(),'','„Alles markieren“ erfasst in der Heldenwahl keinen Text');
   await page.locator('[data-cmd="friends"]').click();
   await page.locator('#adresse').waitFor();
+  assert.equal(await selected(),'','„Alles markieren“ erfasst auf der Duellseite keinen Text');
+  assert.deepEqual(await page.evaluate(()=>['#adresse','#code','#status'].map(s=>getComputedStyle(document.querySelector(s)).userSelect)),
+   ['text','text','text'],'Serveradresse, Einladungscode und Statuszeile bleiben markierbar');
   assert.ok(new URL(page.url()).pathname.startsWith(BASE),'Privates Duell bleibt im Projektpfad: '+page.url());
   await page.goBack();
   await page.waitForFunction(()=>window.App?.artReady,null,{timeout:90000});
