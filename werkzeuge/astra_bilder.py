@@ -198,6 +198,20 @@ for paket, breite, namen in [
     ('U02', 900, ['lorbeerkranz']),
     ('U02', 96, ['edelstein-' + z for z in ['lapis', 'olive', 'red', 'gold', 'silver', 'obsidian']]),
     ('U02', 204, ['diener-plakette-diener', 'diener-plakette-bauwerk']),
+    ('U03', 188, ['starre-ketten', 'tarnung-unterholz']),
+    ('U03', 300, ['gunst-aurenkreis']),
+    ('U03', 32, ['eiskristall', 'giftblasen', 'hinterhalt-siegelsplitter']),
+    ('U03', 64, ['urnengeist', 'marschroute-winkel', 'marschroute-spitze',
+                 'hinterhalt-glimmen-eigen', 'hinterhalt-glimmen-gegner']),
+    ('U03', 128, ['staubwolke']),
+    ('U03', 440, [f'steinrisse-{n}' for n in range(1, 4)]),
+    ('U03', 220, [f'tintenspritzer-{n}' for n in range(1, 4)]),
+    ('U03', 90, ['hinterhalt-rolle-eigen', 'hinterhalt-rolle-gegner']),
+    ('U03', 600, ['hinterhalt-band']),
+    ('U04', 1400, ['chronik-banner']),
+    ('U04', 400, ['muenze-initiative']),
+    ('U04', 900, [f'{band}-banner-{art}' for band in ['triumph', 'ergebnis']
+                  for art in ['sieg', 'niederlage', 'unentschieden']]),
 ]:
     UI.update({name: (f'Lieferung_{paket}/{name}.png', breite) for name in namen})
 # Vektorbilder, die unverändert nach assets/ui/ kommen (die Währungen sowie das bestehende App-Zeichen; die übrigen flachen Vektoren aus Teil 1
@@ -267,12 +281,15 @@ def atlas(name, paths, size):
     sheet.save(os.path.join(ART, name + '.webp'), 'WEBP', quality=QUALITY, method=6)
 
 
-def ui_images():
+def ui_images(heroes=None):
     """Schreibt die Oberflächenbilder und liefert Name → [Breite, Höhe] sowie die Bildfenster der Kartenrahmen."""
     out = os.path.join(GAME, 'assets/ui')
     os.makedirs(out, exist_ok=True)
     sizes = {}
-    for name, (src, width, *how) in UI.items():
+    if heroes is None:
+        heroes = [h['id'] for h in game()['heroes']]
+    symbols = {f'faehigkeitssymbol-{h}': (f'Lieferung_U04/faehigkeitssymbol-{h}.png', 96) for h in heroes}
+    for name, (src, width, *how) in (UI | symbols).items():
         im = Image.open(os.path.join(NEU, src))
         im.load()
         im = im.convert('RGBA' if 'A' in im.getbands() else 'RGB')
@@ -376,7 +393,7 @@ def main():
         im = Image.open(os.path.join(NEU, f'Teil1/assets/backgrounds/{name}.webp')).convert('RGB')
         im.save(os.path.join(ART, name + '.webp'), 'WEBP', quality=QUALITY, method=6)
         im.resize((480, 240), Image.LANCZOS).save(os.path.join(ART, name + '-preview.webp'), 'WEBP', quality=80, method=6)
-    write_map(card_map, hero_map, *ui_images())
+    write_map(card_map, hero_map, *ui_images(heroes))
 
     # Was zeigt das Spiel jetzt? Alte Kartenatlanten ohne Karte entfallen.
     now = game()

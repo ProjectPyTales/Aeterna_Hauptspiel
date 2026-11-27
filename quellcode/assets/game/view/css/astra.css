@@ -55,3 +55,12 @@ button.stone-action.danger {
  border-image-source: url('../../assets/ui/steinknopf-gefahr.webp');
 }
 button.stone-action:active:enabled {filter: brightness(.87)}
+
+/* Die Ergebnisbänder teilen Geometrie und Schrift mit dem bisherigen Ergebnisfenster. */
+.result.win{--ergebnis-band:url('../../assets/ui/ergebnis-banner-sieg.webp')}
+.result.loss{--ergebnis-band:url('../../assets/ui/ergebnis-banner-niederlage.webp')}
+.result.draw{--ergebnis-band:url('../../assets/ui/ergebnis-banner-unentschieden.webp')}
+.result.panel .result-banner{background:var(--ergebnis-band) center / 100% 100% no-repeat;clip-path:polygon(0 0,100% 0,100% 100%,50% 100%,0 100%);box-shadow:none}
+.result.panel .result-banner span{margin-top:0}
+.result.draw .result-banner span{font-size:32px;letter-spacing:2px}
+.result.loss .result-banner span{font-size:40px;letter-spacing:2px}

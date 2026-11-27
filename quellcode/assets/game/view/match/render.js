@@ -291,8 +291,10 @@ function button(c,text,x,y,w,h,active,id){
  }),x,y);
  touch(id,x,y,w,h);
 }
-// ASTRA: faehigkeitssymbole – Symbol der Heldenfähigkeit, eines je Held (22), 96 × 96
-function powerIcon(c,id,x,y){c.save();c.translate(x,y);c.strokeStyle='#f2d99b';c.fillStyle='#f2d99b';c.lineWidth=3;c.lineCap='round';c.lineJoin='round';c.beginPath();
+// Astra-Bild (AP A.2): faehigkeitssymbole – Symbol der Heldenfähigkeit, eines je Held (22), 96 × 96
+function powerIcon(c,id,x,y){
+ if(pic(c,'faehigkeitssymbol-'+id,x,y,58,58))return;
+ c.save();c.translate(x,y);c.strokeStyle='#f2d99b';c.fillStyle='#f2d99b';c.lineWidth=3;c.lineCap='round';c.lineJoin='round';c.beginPath();
 if(id==='leonidas'){c.moveTo(-16,-18);c.lineTo(16,-18);c.lineTo(16,2);c.quadraticCurveTo(13,18,0,24);c.quadraticCurveTo(-13,18,-16,2);c.closePath();c.stroke();c.beginPath();c.moveTo(-7,8);c.lineTo(0,-8);c.lineTo(7,8);}
 else if(id==='imhotep'){c.ellipse(0,-12,8,11,0,0,Math.PI*2);c.moveTo(0,0);c.lineTo(0,24);c.moveTo(-14,6);c.lineTo(14,6);}
 else if(!D.heroById[id]?.art){c.font='bold 34px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(D.heroById[id].icon,0,2);}
@@ -524,16 +526,20 @@ function deck(c,s,p,now){const pp=s.players[p],yy=p===0?590:158,x=1448;
 // rival (its face stays hidden), gold-rimmed for your own, which you can tap to read.
 // Rückmeldung zu 1.27.0 („sehr unscheinbar“, aber nicht aufdringlich): ein Viertel größer, auf einer dunklen Mulde, damit sie
 // sich vom hellen Pergament abhebt, und ein langsames, schwaches Glimmen am Siegel (ambushGlow) – kein Blinken, kein Text.
-// ASTRA: hinterhalt-rolle – versiegelte Wachsrolle eines Hinterhalts neben der Heldenmünze (eigene mit Goldrand, fremde rot), 90 × 160
-function ambushArt(g,mine){g.save();g.scale(1.25,1.25);g.save();g.rotate(-.18);ellipse(g,1,3,23,38,'#24170d4d',null);g.restore();
+// Astra-Bild (AP A.2): hinterhalt-rolle – versiegelte Wachsrolle eines Hinterhalts neben der Heldenmünze (eigene mit Goldrand, fremde rot), 90 × 160
+function ambushArt(g,mine){
+ if(pic(g,'hinterhalt-rolle-'+(mine?'eigen':'gegner'),0,0,51,90))return;
+ g.save();g.scale(1.25,1.25);g.save();g.rotate(-.18);ellipse(g,1,3,23,38,'#24170d4d',null);g.restore();
  g.save();g.rotate(-.18);g.shadowColor='#160e09cc';g.shadowBlur=8;g.shadowOffsetY=3;
  round(g,-15,-30,30,60,7,grad(g,-15,0,30,0,'#8d6f45','#ead6a6'),'#4a3420',1.5);g.restore();g.save();g.rotate(-.18);
  for(const y of [-30,30])ellipse(g,0,y,15,4.6,'#d2b780','#4a3420',1.2);
  g.strokeStyle='#5a3a1c';g.lineWidth=2.2;g.beginPath();g.moveTo(-15,-4);g.lineTo(15,-4);g.moveTo(-15,4);g.lineTo(15,4);g.stroke();
  ellipse(g,0,0,13,13,grad(g,-13,-13,26,26,mine?'#6b1d14':'#4a0f0b',mine?'#d4573f':'#b2362a'),mine?'#e2bf6a':'#3a0a07',mine?2.4:1.5);
  ellipse(g,0,0,7.5,7.5,null,mine?'#f3d79a99':'#ffb4a055',1.2);txt(g,'⚔',0,.5,10,mine?'#ffe8b8':'#ffcfc4');g.restore();g.restore();}
-// ASTRA: hinterhalt-glimmen – weicher Lichthof um das Siegel einer Wachsrolle (eigene golden, fremde glutrot), 64 × 64
-function ambushGlow(g,mine){const r=g.createRadialGradient(0,0,4,0,0,30);r.addColorStop(0,mine?'#ffe3a0cc':'#ff6a46bb');r.addColorStop(.45,mine?'#f0b85a55':'#d23a2455');r.addColorStop(1,'#00000000');
+// Astra-Bild (AP A.2): hinterhalt-glimmen – weicher Lichthof um das Siegel einer Wachsrolle (eigene golden, fremde glutrot), 64 × 64
+function ambushGlow(g,mine){
+ if(pic(g,'hinterhalt-glimmen-'+(mine?'eigen':'gegner'),0,0,56,56))return;
+ const r=g.createRadialGradient(0,0,4,0,0,30);r.addColorStop(0,mine?'#ffe3a0cc':'#ff6a46bb');r.addColorStop(.45,mine?'#f0b85a55':'#d23a2455');r.addColorStop(1,'#00000000');
  g.fillStyle=r;g.beginPath();g.arc(0,0,30,0,Math.PI*2);g.fill();}
 function rolls(c,s,p,now){const list=E.ambushes(s.players[p]);
  list.forEach((x,i)=>{const pos=L.ambush(p,i),mine=p===0,lift=mine&&motion()?Math.sin(now/520+i)*1.5:0;R.positions['ambush'+p+'_'+i]=pos;
@@ -772,10 +778,18 @@ function dragged(c,d,t,gold){const p=L.dragPose(d,t);let f=R.dragTilt;
  const v=(p.x-f.last)/Math.max(4,T.clock.realDt||16);f.last=p.x;d.angle=f.s.to(clamp(v*.16,-.26,.26)).step(T.clock.dt||T.clock.realDt);
  d.x=p.x;d.y=p.y;d.w=p.w;CHM.floatCard(c,d.cardId,p.x,p.y,p.w,d.angle,1,{lift:.6,gold:gold||R.gilded(d.cardId)});}
 // AP 3.5: the march route – chevrons of red ink like on a campaign map, marching towards the finger, and a bold head.
-// ASTRA: marschroute – Marschrouten-Pfeil aus roten Tintenwinkeln mit Pfeilspitze, 64 × 64 je Winkel
-const chevron=()=>R.sprite('chevron',-14,-14,28,28,g=>{g.lineCap='round';g.lineJoin='round';g.beginPath();g.moveTo(-6,-8);g.lineTo(5,0);g.lineTo(-6,8);g.strokeStyle='#3b0d0a';g.lineWidth=8;g.stroke();g.strokeStyle='#d8352a';g.lineWidth=4.5;g.stroke();});
-const routeHead=()=>R.sprite('routehead',-44,-28,56,56,g=>{g.beginPath();g.moveTo(6,0);g.lineTo(-30,-19);g.lineTo(-20,0);g.lineTo(-30,19);g.closePath();g.fillStyle='#c42a20';g.fill();g.lineJoin='round';g.lineWidth=3;g.strokeStyle='#3b0d0a';g.stroke();g.beginPath();g.moveTo(-1,-1);g.lineTo(-24,-14);g.strokeStyle='#ff8a70';g.lineWidth=1.4;g.stroke();});
-function route(c,a,b,locked,t){const cx=(a.x+b.x)/2,cy=Math.min(a.y,b.y)-90,P=u=>({x:(1-u)*(1-u)*a.x+2*(1-u)*u*cx+u*u*b.x,y:(1-u)*(1-u)*a.y+2*(1-u)*u*cy+u*u*b.y});
+// Astra-Bild (AP A.2): marschroute – Marschrouten-Pfeil aus roten Tintenwinkeln mit Pfeilspitze, 64 × 64 je Winkel
+const chevron=()=>R.sprite('chevron',-14,-14,28,28,g=>{
+ if(pic(g,'marschroute-winkel',0,0,25,25))return;
+ g.lineCap='round';g.lineJoin='round';g.beginPath();g.moveTo(-6,-8);g.lineTo(5,0);g.lineTo(-6,8);g.strokeStyle='#3b0d0a';g.lineWidth=8;g.stroke();g.strokeStyle='#d8352a';g.lineWidth=4.5;g.stroke();});
+const routeHead=()=>R.sprite('routehead',-44,-28,56,56,g=>{
+ if(pic(g,'marschroute-spitze',-21,0,44,44))return;
+ g.beginPath();g.moveTo(6,0);g.lineTo(-30,-19);g.lineTo(-20,0);g.lineTo(-30,19);g.closePath();g.fillStyle='#c42a20';g.fill();g.lineJoin='round';g.lineWidth=3;g.strokeStyle='#3b0d0a';g.stroke();g.beginPath();g.moveTo(-1,-1);g.lineTo(-24,-14);g.strokeStyle='#ff8a70';g.lineWidth=1.4;g.stroke();});
+function route(c,a,b,locked,t){const dx=b.x-a.x,dy=b.y-a.y,distance=Math.hypot(dx,dy);
+ if(distance<1)return;
+ // Bend perpendicular to the attack so even a vertical route approaches its target without doubling back.
+ const bend=Math.min(78,distance*.27)/distance,cx=(a.x+b.x)/2+dy*bend,cy=(a.y+b.y)/2-dx*bend;
+ const P=u=>({x:(1-u)*(1-u)*a.x+2*(1-u)*u*cx+u*u*b.x,y:(1-u)*(1-u)*a.y+2*(1-u)*u*cy+u*u*b.y});
  const pts=[];let len=0,last=P(0);for(let i=0;i<=40;i++){const p=P(i/40);len+=Math.hypot(p.x-last.x,p.y-last.y);pts.push({...p,len});last=p;}
  const at=d=>{let i=pts.findIndex(p=>p.len>=d);if(i<1)i=1;const p=pts[i],q=pts[i-1];return {x:p.x,y:p.y,an:Math.atan2(p.y-q.y,p.x-q.x)};};
  c.save();c.globalAlpha=locked?1:.92;const step=26,off=motion()?(t*.09)%step:0,sp=chevron();
@@ -789,16 +803,22 @@ function pulse(c,uid,t){const pos=R.positions[uid];if(!pos)return;const hero=/^h
 // Units that may still attack breathe a green glow (AP 3.5).
 const readyGlow=()=>R.sprite('readyglow',-80,-100,160,200,g=>{g.shadowColor=P.glow;g.shadowBlur=16;g.beginPath();g.roundRect(-54,-71,108,142,11);g.lineWidth=3;g.strokeStyle=P.glowRing;g.stroke();});
 // ---------- Effects ----------
-// ASTRA: tintenspritzer – Spritzer getrockneter Tinte hinter einer Schadenszahl (drei Varianten), 220 × 220
-const inkSprite=v=>R.sprite('ink:'+v,-55,-55,110,110,g=>{let seed=v*7919+3;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+// Astra-Bild (AP A.2): tintenspritzer – Spritzer getrockneter Tinte hinter einer Schadenszahl (drei Varianten), 220 × 220
+const inkSprite=v=>R.sprite('ink:'+v,-55,-55,110,110,g=>{
+ if(pic(g,'tintenspritzer-'+(v+1),0,0,106,106))return;
+ let seed=v*7919+3;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
  g.fillStyle='#5a1410';g.globalAlpha=.78;g.beginPath();for(let i=0;i<=24;i++){const an=i/24*Math.PI*2,r=22+rnd()*9;g.lineTo(Math.cos(an)*r,Math.sin(an)*r*.82);}g.closePath();g.fill();
  for(let i=0;i<11;i++){const an=rnd()*Math.PI*2,r=28+rnd()*22,s=1.5+rnd()*4.5;g.beginPath();g.ellipse(Math.cos(an)*r,Math.sin(an)*r*.85,s,s*.8,an,0,Math.PI*2);g.fill();}
  g.globalAlpha=.35;g.fillStyle='#2a0806';g.beginPath();g.ellipse(-4,-3,14,10,.4,0,Math.PI*2);g.fill();});
 const redNumber=text=>R.sprite('dmg:'+text,-60,-34,120,68,g=>{g.font='bold 40px Title,serif';g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';g.strokeStyle='#2a0b08';g.lineWidth=6;g.strokeText(text,0,0);g.fillStyle='#ff5a47';g.fillText(text,0,0);});
-// ASTRA: staubwolke – Staubwolke beim Aufprall einer Karte und beim Zerbrechen einer Plakette, 128 × 128
-const dustSprite=()=>R.sprite('dust',-32,-32,64,64,g=>{const gr=g.createRadialGradient(0,0,2,0,0,32);gr.addColorStop(0,'#efe0bccc');gr.addColorStop(.5,'#d9c49a77');gr.addColorStop(1,'#d9c49a00');g.fillStyle=gr;g.fillRect(-32,-32,64,64);});
-// ASTRA: steinrisse – Risse im Steintisch unter einer landenden Karte (drei Varianten), 440 × 240
-const crackSprite=v=>R.sprite('cracks:'+v,-110,-60,220,120,g=>{let seed=v*977+13;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;g.lineCap='round';g.lineJoin='round';
+// Astra-Bild (AP A.2): staubwolke – Staubwolke beim Aufprall einer Karte und beim Zerbrechen einer Plakette, 128 × 128
+const dustSprite=()=>R.sprite('dust',-32,-32,64,64,g=>{
+ if(pic(g,'staubwolke',0,0,64,64))return;
+ const gr=g.createRadialGradient(0,0,2,0,0,32);gr.addColorStop(0,'#efe0bccc');gr.addColorStop(.5,'#d9c49a77');gr.addColorStop(1,'#d9c49a00');g.fillStyle=gr;g.fillRect(-32,-32,64,64);});
+// Astra-Bild (AP A.2): steinrisse – Risse im Steintisch unter einer landenden Karte (drei Varianten), 440 × 240
+const crackSprite=v=>R.sprite('cracks:'+v,-110,-60,220,120,g=>{
+ if(pic(g,'steinrisse-'+(v+1),0,0,220,120))return;
+ let seed=v*977+13;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;g.lineCap='round';g.lineJoin='round';
  for(let i=0;i<9;i++){const an=i/9*Math.PI*2+rnd()*.5,len=40+rnd()*62,pts=[[0,0]];let x=0,y=0;for(let k=1;k<=4;k++){const d=an+(rnd()-.5)*.7;x+=Math.cos(d)*len/4;y+=Math.sin(d)*len/4*.5;pts.push([x,y]);}
   const path=()=>{g.beginPath();pts.forEach(([x,y],j)=>g[j?'lineTo':'moveTo'](x,y));};const w=i%2?1.6:2.4;
   g.save();g.translate(0,1.2);path();g.strokeStyle='rgba(255,240,205,.5)';g.lineWidth=w;g.stroke();g.restore();path();g.strokeStyle='rgba(52,30,12,.78)';g.lineWidth=w;g.stroke();}});

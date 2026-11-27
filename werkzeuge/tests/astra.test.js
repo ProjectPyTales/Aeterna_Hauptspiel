@@ -70,8 +70,9 @@ test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ei
  for(const k of ['kartenrahmen','kartenruecken-chroniken','chronikleiste','stundenglas','waffenablage','kartenbuch','waehrung'])assert.ok(!md.includes('`'+k+'`'),k);
 });
 
-test('Duellpakete U01/U02: jedes RGBA-Original ist doppelt so groß wie sein Bild im Spiel',()=>{
- for(const [paket,anzahl] of [['U01',27],['U02',20]]){
+test('Duellpakete U01–U04: jedes RGBA-Original ist doppelt so groß wie sein Bild im Spiel',()=>{
+ for(const h of D.heroes)assert.deepEqual(B.ui['faehigkeitssymbol-'+h.id],[96,96],h.name);
+ for(const [paket,anzahl] of [['U01',27],['U02',20],['U03',21],['U04',30]]){
   const dir=path.join(root,'ungenutzte_assets/neue_astra_assets','Lieferung_'+paket);
   const files=fs.readdirSync(dir).filter(f=>f.endsWith('.png'));
   assert.equal(files.length,anzahl,paket);

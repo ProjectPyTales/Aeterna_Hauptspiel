@@ -65,10 +65,10 @@ test('Astra (AP L.4): Code und MOTIVE.md nennen dieselben Kennungen, jede mit Gr
  const md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8'),section=md.slice(md.indexOf('## Im Code gezeichnet'));
  const listed=[...section.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m=>m[1]);
  assert.deepEqual(listed.sort(),[...code].sort(),'MOTIVE.md veraltet – node werkzeuge/motive.js ausführen');
- for(const id of ['faehigkeitssymbole','feldherrentisch'])assert.ok(code.includes(id),id);
+ assert.ok(code.includes('feldherrentisch'));
  // Seit 1.22.0 (AP A.2) gemalt: aus der Liste, die Zeichnung bleibt als Ersatz.
  for(const id of ['kartenrahmen','chronikleiste','steinknopf','stufenpyramide','lebensherz','phalanxschild','knopf-match',
-  'diener-plakette','heldenmuenze','herrschersiegel','aetheruhr','chronometer'])assert.ok(!code.includes(id),id);
+  'diener-plakette','heldenmuenze','herrschersiegel','aetheruhr','chronometer','faehigkeitssymbole','faehigkeits-effekt'])assert.ok(!code.includes(id),id);
 });
 
 // AP L.2 (1.15.0): Karten der elf Lehrplan-Helden und neutrale Karten aus Lebenswelten statt Fantasy.
