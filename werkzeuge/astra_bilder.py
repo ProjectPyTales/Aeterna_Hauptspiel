@@ -182,6 +182,24 @@ UI = {
     'steinplatten-links': (f'{T1}/ui-art/steinplatten-rechts.png', 780, 'gespiegelt'),
     'steinplatten-rechts': (f'{T1}/ui-art/steinplatten-rechts.png', 780, 'beschnitten'),
 }
+# Duelloberfläche: Die freigestellten PNG-Originale haben doppelte Zielgröße.
+for paket, breite, namen in [
+    ('U01', 256, ['aetheruhr', 'chronometer-aktiv', 'chronometer-gegnerzug']),
+    ('U01', 48, ['aetherkristall-' + z for z in ['voll', 'verbraucht', 'gesperrt', 'fehlt']]),
+    ('U01', 24, ['chronometer-zeiger']),
+    ('U01', 400, ['heldenmuenze-spieler', 'heldenmuenze-gegner']),
+    ('U01', 248, ['herrschersiegel-' + z for z in ['bereit', 'ruhend', 'rueckseite']]),
+    ('U01', 160, [f'pergamentstapel-{n}' for n in range(1, 7)]),
+    ('U01', 960, ['zugtafel-spieler', 'zugtafel-gegner']),
+    ('U01', 116, ['chronik-eintrag-spieler', 'chronik-eintrag-gegner']),
+    ('U02', 160, ['werte-kristall-blau', 'werte-kristall-gruen', 'werte-kristall-rot',
+                  'werte-klingen', 'werte-schild', 'werte-turm', 'goldglanz']),
+    ('U02', 160, ['archivsiegel-' + z for z in ['common', 'rare', 'epic', 'legendary']]),
+    ('U02', 900, ['lorbeerkranz']),
+    ('U02', 96, ['edelstein-' + z for z in ['lapis', 'olive', 'red', 'gold', 'silver', 'obsidian']]),
+    ('U02', 204, ['diener-plakette-diener', 'diener-plakette-bauwerk']),
+]:
+    UI.update({name: (f'Lieferung_{paket}/{name}.png', breite) for name in namen})
 # Vektorbilder, die unverändert nach assets/ui/ kommen (die Währungen sowie das bestehende App-Zeichen; die übrigen flachen Vektoren aus Teil 1
 # sind schlichter als die Zeichnungen im Spiel und bleiben ungenutzt, siehe README AP A.2).
 SVG = {'waehrung-gold': f'{T1}/ui/waehrung-gold.svg', 'waehrung-staub': f'{T1}/ui/waehrung-staub.svg',

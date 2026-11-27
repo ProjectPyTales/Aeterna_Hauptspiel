@@ -28,8 +28,8 @@ Alle Kartenpakete sind abgeschlossen.
 
 | Paket | Oberfläche | Zeilen |
 |---|---|---:|
-| [U01](astra_bestellung/U01.md) | Spielbrett: Mana, Zug, Helden (7 Teile, 23 Dateien) | 8 |
-| [U02](astra_bestellung/U02.md) | Karten und Werte (10 Teile mit `goldglanz-basar`, 20 Dateien) | 9 |
+| [U01](astra_bestellung/U01.md) | Spielbrett: Mana, Zug, Helden (eingebaut, 23 Dateien) | 8 |
+| [U02](astra_bestellung/U02.md) | Karten und Werte (eingebaut, 20 Dateien einschließlich Basar-Glanz) | 9 |
 | [U03](astra_bestellung/U03.md) | Schlüsselwörter und Effekte (13 Teile, 20 Dateien) | 13 |
 | [U04](astra_bestellung/U04.md) | Inszenierung: Anfang und Ende (6 Teile mit `faehigkeits-effekt`, 30 Dateien) | 5 |
 | [U05](astra_bestellung/U05.md) | Menüs (10 Teile, 19 Dateien) | 10 |

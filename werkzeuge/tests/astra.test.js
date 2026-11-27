@@ -70,6 +70,20 @@ test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ei
  for(const k of ['kartenrahmen','kartenruecken-chroniken','chronikleiste','stundenglas','waffenablage','kartenbuch','waehrung'])assert.ok(!md.includes('`'+k+'`'),k);
 });
 
+test('Duellpakete U01/U02: jedes RGBA-Original ist doppelt so groß wie sein Bild im Spiel',()=>{
+ for(const [paket,anzahl] of [['U01',27],['U02',20]]){
+  const dir=path.join(root,'ungenutzte_assets/neue_astra_assets','Lieferung_'+paket);
+  const files=fs.readdirSync(dir).filter(f=>f.endsWith('.png'));
+  assert.equal(files.length,anzahl,paket);
+  for(const file of files){
+   const png=fs.readFileSync(path.join(dir,file)),name=path.basename(file,'.png');
+   assert.deepEqual([...png.subarray(0,8)],[137,80,78,71,13,10,26,10],file);
+   assert.equal(png[25],6,file+': RGBA');
+   assert.deepEqual(B.ui[name],[png.readUInt32BE(16)/2,png.readUInt32BE(20)/2],file);
+  }
+ }
+});
+
 test('Auftrag Oberfläche: jede noch gezeichnete Kennung aus MOTIVE.md hat eine Zeile in ASTRA_AUFTRAG_OBERFLAECHE.md',()=>{
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/MOTIVE.md'),'utf8'),section=md.slice(md.indexOf('## Im Code gezeichnet'));
  const ids=[...section.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m=>m[1]),order=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8');

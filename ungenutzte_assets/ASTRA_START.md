@@ -46,7 +46,7 @@ Die sechs verlorenen Motive aus Teil 4 haben neue Illustrationen in `Lieferung_K
 
 ## Empfohlene Reihenfolge
 
-1. **U01 und U02** – Spielbrett und Kartenwerte sieht man in jeder Partie.
+1. **U01 und U02 sind eingebaut.** Die Originale liegen in den beiden Lieferordnern.
 2. **U03 bis U13** – verbleibende Oberflächenteile je Modus und Ansicht ergänzen.
 
 Eine Bestellung je Tag reicht; jede eingebaute Lieferung kommt mit der nächsten Test-APK aufs Handy.

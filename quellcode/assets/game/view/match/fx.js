@@ -214,7 +214,7 @@ const ribbon=(w,text)=>R.sprite('ribbon:'+w+':'+text,-w/2-40,-46,w+80,92,g=>{g.s
  g.font='italic 25px Body,serif';g.textAlign='center';g.textBaseline='middle';g.fillStyle='#3b2812';g.fillText(text,0,1,w-30);});
 // ASTRA: muenze-initiative – bronzene Münze der Feldzug-Initiative mit den Bildnissen beider Helden, 400 × 400
 const medal=(s,p)=>{const hero=D.heroById[s.players[p].hero],skin=hero.art&&(p===0&&R.look.skins?.[hero.id]||hero.art);
- return R.sprite('medal:'+hero.id+':'+skin+':'+!!R.images[skin],-80,-80,160,160,g=>R.medal(g,hero,skin),1.6);};
+ return R.sprite('medal:'+p+':'+hero.id+':'+skin+':'+!!R.images[skin],-80,-80,160,160,g=>R.medal(g,hero,skin,p),1.6);};
 function opening(c,s,t,st){const e=t-st.at,info=st.info,fade=e>OPENING.end-260?clamp((OPENING.end-e)/260):1;
  c.save();c.globalAlpha=fade;c.fillStyle='#0b0806';c.globalAlpha=fade*.62*clamp(e/250);c.fillRect(-60,-60,1720,920);c.globalAlpha=fade;
  // The heroes face each other.

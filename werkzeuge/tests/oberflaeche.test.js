@@ -46,7 +46,7 @@ test('AP 1.4 Basar: Kauf wird inszeniert – Münzen, Siegel, Belohnung als Folg
 test('AP 1.4 Basar: Ansicht mit Podest, drehendem Rücken, Münze, Miniatur-Tisch und Kauf-Effekt; Klänge vorhanden',()=>{
  const view=read('view/shop.js'),css=read('view/css/stone.css');
  for(const k of ['praesentationspodest','heldenmuenze-basar','miniatur-spielfeld'])assert.match(view,new RegExp('// (?:ASTRA|Astra-Bild \\(AP A\\.2\\)): '+k+' – '),k);
- assert.match(css,/\/\* ASTRA: goldglanz-basar – /);
+ assert.match(css,/\.stand-card\.gilded \.glint:before\{[^}]*url\('.*?assets\/ui\/goldglanz\.webp'\)/);
  assert.match(view,/class="spin-card"[^]*class="face reverse"/,'Kartenrücken mit Rückseite, die sich dreht');
  assert.match(css,/@keyframes card-spin\{0%\{transform:rotateY\(-16deg\)\}[^}]*\}[^]*100%\{transform:rotateY\(344deg\)\}\}/,'nahtlose Schleife');
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)\{\.buy-fx\{display:none\}\.spin-inner\{animation:none/,'reduzierte Bewegung: still');

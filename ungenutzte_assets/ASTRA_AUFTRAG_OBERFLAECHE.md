@@ -44,7 +44,7 @@ Melde je Datei: Dateiname, tatsächliche Pixelmaße, Abweichungen.
 Größen sind die Darstellung im Spiel; **geliefert wird doppelt so groß**. „Frei für Zahl“ heißt: Das Spiel schreibt dort eine
 Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 
-### Paket 1 – Spielbrett: Mana, Zug, Helden (7 Teile, 23 Dateien)
+### Paket 1 – Spielbrett: Mana, Zug, Helden (eingebaut, 23 Dateien)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
@@ -57,7 +57,7 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `zugtafel` | `zugtafel-spieler.png`, `zugtafel-gegner.png` | 960 × 200 | Steintafel an zwei Ketten mit Bronzerahmen; Fläche frei für „DEIN ZUG“ / „ZUG DES GEGNERS“; Gegner kühler, dunkler Stein. |
 | `chronik-eintrag` | `chronik-eintrag-spieler.png`, `chronik-eintrag-gegner.png` | 116 × 116 | Kleiner quadratischer Bilderrahmen für die Chronikleiste, **Mitte transparent** (80 %) für das Kartenbild; Spieler Goldrand, Gegner Rotrand. |
 
-### Paket 2 – Karten und Werte (10 Teile mit `goldglanz-basar`, 20 Dateien)
+### Paket 2 – Karten und Werte (eingebaut, 20 Dateien einschließlich Basar-Glanz)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
