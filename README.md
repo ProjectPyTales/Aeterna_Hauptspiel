@@ -147,7 +147,7 @@ flüssig und hochwertig anfühlen wie die besten Kartenspiele, ohne eine Kopie z
    - [Phase 5 – Regeln, Karten und Balance](#phase-5--regeln-karten-und-balance-l)
    - [Phase 6 – Spielmodi und Motivation](#phase-6--spielmodi-und-motivation-fortlaufend)
    - [Phase 7 – Release-Qualität](#phase-7--release-qualität-m)
-   - [Phase 8 – itch.io und Crossplay](#phase-8--itchio-und-crossplay-wunsch-vom-12-10-2026)
+   - [Phase 8 – Webfassung und Crossplay](#phase-8--webfassung-und-crossplay-wunsch-vom-12-10-2026)
 8. [Weitere Ideen](#weitere-ideen)
 9. [Deine Ideensammlung – wo sie im Plan steht](#deine-ideensammlung--wo-sie-im-plan-steht)
 10. [Offene Entscheidungen](#offene-entscheidungen)
@@ -2818,15 +2818,15 @@ So, dass es im Spiel nicht kaputt aussieht:
   *Daten* als Datei (Browser) oder in die Zwischenablage (App) und zum Leeren.
 - [ ] Optional Play-Store: eigener Upload-Schlüssel, Datenschutzerklärung, Store-Grafiken, Name „Aeterna“ auf Markenkonflikte prüfen.
 
-### Phase 8 – itch.io und Crossplay (Wunsch vom 12. 10. 2026)
+### Phase 8 – Webfassung und Crossplay (Wunsch vom 12. 10. 2026)
 
 Kein zweites Programm: Das Spiel läuft schon heute im Browser (`service/platform.js` hat für jede Android-Funktion
-einen Browser-Ersatz). Eine itch.io-Fassung ist derselbe Code als ZIP – gepflegt wird weiter nur eine Codebasis.
+einen Browser-Ersatz). Die Webfassung ist derselbe Code als ZIP – gepflegt wird weiter nur eine Codebasis.
 
-- [x] **AP 8.1 itch.io-Webausgabe (S):** CI baut neben der APK ein HTML5-ZIP aus `quellcode/assets/game/`
+- [x] **AP 8.1 Webausgabe (S):** CI baut neben der APK ein HTML5-ZIP aus `quellcode/assets/game/`
   (Spielstand im Browser, Export/Import als Datei, Vollbild-Knopf, Querformat-Hinweis am PC, Maus statt Halten).
-  Hochladen machst Du (zuerst als Entwurf oder mit Passwort). **Erst zusammen mit AP 8.2** – Du brauchst die
-  Webfassung nur mit Crossplay.
+  *Ab 1.41.0 auf GitHub Pages statt itch.io:* Der Job `pages` veröffentlicht bei jedem Push nach `main` das geprüfte ZIP unter
+  <https://projectpytales.github.io/Aeterna_Hauptspiel/> (einmalig *Settings → Pages → Source: GitHub Actions*).
 - [ ] **AP 8.2 Crossplay (L), Implementierung vorhanden, öffentlicher Server und Geräteabnahme offen:** Duell zweier Menschen über das Netz, Handy gegen Browser. Voraussetzungen:
   Regeln stehen (nach AP L.5 und dem Balance-Lauf), Engine deterministisch mit festem Startwert, Züge als
   kleine Befehle statt Zustandsabgleich. Danach Verbindung (WebRTC mit Einladungscode oder kleiner Relay-Server),
@@ -3028,7 +3028,7 @@ Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK end
 
 ## Abnahme und Veröffentlichung von 1.41.0
 
-Der Arbeitszweig für [PR #11](https://github.com/ProjectPyTales/Aeterna_Hauptspiel/pull/11) enthält den Kandidaten 1.41.0 (44). Für die Freigabe zählen die Prüfungen am aktuellen PR-Kopf und die Bestätigung am Android-Handy. Nach der Freigabe übernimmt Claude Code Merge, Release und Downloadprüfung. Der Projektinhaber lädt das geprüfte HTML5-ZIP auf itch.io hoch. Die Geräteanleitung und die Betriebsangaben zum Duellserver stehen im [Abnahmeprotokoll](ABNAHME-1.41.md).
+Der Arbeitszweig für [PR #11](https://github.com/ProjectPyTales/Aeterna_Hauptspiel/pull/11) enthält den Kandidaten 1.41.0 (44). Für die Freigabe zählen die Prüfungen am aktuellen PR-Kopf und die Bestätigung am Android-Handy. Nach der Freigabe übernimmt Claude Code Merge, Release und Downloadprüfung. Die Webfassung veröffentlicht derselbe Lauf auf GitHub Pages (<https://projectpytales.github.io/Aeterna_Hauptspiel/>), itch.io entfällt. Die Geräteanleitung und die Betriebsangaben zum Duellserver stehen im [Abnahmeprotokoll](ABNAHME-1.41.md).
 
 <details><summary>Frühere Sitzungsplanung für den Stand 1.39.0</summary>
 

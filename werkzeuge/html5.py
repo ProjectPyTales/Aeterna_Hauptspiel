@@ -1,4 +1,4 @@
-"""Erstellt das itch.io-Paket mit index.html an der Wurzel, unabhängig von Checkout-Zeitstempeln."""
+"""Erstellt das HTML5-Paket für GitHub Pages mit index.html an der Wurzel, unabhängig von Checkout-Zeitstempeln."""
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 import re

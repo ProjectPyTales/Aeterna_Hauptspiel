@@ -2,7 +2,7 @@
 # Datei im Release „Test-APK“ (Tag test-apk) – Release-Dateien belegen keinen Actions-Speicher (Free: 0,5 GB, im Oktober 2026
 # voll, vor allem durch je 40 MB Screenshots und eine APK je Push). Parallel prüft die Sichtprüfung (AP 2.6) den Klickpfad im
 # Handyformat gegen die Referenzbilder (Screenshots nur, wenn etwas fehlschlägt), und ein verkürzter Balance-Lauf (AP 5.1)
-# misst die Siegquoten der Helden.
+# misst die Siegquoten der Helden. Auf main veröffentlicht der Job pages zusätzlich die geprüfte Webfassung auf GitHub Pages.
 name: Test-APK bauen
 
 on:
@@ -179,13 +179,47 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Vollständiges Duell mit Wiederverbindung im entpackten ZIP
         run: node werkzeuge/freundesduell-test.js dist/Aeterna-*-HTML5.zip
-      - name: Geprüftes itch.io-Paket bereitstellen
+      - name: Auslieferung unter dem GitHub-Pages-Pfad /Aeterna_Hauptspiel/
+        run: node werkzeuge/pages-test.js dist/Aeterna-*-HTML5.zip
+      - name: Geprüftes HTML5-Paket bereitstellen
         if: github.ref == 'refs/heads/codex/aeterna-release-1-41' || github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
-          name: HTML5-fuer-itch
+          name: HTML5-Paket
           path: dist/*-HTML5.zip
           retention-days: 7
+
+  # Nur main: Die Webfassung erscheint auf GitHub Pages (statt itch.io), und zwar genau das ZIP, das der Job html5 geprüft hat.
+  # Erst nach dem Job apk, damit Web und Release „Test-APK“ dieselbe Version zeigen. Einmalig in den Einstellungen:
+  # Settings → Pages → Build and deployment → Source „GitHub Actions“.
+  pages:
+    needs: [apk, html5]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: HTML5-Paket
+          path: paket
+      - name: Geprüftes ZIP entpacken
+        run: |
+          unzip -q paket/Aeterna-*-HTML5.zip -d seite
+          test -f seite/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: seite
+      - id: deploy
+        uses: actions/deploy-pages@v4
 
   balance:
     runs-on: ubuntu-latest
@@ -231,7 +265,7 @@ jobs:
           path: abnahme-werkzeug
       - uses: actions/download-artifact@v4
         with:
-          name: HTML5-fuer-itch
+          name: HTML5-Paket
           path: dist
       - name: Vorversion herunterladen und Spielstandwechsel in beiden APKs prüfen
         env:
