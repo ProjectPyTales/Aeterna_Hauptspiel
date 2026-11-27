@@ -1911,7 +1911,7 @@ nichts Neues. Offen ist nur ein eigener Auftritt für Legendäre:
 - [x] Umfang in 1.41.0: zuerst die 22 Helden und alle Legendären mit eigener Stimme, dann
   Gruppenklänge für die übrigen Einheiten nach Typ (Infanterie, Reiterei, Bogenschützen, Gelehrte, Tiere,
   Belagerung, Schiffe) mit je 2–3 Varianten, später Einzelstimmen.
-- [x] Deutsche Synthese mit Piper und Thorsten-Voice (CC0-Sprachkorpus). Die Credits stehen im Spiel und im Abnahmebericht.
+- [x] Deutsche Synthese mit Piper, Thorsten und Kerstin (beide Sprachkorpora CC0). Die Credits stehen im Spiel und im Abnahmebericht.
 
 **AP 4.2 – Der „Chronist der Zeiten“**
 - [x] Neutrale Erzählerstimme: leitet Schlachten ein, kündigt Legendäre („Monumente“) an, zieht am Ende ein

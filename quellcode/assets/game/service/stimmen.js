@@ -15,7 +15,7 @@
   function stop(){
     queue=[];if(!current)return;
     current.onended=current.onerror=null;current.pause();current.removeAttribute('src');current.load();current=null;
-    gain?.disconnect();gain=null;if(speechBus)speechBus.gain.setTargetAtTime(1,audio.ctx.currentTime,.12);
+    gain?.disconnect();gain=null;
   }
   function next(){
     const id=queue.shift();if(!id){stop();return;}

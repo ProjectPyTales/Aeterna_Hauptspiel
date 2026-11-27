@@ -8,21 +8,40 @@ const version=require('../quellcode/assets/game/model/neu').version;
 async function main(){
  const zip=path.resolve(process.argv[2]||('dist/Aeterna-'+version+'-HTML5.zip'));
  const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'aeterna-web-'));
- let browser,site,relay;
+ const android=process.argv.includes('--android');
+ let browser,site,relay,device,tlsProxy;
  try{
   execFileSync('unzip',['-q',zip,'-d',tmp]);site=await serve(tmp);
   relay=start({port:0});await once(relay,'listening');
   const url='ws://127.0.0.1:'+relay.address().port;
+  if(android){
+   // Nur der CI-Test terminiert TLS. Die eigene Test-CA liegt ausschließlich im Wegwerf-AVD.
+   const tls=require('node:tls'),net=require('node:net');
+   tlsProxy=tls.createServer({cert:fs.readFileSync(process.env.AETERNA_TEST_CERT),key:fs.readFileSync(process.env.AETERNA_TEST_KEY)},socket=>{
+    const upstream=net.connect(relay.address().port,'127.0.0.1');
+    socket.on('error',()=>upstream.destroy());upstream.on('error',()=>socket.destroy());
+    socket.on('close',()=>upstream.destroy());upstream.on('close',()=>socket.destroy());
+    socket.pipe(upstream).pipe(socket);
+   });
+   tlsProxy.listen(0,'127.0.0.1');await once(tlsProxy,'listening');
+   const port=tlsProxy.address().port;execFileSync('adb',['reverse','tcp:'+port,'tcp:'+port]);
+   [device]=await pw._android.devices({omitDriverInstall:true});
+   assert.ok(device,'Test-AVD ist per adb erreichbar');
+  }
   browser=await pw.chromium.launch();
   const pages=[],states=[],errors=[];
   for(let i=0;i<2;i++){
-   const ctx=await browser.newContext({viewport:i?{width:640,height:360}:{width:1100,height:650},hasTouch:!!i,reducedMotion:'reduce'});
-   const page=await ctx.newPage();pages.push(page);page.on('pageerror',e=>errors.push(e.message));
+   const native=android&&i===1;
+   const page=native?await (await device.webView({pkg:'de.chroniken.helden.layout'},{timeout:90000})).page():
+    await (await browser.newContext({viewport:i?{width:640,height:360}:{width:1100,height:650},hasTouch:!!i,reducedMotion:'reduce'})).newPage();
+   pages.push(page);page.on('pageerror',e=>errors.push(e.message));
    page.on('websocket',ws=>ws.on('framereceived',({payload})=>{const m=JSON.parse(payload);if(m.type==='state')states[i]=m;}));
-   await page.goto(site.url);await page.waitForFunction(()=>window.App?.artReady,null,{timeout:90000});
+   if(!native)await page.goto(site.url);
+   await page.waitForFunction(()=>window.App?.artReady,null,{timeout:90000});
    await page.evaluate(()=>App.vm.menu.go('free'));await page.locator('[data-cmd="friends"]').waitFor();
    if(i)await page.evaluate(()=>App.vm.setup.chooseHero('fabius'));
-   await page.locator('[data-cmd="friends"]').click();await page.locator('#adresse').fill(url);
+   await page.locator('[data-cmd="friends"]').click();
+   await page.locator('#adresse').fill(native?'wss://127.0.0.1:'+tlsProxy.address().port:url);
    if(!i){await page.locator('#erstellen').click();await page.getByText(/Einladungscode [A-F0-9]{10}/).waitFor();}
    else{await page.locator('#code').fill(states[0].code);await page.locator('#beitreten').click();}
   }
@@ -44,9 +63,10 @@ async function main(){
    assert.ok(++steps<1200,'Partie endet');
    if(steps===9){
     const rev=states[0].rev,publicBoard=states[0].players;
-    await pages[1].goto('about:blank');
+    const guestUrl=pages[1].url();
+    await pages[1].goto(android?'https://chroniken.local/index.html':'about:blank');
     await pages[0].getByText(/Partie pausiert/).waitFor();assert.equal(states[0].rev,rev);
-    await pages[1].goto(site.url+'freunde.html');
+    await pages[1].goto(guestUrl);
     await sync((a,b)=>a.online.every(Boolean)&&b.online.every(Boolean));
     assert.equal(states[1].rev,rev);assert.deepEqual(states[1].players,publicBoard);restored=true;
    }
@@ -71,7 +91,8 @@ async function main(){
   for(const page of pages)await page.getByText(/Du hast gewonnen|Gegenüber hat gewonnen|Unentschieden/).waitFor();
   const rejected=await pages[0].evaluate(url=>new Promise(resolve=>{const w=new WebSocket(url);w.onopen=()=>w.send(JSON.stringify({type:'create',version:'0.0.1'}));w.onclose=e=>resolve(e.code);}),url);
   assert.equal(rejected,4001);assert.deepEqual(errors,[]);
-  console.log(path.basename(zip)+': zwei getrennte Clients, '+steps+' Befehle, '+played+' Karten, '+attacked+' Angriffe, Wiederaufnahme, identisches Ende. Abweichende Spielversion abgewiesen.');
- }finally{await browser?.close();relay?.close();site?.server.close();fs.rmSync(tmp,{recursive:true,force:true});}
+  if(android)await pages[1].evaluate(()=>{window.aeternaDuellAbgenommen=true;});
+  console.log(path.basename(zip)+' · '+(android?'Android-APK und Browser':'zwei getrennte Browserprofile')+', '+steps+' Befehle, '+played+' Karten, '+attacked+' Angriffe, Wiederaufnahme, identisches Ende. Abweichende Spielversion abgewiesen.');
+ }finally{await device?.close();await browser?.close();tlsProxy?.close();relay?.close();site?.server.close();fs.rmSync(tmp,{recursive:true,force:true});}
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});

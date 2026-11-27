@@ -41,6 +41,8 @@ jobs:
         id: version
         run: |
           name=$(sed -n 's/.*versionName = "\(.*\)".*/\1/p' android/app/build.gradle.kts)
+          code=$(sed -n 's/.*versionCode = \([0-9]*\).*/\1/p' android/app/build.gradle.kts)
+          echo "code=$code" >> "$GITHUB_OUTPUT"
           echo "name=$name" >> "$GITHUB_OUTPUT"
           echo "Version $name"
 
@@ -56,6 +58,7 @@ jobs:
           tools=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
           "$tools/aapt2" dump badging "$apk" | head -1 | tee badging.txt
           grep -q "name='de.chroniken.helden.layout'" badging.txt
+          grep -q "versionCode='${{ steps.version.outputs.code }}'" badging.txt
           grep -q "versionName='${{ steps.version.outputs.name }}'" badging.txt
           "$tools/apksigner" verify --verbose --print-certs "$apk" | tee verify.txt
           grep -qi "SHA-256 digest: 8d4ab16f74df55c6ea0c119e2074e02ee7aeb2e1262c2770fede660b29e9e509" verify.txt
@@ -192,3 +195,46 @@ jobs:
           name: Balance
           path: balance-ci/
           retention-days: 3
+
+  android-abnahme:
+    if: github.ref == 'refs/heads/codex/aeterna-release-1-41'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Signierte APK und separate Instrumentierung bauen
+        working-directory: android
+        run: ./gradlew assembleRelease assembleReleaseAndroidTest --no-daemon
+      - name: Tatsächliche Vorversion und Browserpaket vorbereiten
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p abnahme-alt
+          gh release download test-apk -p version.json -D abnahme-alt
+          curl -fL "$(jq -r .android.url abnahme-alt/version.json)" -o abnahme-alt/alt.apk
+          echo "$(jq -r .android.sha256 abnahme-alt/version.json)  abnahme-alt/alt.apk" | sha256sum -c -
+          python3 werkzeuge/html5.py
+          npm ci --prefix relay
+          npm install --no-package-lock --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Update, Neuinstallation und vollständiges WSS-Duell APK gegen ZIP
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          arch: x86_64
+          target: google_apis
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -writable-system -camera-back none
+          script: bash werkzeuge/android-emulator-abnahme.sh --leeres-test-avd abnahme-alt/alt.apk android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk dist/Aeterna-1.41.0-HTML5.zip
