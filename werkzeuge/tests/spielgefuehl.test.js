@@ -140,7 +140,22 @@ test('Rückmeldung zu 1.17.0: Die Umschrift der Heldenmünze liegt frei und wird
  assert.ok(coin.indexOf('legend(c,hero.name.toUpperCase(),r-13.5)')>coin.indexOf('ellipse(c,0,0,51,51,null'),'nach dem Porträt gezeichnet');
  // Band zwischen Porträt (53 + halber Rand) und innerer Scheibe (r−7): die Buchstaben (≤ 10,5 px, halbe Höhe ≈ 4) passen hinein.
  const r=L.coin,band=[53+1.25,r-7],at=r-13.5;assert.ok(at-4.2>band[0]&&at+4.2<band[1],'Umschrift im freien Band');
- assert.match(render,/function legend\(c,text,r\)\{const chars=\[\.\.\.text\],arc=Math\.PI\*1\.2\*r;let size=10\.5;/,'lange Namen werden kleiner statt abgeschnitten');
+ assert.match(render,/function legend\(c,text,r,size=10\.5\)\{const chars=\[\.\.\.text\],arc=Math\.PI\*1\.2\*r;/,'lange Namen werden kleiner statt abgeschnitten');
+});
+
+test('Rückmeldung zu 1.41.0: Die Helden sitzen größer in der Münze, Astras Rand bleibt',()=>{
+ const m=Object.fromEntries([...render.match(/const MEDAL=\{([^}]*)\}/)[1].matchAll(/(\w+):([\d.]+)/g)].map(([,k,v])=>[k,+v]));
+ assert.ok(m.face/.54>=1.2,'Porträt mindestens ein Fünftel größer als vor 1.41.1 (54 % des Radius)');
+ assert.ok(m.face>m.hole&&m.face-m.hole<.03,'Porträt reicht knapp unter den gestauchten Rand');
+ assert.equal(m.old,.52,'Loch in heldenmuenze-*.webp (400 × 400): 104 px');
+ assert.ok(m.hole<m.keep&&m.keep<=.9,'Rändelung außen bleibt unverändert');
+ // Die Umschrift wandert mit dem Namensband: der frühere Platz 78 % liegt nach der Stauchung hier.
+ const moved=m.hole+(.78-m.old)*(m.keep-m.hole)/(m.keep-m.old);assert.ok(Math.abs(m.legend-moved)<.01,'Umschrift im gestauchten Band');
+ assert.ok((m.legend*L.coin-m.size*.45)>m.face*L.coin+1,'Buchstaben bleiben über dem Porträt');
+ const medal=render.slice(render.indexOf('function medal('),render.indexOf('R.medal=medal'));
+ assert.match(medal,/const rim=CHS\.ui\['heldenmuenze-'\+\(p\?'gegner':'spieler'\)\];/,'derselbe Rand aus Astras Bildern');
+ assert.match(medal,/c\.drawImage\(narrowRim\(rim\),-r,-r,2\*r,2\*r\)/,'gestaucht gezeichnet');
+ assert.doesNotMatch(render.slice(render.indexOf('function narrowRim(')),/getImageData/,'ohne Pixel auszulesen');
 });
 
 test('Klänge: Pergament, Wumms, Hufe und Lanze sind eingebunden und ausgepegelt',()=>{

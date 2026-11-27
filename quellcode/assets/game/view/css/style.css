@@ -3,6 +3,11 @@
 /* Match content is rendered in a WebView, so CSS disables native selection. */
 #stage.match-active,#stage.match-active *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 #stage.match-active img{-webkit-user-drag:none}
+/* Seit 1.41.1 (Rückmeldung zur Webfassung): Auch in Menüs, Packs, Sammlung und Fenstern lässt sich kein Text markieren und kein
+   Bild ziehen – mit der Maus wie mit langem Druck. Eingabefelder bleiben markierbar. */
+body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body input,body textarea,body [contenteditable]{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+img{-webkit-user-drag:none}
 #overlay{z-index:20}
 .card-zoom{padding:44px;max-height:744px;overflow:auto;border-color:#ba9561;box-shadow:inset 0 0 0 5px #44372b,0 24px 65px #0009}
 .card-zoom .close{z-index:1}

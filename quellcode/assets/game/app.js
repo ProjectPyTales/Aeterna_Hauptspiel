@@ -3,7 +3,7 @@
  * haptics. Game rules live in model/, screen logic in viewmodel/, markup in view/ (see core/mvvm.js).
  * window.App stays the facade for the native shell: back(), importText(), onPause(), onResume(), since 1.36.0 onUpdate(). */
 (function(){'use strict';
-const VERSION='1.41.0',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
+const VERSION='1.41.1',D=CHD,R=CHR,A=CHA,H=CHH,S=CHS,V=AEV,VM=AEVM,{bind}=AEM,$=id=>document.getElementById(id);
 document.body.classList.toggle('browser-game',!window.Android);
 const stage=$('stage'),canvas=$('board'),overlay=$('overlay');
 

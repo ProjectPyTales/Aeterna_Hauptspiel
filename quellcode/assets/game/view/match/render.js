@@ -365,11 +365,11 @@ function medal(c,hero,skin,p){const r=L.coin,idx=hero.cell;
  if(rim){
   ellipse(c,0,0,r*.975,r*.975,'#452e20');
   c.save();c.shadowColor='transparent';
-  const face=r*.54;
+  const face=r*MEDAL.face;
   c.beginPath();c.arc(0,0,face,0,Math.PI*2);c.clip();
   R.tile(c,skin,idx,-face,-face,2*face,2*face,hero);c.restore();
-  c.save();c.shadowColor='transparent';c.drawImage(rim,-r,-r,2*r,2*r);
-  legend(c,hero.name.toUpperCase(),r*.78);c.restore();
+  c.save();c.shadowColor='transparent';c.drawImage(narrowRim(rim),-r,-r,2*r,2*r);
+  legend(c,hero.name.toUpperCase(),r*MEDAL.legend,MEDAL.size);c.restore();
   return;
  }
  ellipse(c,0,0,r,r,grad(c,-r,-r,2*r,2*r,'#5e3f1c','#f0cd85'),'#2e2012',3);c.save();c.shadowColor='transparent';
@@ -386,10 +386,23 @@ function medal(c,hero,skin,p){const r=L.coin,idx=hero.cell;
  ellipse(c,0,0,51,51,null,'#3a2810',2);
  legend(c,hero.name.toUpperCase(),r-13.5);c.restore();}
 R.medal=medal;
+// Rückmeldung zu 1.41.0: Das Porträt war im Münzrand zu klein. Astras Rand (heldenmuenze-*, Loch bei 52 % des Radius) bleibt
+// das Bild, wird aber einmal radial gestaucht: die Rändelung ab 88 % unverändert, Namensband und Lorbeer schmaler, das Loch
+// wächst auf 64 %. Das Porträt hat damit gut ein Fünftel mehr Durchmesser. Gezeichnet in Ringscheiben von außen nach innen:
+// jede Scheibe ist das Bild, um die Mitte so vergrößert, dass der Quellradius σ(ρ) auf ρ fällt – ohne Pixel auszulesen.
+const MEDAL={hole:.64,keep:.88,old:.52,face:.655,legend:.815,size:9.5},rims=new WeakMap();
+function narrowRim(img){let out=rims.get(img);if(out)return out;
+ const N=img.width,h=N/2,{hole,keep,old}=MEDAL,steps=Math.ceil((keep-hole)*h),d=(keep-hole)/steps;
+ out=document.createElement('canvas');out.width=out.height=N;const g=out.getContext('2d');g.drawImage(img,0,0,N,N);
+ for(let i=steps;i>0;i--){const rho=hole+i*d,mid=rho-d/2,s=mid/(old+(mid-hole)*(keep-old)/(keep-hole));
+  g.save();g.beginPath();g.arc(h,h,rho*h,0,Math.PI*2);g.clip();g.clearRect(0,0,N,N);
+  g.translate(h,h);g.scale(s,s);g.drawImage(img,-h,-h,N,N);g.restore();}
+ rims.set(img,out);return out;}
+R.narrowRim=narrowRim;
 // The legend runs clockwise along the upper rim, letter by letter, struck into the bronze (light edge below, dark cut).
 // Each letter takes its measured width, so wide and narrow letters keep even gaps; a long name gets a smaller size
 // instead of running into the badges.
-function legend(c,text,r){const chars=[...text],arc=Math.PI*1.2*r;let size=10.5;c.save();c.textAlign='center';c.textBaseline='middle';
+function legend(c,text,r,size=10.5){const chars=[...text],arc=Math.PI*1.2*r;c.save();c.textAlign='center';c.textBaseline='middle';
  const widths=()=>{c.font=`bold ${size.toFixed(2)}px Title,serif`;return chars.map(ch=>c.measureText(ch).width+size*.2);};
  let w=widths(),total=w.reduce((a,b)=>a+b,0);if(total>arc){size*=arc/total;w=widths();total=w.reduce((a,b)=>a+b,0);}
  let at=-total/2;chars.forEach((ch,i)=>{const an=-Math.PI/2+(at+w[i]/2)/r;at+=w[i];c.save();c.rotate(an+Math.PI/2);c.fillStyle='#fff0c466';c.fillText(ch,0,-r+.9);c.fillStyle='#3b2710';c.fillText(ch,0,-r);c.restore();});

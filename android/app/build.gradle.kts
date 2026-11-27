@@ -17,8 +17,8 @@ android {
         testInstrumentationRunner = "de.chroniken.abnahme.SpielstandAbnahme"
         minSdk = 28
         targetSdk = 36
-        versionCode = 44
-        versionName = "1.41.0"
+        versionCode = 45
+        versionName = "1.41.1"
     }
 
     signingConfigs {
