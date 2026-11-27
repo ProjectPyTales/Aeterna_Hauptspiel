@@ -253,11 +253,12 @@ jobs:
       - name: Update, Neuinstallation und vollständiges WSS-Duell APK gegen ZIP
         uses: reactivecircus/android-emulator-runner@v2
         with:
+          emulator-build: 12038310
           api-level: 33
           arch: x86_64
           target: google_apis
           ram-size: 2304M
           heap-size: 384M
           cores: 2
-          emulator-options: -no-window -gpu swiftshader_indirect -feature -Vulkan -noaudio -no-boot-anim -no-snapshot -writable-system -camera-back none
+          emulator-options: -no-window -gpu guest -feature -Vulkan -noaudio -no-boot-anim -no-snapshot -writable-system -camera-back none
           script: bash werkzeuge/android-emulator-abnahme.sh --leeres-test-avd abnahme-alt/alt.apk abnahme-kandidat/Aeterna-1.41.0-Test.apk abnahme-werkzeug/app-release-androidTest.apk dist/Aeterna-1.41.0-HTML5.zip

@@ -17,9 +17,11 @@ cleanup(){
   if [[ $result != 0 ]]; then
     free -h
     df -h /tmp
+    if [[ -f "$temp/android.log" ]]; then tail -70 "$temp/android.log"; fi
     timeout 8 adb shell logcat -b crash -d -t 30 || true
     if [[ -n ${GITHUB_ACTIONS:-} ]]; then sudo dmesg | tail -25 || true; fi
   fi
+  if [[ -n ${logpid:-} ]]; then kill "$logpid" 2>/dev/null || true; fi
   rm -rf "$temp"
 }
 trap cleanup EXIT
@@ -56,6 +58,8 @@ boot
 adb shell ls "$cert_path"
 adb shell wm size 960x540
 adb shell wm density 160
+adb logcat -v brief 'AndroidRuntime:E' 'chromium:I' 'AeternaAbnahme:I' 'ActivityManager:W' '*:S' > "$temp/android.log" &
+logpid=$!
 adb shell dumpsys webviewupdate | head -12
 free -h
 df -h /tmp
@@ -67,6 +71,8 @@ step(){
   grep -q 'abnahme=OK' "$temp/$1.log"
   grep -q 'INSTRUMENTATION_CODE: -1' "$temp/$1.log"
 }
+adb shell cmd connectivity airplane-mode enable
+[[ $(adb shell settings get global airplane_mode_on | tr -d '\r') == 1 ]]
 adb install "$old"
 adb install "$instrument"
 step anlegen
@@ -78,6 +84,8 @@ adb shell dumpsys package "$package" | sed -n '/versionCode=/p;/versionName=/p'
 adb uninstall "$package"
 adb install "$candidate"
 step neu
+adb shell cmd connectivity airplane-mode disable
+[[ $(adb shell settings get global airplane_mode_on | tr -d '\r') == 0 ]]
 step duell &
 instrument_pid=$!
 node werkzeuge/freundesduell-test.js "$zip" --android

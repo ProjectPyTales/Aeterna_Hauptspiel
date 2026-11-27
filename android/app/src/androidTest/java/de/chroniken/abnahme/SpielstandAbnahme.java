@@ -42,12 +42,14 @@ public final class SpielstandAbnahme extends Instrumentation {
         return value;
     }
     private void waitFor(String expression) throws Exception {
+        android.util.Log.i("AeternaAbnahme","Warte auf "+expression);
         long end = SystemClock.elapsedRealtime()+480000;
         while (SystemClock.elapsedRealtime()<end) {
             if ("true".equals(js("Boolean("+expression+")"))) return;
             SystemClock.sleep(250);
         }
-        throw new AssertionError("Zeitüberschreitung: "+expression);
+        String page=js("JSON.stringify({url:location.href,screen:window.App?.screen,dialog:window.App?.dialog,loading:document.querySelector('#loading')?.textContent})");
+        throw new AssertionError("Zeitüberschreitung: "+expression+"; Seite "+page);
     }
     private String digest() throws Exception {
         String json = js("JSON.stringify([App.profile.collection,App.profile.decks,App.profile.game])");
@@ -77,7 +79,11 @@ public final class SpielstandAbnahme extends Instrumentation {
             Intent intent=getTargetContext().getPackageManager().getLaunchIntentForPackage(getTargetContext().getPackageName());
             if(intent==null) throw new AssertionError("Keine Startaktivität");
             Activity activity=startActivitySync(intent);
-            runOnMainSync(() -> web=findWeb(activity.getWindow().getDecorView()));
+            runOnMainSync(() -> {
+                web=findWeb(activity.getWindow().getDecorView());
+                // Die Funktionsprüfung benötigt keinen emulierten OpenGL-Treiber.
+                web.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+            });
             waitFor("window.App && App.artReady && App.screen==='menu'");
             result.putString("version",js("AENEU.version"));
             String step=args.getString("schritt","");
