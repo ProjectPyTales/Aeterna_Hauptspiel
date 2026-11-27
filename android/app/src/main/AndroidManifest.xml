@@ -4,8 +4,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- Seit 1.36.0 nur für die automatischen Updates (Updater.kt): version.json und APK aus dem Release „Test-APK“ laden
-         und dem Installer von Android übergeben. Die WebView bleibt offline (AssetClient sperrt jede andere Adresse). -->
+    <!-- Der Updater lädt version.json und APK. Das private Duell verbindet sich mit dem gewählten WSS-Server.
+         Der Einzelspieler und sämtliche Spieldateien bleiben lokal. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />

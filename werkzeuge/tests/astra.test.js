@@ -42,16 +42,23 @@ test('Stand: ASTRA_STAND.csv nennt alle Karten und Spielsteine, Auftrag nur offe
   assert.equal(['eingebaut','Revision'].includes(s),!!B.cards[id],id+': Status passt zu bilder.js');
   // AP L.6: „altes Bild“ heißt, das Spiel zeigt ein altes, geprüftes Bild – nicht den Platzhalter.
   if(s==='altes Bild')assert.ok(D.byId[id].art&&!D.missingArt(D.byId[id])&&!D.byId[id].art.startsWith('astra'),id+': altes Bild im Spiel');}
- // Entscheidung 21 (AP L.6): 39 alte Bilder bleiben, der nie gerufene Pyramidenwächter wird nicht bestellt.
- assert.equal(Object.values(status).filter(s=>s==='altes Bild').length,39);assert.equal(status.stoneguard,'unbenutzt');
- for(const id of ['neutral_6','neutral_8','neutral_20','neutral_23','hypatia_0'])assert.equal(status[id],'offen',id+': altes Bild stimmt nicht');
+ // Die Dublette von Rekrut und Krieger ist aufgelöst. Die übrigen geprüften alten Bilder bleiben.
+ assert.equal(Object.values(status).filter(s=>s==='altes Bild').length,38);assert.equal(status.stoneguard,'unbenutzt');
+ assert.equal(status.warrior,'eingebaut');
+ assert.notDeepEqual([D.tokens.warrior.art,D.tokens.warrior.cell],[D.tokens.recruit.art,D.tokens.recruit.cell]);
+ for(const id of ['fabius_0','neutral_6','neutral_8','neutral_20','neutral_23','hypatia_0'])assert.equal(status[id],'eingebaut',id+': historisches Ersatzmotiv');
+ const tokens='eagle totem_fire totem_guard totem_strength rider chariot terracotta tribesman wagon taborite mamluk immortal messenian companion twin elephant pyramid citizen pioneer parthenos student standard'.split(' ');
+ for(const id of tokens)assert.equal(status[id],'eingebaut',id+': Spielstein mit eigenem Motiv');
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG.md'),'utf8');
- for(const [id,s] of Object.entries(status))assert.equal(md.includes('| `'+id+'` |'),['offen','Revision','wiederbeschaffen'].includes(s),id+' im Auftrag');
+ const orders=md.slice(md.indexOf('## 5. Kartenillustrationen'));
+ for(const [id,s] of Object.entries(status))assert.equal(orders.includes('| `'+id+'` |'),['offen','Revision','wiederbeschaffen'].includes(s),id+' im Auftrag');
 });
 
 test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ein Bildfenster, CSS zeigt auf vorhandene Bilder',()=>{
  const ui=path.join(game,'assets/ui');
  for(const [name,[w,h]] of Object.entries(B.ui))assert.deepEqual(size(path.join(ui,name+'.webp')),[w,h],name);
+ for(const name of ['knopf-match-aktiv','knopf-match-ruhend','steinknopf-tuerkis','steinknopf-gefahr'])assert.deepEqual(B.ui[name],[344,128],name);
+ assert.deepEqual(B.ui.lebensherz,[96,96]);assert.deepEqual(B.ui.phalanxschild,[112,112]);
  for(const kind of ['minion','spell','building'])for(const v of ['normal','gold']){const k=kind+'-'+v,[x0,y0,x1,y1]=B.windows[k];
   assert.ok(B.ui['kartenrahmen-'+k],k);assert.ok(x0>20&&x1<180&&y0>20&&y1<180&&x1-x0>80&&y1-y0>80,k+': Fenster im Tempeltor');}
  for(const back of ['chroniken','tempel','sparta','pharao','runen','sterne','lilien','zen'])assert.ok(B.ui['kartenruecken-'+back],back);
@@ -63,10 +70,25 @@ test('Oberfläche (AP A.2): jedes Astra-Bild liegt in assets/ui, Rahmen haben ei
  for(const k of ['kartenrahmen','kartenruecken-chroniken','chronikleiste','stundenglas','waffenablage','kartenbuch','waehrung'])assert.ok(!md.includes('`'+k+'`'),k);
 });
 
+test('Oberflächenpakete U01–U13: jedes RGBA-Original ist doppelt so groß wie sein Bild im Spiel',()=>{
+ for(const h of D.heroes)assert.deepEqual(B.ui['faehigkeitssymbol-'+h.id],[96,96],h.name);
+ for(const [paket,anzahl] of [['U01',27],['U02',20],['U03',21],['U04',30],['U05',21],['U06',9],['U07',6],['U08',9],['U09',13],['U10',5],['U11',4],['U12',1],['U13',3]]){
+  const dir=path.join(root,'ungenutzte_assets/neue_astra_assets','Lieferung_'+paket);
+  const files=fs.readdirSync(dir).filter(f=>f.endsWith('.png'));
+  assert.equal(files.length,anzahl,paket);
+  for(const file of files){
+   const png=fs.readFileSync(path.join(dir,file)),name=path.basename(file,'.png');
+   assert.deepEqual([...png.subarray(0,8)],[137,80,78,71,13,10,26,10],file);
+   assert.equal(png[25],6,file+': RGBA');
+   assert.deepEqual(B.ui[name],[png.readUInt32BE(16)/2,png.readUInt32BE(20)/2],file);
+  }
+ }
+});
+
 test('Auftrag Oberfläche: jede noch gezeichnete Kennung aus MOTIVE.md hat eine Zeile in ASTRA_AUFTRAG_OBERFLAECHE.md',()=>{
  const md=fs.readFileSync(path.join(root,'ungenutzte_assets/MOTIVE.md'),'utf8'),section=md.slice(md.indexOf('## Im Code gezeichnet'));
  const ids=[...section.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map(m=>m[1]),order=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8');
- assert.ok(ids.length>=40);
+ assert.ok(section.startsWith('## Im Code gezeichnet'));
  for(const id of ids)assert.ok(order.includes('| `'+id+'` |')||order.includes('`'+id+'`'),id);
 });
 
@@ -95,7 +117,7 @@ test('Bestellpakete: Referenzbilder liegen bereit, Lieferordner Lieferung_K… w
  for(const m of tool.matchAll(/'(quellcode\/assets\/game\/assets\/ui\/[a-z-]+\.webp)'/g))assert.ok(fs.existsSync(path.join(root,m[1])),m[1]);
  assert.match(tool,/d\.startswith\('Lieferung_K'\)/);assert.match(tool,/'--nur-auftrag' in sys\.argv/);
  const start=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_START.md'),'utf8');
- for(const w of ['K01','K32','U01','U11','Lieferung_K01','Aeterna_Hauptspiel','astra_bilder.py','imhotep_3.png','griechen_6.png','epaminondas_5.png'])assert.ok(start.includes(w),w);
+ for(const w of ['K01','K32','U01','U13','Lieferung_K02','Aeterna_Hauptspiel','astra_bilder.py','imhotep_3.png','griechen_6.png','epaminondas_5.png'])assert.ok(start.includes(w),w);
  const rows=fs.readFileSync(path.join(root,'ungenutzte_assets/ASTRA_STAND.csv'),'utf8').split('\n').filter(l=>l.split(';')[3]==='wiederbeschaffen').map(l=>l.split(';')[0]);
  for(const i of rows)assert.ok(start.includes('`'+i+'`'),'Teil 4: '+i);
 });

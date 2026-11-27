@@ -43,7 +43,7 @@ test('Heldenmünze und Siegel lassen den Gang zwischen den Handfächern frei; Ch
 
 test('Touch-Ziele mindestens 48 dp (84 Bühneneinheiten im Handyformat 915 px)',()=>{
  const unit=Number(render.match(/const TOUCH=(\d+)/)[1]);assert.ok(unit*915/1600>=48);
- assert.match(render,/function button\([^]*?touch\(id,x,y,w,h\);\}/,'Knöpfe im Match (Pause, Hilfe, Ausspielen)');
+ assert.match(render,/function button\([^]*?touch\(id,x,y,w,h\);\s*\}/,'Knöpfe im Match (Pause, Hilfe, Ausspielen)');
  assert.ok(2*L.chrono.r+20>=unit,'Chronometer');
  assert.match(render,/touch\('deck'\+p/);assert.match(render,/touch\('grave'\+p/);
  // Pause (124) und Hilfe (210) dürfen sich mit vergrößerter Fläche nicht überdecken.

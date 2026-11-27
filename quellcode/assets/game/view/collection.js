@@ -22,7 +22,7 @@ const deckTile=({deck,hero,age,curve,count,complete})=>html`<button class="deck-
 const deckGrid=v=>html`<div class="deck-grid scroll">${html`<button class="deck-tile new" data-key="new" data-cmd="newDeck"><span class="plus">+</span><b>Neues Deck</b><small>Held wählen und Karten zusammenstellen</small></button>`}${v.decks.map(deckTile)}</div>`;
 
 // ---------- Rechte Spalte: alle Karten ----------
-// ASTRA: filterknopf – Steinknöpfe für Manakosten (Ätherkristall mit Zahl) und Seltenheit (Archiv-Siegel), je 96 × 96
+// Astra-Bild (AP A.2): filterknopf – Steinknöpfe für Manakosten (Ätherkristall mit Zahl) und Seltenheit (Archiv-Siegel), je 96 × 96
 function filters(v){const f=v.filters,editing=v.tab==='edit';
  return html`<div class="pool-filters"><input id="search" type="text" placeholder="Name oder Effekt …" value="${f.q}" data-input="filter" data-a="q" aria-label="Karten suchen"><select data-change="filter" data-a="hero" aria-label="Held"${V.attr('disabled',editing)}>${option('all','Alle Helden',f.hero==='all')}${D.heroes.map(h=>option(h.id,h.era,f.hero===h.id))}</select><select data-change="filter" data-a="type" aria-label="Kartenart">${option('all','Alle Arten',f.type==='all')}${Object.entries(v.types).map(([k,l])=>option(k,l,f.type===k))}</select><select data-change="filter" data-a="sort" aria-label="Sortieren">${Object.entries(v.sorts).map(([k,l])=>option(k,'Nach '+l,f.sort===k))}</select></div><div class="pool-knobs"><div class="mana-knobs" role="group" aria-label="Manakosten">${
   [0,1,2,3,4,5,6,7].map(n=>html`<button class="${V.cls('knob',f.mana===String(n)&&'on')}" data-cmd="pick" data-a="mana" data-b="${n}" aria-pressed="${f.mana===String(n)}" aria-label="${n===7?'7 oder mehr':n} Mana">${n===7?'7+':n}</button>`)}</div><div class="rarity-seals" role="group" aria-label="Seltenheit">${
@@ -42,7 +42,7 @@ const pool=v=>{const editing=v.tab==='edit';
  editing?'Karte antippen: ins Deck · ⓘ Details · Platz im Deck antippen: heraus · Wischen blättert':'Karte antippen: Details, Herstellen und Entzaubern · Wischen blättert'}</p></section>`;};
 
 // ---------- Linke Spalte: das Deck oder die Sammlung ----------
-// ASTRA: manakurve – Balken der Manakurve als Ätherkristall-Säulen in drei Phasenfarben, 760 × 220
+// Astra-Bild (AP A.2): manakurve – Balken der Manakurve als Ätherkristall-Säulen in drei Phasenfarben, 760 × 220
 const curve=v=>{const fl=v.flight;return html`<div class="curve-box"><div class="curve" role="img" aria-label="Manakurve: ${v.curve.map((n,i)=>(i===7?'7+':i)+': '+n).join(', ')}">${
  v.bars.map(b=>html`<div class="${V.cls('bar','ph-'+b.phase)}" style="height:${Math.round(b.n/v.max*52)+3}px"><em>${b.n||''}</em>${fl&&fl.bar===b.i?html`<i class="grow" data-key="g${fl.n}"></i>`:''}<span>${b.i===7?'7+':b.i}</span></div>`)}</div><div class="phases">${
  Object.entries(PHASE).map(([k,label])=>html`<span class="ph-${k}">${label} ${v.hint.phases[k]}</span>`)}<span class="avg">Ø ${v.hint.avg}</span></div><p class="${V.cls('curve-hint',v.hint.warn&&'warn')}">${v.hint.text}</p></div>`;};

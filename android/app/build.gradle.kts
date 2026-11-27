@@ -14,10 +14,11 @@ android {
 
     defaultConfig {
         applicationId = "de.chroniken.helden.layout"
+        testInstrumentationRunner = "de.chroniken.abnahme.SpielstandAbnahme"
         minSdk = 28
         targetSdk = 36
-        versionCode = 42
-        versionName = "1.39.0"
+        versionCode = 44
+        versionName = "1.41.0"
     }
 
     signingConfigs {
@@ -30,6 +31,7 @@ android {
         }
     }
 
+    testBuildType = "release"
     buildTypes {
         release {
             isMinifyEnabled = true

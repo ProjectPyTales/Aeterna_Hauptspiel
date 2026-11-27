@@ -1,0 +1,6 @@
+{
+  "name": "aeterna-freundesduell",
+  "private": true,
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "ws": "8.23.0" }
+}

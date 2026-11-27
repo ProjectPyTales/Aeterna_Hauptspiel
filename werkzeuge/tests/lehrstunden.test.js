@@ -104,13 +104,13 @@ test('AP 6.5: Hauptmenü bietet sie an, Dialog, Belohnung nur beim ersten Sieg, 
  saved.game.lesson.id='nix';assert.equal(P.parse(JSON.stringify(saved)).game,null);
 });
 
-test('AP 6.5: Spielregeln und Einstellungen führen zu den Lehrstunden, Pause bietet „Neu beginnen“, Chronisten-Tafel als Platzhalter',()=>{
+test('AP 6.5: Spielregeln und Einstellungen führen zu den Lehrstunden, Pause bietet „Neu beginnen“, gemalte Chronistentafel',()=>{
  const {ctx,log}=setup('game');ctx.dialogs.help();log.open.vm.lessons();assert.equal(log.open.kind,'lessons');
  ctx.dialogs.settings();log.open.vm.lessons();assert.equal(log.open.kind,'lessons');
  ctx.match.startLesson('gunst');ctx.match.pause();assert.equal(log.open.vm.state.title,'Lehrstunde 3 · Die Gunst der Stunde');
  assert.ok(log.open.vm.state.buttons.some(b=>b.label==='Neu beginnen'));
- const render=read('view/match/render.js');assert.match(render,/ASTRA: lehrstunde-chronist/);assert.match(render,/coach\(c,s,t,view\)/);
- assert.match(read('view/dialogs.js'),/ASTRA: lehrstunde-siegel/);
+ const render=read('view/match/render.js');assert.ok(render.includes("R.nineSlice(c,'lehrstunde-chronist'"));assert.match(render,/coach\(c,s,t,view\)/);
+ assert.ok(read('view/css/astra.css').includes('lehrstunde-siegel-geschafft.webp'));
  assert.match(fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md'),'utf8'),/Paket 11 – Lehrstunden/);
 });
 

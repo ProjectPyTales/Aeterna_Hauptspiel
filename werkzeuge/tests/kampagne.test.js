@@ -94,10 +94,10 @@ test('Kampagnenkarte: Kapitel-Leiste, Routen je Kapitel, Szene vor der ersten Mi
  const m=new Match(ctx),s=siege(10);assert.match(m.opening(s).line,/^Mission 7 · Die Langen Mauern: .*Die Lunte brennt: 12 eigene Züge\.$/);
 });
 
-test('Ansichten: Platzhalter für Astra, Szene, Lunte im Match und im Ergebnis',()=>{
+test('Ansichten: Kapitelsiegel, Szene, Lunte im Match und im Ergebnis',()=>{
  const camp=read('view/campaign.js'),dlg=read('view/dialogs.js'),rnd=read('view/match/render.js');
- assert.match(camp,/\/\/ ASTRA: kapitelsiegel – /);for(const k of ['szene-buehne','sprechblase','chronist'])assert.match(dlg,new RegExp('// ASTRA: '+k+' – '),k);
- assert.match(rnd,/\/\/ ASTRA: lunte – /);assert.match(rnd,/fuse\(c,s,t\)/);assert.match(read('viewmodel/match.js'),/campaign:s=>'Kampagne · Mission '\+\(KA\?KA\.number\(s\.mission\)/,'Mission im Pausenfenster (seit 1.39.0 nicht mehr oben auf dem Brett)');
+ const css=read('view/css/astra.css');assert.match(css,/kapitelsiegel-vollendet\.webp/);for(const k of ['szene-buehne','sprechblase','chronist'])assert.ok(css.includes(k+'.webp'),k);
+ assert.ok(rnd.includes("CHS.ui['lunte-schnur']"));assert.match(rnd,/fuse\(c,s,t\)/);assert.match(read('viewmodel/match.js'),/campaign:s=>'Kampagne · Mission '\+\(KA\?KA\.number\(s\.mission\)/,'Mission im Pausenfenster (seit 1.39.0 nicht mehr oben auf dem Brett)');
  assert.match(dlg,/D_\.scene=/);assert.match(dlg,/s\.burnt\?'Die Lunte ist abgebrannt/);
  const html=read('index.html');assert.ok(html.indexOf('model/campaign.js')<html.indexOf('model/profile.js'),'Kampagnen-Modell vor dem Spielstand');assert.match(html,/view\/css\/campaign\.css/);
 });

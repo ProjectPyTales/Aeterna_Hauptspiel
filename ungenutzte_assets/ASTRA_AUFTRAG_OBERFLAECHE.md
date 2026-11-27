@@ -1,10 +1,10 @@
-# AETERNA – Auftrag an Astra: gemalte Oberfläche (81 Teile)
+# AETERNA – Auftrag an Astra: gemalte Oberfläche
 
 *Stand 1.34.0 (2. 11. 2026; seit 1.34.0 die zwei der Lehrstunden, AP 6.5; seit 1.22.0 dazu die Teile der Hinterhalte, AP 5.6, seit 1.29.0 die fünf des Kolosseums, AP 6.1, seit 1.30.0 die drei der Aufgaben, AP 6.3, seit 1.31.0 die fünf der Kampagne 2.0, AP 6.4, seit 1.32.0 die acht der lebendigen Schlachtfelder und der Szene, AP 3.9, und seit 1.33.0 die drei der Kartenrätsel, AP 6.4 Teil 2). Gehört zu AP A.2 im README. Die Kartenbilder stehen getrennt in `ASTRA_AUFTRAG.md`.*
 
 ## Worum es geht
 
-Das Spiel zeichnet noch 81 Oberflächenteile selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
+Die hier aufgeführten Oberflächenteile zeichnet das Spiel noch selbst – im Code steht an jeder Stelle `ASTRA: <kennung>` (Liste in `MOTIVE.md`,
 Abschnitt „Im Code gezeichnet“). Teil 1 hat für diese Teile **flache Vektorgrafiken** geliefert (einfache Flächen mit Verlauf).
 Die sind schlichter als die heutigen Zeichnungen und werden **nicht** verwendet. Gesucht sind dieselben Teile **gemalt** – im Stil
 der 27 gemalten Oberflächenbilder, die schon im Spiel sind: Kartenrahmen, Kartenrücken, Stundenglas, Chronikleiste,
@@ -12,7 +12,7 @@ versiegelte Befehle, Waffenablage, Schildwall, Giftphiole, Urne, Kartenpaket, Po
 
 ## So gibst du den Auftrag
 
-**Am einfachsten:** je Paket die fertige Datei `ungenutzte_assets/astra_bestellung/U01.md` … `U11.md` anhängen – sie enthält Auftrag,
+**Am einfachsten:** je Paket die fertige Datei `ungenutzte_assets/astra_bestellung/U01.md` … `U13.md` anhängen – sie enthält Auftrag,
 Vorgaben und nur die Zeilen dieses Pakets (erzeugt von `werkzeuge/astra_bilder.py --nur-auftrag`). Ablauf: `ungenutzte_assets/ASTRA_START.md`.
 
 1. Diese Datei anhängen und **drei Stilreferenzen** aus dem Spiel dazulegen:
@@ -44,7 +44,7 @@ Melde je Datei: Dateiname, tatsächliche Pixelmaße, Abweichungen.
 Größen sind die Darstellung im Spiel; **geliefert wird doppelt so groß**. „Frei für Zahl“ heißt: Das Spiel schreibt dort eine
 Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 
-### Paket 1 – Spielbrett: Mana, Zug, Helden (10 Teile, 27 Dateien)
+### Paket 1 – Spielbrett: Mana, Zug, Helden (eingebaut, 23 Dateien)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
@@ -53,14 +53,11 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `chronometer` | `chronometer-aktiv.png`, `chronometer-gegnerzug.png`, `chronometer-zeiger.png` | 256 × 336, Zeiger 24 × 120 | Bronzene Taschenuhr mit Bügel oben und Schild unten (Schild frei für „ZUG BEENDEN“); aktiv mit warmem Glanz, im Gegnerzug gedämpft und kühler. Zeiger einzeln, Drehpunkt unten mittig. |
 | `heldenmuenze` | `heldenmuenze-spieler.png`, `heldenmuenze-gegner.png` | 400 × 400 | Geprägte Bronzemünze mit Rändelung und breitem Rand; **Mitte rund transparent** (Durchmesser 52 % der Breite) für das Porträt, oberer Randbogen glatt für die Umschrift. Gegner etwas dunklere, rötlichere Bronze. |
 | `herrschersiegel` | `herrschersiegel-bereit.png`, `-ruhend.png`, `-rueckseite.png` | 248 × 248 | Geprägtes Wachs-/Bronzesiegel der Heldenfähigkeit, Mitte frei für das Fähigkeitssymbol; bereit mit Glanz, ruhend matt, Rückseite grau-steinern ohne Prägung. |
-| `phalanxschild` | `phalanxschild.png` | 112 × 112 | Runder Hoplitenschild (Aspis) aus Bronze, frontal; Mitte frei für die Rüstungszahl (dunkel). |
-| `lebensherz` | `lebensherz.png` | 96 × 96 | Rotes Herz aus Emaille mit Goldrand; Mitte frei für die Lebenszahl (hell). |
-| `knopf-match` | `knopf-match-aktiv.png`, `knopf-match-ruhend.png` | 344 × 128 | Länglicher Bronze-Steinknopf auf dem Spielbrett, links Platz für ein Symbol, aktiv golden, ruhend grau-bronzen; Fläche frei für Beschriftung. |
 | `pergamentstapel` | `pergamentstapel-1.png` … `-6.png` | 160 × 200 | Gerollte Pergamente mit rotem Band, gestapelt: 1, 2, 3, 4, 5 und 6 Rollen (das Deck wird sichtbar dünner). Unten Platz für die Kartenzahl. |
 | `zugtafel` | `zugtafel-spieler.png`, `zugtafel-gegner.png` | 960 × 200 | Steintafel an zwei Ketten mit Bronzerahmen; Fläche frei für „DEIN ZUG“ / „ZUG DES GEGNERS“; Gegner kühler, dunkler Stein. |
 | `chronik-eintrag` | `chronik-eintrag-spieler.png`, `chronik-eintrag-gegner.png` | 116 × 116 | Kleiner quadratischer Bilderrahmen für die Chronikleiste, **Mitte transparent** (80 %) für das Kartenbild; Spieler Goldrand, Gegner Rotrand. |
 
-### Paket 2 – Karten und Werte (10 Teile mit `goldglanz-basar`, 20 Dateien)
+### Paket 2 – Karten und Werte (eingebaut, 20 Dateien einschließlich Basar-Glanz)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
@@ -102,11 +99,10 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `ergebnis-banner` | `ergebnis-banner-sieg.png`, `-niederlage.png`, `-unentschieden.png` | 900 × 240 | Flacheres Band über dem Ergebnisfenster, dieselben Farben. |
 | `faehigkeitssymbole` | `faehigkeitssymbol-<held>.png` für alle 22 Helden (IDs wie `leonidas`, `khan`, `fuhao` …) | je 96 × 96 | Ein gemaltes Symbol je Heldenfähigkeit (Tabelle in README, AP L.5): z. B. Leonidas Schild, Hildegard Blatt, Vauban Schanzkorb. Das Spiel nutzt es auch für den leuchtenden Effekt (`faehigkeits-effekt`) – kein eigenes Bild nötig. *Am besten erst nach AP L.5 bestellen, falls sich Fähigkeiten ändern.* |
 
-### Paket 5 – Menüs (12 Teile, 27 Dateien)
+### Paket 5 – Menüs (10 Teile, 19 Dateien)
 
 | Kennung | Dateien | Größe | Motiv und Vorgaben |
 |---|---|---|---|
-| `steinknopf` | `steinknopf-stein-normal.png`, `-gedrueckt.png`, ebenso `gold-`, `tuerkis-`, `gefahr-` | 9-Slice 360 × 108 | Steinknopf mit Bronzekante; Ecken 36 px fest, Mitte gleichmäßig (wird gedehnt), Fläche frei für Text. |
 | `panel` | `panel-hell.png`, `panel-dunkel.png` | 9-Slice 512 × 512 | Tafel mit Bronzerahmen für Dialoge und Kopfleiste; Ecken 48 px fest, Mitte ruhig. |
 | `reiter` | `reiter-ruhend.png`, `reiter-aktiv.png` | 540 × 112 | Steinreiter (Registerkarte) für den Basar; aktiv heller mit Goldkante. Fläche frei für Text. |
 | `filterknopf` | `filterknopf-normal.png`, `filterknopf-aktiv.png` | je 96 × 96 | Runder Steinknopf; aktiv mit Goldring. Zahl bzw. Siegel setzt das Spiel darauf. |
@@ -117,7 +113,6 @@ Zahl – die Fläche bleibt ruhig, ohne Ornament in der Mitte.
 | `missionssiegel` | `missionssiegel-offen.png`, `-vollendet.png`, `-versiegelt.png`, jeweils auch `-belagerung` | 128 × 128 | Wachssiegel einer Kampagnenstation; Belagerung mit kleinem Turm. |
 | `weltkarte` | `weltkarte.png` | 2160 × 1280 | Gemalte Karte Europa und Mittelmeer (Pergament, Küsten, Meere, keine Beschriftung), Kästchen „Neue Welt“ unten links frei. Küstenverlauf wie `quellcode/assets/game/assets/art/weltkarte.svg` (beilegen). |
 | `feldherrentisch` | `feldherrentisch-gravur.png` | 3200 × 1600 | Nur die eingeritzte Karte über den Tischen: Kompassrose in der Mitte, Loxodromen, Gradnetz, sehr zart; alles andere transparent. |
-| `stufenpyramide` | – | – | Ist der Spielstein `pyramid` – steht im Kartenauftrag `ASTRA_AUFTRAG.md`. |
 
 ### Paket 6 – Kolosseum als Draft (5 Teile, 9 Dateien, seit 1.29.0)
 

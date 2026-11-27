@@ -35,12 +35,10 @@ const pedestal=body=>html`<div class="podium"><span class="spot"></span><span cl
 const spinning=item=>html`<div class="spin-card" aria-hidden="true"><div class="spin-inner"><img class="face" src="${S.backURL(item.id)}" alt=""><img class="face reverse" src="${R.frameSample(R.look.frame)}" alt=""></div></div>`;
 // A frame on a standing card; golden cards catch a passing glint (the same streak as in the duel).
 const framed=item=>html`<div class="${V.cls('stand-card',item.id==='gold'&&'gilded')}"><img src="${R.frameSample(item.id)}" alt="${item.name}"><span class="glint"></span></div>`;
-// ASTRA: heldenmuenze-basar – Skin in der bronzenen Heldenmünze wie im Duell (Rändelung, Umschrift), 640 × 640
+// Astra-Bild (AP A.2): heldenmuenze-basar – Skin in der bronzenen Heldenmünze wie im Duell (Rändelung, Umschrift), 640 × 640
 const coin=(e,item)=>html`<div class="shop-coin"><span class="coin-rim"></span><span class="coin-face" style="${R.heroStyle(item.hero,item.atlas)}"></span><span class="coin-name">${e.hero.name}</span></div><div class="coin-standard"><span class="coin-face" style="${R.heroStyle(item.hero,'heroes')}"></span><small>Standard</small></div>`;
-// ASTRA: miniatur-spielfeld – Schlachtfeld als kleiner Feldherrentisch in Schrägsicht mit Münzen und Plaketten, 1000 × 700
-const MINI=[[-2,1],[-1,1],[0,1],[1,1],[-1,-1],[0,-1],[1,-1],[2,-1]];
-const miniature=item=>html`<div class="mini-field"><div class="mini-table"><img src="assets/art/${item.image||'board'}-preview.webp" style="${item.tint?'--tint:'+item.tint:''}" alt="${item.name}">${
- MINI.map(([x,y])=>html`<i class="mini-plaque" style="--x:${x};--y:${y}"></i>`)}<i class="mini-coin top"></i><i class="mini-coin bottom"></i></div>${item.image?'':html`<span class="board-note">Platzhalter · Bild folgt</span>`}</div>`;
+// Astra-Bild (AP A.2): miniatur-spielfeld – Schlachtfeld als kleiner Feldherrentisch in Schrägsicht mit Münzen und Plaketten, 1000 × 700
+const miniature=item=>html`<div class="mini-field"><div class="mini-table"><img src="assets/art/${item.image||'board'}-preview.webp" style="${item.tint?'--tint:'+item.tint:''}" alt="${item.name}"></div>${item.image?'':html`<span class="board-note">Platzhalter · Bild folgt</span>`}</div>`;
 const showpiece={backs:(e,item)=>spinning(item),frames:(e,item)=>framed(item),skins:coin,boards:(e,item)=>miniature(item)};
 
 // The staged purchase (keyed by its token): coins arc from the wallet (top right, --sx/--sy from the pedestal) onto the

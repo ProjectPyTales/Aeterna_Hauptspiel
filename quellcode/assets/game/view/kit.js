@@ -11,7 +11,7 @@ V.data=data;V.attr=attr;V.cls=cls;
 
 // Steinknopf. style: '' (stone) | 'gold' (main action) | 'teal' (equip) | 'danger'.
 V.button=({label,cmd,a,b,c,style,small,disabled,extra,aria,key,id})=>
- html`<button class="${cls(style,small&&'small',extra)}"${data({cmd,a,b,c,key})}${attr('id',id)}${attr('disabled',!!disabled)}${attr('aria-label',aria)}>${label}</button>`;
+ html`<button class="${cls('stone-action',style,small&&'small',extra)}"${data({cmd,a,b,c,key})}${attr('id',id)}${attr('disabled',!!disabled)}${attr('aria-label',aria)}>${label}</button>`;
 V.buttons=(list,extra)=>html`<div class="${cls('buttons',extra)}">${list}</div>`;
 
 // Panel: framed tablet for side bars, tiles and dialogs.

@@ -251,3 +251,19 @@ button.station{position:absolute;width:48px;height:48px;min-height:0;margin:-24p
 .coin-rain i:nth-child(1){left:8%;--k:0}.coin-rain i:nth-child(2){left:26%;--k:1}.coin-rain i:nth-child(3){left:45%;--k:2}.coin-rain i:nth-child(4){left:63%;--k:3}.coin-rain i:nth-child(5){left:82%;--k:4}
 @keyframes coin-fall{0%{transform:translateY(-30px);opacity:0}25%{opacity:1}100%{transform:translateY(34px) scaleY(.6);opacity:0}}
 @media(prefers-reduced-motion:reduce){.mulligan-card .sheet,.mulligan-card .rod,.mulligan-card.replace:after,.result-banner,.reward-bar .track i{animation:none}.coin-rain{display:none}}
+
+/* Lange Chronikquellen dürfen in der Kartenansicht über mehrere Zeilen laufen. */
+.card-detail .details { min-width: 0; overflow-wrap: anywhere; }
+@media (orientation: portrait) {
+  body.browser-game::after {
+    content: 'Für ein größeres Spielfeld ins Querformat drehen';
+    position: fixed;
+    bottom: 1em;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font: 16px system-ui;
+    color: #fff3de;
+    pointer-events: none;
+  }
+}

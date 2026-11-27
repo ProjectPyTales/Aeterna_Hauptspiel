@@ -29,6 +29,12 @@ class Setup extends Screen{
  chooseDeck(id){this.session.deckId=id;}
  // Schwierigkeitsgrad der KI (AP 5.8): gilt für alle Duelle, gespeichert in den Einstellungen.
  chooseLevel(id){const s=this.profile.settings,l=E.level(id);if(s.level===l)return;s.level=l;this.commit();}
+ friends(){
+  const d=this.profile.decks.find(deck=>deck.id===this.session.deckId);
+  const err=d&&P.validateDeck(this.profile,d.hero,d.cards);
+  if(!d||err){this.ui.toast(err||'Wähle ein vollständiges Deck.');return;}
+  sessionStorage.setItem('aeterna.duelldeck',JSON.stringify(d));
+  this.ctx.store.save();location.href='freunde.html';}
  help(){this.ctx.dialogs.help();}
  lore(){const day=this.session.mode==='daily'?P.daily():null;this.ctx.dialogs.lore(day?day.hero:this.session.hero);}
  // A new game replaces a saved one only after asking.

@@ -24,15 +24,15 @@ test('Prüftabelle Teil 1: neue Namen nach den Bildern, Wirkungen und Kosten wie
  assert.equal(D.byId.dandolo_9.name,'Marco Polo, der Weltenfahrer','Marco Polo bleibt – die Chronikzeile erklärt die Zeit');
 });
 
-test('Alte Bilder: Fantasy-Motive werden Platzhalter, zwei falsche Bilder tauschen mit ungenutzten alten',()=>{
- for(const id of ['neutral_20','neutral_23'])assert.ok(D.missingArt(D.byId[id]),id+': Platzhalter statt Kristallgestalt und Skelett');
+test('Historische Ersatzmotive für Ordensritter und Grabwächter, geprüfte alte Bilder für Adler und Atlas',()=>{
+ for(const id of ['neutral_20','neutral_23'])assert.deepEqual([D.byId[id].art,D.byId[id].cell],B.cards[id],id);
  assert.deepEqual([D.byId.neutral_22.art,D.byId.neutral_22.cell],['khan',10],'Steinadler statt Weißkopfseeadler');
  assert.deepEqual([D.byId.neutral_35.art,D.byId.neutral_35.cell],['neutral3',10],'goldenes Buch mit Erdkugel');
  // Kein anderes Bild zeigt dasselbe Atlasfeld.
  const cells=Object.values(D.byId).filter(c=>c.art&&!D.missingArt(c)).map(c=>c.art+':'+c.cell);
  for(const k of ['khan:10','neutral3:10'])assert.equal(cells.filter(x=>x===k).length,1,k);
  const md=fs.readFileSync(path.join(__dirname,'../../ungenutzte_assets/MOTIVE.md'),'utf8');
- for(const id of ['neutral_20','neutral_23'])assert.ok(md.includes('`'+id+'`'),id+' in MOTIVE.md');
+ for(const id of ['neutral_20','neutral_23'])assert.ok(!md.includes('`'+id+'`'),id+' hat ein eigenes Bild');
 });
 
 test('Keine Fantasy-Wörter mehr in Karten, Spielsteinen, Schlüsselwörtern, Missionen, Fähigkeiten und Spielstil',()=>{
@@ -72,7 +72,8 @@ test('Aus der Chronik (AP L.6 Teil 2): belegte Sätze mit Quelle, zuerst für al
   assert.ok(L.card(id),id+': Chronikzeile fehlt');
  // Unsicheres wird als unsicher erzählt.
  assert.match(L.card('hypatia_7')[0],/Legende/);assert.match(L.card('neutral_33')[0],/Sage/);assert.match(L.card('neutral_48')[0],/unsicher/);
- assert.equal(L.card('leonidas_0'),null);
+ assert.deepEqual(new Set(Object.keys(L.cards)),new Set(D.cards.map(c=>c.id)));
+ for(const h of D.heroes){const page=L.of(h.id);assert.ok(page?.quote&&page.source&&page.bio.length&&L.deed(h.id)&&h.powerText,h.id);}
  // Großansicht im Match und Kartendetails der Sammlung zeigen die Zeile.
  assert.match(src('view/kit.js'),/V\.chronicle=c=>\{const l=AELORE\.card\(c\.id\)/);
  for(const f of ['view/dialogs.js','view/collection.js'])assert.match(src(f),/\$\{V\.glossary\(c\)\}\$\{V\.chronicle\(c\)\}/,f);

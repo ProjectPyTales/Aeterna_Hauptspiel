@@ -55,7 +55,7 @@ BAIBARS = {
     'baibars_3': 'e1f5377d-d9d2-46b4-9425-24caff1cada0.png',  # Bogenreiter
     'baibars_4': '1c6b6825-0953-4078-b12a-2ed1b9d01797.png',  # Manjaniq
 }
-# Geliefert und eingebaut, aber von Astra selbst als korrekturbedürftig gemeldet: bleibt im Auftrag als Revision.
+# Historische Korrekturaufträge für die ursprüngliche Lieferung, bis das betreffende Original ersetzt ist.
 REVISION = {
     'fabius_0': 'Veles trägt zu schwere Rüstung: schlichte Tunika, kleiner leichter Rundschild, Wurfspeere, kein Kettenhemd.',
 }
@@ -172,16 +172,92 @@ UI = {
     'praesentationspodest': (f'{T1}/ui-art/praesentationspodest.png', 1000),
     'kartenbuch': (f'{T1}/ui-art/kartenbuch.png', 1539),
     'startbefehle': (f'{T1}/ui-art/startbefehle.png', 480),
+    **{f'knopf-match-{state}': (f'Lieferung_U01/knopf-match-{state}.png', 344) for state in ['aktiv', 'ruhend']},
+    'lebensherz': ('Lieferung_U01/lebensherz.png', 96),
+    'phalanxschild': ('Lieferung_U01/phalanxschild.png', 112),
+    **{f'steinknopf-{color}': (f'Lieferung_U05/steinknopf-{color}.png', 344) for color in ['tuerkis', 'gefahr']},
     # Rückmeldung zu 1.22.0: Astras zwei Hälften passen nicht zueinander (andere Rundung, Platten, Scharniere) und standen mit
     # Wand dazwischen. Beide Flügel kommen jetzt aus der rechten Hälfte, ohne leeren Rand, der linke gespiegelt – so treffen
     # sich die Steinleisten an der Naht und die Tür schließt symmetrisch.
     'steinplatten-links': (f'{T1}/ui-art/steinplatten-rechts.png', 780, 'gespiegelt'),
     'steinplatten-rechts': (f'{T1}/ui-art/steinplatten-rechts.png', 780, 'beschnitten'),
 }
-# Vektorbilder, die unverändert nach assets/ui/ kommen (heute nur die Währungen; die übrigen flachen Vektoren aus Teil 1
+# Paketlieferungen: Die PNG-Originale haben doppelte Zielgröße.
+for paket, breite, namen in [
+    ('U01', 256, ['aetheruhr', 'chronometer-aktiv', 'chronometer-gegnerzug']),
+    ('U01', 48, ['aetherkristall-' + z for z in ['voll', 'verbraucht', 'gesperrt', 'fehlt']]),
+    ('U01', 24, ['chronometer-zeiger']),
+    ('U01', 400, ['heldenmuenze-spieler', 'heldenmuenze-gegner']),
+    ('U01', 248, ['herrschersiegel-' + z for z in ['bereit', 'ruhend', 'rueckseite']]),
+    ('U01', 160, [f'pergamentstapel-{n}' for n in range(1, 7)]),
+    ('U01', 960, ['zugtafel-spieler', 'zugtafel-gegner']),
+    ('U01', 116, ['chronik-eintrag-spieler', 'chronik-eintrag-gegner']),
+    ('U02', 160, ['werte-kristall-blau', 'werte-kristall-gruen', 'werte-kristall-rot',
+                  'werte-klingen', 'werte-schild', 'werte-turm', 'goldglanz']),
+    ('U02', 160, ['archivsiegel-' + z for z in ['common', 'rare', 'epic', 'legendary']]),
+    ('U02', 900, ['lorbeerkranz']),
+    ('U02', 96, ['edelstein-' + z for z in ['lapis', 'olive', 'red', 'gold', 'silver', 'obsidian']]),
+    ('U02', 204, ['diener-plakette-diener', 'diener-plakette-bauwerk']),
+    ('U03', 188, ['starre-ketten', 'tarnung-unterholz']),
+    ('U03', 300, ['gunst-aurenkreis']),
+    ('U03', 32, ['eiskristall', 'giftblasen', 'hinterhalt-siegelsplitter']),
+    ('U03', 64, ['urnengeist', 'marschroute-winkel', 'marschroute-spitze',
+                 'hinterhalt-glimmen-eigen', 'hinterhalt-glimmen-gegner']),
+    ('U03', 128, ['staubwolke']),
+    ('U03', 440, [f'steinrisse-{n}' for n in range(1, 4)]),
+    ('U03', 220, [f'tintenspritzer-{n}' for n in range(1, 4)]),
+    ('U03', 90, ['hinterhalt-rolle-eigen', 'hinterhalt-rolle-gegner']),
+    ('U03', 600, ['hinterhalt-band']),
+    ('U04', 1400, ['chronik-banner']),
+    ('U04', 400, ['muenze-initiative']),
+    ('U04', 900, [f'{band}-banner-{art}' for band in ['triumph', 'ergebnis']
+                  for art in ['sieg', 'niederlage', 'unentschieden']]),
+    ('U05', 512, ['panel-hell', 'panel-dunkel']),
+    ('U05', 540, ['reiter-ruhend', 'reiter-aktiv']),
+    ('U05', 96, ['filterknopf-normal', 'filterknopf-aktiv']),
+    ('U05', 40, ['manakurve-frueh', 'manakurve-mittel', 'manakurve-spaet']),
+    ('U05', 512, ['heldengalerie-medaillon']),
+    ('U05', 1000, ['miniatur-spielfeld']),
+    ('U05', 128, ['missionssiegel-offen', 'missionssiegel-offen-belagerung',
+                  'missionssiegel-vollendet', 'missionssiegel-vollendet-belagerung',
+                  'missionssiegel-versiegelt', 'missionssiegel-versiegelt-belagerung']),
+    ('U05', 2160, ['weltkarte']),
+    ('U05', 3200, ['feldherrentisch-gravur']),
+    ('U06', 1100, ['kolosseum-arena']),
+    ('U06', 700, ['kolosseum-sand']),
+    ('U06', 96, ['kolosseum-lorbeer-leer', 'kolosseum-lorbeer-gewonnen', 'kolosseum-schild-heil', 'kolosseum-schild-gebrochen']),
+    ('U06', 380, ['draft-wahl-gewoehnlich', 'draft-wahl-selten', 'draft-wahl-episch']),
+    ('U07', 96, ['tagesgeschenk-offen', 'tagesgeschenk-heute', 'tagesgeschenk-abgeholt']),
+    ('U07', 360, ['aufgabe-tafel', 'aufgabe-tafel-lernen']),
+    ('U07', 64, ['heldenstufe']),
+    ('U08', 96, ['kapitelsiegel-offen', 'kapitelsiegel-vollendet', 'kapitelsiegel-versiegelt']),
+    ('U08', 1200, ['szene-buehne']),
+    ('U08', 1000, ['sprechblase']),
+    ('U08', 256, ['chronist']),
+    ('U08', 64, ['sprechblase-spitze']),
+    ('U08', 380, ['lunte-schnur', 'lunte-fass']),
+    ('U09', 500, ['eck-astrolabium', 'eck-astrolabium-netz', 'eck-raeuchergefaess',
+                  'eck-saeule', 'eck-saeule-kapitell', 'eck-katapult', 'eck-katapult-arm']),
+    ('U09', 920, ['sprechblase-match']),
+    ('U09', 64, ['sprechblase-match-spitze']),
+    ('U09', 160, ['angriffsvorschau', 'angriffsvorschau-tod']),
+    ('U09', 1000, ['erzaehlkasten']),
+    ('U09', 256, ['schattenriss']),
+    ('U10', 96, ['raetsel-siegel-offen', 'raetsel-siegel-geloest', 'raetsel-siegel-versiegelt']),
+    ('U10', 1000, ['raetsel-lage']),
+    ('U10', 380, ['raetsel-tafel']),
+    ('U11', 520, ['lehrstunde-chronist']),
+    ('U11', 160, ['lehrstunde-siegel-offen', 'lehrstunde-siegel-naechste', 'lehrstunde-siegel-geschafft']),
+    ('U12', 120, ['update-siegel']),
+    ('U13', 680, ['legendaer-band']),
+    ('U13', 840, ['legendaer-strahlen']),
+    ('U13', 150, ['legendaer-siegel']),
+]:
+    UI.update({name: (f'Lieferung_{paket}/{name}.png', breite) for name in namen})
+# Vektorbilder, die unverändert nach assets/ui/ kommen (die Währungen sowie das bestehende App-Zeichen; die übrigen flachen Vektoren aus Teil 1
 # sind schlichter als die Zeichnungen im Spiel und bleiben ungenutzt, siehe README AP A.2).
 SVG = {'waehrung-gold': f'{T1}/ui/waehrung-gold.svg', 'waehrung-staub': f'{T1}/ui/waehrung-staub.svg',
-       'waehrung-pakete': f'{T1}/ui/waehrung-pakete.svg'}
+       'waehrung-pakete': f'{T1}/ui/waehrung-pakete.svg', 'app-icon': f'{T1}/ui/app-icon.svg'}
 # Gemalte Hintergründe nach assets/art/: Name → (Quelle, Qualität). Das Hauptmenü ist Astras Neufassung des Konzeptbilds in
 # derselben Geometrie (2602 × 1084, deckungsgleich überblendet) – die Trefferflächen in view/hall.js bleiben gültig.
 BACKGROUNDS = {'menu': (f'{T1}/backgrounds/menu.webp', 80), 'bg-basar': (f'{T1}/backgrounds/basar.webp', 80),
@@ -202,7 +278,7 @@ def game():
     return json.loads(out.stdout)
 
 
-def collect():
+def collect(with_orders=True):
     found = {}
     for folder, ext in FOLDERS:
         path = os.path.join(NEU, folder)
@@ -210,6 +286,12 @@ def collect():
             for f in sorted(os.listdir(path)):
                 if f.endswith(ext):
                     found[f[:-len(ext)]] = os.path.join(folder, f)
+    for entry in json.load(open(os.path.join(NEU, RESCUED), encoding='utf-8')):
+        found.setdefault(entry['id'], entry['source_file'])
+    for i, f in BAIBARS.items():
+        found[i] = 'gerettet_2te/' + f
+    if not with_orders:
+        return found
     # Seit 1.34.0: jede Lieferung eines Bestellpakets als Ordner Lieferung_K01, Lieferung_K02 … – ohne Eintrag in FOLDERS,
     # PNG, WebP oder JPEG, Dateiname = ID (Groß-/Kleinschreibung egal). Spätere Pakete haben Vorrang.
     for d in sorted(os.listdir(NEU)):
@@ -219,10 +301,6 @@ def collect():
                 stem, ext = os.path.splitext(f)
                 if ext.lower() in ('.png', '.webp', '.jpg', '.jpeg'):
                     found[stem.lower()] = os.path.join(d, f)
-    for entry in json.load(open(os.path.join(NEU, RESCUED), encoding='utf-8')):
-        found.setdefault(entry['id'], entry['source_file'])
-    for i, f in BAIBARS.items():
-        found[i] = 'gerettet_2te/' + f
     return found
 
 
@@ -243,12 +321,15 @@ def atlas(name, paths, size):
     sheet.save(os.path.join(ART, name + '.webp'), 'WEBP', quality=QUALITY, method=6)
 
 
-def ui_images():
+def ui_images(heroes=None):
     """Schreibt die Oberflächenbilder und liefert Name → [Breite, Höhe] sowie die Bildfenster der Kartenrahmen."""
     out = os.path.join(GAME, 'assets/ui')
     os.makedirs(out, exist_ok=True)
     sizes = {}
-    for name, (src, width, *how) in UI.items():
+    if heroes is None:
+        heroes = [h['id'] for h in game()['heroes']]
+    symbols = {f'faehigkeitssymbol-{h}': (f'Lieferung_U04/faehigkeitssymbol-{h}.png', 96) for h in heroes}
+    for name, (src, width, *how) in (UI | symbols).items():
         im = Image.open(os.path.join(NEU, src))
         im.load()
         im = im.convert('RGBA' if 'A' in im.getbands() else 'RGB')
@@ -352,7 +433,7 @@ def main():
         im = Image.open(os.path.join(NEU, f'Teil1/assets/backgrounds/{name}.webp')).convert('RGB')
         im.save(os.path.join(ART, name + '.webp'), 'WEBP', quality=QUALITY, method=6)
         im.resize((480, 240), Image.LANCZOS).save(os.path.join(ART, name + '-preview.webp'), 'WEBP', quality=80, method=6)
-    write_map(card_map, hero_map, *ui_images())
+    write_map(card_map, hero_map, *ui_images(heroes))
 
     # Was zeigt das Spiel jetzt? Alte Kartenatlanten ohne Karte entfallen.
     now = game()
@@ -374,7 +455,7 @@ def stand_und_auftrag(data, found, items, atlases):
     status = {}
     for c in data['cards'] + data['tokens']:
         i = c['id']
-        if i in REVISION:
+        if i in REVISION and i in found and not found[i].startswith('Lieferung_K'):
             status[i] = 'Revision'
         elif i in found:
             status[i] = 'eingebaut'
@@ -462,6 +543,9 @@ def write_packages(packs, names, status, motifs, common):
             os.remove(os.path.join(BESTELLUNG, f))
     index = []
     for n, ids in enumerate(packs, 1):
+        ids = [i for i in ids if status[i] in ('offen', 'Revision', 'wiederbeschaffen')]
+        if not ids:
+            continue
         key = f'K{n:02d}'
         groups = list(dict.fromkeys(motifs.get(i, ('Ohne Vorlage',))[0] for i in ids))
         tokens = [i for i in ids if motifs.get(i, ('',))[0] == 'Spielsteine']
@@ -543,7 +627,7 @@ def auftrag(data, status, motifs, done, atlases):
                                                   'Generierungsauftrag behandeln.\n', '')
     out = ['# AETERNA – Auftrag an Astra: noch fehlende Kartenbilder', '',
            '*Erzeugt von `werkzeuge/astra_bilder.py` – nicht von Hand ändern. Grundlage: alle Lieferungen in '
-           '`ungenutzte_assets/neue_astra_assets/` (Teil 1–6, gerettet, gerettet_2te) und das Produktionsbriefing '
+           '`ungenutzte_assets/neue_astra_assets/` (Teil 1–6, gerettete Bilder und Lieferung_K…) und das Produktionsbriefing '
            '(`neue_astra_assets/PRODUKTIONSBRIEFING.md`). Jede Karte mit Status steht in `ASTRA_STAND.csv`.*', '',
            '**Diese Datei ersetzt das alte Produktionsbriefing als Übergabe an die Bild-KI.** Sie enthält nur noch, '
            'was wirklich fehlt; alles Gelieferte ist im Spiel eingebaut und darf nicht erneut erzeugt werden.', '',
@@ -564,18 +648,23 @@ def auftrag(data, status, motifs, done, atlases):
             'je Datei genau die ID als Namen, **höchstens 10–12 Bilder je ZIP** – große ZIPs sind mehrfach abgebrochen.', '',
             '']
     common = references(common)
-    packs = packages(todo, motifs)
+    # Bereits versandte Pakete behalten ihre Kennung, auch wenn ein früheres Paket fertig ist.
+    excluded = set(collect(with_orders=False)) | KEEP_OLD | UNUSED | BLOCKED
+    original_order = [i for i in status if i in REVISION or i not in excluded]
+    packs = packages(original_order, motifs)
     # Im Paket: nur Referenzen, gemeinsame Parameter und alte IDs – Auswahl und Auftrag stehen schon oben im Paket.
     refs = common[common.index('### Referenzplätze'):common.index('## 3.')].strip()
     index = write_packages(packs, names, status, motifs, refs + '\n\n' + common[common.index('## 3.'):].strip())
     ui_index = oberflaeche_pakete()
     out += ['## 0. Bestellpakete – in dieser Reihenfolge bestellen', '',
             'Jedes Paket liegt als eigene Datei in `ungenutzte_assets/astra_bestellung/` – mit Auftrag zum Kopieren, Referenzen '
-            'und genau seinen Motiven. Anleitung: `ungenutzte_assets/ASTRA_START.md`. Karten (K) und Oberfläche (U) sind '
-            'unabhängig; beide Reihen lassen sich abwechselnd bestellen.', '',
-            '| Paket | Bilder | Gruppen | IDs |', '|---|---:|---|---|']
-    out += [f'| [{k}](astra_bestellung/{k}.md) | {len(ids)} | {", ".join(g)} | ' + ', '.join(f'`{i}`' for i in ids) + ' |'
-            for k, ids, g in index]
+            'und genau seinen Motiven. Die Anleitung steht in `ungenutzte_assets/ASTRA_START.md`.', '']
+    if index:
+        out += ['| Paket | Bilder | Gruppen | IDs |', '|---|---:|---|---|']
+        out += [f'| [{k}](astra_bestellung/{k}.md) | {len(ids)} | {", ".join(g)} | ' + ', '.join(f'`{i}`' for i in ids) + ' |'
+                for k, ids, g in index]
+    else:
+        out.append('Alle Kartenpakete sind abgeschlossen.')
     out += ['', '| Paket | Oberfläche | Zeilen |', '|---|---|---:|']
     out += [f'| [{k}](astra_bestellung/{k}.md) | {t} | {n} |' for k, t, n in ui_index]
     out += ['', common, '']
@@ -604,7 +693,7 @@ def auftrag(data, status, motifs, done, atlases):
     if BLOCKED:
         out += ['## 7. Gesperrt – erst klären, nicht erzeugen', '']
         out += [f'- `{i}` {names[i]}: ' + motifs.get(i, ('', '', '', '', 0))[3] for i in sorted(BLOCKED)] + ['']
-    open(os.path.join(ROOT, 'ungenutzte_assets/ASTRA_AUFTRAG.md'), 'w', encoding='utf-8').write('\n'.join(out))
+    open(os.path.join(ROOT, 'ungenutzte_assets/ASTRA_AUFTRAG.md'), 'w', encoding='utf-8').write('\n'.join(out).rstrip() + '\n')
 
 
 if __name__ == '__main__':

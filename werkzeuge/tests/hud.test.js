@@ -28,8 +28,10 @@ test('AP 1.9 Lesbarkeit: Brett-Schriften in Mindestgröße hell auf dunklem Band
  for(const re of [/txt\(c,label,0,r\+27,MIN_TEXT/,/txt\(c,'ZUG '\+turn,0,r\+66,MIN_TEXT/,/txt\(c,pp\.deck\.length,1451,yy\+104,MIN_TEXT/,
   /txt\(c,'−'\+\(pp\.fatigue\+1\),1451,yy\+104,MIN_TEXT/,/txt\(c,'☠ '\+pp\.grave\.length,1542,yy\+61,MIN_TEXT/,/txt\(c,e\.turn,x,sy\+1,MIN_TEXT/])assert.match(render,re);
  for(const old of [/,368,55,13,/,/'ZUG '\+e\.turn,x,sy\+\.5,8\.5/,/'ZUG '\+turn,0,r\+56,14/,/pp\.deck\.length,1451,yy\+103,19/])assert.doesNotMatch(render,old);
+ // Gemaltes Chronometer: Der aktive Spieler gehört mit in den Cache-Schlüssel.
+ assert.match(render,/txt\(c,turnText,0,r\+66,26,'#fff4d9'/,'dauerhafte Zuganzeige über der Mindestgröße');
  // Die Plakette der Chronometer-Taste passt in sein Sprite.
- assert.match(render,/R\.sprite\('chrono:'\+\[active,s\.turn\],-92,-r-40,184,2\*r\+124/);
+ assert.match(render,/R\.sprite\('chrono:'\+\[active,mine,s\.turn\],-92,-r-40,184,2\*r\+124/);
  const normal=/normal:\{ready:'(#[0-9a-f]{6})'/.exec(render)[1];assert.notEqual(normal,'#71ff56','nicht mehr grell');
  const [r,g,b]=[1,3,5].map(i=>parseInt(normal.slice(i,i+2),16));assert.ok(g>r&&g>b&&g<240&&r>100,'wärmeres, satteres Grün: '+normal);
  assert.match(render,/klar:\{ready:'#3da5ff'/,'Palette bei Farbsehschwäche unverändert');
@@ -62,7 +64,7 @@ test('AP 3.10 Auftritt der Legendären (1.39.0 neu inszeniert): Karte groß in d
  assert.match(fx,/F\.draw=\(c,s,t\)=>\{const x=CHM\.transition;if\(x\?\.line&&!x\.hit\)\{const ph=x\.line\.at\(t-x\.at\);if\(ph\.name==='herald'\)F\.herald\(c,x,ph\.raw,t\)/,'zuletzt über allem');
  assert.match(fx,/calm=still\(\)/);assert.match(fx,/fly=calm\?1:/);assert.match(fx,/stamp=calm\?0:/,'ruhige Bewegung: Karte steht, Band liegt still, kein Siegel');
  assert.match(fx,/CHM\.floatCard\(c,card\.id,cx,cy,w/,'die Karte selbst im Auftritt');
- for(const k of ['legendaer-band','legendaer-siegel','legendaer-strahlen'])assert.match(fx,new RegExp('ASTRA: '+k+' – '),k);
+ for(const k of ['legendaer-band','legendaer-siegel','legendaer-strahlen'])assert.ok(fx.includes("R.pic(g,'"+k+"'"),k);
  // Es gibt Legendäre, die so auftreten – und Hinterhalte, die verdeckt bleiben.
  assert.ok(D.cards.filter(c=>c.rarity==='legendary'&&!c.ambush).length>=22);
 });
