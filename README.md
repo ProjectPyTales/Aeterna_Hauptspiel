@@ -6,7 +6,7 @@ Das Projekt liegt in `ProjectPyTales/Aeterna_Hauptspiel` (vorher `ProjectPyTales
 `thepytales/Aeterna` mit der ganzen Historie). **Kartenbilder und Oberflächengrafiken:** [`ungenutzte_assets/ASTRA_START.md`](ungenutzte_assets/ASTRA_START.md).
 **Release-Kandidat 1.41.0 (Android-Code 44).** Alle 416 Sammelkarten und 28 Spielsteine sind bebildert. Jede Sammelkarte hat einen historischen Kurztext mit Quelle. Für ein privates Duell auf beiden Geräten unter *Schlacht → Privates Duell* denselben Duellserver wählen. Android-Einzelspieler, Sammlung und Kampagne laden vollständig vom Gerät.
 
-[Abnahme, Build und Betrieb des Duellservers](ABNAHME-1.41.md) · [Quellen zur Chronik](quellcode/CHRONIK-QUELLEN.md)
+[Abnahme, Build und Betrieb des Duellservers](ABNAHME-1.41.md) · [Quellen zur Chronik](quellcode/CHRONIK-QUELLEN.md) · [Balancevergleich und Startwerte](balance/BERICHT-1.41.0.md)
 
 Bildstand aus **Version 1.40.0** – neue Kartenbilder und Spielsteine, historische Bildkorrekturen und gemalte Aktionsknöpfe, Lebensherzen und Rüstungsschilde. Den aktuellen Bildstand je Karte führt [ASTRA_STAND.csv](ungenutzte_assets/ASTRA_STAND.csv).
 
@@ -3018,16 +3018,20 @@ Diese Punkte solltest du vor dem jeweiligen Arbeitspaket entscheiden:
 | 27 ✓ | AP 3.9 Eck-Dioramen, Rückmeldung 1.31.0 | erledigt in 1.32.0 – Szenen mit Leitfrage, Ort und Zeit, Schattenrissen; vier antippbare Eck-Dioramen mit Klang und Zeile des Chronisten, Schlüsselwort-Blase, Angriffsvorschau |
 | 28 ✓ | AP 6.4 Teil 2 Kartenrätsel | erledigt in 1.33.0 – sechs Rätsel „Gewinne in diesem Zug“ nach historischen Lagen, offen nach dem Kapitel, Löser im Test |
 | 29 ✓ | AP 6.5, AP 5.8 Schwierigkeitsgrade, Phase 7, AP A.3 vorbereiten | erledigt in 1.34.0 – Lehrstunden mit dem Chronisten, Lehrling/Feldherr/Legende, Einstellungen mit Textgröße, Farben, Bewegung und Grafik, Sicherungen, Fehlerprotokoll, Geräte-Matrix; Astra-Auftrag in 43 Paketen mit Startanleitung; AP 6.6 pausiert |
-| ab jetzt (Du) | AP A.3: verbleibende Oberflächenpakete U01–U13 bestellen | `ungenutzte_assets/ASTRA_START.md` – je Paket eine Datei anhängen, Auftrag kopieren, Lieferung in `Lieferung_<Paket>/` |
-| 30+ | Einbau der Lieferungen, dazwischen AP L.6 Teil 2 (Chronikzeilen in Häppchen), Phase 4 (Klang, Stimmen – Entscheidung 7) | jede Lieferung eine kurze Sitzung; Chronikzeilen und Klang brauchen keine Bilder |
 | 30 ✓ | Automatische Updates, AP 2.7, AP 1.9, AP 3.10, AP 4.5 (Zusatz), Rückmeldung 1.38.0 | erledigt in 1.36.0 bis 1.39.0 – Updates wie in ADEU-Harness; Ruhetakt, Tisch als eigene Ebene, Auflösung passt sich an; lesbare Hand, Mindestschrift, ruhigeres Grün; Auftritt der Legendären; Vibration im Takt des Aufpralls |
-| nach Phase 3/5 | AP 8.2, dann AP 8.1 | Crossplay, sobald Regeln und Balance stehen; die itch.io-Fassung erscheint erst mit Crossplay |
+| 31 ✓ | Bildlieferungen und Oberflächenpakete | In 1.40.0 sind alle 416 Karten, 28 Spielsteine und U01–U13 bebildert. |
+| 32 | Release-Kandidat 1.41.0 | Alle Kartenchroniken, deutsche Vertonung, Startdeck-Vergleich, private Duelle und das gepackte HTML5-Spiel. Android-Geräteabnahme und Veröffentlichung stehen beim Kandidaten an. |
 
 Tipp: Eine Sitzung sollte mit einer grünen CI und einer installierbaren APK enden, auch wenn ein Paket noch nicht ganz fertig ist.
 
 ---
 
-## Vorschlag für die nächste Sitzung
+## Abnahme und Veröffentlichung von 1.41.0
+
+Der Arbeitszweig für [PR #11](https://github.com/ProjectPyTales/Aeterna_Hauptspiel/pull/11) enthält den Kandidaten 1.41.0 (44). Für die Freigabe zählen die Prüfungen am aktuellen PR-Kopf und die Bestätigung am Android-Handy. Nach der Freigabe übernimmt Claude Code Merge, Release und Downloadprüfung. Der Projektinhaber lädt das geprüfte HTML5-ZIP auf itch.io hoch. Die Geräteanleitung und die Betriebsangaben zum Duellserver stehen im [Abnahmeprotokoll](ABNAHME-1.41.md).
+
+<details><summary>Frühere Sitzungsplanung für den Stand 1.39.0</summary>
+
 
 **Bildstand 1.40.0:** Alle 416 Karten und alle 28 verwendeten Spielsteine haben Illustrationen. Die 240 neuen Motive sind in Sammlung und Duell eingebaut. Die verbleibenden [Oberflächenaufträge](ungenutzte_assets/ASTRA_AUFTRAG_OBERFLAECHE.md) betreffen unter anderem die Wertezeichen und Effekte.
 
@@ -3080,3 +3084,5 @@ Risiko: niedrig – Kartenbilder baut das Werkzeug ein; Chronikzeilen ändern ke
 
 **Empfohlener Effort für den nächsten Prompt: medium.** Rückmeldungen und Chronikzeilen sind überschaubar; *high*, wenn mehrere
 Oberflächenpakete (U…) von Astra auf einmal kommen – dort wird Zeichencode auf Bilder umgestellt.
+
+</details>

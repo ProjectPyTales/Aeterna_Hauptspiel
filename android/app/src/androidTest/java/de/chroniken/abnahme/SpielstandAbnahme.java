@@ -23,6 +23,12 @@ public final class SpielstandAbnahme extends Instrumentation {
         args = arguments;
         start();
     }
+    @Override public void callActivityOnCreate(Activity activity, Bundle saved) {
+        super.callActivityOnCreate(activity, saved);
+        web=findWeb(activity.getWindow().getDecorView());
+        // Vor dem ersten Frame: Funktionsprüfung auf dem Emulator mit Softwaregrafik.
+        if (web!=null) web.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+    }
     private WebView findWeb(View v) {
         if (v instanceof WebView) return (WebView)v;
         if (v instanceof ViewGroup) {
@@ -78,12 +84,8 @@ public final class SpielstandAbnahme extends Instrumentation {
             if (!"ja".equals(args.getString("isoliert"))) throw new AssertionError("Separates Android-Testprofil mit -e isoliert ja bestätigen");
             Intent intent=getTargetContext().getPackageManager().getLaunchIntentForPackage(getTargetContext().getPackageName());
             if(intent==null) throw new AssertionError("Keine Startaktivität");
-            Activity activity=startActivitySync(intent);
-            runOnMainSync(() -> {
-                web=findWeb(activity.getWindow().getDecorView());
-                // Die Funktionsprüfung benötigt keinen emulierten OpenGL-Treiber.
-                web.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
-            });
+            startActivitySync(intent);
+            if (web==null) throw new AssertionError("Keine WebView der Startaktivität");
             waitFor("window.App && App.artReady && App.screen==='menu'");
             result.putString("version",js("AENEU.version"));
             String step=args.getString("schritt","");

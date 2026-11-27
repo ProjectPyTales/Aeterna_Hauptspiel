@@ -42,7 +42,11 @@ async function main(){
    if(i)await page.evaluate(()=>App.vm.setup.chooseHero('fabius'));
    await page.locator('[data-cmd="friends"]').click();
    await page.locator('#adresse').fill(native?'wss://127.0.0.1:'+tlsProxy.address().port:url);
-   if(!i){await page.locator('#erstellen').click();await page.getByText(/Einladungscode [A-F0-9]{10}/).waitFor();}
+   if(!i){
+    await page.locator('#erstellen').click();
+    try{await page.getByText(/Einladungscode [A-F0-9]{10}/).waitFor();}
+    catch(error){throw Error('Einladung: '+await page.locator('#status').textContent()+' · '+errors.join(', '),{cause:error});}
+   }
    else{await page.locator('#code').fill(states[0].code);await page.locator('#beitreten').click();}
   }
   // Vergleich des öffentlichen Bretts, der Revision und der aktiven Seite nach jedem einzelnen Befehl.

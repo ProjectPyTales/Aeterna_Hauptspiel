@@ -113,5 +113,6 @@
     ws.send(JSON.stringify({type:'leave'}));status('Der Server bestätigt das Verlassen …');};
   $('vollbild').hidden=!document.fullscreenEnabled;$('vollbild').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
   window.App={back:()=>location.replace('index.html'),onPause:()=>{},onResume:()=>{},resize:()=>{},onUpdate:()=>{}};
+  for(const id of ['adresse','code','erstellen','beitreten'])$(id).disabled=false;
   if(saved)connect('resume');
 })();

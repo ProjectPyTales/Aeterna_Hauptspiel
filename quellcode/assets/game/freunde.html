@@ -3,8 +3,8 @@
 <title>Privates Duell · Aeterna</title><link rel="stylesheet" href="view/css/freunde.css"></head>
 <body><main>
 <header><a href="index.html">‹ Hauptmenü</a><h1>Privates Duell</h1><button id="vollbild" type="button">Vollbild</button></header>
-<div id="lobby"><p id="deck"></p><label>Duellserver <input id="adresse" type="url" placeholder="wss://…" spellcheck="false"></label>
-<button id="erstellen">Einladung erstellen</button><label>Einladungscode <input id="code" autocomplete="off" maxlength="10" autocapitalize="characters" spellcheck="false"></label>
-<button id="beitreten">Beitreten</button></div>
+<div id="lobby"><p id="deck"></p><label>Duellserver <input id="adresse" type="url" placeholder="wss://…" spellcheck="false" disabled></label>
+<button id="erstellen" disabled>Einladung erstellen</button><label>Einladungscode <input id="code" autocomplete="off" maxlength="10" autocapitalize="characters" spellcheck="false" disabled></label>
+<button id="beitreten" disabled>Beitreten</button></div>
 <p id="status" role="status"></p><div id="spiel"></div><button id="verlassen" hidden>Einladung verlassen</button>
 </main><script src="model/bilder.js"></script><script src="model/data.js"></script><script src="model/engine.js"></script><script src="model/neu.js"></script><script src="service/freunde.js"></script></body></html>
